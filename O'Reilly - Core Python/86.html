@@ -1,0 +1,343 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Categorizing the Standard Types</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="78.html" class="navtitle">4. Python Objects</a> &gt; <span class="nonavtitle">Categorizing the Standard Types</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="85.html" title="Standard Type Built-in Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=86" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="86.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="87.html" title="Unsupported Types"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A13%3A57+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172039119069116237248019</font><a href="read5.asp?bookname=0130260363&snode=86&now=5%2F29%2F2002+9%3A13%3A57+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Categorizing the Standard Types</h3>
+				<p>If we were to be maximally verbose in describing the standard types, we would probably call them something like Python's "basic built-in data object primitive types."</p>
+
+				<UL>
+<LI><p>"Basic," indicating that these are the standard or core types that Python provides</p>
+</li>
+<LI><P>"Built-in," due to the fact that types these come default with Python. (We use this term very loosely so as to not confuse them with Python built-in variables and functions.)</P>
+</li>
+<li><P>"Data," because they are used for general data storage</P>
+</LI>
+<li><p>"Object," because objects are the default abstraction for data and functionality</p>
+</li>
+<li><p>"Primitive," because these types provide the lowest-level granularity of data storage</p>
+</li>
+<li><p>"Types," because that's what they are: data types!</p>
+</li>
+</ul>
+				<P>However, this description does not really give you an idea of how each type works or what functionality applies to them. Indeed, some of them share certain characteristics, such as how they function, and others share commonality with regards to how their data values are accessed. We should also be interested in whether the data that some of these types hold can be updated and what kind of storage they provide.</p>
+
+				<p>There are three different models we have come up with to help categorize the standard types, with each model showing us the interrelationships between the types. These models help us obtain a better understanding of how the types are related, as well as how they work.</P>
+
+				
+					<h4>Storage Model</h4>
+					<p>The first way we can categorize the types is by how many objects can be stored in an object of this type. Python's types, as well as types from most other languages, can hold either single or multiple values. A type which holds a single object we will call <I>literal</i> or <i>scalar</i> storage, and those which can hold multiple objects we will refer to as <i>container</I> storage. (Container objects are also referred to as <i>composite</i> or <i>compound</I> objects in the documentation, but some of these refer to objects other than types, such as class instances.) Container types bring up the additional issue of whether different types of objects can be stored. All of Python's container types can hold objects of different types. <A HRef="86#2.html">Table 4.6</a> categorizes Python's types by storage model.</p>
+
+					<A NAMe="2"></a><p><tABLE bordER="1" CEllspacing="0" cellpadding="1" WidTh="100%">
+<caPtion><H5>Table 4.6. Types categorized by the Storage Model</h5></caPTIOn><colGROUp aliGN="left" SPan="2">
+<tr VALIgn="top">
+<th>
+<font size="2"><p><b><i>Storage model category</i></b></p>
+</foNt></tH>
+<th>
+<fOnt siZe="2"><p><b><I>Python types that fit category</I></B></P>
+</font></TH>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><p>literal/scalar</p>
+</font></td>
+<td>
+<font size="2"><P>numbers (all numeric types), strings</p>
+</fOnt></tD>
+</tr>
+<tr ValiGN="top">
+<TD>
+<font SIZE="2"><p>container</p>
+</foNT></TD>
+<td>
+<foNT SIze="2"><p>lists, tuples, dictionaries</p>
+</font></td>
+</tr>
+</colgroup>
+</TabLe></p>
+
+					<p>Although strings may seem like a container type since they "contain" characters (and usually more than one character), they are not considered as such because Python does not have a character type (<A href="87.html">see Section 4.8</A>). Thus, because strings are self-contained literals.</p>
+
+				
+				
+					<h4>Update Model</h4>
+					<P>Another way of categorizing the standard types is by asking the question, "Once created, can objects be changed or their values updated?" When we introduced Python types early on, we indicated that certain types allow their values to be updated and others do not. Mutable objects are those whose values can be changed, and immutable objects are those whose values cannot be changed. <A HRef="86#4.html">Table 4.7</a> illustrates which types support updates and which do not.</p>
+
+					<A NAMe="4"></a><p><tABLE bordER="1" CEllspacing="0" cellpadding="1" WidTh="100%">
+<caPtion><H5>Table 4.7. Types Categorized by the Update Model</h5></caPTIOn><colGROUp aliGN="left" SPan="2">
+<tr VALIgn="top">
+<th>
+<font size="2"><p><b><i>Update model category</i></b></p>
+</foNt></tH>
+<th>
+<fOnt siZe="2"><p><b><I>Python types that fit category</I></B></P>
+</font></TH>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><p>mutable</p>
+</font></td>
+<td>
+<font size="2"><P>lists, dictionaries</p>
+</fOnt></tD>
+</tr>
+<tr ValiGN="top">
+<TD>
+<font SIZE="2"><p>immutable</p>
+</foNT></TD>
+<td>
+<foNT SIze="2"><p>numbers, strings, tuples</p>
+</font></td>
+</tr>
+</colgroup>
+</TabLe></p>
+
+					<p>Now after looking at the table, a thought which must immediately come to mind is, "Wait a minute! What do you mean that numbers and strings are immutable? I've done things like the following:"</P>
+
+					<pre>
+						
+x = 'Python numbers and strings'
+x = 'are immutable?!? What gives?'
+i = 0
+i = i + 1
+
+					</pRe>
+
+					<p>"They sure as heck don't look immutable to me!" That is true to some degree, but looks can be deceiving. What is really happening behind the scenes is that the original objects are actually being replaced in the above examples. Yes, that is right. Read that again.</p>
+
+					<P>Rather than pointing to the original objects, new objects with the new values were allocated and (re)assigned to the original variable names, and the old objects were garbage-collected. One can confirm this by using the <TT Class="monofont">id()</TT> built-in function to compare object identities before and after such assignments.</P>
+
+					<P>If we added calls to <tt clASS="monofont">id()</Tt> in our example above, we may be able to see that the objects are being changed, as below:</p>
+
+					<prE>
+						
+x = 'Python numbers and strings'
+<B>print</B> id(x)
+x = 'are immutable?!? What gives?'
+<B>print</b> id(x)
+i = 0
+<b>print</b> id(i)
+i = i + 1
+<b>print</b> id(i)
+
+					</pre>
+
+					<p>Upon executing our little piece of code, we get the following output. Your mileage will vary since object IDs will differ from system to system and are memory location dependent:</p>
+
+					<pre>
+						
+16191392
+16191232
+7749552
+7749600
+
+					</pre>
+
+					<p>On the flip side, lists can be modified without replacing the original object, as illustrated in the code below.</p>
+
+					<prE>
+						
+&gt;&gt;&gt; aList = [ 'ammonia', 83, 85, 'lady' ]
+&gt;&gt;&gt; aList
+['ammonia', 83, 85, 'lady']
+&gt;&gt;&gt;
+&gt;&gt;&gt; aList[2]
+85
+&gt;&gt;&gt;
+&gt;&gt;&gt; id(aList)
+135443480
+&gt;&gt;&gt;
+&gt;&gt;&gt; aList[2] = aList[2] + 1
+&gt;&gt;&gt; aList[3] = 'stereo'
+&gt;&gt;&gt; aList
+['ammonia', 83, 86, 'stereo']
+&gt;&gt;&gt;
+&gt;&gt;&gt; id(aList)
+135443480
+&gt;&gt;&gt;
+&gt;&gt;&gt; aList.append('gaudy')
+&gt;&gt;&gt; aList.append(aList[2] + 1)
+&gt;&gt;&gt; aList
+['ammonia', 83, 86, 'stereo', 'gaudy', 87]
+&gt;&gt;&gt;
+&gt;&gt;&gt; id(aList)
+135443480
+
+					</prE>
+
+					<p>Notice how for each change, the ID for the list remained the same.</p>
+
+				
+				
+					<h4>Access Model</H4>
+					<p>Although the previous two models of categorizing the types are useful when being introduced to Python, they are not the primary models for differentiating the types. For that purpose, we use the access model. By this, we mean, how do we access the values of our stored data? There are three categories under the access model: <i>direct,</i>
+						<i>sequence,</I> and <i>mapping.</i> The different access models and which types fall into each respective category are given in <a HREF="86#6.html">Table 4.8</a>.</p>
+
+					<a nAME="6"></A><p><tabLE BOrder="1" CELLspacing="0" cellpadding="1" wiDth="100%">
+<CaptIon><h5>Table 4.8. Types Categorized by the Access Model</h5></CaptION><ColgrOUP Align="left" SPAN="2">
+<tr vaLIGN="top">
+<th>
+<font size="2"><p><b><i>access model category</i></b></p>
+</font></Th>
+<tH>
+<fonT size="2"><P><b><i>types that fit category</i></B></P>
+</FOnt></th>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><p>direct</p>
+</font></td>
+<td>
+<font size="2"><p>numbers</p>
+</FonT></td>
+</tR>
+<tr vaLign="top">
+<TD>
+<FOnt siZE="2"><P>sequence</P>
+</font></TD>
+<TD>
+<font SIZE="2"><p>strings, lists, tuples</p>
+</font></td>
+</tr>
+<tr valign="top">
+<td>
+<FonT sizE="2"><p>mapping</p>
+</foNt></td>
+<TD>
+<FOnt siZE="2"><P>dictionaries</P>
+</font></TD>
+</TR>
+</colgROUP>
+</table></p>
+
+					<p>Direct types indicate single element, non-container types. All numeric types fit into this category.</p>
+
+					<p>Sequence types are those whose elements are sequentially-accessible via index values starting at 0. Accessed items can be either single elements or in groups, better known as slices. Types which fall into this category include strings, lists, and tuples. As we mentioned before, Python does not support a character type, so, although strings are literals, they are a sequence type because of the ability to access substrings sequentially.</p>
+
+					<p>Mapping types are similar to the indexing properties of sequences, except instead of indexing on a sequential numeric offset, elements (values) are unordered and accessed with a key, thus making mapping types a set of hashed key-value pairs.</p>
+
+					<p>We will use this primary model in the next chapter by presenting each access model type and what all types in that category have in common (such as operators and built-in functions), then discussing each Python standard type that fits into those categories. Any operators, built-in functions, and methods unique to a specific type will be highlighted in their respective sections.</p>
+
+					<p>So why this side trip to view the same data types from differing perspectives? Well, first of all, why categorize at all? Because of the high-level data structures that Python provides, we need to differentiate the "primitive" types from those which provide more functionality. Another reason is to be clear on what the expected behavior of a type should be. For example, if we minimize the number of times we ask ourselves, "What are the differences between lists and tuples again?" or "What types are immutable and which are not?" then we have done our job. And finally, certain categories have general characteristics which apply to all types which belong to a certain category. A good craftsman (and craftswoman) should know what is available in his or her toolboxes.</p>
+
+					<p>The second part of our inquiry asks, why all these different models or perspectives? It seems that there is no one way of classifying all of the data types. They all have crossed relationships with each other, and we feel it best to expose the different sets of relationships shared by all the types. We also want to show how each type is unique in its own right. No two types map the same across all categories. And finally, we believe that understanding all these relationships will ultimately play an important implicit role during development. The more you know about each type, the more you are apt to use the correct ones in the parts of your application where they are the most appropriate, and where you can maximize performance.</p>
+
+					<p>We summarize by presenting a cross-reference chart (see <a HreF="86#7.html">Table 4.9</a>) which shows all the standard types, the three different models we use for categorization, and where each type fits into these models.</p>
+
+					<a Name="7"></a><P><tabLE BOrder="1" CELLspacING="0" CellpADDIng="1" width="100%">
+<caption><h5>Table 4.9. Categorizing the Standard Types</h5></captIon><ColgRoup aLign="left" SPAN="4">
+<tr vaLIGN="top">
+<th>
+<foNT SIze="2"><p><b><I>Data Type</I></B></P>
+</font></th>
+<th>
+<font size="2"><p><b><i>Storage Model</i></B></p>
+</fOnt></tH>
+<th>
+<foNt siZE="2"><P><B><i>Update Model</i></b></p>
+</FONT></th>
+<th>
+<FONT size="2"><P><B><I>Access Model</I></b></p>
+</font></th>
+</tr>
+<tr valign="top">
+<td>
+<FonT sizE="2"><p>numbers</p>
+</foNt></td>
+<TD>
+<FOnt siZE="2"><P>literal/scalar</P>
+</font></TD>
+<TD>
+<font SIZE="2"><p>immutable</p>
+</font></td>
+<td>
+<font size="2"><p>direct</p>
+</FonT></td>
+</tR>
+<tr vaLign="top">
+<TD>
+<FOnt siZE="2"><P>strings</P>
+</font></TD>
+<TD>
+<font SIZE="2"><p>literal/scalar</p>
+</font></td>
+<td>
+<font size="2"><p>immutable</p>
+</FonT></td>
+<tD>
+<font Size="2"><P>sequence</P>
+</FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><p>lists</p>
+</font></td>
+<td>
+<font size="2"><p>container</p>
+</FonT></td>
+<tD>
+<font Size="2"><P>mutable</P>
+</FOnt></td>
+<TD>
+<FOnt siZE="2"><P>sequence</P>
+</font></TD>
+</TR>
+<tr valign="top">
+<td>
+<font size="2"><p>tuples</p>
+</FonT></td>
+<tD>
+<font Size="2"><P>container</P>
+</FOnt></td>
+<TD>
+<FOnt siZE="2"><P>immutable</P>
+</font></TD>
+<TD>
+<font size="2"><p>sequence</p>
+</font></td>
+</tr>
+<tr ValIgn="top">
+<tD>
+<font Size="2"><P>dictionaries</P>
+</FOnt></td>
+<TD>
+<FOnt siZE="2"><P>container</P>
+</font></TD>
+<TD>
+<font size="2"><p>mutable</p>
+</font></td>
+<td>
+<foNt sIze="2"><p>mapping</P>
+</font></Td>
+</tr>
+</COLGroup>
+</TABLe></p>
+
+				
+			</foNT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="85.html" title="Standard Type Built-in Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=86" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="86.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="87.html" title="Unsupported Types"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,76 @@
+<html><head><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=Generator content="Microsoft Word 10 (filtered)"><link rel="stylesheet" type="text/css" href="1.css"><title></title></head><body lang=EN-US link="#990000" vlink=purple><div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=13.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=15.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div><br><br>
+<h2><a name="_Chapter_11._Distributing_Our_Applic"></a>Chapter 11. Distributing
+Our Application</h2>
+
+<p>Now that we’ve written an application, let’s distribute it across a network.
+The <tt><span style='font-size:10.0pt'>BookServer</span></tt> runs on one
+computer and the client program on another.</p>
+
+<h3><a name="_11.1_DCOM"></a>11.1 DCOM</h3>
+
+<p>Distributed COM does it all for you. You don’t have to change a single line
+of your Python code. All you need is to enable a few settings on the server
+(which are not specific to this application, but to DCOM in general) and to
+change one line in the client code. Here are the steps:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>DCOM needs to be enabled on the remote server. Choose Start <img
+border=0 width=20 height=16 src="images/image008.gif"
+alt="figs/U2192.gif">Run and type <tt><span style='font-size:10.0pt'>dcomcnfg.exe</span></tt>.
+A configuration dialog starts up. Select the Default Properties tab and check
+the box for Enable Distributed COM on this computer.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Python and PythonWin should be installed properly on the server, and the
+Doubletalk COM server should be registered.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>In our Visual Basic program, go to the line of code where we create the <tt><span
+style='font-size:10.0pt'>BookServer</span></tt>, and add a parameter for the
+remote machine name. We added an extra box in the Options dialog, the contents
+of which are stored in the variable <tt><i><span style='font-size:10.0pt'>RemoteMachine</span></i></tt>.
+Here’s the startup code:</p>
+
+<pre style='margin-left:.5in'>Set BookServer = CreateObject(&quot;Doubletalk.BookServer&quot;, <tt><i>RemoteMachine</i></tt>)</pre>
+
+<p style='margin-left:.5in'>If the string <tt><i><span style='font-size:10.0pt'>RemoteMachine</span></i></tt>
+is empty, the local server starts up. Otherwise, DCOM talks to the remote
+machine, and the <tt><span style='font-size:10.0pt'>BookServer</span></tt>
+starts up there. All calls to the COM object and any return values (including
+large arrays of data) are automatically packaged and transported across the
+network.</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_11.1._Remote_server_with_one"></a>Figure 11.1. Remote server with
+one line of code</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=239
+src="images/image042.gif" alt="figs/ppw.1101.gif"></span></p>
+
+<p>To demonstrate this, we created a data file called <i>remotedata.dtj</i> on
+a machine called y<i>osemite</i> and ran the client on a different machine. In
+the Options box input the name <i>yosemite</i> and hit the Reload button. At
+this point, the COM server starts on the remote machine. If you don’t get an
+error message, it’s connected. Then, in the File <img border=0 width=20
+height=16 src="images/image008.gif" alt="figs/U2192.gif">Open
+dialog, type the path of the file on <i>yosemite (</i>you can’t browse for it
+as it isn’t on the client system), and the remote file loads. Note the window
+caption in <a href="14.htm#_Figure_11.1._Remote_server_with_one">Figure 11.1</a>.</p>
+
+<h3><a name="_11.2_Conclusion"></a>11.2 Conclusion</h3>
+
+<p>The length of this chapter speaks for itself. Distributed COM lets you build
+distributed network applications in Python without changing a line of code.</p>
+
+<p>There is of course a great deal more to DCOM than this. More can be done,
+and there are also a number of caveats about machine configuration. In
+particular, designing a robust multiuser server architecture is a complex
+subject in any language; it will almost certainly involve COM singletons and
+either threads or an event loop for handling multiple simultaneous connections.
+<a href="16.htm#_Chapter_12._Advanced_Python_and_COM">Chapter 12</a>, provides
+detailed instructions for configuring DCOM for both Python clients and servers
+and explains the background to the application we just distributed.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+<div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=13.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=15.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div></body></html>

@@ -1,0 +1,177 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Exercises</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="170.html" class="navtitle">11. Functions</a> &gt; <span class="nonavtitle">Exercises</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="197.html" title="*Recursion"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=198" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="198.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="200.html" title="12. Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A35%3A56+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174051007164253053075245</font><a href="read3.asp?bookname=0130260363&snode=198&now=5%2F29%2F2002+9%3A35%3A56+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Exercises</h3>
+				<p><tABLE bodeR="0" CELlspaCING="16" cellpadding="0">
+					<tr valign="top"><tD alIgn="right"><fOnt><b>1:</b></Font></TD><TD><font><P><I>Arguments.</I> Compare the following three functions:</P>
+
+							<pre>
+								
+<b>def</B> countToFour1():
+    <B>for</B> eachNum <B>in</b> range(5):
+        <b>print</b> eachNum,
+
+<b>def</B> countToFour2(n):
+    <B>for</B> eachNum <B>in</b> range(n, 5):
+        <b>print</b> eachNum,
+
+<b>def</b> countToFour3(n=1):
+    <b>for</b> eachNum <b>in</b> range(n, 5):
+        <b>print</b> eachNum,
+
+							</pre>
+
+							<p>What do you think will happen as far as output from the program, given the following input values? Enter the output into <a href="187#1.html">Table 11.1</A> below. Write in "ERROR" if you think one will occur with the given input or " NONE" if there is no output.</p>
+
+							<p><TablE bordEr="1" ceLLSPacinG="0" CELlpadDING="1" widtH="100%">
+<CAPtion><h5>Table 11.2. Output chart for Problem 11-1</h5></caption><colgrouP alIgn="left" sPan="4">
+<tr ValiGN="top">
+<TH>
+<font SIZE="2"><b><i>Input</i></b></FONT></th>
+<th>
+<FONT size="2"><tt class="monofont">countToFour1</tt></font></th>
+<tH>
+<foNt siZe="2"><tt cLass="monofont">countToFour2</TT></FOnt></th>
+<TH>
+<FOnt siZE="2"><TT clasS="monofont">countToFour3</TT></Font></th>
+</tr>
+<tr valign="top">
+<td>
+<fonT siZe="2"><tt Class="monofont">2</Tt></foNT></TD>
+<td>
+<foNT SIze="2"> </foNT></TD>
+<td>
+<foNT SIze="2"> </font></td>
+<td>
+<font size="2"> </foNt></tD>
+</tr>
+<tR valiGn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">4</tT></FONt></td>
+<tD>
+<FONt size="2"> </font></td>
+<td>
+<font sizE="2"> </foNt></td>
+<Td>
+<fonT sizE="2"> </FONt></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2"><Tt class="monofont">5</tt></font></td>
+<td>
+<font SizE="2"> </fonT></td>
+<td>
+<Font SIZE="2"> </font></TD>
+<TD>
+<font SIZE="2"> </font></TD>
+</TR>
+<tr valign="top">
+<td>
+<font size="2"><b><i>(nothing)</I></b></fOnt></tD>
+<td>
+<foNt siZE="2"> </FOnt></td>
+<TD>
+<FOnt siZE="2"> </FOnt></td>
+<TD>
+<FOnt size="2"> </font></td>
+</tr>
+</colgroUp>
+</tAble></P>
+
+						</font></Td></tr>
+					<TR VAlign="top"><TD ALign="right"><fONT><B>2:</b></fonT></TD><Td><font>
+							<p><i>Functions.</i> Combine your solutions for Exercise 5-2. such that you create a combination function which takes the same pair of numbers and returns both their sum and product at the same time.</p>
+</font></td></tr>
+					<tr vAliGn="top"><td Align="right"><Font><B>3:</B></FOnt></td><TD><FOnt>
+							<p><i>Functions.</I> In this exercise, we will be implementing the <TT Class="monofont">max()</TT> and <TT class="monofont">min()</tt> built-in functions.</p>
+
+							<p>(a) Write simple functions <tt class="monofont">max2()</tt> and <tt ClaSs="monofont">min2()</tt> that take two items and return the larger and smaller item, respectively. They should work on arbitrary Python objects. For example, <Tt claSs="monofont">max2(4, 8)</tt> and <TT CLass="monofont">min2(4, 8)</tT> would each return 8 and 4, respectively.</P>
+
+							<P>(b) Create new functions <Tt claSS="monofont">my_max()</TT> and <tt clASS="monofont">my_min()</Tt> that use your solutions in part (a) to recreate <tt class="monofont">max()</tt> and <tt class="monofont">min().</tt> These functions return the largest and smallest item of non-empty sequences, respectively. Test your solutions for numbers and strings.</p>
+</FonT></td></tR>
+					<tr vaLign="top"><TD ALign="right"><fONT><B>4:</b></fonT></TD><Td><fonT>
+							<P><I>Return values.</I> Create a complementary function to your solution for Exercise 5-13. Create a function that takes a total time in minutes and returns the equivalent in hours and minutes.</p>
+</font></td></tr>
+					<tr valign="top"><td aLigN="right"><a naMe="2"></a><foNt><b>5:</b></FONT></td><td><FONT><p><a hrEF="288#30.html"><I>Default arguments.</I> Update the sales tax script you created in Exercise 5-7 such that a sales tax rate is no longer required as input to the function. Create a default argument using your local tax rate if one is not passed in on invocation</a>.</p>
+</foNT></TD></tr>
+					<tr valign="top"><td align="right"><fonT><b>6:</b></Font></Td><td><fOnt>
+							<p><I>Variable-length arguments.</I> Write a function called <TT clasS="monofont">printf().</TT> There is one positional argument, a format string. The rest are variable arguments that need to be displayed to standard output based on the values in the format string, which allows the special string format operator directives such as <Tt claSS="monofont">%d,</TT>
+								<tt clASS="monofont">%f,</Tt> etc. HINT: the solution is trivial—there is no need to implement the string operator functionality, but you do need to use the string format operator ( % ) explicitly.</p>
+</font></td></tr>
+					<tr valign="top"><td AliGn="right"><foNt><b>7:</b></fOnt></tD><TD><Font>
+							<p><I>Functional programming with</I>
+								<I><Tt claSS="monofont">map().</TT></i> Given a pair of identically-sized lists, say <tt cLASS="monofont">[1, 2, 3,</tt> …<tt class="monofont">],</tt> and <tt class="monofont">['abc', 'def', 'ghi',</tt> …<Tt cLass="monofont">],</Tt> merge both lists into a single list consisting of tuples of elements of each list so that our result looks like: {<tt cLass="monofont">[(1, 'abc'), (2, 'def'), (3, 'ghi'),</TT> …<TT clasS="monofont">}.</TT> (Although this problem is similar in nature to a problem in <A href="99.html">Chapter 6</A>, there is no direct correlation between their solutions.)</P>
+</FOnt></td></TR>
+					<TR valign="top"><td align="right"><font><b>8:</b></fOnt></Td><td><Font>
+							<p><I>Functional programming with</i>
+								<i><tT CLAss="monofont">filter().</tt></I> Use the code you created for Exercise 5-4 to determine leap years. Update your code so that it is a function if you have not done so already. Then write some code to take a list of years and return a list of only leap years.</P>
+</FOnt></td></TR>
+					<TR valiGN="top"><TD align="right"><font><b>9:</b></font></td><td><fOnt>
+							<P><i>Functional programming with</i>
+								<i><Tt claSs="monofont">reduce().</tt></I> Review the code in <A HRef="187.html">Section 11.7.2</a> that illustrated how to sum up a set of numbers using <tT CLAss="monofont">reduce().</tt> Modify it to create a new function called <TT CLass="monofont">average()</tT> that calculates the simple average of a set of numbers.</P>
+</FOnt></td></tr>
+					<tr valign="top"><td aligN="right"><foNt><b>10:</b></Font></tD><td><fONT>
+							<P><i>Functional programming with</i>
+								<i><tT CLAss="monofont">filter().</tt></I> In the Unix file system, there are always two special files in each folder/directory: '<TT Class="monofont">.</TT>' indicates the current directory and '<TT class="monofont">..</tt>' represents the parent directory. Given this knowledge, take a look at the documentation for the <tt class="monofont">os.listdir()</tt> function and describe what this code snippet does:</p>
+
+							<pre>
+								
+<I>files</i> = filter(<b>lambda</B> x: x <b>and</b> x[0] != '.', os.listdir(<i>folder</I>))
+
+							</pre>
+</fOnt></tD></TR>
+					<Tr valIGN="top"><Td aliGN="right"><FOnt><b>11:</b></FONT></td><td><font>
+							<p><i>Functional programming with</i>
+								<i><tt class="monofont">map().</tT></i> Write a program that takes a file name and "cleans" the file by removing all leading and trailing whitespace from each line. Read in the original file and write out a new one, either creating a new file or overwriting the existing one. Give your user the option to pick which of the two to perform.</p>
+</Font></Td></tr>
+					<tR valIGN="top"><Td aliGN="right"><FOnt><b>12:</b></FONT></td><td><FONT>
+							<p><i>Passing functions.</i> Write a sister function to the <tt class="monofont">testit()</tt> function described in this chapter. Rather than testing execution for errors, <tt class="monofont">timeit()</tT> will take a function object (along with any arguments), and time how long it takes to execute the function. Return the following values: function return value, time elapsed. You can use <tt ClasS="monofont">time.clock()</tt> or <tt ClasS="monofont">time.time(),</TT> whichever provides you with greater accuracy.</P>
+</font></TD></TR>
+					<tr vaLIGN="top"><td alIGN="right"><Font><b>13:</b></font></td><td><font>
+							<p><i>Functional programming with</i>
+								<I><tt ClasS="monofont">reduce()</tt></i>
+								<i>and Recursion.</I> In <a hrEF="129.html">Chapter 8</A>, we looked at N factorial or N! as the product of all numbers from 1 to N.</P>
+
+							<p>(a)Take a minute to write a small, simple function called <tt cLASS="monofont">mult(x, y)</tt> that takes <tt CLASs="monofont">x</tt> and <tT CLAss="monofont">y</tt> and returns their product.</p>
+
+							<p>(b) Use the <tt class="monofont">mult()</tt> function you created in part (a)along with <tt claSs="monofont">reduce()</tT> to calculate factorials.</p>
+
+							<p>(c) Discard the use of <tT clasS="monofont">mult()</tt> completely and use a <b><TT CLass="monofont">lambda</tT></B> expression instead.</P>
+
+							<P>(d) In this chapter, we presented a recursive solution to finding N! Use the <tt clASS="monofont">timeit()</Tt> function you completed in the problem above and time all three versions of your factorial function (iterative, <tt cLASS="monofont">reduce(),</tt> and recursive). Explain any differences in performance, anticipated and actual.</p>
+</font></td></tr>
+					<tr valign="top"><tD alIgn="right"><fOnt><b>14:</b></Font></TD><TD><font>
+							<P>*<I>Recursion.</I> We also looked at Fibonacci numbers in <A href="129.html">Chapter 8</A>. Rewrite your previous solution for calculating Fibonacci numbers (Exercise 8-9) so that it now uses recursion.</P>
+</FOnt></td></TR>
+					<TR valign="top"><td align="right"><font><b>15:</b></fOnt></Td><td><Font>
+							<p>*<I>Recursion.</i> Rewrite your solution to Exercise 6-5 which prints a string backwards to use recursion. Use recursion to print a string forward <i>and</i> backward.</P>
+</FONt></td></tR>
+				</TABle></p>
+			</fONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="197.html" title="*Recursion"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=198" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="198.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="200.html" title="12. Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

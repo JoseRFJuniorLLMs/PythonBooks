@@ -1,0 +1,108 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Built-in Functions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="99.html" class="navtitle">6. Sequences: Strings, Lists, and Tuples</a> &gt; <span class="nonavtitle">Built-in Functions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="104.html" title="String-only Operators"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=105" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="105.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="106.html" title="String Built-in Methods"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A18%3A39+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172044044178014075074208</font><a href="read8.asp?bookname=0130260363&snode=105&now=5%2F29%2F2002+9%3A18%3A39+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Built-in Functions</h3>
+				
+					<h4>Standard Type Functions</h4>
+					
+						<H5><TT Class="monofont">cmp()</TT></H5>
+						<P>As with the value comparison operators, the <tt clASS="monofont">cmp()</Tt> built-in function also performs a lexicographic comparison for strings.</p>
+
+						<pre>
+							
+&gt;&gt;&gt; str1 = 'abc'
+&gt;&gt;&gt; str2 = 'lmn'
+&gt;&gt;&gt; str3 = 'xyz'
+&gt;&gt;&gt; cmp(str1, str2)
+-11
+&gt;&gt;&gt; cmp(str3, str1)
+23
+&gt;&gt;&gt; cmp(str2, 'lmn')
+0
+
+						</pre>
+
+					
+				
+				
+					<h4>Sequence Type Functions</h4>
+					
+						<h5><tt class="monofont">len()</tt></H5>
+						<prE>
+							
+&gt;&gt;&gt; str1 = 'abc'
+&gt;&gt;&gt; len(str1)
+3
+&gt;&gt;&gt; len('Hello World!')
+12
+
+						</pre>
+
+						<P>The <tt clAss="monofont">len()</tT> built-in function returns the number of characters in the string as expected.</P>
+
+					
+					
+						<H5><Tt claSS="monofont">max()</TT> and <tt clASS="monofont">min()</Tt></h5>
+						<prE>
+							
+&gt;&gt;&gt; str2 = 'lmn'
+&gt;&gt;&gt; str3 = 'xyz'
+&gt;&gt;&gt; max(str2)
+'n'
+&gt;&gt;&gt; min(str3)
+'x'
+
+						</PRE>
+
+						<p>Although more useful with other sequence types, the <tt class="monofont">max()</tt> and <tt class="monofont">min()</tt> built-in functions do operate as advertised, returning the greatest and least characters (lexicographic order), respectively.</p>
+
+					
+				
+				<A naMe="6"></a>
+					<h4>String Type Function [<Tt claSs="monofont">raw_input()</tt>]</H4>
+					<P>The built-in <TT clasS="monofont">raw_input()</TT> function prompts the user with a given string and accepts and returns a user-input string. Here is an example using <Tt claSS="monofont">raw_input():</TT></p>
+
+					<pre>
+						
+&gt;&gt;&gt; user_input = raw_input("Enter your name: ")
+Enter your name: John Doe
+&gt;&gt;&gt;
+&gt;&gt;&gt; user_input
+'John Doe'
+&gt;&gt;&gt;
+&gt;&gt;&gt; len(user_input)
+8
+
+					</PRE>
+
+					<P>Earlier, we indicated that strings in Python do not have a terminating NUL character like C strings. We added in the extra call to <tt class="monofont">len()</tt> to show you that what you see is what you get.</p>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="104.html" title="String-only Operators"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=105" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="105.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="106.html" title="String Built-in Methods"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

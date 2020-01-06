@@ -1,0 +1,82 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Non-keyword Variable Arguments (Tuple)</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="170.html" class="navtitle">11. Functions</a> &gt; <span class="nonavtitle">Non-keyword Variable Arguments (Tuple)</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="181.html" title="Variable-length Arguments"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=182" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="182.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="183.html" title="Keyword Variable Arguments (Dictionary)"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A32%3A35+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174052240194210217068034</font><a href="read7.asp?bookname=0130260363&snode=182&now=5%2F29%2F2002+9%3A32%3A35+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Non-keyword Variable Arguments (Tuple)</h3>
+				<p>When a function is invoked, all formal (required and default) arguments are assigned to their corresponding local variables as given in the function declaration. The remaining non-keyword variable arguments are inserted in order into a tuple for access. Perhaps you are familiar with "varargs" in C (i.e., <tT CLAss="monofont">va_list, va_arg,</tt> and the ellipsis [ … ]). Python provides equivalent support—iterating over the tuple elements is the same as using <TT CLass="monofont">va_arg</tT> in C. For those who are <I>not</I> familiar with C or varargs, they just represent the syntax for accepting a variable (not fixed) number of arguments passed in a function call.</P>
+
+				<p>The variable-length argument tuple must follow all positional and default parameters, and the general syntax for functions with tuple or non-keyword variable arguments is as follows:</p>
+
+				<pre>
+					
+<b>def</b>
+						<i>function_name</i>(<i>[formal_args,] *vargs_tuple</i>):
+"<i>function_documentation_string</i>"
+     <i>function_body_suite</i>
+
+				</pre>
+
+				<p>The asterisk operator ( <tT clAss="monofont">*</tT> ) is placed in front of the variable that will hold all remaining arguments once all the formal parameters have been exhausted, if any. The tuple is empty if there are no additional arguments given.</p>
+
+				<p>As we saw earlier, a <tt ClasS="monofont">TypeError</TT> exception is generated whenever an incorrect number of arguments is given in the function invocation. By adding a variable argument list variable at the end, we can handle the situation when more than enough arguments are passed to the function because all the extra (non-keyword) ones will be added to the variable argument tuple. (The extra keyword arguments require a keyword variable argument parameter [see the next section].)</P>
+
+				<p>As expected, all formal arguments must precede informal arguments for the same reason that positional arguments must come before keyword arguments.</p>
+
+				<prE>
+					
+<B>def</B> tupleVarArgs(arg1, arg2='defaultB', *theRest):
+    'display regular args and non-keyword variable args'
+    <B>print</b> 'formal arg 1:', arg1
+    <b>print</b> 'formal arg 2:', arg1
+    <b>for</B> eachXtrArg <B>in</B> theRest:
+        <B>print</b> 'another arg:', eachXtrArg
+
+				</pre>
+
+				<P>We will now invoke this function to show how variable argument tuples work:</P>
+
+				<PRe>
+					
+&gt;&gt;&gt; tupleVarArgs('abc')
+formal arg 1: abc
+formal arg 2: defaultB
+&gt;&gt;&gt;
+&gt;&gt;&gt; tupleVarArgs(23, 4.56)
+formal arg 1: 23
+formal arg 2: 4.56
+&gt;&gt;&gt;
+&gt;&gt;&gt; tupleVarArgs('abc', 123, 'xyz', 456.789)
+formal arg 1: abc
+formal arg 2: 123
+another arg: xyz
+another arg: 456.789
+
+				</pre>
+
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="181.html" title="Variable-length Arguments"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=182" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="182.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="183.html" title="Keyword Variable Arguments (Dictionary)"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

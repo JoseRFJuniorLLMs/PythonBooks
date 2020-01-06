@@ -1,0 +1,426 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Advanced CGI</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="271.html" class="navtitle">19. Web Programming</a> &gt; <span class="nonavtitle">Advanced CGI</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="277.html" title="Building CGI Application"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=278" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="278.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="279.html" title="Web (HTTP) Servers"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A41%3A13+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004226055020068225150012240</font><a href="read7.asp?bookname=0130260363&snode=278&now=5%2F30%2F2002+8%3A41%3A13+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT><h3>Advanced CGI</h3>
+				<p>We will now take a look at some of the more advanced aspects of CGI programming. These include: the use of <i>cookies</I>—cached data saved on the client side, multiple values for the same CGI field and file upload using multipart form submissions. To save space, we will show you all three of these features with a single application. Let's take a look at multipart submissions first.</P>
+
+				<H4>Multipart Form Submission and File Uploading</H4>
+					<p>Currently, the CGI specifications only allow two types of form encodings, "application/x-www-form-urlencoded" and "multipart/form-data." Because "application/x-www-form-urlencoded" is the default, there is never a need to state the encoding in the FORM tag like this:</p>
+
+					<prE>
+						
+&lt;FORM enctype="application/x-www-form-urlencoded" …&gt;
+
+					</PRE>
+
+					<p>But for multipart forms, you must explicitly give the encoding as:</p>
+
+					<prE>
+						
+&lt;FORM enctype="multipart/form-data" …&gt;
+
+					</PRE>
+
+					<p>You can use either type of encoding for form submissions, but at this time, file uploads can only be performed with the multipart encoding. Multipart encoding was invented by Netscape in the early days but since has been adopted by Microsoft (starting with version 4 of Internet Explorer) as well as other browsers.</p>
+
+					<p>File uploads are accomplished using the file input type:</p>
+
+					<pre>
+						
+&lt;INPUT type=file name=…&gt;
+
+					</pre>
+
+					<p>This directive presents an empty text field with a button on the side which allows you to browse your file directory structure for a file to upload. On most browsers, this button says "Browse," but your mileage may vary. (For example, we will be using the Opera browser in our examples which has a button labeled with ellipses "…".)</p>
+
+					<p>When using multipart, your Web client's form submission to the server will look amazingly like (multipart) e-mail messages with attachments. A separate encoding was needed because it just wouldn't be necessarily wise to "urlencode" a file, especially a binary file. The information still gets to the server, but is just "packaged" in a different way.</p>
+
+					<p>Regardless of whether you use the default encoding or the multipart, the <tt claSs="monofont">cgi</tT> module will process them in the same manner, providing keys and corresponding values in the form submission. You will simply access the data through your <tt cLass="monofont">FieldStorage</tT> instance as before.</p>
+
+				
+				<h4>Multivalued Fields</h4>
+					<P>In addition for file uploads, we are also going to show you how to process fields with multiple values. The most common case is when you have a set of checkboxes allowing a user to select from various choices. Each of the checkboxes is labeled with the same field name, but to differentiate them, each will have a different value associated with a particular checkbox.</P>
+
+					<P>As you know, the data from the user is sent to the server in key-value pairs during form submission. When more than one checkbox is submitted, you will have multiple values associated with the same key. In these cases, rather than being given a single <Tt claSS="monofont">MiniFieldStorage</TT> instance for your data, the <tt clASS="monofont">cgi</Tt> module will create a list of such instances which you will iterate over to obtain the different values. Not too painful at all.</p>
+
+				
+				<h4>Cookies</h4>
+					<P>Finally, we will use cookies in our example. If you are not familiar with cookies, they are just bits of data information which a server at a Web site will request to be saved on the client side, e.g., the browser.</P>
+
+					<P>Because HTTP is a "stateless" protocol, information that has to be carried from one page to another can be accomplished by using key-value pairs in the request as you have seen in the GET requests and screens earlier in this chapter. Another way of doing it, as we have also seen before, is using hidden form fields, such as the action variable in some of the later <Tt class="monofont">friends*.py</tt> scripts. These variables and their values are managed by the server because the pages they return to the client must embed these in generated pages.</p>
+
+					<p>One alternative to maintaining persistency in state across multiple page views is to save the data on the client side instead. This is where cookies come in. Rather than embedding data to be saved in the returned Web pages, a server will make a request to the client to save a cookie. The cookie is linked to the domain of the originating server (so a server cannot set nor override cookies from other Web sites) and has an expiration date (so your browser doesn't become cluttered with cookies).</p>
+
+					<p>These two characteristics are tied to a cookie along with the key-value pair representing the data item of interest. There are other attributes of cookies such as a domain subpath or a request that a cookie should only be delivered in a secure environment.</p>
+
+					<p>By using cookies, we no longer have to pass the data from page to page to track a user. Although they have been subject to a good amount of controversy over the privacy issue, most Web sites use cookies responsibly. To prepare you for the code, a Web server requests a client store a cookie by sending the "Set-Cookie" header immediately before the requested file.</p>
+
+					<p>Once cookies are set on the client side, requests to the server will automatically have those cookies sent to the server using the <tt clAss="monofont">HTTP_COOKIE</Tt> environment variable. The cookies are delimited by semicolons and come in "key=value" pairs. All your application needs to do to access the data values is to split the string several times (i.e., using <tt Class="monofont">string.split()</Tt> or manual parsing). The cookies are delimited by semicolons ( ; ), and each key-value pair is separated by equal signs ( = ).</p>
+
+					<p>Like multipart encoding, cookies originated from Netscape, who implemented cookies and wrote up the first specification which is still valid today. You can access this document at the following Web site:</P>
+
+					<PRE>
+						
+<a tarGET="_blank" Href="http://www.netscape.com/newsref/std/cookie_spec.html">http://www.netscape.com/newsref/std/cookie_spec.html</a>
+
+					</PRE>
+
+					<P>Once cookies are standardized and this document finally obsoleted, you will be able to get more current information from Request for Comment documents (RFCs). The most current one for cookies at the time of publication is RFC 2109.</p>
+
+				
+				<h4>Using Advanced CGI</h4>
+					<p>We now present our CGI application, <TT CLass="monofont">advcgi.py,</tt> which has code and functionality not too unlike the <tt class="monofont">friends3.py</tt> script seen earlier in this chapter. The default first page is a user fill-out form consisting of four main parts: user-set cookie string, name field, checkbox list of programming languages, and file submission box. An image of this screen can be seen in <a href="278#5.html">Figure19-13</a>, this time using the Opera 4 browser in a Windows environment.</P>
+
+					<ceNter>
+						<H5>
+<a namE="5"></a>Figure 19-13. Upload and Multivalue Form Page in Opera4 on Windows</h5>
+						
+							
+								<iMG BOrder="0" WIDTh="500" heiGHT="550" Src="graphics/19fig13.gif" alT="graphics/19fig13.gif">
+							
+						
+					</CENter>
+
+					<p>In a browser world dominated by the Netscape and Microsoft browsers, we seldom hear of others such as Opera and Lynx, but they are out there! Opera, in particular, is known to have excellent footprint (memory size) and speed characteristics.</p>
+
+					<p>Well, just so you aren't totally uncomfortable, let's take a peek at what the same form looks like from Netscape running on Linux, as in <a href="278#6.html">Figure19-14</a>. As you can see, Netscape uses "Browse" as the file upload label instead of the ellipses. (The rest of the screens for this section will feature Opera.)</p>
+
+					<center>
+						<h5>
+<A naMe="6"></a>Figure 19-14. The Same Advanced CGI Form but in Netscape4 on Linux</h5>
+						
+							
+								<Img boRder="0" WIDTh="500" heiGHT="628" Src="graphics/19fig14.gif" alT="graphics/19fig14.gif">
+							
+						
+					</CENter>
+
+					<p>From this form, we can enter our information, such as the sample data given in <A HREf="278#7.html">Figure19-15</a>.</p>
+
+					<center>
+						<h5>
+<a name="7"></a>Figure 19-15. One Possible Form Submission in our Advanced CGI Demo</h5>
+						
+							
+								<img BorDer="0" wIdth="500" hEighT="549" SRC="graphics/19fig15.gif" alt="graphics/19fig15.gif">
+							
+						
+					</cENTEr>
+
+					<p>The data is submitted to the server using multipart encoding and is retrieved in the same manner on the server side using the <tt CLASs="monofont">FieldStorage</tt> instance. The only tricky part is in retrieving the uploaded file. In our application, we choose to iterate over the file, reading it line-by-line. It is also possible to read in the entire contents of the file if you are not wary of its size.</p>
+
+					<P>Since this is the first occasion data is received by the server, it is at this time, when returning the results page back to the client, that we use the "Set-Cookie:" header to cache our data in browser cookies.</P>
+
+					<P>In <A href="278#8.html">Figure19-16</a>, you will see the results after submitting our form data. All the fields the user entered are shown on the page. The contents of the filename given in the final dialog box was actually uploaded to the server and displayed as well.</p>
+
+					<center>
+						<h5>
+<a name="8"></a>Figure 19-16. Results Page Generated and Returned by the Web Server</h5>
+						
+							
+								<Img BordEr="0" widTh="500" heIGHT="560" src="graphics/19fig16.gif" aLT="graphics/19fig16.gif">
+							
+						
+					</CEnter>
+
+					<P>You will also notice the link at the bottom of the results page which returns us to the form page, again using the same CGI script.</P>
+
+					<P>If we click on that link at the bottom, no form data is submitted to our script, causing a form page to be displayed. Yet, as you can see from <A href="278#9.html">Figure 19-17</A>, what shows up is anything but an empty form! Information previously entered by the user shows up! How did we accomplish this with no form data (either hidden or as query arguments in the URL)? The secret is that the data is stored on the client side in cookies, two in fact.</P>
+
+					<CEnter>
+						<h5>
+<a name="9"></a>Figure 19-17. Form Page With Data Loaded from the Client Cookies</h5>
+						
+							
+								<img bordeR="0" wiDth="500" hEight="551" Src="graphics/19fig17.gif" aLT="graphics/19fig17.gif">
+							
+						
+					</CEnter>
+
+					<P>The user cookie holds the string of data typed in by the user in the "Enter cookie value" form field, and the user's name, languages they are familiar with, and uploaded file are stored in the info cookie.</P>
+
+					<P>When the script detects no form data, it shows the form page, but before the form page has been created, it grabs the cookies from the client (which are automatically transmitted by the client when the user clicks on the link) and fills out the form accordingly. So when the form is finally displayed, all the previously entered information appears to the user like magic.</P>
+
+					<p>We are sure you are eager to take a look at this application, so here it is, presented in <a hrEF="278#10.html">Example 19-6</A>.</P>
+
+					
+						<h5>
+<a naME="10"></A>Example 19.6. Advanced CGI Application (<Tt class="monofont">advcgi.py</tt>)</h5>
+						<p><b><i>The crawler has one main class which does everything,</i></b>
+							<tt clasS="monofont">AdvCGI.</tt>
+							<B><i>It has methods to show either form, error, or results pages as well as those which read or write cookies from/to the client (a web browser).</i></b></P>
+
+						<pre cLass="monofont"> &lt;$nopage&gt;
+001 1    #!/usr/bin/env python
+002 2
+003 3    <B>from</B> cgi <B>import</B> FieldStorage
+004 4    <b>from</b> os <b>import</b> environ
+005 5    <B>from</B> cStringIO <B>import</B> StringIO
+006 6    <b>from</b> urllib <b>import</b> quote, unquote
+007 7    <B>from</B> string <B>import</B> capwords, strip, split, join
+008 8
+009 9    <b>class</b> AdvCGI:
+010 10
+011 11       header = 'Content-Type: text/html\n\n'
+012 12       url = '/py/advcgi.py'
+013 13
+014 14       formhtml = '''&lt;<b>HTML</b>&gt;&lt;<B>HEAD</B>&gt;&lt;<B>TITLE</B>&gt;
+015 15   Advanced CGI Demo&lt;<b>/TITLE</b>&gt;&lt;<b>/HEAD</b>&gt;
+016 16   &lt;<b>BODY</b>&gt;&lt;<b>H2</b>&gt;Advanced CGI Demo Form&lt;<b>/H2</b>&gt;
+017 17   &lt;<b>FORM</b> METHOD=post ACTION="%s ENCTYPE="multipart/form-data"&gt;
+018 18   &lt;<b>H3</b>&gt;My Cookie Setting&lt;<b>/H3</b>&gt;
+019 19   &lt;<b>LI</b>&gt; &lt;<b>CODE</b>&gt;&lt;<B>B</b>&gt;CPPuser = %s&lt;<b>/B</B>&gt;&lt;<b>/CODE</b>&gt;
+020 20   &lt;<b>H3</B>&gt;Enter cookie value&lt;<b>BR</b>&gt;
+021 21   &lt;<b>INPUT</b> NAME=cookie value="%s"&gt; (&lt;<B>I</b>&gt;optional&lt;<b>/I</b>&gt;)&lt;<B>/H3</B>&gt;
+022 22   &lt;<B>H3</B>&gt;Enter your name&lt;<b>BR</b>&gt;
+023 23   &lt;<b>INPUT</b> NAME=person VALUE="%s"&gt; (&lt;<B>I</B>&gt;required&lt;<B>/I</B>&gt;)&lt;<b>/H3</b>&gt;
+024 24   &lt;<b>H3</b>&gt;What languages can you program in?
+025 25   (&lt;<B>I</B>&gt;at least one required&lt;<B>/I</B>&gt;)&lt;<b>/H3</b>&gt;
+026 26   %s
+027 27   &lt;<b>H3</b>&gt;Enter file to upload&lt;/H3&gt;
+028 28   &lt;<B>INPUT</B> TYPE=file NAME=upfile VALUE="%s" SIZE=45&gt;
+029 29   &lt;<B>P</B>&gt;&lt;<b>INPUT</b> TYPE=submit&gt;
+030 30   &lt;<b>/FORM</b>&gt;&lt;<b>/BODY</b>&gt;&lt;<b>/HTML</b>&gt;'''
+031 31
+032 32       langSet = ('Python', 'PERL', 'Java', 'C++', 'PHP',
+033 33                   'C', 'JavaScript')
+034 34       langItem = \
+035 35           '&lt;<b>INPUT</b> TYPE=checkbox NAME=lang VALUE="%s"%s&gt; %s\n'
+036 36
+037 37       <b>def</b> getCPPCookies(self):# read cookies from client
+038 38           <b>if</b> environ.has_key('HTTP_COOKIE'):
+039 39               <b>for</b> eachCookie <b>in</b> map(strip, \
+040 40                      split(environ['HTTP_COOKIE'], ';')):
+041 41                   <b>if</b> len(eachCookie) &gt; 6 <B>and</b> \
+042 42                           eachCookie[:3] == 'CPP':
+043 43                      tag = eachCookie[3:7]
+044 44                      <b>try:</B> &lt;$nopage&gt;
+045 45                         self.cookies[tag] = \
+046 46                             eval(unquote(eachCookie[8:]))
+047 47                      <b>except</b> (NameError, SyntaxError):
+048 48                          self.cookies[tag] = \
+049 49                              unquote(eachCookie[8:])
+050 50           <b>else:</B> &lt;$nopage&gt;
+051 51               self.cookies['info'] = self.cookies['user'] = ''
+052 52
+053 53           <b>if</b> self.cookies['info'] != '':
+054 54               self.who, langStr, self.fn = \
+055 55                   split(self.cookies['info'], ':')
+056 56               self.langs = split(langStr, ',')
+057 57           <b>else:</b> &lt;$nopage&gt;
+058 58               self.who = self.fn = ' '
+059 59               self.langs = ['Python']
+060 60
+061 61       <B>def</b> showForm(self):            # show fill-out form
+062 62           self.getCPPCookies()
+063 63           langStr = ''
+064 64           <b>for</b> eachLang <B>in</B> AdvCGI.langSet:
+065 65               <B>if</B> eachLang <b>in</b> self.langs:
+066 66                   langStr = langStr + AdvCGI.langItem % \
+067 67                       (eachLang, ' CHECKED', eachLang)
+068 68               <b>else:</b> &lt;$nopage&gt;
+069 69                   langStr = langStr + AdvCGI.langItem % \
+070 70                       (eachLang, '', eachLang)
+071 71
+072 72              <B>if not</B> self.cookies.has_key('user') <B>or</B> \
+073 73                   self.cookies['user'] == '':
+074 74               cookStatus = '&lt;I&gt;(cookie has not been set yet)&lt;/I&gt;'
+075 75               userCook = ''
+076 76           <b>else:</b> &lt;$nopage&gt;
+077 77               userCook = cookStatus = self.cookies['user']
+078 78
+079 79           <b>print</b> AdvCGI.header + AdvCGI.formhtml % (AdvCGI.url,
+080 80               cookStatus, userCook, self.who, langStr, self.fn)
+081 81
+082 82       errhtml = '''&lt;<B>HTML</B>&gt;&lt;<B>HEAD</B>&gt;&lt;<b>TITLE</b>&gt;
+083 83   Advanced CGI Demo&lt;<b>/TITLE</b>&gt;&lt;<B>/HEAD</B>&gt;
+084 84   &lt;<B>BODY</B>&gt;&lt;<b>H3</b>&gt;ERROR&lt;<b>/H3</b>&gt;
+085 85   &lt;<b>B</b>&gt;%s&lt;<b>/B</b>&gt;&lt;<b>P</b>&gt;
+086 86   &lt;<b>FORM</b>&gt;&lt;<b>INPUT</b> TYPE=button VALUE=Back
+087 87   ONCLICK="window.history.back()"&gt;&lt;<b>/FORM</b>&gt;
+088 88   &lt;<b>/BODY</b>&gt;&lt;<b>/HTML</b>&gt;'''
+089 89
+090 90       <B>def</b> showError(self):
+091 91            <b>print</B> AdvCGI.header + AdvCGI.errhtml % (self.error)
+092 92
+093 93       reshtml =    '''&lt;<b>HTML</b>&gt;&lt;<b>HEAD</B>&gt;&lt;<b>TITLE</b>&gt;
+094 94   Advanced CGI Demo&lt;<b>/TITLE</b>&gt;&lt;<B>/HEAD</b>&gt;
+095 95   &lt;<b>BODY</b>&gt;&lt;<B>H2</B>&gt;Your Uploaded Data&lt;<B>/H2</B>&gt;
+096 96   &lt;<b>H3</b>&gt;Your cookie value is: &lt;<b>B</b>&gt;%s&lt;/B&gt;&lt;/H3&gt;
+097 97   &lt;<B>H3</B>&gt;Your name is: &lt;<B>B</B>&gt;%s&lt;<b>/B</b>&gt;&lt;<b>/H3</b>&gt;
+098 98   &lt;<B>H3</B>&gt;You can program in the following languages:&lt;<B>/H3</B>&gt;
+099 99   &lt;<b>UL</b>&gt;%s&lt;<b>/UL</b>&gt;
+100 100  &lt;<B>H3</B>&gt;Your uploaded file…&lt;<B>BR</B>&gt;
+101 101  Name: &lt;<b>I</b>&gt;%s&lt;<b>/I</b>&gt;&lt;<b>BR</b>&gt;
+102 102  Contents:&lt;<b>/H3</b>&gt;
+103 103  &lt;<b>PRE</b>&gt;%s&lt;<b>/PRE</b>&gt;
+104 104  Click &lt;<b>A</b> HREF="%s"&gt;&lt;<b>B</b>&gt;here&lt;<b>/B</b>&gt;&lt;<b>/A</b>&gt; to return to form.
+105 105  &lt;<B>/BODY</b>&gt;&lt;<b>/HTML</B>&gt;'''
+106 106
+107 107      <b>def</b> setCPPCookies(self):# tell client to store cookies
+108 108          <b>or</B> eachCookie <b>in</b> self.cookies.keys():
+109 109              <b>print</b> 'Set-Cookie: CPP%s=%s; path=/' % \
+110 110                  (eachCookie, quote(self.cookies[eachCookie]))
+111 111
+112 112      <B>def</b> doResults(self):# display results page
+113 113          MAXBYTES = 1024
+114 114          langlist = ''
+115 115          <b>for</b> eachLang <B>in</B> self.langs:
+116 116            langlist = langlist + <B>'</B>&lt;<b>LI</b>&gt;%s&lt;<b>BR</b>&gt;<B>'</B> % eachLang
+117 117
+118 118          filedata = ''
+119 119          <B>while</B> len(filedata) &lt; MAXBYTES:# read file chunks
+120 120              data = self.fp.readline()
+121 121              <b>if</b> data == '': <b>break</b> &lt;$nopage&gt;
+122 122              filedata = filedata + data
+123 123          <B>else:</B>                 # truncate if too long
+124 124              filedata = filedata + \
+125 125              <B>'… </B>&lt;<b>B</b>&gt;&lt;<b>I</b>&gt;(file truncated due to size)&lt;<B>/I</B>&gt;&lt;<B>/B</B>&gt;<b>'</b> &lt;$nopage&gt;
+126 126          self.fp.close()
+127 127          <b>if</b> filedata == '':
+128 128          filedata = \
+129 129      <b>'</b>&lt;<b>B</b>&gt;&lt;<b>I</b>&gt;(file upload error or file not given)&lt;<b>/I</b>&gt;&lt;<b>/B</b>&gt;<b>'</b> &lt;$nopage&gt;
+130 130      filename = self.fn
+131 131
+132 132      <b>if not</b> self.cookies.has_key('user') <b>or</b> \
+133 133               self.cookies['user'] == '':
+134 134         cookStatus = <B>'</b>&lt;<b>I</B>&gt;(cookie has not been set yet)&lt;<b>/I</b>&gt;<b>'</B> &lt;$nopage&gt;
+135 135          userCook = ''
+136 136      <b>else:</b> &lt;$nopage&gt;
+137 137          userCook = cookStatus = self.cookies['user']
+138 138
+139 139      self.cookies['info'] = join([self.who, \
+140 140          join(self.langs, ','), filename], ':')
+141 141      self.setCPPCookies()
+142 142      <b>print</b> AdvCGI.header + AdvCGI.reshtml % \
+143 143               (cookStatus, self.who, langlist,
+144 144               filename, filedata, AdvCGI.url)
+145 145
+146 146  <B>def</b> go(self):# determine which page to return
+147 147      self.cookies = {}
+148 148      self.error = ''
+149 149      form = FieldStorage()
+150 150      <b>if</b> form.keys() == []:
+151 151           self.showForm()
+152 152           <B>return</B> &lt;$nopage&gt;
+153 153
+154 154      <B>if</B> form.has_key('person'):
+155 155           self.who = capwords(strip(form['person'].value))
+156 156           <b>if</b> self.who == '':
+157 157                self.error = 'Your name is required. (blank)'
+158 158      <b>else:</b> &lt;$nopage&gt;
+159 159           self.error = 'Your name is required. (missing)'
+160 160
+161 161      <B>if</B> form.has_key('cookie'):
+162 162          self.cookies['user'] = unquote(strip(\
+163 163                          form['cookie'].value))
+164 164      <B>else:</B> &lt;$nopage&gt;
+165 165          self.cookies['user'] = ''
+166 166
+167 167      self.langs = []
+168 168      <b>if</b> form.has_key('lang'):
+169 169          langdata = form['lang']
+170 170          <b>if</b> type(langdata) == type([]):
+171 171               <B>for</B> eachLang <B>in</B> langdata:
+172 172                    self.langs.append(eachLang.value)
+173 173          <b>else:</b> &lt;$nopage&gt;
+174 174               self.langs.append(langdata.value)
+175 175      <b>else:</b> &lt;$nopage&gt;
+176 176          self.error = 'At least one language required.'
+177 177
+178 178      <B>if</B> form.has_key('upfile'):
+179 179          upfile = form["upfile"]
+180 180          self.fn = upfile.filename <B>or</B> ''
+181 181          <b>if</b> upfile.file:
+182 182               self.fp = upfile.file
+183 183          <b>else:</b> &lt;$nopage&gt;
+184 184               self.fp = StringIO('(no data)')
+185 185      <b>else:</b> &lt;$nopage&gt;
+186 186               self.fp = StringIO('(no file)')
+187 187               self.fn = ''
+188 188
+189 189      <b>if not</b> self.error:
+190 190               self.doResults()
+191 191      <b>else:</b> &lt;$nopage&gt;
+192 192               self.showError()
+193 193
+194 194  <b>if</b> __name__ == '__main__':
+195 195      page = AdvCGI()
+196 196      page.go()
+197  &lt;$nopage&gt;</pre>
+					
+					<p><tt clAss="monofont">advcgi.py</Tt> looks strikingly similar to our <tt Class="monofont">friends3.py</Tt> CGI scripts seen earlier in this chapter. It has form, results, and error pages to return. In addition to all of the advanced CGI features which are part of our new script, we are also using more of an object-oriented feel to our script by using a class with methods instead of just a set of functions. The HTML text for our pages are now static data for our class, meaning that they will remain constant across all instances—even though there is actually only one instance in our case.</p>
+
+					
+						<h5>Line-by-line (Block-by-block) explanation</H5>
+						
+							<H5>Lines 1 – 7</H5>
+							<P>The usual start-up and import lines appear here. The only module you may not be familiar with is <tt clASS="monofont">cStringIO,</Tt> which we briefly introduced at the end of <a hrEF="154.html">Chapter 10</A> and also used in <A href="275#1.html">Example 19-1</A>. <TT Class="monofont">cStringIO.StringIO()</tt> creates a file-like object out of a string so that access to the string is similar to opening a file and using the handle to access the data.</p>
+
+						
+						
+							<h5>Lines 9 – 12</h5>
+							<p>After the <tt class="monofont">AdvCGI</tt> class is declared, the <tT clAss="monofont">header</tT> and <tt clAss="monofont">url</tT> (static class) variables are created for use by the methods displaying all the different pages.</P>
+
+						
+						
+							<H5>Lines 14 – 80</H5>
+							<p>All the code in this block is used to generate and display the form page. The data attributes speak for themselves. <tt cLASS="monofont">getCPPCookies()</tt> obtains cookie information sent by the Web client, and <tt CLASs="monofont">showForm()</tt> collates all the information and sends the form page back to the client.</p>
+
+						
+						
+							<H5>Lines 82 – 91</H5>
+							<P>This block of code is responsible for the error page.</P>
+
+						
+						
+							<h5>Lines 93 – 144</h5>
+							<p>The results page is created using this block of code. The <tt class="monofont">setCPPCookies()</tt> method requests that a client store the cookies for our application, and the <tt class="monofont">doResults()</tT> method puts together all the data and sends the output back to the client.</p>
+
+						
+						
+							<h5>Lines 146 – 196</H5>
+							<p>The script begins by instantiating an <tt Class="monofont">AdvCGI</Tt> page object, then call its <tt CLASs="monofont">go()</tt> method to start the ball rolling, in contrast to a strictly procedural programming process. The <tT CLAss="monofont">go()</tt> method contains the logic that reads all incoming data and decides which page to show.</P>
+
+							<P>The error page will be displayed if no name was given or if no languages were checked. The <TT clasS="monofont">showForm()</TT> method is called to output the form if no input data was received, and the <Tt class="monofont">doResults()</tt> method is invoked otherwise to display the results page.</p>
+
+							<p>Handling the person field is the same as we have seen in the past, a single key-value pair; however, collecting the language information is a bit trickier since we must check for either a <tt class="monofont">(Mini)FieldStorage</tt> instance or a list of such instances. We will employ the familiar <tT clAss="monofont">type()</tT> built-in function for this purpose. In the end, we will have a list of a single language name or many, depending on the user's selections.</p>
+
+							<p>The use of cookies to contain data illustrates how they can be used to avoid using any kind of CGI field pass-through. You will notice in the code which obtains such data that no CGI processing is invoked, meaning that the data does not come from the <tt ClasS="monofont">FieldStorage</TT> object. The data is passed to us by the Web client with each request and the values (user's chosen data as well as information to fill in a succeeding form with pre-existing information) are obtained from cookies.</P>
+
+							<p>Because the <tt cLASS="monofont">showResults()</tt> method receives the new input from the user, it has the responsibility of setting the cookies, i.e., by calling <tt CLASs="monofont">setCPPCookies(). showForm()</tt> however, must read in the cookies' values in order to display a form page with the current user selections. This is done by its invocation of the <tT CLAss="monofont">getCPPCookies()</tt> method.</p>
+
+							<p>Finally, we get to the file upload processing. Regardless of whether a file was actually uploaded, <tt class="monofont">FieldStorage</tt> is given a file handle in the file attribute. If the value attribute is accessed, then entire contents of the file will be placed into value. As a better alternative, you can access the file pointer—the file attribute—and perhaps read only one line at a time or other kind of slower processing.</p>
+
+							<p>In our case, file uploads are only part of user submissions, so we simply pass on the file pointer to the <tt cLasS="monofont">doResults()</tt> function to extract the data from the file. <tT clasS="monofont">doResults()</tt> will display only the first 1K of the file for space reasons and to show you that it is not necessary (or necessarily productive/useful) to display a four megabyte binary file.</p>
+
+						
+					
+				
+			</FONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="277.html" title="Building CGI Application"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=278" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="278.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="279.html" title="Web (HTTP) Servers"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

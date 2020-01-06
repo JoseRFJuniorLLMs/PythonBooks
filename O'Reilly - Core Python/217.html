@@ -1,0 +1,396 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Instance Attributes</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="210.html" class="navtitle">13. Classes and OOP</a> &gt; <span class="nonavtitle">Instance Attributes</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="216.html" title="Instances"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=217" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="217.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="218.html" title="Binding and Method Invocation"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A15%3A08+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004231200013193077175125255</font><a href="read1.asp?bookname=0130260363&snode=217&now=5%2F30%2F2002+8%3A15%3A08+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Instance Attributes</h3>
+				<p>Instances have only data attributes (methods are strictly class attributes) and are simply data values which you want to be associated with a particular instance of any class and are accessible via the familiar dotted-attribute notation. These values are independent of any other instance or of the class it was instantiated from. When an instance is deallocated, so are its attributes.</p>
+
+				
+					<H4>"Instantiating"  Instance Attributes (or, Creating a Better Constructor)</H4>
+					<P>Instance attributes can be set any time after an instance has been created, in any piece of code that has access to the instance. However, one of the key places where such attributes are set is in the constructor, <Tt claSS="monofont">__init__().</TT></p>
+
+					
+						<h5>Constructor First Place to Set Instance Attributes</h5>
+						<p>The constructor is the earliest place that instance attributes can be set because <TT CLass="monofont">__init__()</tt> is the first method called after instance objects have been created. There is no earlier opportunity to set instance attributes. Once <tt class="monofont">__init__()</tt> has finished execution, the instance object is returned, completing the instantiation process.</p>
+
+					
+					
+						<h5>Default Arguments Provide Default Instance Setup</h5>
+						<p>One can also use <tt ClaSs="monofont">__init__()</tt> along with default arguments to provide an effective way in preparing an instance for use in the real world. In many situations, the default values represent the most common cases for setting up instance attributes, and such use of default values precludes them from having to be given explicitly to the constructor. We also outlined some of the general benefits of default arguments in <A href="173#3.html">Section 11.5.2</A>.</p>
+
+						<p><a HREF="217#4.html">Example 13.1</a> shows how we can use the default constructor behavior to help us calculate some sample total room costs for lodging at hotels in some of America's large metropolitan areas.</p>
+
+						<p>The main purpose of our code is to help someone figure out the daily hotel room rate, including any state sales and room taxes. The default is for the general area around San Francisco, which has an 8.5% sales tax and a 10% room tax. The daily room rate has no default value, thus it is required for any instance to be created.</p>
+
+						<P>The setup work is done after instantiation by <TT Class="monofont">__init__()</TT> in lines 4–8, and the other core part of our code is the <TT clasS="monofont">calcTotal()</TT> method, lines 10–14. The job of <Tt class="monofont">__init__()</tt> is to set the values needed to determine the total base room rate of a hotel room (not counting room service, phone calls, or other incidental items). <tt class="monofont">calcTotal()</tt> is then used to either determine the total daily rate or for an entire stay if the number of days is provided. The <tt cLasS="monofont">round()</tt> built-in function is used to round the calculation to the closest penny (two decimal places). Here is some sample usage of this class:</p>
+
+						
+							<H5>
+<a namE="4"></a>Example 13.1. Using Default Arguments with Instantiation (<tt CLASs="monofont">hotel.py</tt>)</h5>
+							<P><B><I>Class definition for a fictitious hotel room rate calculator. The</I></b>
+								<tt cLASS="monofont">__init__()</tt>
+								<b><i>constructor method initializes several instance attributes. A</I></B>
+								<TT class="monofont">calcTotal()</tt>
+								<b><i>method is used to determine either a total daily room rate, or the total room cost for an entire stay.</i></b></p>
+
+							<pre class="monofont"> &lt;$nopage&gt;
+001 1  <B>class</b> HotelRoomCalc:
+002 2      'Hotel room rate calculator'
+003 3
+004 4      <b>def</B> __init__(self, rt, sales=0.085, rm=0.1):
+005 5          '''HotelRoomCalc default arguments:
+006 6          sales tax == 8.5% and room tax == 10%'''
+007 7          self.salesTax = sales
+008 8          self.roomTax = rm
+009 9          self.roomRate = rt
+010 10
+011 11     <b>def</b> calcTotal(self, days=1):
+012 12         'Calculate total; default to daily rate'
+013 13         daily = round((self.roomRate * \
+014 14             (1 + self.roomTax + self.salesTax)), 2)
+015 15         <b>return</B> float(days) * daily
+016  &lt;$nopage&gt;</pre>
+						
+						<pRe>
+							
+&gt;&gt;&gt; sfo = HotelRoomCalc(299)                     # new instance
+&gt;&gt;&gt; sfo.calcTotal()                              # daily rate
+354.32
+&gt;&gt;&gt; sfo.calcTotal(2)                             # 2-day rate
+708.64
+&gt;&gt;&gt; sea = HotelRoomCalc(189, 0.086, 0.058)       # new instance
+&gt;&gt;&gt; sea.calcTotal()
+216.22
+&gt;&gt;&gt; sea.calcTotal(4)
+864.88
+&gt;&gt;&gt; wasWkDay = HotelRoomCalc(169, 0.045, 0.02)   # new instance
+&gt;&gt;&gt; wasWkEnd = HotelRoomCalc(119, 0.045, 0.02)   # new instance
+&gt;&gt;&gt; wasWkDay.calcTotal(5) + wasWkEnd.calcTotal() # 7-day rate
+1026.69
+
+						</prE>
+
+						<P>The first two hypothetical examples were San Francisco, which used the defaults, and then Seattle, where we provided different sales tax and room tax rates. The final example, Washington, D.C., extended the general usage by calculating a hypothetical longer stay:  a five-day weekday stay plus a special rate for one weekend day, assuming a Sunday departure to return home.</P>
+
+						<P>Do not forget that all the flexibility you get with functions, such as default arguments, apply to methods as well. The use of variable-length arguments is another good feature to use with instantiation (based on an application's needs, of course).</p>
+
+					
+					
+						<h5>Constructor Should Return <tt CLASs="monofont">None</tt></h5>
+						<P>As you are now aware, invoking a class object with the function operator creates a class instance, which is the object returned on such an invocation, as in the following example:</P>
+
+						<PRe>
+							
+&gt;&gt;&gt; <b>class</b> MyClass:
+…        <b>pass</B>
+&gt;&gt;&gt; myInstance = MyClass()
+&gt;&gt;&gt; myInstance
+&lt;__main__.MyClass instance at 95d390&gt;
+
+						</PRE>
+
+						<p>If a constructor is defined, it should not return any object because the instance object is automatically returned after the instantiation call. Correspondingly, <tt class="monofont">__init__()</tt> should not return any object (or return <tt class="monofont">None</tt>); otherwise, there is a conflict of interest because only the instance should be returned. Attempting to return any object other than None will result in a <tT clAss="monofont">TypeError</tT> exception:</p>
+
+						<pre>
+							
+&gt;&gt;&gt; <B>class</b> MyClass:
+…   <b>def</b> __init__(self):
+…       <B>print</B> 'initialized'
+…       <B>return</B> 1
+…
+&gt;&gt;&gt; myInstance = MyClass()
+initialized
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+    myInstance = MyClass()
+TypeError: __init__() should return None
+
+						</pre>
+
+					
+				
+				
+					<h4>Determining Instance Attributes</H4>
+					<P>The <TT clasS="monofont">dir()</TT> built-in function can be used to show all instance attributes in the same manner that it can reveal class attributes:</P>
+
+					<pre>
+						
+&gt;&gt;&gt; <b>class</B> C:
+…        <B>pass</B>
+&gt;&gt;&gt; c = C()
+&gt;&gt;&gt; c.foo = 'roger'
+&gt;&gt;&gt; c.bar = 'shrubber'
+&gt;&gt;&gt; dir(c)
+['bar', 'foo']
+
+					</Pre>
+
+					<p>Similar to classes, instances also have a <tt class="monofont">__dict__</tt> special attribute (also accessible by calling <tt class="monofont">vars()</tT> and passing it an instance), which is a dictionary representing its attributes:</p>
+
+					<pRe>
+						
+&gt;&gt;&gt; c.__dict__
+{'foo': 'roger', 'bar': 'shrubber'}
+
+					</prE>
+
+				
+				
+					<h4>Special Instance Attributes</h4>
+					<p>Instances have only two special attributes (see <a Href="217#8.html">Table 13.2</A>). For any instance <I><TT clasS="monofont">I:</TT></I></p>
+
+					<a naME="8"></A><P><tablE BORder="1" cellspacing="0" cellpaDdiNg="1" wiDth="100%">
+<caPtioN><H5>Table 13.2. Special Instance Attributes</H5></CaptiON><COlgroUP ALign="left" sPAN="2">
+<Tr valign="top">
+<td>
+<font size="2"><p><i><tT clAss="monofont">I.</tT></i><tt cLass="monofont">__class__</TT></P>
+</Font></tD>
+<TD>
+<Font sIZE="2"><P>class from which <i><tt cLASS="monofont">I</tt></i> is instantiated</p>
+</font></td>
+</tr>
+<tr valign="top">
+<Td>
+<fOnt sIze="2"><p><i><Tt clASS="monofont">I.</Tt></i><tt CLASs="monofont">__dict__</tt></p>
+</FONT></td>
+<td>
+<FONT size="2"><p>attributes of <i><tt class="monofont">I</tt></i></p>
+</fonT></td>
+</Tr>
+</coLgrouP>
+</tabLE></P>
+
+					<P>We will now take a look at these special instance attributes using the class <tt clASS="monofont">C</Tt> and its instance <tt cLASS="monofont">c:</tt></p>
+
+					<pRE>
+						
+&gt;&gt;&gt; <B>class</B> C:     # define class
+…     <b>pass</b>
+…
+&gt;&gt;&gt; c = C()                    # create instance
+&gt;&gt;&gt; dir(c)                     # instance has no attributes
+[]
+&gt;&gt;&gt; c.__dict__                 # yep, definitely no attributes
+{}
+&gt;&gt;&gt; c.__class__                # class that instantiated us
+&lt;class __main__.C at 948230&gt;
+
+					</pre>
+
+					<p>As you can see, <tt class="monofont">c</tt> currently has no data attributes; but we can add some and recheck the <tt claSs="monofont">__dict__</tT> attribute to make sure they have been added properly:</p>
+
+					<prE>
+						
+&gt;&gt;&gt; c.foo = 1
+&gt;&gt;&gt; c.bar = 'SPAM'
+&gt;&gt;&gt; '%d can of %s please' % (c.foo, c.bar)
+'1 can of SPAM please'
+&gt;&gt;&gt; dir(c)
+['bar', 'foo']
+&gt;&gt;&gt; c.__dict__
+{'foo': 1, 'bar': 'SPAM'}
+
+					</pre>
+
+					<p>The <Tt clASS="monofont">__dict__</Tt> attribute consists of a dictionary containing the attributes of an instance. The keys are the attribute names, and the values are the attributes' corresponding data values. You will only find instance attributes in this dictionary—no class attributes nor special attributes.</p>
+
+					<diV CLAss="note"><p cLASS="notetitle"><b>NOTE</b></p><p><P><I>Although the</I>
+							<Tt class="monofont">__dict__</tt>
+							<i>attributes for both classes and instances are mutable, it is recommended that you not modify these dictionaries unless or until you know exactly what you are doing. Such modification contaminates your OOP and may have unexpected side effects. It is more acceptable to access and manipulate attributes using the familiar dotted-attribute notation. One of the few cases where you would modify the</i>
+							<tt class="monofont">__dict__</tt>
+							<i>attribute directly is when you are overriding the</I>
+							<tt ClasS="monofont">__setattr__</tt>
+							<i>special method. Implementing</i>
+							<Tt clASS="monofont">__setattr__()</Tt>
+							<i>is another adventure story on its own, full of traps and pitfalls such as infinite recursion and corrupted instance objects—but that is another tale for another time.</i></p>
+</P></DIV><br>
+
+				
+				
+					<h4>Built-in Type Attributes</h4>
+					<P>Built-in types also have attributes, and although they are technically not class instance attributes, they are sufficiently similar to get a brief mention here. Type attributes do not have an attribute dictionary like classes and instances <TT Class="monofont">(__dict__),</TT> so how do we figure out what attributes built-in types have?  The convention for built-in types is to use two special attributes, <TT class="monofont">__methods__</tt> and <tt class="monofont">__members__,</tt> to outline any methods and/or data attributes. Complex numbers are one example of a built-in type with both methods and attributes, so we will use its <tt clAss="monofont">__methods__</Tt> and <tt Class="monofont">__members__</Tt> to help us hunt down its attributes:</p>
+
+					<pRE>
+						
+&gt;&gt;&gt; aComplex = (1+2j)    # create a complex number
+&gt;&gt;&gt; type(aComplex)       # display its type
+&lt;type 'complex'&gt;
+&gt;&gt;&gt; aComplex.__members__ # reveal its data attributes
+['imag', 'real']
+&gt;&gt;&gt; aComplex.__methods__ # reveal its methods
+['conjugate']
+
+					</PRe>
+
+					<p>Now that we know what kind of attributes a complex number has, we can access the data attributes and call its methods:</p>
+
+					<pRE>
+						
+&gt;&gt;&gt; aComplex.imag
+2.0
+&gt;&gt;&gt; aComplex.real
+1.0
+&gt;&gt;&gt; aComplex.conjugate()
+(1-2j)
+
+					</PRe>
+
+					<p>Attempting to access <tt CLASs="monofont">__dict__</tt> will fail because that attribute does not exist for built-in types:</p>
+
+					<PRE>
+						
+&gt;&gt;&gt; aComplex.__dict__
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+AttributeError: __dict__
+
+					</Pre>
+
+					<p>Our final remark for this section is to note that the <tt class="monofont">__members__</tt> and <tt class="monofont">__methods__</tT> special attributes is simply a convention. New types defined in external or third-party extension modules may not choose to implement them, although it is highly recommended.</p>
+
+				
+				
+					<h4>Instance Attributes vs. Class Attributes</H4>
+					<p>We first described class data attributes in <a hRef="215#1.html">Section 13.4.1</a>. As a brief reminder, class attributes are simply data values associated with a class and not any particular instances like instance attributes are. Such values are also referred to as static members because their values stay constant, even if a class is invoked due to instantiation multiple times. No matter what, static members maintain their values independent of instances unless explicitly changed. Comparing instance attributes to class attributes is almost like the comparison between automatic and static variables, if you are familiar with these concepts from other languages.</p>
+
+					<P>There are a few aspects of class attributes versus instance attributes that should be brought to light. The first is that you can access a class attribute with either the class or an instance, provided that the instance does not have an attribute with the same name.</p>
+
+					
+						<h5>Access to Class Attributes</h5>
+						<P>Class attributes can be accessed via a class or an instance. In the example below, when class <TT Class="monofont">C</TT> is created with the version class attribute, naturally access is allowed using the class object, i.e., <TT clasS="monofont">C.version.</TT> When instance <Tt claSS="monofont">c</TT> is created, Python provides a default, read-only instance attribute which is an alias to the class attribute, i.e., <tt class="monofont">c.version:</tt></p>
+
+						<pre>
+							
+&gt;&gt;&gt; <b>class</b> C:                       # define class
+…       version = 1.0              # static member
+…
+&gt;&gt;&gt; c = C()                        # instantiation
+&gt;&gt;&gt; C.version                      # access via class
+1.0
+&gt;&gt;&gt; c.version                      # access via instance
+1.0
+&gt;&gt;&gt; C.version = C.version + .1     # update (only) via class
+&gt;&gt;&gt; C.version                      # class access
+1.1
+&gt;&gt;&gt; c.version                      # instance access, which
+1.1                                # also reflected change
+
+						</pre>
+
+						<p>However, access via to a class attribute via an instance attribute is strictly read-only (see below for what happens if you try to update one), so we can only update the value when referring to it using the class, as in the <tT clAss="monofont">C.version</tT> increment statement above. Attempting to set or update the class attribute using the instance name is not allowed and will create an instance attribute.</p>
+
+					
+					
+						<h5>Assignment Creates Local Instance Attribute</h5>
+						<p>Any type of assignment of a local attribute will result in the creation and assignment of an instance attribute, just like a regular Python variable. If a class attribute exists with the same name, it is overridden in the instance:</P>
+
+						<pre>
+							
+&gt;&gt;&gt; dir(C)
+['__doc__', '__module__', 'version']
+&gt;&gt;&gt; dir(c)
+[]
+&gt;&gt;&gt; c.version = 100      # attempt to update class attr
+&gt;&gt;&gt; c.version
+100
+&gt;&gt;&gt; C.version            # nope, class attr unchanged
+1.1
+&gt;&gt;&gt; dir(c)               # confirm new instance attr created
+['version']
+
+						</PRE>
+
+						<P>In the above code snippet, a new instance attribute named <tt clASS="monofont">version</Tt> is created, overriding the reference to the class attribute. However, the class attribute itself is unscathed and still exists in the class domain and can still be accessed as a class attribute, as we can see above.</p>
+
+						<p>To confirm that a new instance attribute was added, the call to <tT CLAss="monofont">dir()</tt> in the above code snippet reveals no attributes for instance <TT CLass="monofont">c,</tt> while class <tt class="monofont">C</tt> had three attributes (<tt clasS="monofont">__doc__, __module__,</tt> and <Tt clAss="monofont">version</tt>). Calling <Tt clASS="monofont">dir()</Tt> again on <tt cLASS="monofont">c</tt> after the assignment yields one new attribute, <tt CLASs="monofont">version.</tt></p>
+
+						<P>What would happen if we delete this new reference?  To find out, we will use the <TT Class="monofont">del</tt> statement on <tt class="monofont">c.version.</tt></p>
+
+						<pre>
+							
+&gt;&gt;&gt; <b>del</B> c.version        # delete instance attribute
+&gt;&gt;&gt; dir(c)
+[]
+&gt;&gt;&gt; c.version            # can now access class attr again
+1.1
+
+						</prE>
+
+						<p>Now let us try to update the class attribute again, but this time, we will just try an innocent increment:</p>
+
+						<pRe>
+							
+&gt;&gt;&gt; c.version = c.version + 1.0
+&gt;&gt;&gt; c.version
+2.1
+&gt;&gt;&gt; dir(c)
+['version']
+&gt;&gt;&gt; C.version
+1.1
+
+						</pre>
+
+						<P>It is still a "no go."  We again created a new instance attribute while leaving the original class attribute intact. The expression on the right-hand side of the assignment evaluates the original class variable, adds 1.0 to it, and assigns it to a newly-created instance attribute. Note that the following is an equivalent assignment, but it may perhaps provide more clarification:</p>
+
+						<prE>
+							
+c.static = C.static + 1.0
+						</PRE>
+
+					
+					
+						<h5>Class Attributes More Persistent</h5>
+						<p>Static members, true to their name, hang around while instances (and their attributes) come and go (hence independent of instances). Also, if a new instance is created after a class attribute has been modified, the updated value will be reflected:</p>
+
+						<PRE>
+							
+&gt;&gt;&gt; <B>class</b> C:
+…       spam = 100           # class attribute
+…
+&gt;&gt;&gt; c1 = C()                  # create an instance
+&gt;&gt;&gt; c1.spam                   # access class attr thru inst.
+100
+&gt;&gt;&gt; C.spam = C.spam + 100     # update class attribute
+&gt;&gt;&gt; C.spam                    # see change in attribute
+200
+&gt;&gt;&gt; c1.spam                   # confirm change in attribute
+200
+&gt;&gt;&gt; c2 = C()                  # create another instance
+&gt;&gt;&gt; c2.spam                   # verify class attribute
+200
+&gt;&gt;&gt; <b>del</b> c1                    # remove one instance
+&gt;&gt;&gt; C.spam = C.spam + 200     # update class attribute again
+&gt;&gt;&gt; c2.spam                   # verify that attribute changed
+400
+
+						</pRE>
+
+					
+				
+			</FOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="216.html" title="Instances"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=217" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="217.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="218.html" title="Binding and Method Invocation"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

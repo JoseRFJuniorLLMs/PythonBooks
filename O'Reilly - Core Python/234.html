@@ -1,0 +1,136 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Executing Other (Python) Programs</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="229.html" class="navtitle">14. Execution Environment</a> &gt; <span class="nonavtitle">Executing Other (Python) Programs</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="233.html" title="Executable Object Statements and Built-in Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=234" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="234.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="235.html" title="Executing Other (Non-Python) Programs"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A22%3A18+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004228145120028211154087132</font><a href="read8.asp?bookname=0130260363&snode=234&now=5%2F30%2F2002+8%3A22%3A18+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Executing Other (Python) Programs</h3>
+				<p>When we discuss the execution of other programs, we distinguish between Python programs and all other non-Python programs, which includes binary executables or other scripting language source code. We will cover how to run other Python programs first, then how to use the <tT CLAss="monofont">os</tt> module to invoke external programs.</P>
+
+				
+					<H4>Import</H4>
+					<P>During run-time, there are a number of ways to execute another Python script. As we discussed in an earlier chapter, importing a module the first time will cause the code at the top-level of that module to execute. This is the behavior of Python importing, whether desired or not. We remind you that the only code that belongs to the top-level of a module are global variables, and  class and function declarations.</p>
+
+					<p>These should be followed by an <b><tT CLAss="monofont">if</tt></b> statement that checks <tt class="monofont">__name__</tt> to determine if a script is invoked, i.e., "<b><tt claSs="monofont">if</tT></b>
+							<tt Class="monofont">__name__ == '__main__'</Tt>". In these cases, your script can then execute the main body of code, or, if this script was meant to be imported, it can run a test suite for the code in this module.</p>
+
+					<p>One complication arises when the imported module itself contains <B><TT Class="monofont">import</TT></B> statements. If the modules in these <B><tt clASS="monofont">import</Tt></b> statements have not been loaded yet, they will be loaded and their top-level code executed, resulting in recursive import behavior. We present a simple example below. We have two modules <tt CLASs="monofont">import1</tt> and <tt class="monofont">import2,</tt> both with <b><tt class="monofont">print</Tt></b> statements at their outermost level. <Tt clAss="monofont">import1</tt> imports <Tt clASS="monofont">import2</Tt> so that when we import <tt cLASS="monofont">import1</tt> from within Python, it imports and "executes"
+						<tt CLASs="monofont">import2</tt> as well:</p>
+
+					<P>Here are the contents of <TT Class="monofont">import1.py:</tt></p>
+
+					<pre>
+						
+# import1.py
+<b>print</b> 'loaded import1'
+<b>import</b> import2
+
+					</pre>
+
+					<p>And here are the contents of <tt ClaSs="monofont">import2.py:</tt></P>
+
+					<pre>
+						
+# import2.py
+<b>print</B> 'loaded import2'
+					</pre>
+
+					<P>Here is the output when we import <TT Class="monofont">import1</TT> from Python:</P>
+
+					<Pre>
+						
+&gt;&gt;&gt; <b>import</b> import1
+loaded import1
+loaded import2
+&gt;&gt;&gt;
+					</PRE>
+
+					<P>Following our suggested workaround of checking the value of <tt clASS="monofont">__name__,</Tt> we can change the code in <tt class="monofont">import1.py</tt> and <tt class="monofont">import2.py</tt> so that this behavior does not occur:</p>
+
+					<P>Here is the modified version of <tt ClasS="monofont">import1.py:</tt></p>
+
+					<pRe>
+						
+# import1.py
+<b>import</b> import2
+<B>if</B> __name__ == '__main__':
+      <B>print</B> 'loaded import1'
+
+					</pre>
+
+					<p>The following is the code for <TT CLass="monofont">import2.py,</tT> changed in the same manner:</P>
+
+					<PRe>
+						
+# import2.py
+<b>if</b> __name__ == '__main__'
+      <b>print</B> 'loaded import2'
+
+					</PRE>
+
+					<p>We no longer get any output when we import <tt class="monofont">import1</tt> from Python:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; <b>import</b> import1
+&gt;&gt;&gt;
+
+					</pre>
+
+					<p>Now it does not necessarily mean that this is the behavior you should code for all situations. There may be cases where you <I>want</i> to display output to confirm a module import. It all depends on your situation. Our goal is to provide pragmatic programming examples to prevent unintended side effects.</p>
+
+				
+				
+					<H4><tt cLass="monofont">execfile()</tT></h4>
+					<p>It should seem apparent that importing a module is not the preferred method of executing a Python script from within another Python script; that is not what the importing process is. One side effect of importing a module is the execution of the top-level code.</p>
+
+					<P>Earlier in this chapter, we described how the <B><TT clasS="monofont">exec</TT></B> statement can be used with a file object argument to read the contents of a Python script and execute it. This can be accomplished with the following code segment:</p>
+
+					<pre>
+						
+f = open(<I>filename,</I> 'r')
+<B>exec</B> f
+f.close()
+
+					</pre>
+
+					<p>The three lines can be replaced by a single call to <TT CLass="monofont">execfile():</tt></p>
+
+					<pre>
+						
+execfile(<i>filename</i>)
+					</pre>
+
+					<p>Although the code above does execute a module, it does so only in its current execution environment (i.e., its global and local namespace). There may be a desire to execute a module with a different set of global and local dictionaries instead of the default ones. For this purpose, we can use the <tt claSs="monofont">execfile()</tT> built-in function, whose syntax allows the programmer to specify the namespaces:</p>
+
+					<prE>
+						
+execfile(<i>filename, globals</i>=globals(), <i>locals</i>=locals())
+					</Pre>
+
+				
+			</fONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="233.html" title="Executable Object Statements and Built-in Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=234" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="234.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="235.html" title="Executing Other (Non-Python) Programs"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

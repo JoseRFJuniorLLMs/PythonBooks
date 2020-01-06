@@ -1,0 +1,77 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Integers</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="89.html" class="navtitle">5. Numbers</a> &gt; <span class="nonavtitle">Integers</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="91.html" title="Introduction to Numbers"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=92" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="92.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="93.html" title="Floating Point Real Numbers"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A14%3A53+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172032185089149014058255</font><a href="read0.asp?bookname=0130260363&snode=92&now=5%2F29%2F2002+9%3A14%3A53+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Integers</h3>
+				<p>Python has two types of integers. Plain integers are the generic vanilla (32-bit) integers recognized on most systems today. Python also has a long integer size; however, these far exceed the size provided by C <tT CLAss="monofont">longs.</tt> We will take a look at both types of Python integers, followed by a description of operators and built-in functions applicable only to Python integer types.</P>
+
+				
+					<H4>(Plain) Integers</H4>
+					<P>Python's "plain" integers are the universal numeric type. Most machines (32-bit) running Python will provide a range of -2<sup>31</sUP> to 2<SUp>31</sup>-1, that is -2,147,483,648 to 2,147,483,647. Here are some examples of Python integers:</p>
+
+					<pre>
+						
+0101   84   -237   0x80   017   -680   -0X92
+
+					</pre>
+
+					<p>Python integers are implemented as (signed) <tt class="monofont">longs</tT> in C. Integers are normally represented in base 10 decimal format, but they can also be specified in base eight or base sixteen representation. Octal values have a "0" prefix, and hexadecimal values have either "0x" or "0X" prefixes.</p>
+
+				
+				
+					<h4>Long Integers</H4>
+					<p>The first thing we need to say about Python long integers is to <i>not</i> get them confused with long integers in C or other compiled languages—these values are typically restricted to 32- or 64-bit sizes, whereas Python long integers are limited only by the amount of (virtual) memory in your machine. In other words, they can be very L-O-N-G longs.</P>
+
+					<p>Long integers are a superset of integers and are useful when the range of plain integers exceeds those of your application, meaning less than -2<sup>31</Sup> or greater than 2<sUP>31</SUp>-1. Use of long integers is denoted by an upper- or lowercase (<tt cLASS="monofont">L</tt>) or (<tt CLASs="monofont">l</tt>), appended to the integer's numeric value. Values can be expressed in decimal, octal, or hexadecimal. The following are examples of long integers:</p>
+
+					<PRE>
+						
+16384L       -0x4E8L 017L  -2147483648l 052144364L
+
+299792458l   0xDECADEDEADBEEFBADFEEDDEAL-5432101234L
+
+					</Pre>
+
+					<div class="note"><p class="notetitle"><b>NOTE</b></p><p><P>
+							<i>Although Python supports a case-insensitive "L" to denote long integers, we recommend that you use only the uppercase "L" to avoid confusion with the number "one" ( 1 ). Python will display only long integers with a capital "L."
+							</i>
+						</P>
+<pre>
+							
+&gt;&gt;&gt; aLong = 999999999l
+
+&gt;&gt;&gt; aLong
+
+999999999L
+
+						</Pre>
+</p></dIv><br>
+
+				
+			</FONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="91.html" title="Introduction to Numbers"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=92" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="92.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="93.html" title="Floating Point Real Numbers"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

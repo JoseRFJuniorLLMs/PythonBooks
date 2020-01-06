@@ -1,0 +1,619 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Executable Object Statements and Built-in Functions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="229.html" class="navtitle">14. Execution Environment</a> &gt; <span class="nonavtitle">Executable Object Statements and Built-in Functions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="232.html" title="Code Objects"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=233" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="233.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="234.html" title="Executing Other (Python) Programs"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A21%3A33+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004228146003100134192208091</font><a href="read8.asp?bookname=0130260363&snode=233&now=5%2F30%2F2002+8%3A21%3A33+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Executable Object Statements and Built-in Functions</h3>
+				<p>Python provides a number of built-in functions supporting callables and executable objects, including the <b><TT CLass="monofont">exec</tT></B> statement. These functions let the programmer execute code objects as well as generate them using the <TT clasS="monofont">compile()</TT> built-in function and are listed in <A href="233#1.html">Table 14.6</a>.</p>
+
+				<a name="1"></a><p><table boRdeR="1" celLspacIng="0" cELLPaddiNG="1" WIdth="100%">
+<cAPTIon><h5>Table 14.6. Executable Object Statements and Built-in Functions</h5></CAPTion><colgroup align="left" span="2">
+<Tr vAligN="top">
+<th>
+<foNt siZE="2"><B><I>Built-in Function or Statement</i></b></foNT></TH>
+<th>
+<foNT SIze="2"><b><i>Description</I></B></FOnt></th>
+</tr>
+<tr valign="top">
+<td>
+<font SizE="2"><tt cLass="monofont">callable(</tT><b><i><tT CLAss="monofont">obj</tt></I></B><TT clasS="monofont">)</TT></Font></tD>
+<TD>
+<Font size="2">determines if <b><i><tt class="monofont">obj</tt></i></b> is callable; returns 1 if so, 0 otherwise</FonT></td>
+</tR>
+<tr vaLign="top">
+<TD>
+<FOnt siZE="2"><TT clasS="monofont">compile(</TT><B><i><tt cLASS="monofont">string, file, type</tt></i></b><tt class="monofont">)</tt></font></td>
+<tD>
+<foNt siZe="2">creates a code object from <b><i><tT claSS="monofont">string</TT></i></b> of type <b><i><TT CLass="monofont">type;</tT></I></B>
+									<B><i><tt cLASS="monofont">file</tt></i></b> is where the code originates from (usually set to ?)</font></td>
+</tr>
+<tr valign="top">
+<Td>
+<fOnt sIze="2"><tt ClasS="monofont">eval(</TT><B><i><tt cLASS="monofont">obj, globals</tt></i></b><TT CLass="monofont">=globals(),</tT>
+									<B><I><Tt class="monofont">locals</tt></i></b><tt class="monofont">=locals())</tt></fOnt></Td>
+<td>
+<Font sIze="2">evaluates <b><I><TT Class="monofont">obj,</TT></I></B> which is either a expression compiled into a code object or a string expression; global and/or local namespace dictionaries may also be provided, otherwise, the defaults for the current environment will be used</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<font size="2"><b><tt class="monofont">exec</tt></B>
+									<b><i><Tt clAss="monofont">obj</tt></I></b></foNT></TD>
+<td>
+<foNT SIze="2">execute <b><i><TT CLass="monofont">obj,</tT></I></B> a single Python statement or set of statements, either in code object or string format; <B><i><tt class="monofont">obj</tt></i></b> may also be a file object (opened to a valid Python script)</font></td>
+</tr>
+<Tr vAligN="top">
+<td>
+<foNt siZE="2"><TT clasS="monofont">input(</TT><B><i><tt cLASS="monofont">prompt</tt></i></b><TT CLass="monofont">='')</tt></font></td>
+<td>
+<font sizE="2">equivalent to <tt ClasS="monofont">eval(raw_input(</tt><b><i><Tt clASS="monofont">prompt</Tt></i></b><tT CLAss="monofont">=''))</tt></FONT></td>
+</tr>
+<TR VAlign="top">
+<td>
+<font size="2"><tt clasS="monofont">intern(</tt><B><i><tt Class="monofont">string</Tt></i></b><TT CLass="monofont">)</tT></FONt></td>
+<tD>
+<FONt sizE="2">request intern of <B><I><Tt class="monofont">string</tt></i></b></font></td>
+</tr>
+</coLgrOup>
+</tAble></p>
+
+				
+					<H4><tt cLASS="monofont">callable()</tt></h4>
+					<p><TT CLass="monofont">callable()</tT> is a Boolean function which determines if an object type can be invoked via the function operator ( <TT Class="monofont">( )</TT> ). It returns 1 if the object is callable and 0 otherwise. Here are some sample objects and what callable returns for each type:</P>
+
+					<Pre>
+						
+&gt;&gt;&gt; callable(dir)              # built-in function
+1
+&gt;&gt;&gt; callable(1)                # integer
+0
+&gt;&gt;&gt; <b>def</b> foo(): <b>pass</b>
+…
+&gt;&gt;&gt; callable(foo)              # user-defined function
+1
+&gt;&gt;&gt; callable('bar')            # string
+0
+&gt;&gt;&gt; <b>class</b> C: <b>pass</b>
+…
+&gt;&gt;&gt; callable(C)                # class
+1
+
+					</pre>
+
+				
+				
+					<h4><tt clasS="monofont">compile()</tt></H4>
+					<p><tt Class="monofont">compile()</Tt> is a function which allows the programmer to generate a code object on the fly, that is, during run-time. These objects can then be executed or evaluated using the <b><tT CLAss="monofont">exec</tt></B> statement or <TT Class="monofont">eval()</TT> built-in function. It is important to bring up the point that both <B><Tt claSS="monofont">exec</TT></b> and <tt class="monofont">eval()</tt> can take string representations of Python code to execute. When executing code given as strings, the process of byte-compiling such code must occur every time. The <tt class="monofont">compile()</tt> function provides a one-time byte-code compilation of code so that the precompile does not have to take place with each invocation. Naturally, this is an advantage only if the same pieces of code are executed more than once. In these cases, it is definitely better to precompile the code.</p>
+
+					<P>All three arguments to <tt ClasS="monofont">compile()</tt> are required, with the first being a string representing the Python code to compile. The second string, although required, is usually set to the empty string. This parameter represents the file name (as a string) where this code object is located or can be found. Normal usage is for <tt ClasS="monofont">compile()</TT> to generate a code object from a dynamically-generated string of Python code—code which obviously does not read from an existing file.</P>
+
+					<p>The last argument is a string indicating the code object type. There are three possible values:</p>
+
+					<p><tABLE bordER="1" CEllspACINg="0" cellpadding="1" width="100%">
+<colGroUp alIgn="left" spAn="2">
+<tr VALIgn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">'eval'</tT></FONt></td>
+<td>
+<font size="2">evaluatable expression [to be used with <tt class="monofont">eval()</Tt>]</fOnt></tD>
+</tr>
+<tr ValiGN="top">
+<TD>
+<font SIZE="2"><tt clASS="monofont">'single'</Tt></fonT></TD>
+<Td>
+<font size="2">single executable statement [to be used with <b><tt class="monofont">exec</tt></b>]</FonT></td>
+</tR>
+<tr vaLign="top">
+<TD>
+<FOnt siZE="2"><TT clasS="monofont">'exec'</TT></Font></tD>
+<TD>
+<Font size="2">group of executable statements [to be used with <b><tt class="monofont">exec</tt></b>]</foNt></tD>
+</tr>
+</cOlgroUp>
+</taBLE></P>
+
+					
+						<h5>Evaluatable Expression</h5>
+						<prE>
+							
+&gt;&gt;&gt; eval_code = compile('100 + 200', '', 'eval')
+&gt;&gt;&gt; eval(eval_code)
+300
+
+						</PRE>
+
+					
+					
+						<h5>Single Executable Statement</h5>
+						<prE>
+							
+&gt;&gt;&gt; single_code = compile('<B>print</B> "hello world!"', '', 'single')
+&gt;&gt;&gt; single_code
+&lt;code object ? at 120998, file "", line 0&gt;
+&gt;&gt;&gt; <B>exec</b> single_code
+hello world!
+
+						</pre>
+
+					
+					
+						<H5>Group of Executable Statements</H5>
+						<PRe>
+							
+&gt;&gt;&gt; exec_code = compile("""
+…   req = input('Count how many numbers? ')
+…   <b>for</b> eachNum <b>in</b> range(req):
+…       <b>print</b> eachNum 
+…   """, '', 'exec')
+&gt;&gt;&gt; <b>exec</b> exec_code
+Count how many numbers? 6
+0
+1
+2
+3
+4
+5
+
+						</pre>
+
+					
+				
+				
+					<h4><tt class="monofont">eval()</Tt></h4>
+					<P><tt cLass="monofont">eval()</tT> evaluates an expression, either as a string representation or a pre-compiled code object created via the <tt cLASS="monofont">compile()</tt> built-in. This is the first argument to <tt CLASs="monofont">eval().</tt> The second and third parameters, both optional, represent the objects in the global and local namespaces, respectively. If these arguments are not given, they default to objects returned by <tT CLAss="monofont">globals()</tt> and <TT CLass="monofont">locals(),</tt> respectively. Take a look at the following example:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; eval('932')
+932
+&gt;&gt;&gt; int('932')
+932
+
+					</pre>
+
+					<p>We see that in this case, both <tt class="monofont">eval()</Tt> and <tT claSs="monofont">int()</tt> yield the same result: an integer with the value 932. The paths they take are somewhat different, however. <tT claSS="monofont">eval()</TT> takes the string in quotes and evaluates it as a Python expression. <tt clASS="monofont">int()</Tt> takes a string representation of an integer and converts it to an integer. It just so happens that the string consists exactly of the string 932, which as an expression yields the value 932, and that 932 is also the integer represented by the string "932." Things are not the same, however, when we use a pure string expression:</p>
+
+					<prE>
+						
+&gt;&gt;&gt; eval('100 + 200')
+300
+&gt;&gt;&gt; int('100 + 200')
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+ValueError: invalid literal for int(): 100 + 200
+
+					</PRE>
+
+					<p>In this case, <tt cLASS="monofont">eval()</tt> takes the string and evaluates <tt class="monofont">"100 + 200"</tt> as an expression, which, after performing integer addition, yields the value 300. The call to <tt class="monofont">int()</tt> fails because the string argument is not a string representation of an integer—there are invalid literals in the string, namely, the spaces and "<Tt cLass="monofont">+</Tt>" character.</p>
+
+					<p>One simple way to envision how the <tT claSS="monofont">eval()</TT> function works is to imagine that the quotation marks around the expression are invisible and think, "If I were the Python interpreter, how would I view this expression?" In other words, how would the interpreter react if the same expression were entered interactively? The output after pressing the RETURN or ENTER key should be the same as what <tt clASS="monofont">eval()</Tt> will yield.</p>
+
+				
+				
+					<h4><tT CLAss="monofont">exec</tt></H4>
+					<P>Like <TT class="monofont">eval(),</tt> the <tt class="monofont">exec</tt> statement also executes either a code object or a string representing Python code. Similarly, precompiling oft-repeated code with <tt clAss="monofont">compile()</Tt> helps improve performance by not having to go through the bytecode compilation process for each invocation. The <tt Class="monofont">exec</Tt> statement takes exactly one argument, as indicated here with its general syntax:</p>
+
+					<pRE>
+						
+<B>exec</B>
+							<i>obj</i>
+
+					</prE>
+
+					<P>The executed object (<I><Tt claSS="monofont">obj</TT></i>) can be either a single statement or a group of statements, and either may be compiled into a code object (with "single" or "exec," respectively) or it can be just the raw string. Below is an example of multiple statements being sent to <b><tt CLASs="monofont">exec</tt></b> as a single string:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; <b>exec</b> """
+…    x = 0
+…    <b>print</b> 'x is currently:', x
+…    <b>while</b> x &lt; 5:
+…       x = x + 1
+…       <b>print</b> 'incrementing x to:', x
+…    """
+x is currently: 0
+incrementing x to: 1
+incrementing x to: 2
+incrementing x to: 3
+incrementing x to: 4
+incrementing x to: 5
+
+					</pre>
+
+					<p>Finally, <B><tt ClasS="monofont">exec</tt></b> can also accept a valid file object to a (valid) Python file. If we take the code in the multi-line string above and create a file called <tT claSS="monofont">xcount.py,</TT> then we could also execute the same code with the following:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; f = open('xcount.py')        # open the file
+&gt;&gt;&gt; <B>exec</B> f                       # execute the file
+x is currently: 0
+incrementing x to: 1
+incrementing x to: 2
+incrementing x to: 3
+incrementing x to: 4
+incrementing x to: 5
+&gt;&gt;&gt; <B>exec</B> f                       # try execution again
+&gt;&gt;&gt;                              # oops, it failed… why?
+
+					</pre>
+
+					<p>Note that once execution has completed, a successive call to <B><TT Class="monofont">exec</TT></B> fails. Well, it really doesn't <I>fail.</i> It just doesn't do anything, which may have caught you by surprise. In reality, <b><tt class="monofont">exec</tt></b> has read all the data in the file and is sitting at the end-of-file (EOF). When <b><tt class="monofont">exec</Tt></b> is called again with the same file object, there is no more code to execute, so it does not do anything, hence the behavior seen above. How do we know that it is at EOF?</P>
+
+					<p>We use the file object's <tt Class="monofont">tell()</Tt> method to tell us where we are in the file and then use <tt CLASs="monofont">os.path.getsize()</tt> to tell us how large our <tT CLAss="monofont">xcount.py</tt> script was. As you can see, there is an exact match:</P>
+
+					<PRE>
+						
+&gt;&gt;&gt; f.tell()                      # where are we in the file?
+116
+&gt;&gt;&gt; f.close()                     # close the file
+&gt;&gt;&gt; <b>from</b> os.path <b>import</b> getsize
+&gt;&gt;&gt; getsize('xcount.py')          # what is the file size?
+116
+
+					</PRE>
+
+					
+						<H5>Using Python to Generate and Execute Python Code Example</h5>
+						<p>We now present code for the <tt class="monofont">loopmake.py</tt> script, which is a simple computer-aided software engineering (CASE) that generates and executes loops on-the-fly. It prompts the user for the various parameters (i.e., loop type (<b><tt class="monofont">while</tT></b> or <b><Tt clAss="monofont">for</tt></B>), type of data to iterate over [numbers or sequences]), generates the code string, and executes it.</p>
+
+						
+							<h5>
+Example 14.1. Dynamically Generating and Executing Python Code (<tT CLAss="monofont">loopmake.py</tt>)</H5>
+							<PRE>
+								 &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  dashes = '\n' + '-' * 50        # dashed line
+004 4  exec_dict = {
+005 5  
+006 6  'f': """                        # <b>for</b> loop
+007 7  <b>for</b> %s <B>in</B> %s:
+008 8      <B>print</B> %s
+009 9  """,
+010 10
+011 11 's': """                        # sequence <b>while</b> loop
+012 12 %s = 0
+013 13 %s = %s
+014 14 <b>while</b> %s &lt; len(%s):
+015 15      <B>print</B> %s[%s]
+016 16      %s = %s + 1
+017 17 """,
+018 18
+019 19 'n': """                        # counting <B>while</B> loop
+020 20 %s = %d
+021 21 <b>while</b> %s &lt; %d:
+022 22      <b>print</b> %s
+023 23      %s = %s + %d
+024 24 """
+025 25 }
+026 26 
+027 27 <b>def</b> main():
+028 28 
+029 29     ltype = raw_input('Loop type? (For/While) ')
+030 30     dtype = raw_input('Data type? (Number/Seq) ')
+031 31
+032 32     <b>if</b> dtype == 'n':
+033 33         start = input('Starting value? ')
+034 34         stop = input('Ending value (non-inclusive)? ')
+035 35         step = input('Stepping value? ')
+036 36         seq = str(range(start, stop, step))
+037 37
+038 38     <b>else:</b> &lt;$nopage&gt;
+039 39         seq = raw_input('Enter sequence: ')
+040 40
+041 41     var = raw_input('Iterative variable name? ')
+042 42
+043 43     <b>if</b> ltype == 'f':
+044 44         exec_str = exec_dict['f'] % (var, seq, var)
+045 45
+046 46     <b>elif</b> ltype == 'w':
+047 47         <b>if</b> dtype == 's':
+048 48             svar = raw_input('Enter sequence name? ')
+049 59             exec_str = exec_dict['s'] % \
+050 50     (var, svar, seq, var, svar, svar, var, var, var)
+051 51
+052 52         <b>elif</b> dtype == 'n':
+053 53             exec_str = exec_dict['n'] % \
+054 54     (var, start, var, stop, var, var, var, step)
+055 55
+056 56     <b>print</b> dashes
+057 57     <B>print</b> 'Your custom-generated code:' + dashes
+058 58     <b>print</B> exec_str + dashes
+059 59     <b>print</b> 'Test execution of the code:' + dashes
+060 60     <b>exec</B> exec_str
+061 61     <b>print</b> dashes
+062 62
+063 63 <b>if</b> __name__ == '__main__':
+064 64     main()
+065  &lt;$nopage&gt;
+							</Pre>
+
+							<p>Here are a few example executions of this script:</P>
+
+							<PRE>
+								
+% loopmake.py
+Loop type? (For/While) f
+Data type? (Number/Sequence) n
+Starting value? 0
+Ending value (non-inclusive)? 4
+
+
+Stepping value? 1
+Iterative variable name? counter
+
+
+--------------------------------------------------
+The custom-generated code for you is:
+--------------------------------------------------
+
+
+<b>for</b> counter <b>in</b> [0, 1, 2, 3]:
+    <B>print</B> counter
+
+
+--------------------------------------------------
+Test execution of the code:
+--------------------------------------------------
+0
+1
+2
+3
+
+
+--------------------------------------------------
+% loopmake.py
+Loop type? (For/While) w
+Data type? (Number/Sequence) n
+Starting value? 0
+Ending value (non-inclusive)? 4
+Stepping value? 1
+Iterative variable name? counter
+
+
+--------------------------------------------------
+Your custom-generated code:
+--------------------------------------------------
+
+
+counter = 0
+<B>while</B> counter &lt; 4:
+    <b>print</b> counter
+    counter = counter + 1
+
+
+--------------------------------------------------
+Test execution of the code:
+--------------------------------------------------
+0
+1
+2
+3
+
+
+--------------------------------------------------
+
+
+% loopmake.py
+Loop type? (For/While) f
+Data type? (Number/Sequence) s
+Enter sequence: [932, 'grail', 3.0, 'arrrghhh']
+Iterative variable name? eachItem
+
+
+--------------------------------------------------
+Your custom-generated code:
+--------------------------------------------------
+
+
+<b>for</b> eachItem <B>in</B> [932, 'grail', 3.0, 'arrrghhh']:
+    <B>print</B> eachItem
+
+
+--------------------------------------------------
+Test execution of the code:
+--------------------------------------------------
+932
+grail
+3.0
+arrrghhh
+
+
+--------------------------------------------------
+% loopmake.py
+Loop type? (For/While) w
+Data type? (Number/Sequence) s
+Enter sequence: [932, 'grail', 3.0, 'arrrghhh']
+Iterative variable name? eachIndex
+Enter sequence name? myList
+
+
+--------------------------------------------------
+Your custom-generated code:
+--------------------------------------------------
+
+
+eachIndex = 0
+myList = [932, 'grail', 3.0, 'arrrghhh']
+<b>while</b> eachIndex &lt; len(myList):
+    <b>print</b> myList[eachIndex]
+    eachIndex = eachIndex + 1
+
+
+--------------------------------------------------
+Test execution of the code:
+--------------------------------------------------
+932
+grail
+3.0
+arrrghhh
+
+
+--------------------------------------------------
+
+							</PRE>
+
+						
+					
+					
+						<H5>Line-by-line Explanation</h5>
+						
+							<h5>Lines 1 – 25</h5>
+							<p>In this first part of the script, we are setting up two global variables. The first is a static string consisting of a line of dashes (hence the name) and the second is a dictionary of the skeleton code we will need to use for the loops we are going to generate. The keys are "f" for a <b><tt class="monofont">for</tt></b> loop, "s" for a <b><tt clAss="monofont">while</Tt></b> loop iterating through a sequence, and "n" for a counting <b><Tt claSs="monofont">while</tt></B> loop.</P>
+
+						
+						
+							<H5>Lines 27 – 30</H5>
+							<p>Here we prompt the user for the type of loop he or she wants and what data types to use.</p>
+
+						
+						
+							<h5>Lines 32 – 36</h5>
+							<P>Numbers have been chosen; they provide the starting, stopping, and incremental values. In this section of code, we are introduced to the <TT Class="monofont">input()</TT> built-in function for the first time. As we shall see in <A Href="233#22.html">Section 14.3.5</a>, <TT CLass="monofont">input()</tt> is similar to <tt class="monofont">raw_input()</tt> in that it prompts the user for string input, but unlike <tt clasS="monofont">raw_input(), input()</tt> also evaluates the input as a Python expression, rendering a Python object even if the user typed it in as a string.</P>
+
+						
+						
+							<h5>Lines 38 – 39</h5>
+							<p>A sequence was chosen; enter the sequence here as a string.</P>
+
+						
+						
+							<h5>Line 41</h5>
+							<p>Get the name of the iterative loop variable that the user wants to use.</p>
+
+						
+						
+							<H5>Lines 43 – 44</h5>
+							<p>Generate the <tT CLAss="monofont">for</tt> loop, filling in all the customized details.</P>
+
+						
+						
+							<H5>Lines 46 – 50</H5>
+							<P>Generate a <tt clASS="monofont">while</Tt> loop which iterates through a sequence.</p>
+
+						
+						
+							<h5>Lines 52– 54</h5>
+							<P>Generate a counting <TT Class="monofont">while</tt> loop.</p>
+
+						
+						
+							<h5>Lines 56 – 61</h5>
+							<p>Output the generated source code as well as the resulting output from execution of the aforementioned generated code.</p>
+
+						
+						
+							<h5>Lines 63 – 64</h5>
+							<p>Execute <tt clasS="monofont">main()</tt> only if this module was invoked directly.</P>
+
+							<p>To keep the size of this script to a manageable size, we had to trim all the comments and error checking from the original script. You can find both the original as well as an alternate version of this script on the CD-ROM in the back of the text.</p>
+
+							<p>The extended version includes extra features such as not requiring enclosing quotation marks for string input, default values for input data, and detection of invalid ranges and identifiers; it also does not permit built-in names or keywords as variable names.</P>
+
+						
+					
+				
+				<a namE="22"></a>
+					<h4><tT CLAss="monofont">input()</tt></H4>
+					<P>The <TT clasS="monofont">input()</TT> built-in function is the same as the composite of <Tt claSS="monofont">eval()</TT> and <tt class="monofont">raw_input(),</tt> equivalent to <tt class="monofont">eval(raw_input()).</tt> Like <tt ClaSs="monofont">raw_input(), input()</tt> has an optional parameter which represents a string prompt to display to the user. If not provided, the string has a default value of the empty string.</P>
+
+					<p>Functionally, <tt cLass="monofont">input()</TT> differs from <TT clasS="monofont">raw_input()</TT> because <Tt claSS="monofont">raw_input()</TT> always returns a string containing the user's input, verbatim. <tt clASS="monofont">input()</Tt> performs the same task of obtaining user input; however it takes things one step further by evaluating the input as a Python expression. This means that the data returned by <tt class="monofont">input()</tt> is a Python object, the result of performing the evaluation of the input expression.</p>
+
+					<p>One clear example is when the user inputs a list. <tt class="monofont">raw_input()</tT> returns the string representation of a list, while <tt ClasS="monofont">input()</tt> returns the actual list:</p>
+
+					<pRe>
+						
+&gt;&gt;&gt; aString = raw_input('Enter a list: ')
+Enter a list: [ 123, 'xyz', 45.67 ]
+&gt;&gt;&gt; aString
+"[ 123, 'xyz', 45.67 ]"
+&gt;&gt;&gt; type(aString)
+&lt;type 'string'&gt;
+
+					</prE>
+
+					<P>The above was performed with <TT clasS="monofont">raw_input().</TT> As you can see, everything is a string. Now let us see what happens when we use <Tt claSS="monofont">input()</TT> instead:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; aList = input('Enter a list: ')
+Enter a list: [ 123, 'xyz', 45.67 ]
+&gt;&gt;&gt; aList
+[123, 'xyz', 45.67]
+&gt;&gt;&gt; type(aList)
+&lt;type 'list'&gt;
+
+					</PRE>
+
+					<P>Although the user input a string, <tt class="monofont">input()</tt> evaluates that input as a Python object and returns the result of that expression.</p>
+
+				
+				
+					<h4>Interned Strings and <tt class="monofont">intern()</tt></H4>
+					<p>For performance reasons, Python keeps an internal string table consisting of static string literals and identifier strings whose purpose is to speed up dictionary lookups. By keeping these strings around, any time a reference is made to either the same string literal, or to an identifier which bears a name that is in the table, no new space needs to be allocated for that string, hence saving the time it takes for memory allocation. This "interned" set of strings is not deallocated or garbage-collected until the interpreter exits.</p>
+
+					<P>Here is an example of an interned string:</p>
+
+					<prE>
+						
+&gt;&gt;&gt; id('hello world')
+1040072
+&gt;&gt;&gt; foo = 'hello world'
+&gt;&gt;&gt; id(foo)
+1040072
+&gt;&gt;&gt; <b>del</b> foo
+&gt;&gt;&gt; id('hello world')
+1040072
+
+					</prE>
+
+					<p>The string "hello world" is created in the first statement. The call to <tt CLASs="monofont">id()</tt> to reveal its identity was not necessary since the string was created regardless of whether or not the call was made. We did so in the example to immediately display its ID once it was created. Upon assigning this string to an identifier, we observe with another call to <tT CLAss="monofont">id()</tt> that, indeed, <TT CLass="monofont">foo</tT> is referencing the same string object, which has been interned. If we remove the object, thereby decrementing the reference count, we see that this has no effect on the string which has been interned.</P>
+
+					<P>One surprising aspect may be that the string "foo" itself was interned (as the string name of an identifier). If we create two other strings, we can see that the "foo" string has an earlier ID than the newer strings, indicating that it was created first.</P>
+
+					<pre>
+						
+&gt;&gt;&gt; id('bar')
+1053088
+&gt;&gt;&gt; id('foo')
+1052968
+&gt;&gt;&gt; id('goo')
+1053728
+
+					</pre>
+
+					<p>Python 1.5 saw the debut of the <tt class="monofont">intern()</tt> built-in function, which lets the programmer explicitly request that a string be interned. The syntax of <tt clAss="monofont">intern(),</Tt> as you may suspect, is:</p>
+
+					<pRe>
+						
+intern(<i>string</i>)
+					</pRe>
+
+					<p>The given <i><TT CLass="monofont">string</tT></I> argument is the string to intern. <TT clasS="monofont">intern()</TT> enters the string in the (global) table of interned strings. If the string is not already in the interned string table, it is interned and the string is returned. Otherwise, if the string is already there, it is simply returned.</P>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="232.html" title="Code Objects"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=233" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="233.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="234.html" title="Executing Other (Python) Programs"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

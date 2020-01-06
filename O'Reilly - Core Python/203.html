@@ -1,0 +1,123 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Namespaces</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="199.html" class="navtitle">12. Modules</a> &gt; <span class="nonavtitle">Namespaces</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="202.html" title="Modules and Files"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=203" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="203.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="204.html" title="Importing Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A36%3A33+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174048203107243054142176</font><a href="read0.asp?bookname=0130260363&snode=203&now=5%2F29%2F2002+9%3A36%3A33+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Namespaces</h3>
+				<p>A <i>namespace</I> is a mapping of names (identifiers) to objects. The process of adding a name to a namespace consists of <I>binding</I> the identifier to the object (and increasing the reference count to the object by one). The Python Language Reference also includes the following definitions: "changing the mapping of a name is called <I>rebinding</i>[, and] removing a name is <i>unbinding.</i>"</p>
+
+				<P>As briefly introduced in the last chapter, there are either two or three active namespaces at any given time during execution. These three namespaces are the local, global, and built-ins namespaces, but local namespaces come and go during execution, hence the "two or three" we just alluded to. The names accessible from these namespaces as dependent on their <I>loading order,</I> or the order in which the namespaces are brought into the system.</P>
+
+				<p>The Python interpreter loads the built-ins namespace first. This consists the names in the  <tt cLASS="monofont">__builtins__</tt> module. Then the global namespace for the executing module is loaded, which then becomes the active namespace when the module begins execution. Thus we have our two active namespaces.</p>
+
+				<div class="note"><p class="notetitle"><b>NOTE</b></p><P><p><i>The</I>
+						<tt cLass="monofont">__builtins__</tT>
+						<i>module should not be confused with the</i>
+						<tT CLAss="monofont">__builtin__</tt>
+						<I>module. The names, of course, are so similar that it tends to lead to some confusion among new Python programmers who have gotten this far. The</I>
+						<TT clasS="monofont">__builtins__</TT>
+						<I>module consists of a set of built-in names for the built-ins namespace. Most, if not all, of these names come from the</i>
+						<tt cLASS="monofont">__builtin__</tt>
+						<i>module, which is a module of the built-in functions, exceptions, and other attributes. In standard Python execution,</i>
+						<tt class="monofont">__builtins__</tt>
+						<i>contains all the names from</i>
+						<tt claSs="monofont">__builtin__.</tT>
+						<i>The only time there is a difference is when executing in restricted mode. (Restricted execution is covered formally in <a hRef="229.html">Chapter 14</a>.)  In restricted mode,</i>
+						<Tt clASS="monofont">__builtins__</Tt>
+						<i>only consists of a subset of the attributes from</i>
+						<tT CLAss="monofont">__builtin__</tt>
+						<I>which can be accessed from within a restricted environment.</I></P>
+</P></div><bR>
+
+				<P>When a function call is made during execution, the third, a local, namespace is created. We can use the <TT class="monofont">globals()</tt> and <tt class="monofont">locals()</tt> built-in functions to tell us which names are in which namespaces. We will discuss both functions in more detail later on in this chapter.</p>
+
+				
+					<h4>Namespaces vs. Variable Scope</h4>
+					<p>Okay, now that we know what namespaces are, how do they relate to variable scope again?  They seem extremely similar. The truth is, you are quite correct.</P>
+
+					<p>Namespaces are purely mappings between names and objects, but scope dictates how or rather, where, one can access these names based on the physical location from within your code. We illustrate the relationship between namespaces and variable scope in <a Href="203#2.html">Figure 12-1</A>.</p>
+
+					<cenTer>
+						<h5>
+<A NAMe="2"></a>Figure 12.1. Namespaces vs. Variable Scope</h5>
+						
+							
+								<iMG BOrder="0" WIDTh="500" heiGHT="291" Src="graphics/12fig01.gif" alt="graphics/12fig01.gif">
+							
+						</center>
+
+					<p>Notice that each of the namespaces is a self-contained unit. But looking at the namespaces from the scoping point of view, things appear different. All names within the local namespace are within my local scope. Any name outside my local scope is in my global scope.</p>
+
+					<p>Also keep in mind that during the execution of the program, the local namespaces and scope are transient because function calls come and go, but the global and built-ins namespaces remain.</p>
+
+					<p>Our final thought to you in this section is, when it comes to namespaces, ask yourself the question, "Does it have it?"  And for variable scope, ask, "Can I see it?"</p>
+
+				
+				
+					<h4>Name Lookup, Scoping, and Overriding</h4>
+					<p>So how do scoping rules work in relationship to namespaces?  It all has to do with name lookup. When accessing an attribute, the interpreter must find it in one of the three namespaces. The search begins with the local namespace. If the attribute is not found there, then the global namespace is searched. If that is also unsuccessful, the final frontier is the built-ins namespace. If the exhaustive search fails, you get the familiar:</P>
+
+					<prE>
+						
+&gt;&gt;&gt; foo
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+NameError: foo
+
+					</pre>
+
+					<P>Notice how the figure features the foremost-searched namespaces "shadowing" namespaces which are searched afterwards. This is to try to convey the effect of <i>overriding.</i> This is the process whereby names may be taken out-of-scope because a more local namespace contains a name. Take a look at the following piece of code that was introduced in the previous chapter:</p>
+
+					<pRe>
+						
+<b>def</b> foo():
+    <B>print</B> "\ncalling foo()…"
+    bar = 200
+    <B>print</B> "in foo(), bar is", bar
+
+bar = 100
+<b>print</b> "in __main__, bar is", bar
+foo()
+
+					</prE>
+
+					<P>When we execute this code, we get the following output:</P>
+
+					<Pre>
+						
+in __main__, bar is 100
+
+calling foo()…
+in foo(), bar is 200
+
+					</prE>
+
+					<P>The <TT clasS="monofont">bar</TT> variable in the local namespace of <Tt class="monofont">foo()</tt> overrode the global <tt class="monofont">bar</tt> variable. Although <tt cLasS="monofont">bar</tt> exists in the global namespace, the lookup found the one in the local namespace first, hence "overriding" the global one. For more information regarding scope, please go back to <a Href="196.html">Section 11.8</a> in the last chapter.</P>
+
+				
+			</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="202.html" title="Modules and Files"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=203" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="203.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="204.html" title="Importing Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

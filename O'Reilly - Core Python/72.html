@@ -1,0 +1,153 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Variable Assignment</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="69.html" class="navtitle">3. Syntax and Style</a> &gt; <span class="nonavtitle">Variable Assignment</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="71.html" title="Statements and Syntax"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=72" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="72.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="73.html" title="Identifiers"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A11%3A15+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172037206198154154076169</font><a href="read1.asp?bookname=0130260363&snode=72&now=5%2F29%2F2002+9%3A11%3A15+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT><h3>Variable Assignment</h3>
+				<p>This section focuses on variable assignment. We will discuss which identifiers make valid variables coming up in <a HREF="73.html">Section 3.3</a>.</p>
+
+				<h4>Equal sign ( <tT CLAss="monofont">=</tt> ) is the assignment operator</H4>
+					<P>The equal sign ( <TT class="monofont">=</tt> ) is the main Python assignment operator</p>
+
+					<pre>
+						
+anInt = -12
+String  =  'cart'
+aFloat = -3.1415 *  (5.0 ** 2)
+anotherString = 'shop'  + 'ping'
+aList = [ 3.14e10, '2nd  elmt of a list', 8.82-4.371j ]
+
+					</pre>
+
+					<p>Be aware now that assignment does not explicitly assign a value to a variable, although it may appear that way from your experience with other programming languages. In Python, objects are referenced, so on assignment, a reference (not a value) to an object is what is being assigned, whether the object was just created or was a pre-existing object. If this is not 100% clear now, do not worry about it. We will revisit this topic later on in the chapter, but just keep it in mind for now.</p>
+
+					<p>Also, if you familiar with C, you are aware that assignments are treated as expressions. This is not the case for Python, where assignments do not have inherent values. Statements such as the following are invalid in Python:</p>
+
+					<prE>
+						
+&gt;&gt;&gt; x = 1
+&gt;&gt;&gt; y = (x = x + 1)  # assignments not expressions!
+  File "&lt;stdin&gt;", line 1
+    y = (x = x + 1)
+           ^
+SyntaxError: invalid syntax
+
+					</prE>
+
+					<p>Beginning in Python 2.0, the equals sign can be combined with an arithmetic operation and the resulting value reassigned to the existing variable. Known as <i>augmented assignment,</i> statements such as</P>
+
+					<pre>
+						
+x = x + 1
+
+					</pRe>
+
+					<p>can now be written as</p>
+
+					<PRE>
+						
+x += 1
+
+					</Pre>
+
+					<p>Python does not support pre-/post-increment nor pre-/post-decrement operators such as <tT CLAss="monofont">x++</tt> or <TT CLass="monofont">--x.</tT></P>
+
+				
+				<H4>How To Do a Multiple Assignment</H4>
+					<pre>
+						
+&gt;&gt;&gt; x = y = z = 1
+&gt;&gt;&gt; x
+1
+&gt;&gt;&gt; y
+1
+&gt;&gt;&gt; z
+1
+
+					</pre>
+
+					<p>In the above example, an integer object (with the value 1) is created, and <tt class="monofont">x, y,</tt> and <tt clAss="monofont">z</Tt> are all assigned the same reference to that object. This is the process of assigning a single object to multiple variables. It is also possible in Python to assign multiple objects to multiple variables.</p>
+
+				
+				<h4>How to Do a "Multuple" Assignment</H4>
+					<p>Another way of assigning multiple variables is using what we shall call the "multuple" assignment. This is not an official Python term, but we use "multuple" here because when assigning variables this way, the objects on both sides of the equals sign are tuples, a Python standard type we introduced in <a hrEf="57.html">Section 2.8</a>.</p>
+
+					<PRE>
+						
+&gt;&gt;&gt; x, y, z = 1, 2, 'a string'
+&gt;&gt;&gt; x
+1
+&gt;&gt;&gt; y
+2
+&gt;&gt;&gt; z
+'a string'
+
+					</Pre>
+
+					<p>In the above example, two integer objects (with values 1 and 2) and one string object are assigned to <tT CLAss="monofont">x, y,</tt> and <TT CLass="monofont">z</tT> respectively. Parentheses are normally used to denote tuples, and although they are optional, we recommend them anywhere they make the code easier to read:</P>
+
+					<PRe>
+						
+&gt;&gt;&gt; (x, y, z) = (1, 2, 'a string')
+
+					</pre>
+
+					<p>If you have ever needed to swap values in other languages like C, you will be reminded that a temporary variable, i.e., <tt class="monofont">tmp,</tt> is required to hold one value which the other is being exchanged:</p>
+
+					<pre>
+						
+/* swapping variables in C */
+tmp = x;
+x = y;
+y = tmp;
+
+					</prE>
+
+					<p>In the above C code fragment, the values of the variables <tT claSs="monofont">x</tt> and <tT claSS="monofont">y</TT> are being exchanged. The <tt clASS="monofont">tmp</Tt> variable is needed to hold the value of one of the variables while the other is being copied into it. After that step, the original value kept in the temporary variable can be assigned to the second variable.</p>
+
+					<p>One interesting side effect of Python's "multuple" assignment is that we no longer need a temporary variable to swap the values of two variables.</p>
+
+					<PRE>
+						
+# swapping variables in Python
+&gt;&gt;&gt; (x, y) = (1, 2)
+&gt;&gt;&gt; x
+1
+&gt;&gt;&gt; y
+2
+&gt;&gt;&gt; (x, y) = (y, x)
+&gt;&gt;&gt; x
+2
+&gt;&gt;&gt; y
+1
+
+					</Pre>
+
+					<p>Obviously, Python performs evaluation before making assignments.</p>
+
+				
+			</FONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="71.html" title="Statements and Syntax"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=72" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="72.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="73.html" title="Identifiers"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

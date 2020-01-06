@@ -1,0 +1,295 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Executing Other (Non-Python) Programs</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="229.html" class="navtitle">14. Execution Environment</a> &gt; <span class="nonavtitle">Executing Other (Non-Python) Programs</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="234.html" title="Executing Other (Python) Programs"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=235" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="235.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="236.html" title="Restricted Execution"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A22%3A40+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004228145120025111016023030</font><a href="read0.asp?bookname=0130260363&snode=235&now=5%2F30%2F2002+8%3A22%3A40+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Executing Other (Non-Python) Programs</h3>
+				<p>We can also execute non-Python programs from within Python. These include binary executables, other shell scripts, etc. All that is required is a valid execution environment, i.e., permissions for file access and execution must be granted, shell scripts must be able to access their interpreter (Perl, bash, etc.), binaries must be accessible (and be of the local machine's architecture).</p>
+
+				<P>Finally, the programmer must bear in mind whether our Python script is required to communicate with the other program that is to be executed. Some programs require input, others return output as well as an error code upon completion (or both). Depending on the circumstances, Python provides a variety of ways to execute non-Python programs. All of the functions discussed in this section can be found in the <TT Class="monofont">os</TT> module. We provide a summary for you here in <A Href="235#1.html">Table 14.7</a> (where appropriate, we annotate those which are available only for certain platforms) and introduce them to you for the remainder of this section.</P>
+
+				<P>As we get closer to the operating system layer of software, you will notice that the consistency of executing programs, even Python scripts, across platforms starts to get a little dicey. We mentioned above that the functions</P>
+
+				<A name="1"></a><p><table border="1" celLspAcinG="0" cellPaddING="1" Width="100%">
+<CAPTion><h5>Table 14.7. <TT CLass="monofont">os</tT> Module Functions for External Program Execution (<IMG border="0" align="left" width="30" heigHt="30" sRc="graphics/u.gif" alT="graphics/u.gif">Unix only, <img bOrdeR="0" ALIgn="left" wiDTH="30" HeighT="31" SRC="graphics/w.gif" alt="graphics/w.gif">Windows only)</h5></CAPTion><colgroup align="left" span="2">
+<Tr vAligN="top">
+<th>
+<foNt siZE="2"><B><I>os Module Function</i></b></foNT></TH>
+<th>
+<foNT SIze="2"><b><i>Description</I></B></FOnt></th>
+</tr>
+<tr valign="top">
+<td>
+<font SizE="2"><tt cLass="monofont">system(</tT><i><tt CLASs="monofont">cmd</tt></i><TT CLass="monofont">)</tT></FONt></td>
+<tD>
+<FONt size="2">execute program <tt class="monofont">cmd</tt> given as string, wait for program completion, and return the exit code (on Windows, the exit code is always 0)</font></td>
+</Tr>
+<tR valIgn="top">
+<td>
+<Font SIZE="2"><tt clASS="monofont">fork()</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2">create a child process which runs in parallel to the parent process [usually used with <tt class="monofont">exec*()</tt>]; return twice… once for the parent and once for the child <img border="0" aLigN="left" widTh="30" heiGht="30" sRC="graphics/u.gif" ALt="graphics/u.gif"></fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><tt class="monofont">execl(</tt><i><tt class="monofont">file, arg0, arg1…</Tt></i><Tt clAss="monofont">)</tt></Font></TD>
+<TD>
+<font SIZE="2">execute <i><tt cLASS="monofont">file</tt></i> with argument list <i><TT CLass="monofont">arg0, arg1,</tt></i> etc.</font></td>
+</tr>
+<tr valiGn="top">
+<tD>
+<fonT size="2"><Tt clASS="monofont">execv(</Tt><i><tt CLASs="monofont">file, arglist</tt></i><TT CLass="monofont">)</tT></FONt></td>
+<td>
+<font size="2">same as <tt class="monofont">execl()</Tt> except with argument list (or tuple) <i><Tt clAss="monofont">arglist</tt></I></fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><tT CLAss="monofont">execle(</tt><i><tt class="monofont">file, arg0, arg1…, env</tt></i><tt claSs="monofont">)</tT></fonT></td>
+<td>
+<Font SIZE="2">same as <tt clASS="monofont">execl()</Tt> but also providing environment variable dictionary <i><tt CLASs="monofont">env</tt></i></FONT></td>
+</tr>
+<tr valign="top">
+<td>
+<font siZe="2"><tT claSs="monofont">execve(</tt><i><Tt clASS="monofont">file, arglist, env</Tt></i><tt CLASs="monofont">)</tt></fONT></Td>
+<td>
+<fONT Size="2">same as <tt class="monofont">execle()</tt> except with argument list (or tuple) <i><tt class="monofont">arglist</Tt></i></Font></Td>
+</tr>
+<tR valIGN="top">
+<Td>
+<fonT SIZe="2"><tt cLASS="monofont">execlp(</tt><i><tT CLAss="monofont">cmd, arg0, arg1…</tt></i><tt class="monofont">)</tt></font></td>
+<Td>
+<fOnt sIze="2">same as <tt ClasS="monofont">execl()</TT> but search for full file pathname of cmd in user search path</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><tt class="monofont">execvp(cmd, arglist)</tt></font></td>
+<td>
+<foNt sIze="2">same as <tT clasS="monofont">execlp()</tt> except with argument list (or tuple) <i><TT CLass="monofont">arglist</tT></I></FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font size="2"><tt class="monofont">execvpe(</tt><i><tt ClaSs="monofont">cmd, arglist, env</tt></I><tt clAss="monofont">)</tT></FONt></td>
+<tD>
+<FONt sizE="2">same as <TT Class="monofont">execvp()</TT> but also providing environment variable dictionary <I><Tt class="monofont">env</tt></i></font></td>
+</tr>
+<tr vAliGn="top">
+<td>
+<Font sIze="2"><tT CLAss="monofont">spawn*(</tt><I><TT Class="monofont">mode, file, args</TT></I><Tt claSS="monofont">[,</TT>
+									<i><tt class="monofont">env</tt></i><tt class="monofont">])</tt></FonT></td>
+<tD>
+<font Size="2">depending on <I><TT Class="monofont">mode,</TT></I>
+									<Tt claSS="monofont">spawn*()</TT> functions can duplicate the functionality of <tt clASS="monofont">fork(), exec*(), system(), wait*(),</Tt> and/or a combination of the aforementioned <img border="0" align="left" width="30" HeiGht="31" sRc="graphics/w.gif" alt="graphics/w.gif"></Font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><tt CLASs="monofont">popen(</tt><i><tt class="monofont">cmd, mode</tt></i><tt clasS="monofont">='r',</tt>
+									<I><tt cLass="monofont">buffering</tT></i><tt CLASs="monofont">=-1)</tt></fONT></Td>
+<td>
+<fONT Size="2">execute <i><TT CLass="monofont">cmd</tt></i> string, returning a file-like object as a communication handle to the running program, defaulting to read <i><tt class="monofont">mode</tt></i> and default system <i><tt ClaSs="monofont">buffering</tt></I><img bOrdeR="0" ALIgn="left" wiDTH="30" HeighT="30" SRC="graphics/u.gif" alt="graphics/u.gif"></fONT></Td>
+</tr>
+<tr valign="top">
+<td>
+<font sizE="2"><tt ClasS="monofont">wait()</tt></foNt></td>
+<TD>
+<FOnt siZE="2">wait for child process to complete [usually used with <TT clasS="monofont">fork()</TT> and <Tt claSS="monofont">exec*()</TT>] <img border="0" align="left" width="30" hEigHt="30" srC="graphics/u.gif" alt="graphics/u.gif"></fOnt></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><tt cLASS="monofont">waitpid(</tt><i><tt class="monofont">pid, options</tt></i><tt class="monofont">)</Tt></fOnt></tD>
+<td>
+<foNt siZE="2">wait for specific child process to complete [usually used with <TT clasS="monofont">fork()</TT> and <Tt claSS="monofont">exec*()</TT>] <img bORDEr="0" align="left" width="30" height="30" src="graphics/u.gif" Alt="graphics/u.gif"></Font></Td>
+</tr>
+</cOlgrOUP>
+</Table></P>
+
+				<P>described in this section are in the <TT clasS="monofont">os</TT> module. Truth is, there are multiple <Tt claSS="monofont">os</TT> modules. For example, the one for Unix is the <tt class="monofont">posix</tt> module. The one for Windows is <tt class="monofont">nt</tt> (regardless of which version of Windows you are running; DOS users get the <tt ClaSs="monofont">dos</tt> module), and the one for the Macintosh is the <Tt claSs="monofont">mac</tt> module. Do not worry, Python will load the correct module when you call "<B><TT Class="monofont">import</TT></B>
+						<Tt claSS="monofont">os</TT>". You should never need to import a specific operating system module directly.</p>
+
+				
+					<h4><tt CLASs="monofont">os.system()</tt></h4>
+					<p>The first function on our list is <tt class="monofont">system(),</tt> a rather simplistic function which takes a system command as a string name and executes it. Python execution is suspended while the command is being executed. When execution has completed, the exit status will be given as the return value from <tt clasS="monofont">system()</tt> and Python execution resumes. This function is available for Unix and Windows only.</P>
+
+					<p><tt Class="monofont">system()</Tt> preserves the current standard files, including standard output, meaning that executing any program or command displaying output will be passed on to standard output. Be cautious here because certain applications such as common gateway interface (CGI) programs will cause web browser errors if output other than valid hypertext markup language (HTML) strings are sent back to the client via standard output. <tt CLASs="monofont">system()</tt> is generally used with commands producing no output, some of which include programs to compress or convert files, mount disks to the system, or any other command to perform a specific task that indicates success or failure via its exit status rather than communicating via input and/or output. The convention adopted is an exit status of 0 indicating success and non-zero for some sort of failure.</p>
+
+					<P>For the sake of providing an example, we will execute two commands which <I>do</I> have program output from the interactive interpreter so that you can observe how <Tt claSS="monofont">system()</TT> works.</p>
+
+					<pre>
+						
+&gt;&gt;&gt; <B>import</B> os
+&gt;&gt;&gt; result = os.system('cat /etc/motd')
+Have a lot of fun…
+&gt;&gt;&gt; result
+0
+&gt;&gt;&gt; result = os.system('uname -a')
+Linux solo 2.2.13 #1 Mon Nov 8 15:08:22 CET 1999 i586 unknown
+&gt;&gt;&gt; result
+0
+
+					</PRe>
+
+					<p>You will notice the output of both commands as well as the exit status of their execution which we saved in the <tt class="monofont">result</tt> variable. Here is an example executing a DOS command:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; <b>import</b> os
+&gt;&gt;&gt; result = os.system('dir')
+
+
+Volume in drive C has no label
+Volume Serial Number is 43D1-6C8A
+Directory of C:\WINDOWS\TEMP
+
+.              &lt;DIR&gt;        01-08-98  8:39a .
+..             &lt;DIR&gt;        01-08-98  8:39a ..
+         0 file(s)              0 bytes
+         2 dir(s)     572,588,032 bytes free
+&gt;&gt;&gt; result
+0
+
+					</pre>
+
+				
+				<A naMe="3"></a>
+					<h4><Tt claSs="monofont">os.popen()</tt>
+						<IMG BordeR="0" ALIgn="left" wiDTH="30" HeighT="30" SRC="graphics/u.gif" alt="graphics/u.gif">
+						<img border="0" align="left" widTh="30" hEighT="31" src="graphics/w.gif" aLt="graphics/w.gif"></h4>
+					<p>The <TT CLass="monofont">popen()</tT> function is a combination of a file object and the <TT Class="monofont">system()</TT> function. It works in the same way as <TT clasS="monofont">system()</TT> does, but in addition, it has the ability to establish a one-way connection to that program and then to access it like a file. If the program requires input, then you would call <Tt class="monofont">popen()</tt> with a mode of <tt class="monofont">'w'</tt> to "write" to that command. The data that you send to the program will then be received through its standard input. Likewise, a mode of <tt cLasS="monofont">'r'</tt> will allow you to spawn a command, then as it writes to standard output, you can read that through your file-like handle using the familiar <tT clasS="monofont">read*()</tt> methods of file object. And just like for files, you will be a good citizen and <tT CLAss="monofont">close()</tt> the connection when you are finished.</P>
+
+					<P>In one of the <TT clasS="monofont">system()</TT> examples we used above, we called the Unix uname program to give us some information about the machine and operating system we are using. That command produced a line of output that went directly to the screen. If we wanted to read that string into a variable and perform internal manipulation or store that string to a log file, we could, using <Tt claSS="monofont">popen().</TT> In fact, the code would look like the following:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; <b>import</b> os
+&gt;&gt;&gt; f = os.popen('uname -a')
+&gt;&gt;&gt; data = f.readline()
+&gt;&gt;&gt; f.close()
+&gt;&gt;&gt; <b>print</b> data,
+Linux solo 2.2.13 #1 Mon Nov 8 15:08:22 CET 1999 i586 unknown
+
+					</pre>
+
+					<p>As you can see, <tt class="monofont">popen()</tT> returns a file-like object; also notice that <tt ClasS="monofont">readline(),</tt> as always, preserves the newline character found at the end of a line of input text.</p>
+
+				
+				
+					<h4><Tt clASS="monofont">os.fork(), os.exec*(), os.wait*()</Tt>
+						<img BORDer="0" alIGN="left" Width="30" HEIGht="30" src="graphics/u.gif" alt="graphics/u.gif"></h4>
+					<p>Without a detailed introduction to operating systems theory, we present a "light" introduction to processes in this section. <tt class="monofont">fork()</tt> takes your single executing flow of control known as a "process" and creates a "fork-in-the-road," if you will. The interesting thing is that your system takes <i>both</I> forks—meaning that you will have two consecutive and parallel running programs (running the same code no less because both processes resume at the next line of code immediately succeeding the <tt ClasS="monofont">fork()</tt> call).</p>
+
+					<p>The original process which called <Tt clASS="monofont">fork()</Tt> is called the "parent" process, and the new process created as a result of the call is known as the "child process."  When the child process returns, its return value is always zero; when the parent process returns, its return value is always the process identifier (a.k.a. process ID, or "PID" for short) of the child process (so the parent can keep tabs on all its children). The PIDs are the only way to tell them apart, too!</p>
+
+					<p>We mentioned that both processes will resume immediately after the call to <tT CLAss="monofont">fork().</tt> Because the code is the same, we are looking at identical execution if no other action is taken at this time. This is usually not the intention. The main purpose for creating another process is to run another program, so we need to take divergent action as soon as parent and child return. As we stated above, the PIDs differ, so this is how we tell them apart:</P>
+
+					<P>The following snippet of code will look familiar to those who have experience managing processes. However, if you are new, it may be difficult to see how it works at first, but once you get it, you get it.</P>
+
+					<Pre>
+						
+ret = os.fork()               # spawn 2 processes, both return
+<b>if</b> ret == 0:                  # child returns with PID of 0
+    <I>child_suite</I>               # child code
+<B>else:</B>                        # parent returns with child's PID
+    <i>parent_suite</i>              # parent code
+
+					</pre>
+
+					<p>The call to <tt class="monofont">fork()</tt> is made in the first line of code. A new process called a <i>child process</i> is created. The original process is called the <i>parent process.</i> The child process has its own copy of the virtual memory address space and contains an exact replica of the parent's address space—yes, both processes are nearly identical. Recall that <tT clAss="monofont">fork()</tT> returns twice, meaning that both the parent and the child return. You might ask, how can you tell them apart if they both return?  When the parent returns, it comes back with the PID of the child process. When the child returns, it has a return value of 0. This is how we can differentiate both processes.</p>
+
+					<p>Using an <b><tT claSS="monofont">if-else</TT></b> statement, we can direct code for the child to execute (i.e., the <b><tt CLASs="monofont">if</tt></b> clause) as well as the parent (the <B><TT Class="monofont">else</TT></B> clause). The code for the child is where we can make a call to any of the <Tt class="monofont">exec*()</tt> functions to run a completely different program or some function in the same program (as long as both child and process take divergent paths of execution). The general convention is to let the children do all the dirty work while the parent either waits patiently for the child to complete its task or continues execution and checks later to see if the child finished properly.</p>
+
+					<p>All of the <tt class="monofont">exec*()</tt> functions load a file or command and execute it with an argument list (either individually given or as part of an argument list). If applicable, an environment variable dictionary can be provided for the command. These variables are generally made available to programs to provide a more accurate description of the user's current execution environment. Some of the more well-known variables include the user name, search path, current shell, terminal type, localized language, machine type, operating system name, etc.</p>
+
+					<P>All versions of <tt ClasS="monofont">exec*()</tt> will replace the Python interpreter running in the current (child) process with the given file as the program to execute now. Unlike <tt ClasS="monofont">system(),</TT> there is no return to Python (since Python was replaced). An exception will be raised if <Tt claSS="monofont">exec*()</TT> fails because the program cannot execute for some reason.</p>
+
+					<p>The following code starts up a cute little game called "xbill" in the child process while the parent continues running the Python interpreter. Because the child process never returns, we do not have to worry about any code for the child after calling <tt CLASs="monofont">exec*().</tt> Note that the command is also a required first argument of the argument list.</p>
+
+					<PRE>
+						
+ret = os.fork()
+
+<B>if</b> ret == 0:                             # child code
+
+      execvp('xbill', ['xbill'])
+
+<b>else:</b>                                    # parent code
+
+      os.wait()
+
+					</pre>
+
+					<p>In this code, you also find a call to <tt class="monofont">wait().</tt> When children processes have completed, they need their parents to clean up after them. This task, known as "reaping a child," can be accomplished with the <tt clAss="monofont">wait*()</Tt> functions. Immediately following a <tt Class="monofont">fork(),</Tt> a parent can wait for the child to complete and do the clean-up then and there. A parent can also continue processing and reap the child later, also using one of the <tt CLASs="monofont">wait*()</tt> functions.</p>
+
+					<P>Regardless of which method a parent chooses, it must be performed. When a child has finished execution but has not been reaped yet, it enters a limbo state and becomes known as a "<I>zombie</I>" process. It is a good idea to minimize the number of zombie processes in your system because children in this state retain all the system resources allocated in their lifetimes, which do not get freed or released until they have been reaped by the parent.</P>
+
+					<p>A call to <tt cLASS="monofont">wait()</tt> suspends execution (i.e., waits) until a child process (any child process) has completed, terminating either normally or via a signal. <tt CLASs="monofont">wait()</tt> will then reap the child, releasing any resources. If the child has already completed, then <tt class="monofont">wait()</tt> just performs the reaping procedure. <tt class="monofont">waitpid()</tT> performs the same functionality as <tt ClasS="monofont">wait()</tt> with the additional arguments PID to specify the process identifier to a specific child process to wait for, and options, which is normally zero or a set of optional flags logically OR'd together. Refer to the Python, your operating system documentation, or any general operating system textbook such as Silbershatz and Galvin, Tanenbaum and Woodhull, or Stallings for more details.</p>
+
+				
+				
+					<h4><Tt clASS="monofont">os.spawn*()</Tt>
+						<img BORDer="0" alIGN="left" Width="30" HEIGht="31" src="graphics/w.gif" alt="graphics/w.gif"></h4>
+					<p>The <tt class="monofont">spawn*()</tt> family of functions work only in the world of Windows. Depending on the mode chosen, <tT clAss="monofont">spawn*()</tT> functions can duplicate the functionality of <tt clAss="monofont">fork(), exec*(), system(), wait*(),</tT> and/or a combination of those popular Unix functions. Both <TT Class="monofont">spawn()</TT> and <TT clasS="monofont">spawnve()</TT> were introduced in Python 1.5.2. For more information, go to the os module documentation in the Python Library Reference manual.</P>
+
+				
+				
+					<h4>Other Functions</h4>
+					<p><a HREF="235#7.html">Table 14.8</a> lists some of the functions (and their modules) which can perform some of the tasks described.</p>
+
+					<a name="7"></a><p><table border="1" CelLspaCing="0" cEllpADDIng="1" wiDTH="100%">
+<CaptiON><H5>Table 14-8. Various Functions for File Execution</H5></captION><Colgroup align="left" span="2">
+<tr vaLigN="top">
+<th>
+<fOnt siZe="2"><b><i>File Object Attribute</I></B></FOnt></th>
+<TH>
+<FOnt siZE="2"><B><I>Description (available only on Unix</i></b>
+										<imG BORder="0" align="left" width="30" height="30" sRc="graphics/u.gif" aLt="graphics/u.gif">
+										<i>or Windows</i>
+										<Img boRder="0" ALIGn="left" widTH="30" HEight="31" SRC="graphics/w.gif" Alt="graphics/w.gif">
+										<i>platforms</i>)</FONT></th>
+</tr>
+<tr>
+<td>
+<font size="2"><tt clAss="monofont">popen2.popen2()</Tt></foNt></td>
+<tD>
+<fonT SIZe="2">execute a file and open file read and write access from (stdout) and to (stdin) the newly-created running program <img BORDer="0" alIGN="left" Width="30" HEIGht="30" src="graphics/u.gif" alt="graphics/u.gif"></font></td>
+</tr>
+<tr>
+<td>
+<FonT sizE="2"><tt clAss="monofont">popen2.popen3()</tT></FONt></td>
+<tD>
+<FONt sizE="2">execute a file and open file read and write access from (stdout and stderr) and (stdin) to the newly-created running program <IMG bordER="0" ALign="left" width="30" height="30" src="graphics/u.gif" alt="graphics/u.gif"></FonT></td>
+</tR>
+<tr>
+<td>
+<Font SIZE="2"><tt clASS="monofont">commands.getoutput()</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2">executes a file in a subprocess, return all output as a string <img border="0" align="left" width="30" HeiGht="30" sRc="graphics/u.gif" alt="graphics/u.gif"></Font></TD>
+</TR>
+</colgROUP>
+</tablE></P>
+
+				
+			</FOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="234.html" title="Executing Other (Python) Programs"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=235" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="235.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="236.html" title="Restricted Execution"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

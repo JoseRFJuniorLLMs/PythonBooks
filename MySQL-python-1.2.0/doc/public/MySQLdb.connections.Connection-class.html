@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>MySQLdb.connections.Connection</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="MySQLdb-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="trees.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="indices.html">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="MySQLdb-module.html">Package&nbsp;MySQLdb</a> ::
+        <a href="MySQLdb.connections-module.html">Module&nbsp;connections</a> ::
+        Class&nbsp;Connection
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../private/MySQLdb.connections.Connection-class.html">show&nbsp;private</a>&nbsp;|&nbsp;hide&nbsp;private]</font></td></tr>
+      <tr><td align="right"><font size="-2">[<a href="frames.html"target="_top">frames</a>&nbsp;|&nbsp;<a href="MySQLdb.connections.Connection-class.html" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class Connection</h2>
+
+<pre class="base-tree">
+<a href="__builtin__.object-class.html"><code>object</code></a> --+    
+         |    
+<a href="../private/_mysql.connection-class.html"><code>connection</code></a> --+
+             |
+            <b>Connection</b>
+</pre><br />
+
+<hr/>
+
+MySQL Database Connection Object<hr/>
+
+
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="MySQLdb.connections.Connection-class.html#__init__" class="summary-sig-name"><code>__init__</code></a>(<span class=summary-sig-arg>self</span>,
+          <span class="summary-sig-vararg">*args</span>,
+          <span class="summary-sig-kwarg">**kwargs</span>)</span></code>
+<br />
+Create a connection to the database.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="MySQLdb.connections.Connection-class.html#cursor" class="summary-sig-name"><code>cursor</code></a>(<span class=summary-sig-arg>self</span>,
+          <span class=summary-sig-arg>cursorclass</span>)</span></code>
+<br />
+Create a cursor on which queries may be performed.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="MySQLdb.connections.Connection-class.html#defaulterrorhandler" class="summary-sig-name"><code>errorhandler</code></a>(<span class=summary-sig-arg>connection</span>,
+          <span class=summary-sig-arg>cursor</span>,
+          <span class=summary-sig-arg>errorclass</span>,
+          <span class=summary-sig-arg>errorvalue</span>)</span></code>
+<br />
+If cursor is not None, (errorclass, errorvalue) is appended to
+cursor.messages; otherwise it is appended to
+connection.messages.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="MySQLdb.connections.Connection-class.html#literal" class="summary-sig-name"><code>literal</code></a>(<span class=summary-sig-arg>self</span>,
+          <span class=summary-sig-arg>o</span>)</span></code>
+<br />
+If o is a single object, returns an SQL literal as a string.</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from object</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__delattr__" class="summary-sig-name"><code>__delattr__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+x.__delattr__('name') &lt;==&gt; del x.name</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__getattribute__" class="summary-sig-name"><code>__getattribute__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+x.__getattribute__('name') &lt;==&gt; x.name</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__hash__" class="summary-sig-name"><code>__hash__</code></a>(<span class=summary-sig-arg>x</span>)</span></code>
+<br />
+x.__hash__() &lt;==&gt; hash(x)</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__reduce__" class="summary-sig-name"><code>__reduce__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+helper for pickle</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__reduce_ex__" class="summary-sig-name"><code>__reduce_ex__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+helper for pickle</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__setattr__" class="summary-sig-name"><code>__setattr__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+x.__setattr__('name', value) &lt;==&gt; x.name = value</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__str__" class="summary-sig-name"><code>__str__</code></a>(<span class=summary-sig-arg>x</span>)</span></code>
+<br />
+x.__str__() &lt;==&gt; str(x)</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from type</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.type-class.html#__new__" class="summary-sig-name"><code>__new__</code></a>(<span class=summary-sig-arg>T</span>,
+          <span class=summary-sig-arg>S</span>,
+          <span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+T.__new__(S, ...) -&gt; a new object with type S, a subtype of T</td></tr>
+</table><br />
+
+
+<!-- =========== START OF CLASS VARIABLE SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Class Variable Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>type</code></font></td>
+  <td><a name="default_cursor"></a><b><code>default_cursor</code></b> = <a href="MySQLdb.cursors.Cursor-class.html"><code>MySQLdb.cursors.Cursor</code></a></td></tr>
+</table><br />
+
+
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+
+<a name="__init__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__init__</span>(<span class=sig-arg>self</span>,
+          <span class="sig-vararg">*args</span>,
+          <span class="sig-kwarg">**kwargs</span>)</span>
+    <br /><i>(Constructor)</i>
+  </h3>
+<p>Create a connection to the database. It is strongly recommended
+that you only use keyword parameters. Consult the MySQL C API
+documentation for more information.</p>
+<dl>
+<dt>host</dt>
+<dd>string, host to connect</dd>
+<dt>user</dt>
+<dd>string, user to connect as</dd>
+<dt>passwd</dt>
+<dd>string, password to use</dd>
+<dt>db</dt>
+<dd>string, database to use</dd>
+<dt>port</dt>
+<dd>integer, TCP/IP port to connect to</dd>
+<dt>unix_socket</dt>
+<dd>string, location of unix_socket to use</dd>
+<dt>conv</dt>
+<dd>conversion dictionary, see MySQLdb.converters</dd>
+<dt>connect_time</dt>
+<dd>number of seconds to wait before the connection attempt
+fails.</dd>
+<dt>compress</dt>
+<dd>if set, compression is enabled</dd>
+<dt>named_pipe</dt>
+<dd>if set, a named pipe is used to connect (Windows only)</dd>
+<dt>init_command</dt>
+<dd>command which is run once the connection is created</dd>
+<dt>read_default_file</dt>
+<dd>file from which default client values are read</dd>
+<dt>read_default_group</dt>
+<dd>configuration group to use from the default file</dd>
+<dt>cursorclass</dt>
+<dd>class object, used to create cursors (keyword only)</dd>
+<dt>use_unicode</dt>
+<dd>If True, text-like columns are returned as unicode objects
+using the connection's character set.  Otherwise, text-like
+columns are returned as strings.  columns are returned as
+normal strings. Unicode objects will always be encoded to
+the connection's character set regardless of this setting.</dd>
+<dt>client_flag</dt>
+<dd>integer, flags to use or 0
+(see MySQL docs or constants/CLIENTS.py)</dd>
+<dt>ssl</dt>
+<dd>dictionary or mapping, contains SSL connection parameters;
+see the MySQL documentation for more details
+(mysql_ssl_set()).  If this is set, and the client does not
+support SSL, UnsupportedError will be raised.</dd>
+<dt>local_infile</dt>
+<dd>integer, non-zero enables LOAD LOCAL INFILE; zero disables</dd>
+</dl>
+<p>There are a number of undocumented, non-standard methods. See the
+documentation for the MySQL C API for some hints on what they do.</p>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../private/_mysql.connection-class.html#__init__"><code>_mysql.connection.__init__</code></a></dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+
+<a name="cursor"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">cursor</span>(<span class=sig-arg>self</span>,
+          <span class=sig-arg>cursorclass</span>=<span class=sig-default>None</span>)</span>
+  </h3>
+Create a cursor on which queries may be performed. The
+optional cursorclass parameter is used to create the
+Cursor. By default, self.cursorclass=cursors.Cursor is
+used.  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+
+<a name="defaulterrorhandler"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">errorhandler</span>(<span class=sig-arg>connection</span>,
+          <span class=sig-arg>cursor</span>,
+          <span class=sig-arg>errorclass</span>,
+          <span class=sig-arg>errorvalue</span>)</span>
+  </h3>
+<p>If cursor is not None, (errorclass, errorvalue) is appended to
+cursor.messages; otherwise it is appended to
+connection.messages. Then errorclass is raised with errorvalue as
+the value.</p>
+<p>You can override this with your own error handler by assigning it
+to the instance.</p>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+
+<a name="literal"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">literal</span>(<span class=sig-arg>self</span>,
+          <span class=sig-arg>o</span>)</span>
+  </h3>
+<p>If o is a single object, returns an SQL literal as a string.
+If o is a non-string sequence, the items of the sequence are
+converted and returned as a sequence.</p>
+<p>Non-standard. For internal use; do not use this in your
+applications.</p>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br />
+
+
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="MySQLdb-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="trees.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="indices.html">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.0 on Mon Jan 31 23:02:12 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net"
+                      ><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,46 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Privacy</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="210.html" class="navtitle">13. Classes and OOP</a> &gt; <span class="nonavtitle">Privacy</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="224.html" title="Customizing Classes with Special Methods"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=225" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="225.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="226.html" title="Delegation"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A17%3A31+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004231202153041135146141026</font><a href="read7.asp?bookname=0130260363&snode=225&now=5%2F30%2F2002+8%3A17%3A31+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Privacy</h3>
+				<p>Attributes in Python are, by default, "public" all the time, accessible by both code within the module and modules that import the module containing the class.</p>
+
+				<P>Many OO languages provide some level of privacy for the data and provide only accessor functions to provide access to the values. This is known as implementation hiding and is a key component to the encapsulation of the object. Most OO languages provide "access specifiers" to restrict who has access to member functions.</P>
+
+				<P>Python 1.5 introduces an elementary form of privacy for class elements (attributes or methods). Attributes which begin with a double underscore (<Tt claSS="monofont">__</TT>) are mangled during run-time so direct access is thwarted. In actuality, the name is prepended with an underscore followed by the class name. For example, let us take the <tt clASS="monofont">self.__num</Tt> attribute found in <a href="224#11.html">Example 13.2</a> (<tt class="monofont">numstr.py</tt>). After the mangling process, the identifier used to access that data value is now <tt clAss="monofont">self._NumStr__num.</Tt> Adding the class name to the newly-mangled result will prevent it from clashing with the same name in either ancestor or descendant classes.</p>
+
+				<p>Although this provides some level of privacy, the algorithm is also in the public domain and can be defeated easily. It is more of a protective mechanism for importing modules that do not have direct access to the source code or for other code within the same module.</P>
+
+				<p>One way to prevent the source code from being accessed is to allow only access to the byte-compiled <tt cLass="monofont">.pyc</TT> file. For example, a software company shipping Python software may choose to provide only the <TT clasS="monofont">.pyc</TT> files. This helps to ensure that no one can maliciously gain programmatic access to private variables and methods.</P>
+
+				<p>As we discovered in <a hrEF="199.html">Chapter 12</A>, simple module-level privacy is provided by using a single underscore character prefixing an attribute name. This prevents a module attribute from being imported with "<B><tt clASS="monofont">from</Tt></b>
+						<tt class="monofont">mymodule</tt>
+						<b><tt class="monofont">import</tT></b> *".</p>
+
+			</Font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="224.html" title="Customizing Classes with Special Methods"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=225" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="225.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="226.html" title="Delegation"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,191 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Special Features of Tuples</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="99.html" class="navtitle">6. Sequences: Strings, Lists, and Tuples</a> &gt; <span class="nonavtitle">Special Features of Tuples</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="116.html" title="Tuple Operators and Built-in Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=117" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="117.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="118.html" title="Related Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A21%3A09+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175200043198189067183085</font><a href="read2.asp?bookname=0130260363&snode=117&now=5%2F29%2F2002+9%3A21%3A09+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Special Features of Tuples</h3>
+				
+					<h4>How are Tuples Affected by Immutability?</h4>
+					<P>Okay, we have been throwing around this word "immutable" in many parts of the text. Aside from its computer science definition and implications, what is the bottom line as far as applications are concerned? What are all the consequences of an immutable data type?</P>
+
+					<P>Of the three standard types which are immutable—numbers, strings, and tuples—tuples are the most affected. A data type that is immutable simply means that once an object is defined, its value cannot be updated, unless, of course, a completely new object is allocated. The impact on numbers and strings is not as great since they are scalar types, and when the sole value they represent is changed, that is the intended effect, and access occurs as desired. The story is different with tuples, however.</P>
+
+					<p>Because tuples are a container type, it is often desired to change a single or multiple elements of that container. Unfortunately, this is not possible. Slice operators cannot show up on the left-hand side of an assignment. Recall this is no different for strings, and that slice access is used for read access only.</p>
+
+					<p>Immutability does not necessarily mean bad news. One bright spot is that if we pass in data to an API with which we are not familiar, we can be certain that our data will not be changed by the function called. Also, if we receive a tuple as a return argument from a function that we would like to manipulate, we can use the <tT CLAss="monofont">list()</tt> built-in function to turn it into a mutable list.</P>
+
+				
+				
+					<H4>Tuples Are Not Quite So "Immutable"</H4>
+					<P>Although tuples are defined as immutable, this does not take away from their flexibility. Tuples are not quite as immutable as we made them out to be. What do we mean by that? Tuples have certain behavioral characteristics that make them seem not as immutable as we had first advertised.</p>
+
+					<p> For example, we can join strings together to form a larger string. Similarly, there is nothing wrong with putting tuples together to form a larger tuple, so concatenation works. This process does not involve changing the smaller individual tuples in any way. All we are doing is joining their elements together. Some examples are presented here:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; s = 'first'
+&gt;&gt;&gt; s = s + ' second'
+&gt;&gt;&gt; s
+'first second'
+&gt;&gt;&gt;
+&gt;&gt;&gt; t = ('third', 'fourth')
+&gt;&gt;&gt; t
+('third', 'fourth')
+&gt;&gt;&gt;
+&gt;&gt;&gt; t = t + ('fifth', 'sixth')
+&gt;&gt;&gt; t
+('third', 'fourth', 'fifth', 'sixth')
+
+					</pre>
+
+					<p>The same concept applies for repetition. Repetition is just concatenation of multiple copies of the same elements. In addition, we mentioned in the previous section that one can turn a tuple into a mutable list with a simple function call. Our final feature may surprise you the most. You can "modify" certain tuple elements. Whoa. What does that mean?</p>
+
+					<p>Although tuple objects themselves are immutable, this fact does not preclude tuples from containing mutable objects which <i>can</i> be changed.</p>
+
+					<pre>
+						
+&gt;&gt;&gt; t = (['xyz', 123], 23, -103.4)
+&gt;&gt;&gt; t
+(['xyz', 123], 23, -103.4)
+&gt;&gt;&gt; t[0][1]
+123
+&gt;&gt;&gt; t[0][1] = ['abc', 'def']
+&gt;&gt; t
+(['xyz', ['abc', 'def']], 23, -103.4)
+
+					</prE>
+
+					<p>In the above example, although <tT claSs="monofont">t</tt> is a tuple, we managed to "change" it by replacing an item in the first tuple element (a list). We replaced <tT claSS="monofont">t[0][1],</TT> formerly an integer, with a list <tt clASS="monofont">['abc', 'def'].</Tt> Although we modified only a mutable object, in some ways, we also "modified" our tuple.</p>
+
+				
+				<a nAME="3"></A>
+					<h4>No Enclosing Delimiters</h4>
+					<p>Any set of multiple objects, comma-separated, written without identifying symbols, i.e., brackets for lists, parentheses for tuples, etc., default to tuples, as indicated in these short examples:</p>
+
+					<PRE>
+						
+&gt;&gt;&gt; 'abc', -4.24e93, 18+6.6j, 'xyz'
+('abc', -4.24e+093, (18+6.6j), 'xyz')
+&gt;&gt;&gt;
+&gt;&gt;&gt; x, y = 1, 2
+&gt;&gt;&gt; x, y
+(1, 2)
+
+					</Pre>
+
+					<p>Any function returning multiple objects (also no enclosing symbols) is a tuple. Note that enclosing symbols change a set of multiple objects returned to a single container object. For example:</p>
+
+					<pre>
+						
+<b>def</b> foo1():
+    :
+    <b>return</b>
+							<i>obj1, obj2, obj3</i>
+<b>def</b> foo2():
+    :
+    <b>return</b> [<i>obj1, obj2, obj3</i>]
+<b>def</B> foo3():
+    :
+    <b>return</b> (<I>obj1, obj2, obj3</i>)
+
+					</prE>
+
+					<p>In the above examples, <tt cLass="monofont">foo1()</TT> calls for the return of three objects, which come back as a tuple of three objects, <TT clasS="monofont">foo2()</TT> returns a single object, a list containing three objects, and <Tt claSS="monofont">foo3()</TT> returns the same thing as <tt clASS="monofont">foo1().</Tt> The only difference is that the tuple grouping is explicit.</p>
+
+					<p>Explicit grouping of parentheses for expressions or tuple creation is always recommended to avoid unpleasant side effects:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; 4, 2 &lt; 3, 5      # int, comparison, int
+(4, 1, 5)
+&gt;&gt;&gt; (4, 2) &lt; (3, 5)  # tuple comparison
+0
+
+					</pre>
+
+					<p>In the first example, the less than ( <tt class="monofont">&lt;</tt> ) operator took precedence over the comma delimiter intended for the tuples on each side of the less than sign. The result of the evaluation of <Tt cLass="monofont">2 &lt; 3</Tt> became the second element of a tuple. Properly enclosing the tuples enables the desired result.</p>
+
+				
+				
+					<h4>Single Element Tuples</h4>
+					<P>Ever try to create a tuple with a single element? You tried it with lists, and it worked, but then you tried and tried with tuples, but cannot seem to be able to do it.</p>
+
+					<prE>
+						
+&gt;&gt;&gt; ['abc']
+['abc']
+&gt;&gt;&gt; type(['abc'])    # a list
+&lt;type 'list'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; [123]
+[123]
+&gt;&gt;&gt; type([123])      # also a list
+&lt;type 'list'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; ('xyz')
+'xyz'
+&gt;&gt;&gt; type(('xyz'))    # a string, not a tuple
+&lt;type 'string'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; (456)
+456
+&gt;&gt;&gt; type((456))      # an int, not a tuple
+&lt;type 'int'&gt;
+
+					</PRE>
+
+					<p>It probably does not help your case that the parentheses are also overloaded as the expression grouping operator. Parentheses around a single element take on that binding role rather than as a delimiter for tuples. The workaround is to place a trailing comma (,) after the first element to indicate that this is a tuple and not a grouping.</p>
+
+					<prE>
+						
+&gt;&gt;&gt; ('xyz',)
+('xyz',)
+&gt;&gt;&gt; (456,)
+(456,)
+
+					</PRE>
+
+					<div cLASS="note"><p claSS="notetitle"><B>NOTE</B></p><p><p><i>One of the questions in the Python FAQ (6.15) asks, "Why are there separate tuple and list data types?" That question can also be rephrased as, "Do we really need two sequence types?" One reason why having lists and tuples is a good thing occurs in situations where having one is more advantageous than having the other.</i></p>
+<p><i>One case in favor of an immutable data type is if you were manipulating sensitive data and were passing a mutable object to an unknown function (perhaps an API that you didn't even write!). As the engineer developing your piece of the software, you would definitely feel a lot more secure if you knew that the function you were calling could not alter the data.</i></p>
+<p><i>An argument for a mutable data type is where you are managing dynamic data sets. You need to be able to create them on the fly, slowly or arbitrarily adding to them, or from time to time, deleting individual elements. This is definitely a case where the data type must be mutable. The good news is that with the</i>
+							<tt class="monofont">list()</Tt>
+							<i>and</I>
+							<tt cLass="monofont">tuple()</tT>
+							<i>built-in conversion functions, you can convert from one type to the other relatively painlessly</i></p>
+<P><TT Class="monofont">list()</TT>
+							<I>and</I>
+							<tt clASS="monofont">tuple()</Tt>
+							<i>are functions which allow you to create a tuple from a list and vice versa. When you have a tuple and want a list because you need to update its objects, the</i>
+							<tT CLAss="monofont">list()</tt>
+							<i>function suddenly becomes your best buddy. When you have a list and want to pass it into a function, perhaps an API, and you do not want anyone to mess with the data, the</i>
+							<tt class="monofont">tuple()</tt>
+							<i>function comes in quite useful.</i></p>
+</p></dIv><bR>
+
+				
+			</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="116.html" title="Tuple Operators and Built-in Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=117" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="117.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="118.html" title="Related Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

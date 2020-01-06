@@ -1,0 +1,2264 @@
+<html><head><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=Generator content="Microsoft Word 10 (filtered)"><link rel="stylesheet" type="text/css" href="1.css"><title></title></head><body lang=EN-US link="#990000" vlink=purple><div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=15.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=17.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div><br><br>
+<h2><a name="_Chapter_12._Advanced_Python_and_COM"></a>Chapter 12. Advanced
+Python and COM</h2>
+
+<p>In <a href="7.htm#_Chapter_5._Introduction_to_COM">Chapter 5</a>, we presented
+some basic material about Python and COM. If you have never used Python and COM
+together or are unfamiliar with basic COM concepts, you should review that
+chapter before continuing here.</p>
+
+<p>In this chapter we take a more technical look at COM and using Python from
+COM. We initially provide a discussion of COM itself and how it works; an
+understanding of which is necessary if you need to use advanced features of COM
+from Python. We then look at using COM objects from Python in more detail and
+finish with an in-depth discussion of implementing COM objects using Python.</p>
+
+<h3><a name="_12.1_Advanced_COM"></a>12.1 Advanced COM</h3>
+
+<p>In order to fully understand Python and COM, it is necessary to understand
+COM itself. Although Python hides many of the implementation details,
+understanding these details makes working with Python and COM much easier.</p>
+
+<p>If you want to see how to use Python to control COM objects such as
+Microsoft Word or Excel, you can jump directly to the section <a
+href="#_12.3_Using_Automation_Objects_from_">Section 12.3</a>.</p>
+
+<h4>12.1.1 Interfaces and Objects</h4>
+
+<p>COM makes a clear distinction between <i>interfaces</i> and <i>objects</i> .
+An interface describes certain functionality, while an object implements that
+functionality (that is, implements the interface). An interface describes how
+an object is to behave, while the object itself implements the behavior. For
+example, COM defines an <tt><span style='font-size:10.0pt'>IStream</span></tt>
+interface, a generic interface for reading and writing, in a manner similar to
+a file. Although COM defines the <tt><span style='font-size:10.0pt'>IStream</span></tt>
+interface, it’s the responsibility of objects to implement the interface; thus,
+you may have an object that implements the <tt><span style='font-size:10.0pt'>IStream</span></tt>
+interface writing to and from files or an object implementing the <tt><span
+style='font-size:10.0pt'>IStream</span></tt> interface using sockets, and so
+forth. This is a huge advantage to users of these interfaces, because you can
+code to the <tt><span style='font-size:10.0pt'>IStream</span></tt> interface,
+and your code works regardless of whether your data goes to a file or out over
+a socket. Each COM interface has a unique 128-bit GUID known as an interface ID
+(IID).</p>
+
+<p>An interface defines a series of methods: interfaces can’t have properties.
+An interface is defined in terms of a C++ <tt><span style='font-size:10.0pt'>vtable</span></tt>
+. Highly experienced C++ programmers will know that a <tt><span
+style='font-size:10.0pt'>vtable</span></tt> implements virtual methods in C++.</p>
+
+<p>Just as with C++, COM allows one interface to derive from, or extend,
+another interface; in fact, COM explicitly requires it. COM defines an interface
+known as <tt><span style='font-size:10.0pt'>IUnknown</span></tt> , which is the
+root (or base) of all COM interfaces; that is, all COM interfaces explicitly
+support the <tt><span style='font-size:10.0pt'>IUnknown</span></tt> interface. <tt><span
+style='font-size:10.0pt'>IUnknown</span></tt> is a simple interface defining
+only three methods: <tt><span style='font-size:10.0pt'>AddRef()</span></tt> , <tt><span
+style='font-size:10.0pt'>Release()</span></tt>, and <tt><span style='font-size:
+10.0pt'>QueryInterface()</span></tt>. <tt><span style='font-size:10.0pt'>AddRef()</span></tt>
+and <tt><span style='font-size:10.0pt'>Release()</span></tt> manage object
+lifetimes; a reference counting technique is used so a particular object knows
+when it is no longer needed. The Python COM framework manages this behind the
+scenes for you, so these will not be discussed further. <tt><span
+style='font-size:10.0pt'>QueryInterface()</span></tt> allows an object to
+return a specific interface, given that interface’s unique IID. Thus,
+regardless of the object you have, you can always call its <tt><span
+style='font-size:10.0pt'>QueryInterface()</span></tt> method to obtain a new
+interface, such as <tt><span style='font-size:10.0pt'>IStream</span></tt>.</p>
+
+<p>COM also defines a standard technique for identifying and creating objects
+themselves. Each object class is identified by a class ID (CLSID, also a GUID)
+that exposes interfaces, each identified by an IID. Thus, there are a number of
+identifiers associated with every COM object: the CLSID identifying the class
+that provides the object, and a series of IIDs for each interface the object
+supports. Each object supports at least two interfaces, the <tt><span
+style='font-size:10.0pt'>IUnknown</span></tt> interface as described
+previously, and some useful interface (such as <tt><span style='font-size:10.0pt'>IStream</span></tt>)
+that allows the object to perform its task.</p>
+
+<p>Objects may also register a program ID, or ProgID as well as a CLSID. A
+ProgID is a string describing the object, suitable for use by humans. When you
+need to create a particular object, it’s usually more convenient to use the
+ProgID rather than the CLSID. There is no guarantee that ProgIDs will be unique
+on a given system; you should choose the names of your objects carefully to
+avoid conflicts with other objects. For example, the Microsoft Excel object has
+a ProgID of <tt><span style='font-size:10.0pt'>Excel.Application</span></tt>.</p>
+
+<h4>12.1.2 The IDispatch Interface</h4>
+
+<p>The COM architecture works well for languages such as C++, where the methods
+you need to use are known beforehand (i.e., at compile time). You create an
+object using the standard COM techniques, then perform a <tt><span
+style='font-size:10.0pt'>QueryInterface()</span></tt> on the object for a
+particular interface. Once you have the interface, you can make calls on its
+methods. This architecture does have some drawbacks, notably:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>There is support for methods, but no support for properties. In
+many cases, properties would simplify the object model you are attempting to
+publish.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>It doesn’t work as well when using higher-level languages than
+C++. There may be no compile-time step involved at all. The language in use may
+not support using the <i>.IDL</i> or <i>.H</i> files necessary to obtain the
+definition of these interfaces.</p>
+
+<p>COM defines the <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+interface specifically to meet the requirements of these higher-level
+languages. The <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+interface allows an object to expose an object model (complete with methods and
+properties) and allows the user of the object to determine the methods and
+properties available at runtime. This means the methods or properties you need
+to call can be determined when you need to call them, rather than requiring
+them to be predefined. You should note that the object model exposed using <tt><span
+style='font-size:10.0pt'>IDispatch</span></tt> is quite distinct from the <tt><span
+style='font-size:10.0pt'>IDispatch</span></tt> interface itself; <tt><span
+style='font-size:10.0pt'>IDispatch</span></tt> is a COM interface that allows
+an arbitrary object model to be exposed. In other words, <tt><span
+style='font-size:10.0pt'>IDispatch</span></tt> is not the object model but is the
+mechanism that allows an object model to be exposed.</p>
+
+<p>There are two methods <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+defines for this purpose. The first is <tt><span style='font-size:10.0pt'>GetIDsOfNames()</span></tt>
+; it allows you to ask an object “do you have a method/property named <tt><span
+style='font-size:10.0pt'>foo </span></tt>?” If the object does have such an
+attribute, it returns an integer ID for the method or property. The method <tt><span
+style='font-size:10.0pt'>Invoke()</span></tt> performs the actual operation on
+the object—that is, either calling the method <tt><span style='font-size:10.0pt'>foo</span></tt>,
+or getting or setting a property named <tt><span style='font-size:10.0pt'>foo</span></tt>.
+The <tt><span style='font-size:10.0pt'>Invoke()</span></tt> method is passed
+the integer ID obtained from <tt><span style='font-size:10.0pt'>GetIDsOfNames()</span></tt>,
+as well as any parameters for the function or property.</p>
+
+<p>In almost all languages, you don’t need to use the <tt><span
+style='font-size:10.0pt'>IDispatch</span></tt> interface; your language uses <tt><span
+style='font-size:10.0pt'>IDispatch</span></tt> behind the scenes to present a
+natural model. For example, we’ll see later that when you execute code in VB,
+Python, Delphi, and so forth similar to:</p>
+
+<pre>workbook = excel.Workbooks.Add()</pre>
+
+<p>behind the scenes, there is pseudo-code similar to:</p>
+
+<pre>propertyId = excel-&gt;GetIDsOfNames(&quot;Workbook&quot;)</pre><pre>newObject = excel-&gt;Invoke(propertyId, DISPATCH_PROPERTYGET)</pre><pre>methodId = newObject-&gt;GetIDsOfNames(&quot;Add&quot;)</pre><pre>result = newObject-&gt;Invoke(methodId, DISPATCH_METHOD)</pre>
+
+<p>The final piece of this puzzle relates to how the arguments and results are
+passed around. For this purpose, COM defines a <tt><span style='font-size:10.0pt'>VARIANT</span></tt>
+data structure. A <tt><span style='font-size:10.0pt'>VARIANT</span></tt> is
+defined as a self-describing C++ union and allows a wide variety of common
+data-types to be passed. To create a <tt><span style='font-size:10.0pt'>VARIANT</span></tt>,
+indicate the type of data you wish to pass and set the value. When you need to
+use a <tt><span style='font-size:10.0pt'>VARIANT</span></tt> passed by someone
+else, first query the type of data it holds and obtain the data. If the type of
+the data doesn’t work for you, you can either attempt a conversion or reject
+the call returning the appropriate error code. This implies that type checking
+of the parameters and results can happen only at runtime (although many tools
+can take advantage of type information provided by the object to flag such
+errors at compile-time). As with the <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+interface itself, most high-level languages hide the details of the <tt><span
+style='font-size:10.0pt'>VARIANT</span></tt> and use them invisibly behind the
+scenes.</p>
+
+<p>Objects that expose an <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+interface to support method calls and property references are also known as <i>automation
+objects</i> .</p>
+
+<h4>12.1.3 Late- Versus Early-Bound IDispatch</h4>
+
+<p>The process described for <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+has one obvious flaw: it seems highly inefficient, and it is! In many cases,
+the inefficiency isn’t important; the objects you need to call will often take
+longer to do their thing than it took to make the call.</p>
+
+<p>Programs or languages that use <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+in the manner described are known as <i>late-bound</i> , because the binding of
+objects to methods or properties is done at the last possible moment, as the
+call or property reference is made.</p>
+
+<p>There is, however, a technique automation objects use to publish their
+object model in a type library. Type libraries define a set of interfaces a
+program can use to determine both the methods and properties themselves, and
+other useful information, such as the type of the parameters or return values.
+Languages or environments may be capable of using this information at
+compile-time to provide a better interface to the objects. The key benefits of
+knowing this information before it’s used are:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The <tt><span style='font-size:10.0pt'>GetIDsOfNames()</span></tt>
+step described previously can be removed, as the type information includes the
+integer ID of each method or property.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Better type checking can be performed.</p>
+
+<p>Languages that use the <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+interface after consulting type information are known as <i>early-bound</i> .</p>
+
+<p>Most COM-aware languages, including Visual Basic, Delphi, and Python have techniques
+that allow the programmer to choose between the binding models. Later in this
+chapter we discuss the differences when using Python.</p>
+
+<h4>12.1.4 Using or Implementing Objects</h4>
+
+<p>There is a clear distinction between using COM objects and implementing COM
+objects. When you use a COM object, you make method calls on an object provided
+externally. When you implement a COM object, you publish an object with a
+number of interfaces external clients can use.</p>
+
+<p>This distinction is just as true for the <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+interface; programs that use an <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+object must call the <tt><span style='font-size:10.0pt'>GetIDsOfNames()</span></tt>
+and <tt><span style='font-size:10.0pt'>Invoke()</span></tt> methods to perform
+method calls or property reference. Objects that wish to allow themselves to be
+called via <tt><span style='font-size:10.0pt'>IDispatch</span></tt> must
+implement the <tt><span style='font-size:10.0pt'>GetIDsOfNames()</span></tt>
+and <tt><span style='font-size:10.0pt'>Invoke()</span></tt> methods, providing
+the logic for translating between names and IDs, and so forth.</p>
+
+<p>In the PythonCOM world, this distinction is known as client- and server-side
+COM. Python programs that need to use COM interfaces use client-side COM, while
+Python programs that implement COM interfaces use server-side COM.</p>
+
+<h4>12.1.5 InProc Versus LocalServer Versus RemoteServer</h4>
+
+<p>COM objects can be implemented either in Windows DLLs or in separate Windows
+processes via an EXE.</p>
+
+<p>Objects implemented in DLLs are loaded into the process of the calling
+object. For example, if your program creates an object implemented in a DLL,
+that object’s DLL is loaded into your process, and the object is used directly
+from the DLL. These objects are known as <i>InProc</i> <i>objects</i>.</p>
+
+<p>Objects implemented in their own process, obviously, use their own process.
+If your program creates a COM object implemented in an EXE, COM automatically
+starts the process for the object (if not already running) and manages the
+plumbing between the two processes. Objects implemented in an EXE that run on
+the local machine are known as <tt><span style='font-size:10.0pt'>LocalServer</span></tt>
+objects, while objects implemented in an EXE that run on a remote machine are
+known as <tt><span style='font-size:10.0pt'>RemoteServer</span></tt> objects.
+We discuss <tt><span style='font-size:10.0pt'>RemoteServer</span></tt> objects
+in the later section <a href="16.htm#_12.7_Python_and_DCOM">Section 12.7</a>.</p>
+
+<p>These options are not mutually exclusive; any object can be registered so
+that it runs in either, all, or any combination of these.</p>
+
+<p>In most cases, you don’t need to be aware of this COM implementation detail.
+You can simply create an object and exactly how that object is created is
+managed for you. There are, however, some instances where being able to
+explicitly control this behavior is to your advantage.</p>
+
+<p>Python and COM support <tt><span style='font-size:10.0pt'>InProc</span></tt>,
+<tt><span style='font-size:10.0pt'>LocalServer</span></tt>, and <tt><span
+style='font-size:10.0pt'>RemoteServer</span></tt> objects, as discussed
+throughout this chapter.</p>
+
+<h3><a name="_12.2_Python_and_COM"></a>12.2 Python and COM</h3>
+
+<p>The interface between Python and COM consists of two discrete parts: the <tt><span
+style='font-size:10.0pt'>pythoncom</span></tt> Python extension module and the <tt><span
+style='font-size:10.0pt'>win32com</span></tt> Python package. Collectively,
+they are known as PythonCOM.</p>
+
+<p>The <tt><span style='font-size:10.0pt'>pythoncom</span></tt> module is
+primarily responsible for exposing raw COM interfaces to Python. For many of
+the standard COM interfaces, such as <tt><span style='font-size:10.0pt'>IStream</span></tt>
+or <tt><span style='font-size:10.0pt'>IDispatch</span></tt>, there is an
+equivalent Python object that exposes the interface, in this example, a <tt><span
+style='font-size:10.0pt'>PyIStream</span></tt> and <tt><span style='font-size:
+10.0pt'>PyIDispatch</span></tt> object. These objects expose the same methods
+as the native COM interfaces they represent, and like COM interfaces, do not
+support properties. The <tt><span style='font-size:10.0pt'>pythoncom</span></tt>
+module also exposes a number of COM-related functions and constants.</p>
+
+<p>The <tt><span style='font-size:10.0pt'>win32com</span></tt> package is a set
+of Python source files that use the <tt><span style='font-size:10.0pt'>pythoncom</span></tt>
+module to provide additional services to the Python programmer. As in most
+Python packages, <tt><span style='font-size:10.0pt'>win32com</span></tt> has a
+number of subpackages; <tt><span style='font-size:10.0pt'>win32com.client</span></tt>
+is concerned with supporting client-side COM (i.e., helping to call COM
+interfaces), and <tt><span style='font-size:10.0pt'>win32com.server</span></tt>
+is concerned with helping Python programs use server-side COM (i.e., implement
+COM interfaces). Each subpackage contains a set of Python modules that perform
+various tasks.</p>
+
+<h3><a name="_12.3_Using_Automation_Objects_from_"></a>12.3 Using Automation
+Objects from Python</h3>
+
+<p>As we discussed previously, automation objects are COM objects that expose
+methods and properties using the <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+interface. So how do we use these objects from Python? The <tt><span
+style='font-size:10.0pt'>win32com.client</span></tt> package contains a number
+of modules to provide access to automation objects. This package supports both
+late and early bindings, as we will discuss.</p>
+
+<p>To use an <tt><span style='font-size:10.0pt'>IDispatch</span></tt>-based COM
+object, use the method <tt><span style='font-size:10.0pt'>win32com.client.Dispatch()</span></tt>
+. This method takes as its first parameter the ProgID or CLSID of the object
+you wish to create. If you read the documentation for Microsoft Excel, you’ll
+find the ProgID for Excel is <tt><span style='font-size:10.0pt'>Excel.Application</span></tt>,
+so to create an object that interfaces to Excel, use the following code:</p>
+
+<pre>&gt;&gt;&gt; import win32com.client</pre><pre>&gt;&gt;&gt; xl = win32com.client.Dispatch(&quot;Excel.Application&quot;)</pre><pre>&gt;&gt;&gt;</pre>
+
+<p><tt><span style='font-size:10.0pt'>xl</span></tt> is now an object
+representing Excel. The Excel documentation also says that a boolean property
+named <tt><span style='font-size:10.0pt'>Visible</span></tt> is available, so
+you can set that with this code:</p>
+
+<pre>&gt;&gt;&gt; xl.Visible = 1</pre><pre>&gt;&gt;&gt;</pre>
+
+<h4>12.3.1 Late-Bound Automation</h4>
+
+<p>Late-bound automation means that the language doesn’t have advance knowledge
+of the properties and methods available for the object. When a property or
+method is referenced, the object is queried for the property or the method, and
+if the query succeeds, the call can be made. For example, when the language
+sees code such as:</p>
+
+<pre>xl.Visible = 1</pre>
+
+<p>the language first queries the <tt><span style='font-size:10.0pt'>xl</span></tt>
+object to determine if there is a property named <tt><span style='font-size:
+10.0pt'>Visible</span></tt>, and if so, asks the object to set the value to 1.</p>
+
+<p>By default, the <tt><span style='font-size:10.0pt'>win32com.client</span></tt>
+package uses late-bound automation when using objects. In the examples we’ve
+seen so far, the <tt><span style='font-size:10.0pt'>win32com.client</span></tt>
+package has determined the <tt><span style='font-size:10.0pt'>Visible</span></tt>
+property is available as you attempt to use it. In the parlance of PythonCOM,
+this is known as <i>dynamic dispatch</i> .</p>
+
+<p>If you look at the object, Python responds with:</p>
+
+<pre>&gt;&gt;&gt; `xl`</pre><pre>&lt;COMObject Excel.Application&gt;</pre>
+
+<p>This says there’s a COM object named <tt><span style='font-size:10.0pt'>Excel.Application</span></tt>.
+Python knows the name <tt><span style='font-size:10.0pt'>Excel.Application</span></tt>
+from the ProgID that created the object.</p>
+
+<h4>12.3.2 Early-Bound Automation</h4>
+
+<p>The PythonCOM package can also use early binding for COM objects. This means
+that the information about the object model (i.e., the properties and methods
+available for an object) is determined in advance from type information
+supplied by the object.</p>
+
+<p>Python uses the MakePy utility to support early-bound automation. MakePy is
+a utility written in Python that uses a COM type library to generate Python
+source code supporting the interface. Once you use the MakePy utility, early
+binding for the objects is automatically supported; there’s no need to do
+anything special to take advantage of the early binding.</p>
+
+<p>There are a number of good reasons to use MakePy:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The Python interface to automation objects is faster for objects
+supported by a MakePy module.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Any constants defined by the type library are made available to
+the Python program. We discuss COM constants in more detail later in the
+chapter.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>There is much better support for advanced parameter types,
+specifically, parameters declared by COM as BYREF can be used only with
+MakePy-supported objects. We discuss passing parameters later in the chapter.</p>
+
+<p>And there are a few reasons to avoid MakePy:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Using a MakePy-supported object means you must run MakePy before
+code that requires it can be used. Although this step can be automated (i.e.,
+made part of your program), you may choose to avoid it.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The MakePy-generated files can be huge. The file generated for
+Microsoft Excel is around 800 KB, a large Python source file by anyone’s
+standards. The time taken to generate a file of this size, and subsequently
+have Python compile it, can be quite large (although it’s worth noting Python
+can then import the final <i>.pyc</i> file quickly).</p>
+
+<h5>12.3.2.1 Running MakePy</h5>
+
+<p>MakePy is a normal Python module that lives in the <i>win32com\client </i>directory
+of the PythonCOM package. There are two ways to run this script:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Start PythonWin, and from the Tools menu, select the item COM
+Makepy utility.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Using Windows Explorer, locate the client subdirectory under the
+main <i>win32com</i> directory and double-click the file <i>makepy.py</i>.</p>
+
+<p>In both cases, you are presented with a list of objects MakePy can use to
+support early binding.</p>
+
+<p>We will try this out, continuing our example of using Microsoft Excel. Let’s
+start PythonWin, and select the COM Makepy utility from the Tools menu. You are
+then presented with a list that looks similar to that shown in <a
+href="#_Figure_12.1._An_example_list_of_obj">Figure 12.1</a>.</p>
+
+<p>The exact contents of the list depends on the software you have installed on
+your PC. Scroll down until you find the entry Microsoft Excel 8.0 Object
+Library (1.2, or the entry that represents the version of Excel you have
+installed) and press Enter. You should see a progress bar displayed as MakePy
+does its thing, and when complete, you should see a message in the PythonWin
+interactive window:</p>
+
+<pre>Generating to c:\Program Files\Python\win32com\gen_py\00020813-0000-0000-C000-000000000046x0x1x2.py</pre>
+
+<p>Your first reaction may be one of horror: how are you supposed to use a
+filename that looks like that? The good news is that you don’t need to; just
+use PythonCOM as normal, but from now on, all references to the Excel object
+model use the early binding features generated by MakePy.</p>
+
+<p>&nbsp;</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_12.1._An_example_list_of_obj"></a>Figure 12.1. An example list of
+objects presented by MakePy</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=286
+src="images/image043.gif" alt="figs/ppw.1201.gif"></span></p>
+
+<p>Now we have created MakePy support; let’s see it in action. You can either
+use the existing PythonWin session, or start a new session and use the same
+code used earlier to create the <tt><span style='font-size:10.0pt'>Excel.Application</span></tt>
+object:</p>
+
+<pre>&gt;&gt;&gt; import win32com.client</pre><pre>&gt;&gt;&gt; xl=win32com.client.Dispatch(&quot;Excel.Application&quot;)</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>And you can still set the <tt><span style='font-size:10.0pt'>Visible</span></tt>
+property:</p>
+
+<pre>&gt;&gt;&gt; xl.Visible=1</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>At this stage, the only difference is when you print the <tt><span
+style='font-size:10.0pt'>xl</span></tt> object:</p>
+
+<pre>&gt;&gt;&gt; `xl`</pre><pre>&lt;win32com.gen_py.Microsoft Excel 8.0 Object Library._Application&gt;</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>If you compare this with the output Python presented in the previous
+example, note that Python knows more about the object; it has referenced the
+name of the type library (Microsoft Excel 8.0 Object Library) and the name of
+the object as defined by Excel itself (<tt><span style='font-size:10.0pt'>_Application</span></tt>).</p>
+
+<h5>12.3.2.2 How MakePy works</h5>
+
+<p>In most cases, you don’t need to know how MakePy works, but in certain
+cases, particularly when tracking down problems, it is handy to know.</p>
+
+<p>The <tt><span style='font-size:10.0pt'>makepy</span></tt> module generates
+Python source code into a standard <i>.py</i> source file. The items in this
+file may include:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>A standard Python class for each automation object included in
+the type library</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>A set of constants exposed by the type library</p>
+
+<p>The Python class has one method for each of the methods defined by the
+object and a list of properties supported by the object. Let’s take a look at
+some generated code.</p>
+
+<p>Let’s open the source file you generated previously for Microsoft Excel. The
+simplest way to open this file is to copy the name of the file from the
+PythonWin interactive window, then paste it into the File Open dialog of your
+favorite editor.</p>
+
+<p>To find the class definition for the Excel <tt><span style='font-size:10.0pt'>_Application</span></tt>
+object, you can perform a search for <tt><span style='font-size:10.0pt'>class
+_Application</span></tt>, and locate code similar to this:</p>
+
+<pre>class _Application(DispatchBaseClass):</pre><pre>  CLSID = pythoncom.MakeIID('{000208D5-0000-0000-C000-000000000046}')</pre><pre>  def ActivateMicrosoftApp(self, Index=defaultNamedNotOptArg):</pre><pre>    return self._ApplyTypes_(0x447, 1, (24, 0), ((3, 1),), \</pre><pre>                             'ActivateMicrosoftApp', None, Index)</pre><pre>&nbsp;</pre><pre>  def AddChartAutoFormat(self, Chart=defaultNamedNotOptArg, \</pre><pre>                               Name=defaultNamedNotOptArg, \</pre><pre>                               Description=defaultNamedOptArg):</pre><pre>    return self._ApplyTypes_(0xd8, 1, (24, 0), ((12, 1), (8, 1), (12, 17)),\</pre><pre>                      'AddChartAutoFormat', None, Chart, Name, Description)</pre>
+
+<p>There are many more methods. Each method includes the name of each parameter
+(including a default value). You will notice the series of magic numbers passed
+to the <tt><span style='font-size:10.0pt'>_ApplyTypes_()</span></tt> method;
+these describe the types of the parameters and are used by the PythonCOM
+framework to correctly translate the Python objects to the required <tt><span
+style='font-size:10.0pt'>VARIANT</span></tt> type.</p>
+
+<p>Each class also has a list of properties available for the object. These
+properties also have cryptic type information similar to the methods, so
+properties also benefit from the increased knowledge of the parameters.</p>
+
+<p>At the end of the generated source file, there is a Python dictionary describing
+all the objects supported in the module. For example, our module generated for
+Excel has entries:</p>
+
+<pre>CLSIDToClassMap = {</pre><pre>  '{00024428-0000-0000-C000-000000000046}' : _QueryTable,</pre><pre>  '{00024423-0001-0000-C000-000000000046}' : ICustomView,</pre><pre>  '{00024424-0001-0000-C000-000000000046}' : IFormatConditions,</pre><pre>  '{00024425-0001-0000-C000-000000000046}' : IFormatCondition,</pre><pre>  '{00024420-0000-0000-C000-000000000046}' : CalculatedFields,</pre><pre>  # And many, many more removed!</pre><pre>}</pre>
+
+<p>This dictionary is used at runtime to convert COM objects into the actual
+classes defined in the module. When the PythonCOM framework receives an <tt><span
+style='font-size:10.0pt'>IDispatch</span></tt> object, it asks the object for
+its Class ID (CLSID), then consults the map for the class that provides the
+interface to the object.</p>
+
+<h4>12.3.3 Forcing Early or Late Binding</h4>
+
+<p>When you use the <tt><span style='font-size:10.0pt'>win32com.client.Dispatch()</span></tt>
+method, the PythonCOM framework automatically selects the best available
+binding method; if MakePy support for an object exists, it provides early
+binding; otherwise the dynamic dispatch method provides late binding. In some
+cases, you may wish to get explicit control over the binding method.</p>
+
+<p>The <tt><span style='font-size:10.0pt'>win32com.client.Dispatch()</span></tt>
+method achieves this functionality by initially checking to see if MakePy
+support exists for the object. If MakePy support doesn’t exist, the Python
+module <tt><span style='font-size:10.0pt'>win32com.client.dynamic</span></tt>
+is called to perform the late-bound functionality. To force late binding for
+your objects, use the <tt><span style='font-size:10.0pt'>win32com.client.dynamic</span></tt>
+module directly, bypassing any MakePy-generated objects.</p>
+
+<p>The <tt><span style='font-size:10.0pt'>win32com.client.dynamic</span></tt>
+module contains only one function designed to be used by Python programmers, <tt><span
+style='font-size:10.0pt'>win32com.client.dynamic.Dispatch()</span></tt> . This
+function is used in the same way as <tt><span style='font-size:10.0pt'>win32com.client.Dispatch()</span></tt>,
+except that MakePy support is never used for the returned object.</p>
+
+<p>To force the use of early binding to access COM objects, you must force the
+MakePy process in your code. Once you have ensured the MakePy support exists,
+use <tt><span style='font-size:10.0pt'>win32com.client.Dispatch()</span></tt>
+as usual. It always returns the MakePy-supported wrappers for your COM object.</p>
+
+<p>To force the MakePy process, the <tt><span style='font-size:10.0pt'>win32com.client.gencache</span></tt>
+module is used. This module contains the code that manages the directory of
+MakePy-generated source files: the generated cache, or <i>gencache</i>. There
+are a number of useful functions in this module, and you are encouraged to
+browse the source file if you need to perform advanced management of these
+generated files.</p>
+
+<p>To generate a MakePy file at runtime, you need to know the unique ID of the
+type library (a CLSID) and its version and language identifier. This
+information is usually not easy to find, so the MakePy module supports a
+convenient method to obtain this information.</p>
+
+<p>If you run the MakePy script with a -<tt><span style='font-size:10.0pt'>i</span></tt>
+parameter, instead of generating the source module, it prints the information
+necessary to force the MakePy process at run-time. The easiest way to do this
+is to perform the following steps:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Start PythonWin and select File <img border=0 width=20 height=16
+src="images/image008.gif" alt="figs/U2192.gif">Run.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Click on the Browse button and locate the file <i>makepy.py</i> in the <i>win32com\client</i>
+directory.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Enter -<tt><span style='font-size:10.0pt'>i</span></tt> in the arguments
+control.</p>
+
+<p>Your dialog should now look something like <a
+href="#_Table_12.2._Default_Python_Object_t">Figure 12.2</a>.</p>
+
+<h5 align=center style='text-align:center'>Figure 12.2. Running MakePy with the
+-i argument</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=121
+src="images/image044.gif" alt="figs/ppw.1202.gif"></span></p>
+
+<p>Click on the OK button and again select the entry Microsoft Excel 8.0 Object
+Library (1.2). You should see the following text printed in the PythonWin
+interactive window:</p>
+
+<pre>{00020813-0000-0000-C000-000000000046}, lcid=0, major=1, minor=2</pre><pre> &gt;&gt;&gt; # Use these commands in Python code to auto generate .py support</pre><pre> &gt;&gt;&gt; from win32com.client import gencache</pre><pre> &gt;&gt;&gt; gencache.EnsureModule('{00020813-0000-0000-C000-000000000046}', 0, 1, 2)</pre>
+
+<p>Let’s tie all this together in a file that demonstrates what we’ve covered
+so far.</p>
+
+<p>The following example first creates a late-bound object for Microsoft Excel,
+then forces MakePy to be run over the type library and create an early-bound
+object. You do nothing with the object; simply print the object to the output
+window:</p>
+
+<pre># LateAndEarly.py - Demonstrates how to force</pre><pre># late or early binding of your COM objects.</pre><pre>&nbsp;</pre><pre>import win32com.client</pre><pre>import win32com.client.dynamic</pre><pre>&nbsp;</pre><pre>print &quot;Creating late-bound Excel object&quot;</pre><pre>xl = win32com.client.dynamic.Dispatch(&quot;Excel.Application&quot;)</pre><pre>print &quot;The Excel object is&quot;, `xl`</pre><pre>&nbsp;</pre><pre>&nbsp;</pre><pre>print &quot;Running makepy for Excel&quot;</pre><pre># NOTE - these 2 lines are copied verbatim from the output</pre><pre># of makepy.py when run with the -i parameter.</pre><pre>from win32com.client import gencache</pre><pre>gencache.EnsureModule('{00020813-0000-0000-C000-000000000046}', 0, 1, 2)</pre><pre>&nbsp;</pre><pre>xl = win32com.client.Dispatch(&quot;Excel.Application&quot;)</pre><pre>print &quot;The Excel object is&quot;, `xl`</pre>
+
+<p>Note that you copied the output of <tt><span style='font-size:10.0pt'>makepy
+-i</span></tt> verbatim into your source code.</p>
+
+<p>Before running this code, remove the existing cache of <i>.py</i> files. If
+you run this code with a previously generated MakePy file for the Excel object,
+it won’t be created again. To delete the cache of <i>.py</i> files, locate the <i>Python\win32com\gen_py</i>
+directory and delete it. You can delete the entire directory or just the files
+in the directory. Be sure to remove all files, not just the <i>.py</i> files.</p>
+
+<p>If you run this code, notice that a progress bar is displayed as the <i>.py</i>
+file is generated, and this newly generated module is used for the early-bound
+object. If you then run this code a second time, notice you get the same
+output, but no generation process; this demonstrates you can force late-bound
+objects to be used, even when early-bound MakePy support exists for the object.
+</p>
+
+<p>The output from this script should be:</p>
+
+<pre>Creating late-bound Excel object</pre><pre>The Excel object is &lt;COMObject Excel.Application&gt;</pre><pre>Running makepy for Excel</pre><pre>The Excel object is &lt;win32com.gen_py.Microsoft Excel 8.0 Object </pre><pre>    Library.Application&gt;</pre>
+
+<h4>12.3.4 Differences Between Early and Late Binding</h4>
+
+<p>There are a number of differences between using early and late binding
+within Python. All these changes are specific to Python and not to COM itself.
+These differences are most significant when moving from code that uses late
+binding to code that uses early binding.</p>
+
+<p>The key difference is the handling of parameters; in fact, these differences
+are so significant that we discuss them separately later in the section <a
+href="#_12.3.6_Passing_and_Obtaining_Python">Section 12.3.6</a>.</p>
+
+<p>Another fundamental difference is case sensitivity. Late binding is
+generally not sensitive to the case of methods and properties, while early
+binding is. To see an example of this, create a late-bound Excel object and
+adjust its <tt><span style='font-size:10.0pt'>Visible</span></tt> property. As
+discussed in the previous section, you force a late-bound object even if MakePy
+support exists for the object:</p>
+
+<pre>&gt;&gt;&gt; import win32com.client.dynamic</pre><pre>&gt;&gt;&gt; xl=win32com.client.dynamic.Dispatch(&quot;Excel.Application&quot;)</pre><pre>&gt;&gt;&gt; xl.Visible=1</pre><pre>&gt;&gt;&gt; print xl.VISIBLE</pre><pre>1</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>You can use both <tt><span style='font-size:10.0pt'>Visible</span></tt> and <tt><span
+style='font-size:10.0pt'>VISIBLE</span></tt> in this context.</p>
+
+<p>Now let’s try the same example using early bindings. Assume that you have
+generated MakePy support for Microsoft Excel and use the same code:</p>
+
+<pre>&gt;&gt;&gt; import win32com.client</pre><pre>&gt;&gt;&gt; xl=win32com.client.Dispatch(&quot;Excel.Application&quot;)</pre><pre>&gt;&gt;&gt; xl.Visible=1</pre><pre>&gt;&gt;&gt; print xl.VISIBLE</pre><pre>Traceback (innermost last):</pre><pre>  File &quot;&lt;stdin&gt;&quot;, line 1, in ?</pre><pre>  File &quot;c:\Program Files\Python\win32com\gen_py\00020813-0000-0000-C000-</pre><pre>000000000046x0x1x2.py&quot;, line 1462, in __getattr__</pre><pre>    raise AttributeError, attr</pre><pre>AttributeError: VISIBLE</pre>
+
+<p>Note that using <tt><span style='font-size:10.0pt'>VISIBLE</span></tt>
+fails. The reason is simple; when using late binding, Python asks Excel for a <tt><span
+style='font-size:10.0pt'>Visible</span></tt> property and then for a <tt><span
+style='font-size:10.0pt'>VISIBLE</span></tt> property. Excel itself is
+case-insensitive, so it happily indicates both properties are OK. When using
+early binding, Python source code is generated, and all property and method
+references are handled by Python itself. Because Python is case-sensitive, it
+allows only the case that Excel reports for the property—in this case <tt><span
+style='font-size:10.0pt'>Visible</span></tt>. When the early-binding code
+attempts to use <tt><span style='font-size:10.0pt'>VISIBLE</span></tt>, Python
+raises the exception without consulting Excel.</p>
+
+<h4>12.3.5 Using COM Constants</h4>
+
+<p>Many COM type libraries also include enumerations, which are named constants
+and used with the type library. For example, the type library used with
+Microsoft Excel includes constants named <tt><span style='font-size:10.0pt'>xlAscdending</span></tt>,
+<tt><span style='font-size:10.0pt'>xlDescending</span></tt>, and so forth, and
+are used typically as parameters to (or return values from) methods or
+properties.</p>
+
+<p>These are made available from the Python object <tt><span style='font-size:
+10.0pt'>win32com.client.constants</span></tt> , for example, <tt><span
+style='font-size:10.0pt'>win32com.client.constants.xlAscending</span></tt>.</p>
+
+<p>It’s important to note that the constants for a package don’t exist until
+the MakePy-generated module has been imported; that is, until you create or use
+an object from the module. You can see this in action if you start Python and
+attempt to reference a constant from the Microsoft Excel type library:</p>
+
+<pre>&gt;&gt;&gt; from win32com.client import constants, Dispatch</pre><pre>&gt;&gt;&gt; constants.xlAscending</pre><pre>Traceback (innermost last):</pre><pre>  File &quot;&lt;stdin&gt;&quot;, line 1, in ?</pre><pre>  File &quot; win32com\client\__init__.py&quot;, line 53, in __getattr__</pre><pre>    raise AttributeError, a</pre><pre>AttributeError: xlAscending</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>You can see that attempting to use these constants results in an attribute error.
+However, if you first create an <tt><span style='font-size:10.0pt'>Excel.Application</span></tt>
+object, the constants become available:</p>
+
+<pre>&gt;&gt;&gt; xl=Dispatch(&quot;Excel.Application&quot;)</pre><pre>&gt;&gt;&gt; constants.xlAscending</pre><pre>1</pre>
+
+<p>Of course, because these constants are read from a type library, they aren’t
+available when you use late-bound (or dynamic dispatch) objects. In this case,
+you must use integer literals, rather than named constants in your source code.</p>
+
+<h4 style='page-break-after:avoid'><a
+name="_12.3.6_Passing_and_Obtaining_Python"></a>12.3.6 Passing and Obtaining
+Python Objects from COM</h4>
+
+<p>COM supports a variety of argument types, using the <tt><span
+style='font-size:10.0pt'>VARIANT</span></tt> data structure. The types that can
+be passed to COM functions include integers and floats of various sizes,
+strings, date/time values, COM objects, or arrays of any of these types.</p>
+
+<p>In many cases, PythonCOM can translate between Python objects and <tt><span
+style='font-size:10.0pt'>VARIANT</span></tt> structures seamlessly. When you
+call a COM object and pass a Python object, PythonCOM automatically creates a <tt><span
+style='font-size:10.0pt'>VARIANT</span></tt> of the right type and passes the <tt><span
+style='font-size:10.0pt'>VARIANT</span></tt> to COM. In the absence of any
+hints, PythonCOM performs the translations as listed in <a
+href="#_Table_12.1._Default_Python_Object_t">Table 12.1</a> and <a
+href="#_Table_12.2._Default_Python_Object_t">Table 12.2</a>. In <a
+href="http://safari.oreilly.com/main.asp?bookname=pythonwin32&amp;snode=95#16"><span
+style='color:black;text-decoration:none'><u><span style='color:#990000'>Table
+12.1</span></u></span></a>, for example, you can see that a Python integer is
+automatically converted to a <tt><span style='font-size:10.0pt'>VARIANT</span></tt>
+type <tt><span style='font-size:10.0pt'>VT_I4</span></tt>.</p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width="100%"
+ style='width:100.0%'>
+ <tr>
+  <td colspan=2 style='border:none;padding:.75pt .75pt .75pt .75pt'>
+  <h5 align=center style='text-align:center'><a
+  name="_Table_12.1._Default_Python_Object_t"></a>Table&nbsp;12.1. Default
+  Python Object to VARIANT Translation</h5>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p align=center style='text-align:center'><b><span style='font-size:10.0pt'>Python
+  Object Type</span></b></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p align=center style='text-align:center'><b><span style='font-size:10.0pt'>VARIANT
+  Type</span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>Integer</span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>VT_I4</span></tt></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>Long Integer</span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>VT_I4</span></tt><span
+  style='font-size:10.0pt'> if the value is less than 232, or </span><tt><span
+  style='font-size:10.0pt'>VT_I8</span></tt><span style='font-size:10.0pt'> if
+  greater</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>String/Unicode</span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>VT_BSTR</span></tt></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>Float</span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>VT_R8</span></tt></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>PyTrue</span></tt><span
+  style='font-size:10.0pt'>/</span><tt><span style='font-size:10.0pt'>PyFalse</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>VT_BOOL</span></tt></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>None</span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>VT_NULL</span></tt></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>win32com.client.Dispatch</span></tt><span
+  style='font-size:10.0pt'> instance</span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>VT_DISPATCH</span></tt></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>PyIDispatch</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>VT_DISPATCH</span></tt></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>All other </span><tt><span
+  style='font-size:10.0pt'>PyI*</span></tt><span style='font-size:10.0pt'>
+  PythonCOM objects</span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>VT_UNKNOWN</span></tt></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>Pywintypes</span></tt><span
+  style='font-size:10.0pt'> </span><tt><span style='font-size:10.0pt'>PyTIME</span></tt><span
+  style='font-size:10.0pt'> object</span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>VT_DATE</span></tt></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>Any other Python sequence</span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>An array of VARIANTs; each element of the
+  sequence is translated using this table</span></p>
+  </td>
+ </tr>
+</table>
+
+<p style='margin:0in;margin-bottom:.0001pt'><span style='display:none'>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width="100%"
+ style='width:100.0%'>
+ <tr>
+  <td colspan=2 style='border:none;padding:.75pt .75pt .75pt .75pt'>
+  <h5 align=center style='text-align:center'><a
+  name="_Table_12.2._Default_Python_Object_t"></a>Table&nbsp;12.2. Default
+  Python Object to VARIANT Translation</h5>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p align=center style='text-align:center'><b><span style='font-size:10.0pt'>VARIANT
+  Type</span></b></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p align=center style='text-align:center'><b><span style='font-size:10.0pt'>Python
+  Object</span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>VT_BOOL</span></tt></p>
+  <p><tt><span style='font-size:10.0pt'>VT_I2</span></tt></p>
+  <p><tt><span style='font-size:10.0pt'>VT_I4</span></tt></p>
+  <p><tt><span style='font-size:10.0pt'>VT_ERROR</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>Integer</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>VT_R4</span></tt></p>
+  <p><tt><span style='font-size:10.0pt'>VT_R8</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>Float</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>VT_DISPATCH</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>PyIDispatch</span></tt></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>VT_UNKNOWN</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>PyIUnknown</span></tt></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>VT_BSTR</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>PyUnicode</span></tt></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>VT_NULL</span></tt></p>
+  <p><tt><span style='font-size:10.0pt'>VT_EMPTY</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>None</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>VT_DATE</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>Pywintypes</span></tt><span
+  style='font-size:10.0pt'> </span><tt><span style='font-size:10.0pt'>PyTIME</span></tt><span
+  style='font-size:10.0pt'> object</span></p>
+  </td>
+ </tr>
+</table>
+
+<p>In some cases, these translations aren’t suitable; for example, a COM object
+may be picky about the <tt><span style='font-size:10.0pt'>VARIANT</span></tt> types
+passed and accept only a <tt><span style='font-size:10.0pt'>VT_I2</span></tt>
+integer, not a <tt><span style='font-size:10.0pt'>VT_I4</span></tt> integer.
+This should be considered a bug in the COM object, but it does happen. In this
+case, you must use early-bound COM by using MakePy. The code generated by
+MakePy includes information about the types of parameters expected by the COM
+object, and the PythonCOM framework correctly coerces the Python object into
+the required <tt><span style='font-size:10.0pt'>VARIANT</span></tt> type. If
+you can’t use MakePy for your COM object, you must get your hands dirty and use
+the <tt><span style='font-size:10.0pt'>PyIDispatch.InvokeTypes()</span></tt>
+method manually; this is how MakePy gets the behavior it does. The use of <tt><span
+style='font-size:10.0pt'>InvokeTypes()</span></tt> is beyond the scope of this
+book.</p>
+
+<p>Just as with the C and Visual Basic languages, it’s possible in COM to pass
+objects by value or by reference. Passing by value means the value is passed,
+and changes to the value aren’t reflected in the calling object. Passing by
+reference means a pointer to the value is passed, so changes to the value are
+reflected in the calling object.</p>
+
+<p>Python doesn’t support this concept; it’s not possible to pass simple
+parameters by reference in Python. The common pattern is for Python to return
+the values from the function.</p>
+
+<p>Fortunately, parameters passed by reference tend to be avoided. The
+Microsoft Office suite doesn’t use them, nor do any of the other type libraries
+you could reasonably assume are installed on your PC. This makes demonstrating
+the problem using real code somewhat difficult, but as an example, let’s assume
+you need to call a function that in C looks like:</p>
+
+<pre>BOOL GetSize( int *left, int *right, int *top, int *bottom);</pre>
+
+<p>Your C code to call this function looks like this:</p>
+
+<pre>int left, right, top, bottom;</pre><pre>BOOL ok;</pre><pre>ok = GetSize( &amp;left, &amp;right, &amp;top, &amp;bottom);</pre>
+
+<p>Or in Visual Basic, the code looks like:</p>
+
+<pre>Declare GetSize( ByRef left as integer, ByRef right as integer, _</pre><pre>                 ByRef top as integer, ByRef bottom as integer) as Integer</pre><pre>...</pre><pre>ok = GetSize(left, right, top, bottom);</pre>
+
+<p>In Python, the code looks something like:</p>
+
+<pre>left, right, top, bottom = GetSize() # Exception indicates error.</pre>
+
+<p>Note that the output parameters have been converted to the function result;
+the same style is used for PythonCOM. It’s critical to note, however, that
+ByRef-style parameters may be detected only when using early-bound dispatch. If
+you haven’t used MakePy for the type library, PythonCOM may not detect that the
+parameters are indeed marked as by reference and therefore may not work as
+expected.</p>
+
+<p>The moral of the story is this: for anything other than simple arguments,
+it’s highly recommended you use MakePy to force early-bound dispatch. If you
+have any problems with COM parameters and aren’t using MakePy, try switching to
+it, and your problem is likely to go away. </p>
+
+<h3><a name="_12.4_Using_Other_COM_Interfaces"></a>12.4 Using Other COM
+Interfaces</h3>
+
+<p>So far, we have only discussed using <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+(or automation) COM objects from Python and only via Python helper classes.
+Although this is the most common way to use COM objects, more advanced
+applications often need native COM interfaces.</p>
+
+<p>To illustrate this contingency, we will demonstrate the use of native
+interfaces with a little utility to dump statistics from a Microsoft Office
+application file (e.g., a Word document or Excel spreadsheet).</p>
+
+<p>COM provides a technology known as <i>structured storage</i> . This is a set
+of functions and interfaces that allows you to store rich, hierarchical streams
+of data inside a single file, often referred to as a “filesystem within a
+file.”</p>
+
+<p>Part of this implementation provides for standard properties about the
+file—the author of the file, for example. Windows Explorer is aware of these
+interfaces and can display the properties without any knowledge of the
+application that created the file. Microsoft Office stores its documents in
+structured storage files, and therefore the Windows Explorer can display rich
+information about Office documents.</p>
+
+<p>To access these properties, call a COM function to open the structured
+storage file. This operation results in a <tt><span style='font-size:10.0pt'>PyIStorage</span></tt>
+object, a Python object that wraps the COM <tt><span style='font-size:10.0pt'>IStorage</span></tt>
+interface. If the document has standard properties, you get these through the
+COM <tt><span style='font-size:10.0pt'>IPropertySetStorage</span></tt>
+interface, which means you should perform a <tt><span style='font-size:10.0pt'>QueryInterface()</span></tt>
+on the <tt><span style='font-size:10.0pt'>PyIStorage</span></tt> object to get
+the needed interface. Then open the property set you want and query for the
+properties.</p>
+
+<p>We won’t discuss the <tt><span style='font-size:10.0pt'>IPropertySetStorage</span></tt>
+and <tt><span style='font-size:10.0pt'>IPropertyStorage</span></tt> interfaces
+in any detail; the focus for this example is how to work with COM interfaces
+from Python, not what these particular interfaces do:</p>
+
+<pre># DumpStorage.py - Dumps some user defined properties </pre><pre># of a COM Structured Storage file.</pre><pre>&nbsp;</pre><pre>import pythoncom</pre><pre>from win32com import storagecon # constants related to storage functions.</pre><pre>&nbsp;</pre><pre># These come from ObjIdl.h</pre><pre>FMTID_UserDefinedProperties = &quot;{F29F85E0-4FF9-1068-AB91-08002B27B3D9}&quot;</pre><pre>&nbsp;</pre><pre>PIDSI_TITLE               = 0x00000002</pre><pre>PIDSI_SUBJECT             = 0x00000003</pre><pre>PIDSI_AUTHOR              = 0x00000004</pre><pre>PIDSI_CREATE_DTM          = 0x0000000c</pre><pre>&nbsp;</pre><pre>def PrintStats(filename):</pre><pre>    if not pythoncom.StgIsStorageFile(filename):</pre><pre>        print &quot;The file is not a storage file!&quot;</pre><pre>        return</pre><pre>    # Open the file.</pre><pre>    flags = storagecon.STGM_READ | storagecon.STGM_SHARE_EXCLUSIVE</pre><pre>    stg = pythoncom.StgOpenStorage(filename, None, flags )</pre><pre>&nbsp;</pre><pre>    # Now see if the storage object supports Property Information.</pre><pre>    try:</pre><pre>        pss = stg.QueryInterface(pythoncom.IID_IPropertySetStorage)</pre><pre>    except pythoncom.com_error:</pre><pre>        print &quot;No summary information is available&quot;</pre><pre>        return</pre><pre>    # Open the user defined properties.</pre><pre>    ps = pss.Open(FMTID_UserDefinedProperties)</pre><pre>    props = PIDSI_TITLE, PIDSI_SUBJECT, PIDSI_AUTHOR, PIDSI_CREATE_DTM</pre><pre>    data = ps.ReadMultiple( props )</pre><pre>    # Unpack the result into the items.</pre><pre>    title, subject, author, created = data</pre><pre>    print &quot;Title:&quot;, title</pre><pre>    print &quot;Subject:&quot;, subject</pre><pre>    print &quot;Author:&quot;, author</pre><pre>    print &quot;Created:&quot;, created.Format()</pre><pre>&nbsp;</pre><pre>if __name__=='__main__':</pre><pre>    import sys</pre><pre>    if len(sys.argv)&lt;2:</pre><pre>        print &quot;Please specify a file name&quot;</pre><pre>    else:</pre><pre>        PrintStats(sys.argv[1])</pre>
+
+<p>The first step is to check whether the file is indeed a structured storage
+file, then call <tt><span style='font-size:10.0pt'>pythoncom.StgOpenStorage()</span></tt>
+to obtain a Python <tt><span style='font-size:10.0pt'>PyIStorage</span></tt>
+interface object. You call the Python interface objects just like normal Python
+objects, as you’d expect. The <tt><span style='font-size:10.0pt'>QueryInterface()</span></tt>
+method can be used on any Python interface object, and returns a new interface
+object or throws an exception.</p>
+
+<p>The output of running the example over the Microsoft Word document that
+contains this chapter is:</p>
+
+<pre>C:\Scripts&gt;python.exe DumpStorage.py &quot;Python and COM.doc&quot;</pre><pre>Title: Python and COM</pre><pre>Subject:</pre><pre>Author: Mark Hammond</pre><pre>Created: 03/04/99 00:41:00</pre><pre>&nbsp;</pre><pre>C:\Scripts&gt;</pre>
+
+<p>A final note on native interfaces: Python can’t support arbitrary COM
+interfaces; the <tt><span style='font-size:10.0pt'>pythoncom</span></tt> module
+(or a <tt><span style='font-size:10.0pt'>pythoncom</span></tt> extension) must
+have built-in support for the interface. Fortunately, there are tools <tt><span
+style='font-size:10.0pt'>pythoncom</span></tt> developers use that largely
+automate the process of supporting new interfaces.</p>
+
+<h3><a name="_12.5_Error_Handling"></a>12.5 Error Handling</h3>
+
+<p>COM uses three schemes to report error information to client applications:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>All COM interface methods return an integer status code (known as
+an <tt><span style='font-size:10.0pt'>HRESULT</span></tt> ), with COM defining
+many common values for these <tt><span style='font-size:10.0pt'>HRESULT</span></tt>s.
+There is an <tt><span style='font-size:10.0pt'>HRESULT</span></tt> to indicate
+success and a number of <tt><span style='font-size:10.0pt'>HRESULT</span></tt>s
+that indicate warnings. All other <tt><span style='font-size:10.0pt'>HRESULT</span></tt>
+values indicate an error status.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>COM defines two special interfaces that report extended error
+information—<tt><span style='font-size:10.0pt'>ISupportErrorInfo</span></tt>
+and <tt><span style='font-size:10.0pt'>IErrorInfo</span></tt>. When any method
+fails, the client can perform a <tt><span style='font-size:10.0pt'>QueryInterface()</span></tt>
+to determine if the interface supports providing additional error information.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+(automation) interfaces have a standard technique for reporting COM exceptions.
+When an <tt><span style='font-size:10.0pt'>IDispatch</span></tt> object
+encounters an error, it fills out an exception structure and returns it to the
+caller.</p>
+
+<p>The PythonCOM framework combines all these error-reporting mechanisms into a
+single, Python-exception mechanism. This means you can effectively ignore the
+three techniques listed: PythonCOM unifies them, so you never need to know how
+the details of an error were obtained.</p>
+
+<p>All COM errors are reported to Python programs as <tt><span
+style='font-size:10.0pt'>pythoncom.com_error</span></tt> exceptions. The
+exception value has the following parts:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The <tt><span style='font-size:10.0pt'>HRESULT</span></tt> of the
+COM function.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>A text representation of the <tt><span style='font-size:10.0pt'>HRESULT</span></tt>.
+For example, if the <tt><span style='font-size:10.0pt'>HRESULT</span></tt> is <tt><span
+style='font-size:10.0pt'>E_NOINTERFACE</span></tt>, the text representation is
+(for English users) “No such interface supported.”</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Additional exception information as described later in this
+chapter, or <tt><span style='font-size:10.0pt'>None</span></tt> if no
+additional information is supported.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>If the error is due to a parameter to a function, an integer
+indicating the parameter in error. This may be <tt><span style='font-size:10.0pt'>None</span></tt>
+or -1 if no information about the argument in error can be determined.</p>
+
+<p>The error codes are worthy of discussion. The COM rules state that if
+additional exception information is available, the <tt><span style='font-size:
+10.0pt'>HRESULT</span></tt> should be <tt><span style='font-size:10.0pt'>win32con.DISP_E_EXCEPTION</span></tt>
+. However, not all COM objects meet this requirement, so the behavior shouldn’t
+be relied on. If additional exception information is available, it will be a
+tuple of:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>An additional error code for the error (the <tt><span
+style='font-size:10.0pt'>wCode</span></tt>)</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The source of the error as a string, typically the application
+name</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>A text description of the error</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The name of a Windows help file with additional information about
+the error</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>A help context to identify the topic in the Windows help file</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Yet another error code for the error (the <tt><span
+style='font-size:10.0pt'>sCode</span></tt>)</p>
+
+<p>As mentioned, if this exception information is available, the <tt><span
+style='font-size:10.0pt'>HRESULT</span></tt> should be <tt><span
+style='font-size:10.0pt'>win32con.DISP_E_EXCEPTION</span></tt>. In this case,
+either the <tt><span style='font-size:10.0pt'>wCode</span></tt> or the <tt><span
+style='font-size:10.0pt'>sCode</span></tt> contains the actual error. One of
+these must be zero, but it depends on the object implementing the error exactly
+which is used.</p>
+
+<p>Let’s see some code that catches a COM exception. For this example, we’ll
+write a function to open an Excel spreadsheet. If this function fails, we print
+all the details known about the error. First, let’s define the function:</p>
+
+<pre>&gt;&gt;&gt; from win32com.client import Dispatch</pre><pre>&gt;&gt;&gt; import pythoncom</pre><pre>&gt;&gt;&gt; def OpenExcelSheet(filename):</pre><pre>...     try:</pre><pre>...         xl = Dispatch(&quot;Excel.Application&quot;)</pre><pre>...         xl.Workbooks.Open(filename)</pre><pre>...     except pythoncom.com_error, (hr, msg, exc, arg):</pre><pre>...         print &quot;The Excel call failed with code %d: %s&quot; % (hr, msg)</pre><pre>...         if exc is None:</pre><pre>...             print &quot;There is no extended error information&quot;</pre><pre>...         else:</pre><pre>...             wcode, source, text, helpFile, helpId, scode = exc</pre><pre>...             print &quot;The source of the error is&quot;, source</pre><pre>...             print &quot;The error message is&quot;, text</pre><pre>...             print &quot;More info can be found in %s (id=%d)&quot; % (helpFile, helpId)</pre><pre>...     </pre><pre>&gt;&gt;&gt;</pre>
+
+<p>As you can see, there’s a Python <tt><span style='font-size:10.0pt'>except</span></tt>
+block to catch all COM errors. The first thing to do is print the generic
+information about the message, then check for extended information. If the
+extended information exists, decode and print that too.</p>
+
+<p>To try this function, you could use the following code (assuming, of course,
+you don’t have an Excel spreadsheet named <i>foo.xls</i> lying around):</p>
+
+<pre>&gt;&gt;&gt; OpenExcelSheet(&quot;foo.xls&quot;)</pre><pre>The Excel call failed with code -2147352567: Exception occurred.</pre><pre>The source of the error is Microsoft Excel</pre><pre>The error message is 'foo.xls' could not be found. Check the spelling of the </pre><pre>file name, and verify that the file location is correct.</pre><pre>&nbsp;</pre><pre>If you are trying to open the file from your list of most recently used </pre><pre>files on the File menu, make sure that the file has not been renamed, </pre><pre>moved, or deleted.</pre><pre>More info can be found in XLMAIN8.HLP (id=0)</pre>
+
+<p>The first line of output displays the raw <tt><span style='font-size:10.0pt'>HRESULT</span></tt>
+for the function. In this case, it’s <tt><span style='font-size:10.0pt'>winerror.DISP_E_EXCEPTION</span></tt>,
+and we do have extended error information, so Excel is following the COM rules.
+The second line displays the application that generated the error. The full
+error text is large: in this case five lines long! The error messages have been
+designed to be placed directly in a message box for the user. The last line of
+the text tells us the name of the Windows help file that contains further
+information about the error. </p>
+
+<h3><a name="_12.6_Implementing_COM_Objects_in_Py"></a>12.6 Implementing COM
+Objects in Python</h3>
+
+<p>Implementing a COM object using Python means you expose a Python object to
+be used by any COM-aware environment, such as Visual Basic or Delphi.</p>
+
+<p>In <a href="7.htm#_Chapter_5._Introduction_to_COM">Chapter 5</a>, we presented a
+simple example of a Python class exposed as a COM object. In this section, we
+provide a more detailed picture of exposing Python objects via COM.</p>
+
+<h4>12.6.1 Implementing a COM Server</h4>
+
+<p>In <a href="7.htm#_Chapter_5._Introduction_to_COM">Chapter 5</a> we presented a
+sample COM server. This example recaps that code:</p>
+
+<pre># SimpleCOMServer.py - A sample COM server - almost as small as they come!</pre><pre># </pre><pre># We simply expose a single method in a Python COM object.</pre><pre>class PythonUtilities:</pre><pre>    _public_methods_ = [ 'SplitString' ]</pre><pre>    _reg_progid_ = &quot;PythonDemos.Utilities&quot;</pre><pre>    # NEVER copy the following ID </pre><pre>    # Use &quot;print pythoncom.CreateGuid()&quot; to make a new one.</pre><pre>    <span
+lang=DE>_reg_clsid_ = &quot;{41E24E95-D45A-11D2-852C-204C4F4F5020}&quot;</span></pre><pre><span
+lang=DE>    </span></pre><pre><span lang=DE>    </span>def SplitString(self, val, item=None):</pre><pre>        import string</pre><pre>        if item != None: item = str(item)</pre><pre>        return string.split(str(val), item)</pre><pre>&nbsp;</pre><pre># Add code so that when this script is run by</pre><pre># Python.exe, it self-registers.</pre><pre>if __name__=='__main__':</pre><pre>    print &quot;Registering COM server...&quot;</pre><pre>    import win32com.server.register</pre><pre>    win32com.server.register.UseCommandLine(PythonUtilities)</pre>
+
+<p>The main points from the example are:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Most COM servers are implemented as Python classes. These classes
+have special attribute annotations that indicate how the object is published
+via COM; our sample uses the minimum possible to register and expose a COM
+server.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The <tt><span style='font-size:10.0pt'>win32com</span></tt>
+package automatically registers and unregisters the COM server.</p>
+
+<p>The list of annotation attributes can be broken into two sets: those that
+expose the object via COM and those that allow the object to be registered via
+COM. <a href="16.htm#_Table_12.3._Runtime-Related_Annotat">Table 12.3</a> lists the
+annotations used at runtime; registration attributes are covered in the next
+section.</p>
+
+<p>&nbsp;</p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width="100%"
+ style='width:100.0%'>
+ <tr>
+  <td colspan=2 style='border:none;padding:.75pt .75pt .75pt .75pt'>
+  <h5 align=center style='text-align:center'><a
+  name="_Table_12.3._Runtime-Related_Annotat"></a>Table&nbsp;12.3.
+  Runtime-Related Annotations on COM Objects</h5>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p align=center style='text-align:center'><b><span style='font-size:10.0pt'>Attribute</span></b></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p align=center style='text-align:center'><b><span style='font-size:10.0pt'>Description</span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>_public_methods_</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>A list of strings that indicate the names
+  of the public methods for the object. COM objects can use only methods listed
+  here, the rest are considered private. This is the only required attribute;
+  all others are optional.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>_public_attrs_</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>A list of strings that indicate the public
+  attributes (or properties) for the object. Any attributes not listed here are
+  considered private. Any attributes listed here but not in </span><tt><span
+  style='font-size:10.0pt'>_readonly_attrs_</span></tt><span style='font-size:
+  10.0pt'> can be read or written. It is possible to list the name of Python
+  methods here, in which case the property is implemented by calling the Python
+  method rather than fetching the attribute directly.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>_readonly_attrs_</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>A list of attributes that should be
+  considered read-only. All names in this list should also be in </span><tt><span
+  style='font-size:10.0pt'>_public_attrs_ </span></tt><span style='font-size:
+  10.0pt'>, otherwise they shouldn’t be exposed.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>_value_</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>A method (not the name of a method) that
+  provides the default value for the object. We present an example of this in
+  the sample code. Because this is a method, the typical way to implement this
+  is to add a method to your class named </span><tt><span style='font-size:
+  10.0pt'>_value_</span></tt><span style='font-size:10.0pt'>.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>_NewEnum</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>A method (not the name of a method) that’s
+  used to when the client using this object requests an enumerator. This
+  function must provide a function that conforms to the enumerator
+  specification.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>_Evaluate</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>Used when the client using this object
+  requests to evaluate it. This appears to be a rarely used COM concept.</span></p>
+  </td>
+ </tr>
+</table>
+
+<h4><a name="_12.6.2_Registering_Your_COM_Server"></a>12.6.2 Registering Your
+COM Server</h4>
+
+<p>Although our sample object implements registration of the object, we haven’t
+discussed it in detail.</p>
+
+<p>Registering an object is the process of allowing the object to be
+independently created; once an object is registered, a language can use its
+standard techniques for creating COM objects to access it, e.g., <tt><span
+style='font-size:10.0pt'>CreateObject()</span></tt> in Visual Basic or <tt><span
+style='font-size:10.0pt'>win32com.client.Dispatch()</span></tt> in Python.</p>
+
+<p>There are many cases where you wish to implement a COM object but don’t need
+it registered. For example, let’s assume you are designing an object model for
+an editor that has a root <tt><span style='font-size:10.0pt'>Application</span></tt>
+object, and inside this <tt><span style='font-size:10.0pt'>Application</span></tt>
+object there are a number of <tt><span style='font-size:10.0pt'>Document</span></tt>
+objects. In this case, you would typically want to register the <tt><span
+style='font-size:10.0pt'>Application</span></tt> object (clients need to be
+able to create this object directly) but not register the <tt><span
+style='font-size:10.0pt'>Document</span></tt> object (making requests on the <tt><span
+style='font-size:10.0pt'>Application</span></tt> object creates these). In this
+case, you don’t need to specify any registration information for the <tt><span
+style='font-size:10.0pt'>Document</span></tt> object.</p>
+
+<p>To prepare an object for registration, you need to provide additional
+attribute annotations on the object. The registration process uses these
+annotations to provide the correct information in the Windows registry for the
+object. The full list of registration related attributes can be found in <a
+href="#_Table_12.4._Registration-Related_At">Table 12.4</a>.</p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width="100%"
+ style='width:100.0%'>
+ <tr>
+  <td colspan=2 style='border:none;padding:.75pt .75pt .75pt .75pt'>
+  <h5 align=center style='text-align:center'><a
+  name="_Table_12.4._Registration-Related_At"></a>Table&nbsp;12.4.
+  Registration-Related Attributes on COM Objects</h5>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p align=center style='text-align:center'><b><span style='font-size:10.0pt'>Attribute</span></b></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p align=center style='text-align:center'><b><span style='font-size:10.0pt'>Description</span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>_reg_progid_</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>The ProgID for the object. This is the name
+  of the COM object clients use to create the object.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>_reg_desc_</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>Optional description of the COM object. If
+  not specified, </span><tt><span style='font-size:10.0pt'>_reg_progid_</span></tt><span
+  style='font-size:10.0pt'> is used as the description.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>_reg_classspec_</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>An optional string identifying the Python
+  module and the object in the module. The PythonCOM framework uses this string
+  to instantiate the COM object. If neither this nor </span><tt><span
+  style='font-size:10.0pt'>_reg_policyspec_</span></tt><span style='font-size:
+  10.0pt'> are provided, the COM framework determines the value from the
+  command line.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>_reg_policyspec_</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>An optional string identifying the
+  PythonCOM policy to be used for this object. If not provided, the default
+  policy is used. See the section <a href="16.htm#_12.6.4_Policies">Section 12.6.4</a>
+  later in this chapter.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>_reg_verprogid_</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>The version-dependent ProgID. This is
+  typically the ProgID with a version number appended. For example, the second
+  version of a particular server may have a ProgID of </span><tt><span
+  style='font-size:10.0pt'>Python.Object</span></tt><span style='font-size:
+  10.0pt'> and a VerProgId of </span><tt><span style='font-size:10.0pt'>Python.Object.2</span></tt><span
+  style='font-size:10.0pt'>.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>_reg_icon_</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>The default icon for the COM object.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>_reg_threading_</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>The default threading model for the COM
+  object. This must be one of the COM-defined values acceptable for the
+  ThreadingModel key of the COM server, e.g., </span><tt><span
+  style='font-size:10.0pt'>Apartment</span></tt><span style='font-size:10.0pt'>,
+  </span><tt><span style='font-size:10.0pt'>Free</span></tt><span
+  style='font-size:10.0pt'>, or </span><tt><span style='font-size:10.0pt'>Both</span></tt><span
+  style='font-size:10.0pt'>. If not specified, </span><tt><span
+  style='font-size:10.0pt'>Both</span></tt><span style='font-size:10.0pt'> is
+  used. See <a href="31.htm#_Appendix_D._Threads">Appendix D</a>, for a discussion on
+  COM threading models.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>_reg_catids_</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>A list of category IDs for the server. See
+  the COM documentation on categories for more information.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>_reg_options_</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>A dictionary of additional keys to be
+  written to the registry for the COM object. The PythonCOM framework doesn’t
+  define the values for this; it’s up to the author to specify meaningful
+  values.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>_reg_clsctx_</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>The contexts defining how this object is to
+  be registered. This attribute defines if the COM object is registered as an </span><tt><span
+  style='font-size:10.0pt'>InProc</span></tt><span style='font-size:10.0pt'>
+  object (i.e., implemented by a DLL) or a </span><tt><span style='font-size:
+  10.0pt'>LocalServer</span></tt><span style='font-size:10.0pt'> object (i.e,
+  implemented in an EXE). If not specified, the default of </span><tt><span
+  style='font-size:10.0pt'>CLSCTX_LOCAL_SERVER</span></tt><span
+  style='font-size:10.0pt'> </span><tt><span style='font-size:10.0pt'>|</span></tt><span
+  style='font-size:10.0pt'> </span><tt><span style='font-size:10.0pt'>CLSCTX_INPROC_SERVER</span></tt><span
+  style='font-size:10.0pt'> is used (i.e., the object is registered as both </span><tt><span
+  style='font-size:10.0pt'>InProc</span></tt><span style='font-size:10.0pt'>
+  and </span><tt><span style='font-size:10.0pt'>LocalServer</span></tt><span
+  style='font-size:10.0pt'>).</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>_reg_disable_pycomcat_</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>A boolean flag indicating if the COM object
+  should be associated with the list of PythonCOM servers installed on the
+  machine. If not specified, the object is associated with the PythonCOM
+  servers.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>_reg_dispatcher_spec_</span></tt></p>
+  <p><tt><span style='font-size:10.0pt'>_reg_debug_dispatcher_spec_</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>The dispatcher for the COM object.
+  Dispatchers are largely a debugging aid, allowing you to snoop on your COM
+  object as calls are made on it. Dispatchers are closely related to policies
+  but aren’t covered in this book.</span></p>
+  </td>
+ </tr>
+</table>
+
+<p>The module <tt><span style='font-size:10.0pt'>win32com.server.register</span></tt>
+contains many utilities for registering and unregistering COM servers. The most
+useful of these functions is <tt><span style='font-size:10.0pt'>UseCommandLine()</span></tt>
+, which allows you to register any number of Python classes. Using this function
+is a no-brainer; pass to this function the class objects you wish to expose.</p>
+
+<p>In the COM example, we include the following code:</p>
+
+<pre>if __name__=='__main__':</pre><pre>    print &quot;Registering COM server...&quot;</pre><pre>    import win32com.server.register</pre><pre>    win32com.server.register.UseCommandLine(PythonUtilities)</pre>
+
+<p>The <tt><span style='font-size:10.0pt'>PythonUtilities</span></tt> object is
+the class to register. Adding this functionality allows the COM object to be
+registered or unregistered from the command line as detailed in <a
+href="#_Table_12.5._Command-Line_Options_Re">Table 12.5</a>.</p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width="100%"
+ style='width:100.0%'>
+ <tr>
+  <td colspan=2 style='border:none;padding:.75pt .75pt .75pt .75pt'>
+  <h5 align=center style='text-align:center'><a
+  name="_Table_12.5._Command-Line_Options_Re"></a>Table&nbsp;12.5. Command-Line
+  Options Recognized by UseCommandLine</h5>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p align=center style='text-align:center'><b><span style='font-size:10.0pt'>Command-Line
+  Option</span></b></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p align=center style='text-align:center'><b><span style='font-size:10.0pt'>Description</span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:Arial'>&nbsp;</span></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>The default is to register the COM objects.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>--unregister</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>Unregisters the objects. This removes all
+  references to the objects from the Windows registry.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>--debug</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>Registers the COM servers in debug mode. We
+  discuss debugging COM servers later in this chapter.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>--quiet</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>Register (or unregister) the object quietly
+  (i.e., don’t report success).</span></p>
+  </td>
+ </tr>
+</table>
+
+<p>Each option uses a double hyphen. For example, if your COM objects are
+implemented in <i>YourServer.py</i>, use the following commands.</p>
+
+<p>To register objects:</p>
+
+<pre>C:\Scripts&gt; Python.exe YourServer.py</pre>
+
+<p>To unregister the objects:</p>
+
+<pre>C:\Scripts&gt; Python.exe YourServer.py --unregister</pre>
+
+<p>To register the objects for debugging:</p>
+
+<pre>C:\Scripts&gt; Python.exe YourServer.py --debug</pre>
+
+<p>With a standard Python setup, double-clicking on a Python COM server script
+in Explorer has the same effect as the first example and registers the server.</p>
+
+<h4>12.6.3 Error Handling for COM Servers</h4>
+
+<p>When you implement a COM object, it’s often necessary to return error
+information to the caller. Although Python has a powerful exception mechanism,
+the caller of your objects is likely to be Visual Basic or Delphi, so standard
+Python exceptions don’t really work.</p>
+
+<p>To support this, the <tt><span style='font-size:10.0pt'>win32com.server.exception</span></tt>
+module exposes the <tt><span style='font-size:10.0pt'>COMException</span></tt>
+Python object in order to raise an exception to COM. This object allows you to
+specify many details about the error, including the error message, the name of
+the application generating the error, the name of a help file in which the user
+can find additional information, etc. See the <tt><span style='font-size:10.0pt'>win32com.server.exception</span></tt>
+module for more details.</p>
+
+<p>The PythonCOM framework makes the assumption that all Python exceptions
+other than <tt><span style='font-size:10.0pt'>COMException</span></tt> indicate
+a bug in your code. Thus, your object shouldn’t allow normal Python exceptions
+to be raised when calling your methods, but should take steps to handle these
+Python exceptions and translate them to an appropriate <tt><span
+style='font-size:10.0pt'>COMException</span></tt>.</p>
+
+<p>As an example, let’s assume you want to publish a method called <tt><span
+style='font-size:10.0pt'>sqrt()</span></tt> that returns the square root of its
+argument. If you use the following code:</p>
+
+<pre>def sqrt(self, val):</pre><pre>        return math.sqrt(val)</pre>
+
+<p>you have a potential problem; in fact, a few of them. If you pass anything
+other than a positive number to your function, the code fails, and a Python
+exception is raised. This is considered a bug in your COM object. To improve
+this function, use the following code:</p>
+
+<pre>def sqrt(self, val):</pre><pre>        try:</pre><pre>            return math.sqrt(val)</pre><pre>        except (TypeError, ValueError):</pre><pre>            raise COMException(&quot;The argument must be a positive number&quot;, \</pre><pre>                                winerror.DISP_E_TYPEMISMATCH)</pre>
+
+<p>This version of the code does the right thing: it traps the exceptions that
+may be raised by the <tt><span style='font-size:10.0pt'>math.sqrt()</span></tt>
+function and raises a <tt><span style='font-size:10.0pt'>COMException</span></tt>
+object with a useful message and value.</p>
+
+<h4><a name="_12.6.4_Policies"></a>12.6.4 Policies</h4>
+
+<p>PythonCOM policies are an advanced topic and typically don’t need to be
+understood to successfully use Python and COM. However, if you need to perform
+advanced techniques using Python and COM, this information is valuable. You may
+wish to skip this section and come back to it when the need arises.</p>
+
+<p>A PythonCOM policy determines how Python objects are exposed to COM; the
+policy dictates which attributes are exposed to COM and the IDs these
+attributes get. The policy actually sits between COM and your object and is
+responsible for responding to the <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+interface’s <tt><span style='font-size:10.0pt'>GetIDsOfNames()</span></tt> and <tt><span
+style='font-size:10.0pt'>Invoke()</span></tt> functions. The policy dictates
+how these <tt><span style='font-size:10.0pt'>IDispatch</span></tt> calls are
+translated into the references to your Python object.</p>
+
+<p>The default PythonCOM policy is suitable in most cases, and all the examples
+to date have used the default policy. The policy implemented is:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>All methods named in the <tt><span style='font-size:10.0pt'>_public_methods_</span></tt>
+attribute are exposed to COM. Any method not listed in <tt><span
+style='font-size:10.0pt'>_public_methods_</span></tt> is considered private.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>All properties named in the <tt><span style='font-size:10.0pt'>_public_attrs_</span></tt>
+attribute are exposed to COM. If the property name also appears in the
+attribute <tt><span style='font-size:10.0pt'>_readonly_attrs_</span></tt>, it
+can be read, but not written; otherwise, users of this object can change the
+property.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Other special attributes can obtain advanced behavior. You can
+review the full list of attributes in <a
+href="#_Table_12.4._Registration-Related_At">Table 12.4</a>.</p>
+
+<p>What this means is that the PythonCOM framework itself doesn’t determine how
+an object is exposed via COM; it’s determined by the policy.</p>
+
+<p>The PythonCOM package provides two useful policies: the default policy
+(known as the DesignatedWrapPolicy, because the attributes exposed via COM must
+be explicitly designated) and the DynamicPolicy that implements a far more
+liberal approach to publishing objects. These policies are implemented in the <tt><span
+style='font-size:10.0pt'>win32com.server.policy</span></tt> module.</p>
+
+<p>The DynamicPolicy requires your Python class to implement a single function
+named <tt><span style='font-size:10.0pt'>_dynamic_ </span></tt>, and this
+function must implement the logic to determine if the COM call is requesting a
+property reference or a method call.</p>
+
+<p>To demonstrate the DynamicPolicy, we present a more advanced COM server in
+the following example. The aim of this COM server is to expose the entire
+Python string module. Anyone using Visual Basic or Delphi can then use all the
+string-processing functions available to Python.</p>
+
+<p>Before we look at the code, there are a couple of points:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The Unicode strings bite us again! As COM passes all strings as
+Unicode, you need to convert them to Python strings before the string module
+can work with them.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Most of the registration data is the same as discussed
+previously, except there is a new attribute, <tt><span style='font-size:10.0pt'>_reg_policy_spec_</span></tt>.
+This attribute identifies that you need to use the DynamicPolicy rather than
+the default DesignatedWrapPolicy.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The handling of <tt><span style='font-size:10.0pt'>IDispatch.GetIDsOfNames()</span></tt>
+has been done for you (the <tt><span style='font-size:10.0pt'>_dynamic_</span></tt>
+methods deal with attribute names), and the policy has dealt with the IDs for
+the attributes.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>There is some extra internal knowledge of COM needed to implement
+the <tt><span style='font-size:10.0pt'>_dynamic_</span></tt> method.
+Specifically, you need to differentiate between a property reference and a
+method call. Also remember that VB is not case-sensitive, while Python is.</p>
+
+<pre># DynamicPolicy.py -- A demonstration of dynamic policies in PythonCOM</pre><pre>import string</pre><pre>import pythoncom</pre><pre>import pywintypes</pre><pre>import winerror</pre><pre>import types</pre><pre>from win32com.server.exception import COMException</pre><pre>&nbsp;</pre><pre>def FixArgs(args):</pre><pre>    # Fix the arguments, so Unicode objects are</pre><pre>    # converted to strings.  Does this recursively,</pre><pre>    # to ensure sub-lists (ie, arrays) are also converted</pre><pre>    newArgs = []</pre><pre>    for arg in args:</pre><pre>        if type(arg)==types.TupleType:</pre><pre>            arg = FixArgs(arg)</pre><pre>        elif type(arg)==pywintypes.UnicodeType:</pre><pre>            arg = str(arg)</pre><pre>        newArgs.append(arg)</pre><pre>    return tuple(newArgs)</pre><pre>&nbsp;</pre><pre>class PythonStringModule:</pre><pre>    _reg_progid_ = &quot;PythonDemos.StringModule&quot;</pre><pre>    _reg_clsid_ = &quot;{CB2E1BC5-D6A5-11D2-852D-204C4F4F5020}&quot;</pre><pre>    _reg_policy_spec_ = &quot;DynamicPolicy&quot;</pre><pre>&nbsp;</pre><pre>    # The dynamic policy insists that we provide a method</pre><pre>    # named _dynamic_, and that we handle the IDispatch::Invoke logic.</pre><pre>    def _dynamic_(self, name, lcid, wFlags, args):</pre><pre>        # Get the requested attribute from the string module.</pre><pre>        try:</pre><pre>            item = getattr(string, string.lower(name))</pre><pre>        except AttributeError:</pre><pre>            raise COMException(&quot;No attribute of that name&quot;, \</pre><pre>                               winerror.DISP_E_MEMBERNOTFOUND)</pre><pre>        # Massage the arguments...</pre><pre>        args = FixArgs(args)</pre><pre>        # VB will often make calls with wFlags set to</pre><pre>        # DISPATCH_METHOD | DISPATCH_PROPERTYGET, as the VB</pre><pre>        # syntax makes the distinction impossible to make.</pre><pre>        # Therefore, we also check the object being referenced is</pre><pre>        # in fact a Python function</pre><pre>        if (wFlags &amp; pythoncom.DISPATCH_METHOD) and \</pre><pre>           type(item) in [types.BuiltinFunctionType, types.FunctionType]:</pre><pre>            return apply(item, args)</pre><pre>        elif wFlags &amp; pythoncom.DISPATCH_PROPERTYGET:</pre><pre>            return item</pre><pre>        else:</pre><pre>            raise COMException(&quot;You can not set this attribute&quot;, </pre><pre>                               winerror.DISP_E_BADVARTYPE)</pre><pre>&nbsp;</pre><pre># Add code so that when this script is run by</pre><pre># Python.exe, it self-registers.</pre><pre>if __name__=='__main__':</pre><pre>    import win32com.server.register</pre><pre>    win32com.server.register.UseCommandLine(PythonStringModule)</pre>
+
+<p>To test the COM object, use the following VBA code:</p>
+
+<pre>Sub Test()</pre><pre>    ' Create the Python COM objects.</pre><pre>    Set stringmod = CreateObject(&quot;PythonDemos.StringModule&quot;)</pre><pre>    ' Call string.split</pre><pre>    response = stringmod.Split(&quot;Hello from VB&quot;)</pre><pre>    For Each Item In response</pre><pre>        MsgBox (Item)</pre><pre>    Next</pre><pre>    ' Call string.join</pre><pre>    MsgBox &quot;The items joined are &quot; &amp; stringmod.join(response)</pre><pre>    ' Get string.uppercase</pre><pre>    MsgBox &quot;The upper case character are&quot; &amp; stringmod.uppercase</pre><pre>    </pre><pre>    ' Attempt to set a property - this should fail.</pre><pre>    stringmod.uppercase = &quot;Hi&quot;</pre><pre>&nbsp;</pre><pre>End Sub</pre>
+
+<p>When you run this code, you should see a series of message boxes, followed
+by an error dialog. As mentioned in the code, the attempt to set <tt><span
+style='font-size:10.0pt'>string.uppercase</span></tt> should fail, and indeed
+it does.</p>
+
+<p>As you can see, the DynamicPolicy has given you the tools to wrap any
+arbitrary Python object, rather than requiring you to explicitly declare the
+public interface. Depending on your requirements, this may or may not serve
+your purpose better than the default policy, but if neither of these policies
+meet your requirements, just write your own! The <tt><span style='font-size:
+10.0pt'>Python.Dictionary</span></tt> sample COM object (implemented in the
+module <tt><span style='font-size:10.0pt'>win32com.servers.dictionary</span></tt>)
+implements its own specialized policy, so it’s a good starting point if you
+need to go this route. </p>
+
+<h4>12.6.5 Wrapping and Unwrapping</h4>
+
+<p>Whenever you expose a Python object via COM, you actually expose an <tt><span
+style='font-size:10.0pt'>IDispatch</span></tt> object. As described previously,
+the <tt><span style='font-size:10.0pt'>IDispatch</span></tt> interface is used
+to expose automation objects. Thus, whenever a Visual Basic program is using a
+Python COM object, VB itself is dealing with a COM <tt><span style='font-size:
+10.0pt'>IDispatch</span></tt> object. The Python COM framework provides the <tt><span
+style='font-size:10.0pt'>IDispatch</span></tt> object that wraps your Python
+COM class instance. Whenever the COM framework creates a new Python COM object,
+the general process is:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>An instance of the selected policy for the object is created.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The policy creates an instance of your Python class.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>An <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+object is created that wraps the Python policy (which in turn wraps your
+instance).</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+object is returned to the client (e.g., Visual Basic).</p>
+
+<p>Thus, when you need to create an <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+from a Python class instance, you should wrap the object. Unwrapping is the
+reverse of this process; if you have an <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+object that wraps a Python instance, you can unwrap the <tt><span
+style='font-size:10.0pt'>IDispatch</span></tt> object, returning the underlying
+Python instance.</p>
+
+<p>In many cases you don’t need to worry about this. When you expose a COM
+object that can be directly created via COM, the Python COM framework handles
+all the wrapping for you. However, there are a number of cases where the
+explicit wrapping of objects is necessary.</p>
+
+<p>The most common scenario is when you need to expose a COM object via some
+sort of factory method; that is, rather than allowing the user to create your
+object directly using VB’s <tt><span style='font-size:10.0pt'>CreateObject()</span></tt>,
+you return the object from another object. Microsoft Office provides good
+examples of this behavior: the object model defines <tt><span style='font-size:
+10.0pt'>Cell</span></tt> or <tt><span style='font-size:10.0pt'>Paragraph</span></tt>
+objects, but you can’t create them directly. You must create the <tt><span
+style='font-size:10.0pt'>Application</span></tt> object and use it to create or
+reference <tt><span style='font-size:10.0pt'>Cells</span></tt> and <tt><span
+style='font-size:10.0pt'>Paragraphs</span></tt>.</p>
+
+<p>We will use a contrived example to demonstrate the wrapping and unwrapping
+of objects. But before that, we take a small digression into techniques that
+debug the COM objects. These debugging techniques demonstrate wrapping and
+unwrapping and also how to use <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+objects passed as parameters.</p>
+
+<h4>12.6.6 Debugging Python COM Objects</h4>
+
+<p>When you use COM clients such as Excel from Python, you can employ the same
+debugging techniques as for any Python code; you are simply calling Python
+objects. However, when you implement COM objects in Python, things become more
+difficult. In this case, the caller of your Python code isn’t Python, but
+another application, such as Visual Basic or Delphi. These applications
+obviously have no concept of a Python exception or a Python traceback, so
+finding bugs in your Python code can be a problem.</p>
+
+<p>In a nutshell: register your COM objects using -<tt><span style='font-size:
+10.0pt'>debug</span></tt> on the command line. Then use the Trace Collector
+Debugging Tool item on the PythonWin Tools menu to see any print statements or
+Python exceptions. The rest of this section is devoted to how this works.</p>
+
+<p>To assist with the debugging problem, the Python COM framework has the
+concept of a <i>dispatcher</i> . A dispatcher is similar to a policy object,
+but dispatches calls to the policy. The <tt><span style='font-size:10.0pt'>win32com</span></tt>
+package provides a number of useful dispatchers.</p>
+
+<p>When you register the COM Server with <tt><span style='font-size:10.0pt'>--debug</span></tt>
+(note the double hyphen), the registration mechanism also registers a
+dispatcher for your object. The default dispatcher is known as <tt><span
+style='font-size:10.0pt'>DispatcherWin32trace,</span></tt> although you can
+specify a different dispatcher using the <tt><span style='font-size:10.0pt'>_reg_debug_dispatcher_spec_</span></tt>
+attribute on your object, as described in the earlier section <a
+href="#_12.6.2_Registering_Your_COM_Server">Section 12.6.2</a>.</p>
+
+<p>The default <tt><span style='font-size:10.0pt'>DispatcherWin32trace</span></tt>
+uses the <tt><span style='font-size:10.0pt'>win32trace</span></tt> module to
+display its output. To see the output of a COM server when debugging, use the
+Trace Collector Debugging Tool item on the PythonWin Tools menu.</p>
+
+<h4>12.6.7 The Final Sample</h4>
+
+<p>A final sample COM server demonstrates wrapping and unwrapping objects, how
+to use <tt><span style='font-size:10.0pt'>IDispatch</span></tt> objects when
+passed as parameters to COM functions, and also how to debug your COM servers.
+This example is contrived and does nothing useful other than demonstrate these
+concepts.</p>
+
+<p>The sample exposes two COM objects, a <tt><span style='font-size:10.0pt'>Parent</span></tt>
+object and a <tt><span style='font-size:10.0pt'>Child</span></tt> object. The <tt><span
+style='font-size:10.0pt'>Parent</span></tt> object is registered with COM so VB
+code can use <tt><span style='font-size:10.0pt'>CreateObject</span></tt> to
+create it. The <tt><span style='font-size:10.0pt'>Child</span></tt> object
+isn’t registered and can be created only by calling the <tt><span
+style='font-size:10.0pt'>CreateChild()</span></tt> method on the <tt><span
+style='font-size:10.0pt'>Parent</span></tt>. The <tt><span style='font-size:
+10.0pt'>Child</span></tt> object has no methods, just a <tt><span
+style='font-size:10.0pt'>Name</span></tt> property.</p>
+
+<p>The Parent object also has a method called <tt><span style='font-size:10.0pt'>KissChild()</span></tt>,
+that should be called with a <tt><span style='font-size:10.0pt'>Child</span></tt>
+object previously created by the parent. The <tt><span style='font-size:10.0pt'>KissChild()</span></tt>
+method demonstrates how to use the <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+passed to the method and also how to unwrap the <tt><span style='font-size:
+10.0pt'>IDispatch</span></tt> to obtain the underlying Python object.</p>
+
+<p>Finally, the code has a number of <tt><span style='font-size:10.0pt'>print</span></tt>
+statements and a lack of error handling. We use the debugging techniques to see
+these <tt><span style='font-size:10.0pt'>print</span></tt> statements and also
+a Python exception raised:</p>
+
+<pre># ContrivedServer.py</pre><pre>#</pre><pre># A contrived sample Python server that demonstrates </pre><pre># wrapping, unwrapping, and passing IDispatch objects.</pre><pre>&nbsp;</pre><pre># Import the utilities for wrapping and unwrapping.</pre><pre>from win32com.server.util import wrap, unwrap</pre><pre>&nbsp;</pre><pre>import win32com.client</pre><pre>&nbsp;</pre><pre># Although we are able to register our Parent object for debugging,</pre><pre># our Child object is not registered, so this won't work. To get</pre><pre># the debugging behavior for our wrapped objects, we must do it ourself.</pre><pre>debugging = 1</pre><pre>if debugging:</pre><pre>    from win32com.server.dispatcher import DefaultDebugDispatcher</pre><pre>    useDispatcher = DefaultDebugDispatcher</pre><pre>else:</pre><pre>    useDispatcher = None</pre><pre>&nbsp;</pre><pre># Our Parent object.</pre><pre># This is registered, and therefore creatable</pre><pre># using CreateObject etc from VB.</pre><pre>class Parent:</pre><pre>    _public_methods_ = ['CreateChild', 'KissChild']</pre><pre>    _reg_clsid_ = &quot;{E8F7F001-DB69-11D2-8531-204C4F4F5020}&quot;</pre><pre>    _reg_progid_ = &quot;PythonDemos.Parent&quot;</pre><pre>&nbsp;</pre><pre>    def CreateChild(self):</pre><pre>        # We create a new Child object, and wrap</pre><pre>        # it using the default policy</pre><pre>        # If we are debugging, we also specify the default dispatcher</pre><pre>        child = Child()</pre><pre>        print &quot;Our Python child is&quot;, child</pre><pre>        wrapped = wrap( child, useDispatcher=useDispatcher )</pre><pre>        print &quot;Returing wrapped&quot;, wrapped</pre><pre>        return wrapped</pre><pre>&nbsp;</pre><pre>    def KissChild(self, child):</pre><pre>        print &quot;KissChild called with child&quot;, child</pre><pre>        # Our child is a PyIDispatch object, so we will attempt</pre><pre>        # to use it as such.  To make it into something useful,</pre><pre>        # we must convert it to a win32com.client.Dispatch object.</pre><pre>        dispatch = win32com.client.Dispatch(child)</pre><pre>        print &quot;KissChild called with child named&quot;, dispatch.Name</pre><pre>&nbsp;</pre><pre>        # Now, assuming it is a Python child object, let's</pre><pre>        # unwrap it to get the object back!</pre><pre>        child = unwrap(child)</pre><pre>        print &quot;The Python child is&quot;, child</pre><pre>&nbsp;</pre><pre># Our Child object.</pre><pre># This is not registered        </pre><pre>class Child:</pre><pre>    _public_methods_ = []</pre><pre>    _public_attrs_ = ['Name']</pre><pre>    def __init__(self):</pre><pre>        self.Name = &quot;Unnamed&quot;</pre><pre>&nbsp;</pre><pre>if __name__=='__main__':</pre><pre>    import win32com.server.register</pre><pre>    win32com.server.register.UseCommandLine(Parent, debug=debugging)</pre>
+
+<p>Before you register your class, we must mention some of the
+debugging-related code. Near the top of the source file, we declare a variable
+named <tt><span style='font-size:10.0pt'>debugging</span></tt>. If this
+variable is <tt><span style='font-size:10.0pt'>true</span></tt>, you then load
+the <tt><span style='font-size:10.0pt'>DefaultDebugDispatcher</span></tt> and
+assign it to a variable. In the <tt><span style='font-size:10.0pt'>CreateChild()</span></tt>
+method, you pass this dispatcher to the <tt><span style='font-size:10.0pt'>wrap</span></tt>
+function. This is due to a quirk in the debug mechanism. As mentioned
+previously, the registration mechanism allows you to register an object for
+debugging by using <tt><span style='font-size:10.0pt'>--debug</span></tt> on
+the command line. While this works fine for objects you register, recall that
+our <tt><span style='font-size:10.0pt'>Child</span></tt> object isn’t
+registered, so it doesn’t benefit from this mechanism; this code enables it for
+both objects. Also note that you pass this debugging variable to the<tt><span
+style='font-size:10.0pt'> UseCommandLine()</span></tt> function. This allows
+you to control the debugging behavior totally from your debugging variable. If
+set, debugging is enabled for all objects, regardless of the command line. If
+not set, you don’t get debugging for either object.</p>
+
+<p>So you can register this COM server like the other COM servers; no need for
+anything special on the command line. You register the server by running the
+script (either from within PythonWin, or using Windows Explorer). After
+registration, you should see the message:</p>
+
+<pre>Registered: PythonDemos.Parent (for debugging)</pre>
+
+<p>The next step is for some VB code to use your object. For this
+demonstration, you can use the following Visual Basic for Applications code
+from either Excel or Word:</p>
+
+<pre>Sub DebuggingTest()</pre><pre>  Set ParentObj = CreateObject(&quot;PythonDemos.Parent&quot;)</pre><pre>&nbsp;</pre><pre>  Set child = ParentObj.CreateChild()</pre><pre>  MsgBox &quot;Child's name is &quot; &amp; child.Name</pre><pre>&nbsp;</pre><pre>  ParentObj.KissChild child</pre><pre>  MsgBox &quot;I kissed my child&quot;</pre><pre>&nbsp;</pre><pre>  ' Now lets pass a non-python object!</pre><pre>  ' As we are using VBA (either Word or Excel)</pre><pre>  ' we just pass our application object.</pre><pre>  ' This should fail with an InternalError.</pre><pre>  Set app = Application</pre><pre>  ParentObj.KissChild (app)</pre><pre>End Sub</pre>
+
+<p>This code is simple: it creates a <tt><span style='font-size:10.0pt'>Parent</span></tt>
+object, then calls the <tt><span style='font-size:10.0pt'>CreateChild()</span></tt>
+method, giving a <tt><span style='font-size:10.0pt'>Child</span></tt> object.
+You fetch the name of the child, then display it in a message box. The next
+step is to call the <tt><span style='font-size:10.0pt'>KissChild()</span></tt>
+method and display another message box when the kiss is complete. The final
+step is to call the <tt><span style='font-size:10.0pt'>KissChild()</span></tt>
+method, but pass a different object, in this case the Excel (or Word) <tt><span
+style='font-size:10.0pt'>Application</span></tt> object.</p>
+
+<p>Before running this code, you should open the window that displays the
+debugging output and select the Trace Collector Debugging Tool item on the
+PythonWin Tools menu.</p>
+
+<p>Now, let’s run the Visual Basic code and stop at the first message box. The
+debug window should now display:</p>
+
+<pre>Object with win32trace dispatcher created (object=None)</pre><pre>in _GetIDsOfNames_ with '('CreateChild',)' and '1033'</pre><pre>in _Invoke_ with 1000 1033L 3 ()</pre><pre>Our Python child is &lt;ContrivedServer.Child instance at 2a8d5e0&gt;</pre><pre>Object with win32trace dispatcher created (object=&lt;ContrivedServer.Child instance ...</pre><pre>Returing wrapped &lt;PyIDispatch at 0x2a80254 with obj at 0x2a801c0&gt;</pre><pre>in _GetIDsOfNames_ with '('Name',)' and '1033'</pre><pre>in _Invoke_ with 1000 1033L 3 ()</pre>
+
+<p>The first thing to note is there are a number of unexpected lines; the
+Python COM framework has printed some extra debugging information for you. The
+first three lines show how internally <tt><span style='font-size:10.0pt'>GetIDsOfNames()</span></tt>
+and <tt><span style='font-size:10.0pt'>Invoke()</span></tt> have been
+translated by the Python COM framework. The fourth line is one of yours: it’s
+the <tt><span style='font-size:10.0pt'>print</span></tt> statement in the <tt><span
+style='font-size:10.0pt'>CreateChild()</span></tt> method. Wrapping the <tt><span
+style='font-size:10.0pt'>Child</span></tt> object causes the Python COM
+framework to print the next output line, which is followed by the next <tt><span
+style='font-size:10.0pt'>print</span></tt> statement.</p>
+
+<p>If you now dismiss the next couple of message boxes in the VB example, you
+should see an error message that looks like that in <a
+href="#_Figure_12.3._Visual_Basic_error_dia">Figure 12.3</a>.</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_12.3._Visual_Basic_error_dia"></a>Figure 12.3. Visual Basic error
+dialog when running the sample</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=130
+src="images/image045.gif" alt="figs/ppw.1203.gif"></span></p>
+
+<p>As you can see, you have the “Unexpected Python Error,” discussed
+previously, which means you have an unhandled Python exception in the COM
+server. If you look in the debugging window, the last few lines are:</p>
+
+<pre>in _Invoke_ with 1001 1033L 1 (&lt;PyIDispatch at 0x2a7bbb4 with obj at 0xcdd4f8&gt;,)</pre><pre>KissChild called with child &lt;PyIDispatch at 0x2a7bbb4 with obj at 0xcdd4f8&gt;</pre><pre>KissChild called with child named Microsoft Word</pre><pre>Traceback (innermost last):</pre><pre>  File &quot;L:\src\pythonex\com\win32com\server\dispatcher.py&quot;, line 40, in _Invoke_</pre><pre>    return self.policy._Invoke_(dispid, lcid, wFlags, args)</pre><pre>  File &quot;L:\src\pythonex\com\win32com\server\policy.py&quot;, line 265, in _Invoke_</pre><pre>    return self._invoke_(dispid, lcid, wFlags, args)</pre><pre>  File &quot;L:\src\pythonex\com\win32com\server\policy.py&quot;, line 486, in _invoke_</pre><pre>    return S_OK, -1, self._invokeex_(dispid, lcid, wFlags, args, None, None)</pre><pre>  File &quot;L:\src\pythonex\com\win32com\server\policy.py&quot;, line 498, in _invokeex_</pre><pre>    return apply(func, args)</pre><pre>  File &quot;L:\docs\Book\Python and COM\ContrivedServer.py&quot;, line 49, in KissChild</pre><pre>    child = unwrap(child)</pre><pre>  File &quot;L:\src\pythonex\com\win32com\server\util.py&quot;, line 36, in unwrap</pre><pre>    ob = pythoncom.UnwrapObject(ob)</pre><pre>ValueError: argument is not a Python gateway</pre>
+
+<p>Here are the full details of the Python exception. This makes tracking the
+error much simpler: it should be obvious that the error occurs when you attempt
+to unwrap the Microsoft Excel application object. The unwrap fails because
+there is no Python object behind this interface.</p>
+
+<p>One final note relates to how an <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+object is used as a parameter to a COM function. In the debugging window,
+locate the following messages:</p>
+
+<pre>KissChild called with child &lt;PyIDispatch at 0x2a86624 with obj at 0x2a865b0&gt;</pre><pre>KissChild called with child named in _GetIDsOfNames_ with '('Name',)' and '0'</pre><pre>&nbsp;</pre><pre>in _Invoke_ with 1000 0L 2 ()</pre><pre>Unnamed</pre><pre>The Python child is &lt;ContrivedServer.Child instance at 2a7aa90&gt;</pre>
+
+<p>The raw parameter to <tt><span style='font-size:10.0pt'>KissChild()</span></tt>
+is in fact a <tt><span style='font-size:10.0pt'>PyIDispatch</span></tt> object.
+You may recall from the start of this chapter that a <tt><span
+style='font-size:10.0pt'>PyIDispatch</span></tt> object only has methods <tt><span
+style='font-size:10.0pt'>GetIDsOfNames()</span></tt> and <tt><span
+style='font-size:10.0pt'>Invoke()</span></tt>. To turn the object into
+something useful, you must use a <tt><span style='font-size:10.0pt'>win32com.client.Dispatch()</span></tt>
+object. Once you have the <tt><span style='font-size:10.0pt'>win32com.client.Dispatch</span></tt>
+object, use it like any other COM object; in the example , we called the <tt><span
+style='font-size:10.0pt'>Name</span></tt> property.</p>
+
+<h3><a name="_12.7_Python_and_DCOM"></a>12.7 Python and DCOM</h3>
+
+<p>Microsoft has recently enhanced COM to support distributed objects. These
+enhancements are known as distributed COM, or DCOM. The term <i>distributed
+objects</i> refers to objects that operate on different machines: a COM client
+and COM server may be on different parts of the network.</p>
+
+<p>There are a number of reasons why this may be appealing. It allows you to
+host your objects close to your data; for example, on a server with high-speed
+access to a database server. Microsoft also has a product available called the
+Microsoft Transaction Server (MTS) that provides additional facilities for
+large-scale distributed applications. Alternatively, DCOM may allow you to use
+specific hardware installed on a remote machine, by running on that machine and
+controlling it from your own workstation.</p>
+
+<p>One of the key strengths of the DCOM architecture is that in many cases, the
+objects don’t need to have special code to support distributed objects. DCOM
+manages all this behind the scenes, and neither the local or remote object need
+be aware they are not running locally.</p>
+
+<p>DCOM comes with a tool that allows you to configure the DCOM characteristics
+of the local machine and of each specific object registered on your machine.
+For each individual object, you can specify the machine where that object
+should be executed. In addition, the code that creates a new COM object (i.e.,
+the COM client) can specify its own settings by making slight changes to the
+creation process.</p>
+
+<p>To demonstrate DCOM, let’s use the standard <tt><span style='font-size:10.0pt'>Python.Interpreter</span></tt>
+COM object and configure it to be created on a remote machine. Here’s the
+process:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Configure DCOM on the remote machine.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Configure DCOM and our object on the local machine.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Test the remote object using normal COM.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Test the remote object using DCOM-specific calls.</p>
+
+<h4>12.7.1 Configure DCOM on the Remote Machine</h4>
+
+<p>The first step is to configure DCOM on the remote machine, where the object
+will actually run.</p>
+
+<p>To configure DCOM, start the DCOM configuration tool by selecting the Run
+option from the Windows start menu, and enter <tt><span style='font-size:10.0pt'>dcomcnfg</span></tt>.
+The mail display is shown in <a href="16.htm#_Figure_12.4._The_DCOM_configuration">Figure
+12.4</a>.</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_12.4._The_DCOM_configuration"></a>Figure 12.4. The DCOM
+configuration tool</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=363
+src="images/image046.gif" alt="figs/ppw.1204.gif"></span></p>
+
+<p>Now select the Default Properties tab and ensure that DCOM is enabled for
+this computer, as shown in <a href="16.htm#_Figure_12.5._DCOM_configuration_too">Figure
+12.5</a>.</p>
+
+<p>No additional configuration options are required on the remote machine, but
+you do need to ensure the COM object itself is installed on this computer.
+There’s nothing special about registering your object for DCOM; perform a
+normal registration process for the object, as described in the previous
+section <a href="16.htm#_12.6.2_Registering_Your_COM_Server">Section 12.6.2</a>.</p>
+
+<p>&nbsp;</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_12.5._DCOM_configuration_too"></a>Figure 12.5. DCOM configuration
+tool with DCOM enabled</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=343
+src="images/image047.gif" alt="figs/ppw.1205.gif"></span></p>
+
+<p>The <tt><span style='font-size:10.0pt'>Python.Interpreter</span></tt> object
+you use is part of the standard Python COM distribution, so it should have been
+registered when the Python COM extensions were installed. However, it can’t
+hurt to reregister it. To register the <tt><span style='font-size:10.0pt'>Python.Interpreter</span></tt>
+object, perform the following steps on the remote machine:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Start PythonWin.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Select File <img border=0 width=20 height=16
+src="images/image008.gif" alt="figs/U2192.gif">Run,
+select the Browse button, and locate the file <i>win32com\servers\interp.py</i>.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Select OK.</p>
+
+<p>The PythonWin window should report:</p>
+
+<pre>Registering COM server...</pre><pre>Registered: Python.Interpreter</pre>
+
+<h4>12.7.2 Configure DCOM and the Object on the Local Machine</h4>
+
+<p>The next step is to configure your local machine, where you actually create
+and use the object running on the remote machine.</p>
+
+<p>First, ensure the object is registered on the local machine; although you
+don’t need to start the object on this local machine, the object must be registered
+locally so the COM and DCOM architecture know about the object and how to
+redirect it. To register the object locally, perform the same process you did
+for registering the object on the remote machine.</p>
+
+<p>Now start the DCOM configuration tool to configure the object on the local
+machine. Use the same process you used to start the tool on the remote machine,
+but this time at the local machine.</p>
+
+<p>The same initial dialog in <a href="16.htm#_Figure_12.4._The_DCOM_configuration">Figure
+12.4</a> is displayed. Locate the <tt><span style='font-size:10.0pt'>Python.Interpreter</span></tt>
+object in the list and select the Properties button. The default properties for
+the object should look something like <a
+href="#_Figure_12.6._Default_DCOM_propertie">Figure 12.6</a>.</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_12.6._Default_DCOM_propertie"></a>Figure 12.6. Default DCOM
+properties for the object</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=214
+src="images/image048.gif" alt="figs/ppw.1206.gif"></span></p>
+
+<p>If you select the Location tab, you see the available options. The default
+setting should indicate that the application runs only on this computer.
+Disable the local computer option and enable the “Run application on the
+following computer” setting. The remote computer is named <i>SKIPPY</i>. Now
+enter the name of your remote machine. The dialog should now look something
+like <a href="16.htm#_Figure_12.7._Python.Interpreter_obj">Figure 12.7</a>.</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_12.7._Python.Interpreter_obj"></a>Figure 12.7. Python.Interpreter
+object ready for remote testing</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=257
+src="images/image049.gif" alt="figs/ppw.1207.gif"></span></p>
+
+<p>Select the OK button, and you’re ready to go.</p>
+
+<h5>12.7.2.1 Testing the object using normal COM</h5>
+
+<p>Before testing, there is a slight complication that needs to be addressed.
+If you recall the discussion at the beginning of the chapter regarding <tt><span
+style='font-size:10.0pt'>InProc</span></tt>, <tt><span style='font-size:10.0pt'>LocalServer</span></tt>,
+and <tt><span style='font-size:10.0pt'>RemoteServer</span></tt> objects, it
+should come as no surprise that remote DCOM objects must be hosted by an
+executable. It’s not possible to use an object implemented in a DLL, since the
+object is running on a different computer than the user of the object, so it
+must be in a different process. This is not a problem, since by default all
+Python COM objects are registered with both executable and DLL support.</p>
+
+<p>The complication is on the local machine. Although you configured DCOM not
+to run the object on the local computer, this applies only to <tt><span
+style='font-size:10.0pt'>LocalServer</span></tt> objects. If there is an <tt><span
+style='font-size:10.0pt'>InProc</span></tt> object registered locally, this
+object is used regardless of the DCOM settings. As your object is registered on
+the local machine as an <tt><span style='font-size:10.0pt'>InProc</span></tt>
+application, you need to take action to ensure this version of the object isn’t
+loaded.</p>
+
+<p>It’s worth noting that this complication is provided courtesy of COM and
+DCOM. There is nothing Python-specific about this problem; it exists for all
+COM objects regardless of their implementation language. Python is slightly
+unique in that the default registration for its objects are for both <tt><span
+style='font-size:10.0pt'>LocalServer</span></tt> and <tt><span
+style='font-size:10.0pt'>InProc</span></tt>; most languages force you to choose
+one or another quite early in the development process. There are two ways to
+solve this dilemma:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Modify the COM object so it supports only <tt><span
+style='font-size:10.0pt'>LocalServer</span></tt> operations by setting the <tt><span
+style='font-size:10.0pt'>_reg_clsctx_</span></tt> attribute in the class. See
+the earlier section <a href="16.htm#_12.6.2_Registering_Your_COM_Server">Section
+12.6.2</a> for more details.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Make a slight change to the object creation code to explicitly exclude
+the <tt><span style='font-size:10.0pt'>InProc</span></tt> version of the object
+from being used.</p>
+
+<p>Because we are using the existing <tt><span style='font-size:10.0pt'>Python.Interpreter</span></tt>
+example, we won’t modify the it, but will go for the second option. You do this
+by specifying the <tt><span style='font-size:10.0pt'>clsctx</span></tt>
+parameter to the <tt><span style='font-size:10.0pt'>win32com.client.Dispatch()</span></tt>
+function. If you decide to change your COM object to support only <tt><span
+style='font-size:10.0pt'>LocalServer</span></tt> operations, this step isn’t
+necessary, and the object creation code is identical to the normal object
+creation process.</p>
+
+<p>To execute the object remotely, start Python or PythonWin on the local
+computer. First, let’s prove the name of the local machine:</p>
+
+<pre>&gt;&gt;&gt; import win32api</pre><pre>&gt;&gt;&gt; win32api.GetComputerName()</pre><pre>'BOBCAT'</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Now, let’s create a <tt><span style='font-size:10.0pt'>Python.Interpreter</span></tt>
+object. As discussed, you pass a custom <tt><span style='font-size:10.0pt'>clsctx</span></tt>
+parameter to the <tt><span style='font-size:10.0pt'>Dispatch()</span></tt> function.
+Because the <tt><span style='font-size:10.0pt'>clsctx</span></tt> parameter is
+not the second parameter, specify it by name:</p>
+
+<pre>&gt;&gt;&gt; import pythoncom, win32com.client</pre><pre>&gt;&gt;&gt; clsctx=pythoncom.CLSCTX_LOCAL_SERVER</pre><pre>&gt;&gt;&gt; i=win32com.client.Dispatch(&quot;Python.Interpreter&quot;, clsctx=clsctx)</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Now, let’s use this object. Ask it to report what machine it is on. Then ask
+the remote interpreter to import the <tt><span style='font-size:10.0pt'>win32api</span></tt>
+module and print the value of <tt><span style='font-size:10.0pt'>win32api.GetComputerName()</span></tt>.
+Because the object is running remotely, expect to see the name of the remote
+computer:</p>
+
+<pre>&gt;&gt;&gt; i.Exec(&quot;import win32api&quot;)</pre><pre>&gt;&gt;&gt; i.Eval(&quot;win32api.GetComputerName()&quot;)</pre><pre>'SKIPPY'</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>If you view the Task Manager for the remote machine, notice a new process <i>pythonw.exe</i>.
+This is the process hosting the remote object. If you release the reference to
+the object, you should see the process terminate. To release the reference,
+execute:</p>
+
+<pre>&gt;&gt;&gt; i=None</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>And within a few seconds the process on the remote server terminates.</p>
+
+<p>As you can see, it worked! Setting up the machines for DCOM is quite
+painless, and using the remote object is as simple as if it were a local
+object.</p>
+
+<h4>12.7.3 Testing a Remote Object Using DCOM-Specific Calls</h4>
+
+<p>You may have noticed that the DCOM configuration dialog states “Client
+applications may override your selection.” So when you configure DCOM, you really
+just provide default values for non-DCOM-aware programs. In fact, if you want
+to make your client code DCOM-aware, it isn’t necessary to configure DCOM on
+the local machine at all; your client code provides the information needed.</p>
+
+<p>To demonstrate this, let’s restore the DCOM configuration on the local
+machine to the defaults. Restart the DCOM configuration tool and again select
+the <tt><span style='font-size:10.0pt'>Python.Interpreter</span></tt> object.
+Select the Location tab and restore the settings to how you first found them.
+The dialog should look similar to <a
+href="#_Figure_12.8._Back_to_the_default_DC">Figure 12.8</a>.</p>
+
+<p>Select the OK button to apply the changes.</p>
+
+<p>First, let’s check that the object is indeed restored correctly. Execute the
+same lines of code used previously, but because the DCOM configuration has been
+restored, the object should be local:</p>
+
+<pre>&gt;&gt;&gt; i=win32com.client.Dispatch(&quot;Python.Interpreter&quot;, clsctx=clsctx)</pre><pre>&gt;&gt;&gt; i.Exec(&quot;import win32api&quot;)</pre><pre>&gt;&gt;&gt; i.Eval(&quot;win32api.GetComputerName()&quot;)</pre><pre>'BOBCAT'</pre><pre>&gt;&gt;&gt;     </pre>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_12.8._Back_to_the_default_DC"></a>Figure 12.8. Back to the
+default DCOM configuration for the object</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=259
+src="images/image050.gif" alt="figs/ppw.1208.gif"></span></p>
+
+<p>As expected, the local machine name is now being used, and you should be
+able to locate a <i>pythonw.exe</i> process running on the local computer.</p>
+
+<p>The <tt><span style='font-size:10.0pt'>win32com.client.DispatchEx()</span></tt>
+function allows you to override the DCOM defaults for your object.</p>
+
+<p>The first parameter to <tt><span style='font-size:10.0pt'>DispatchEx()</span></tt>
+is the ProgID for the object you wish to create, the same ProgID you would pass
+to <tt><span style='font-size:10.0pt'>Dispatch()</span></tt>. The second
+parameter is the name of the machine to create the object on. If the machine
+name isn’t specified, the call operates identically to <tt><span
+style='font-size:10.0pt'>win32com.client.Dispatch()</span></tt>.</p>
+
+<p>Let’s test drive this function. Although the DCOM configuration for the
+local machine is set up to run locally, use the following code to force a
+remote server:</p>
+
+<pre>&gt;&gt;&gt; i=win32com.client.DispatchEx(&quot;Python.Interpreter&quot;, &quot;skippy&quot;, clsctx=clsctx)</pre><pre>&gt;&gt;&gt; i.Exec(&quot;import win32api&quot;)</pre><pre>&gt;&gt;&gt; i.Eval(&quot;win32api.GetComputerName()&quot;)</pre><pre>'SKIPPY'</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Note that the same <tt><span style='font-size:10.0pt'>clsctx</span></tt>
+complications exist here. If the object is registered as an <tt><span
+style='font-size:10.0pt'>InProc</span></tt> server locally, all DCOM settings
+(including the explicit machine name) are ignored.</p>
+
+<h3><a name="_12.8_Conclusion"></a>12.8 Conclusion</h3>
+
+<p>In this chapter we took a whirlwind tour of COM. We covered the important
+COM concepts and how they relate to Python and the Python COM package. We
+discussed the differences between COM interfaces and COM automation objects
+that expose an object model using the <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+interface.</p>
+
+<p>The <tt><span style='font-size:10.0pt'>pythoncom</span></tt> module and the <tt><span
+style='font-size:10.0pt'>win32com</span></tt> package were introduced, and we
+discussed how to use COM objects from Python and how to use native COM
+interfaces from Python.</p>
+
+<p>Implementing COM objects using Python was discussed in detail. We covered
+some simple examples and covered some advanced topics, such as wrapping and
+unwrapping your COM objects, PythonCOM policies, and how to debug your COM
+servers.</p>
+
+<p>Finally, we showed you how you can distribute your Python COM objects across
+various machines on your network using DCOM.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+<div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=15.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=17.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div></body></html>

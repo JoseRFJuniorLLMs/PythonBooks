@@ -1,0 +1,121 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; *Exceptions as Classes</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="154.html" class="navtitle">10. Errors And Exceptions</a> &gt; <span class="nonavtitle">*Exceptions as Classes</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="159.html" title="*Exceptions as Strings"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=160" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="160.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="161.html" title="Raising Exceptions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A28%3A57+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175193246034064175168015</font><a href="read6.asp?bookname=0130260363&snode=160&now=5%2F29%2F2002+9%3A28%3A57+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>*Exceptions as Classes</h3>
+				<p>As we mentioned above, as of Python 1.5, all standard exceptions are now identified using classes. User-defined, class-based exceptions have been around for longer than that (since Python 1.2!), but until 1.5, the standard exceptions remained implemented as strings, mostly for backwards compatibility. However, there are a number of advantages that classes bring to the table, and these reasons were what finally led to all standard exceptions being converted from strings to class-based.</p>
+
+				<A NAMe="1"></a>
+					<h4>Selection via Object Identity</h4>
+					<P>The search for an exception handler (checking each <B><TT clasS="monofont">except</TT></B> clause) is accomplished via object identity and not object value. That means that if you are using string exceptions, the string object used in the <b><tt class="monofont">except</tt></b> clause must be the same as the string exception that is raised. Two different string objects, even if they contain exactly the same string, constitute different exceptions!</p>
+
+					<p>Using classes simplifies this selection mechanism because exception classes are, for the most part, static. When referring to an exception, you are really accessing a class object that is a built-in identifier and stays constant throughout the course of execution. Whether using <tt class="monofont">IndexError</Tt> in an <b><Tt clAss="monofont">except</tt></B> clause or in a <b><tt CLASs="monofont">raise</tt></b> statement, you can be sure that they are both referencing the same class object so that a corresponding handler will be found.</P>
+
+				
+				
+					<H4>Relationship Between Exceptions</H4>
+					<P>Utilizing classes also allows for a hierarchical structure of exceptions. There are two consequences of employing this construct:</p>
+
+					
+						<h5>Promotes Grouping of Related Exceptions</h5>
+						<p>When errors were simply strings, there was no interrelationship between any pair of errors. Although most errors are unrelated, some <I>are</I> very closely related, such as <TT clasS="monofont">IndexError—</TT>offset into a sequence with an invalid index, and <Tt class="monofont">KeyError—</tt>indexing into a map with an invalid key. String exceptions allow these exceptions to be related in context or description only and do not recognize any more than that codewise.</p>
+
+						<p>Class-based exceptions allow such a relationship. Both exceptions now are subclassed from a common ancestor, the <tt class="monofont">LookupError</tt> exception. If your application defined a new class with a lookup-related error, it is now possible for you to create yet another related exception simply by also subclassing from <tT clAss="monofont">LookupError,</tT> or even <tt clAss="monofont">IndexError</tT> or <TT Class="monofont">KeyError.</TT></P>
+
+						<P>The complete set of Python exceptions and class hierarchy can be found in <a hreF="163#1.html">Table 10.2</A></P>
+
+					
+					
+						<H5>Simplifies Detection</h5>
+						<p>With class-based exceptions, handler code can detect an entire exception class "tree" (i.e., an ancestor exception class as well as all derived subclasses). As an example, let us say that you just want to catch any general arithmetic error in your program. Our code may be structured something like the following:</p>
+
+						<pRE>
+							
+<B>try:</B>
+     <i>code_to_scan_for_math_errors</i>
+<b>except</b> FloatingPointError:
+     <b>print</b> "math exception found"
+<b>except</b> ZeroDivisionError:
+     <b>print</b> "math exception found"
+<b>except</b> OverflowError:
+     <b>print</b> "math exception found"
+
+						</pre>
+
+						<p>Since the handlers for each exception are the same, we can shorten the code to:</p>
+
+						<pRe>
+							
+<b>try:</B>
+     <i>code_to_scan_for_math_errors</i>
+<b>except</B> (FloatingPointError, ZeroDivisionError, OverflowError):
+    <b>print</b> "math exception found"
+
+						</prE>
+
+						<p>However, this solution is not as all-encompassing as it could be, is a little messy perhaps with all three exceptions listed, and does not take into account future expansion. What if the next version of Python comes with a new arithmetic exception, or perhaps you create such a new exception for your application? The code we have above would be out-of-date and inaccurate.</p>
+
+						<p>The solution is to reference a base class in your <B><TT Class="monofont">except</TT></B> clause. Because your new exceptions (as well as <Tt claSS="monofont">FloatingPointError, ZeroDivisionError,</TT> and <tt clASS="monofont">OverflowError</Tt>) are all subclassed from the <tt class="monofont">ArithmeticError</tt> exception class, you can reference <tt class="monofont">ArithmeticError</tt> which can then scan for all <tT clAss="monofont">ArithmeticError</tT> exceptions as well as all exceptions <i>derived</i> from <tt ClasS="monofont">ArithmeticError.</TT> Updating our code one more time, we present the most flexible solution here:</P>
+
+						<pre>
+							
+<b>try:</B>
+     <I>code_to_scan_for_math_errors</I>
+<B>except</b> ArithmeticError:
+     <b>print</b> "math exception found"
+
+						</pRE>
+
+						<P>Now your code can handle all pre-existing <Tt claSS="monofont">ArithmeticError</TT> exceptions as well as any you may create subclassed from <tt class="monofont">ArithmeticError.</tt> Care must be taken, however, when handling both classes and superclasses with the same <b><tt class="monofont">try</tt></b> statement. Observe both of the following examples:</P>
+
+						<prE>
+							
+<b>try:</b>
+     <i>code_to_scan_for_math_errors</I>
+<b>except</b> ArithmeticError:
+     <b>print</b> "math exception found"
+<B>except</b> ZeroDivisionError:
+     <b>print</b> "division by zero error"
+
+<B>try:</B>
+     <I>code_to_scan_for_math_errors</I>
+<b>except</b> ZeroDivisionError:
+     <b>print</b> "division by zero error"
+<B>except</B> ArithmeticError:
+     <B>print</B> "math exception found"
+
+						</pre>
+
+						<p>Exception handlers are mutually-exclusive, meaning that once a handler is found for an exception (or a base class), it is handled immediately without searching further. In the first example, a <TT CLass="monofont">ZeroDivisionError</tT> will be handled only by the first <B><TT class="monofont">except</tt></b> statement, producing an output of "math exception found." The <b><tt class="monofont">except</tt></b> clause for <tT clAss="monofont">ZeroDivisionError</tT> will not be reached.</p>
+
+						<p>The second example may prove to be more useful, as a specific arithmetic error (<tt ClasS="monofont">ZeroDivisionError</TT>) is handled first, leaving the general <Tt claSS="monofont">ArithmeticError</TT> handler to take care of any other exception derived from <tt clASS="monofont">ArithmeticError.</Tt></p>
+
+					
+				
+			</foNT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="159.html" title="*Exceptions as Strings"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=160" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="160.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="161.html" title="Raising Exceptions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

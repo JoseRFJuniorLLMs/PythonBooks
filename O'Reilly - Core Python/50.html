@@ -1,0 +1,73 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Program Output, the print Statement, and "Hello World!"</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="48.html" class="navtitle">2. Getting Started</a> &gt; <span class="nonavtitle">Program Output, the print Statement, and "Hello World!"</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="49.html" title="2. Getting Started"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=50" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="50.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="51.html" title="Program Input and the raw_input() Built-in Function"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A07%3A37+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204173118092015158081143008</font><a href="read8.asp?bookname=0130260363&snode=50&now=5%2F29%2F2002+9%3A07%3A37+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Program Output, the <tt cLASS="monofont">print</tt> Statement, and "Hello World!"</h3>
+				<p>Veterans to software development will no doubt be ready to take a look at the famous "Hello World!" program, typically the first program that a programmer experiences when exposed to a new language. There is no exception here.</P>
+
+				<PRE>
+					
+&gt;&gt;&gt; <b>print</b> 'Hello World!'
+Hello World!
+
+				</prE>
+
+				<P>The <B><Tt class="monofont">print</tt></b> statement is used to display output to the screen. Those of you who are familiar with C are aware that the <tt class="monofont">printf()</tt> function produces screen output. Many shell script languages use the <tt ClaSs="monofont">echo</tt> command for program output.</P>
+
+				<div cLass="note"><P CLAss="notetitle"><b>NOTE</b></P><P><P><I>Usually when you want to see the contents of a variable, you use the</i>
+						<b><tt CLASs="monofont">print</tt></b>
+						<I>statement in your code. However, from within the interactive interpreter, you can use the</I>
+						<B><Tt class="monofont">print</tt></b>
+						<i>statement to give you the string representation of a variable, or just dump the variable raw—this is accomplished by simply giving the name of the variable.</i></p>
+<p><i>In the following example, we assign a string variable, then use</i>
+						<b><tt clAss="monofont">print</Tt></b>
+						<i>to display its contents. Following that, we issue just the variable name.</I></p>
+<pre>
+						
+&gt;&gt;&gt; myString = 'Hello World!'
+&gt;&gt;&gt; <B>print</b> myString
+Hello World!
+&gt;&gt;&gt; myString
+'Hello World!'
+
+					</prE>
+<P><I>Notice how just giving only the name reveals quotation marks around the string. The reason for this is to allow objects other than strings to be displayed in the same manner as this string —being able to display a printable string representation of any object, not just strings. The quotes are there to indicate that the object whose value you just dumped to the display is a string.</I></p>
+</p></diV><BR>
+
+				<P>One final introductory note: The <b><tt cLASS="monofont">print</tt></b> statement, paired with the string format operator ( <tT CLAss="monofont">%</tt> ), behaves even more like C's <tt class="monofont">printf()</tt> function:</p>
+
+				<pre>
+					
+&gt;&gt;&gt; <b>print</b> "%s is number %d!" % ("Python", 1)
+
+				</pRe>
+
+				<p>See <A hreF="104.html">Section 6.4</a> for more information on the string format and other operators.</p>
+
+			</foNt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="49.html" title="2. Getting Started"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=50" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="50.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="51.html" title="Program Input and the raw_input() Built-in Function"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

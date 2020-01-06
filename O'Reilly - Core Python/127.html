@@ -1,0 +1,210 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Dictionary Keys</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="121.html" class="navtitle">7. Dictionaries</a> &gt; <span class="nonavtitle">Dictionary Keys</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="126.html" title="Built-in Methods"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=127" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="127.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="128.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A22%3A56+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175203013157019136225165</font><a href="read7.asp?bookname=0130260363&snode=127&now=5%2F29%2F2002+9%3A22%3A56+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Dictionary Keys</h3>
+				<p>Dictionary values have no restrictions. They can be any arbitrary Python object, i.e., from standard objects to user-defined objects. However, the same cannot be said of keys.</p>
+
+				
+					<H4>More Than One Entry per Key Not Allowed</H4>
+					<P>One rule is that you are constrained to having only one entry per key. In other words, multiple values per the same key are not allowed. (Container objects such as lists, tuples, and other dictionaries are fine.) When key <I>collisions</i> are detected (meaning duplicate keys encountered during assignment), the last assignment wins.</p>
+
+					<prE>
+						
+&gt;&gt;&gt; dict1 = {' foo':789, 'foo': 'xyz'}
+&gt;&gt;&gt; dict1
+{'foo': 'xyz'}
+&gt;&gt;&gt;
+&gt;&gt;&gt; dict1['foo'] = 123
+&gt;&gt;&gt; dict1
+{'foo': 123}
+
+					</PRE>
+
+					<p>Rather than producing an error, Python does not check for key collisions because that would involve taking up memory for each key-value pair assigned. In the above example where the key <tt cLASS="monofont">'foo'</tt> is given twice on the same line, Python applies the key-value pairs from left to right. The value <tt class="monofont">789</tt> may have been set at first, but is quickly replaced by the string <tt class="monofont">'xyz'.</tt> When assigning a value to a non-existent key, the key is created for the dictionary and value added, but if the key does exist (a collision), then its current value is replaced. In the above example, the value for the key <Tt cLass="monofont">'foo'</Tt> is replaced twice; in the final assignment, <tt cLass="monofont">'xyz'</TT> is replaced by <TT clasS="monofont">123.</TT></P>
+
+				
+				<a namE="2"></A>
+					<H4>Keys Must Be Immutable</H4>
+					<p>As we mentioned earlier in <a hrEF="123.html">Section 7.1</A>, most Python objects can serve as keys—only mutable types such as lists and dictionaries are disallowed. In other words, types that compare by value rather than by identity cannot be used as dictionary keys. A <Tt class="monofont">TypeError</tt> will occur if a mutable type is given as the key:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; dict[[3]] = 14
+Traceback (innermost last):
+  File "&lt;stdin&gt;," line 1, in ?
+TypeError: unhashable type
+
+					</pre>
+
+					<p>Why must keys be immutable? The hash function used by the interpreter to calculate where to store your data is based on the value of your key. If the key was a mutable object, its value could be changed. If a key changes, the hash function will map to a different place to store the data. If that was the case, then the hash function could never reliably store or retrieve the associated value. Immutable keys were chosen for the very fact that their values cannot change. (Also see the Python FAQ question 6.18.)</p>
+
+					<p>We know that numbers and strings are allowed as keys, but what about tuples? We know they are immutable, but in <a hRef="107#3.html">Section 6.17.2</A>, we hinted that they might not be as immutable as they can be. The clearest example of that was when we modified a list object which was one of our tuple elements. To allow tuples as valid keys, one more restriction must be enacted: Tuples are valid keys only if they only contain immutable arguments like numbers and strings.</p>
+
+					<p>We conclude this chapter on dictionaries by presenting a program (<tT clasS="monofont">userpw.py</tt> as in <a HREF="127#3.html">Example 7.1</a>), which manages user name and passwords in a mock login entry database system. This script accepts new users given that they provide a login name and a password. Once an "account" has been set up, an existing user can return as long as they give their login and correct password. New users cannot create an entry with an existing login name.</p>
+
+					
+						<h5>
+<a NAME="3"></a>Example 7.1. Dictionary Example (<tt cLASS="monofont">userpw.py</tt>)</h5>
+						<p><B><I>This application manages a set of users who join the system with a login name and a password. Once established, existing users can return as long as they remember their login and password. New users cannot create an entry with someone else's login name.</I></B></p>
+
+						<pre class="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  db = {}
+004 4
+005 5  <b>def</b> newuser():
+006 6      prompt = 'login desired: '
+007 7      <b>while</b> 1:
+008 8          name = raw_input(prompt)
+009 9          <b>if</b> db.has_key(name):
+010 10             prompt = 'name taken, try another: '
+011 11             <b>continue</b> &lt;$nopage&gt;
+012 12         <b>else:</b> &lt;$nopage&gt;
+013 13             <b>break</B> &lt;$nopage&gt;
+014 14     pwd = raw_input('passwd: ')
+015 15     db[name] = pwd
+016 16
+017 17 <b>def</b> olduser():
+018 18     name = raw_input('login: ')
+019 19     pwd = raw_input('passwd: ')
+020 20     passwd = db.get(name)
+021 21     <B>if</b> passwd == pwd:
+022 22         <b>pass</b> &lt;$nopage&gt;
+023 23     <B>else:</b> &lt;$nopage&gt;
+024 24         <b>print</b> 'login incorrect'
+025 25         <b>return</B> &lt;$nopage&gt;
+026 26
+027 27     <b>print</b> 'welcome back', name
+028 28
+029 29 <b>def</B> showmenu():
+030 30     prompt = """
+031 31 (N)ew User Login
+032 32 (E)xisting User Login
+033 33 (Q)uit
+034 34
+035 35 Enter choice: """
+036 36
+037 37     done = 0
+038 38     <B>while not</B> done:
+039 39
+040 40         chosen  = 0
+041 41         <B>while not</b> chosen:
+042 42             <b>try:</b> &lt;$nopage&gt;
+043 43                 choice = raw_input(prompt)[0]
+044 44             <b>except</B> (EOFError, KeyboardInterrupt):
+045 45                 choice = 'q'
+046 46             <B>print</B> '\nYou picked: [%s]' % choice
+047 47             <B>if</b> choice <b>not in</b> 'neq':
+048 48                 <b>print</B> 'invalid option, try again'
+049 49             <B>else:</B> &lt;$nopage&gt;
+050 50                 chosen = 1
+051 51
+052 52         <B>if</b> choice == 'q': done = 1
+053 53         <b>if</b> choice == 'n': newuser()
+054 54         <b>if</B> choice == 'e': olduser()
+055 55
+056 56 <B>if</B> __name__ == '__main__':
+057 57     showmenu()
+058  &lt;$nopage&gt;</Pre>
+					
+					
+						<h5>Lines 1 – 3</h5>
+						<p>After the UNIX-startup line, we initialize the program with an empty user database. Because we are not storing the data anywhere, a new user database is created every time this program is executed.</p>
+
+					
+					
+						<h5>Lines 5 – 15</h5>
+						<p>The <tt class="monofont">newuser()</tt> function is the code that serves new users. It checks to see if a name has already been taken, and once a new name is verified, the user is prompted for his or her password (no encryption exists in our simple program), and his or her password is stored in the dictionary with his or her user name as the key.</p>
+
+					
+					
+						<h5>Lines 17 – 27</H5>
+						<p>The <tT claSs="monofont">olduser()</tt> function handles returning users. If a user returns with the correct login and password, a welcome message is issued. Otherwise, the user is notified of an invalid login and returned to the menu. We do not want an infinite loop here to prompt for the correct password because the user may have inadvertently entered the incorrect menu option.</p>
+
+					
+					
+						<H5>Lines 29 – 54</h5>
+						<p>The real controller of this script is the <tT CLAss="monofont">showmenu()</tt> function. The user is presented with a friendly menu. The prompt string is given using triple quotes because it takes place over multiple lines and is easier to manage on multiple lines than on a single line with embedded <TT CLass="monofont">'\n'</tT> symbols. Once the menu is displayed, it waits for valid input from the user and chooses which mode of operation to follow based on the menu choice. The <B><TT clasS="monofont">try-except</TT></B> statements we describe here are the same as for the <tt class="monofont">stack.py</tt> and <tt class="monofont">queue.py</tt> examples from the last chapter (see <a hRef="114#1.html">Section 6.14.1</A>).</p>
+
+					
+					
+						<h5>Lines 56 – 57</h5>
+						<P>Here is the familiar code which will only call <tt clAss="monofont">showmenu()</tT> to start the application if the script was involved directly (not imported).</P>
+
+						<P>Here is a sample execution of our script:</P>
+
+						<pre>
+							
+% userpw.py
+
+(N)ew User Login
+(E)xisting User Login
+(Q)uit
+
+Enter choice: n
+
+You picked: [n]
+login desired: king arthur
+passwd: grail
+
+(N)ew User Login
+(E)xisting User Login
+(Q)uit
+
+Enter choice: e
+
+You picked: [e]
+login: sir knight
+passwd: flesh wound
+login incorrect
+
+(N)ew User Login
+(E)xisting User Login
+(Q)uit
+
+Enter choice: e
+
+You picked: [e]
+login: king arthur
+passwd: grail
+welcome back king arthur
+
+(N)ew User Login
+(E)xisting User Login
+(Q)uit
+
+Enter choice: ^D
+You picked: [q]
+
+						</pRE>
+
+					
+				
+			</FOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="126.html" title="Built-in Methods"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=127" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="127.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="128.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

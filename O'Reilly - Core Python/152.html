@@ -1,0 +1,111 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Related Modules</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="141.html" class="navtitle">9. Files and Input/Output</a> &gt; <span class="nonavtitle">Related Modules</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="151.html" title="Persistent Storage Modules"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=152" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="152.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="153.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A27%3A31+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175206119230038081228006</font><a href="read6.asp?bookname=0130260363&snode=152&now=5%2F29%2F2002+9%3A27%3A31+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Related Modules</h3>
+				<p>There are plenty of other modules related to files and input/output, all of which work on most of the major platforms. <a HREF="152#1.html">Table9.7</a> lists some of the file-related modules.</p>
+
+				<a nAME="1"></A><p><tabLE BOrder="1" cellspacing="0" cellpAddIng="1" wIdth="100%">
+<cAptiON><H5>Table 9.7. Related File Modules</H5></captION><ColgrOUP Align="left" SPAN="2">
+<tr valign="top">
+<th>
+<font size="2"><b><i>Module(s)</I></b></fOnt></tH>
+<th>
+<foNt siZE="2"><B><I>Contents</i></b></foNT></TH>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><tt class="monofont">fileinput</tt></font></td>
+<tD>
+<foNt siZe="2">iterates over lines of multiple input text files</fonT></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2"><Tt claSS="monofont">getopt</TT></font></td>
+<td>
+<font size="2">provides command-line argument parsing/manipulation</font></Td>
+</tR>
+<tr vAlign="top">
+<Td>
+<foNT SIze="2"><tt CLASs="monofont">glob/fnmatch</tt></fONT></Td>
+<td>
+<fONT Size="2">provides Unix-style wildcard character matching</font></td>
+</tr>
+<tr valign="top">
+<tD>
+<foNt siZe="2"><tt cLass="monofont">gzip/zlib/zipfile</TT><FOnt siZE="1"><SUp><a hrEF="#FOOTNOTE-a">[a]</A></Sup></foNT>
+</FOnt></td>
+<td>
+<font size="2">allows file access to include automatic de/compression</font></td>
+</Tr>
+<tR valIgn="top">
+<td>
+<Font SIZE="2"><tt clASS="monofont">shutil</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2">offers high-level file access functionality</font></td>
+</tr>
+<tr valign="top">
+<td>
+<fOnt Size="2"><Tt claSs="monofont">c/StringIO</tt></FONT></td>
+<td>
+<FONT size="2">implements file-like interface on top of string objects</FONT></td>
+</tr>
+<TR VAlign="top">
+<td>
+<font size="2"><tt clasS="monofont">tempfile</tt></Font></Td>
+<td>
+<fOnt sIZE="2">generates temporary file names or files</Font></tD>
+</TR>
+</ColgrOUP>
+</Table></P>
+<BLOckquote><font size="1">
+<p clasS="footnote">
+<suP><a naMe="FOOTNOTE-a">[a]</a></suP>
+new in Python 1.6</p>
+</foNT></BLockqUOTE>
+
+				<p>The <tt cLASS="monofont">fileinput</tt> module iterates over a set of input files and reads their contents one line at a time, allowing you to iterate over each line, much like the way the Perl ( <tt CLASs="monofont">&lt; &gt;</tt> ) operator works without any provided arguments. File names that are not explicitly given will be assumed to be provided from the command-line.</p>
+
+				<p>The <tt class="monofont">glob</tt> and <tt clasS="monofont">fnmatch</tt> modules allow for file name pattern-matching in the good old fashioned Unix shell-style, for example, using the asterisk ( <Tt clAss="monofont">*</tt> ) wildcard character for all string matches and the ( <Tt clASS="monofont">?</Tt> ) for matching single characters.</p>
+
+				<p>The <tT CLAss="monofont">gzip</tt> and <TT CLass="monofont">zlib</tT> modules provide direct file access to the <TT Class="monofont">zlib</tt> compression library. The <tt class="monofont">gzip</tt> module, written on top of the <tt claSs="monofont">zlib</tT> module, allows for standard file access, but provides for automatic <tt cLass="monofont">gzip</tT>-compatible compression and decompression. Note that if you are compiling your Python interpreter, you have to enable the <tt cLASS="monofont">zlib</tt> module to be built (by editing the <tt CLASs="monofont">Modules/Setup</tt> file). It is not turned on by default. The new <tT CLAss="monofont">zipfile</tt> module, also requiring the <TT CLass="monofont">zlib</tt> module, allows the programmer to create, modify, and read <tt class="monofont">zip</tt> archive files.</p>
+
+				<p>The <tt clAss="monofont">shutil</Tt> module furnishes high-level file access, performing such functions as copying files, copying file permissions, and recursive directory tree copying, to name a few.</p>
+
+				<p>The <Tt claSs="monofont">tempfile</tt> module can be used to generate temporary file names and files.</P>
+
+				<P>In our earlier chapter on strings, we described the <TT clasS="monofont">StringIO</TT> module (and its C-compiled companion <Tt claSS="monofont">cStringIO</TT>), and how it overlays a file interface on top of string objects. This interface includes all of the standard methods available to regular file objects.</p>
+
+				<p>The modules we mentioned in the Persistent Storage section above (<a hREF="151.html">Section 9.9</A>) include examples of a hybrid file- and dictionary-like object.</p>
+
+				<p>Some other Python modules which generate file-like objects include network and file socket objects (<tt class="monofont">socket</tt> module), the <tt class="monofont">popen*()</tt> file objects that connect your application to other running processes (<Tt cLass="monofont">os</Tt> and <tt cLass="monofont">popen2</TT> modules), the <TT clasS="monofont">fdopen()</TT> file object used in low-level file access (<Tt claSS="monofont">os</TT> module), and opening a network connection to an Internet web server via its Uniform Resource Locator (URL) address (<tt clASS="monofont">urllib</Tt> module). Please be aware that not all standard file methods may be implemented for these objects. Likewise, they may provide functionality in addition to what is available for regular files.</p>
+
+				<p>Refer to the documentation for more details on these file access-related modules.</p>
+
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="151.html" title="Persistent Storage Modules"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=152" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="152.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="153.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

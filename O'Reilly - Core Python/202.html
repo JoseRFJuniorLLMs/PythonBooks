@@ -1,0 +1,106 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Modules and Files</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="199.html" class="navtitle">12. Modules</a> &gt; <span class="nonavtitle">Modules and Files</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="201.html" title="What are Modules?"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=202" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="202.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="203.html" title="Namespaces"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A36%3A24+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174048203106010085032232</font><a href="read6.asp?bookname=0130260363&snode=202&now=5%2F29%2F2002+9%3A36%3A24+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Modules and Files</h3>
+				<p>If modules represent a logical way to organize your Python code, then files are a way to physically organize modules. To that end, each file is considered an individual module, and vice versa. The file name of a module is the module name appended with the <tT CLAss="monofont">.py</tt> file extension. There are several aspects we need to discuss with regards to what the file structure means to modules. Unlike other languages in which you import classes, in Python you import modules or module attributes.</P>
+
+				
+					<H4>Namespaces</H4>
+					<P>We will discuss namespaces in detail later in this chapter, but the basic concept of a namespace is an individual set of mappings from names to objects. As you are no doubt aware, module names play an important part in the naming of their attributes. The name of the attribute is always prepended with the module name. For example, the <tt clASS="monofont">atoi()</Tt> function in the <tt class="monofont">string</tt> module is called <tt class="monofont">string.atoi().</tt> Because only one module with a given name can be loaded into the Python interpreter, there is no intersection of names from different modules; hence, each module defines its own unique namespace. If I created a function called <tT clAss="monofont">atoi()</tT> in my own module, perhaps <tt clAss="monofont">mymodule,</tT> its name would be <TT Class="monofont">mymodule.atoi().</TT> So even if there is a name conflict for an attribute, the <I>fully-qualified name—</I>referring to an object via dotted attribute notation—prevents an exact and conflicting match.</p>
+
+				
+				
+					<h4>Search Path and Path Search</h4>
+					<p>The process of importing a module requires a process called a <I>path search.</I> This is the procedure of checking "predefined areas" of the file system to look for your <TT clasS="monofont">mymodule.py</TT> file in order to load the <Tt class="monofont">mymodule</tt> module. These predefined areas are no more than a set of directories that are part of your Python <i>search path.</i> To avoid the confusion between the two, think of a path search as the pursuit of a file through a set of directories, the search path.</p>
+
+					<p>There may be times where importing a module fails:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; import xxx
+Traceback (innermost last):
+ File "&lt;interactive input&gt;", line 1, in ?
+ImportError: No module named xxx
+
+					</pre>
+
+					<p>When this error occurs, the interpreter is telling you it cannot access the requested module, and the likely reason is that the module you desire is not in the search path, leading to a path search failure.</P>
+
+					<p>A default search path is automatically defined either in the compilation or installation process. This search path may be modified in one of two places.</p>
+
+					<P>One is the <tt cLass="monofont">PYTHONPATH</tT> environment variable set in the <i>shell</i> or command-line interpreter that invokes Python. The contents of this variable consist of a colon-delimited set of directory paths. If you want the interpreter to use the contents of this variable, make sure you set or update it before you start the interpreter or run a Python script.</p>
+
+					<P>Once the interpreter has started, you can access the path itself which is stored in the <TT Class="monofont">sys</TT> module as the <TT clasS="monofont">sys.path</TT> variable. Rather than a single string that is colon-delimited, the path has been "split" into a list of individual directory strings. Below is an example search path for a Unix machine. Your mileage will definitely vary as you go from system to system.</P>
+
+					<pre>
+						
+&gt;&gt;&gt; sys.path
+['', '/usr/local/lib/python1.5/', '/usr/local/lib/
+python1.5/plat-sunos5', '/usr/local/lib/python1.5/
+lib-tk', '/usr/local/lib/python1.5/lib-dynload']
+
+					</pRE>
+
+					<P>Bearing in mind that this is just a list, we can definitely take our liberty with it and modify it at our leisure. If you know of a module you want to import, yet its directory is not in the search path, by all means use the list's <Tt class="monofont">append()</tt> method to add it to the path, like so:</p>
+
+					<pre>
+						
+sys.path.append('/home/wesc/py/lib')
+
+					</pre>
+
+					<p>Once this is accomplished, you can then load your module. As long as one of the directories in the search path contains the file, then it will be imported. Of course, this adds the directory only to the end of your search path. If you want to add it elsewhere, such as in the beginning or middle, then you have to use the <tt clAss="monofont">insert()</Tt> list method for those. In our examples above, we are updating the <tt Class="monofont">sys.path</Tt> attribute interactively, but it will work the same way if run as a script.</p>
+
+					<p>Here is what it would look like if we ran into this problem interactively:</P>
+
+					<PRE>
+						
+&gt;&gt;&gt; <b>import</b> sys
+&gt;&gt;&gt; <b>import</b> mymodule
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+ImportError: No module named mymodule
+&gt;&gt;&gt;
+&gt;&gt;&gt; sys.path.append('/home/wesc/py/lib')
+&gt;&gt;&gt; sys.path
+['', '/usr/local/lib/python1.5/', '/usr/local/lib/
+python1.5/plat-sunos5', '/usr/local/lib/python1.5/
+lib-tk', '/usr/local/lib/python1.5/lib-dynload', '/home/
+wesc/py/lib']
+&gt;&gt;&gt;
+&gt;&gt;&gt; <B>import</B> mymodule
+&gt;&gt;&gt;
+
+					</PRe>
+
+					<p>On the flip side, you may have too many copies of a module. In the case of duplicates, the interpreter will load the first module it finds with the given name while rummaging through the search path in sequential order.</p>
+
+				
+			</fONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="201.html" title="What are Modules?"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=202" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="202.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="203.html" title="Namespaces"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

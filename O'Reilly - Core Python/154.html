@@ -1,0 +1,90 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; 10. Errors And Exceptions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <span class="nonavtitle">10. Errors And Exceptions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="153.html" title="Exercises"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=155" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="155.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="156.html" title="What Are Exceptions?"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A27%3A54+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175206119224211141058020</font><a href="read6.asp?bookname=0130260363&snode=155&now=5%2F29%2F2002+9%3A27%3A54+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT><h2>Chapter
+10. Errors And Exceptions</h2>
+					<blOCKQuote>
+<P><P><B>Chapter Topics</B></p>
+</p>
+</blOCKQuote>
+					<ul>
+<li><p>What Are Exceptions?</p>
+</li>
+<li><p>Exceptions in Python</p>
+</li>
+<li><P>Detecting and Handling Exceptions</p>
+
+							<uL>
+<li><p><Tt claSs="monofont">try-except</tt> Statement</P>
+</LI>
+<Li><p>Exception Arguments</p>
+</lI>
+<LI><P><tt clASS="monofont">else</Tt> Statement</p>
+</li>
+<LI><P><Tt class="monofont">try-finally</tt> Statement</p>
+</li>
+</ul></li>
+<li><p>Exceptions Are Classes</p>
+</lI>
+<li><P>Raising Exceptions</p>
+
+							<ul>
+<Li><p><tt ClasS="monofont">raise</TT> Statement</P>
+</li>
+</ul></LI>
+<LI><p>Assertions</p>
+
+							<ul>
+<LI><P><Tt claSS="monofont">assert</TT> Statement</p>
+</li>
+</ul></li>
+<li><p>Standard Exceptions</p>
+</li>
+<li><p>Creating Exceptions</p>
+</li>
+<lI><p>Why Exceptions (Now)?</p>
+</Li>
+<li><P>Why Exceptions at All?</p>
+</li>
+<lI><p>Related Modules</p>
+</lI>
+</UL>
+					<P>Errors are an everyday occurrence in the life of a programmer. In days hopefully long since past, errors were either fatal to the program (or perhaps the machine) or produced garbage output that was neither recognized as valid input by other computers or programs nor by the humans who submitted the job to be run. Any time an error occurred, execution was halted until the error was corrected and code was re-executed. Over time, demand surged for a "softer" way of dealing with errors other than termination. Programs evolved such that not every error was malignant, and when they did happen, more diagnostic information was provided by either the compiler or the program during run-time to aid the programmer in solving the problem as quickly as possible. However, errors are errors, and any resolution usually took place after the program or compilation process was halted. There was never really anything a piece of code could do but exit and perhaps leave some crumbs hinting at a possible cause—until <i>exceptions</i> and <i>exception handling</i> came along.</P>
+
+					<P>Although we have yet to cover classes and object-oriented programming in Python, many of the concepts presented here involve classes and class instances.<FOnt siZE="1"><SUp><a hrEF="#FOOTNOTE-1">[1]</A></Sup></font>
+ We conclude the chapter with an optional section on how to create your own exception classes. Older versions of Python utilized string exceptions, which are not common any more. We recommend using only class-based exceptions for all future development.</p>
+<blockquote><fonT siZe="1">
+<p cLass="footnote">
+<sUp><a nAME="FOOTNOTE-1">[1]</A></sup>
+As of Python 1.5, all standard exceptions are implemented as classes. If new to classes, instances, and other object-oriented terminology, the reader should check <a HREF="210.html">Chapter 13</a> for clarification.</p>
+</foNT></BLockqUOTE>
+
+					<p>This chapter begins by exposing the reader to exceptions, exception handling, and how they are supported in Python. We also describe how programmers can generate exceptions within their code. Finally, we reveal how programmers can create their own exception classes.</p>
+
+				</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="153.html" title="Exercises"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=155" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="155.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="156.html" title="What Are Exceptions?"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,267 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Exercises</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="210.html" class="navtitle">13. Classes and OOP</a> &gt; <span class="nonavtitle">Exercises</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="227.html" title="Related Modules and Documentation"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=228" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="228.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="230.html" title="14. Execution Environment"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A18%3A33+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004231197152118169168125025</font><a href="read8.asp?bookname=0130260363&snode=228&now=5%2F30%2F2002+8%3A18%3A33+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT><h3>Exercises</h3>
+				<p><tABLE bodeR="0" CELlspaCING="16" cellpadding="0">
+					<tr valign="top"><tD alIgn="right"><fOnt><b>1:</b></Font></TD><TD><font><P><I>Programming.</I> Name some benefits of object-oriented programming over older forms of programming.</P>
+</font></TD></TR>
+					<tr vaLIGN="top"><td align="right"><a name="1"></a><font><b>2:</b></fOnt></Td><td><Font><p><A hreF="288#32.html"><I>Functions vs. Methods.</I> What are the differences between functions and methods?</A></p>
+</fonT></TD></Tr>
+					<tr vALIGn="top"><td aLIGN="right"><font><b>3:</b></font></td><td><font><p><i>Customizing Classes.</I> Create a class to format floating point values to monetary amounts. In this exercise, we will use United States currency, but feel free to implement your own.</p>
+
+							<p>Preliminary work:  Create a function called <Tt clAss="monofont">dollarize()</tt> which takes a floating point value and returns that value as a string properly formatted with symbols and rounded to obtain a financial amount. For example: <Tt clASS="monofont">dollarize(1234567.8901) ?</Tt> '$1,234,567.89' The <tt cLASS="monofont">dollarize()</tt> function should allow for commas, such as 1,000,000, and dollar signs. Any negative sign should appear to the <i>left</i> of the dollar sign. Once you have completed this task, then you are ready to convert it into a useful class called <TT CLass="monofont">MoneyFmt.</tT></P>
+
+							<P>The <Tt class="monofont">MoneyFmt</tt> class contains a single data value, the monetary amount, and has five methods (feel free to create your own outside of this exercise). The <tt class="monofont">__init__()</tt> constructor method initializes the data value, the update() method replaces the data value with a new one, the <tt cLasS="monofont">__nonzero__()</tt> method is Boolean, returning 1 (true) if the data value is non-zero, the <tT clasS="monofont">__repr__()</tt> method returns the amount as a float, and the <tT CLAss="monofont">__str__()</tt> method displays the value in the string-formatted manner that <TT CLass="monofont">dollarize()</tT> does.</P>
+
+							<P>(a) Fill in the code to the <Tt claSS="monofont">update()</TT> method so that it will update the data value.</p>
+
+							<p>(b) Use the work you completed for <tt class="monofont">dollarize()</tt> to fill in the code for the <tt class="monofont">__str__()</tt> method.</P>
+
+							<p>(c) Fix the bug in the <tT claSs="monofont">__nonzero__()</tt> method, which currently thinks that any value less than one, i.e., fifty cents ($0.50), has a false value.</p>
+
+							<P>(d) EXTRA CREDIT: Allow the user to optionally specify an argument indicating the desire for seeing less-than and greater-than pairs for negative values rather than the negative sign. The default argument should use the standard negative sign.</p>
+
+							<p>You will find the code skeleton for <tT CLAss="monofont">moneyfmt.py</tt> presented as <A HREf="228#2.html">Example 13.5</a>. You will find a fully-documented (yet incomplete) version of <tt CLASs="monofont">moneyfmt.py</tt> on the CD-ROM. If we were to import the completed class within the interpreter, execution should behave similar to the following:</p>
+
+							<PRE>
+								
+&gt;&gt;&gt; <B>import</b> moneyfmt
+&gt;&gt;&gt;
+&gt;&gt;&gt; cash = moneyfmt.MoneyFmt(123.45)
+&gt;&gt;&gt; cash
+123.45
+&gt;&gt;&gt; <b>print</b> cash
+$123.45
+&gt;&gt;&gt;
+&gt;&gt;&gt; cash.update(100000.4567)
+&gt;&gt;&gt; cash
+100000.4567
+&gt;&gt;&gt; <b>print</b> cash
+$100,000.46
+&gt;&gt;&gt;
+&gt;&gt;&gt; cash.update(-0.3)
+&gt;&gt;&gt; cash
+-0.3
+&gt;&gt;&gt; <b>print</b> cash
+-$0.30
+&gt;&gt;&gt; repr(cash)
+'-0.3'
+&gt;&gt;&gt; 'cash'
+'-0.3'
+&gt;&gt;&gt; str(cash)
+'-$0.30'
+
+							</pre>
+
+							
+								<h5>
+<a name="2"></a>Example 13.5. Money Formatter (<tt cLasS="monofont">moneyfmt.py</tt>)</h5>
+								<P><b><i>String format class designed to "wrap" floating point values to appear as monetary amounts with the appropriate symbols.</i></b></P>
+
+								<pre CLASs="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <b>class</b> MoneyFmt:
+004 4
+005 5    <b>def</B> __init__(self, value=0.)  # constructor
+006 6
+007 7        self.value = float(value)
+008 8
+009 9    <B>def</B> update(self, value=None)  # allow updates
+010 10       ###
+011 11       ### (a) complete this function
+012 12       ###
+013 13
+014 14   <B>def</b> __repr__(self):           # display as a float
+015 15       <b>return</b> 'self.value'
+016 16
+017 17   <b>def</B> __str__(self):            # formatted display
+018 18       val = ''
+019 19
+020 20       ###
+021 21       ### (b) complete this function… do NOT
+022 22       ###    forget about negative numbers!!
+023 23       ###
+024 24
+025 25       <B>return</B> val
+026 26
+027 27   <B>def</b> __nonzero__(self):        # boolean test
+028 28       ###
+029 29       ### (c) find and fix the bug
+030 30       ###
+031 31
+032 32       <b>return</b> int(self.value)
+033  &lt;$nopage&gt;</pRE>
+							</FOnt></td></tr>
+					<tr valign="top"><td aligN="right"><foNt><b>4:</b></Font></tD><td><fONT><P><i>User Registration.</i> Create a user database (login, password, and last login timestamp) class (see problems 7–5 and 9–12) which manages a system requiring users to login before access to resources is allowed. This database class manages its users, loading any previously-saved user information on instantiation and providing accessor functions to add or update database information. If updated, the database will save the new information to disk as part of its deallocation (see <tt CLASs="monofont">__del__()</tt>).</p>
+</FONT></td></tr>
+					<TR VAlign="top"><td align="right"><font><b>5:</b></fonT></td><Td><foNt><p><i>Geometry.</i> Create a <Tt clASS="monofont">Point</Tt> class that consists of an ordered pair <tt cLASS="monofont">(x, y)</tt> representing a point's location on the X and Y axes. X and Y coordinates are passed to the constructor on instantiation and default to the origin for any missing coordinate.</p>
+</fONT></Td></tr>
+					<tR VALign="top"><td align="right"><font><b>6:</b></font></Td><tD><fonT><p><i>Geometry.</i> Create a line/line segment class which has length and slope behaviors, in addition to the main data attributes, a pair of points (see previous problem). You should override the <tT claSS="monofont">__repr__()</TT> method (and <tt clASS="monofont">str(),</Tt> if you want) so that the string representing a line (or line segment) are a pair of tuples, <tt cLASS="monofont">((x1, y1), (x2, y2)).</tt> Summary:</p>
+
+							<p><TABLe border="1" cellspacing="0" ceLlpAddiNg="1" widTh="100%">
+<coLGROup alIGN="left" Span="2">
+<tR VALign="top">
+<tD>
+<FONt size="2"><p><tt class="monofont">__repr__ length</tt></p>
+</font></Td>
+<tD>
+<fonT size="2"><P>display points as pair of tuples return length of line segment—do not use "len" since that is supposed tobe an integer</p>
+</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><P><TT Class="monofont">slope</tt></p>
+</font></td>
+<td>
+<font sIze="2"><P>return slope of line segment (or Noneif applicable)</p>
+</foNt></td>
+</tR>
+</colGROUp>
+</tabLE></P>
+</Font></tD></TR>
+					<Tr valIGN="top"><Td align="right"><font><b>7:</b></font></td><td><FonT><p><i>Date class.</i> Provide interface to a time module where users can request dates in a few (given) date formats such as "MM/DD/YY,"
+								"MM/DD/YYYY,"
+								"DD/MM/YY,"
+								"DD/MM/YYYY,"
+								"Mon DD, YYYY," or the standard Unix date of "Day Mon DD, HH:MM:SS YYYY." Your class should maintain a single value of date and create an instance with the given time. If not given, default to the current time at execution. Additional methods:</P>
+
+							<p><tabLe boRDER="1" cellSPACing="0" cELLPaddiNG="1" WIdth="100%">
+<colgroup align="left" span="2">
+<Tr vAligN="top">
+<td>
+<foNt siZE="2"><P><Tt claSS="monofont">update()</TT></p>
+</fonT></TD>
+<Td>
+<fonT SIZe="2"><p>changes the data value to reflect time given or current time as a default</p>
+</font></td>
+</tr>
+<tr valign="top">
+<tD>
+<foNt siZe="2"><p><tt ClasS="monofont">display()</TT></P>
+</font></TD>
+<TD>
+<font SIZE="2"><p>takes format indicator and displays date in requested format:</p>
+</foNT></TD>
+</tr>
+<tr valign="top">
+<td>
+<font size="2"><P><tt ClasS="monofont">'MDY'  -&gt;</tt></p>
+</fOnt></tD>
+<TD>
+<Font sIZE="2"><P><tt clASS="monofont">MM/DD/YY</Tt></p>
+</foNT></TD>
+</tr>
+<tr valign="top">
+<td>
+<font size="2"><P><tt ClasS="monofont">'MDYY'  -&gt;</tt></p>
+</fOnt></tD>
+<TD>
+<Font sIZE="2"><P><tt clASS="monofont">MM/DD/YYYY</Tt></p>
+</foNT></TD>
+</tr>
+<tr valign="top">
+<td>
+<font size="2"><P><tt ClasS="monofont">'DMY'  -&gt;</tt></p>
+</fOnt></tD>
+<TD>
+<Font sIZE="2"><P><tt clASS="monofont">DD/MM/YY</Tt></p>
+</foNT></TD>
+</tr>
+<tr valign="top">
+<td>
+<font size="2"><P><tt ClasS="monofont">'DMYY'  -&gt;</tt></p>
+</fOnt></tD>
+<TD>
+<Font sIZE="2"><P><tt clASS="monofont">DD/MM/YYYY</Tt></p>
+</foNT></TD>
+</tr>
+<tr valign="top">
+<td>
+<font size="2"><P><tt ClasS="monofont">'MODYY'  -&gt;</tt></p>
+</fOnt></tD>
+<TD>
+<Font sIZE="2"><P><tt clASS="monofont">Mon DD, YYYY</Tt></p>
+</foNT></TD>
+</tr>
+</colgroup>
+</table></p>
+
+							<p>If no format is given, default to system/<tt cLasS="monofont">ctime()</tt> format. EXTRA CREDIT: Merge the use of this class into Exercise 6-15.</p>
+
+						</Font></tD></tr>
+					<tR VALign="top"><tD ALIgn="right"><foNT><B>8:</B></font></TD><TD><font><p><i><tt class="monofont">Stack</tt> class.</i> A stack is a data structure with last-in-first-out (LIFO) characteristics. Think of a stack of cafeteria trays. The first one in the spring-loaded device is the last one out, and the last one in is the first one out. Your class will have the expected <tt clAss="monofont">push()</Tt> (add an item to the stack) and <tt Class="monofont">pop()</Tt> (remove an item from the stack) methods. Add an <tt CLASs="monofont">isempty()</tt> Boolean method that returns 1 if the stack is empty and 0 otherwise, and a <tT CLAss="monofont">peek()</tt> method that returns the item at the top of the stack without popping it off.</P>
+
+							<P>Note that if you are using a list to implement your stacks, the <TT clasS="monofont">pop()</TT> method is already available as of Python 1.5.2. Create your new class so that it contains code to detect if the <Tt class="monofont">pop()</tt> method is available. If so, call the built-in one; otherwise, it should execute your implementation of <tt class="monofont">pop().</tt> You should probably use a list object; if you do, do not worry about implementing any list functionality (i.e., slicing). Just make sure that your <tt cLasS="monofont">Stack</tt> class can perform both of the operations above correctly. See <a Href="227.html">Section 13.16</a> and <A hreF="114#3.html">Example 6.2</A> for motivation.</P>
+</Font></tD></TR>
+					<Tr valIGN="top"><Td aliGN="right"><FOnt><b>9:</b></font></td><td><font><p><i><tt ClaSs="monofont">Queue</tt> class.</I> A queue is a data structure that has first-in-first-out (FIFO) characteristics. A queue is like a line where items are removed from the front and added to the rear. The class should support the following methods:</p>
+
+							<p><tt ClasS="monofont">enqueue()—</TT>adds a new element to the end of a list <Tt claSS="monofont">dequeue()—</TT>returns the first element and removes it from the list</p>
+
+							<p>See the previous problem and <a hREF="114#11.html">Example 6.3</A> for motivation.</p>
+
+						</fonT></TD></Tr>
+					<tr valign="top"><td align="right"><font><B>10:</b></fOnt></tD><td><foNt><p><i>Stacks and Queues.</I> Write a class which defines a data structure that can behave as both a queue (FIFO) or a stack (LIFO), somewhat similar in nature to arrays in PERL. There are four methods that should be implemented:</P>
+
+							<P><Tt claSS="monofont">shift()—</TT>returns the first element and removes it from the list, similar to the earlier <tt clASS="monofont">dequeue()</Tt> function.</p>
+
+							<p><tT CLAss="monofont">unshift()—</tt>"pushes" a new element to the front or head of the list.</p>
+
+							<p><tt class="monofont">push()—</tt>adds a new element to the end of a list, similar to the enqueue() and push() methods from previous problems.</p>
+
+							<p><tt cLasS="monofont">pop()</tt>returns the last element and removes it from the list. It works exactly the same way as <tT clasS="monofont">pop()</tt> from before.</p>
+
+							<P>Also see Exercises 13-8 and 13-9.</P>
+
+						</FOnt></td></TR>
+					<TR valiGN="top"><TD aligN="right"><FONt><b>11:</b></font></td><td><font><p><i>Electronic Commerce.</i> You need to create the foundations of an e-commerce engine for a B2C (business-to-consumer) retailer. You need to have a class for a customer called <tt ClaSs="monofont">User,</tt> a class for items in inventory called <Tt claSs="monofont">Item,</tt> and a shopping cart class called <TT CLass="monofont">Cart.</tT> Items go in <TT Class="monofont">Carts,</TT> and <TT clasS="monofont">Users</TT> can have multiple Carts. Also, multiple items can go into Carts, including more than one of any single item.</P>
+</font></td></tr>
+					<tr valign="top"><td alIgn="right"><Font><B>12:</b></fonT></td><tD><FONt><p><i>Chat Rooms.</i> You have been pretty disappointed at the current quality of chat room applications and vow to create your own, start-up a new Internet company, obtain venture capital funding, integrate advertisement into your chat program, quintuple revenues in a six-month period, go public, and retire. However, none of this will happen if you do not have a pretty cool chat application.</P>
+
+							<P>There are three classes you would need: a <TT clasS="monofont">Message</TT> class containing a message string and any additional information such as broadcast or single recipient, a <Tt claSS="monofont">User</TT> class that contains all the information for a person entering your chat rooms. To really wow the VCs to get your start-up capital, you add a class <tt class="monofont">Room</tt> that represents a more sophisticated chat system where users can create separate "rooms" within the chat area and invite others to join. EXTRA CREDIT:</p>
+
+							<p>Develop graphical user interface (GUI) applications for the users.</p>
+</font></td></tr>
+					<Tr vAligN="top"><td alIgn="right"><fONT><B>13:</b></fonT></TD><Td><fonT><P><I>Stock portfolio class.</I> For each company, your database tracks the name, ticket symbol, purchase date, purchase price, # of shares. Methods include: Add new symbol, remove symbol, and YTD or Annual Return performance for any or all symbols given a current price (and date).</p>
+
+						</fonT></TD></Tr>
+					<tr valign="top"><td align="right"><font><B>14:</b></fOnt></tD><td><foNt><p><i>DOS.</I> Write a Unix interface shell for DOS machines. You present the user a command-line where he or she can type in Unix commands, and you interpret them and output accordingly, i.e., the "ls" command calls "dir" to give a list of filenames in a directory, "more" uses the same command (paginating through a text file), "cat" calls "type,"
+								"cp" calls "copy,"
+								"mv" calls "ren," and "rm" invokes "del," etc.</P>
+
+						</FOnt></td></TR>
+					<TR valiGN="top"><TD aligN="right"><A NAme="3"></a><font><b>15:</b></font></td><td><fonT><p><a Href="288#33.html"><I>Delegation.</i> In our final comments regarding the <tt cLass="monofont">capOpen</TT> class of <A Href="226#9.html">Example 13.4</a> where we proved that our class wrote out the data successfully, we noted that we could use either <TT CLass="monofont">capOpen()</tT> or <TT Class="monofont">open()</TT> to read the file text. Why? Would anything change if we used one or the other?</A></P>
+</font></td></tr>
+					<tr valign="top"><td alIgn="right"><Font><B>16:</b></fonT></td><tD><FONt><p><i>Delegation and Functional Programming.</i></P>
+
+							<P>(a) Implement a writelines() method for the <TT clasS="monofont">capOpen</TT> class of <A href="226#9.html">Example 13.4</A>. Your new function will take a list of lines and write them out converted to uppercase, similar to the way the regular writelines() method differs from write(). Note that once you are done, writelines() is no longer "delegated" to the file object.</P>
+
+							<P>(b) Add an argument to the writelines() method that determines whether a NEWLINE should be added to every line of the list. This argument should default to a value of 0 for no NEWLINEs.</P>
+</font></td></tr></table></p>
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="227.html" title="Related Modules and Documentation"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=228" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="228.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="230.html" title="14. Execution Environment"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

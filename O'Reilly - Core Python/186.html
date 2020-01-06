@@ -1,0 +1,134 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Anonymous Functions and lambda </TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="170.html" class="navtitle">11. Functions</a> &gt; <span class="nonavtitle">Anonymous Functions and lambda </span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="185.html" title="Functional Programming"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=186" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="186.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="187.html" title="Built-in Functions: apply(), filter(), map(), reduce() "><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A33%3A19+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174053205052244094182030</font><a href="read7.asp?bookname=0130260363&snode=186&now=5%2F29%2F2002+9%3A33%3A19+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Anonymous Functions and <tt cLASS="monofont">lambda</tt></h3>
+				<p>Python allows one to create <I>anonymous functions</I> using the <B><Tt claSS="monofont">lambda</TT></b> keyword. They are "anonymous" because they are not declared in the standard manner, i.e., using the <b><tt class="monofont">def</tt></b> statement. (Unless assigned to a local variable, such objects do not create a name in any namespace either.) However, as functions, they may also have arguments. An entire lambda "statement" represents an expression, and the body of the lambda expression must also be given on the same line as the declaration. We now present the syntax for anonymous functions using <b><tt class="monofont">lambda:</Tt></b></P>
+
+				<pre>
+					
+<B>lambda</b> [<i>arg1</i>[, <i>arg2,</I> … <i>argN</i>]]: <i>expression</I>
+
+				</PRE>
+
+				<p>Arguments are optional, and if used, are usually part of the expression as well.</p>
+
+				<diV CLAss="note"><p cLASS="notetitle"><b>NOTE</b></p><p><P><I>Calling</I>
+						<B><tt class="monofont">lambda</tt></b>
+						<i>with an appropriate expression yields a function object which can be used like any other function. They can be passed to other functions, aliased with additional references, be members of container objects, and as callable objects, be invoked (with any arguments, if necessary). When called, these objects will yield a result equivalent to the same expression if given the same arguments. They are indistinguishable from functions which return the evaluation of an equivalent expression.</i></p>
+</p></div><br>
+
+				<p>Before we look at any examples using <B><tt ClasS="monofont">lambda,</tt></b> we would like to review single-line statements and then show the resemblances to <b><Tt clASS="monofont">lambda</Tt></b> expressions.</p>
+
+				<pRE>
+					
+<B>def</B> true():
+    <b>return</b> 1
+
+				</prE>
+
+				<P>The above function takes no arguments and always returns 1. Single line functions in Python may be written on the same line as the header. Given that, we can rewrite our <TT clasS="monofont">true()</TT> function so that it looks something like the following.</P>
+
+				<pre>
+					
+<b>def</b> true(): <b>return</b> 1
+
+				</pre>
+
+				<p>We will present the named functions in this manner for the duration of this chapter because it helps one visualize their <b><tt class="monofont">lambda</tT></b> equivalents. For our <tT claSs="monofont">true()</tt> function, the equivalent <b><Tt clASS="monofont">lambda</Tt></b> expression (no arguments, returns 1) is:</p>
+
+				<pRE>
+					
+<B>lambda</B> :1
+
+				</pre>
+
+				<p>Usage of the named <TT CLass="monofont">true()</tT> function is fairly obvious, but not for <B><TT class="monofont">lambda.</tt></b> Do we just use it as is, or do we need to assign somewhere? A <b><tt class="monofont">lambda</tt></b> function by itself serves no purpose, as we see here:</p>
+
+				<Pre>
+					
+&gt;&gt;&gt; <B>lambda</b> :1
+&lt;function &lt;lambda&gt; at f09ba0&gt;
+
+				</prE>
+
+				<p>In the above example, we simply created a <b><tt ClasS="monofont">lambda</TT></B> function, but did not save it anywhere nor did we call it. The reference count for this function object is set to 1 on creation of the function object, but because no reference is saved, goes back down to zero and garbage-collected. To keep the object around, we can save it into a variable and invoke it any time after. Perhaps now is a good opportunity:</p>
+
+				<pre>
+					
+&gt;&gt;&gt; true = <B>lambda</B> :1
+&gt;&gt;&gt; true()
+1
+
+				</PRe>
+
+				<p>Assigning it looks much more useful here. Likewise, we can assign <b><tT CLAss="monofont">lambda</tt></B> expressions to a data structure such as a list or tuple where, based on some input criteria, we can choose which function to execute as well as what the arguments would be. (In the next section, we will show how to use <B><TT class="monofont">lambda</tt></b> expressions with functional programming constructs.)</p>
+
+				<p>Let us now design a function that takes two numeric or string arguments and returns the sum for numbers or the concatenated string. We will show the standard function first, followed by its unnamed equivalent.</p>
+
+				<pre>
+					
+<b>def</b> add(x, y): <b>return</b> x + y?    <b>lambda</b> x, y: x + y
+
+				</Pre>
+
+				<P>Default and variable arguments are permitted as well, as indicated in the following examples:</p>
+
+				<prE>
+					
+<b>def</b> usuallyAdd2(x, y=2): <b>return</b> x+y ?  <B>lambda</b> x, y=2: x+y
+<b>def</b> showAllAsTuple(*z): <B>return</B> z    ?  <B>lambda</B> *z: z
+
+				</pre>
+
+				<p>Seeing is one thing, so we will now try to make you believe by showing how you can try them in the interpreter:</P>
+
+				<PRE>
+					
+&gt;&gt;&gt; a = <b>lambda</b> x, y=2: x + y
+&gt;&gt;&gt; a(3)
+5
+&gt;&gt;&gt; a(3,5)
+8
+&gt;&gt;&gt; a(0)
+2
+&gt;&gt;&gt; a(0,9)
+9
+&gt;&gt;&gt;
+&gt;&gt;&gt; b = <b>lambda</b> *z: z
+&gt;&gt;&gt; b(23, 'zyx')
+(23, 'zyx')
+&gt;&gt;&gt; b(42)
+(42,)
+
+				</PRE>
+
+				<P>One final word on <b><tt cLASS="monofont">lambda.</tt></b> Although it appears that <b><tt class="monofont">lambda</tt></b>'s are a one-line version of a function, they are not equivalent to "inline" statements in C++, whose purpose is bypassing function stack allocation during invocation for performance reasons. A <b><tt claSs="monofont">lambda</tT></b> expression works just like a function, creating a frame object when called.</p>
+
+			</fOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="185.html" title="Functional Programming"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=186" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="186.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="187.html" title="Built-in Functions: apply(), filter(), map(), reduce() "><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Summary of String Highlights</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="99.html" class="navtitle">6. Sequences: Strings, Lists, and Tuples</a> &gt; <span class="nonavtitle">Summary of String Highlights</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="108.html" title="Related Modules"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=109" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="109.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="110.html" title="Lists"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A19%3A30+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172045119250249106154008</font><a href="read7.asp?bookname=0130260363&snode=109&now=5%2F29%2F2002+9%3A19%3A30+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Summary of String Highlights</h3>
+				
+					<h4>Consists of Characters Delimited by Quotation Marks</h4>
+					<P>You can think of a string as a Python data type which you can consider as an array or contiguous set of characters between any pair of Python quotation symbols, or quotes. The two most common quote symbols for Python are the single quote, a single forward apostrophe ( <TT Class="monofont">'</TT> ), and the double quotation mark ( <TT clasS="monofont">"</TT> ). The actual string itself consists entirely of those characters in between and not the quote marks themselves.</P>
+
+					<p>Having the choice between two different quotation marks is advantageous because it allows one type of quote to serve as a string delimiter while the other can be used as characters within the string without the need for special escape characters. Strings enclosed in single quotes may contain double quotes as characters and vice versa:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; quote1 = 'George said, "Good day Madam. How are we today?"'
+&gt;&gt;&gt; print quote1
+George said, "Good day Madam. How are we today?"
+&gt;&gt;&gt; quote2 = "Martha replies, 'We are fine, thank you.'"
+&gt;&gt;&gt; print quote2
+Martha replies, 'We are fine, thank you.'
+
+					</pre>
+
+				
+				
+					<h4>Python Does not Support a Separate Character Type</h4>
+					<p>Strings are the only literal sequence type, a sequence of characters. However, characters are not a type, so strings are the lowest-level primitive for character storage and manipulation. Most applications tend to deal with strings as a whole and singular entity. To that end, Python provides a good amount of string utilities in the form of operators, built-in functions, and the contents of the string module. However, Python is flexible, allowing access to individual or groups of characters, if desired. Also see <a href="107#1.html">Section 6.7.1</a>. Characters are simply strings of length one.</p>
+
+				
+				
+					<h4>String Format Operator ( % ) Provides <tT clAss="monofont">printf()</tT>-like Functionality</h4>
+					<p>In <a hRef="104#1.html">Section 6.4.1</a>, we highlighted the <TT CLass="monofont">printf()</tT>-like string format operator which provides a familiar interface to formatting data for output, whether to the screen or elsewhere.</P>
+
+				
+				
+					<H4>Triple Quotes</H4>
+					<p>In <a hrEF="107#3.html">Section 6.7.2</A>, we introduced the notion of triple quotes, which are strings that can have special embedded characters like NEWLINEs and TABs. Triple-quoted strings are delimited by pairs of three single (<Tt claSS="monofont">' ' '</TT>) or double (<tt class="monofont">"""</tt>) quotation marks.</p>
+
+				
+				
+					<h4>Raw Strings Allow for Special Characters to be Taken Verbatim</h4>
+					<p>In <a href="104#8.html">Section 6.4.2</a>, we introduced raw strings and discussed how they do not interpret special characters escaped with the backslash. This makes raw strings ideal for situations where strings must be taken verbatim, for example, when describing regular expressions.</p>
+
+				
+				
+					<H4>Unlike C strings, Python strings do not Terminate with NUL or '\0'</h4>
+					<p>One of the problems in C is running off the end of your string into memory that does not belong to you. This occurs when strings in C are not properly terminated with the NUL or '\0' character, which has the ASCII value of zero. Along with managing memory for you, Python also removes this little burden or annoyance. Strings in Python do not terminate with NUL, and you do not have to worry about adding them on. Strings consist entirely of the characters that were designated and nothing more.</P>
+
+				
+			</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="108.html" title="Related Modules"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=109" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="109.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="110.html" title="Lists"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

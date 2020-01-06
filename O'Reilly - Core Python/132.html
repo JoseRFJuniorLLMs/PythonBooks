@@ -1,0 +1,104 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; else Statement</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="129.html" class="navtitle">8. Conditionals and Loops</a> &gt; <span class="nonavtitle">else Statement</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="131.html" title="if statement"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=132" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="132.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="133.html" title="elif (a.k.a. else-if ) Statement"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A23%3A47+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175202199142239018118184</font><a href="read9.asp?bookname=0130260363&snode=132&now=5%2F29%2F2002+9%3A23%3A47+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3><tt cLASS="monofont">else</tt> Statement</h3>
+				<p>Like other languages, Python features an <B><TT Class="monofont">else</TT></B> statement that can be paired with an <B><tt class="monofont">if</tt></b> statement. The <b><tt class="monofont">else</tt></B> statement identifies a block of code to be executed if the conditional expression of the <b><tT claSs="monofont">if</tt></b> statement resolves to a false Boolean value. The syntax is what you expect:</P>
+
+				<pre>
+					
+<B>if</B>
+						<I>expression:</I>
+    <i>expr_true_suite</i>
+<b>else:</b>
+    <I>expr_false_suite</I>
+
+				</PRe>
+
+				<p>Now the obligatory usage example:</p>
+
+				<pRE>
+					
+<B>if</B> passwd == user.passwd:
+    ret_str = "password accepted"
+    id = user.id
+    valid = 1
+<b>else:</b>
+    ret_str = "invalid password entered… try again!"
+    valid = 0
+
+				</prE>
+
+				
+					<H4>Dangling <TT class="monofont">else</tt> Avoidance</h4>
+					<p>Python's design of using indentation rather than braces for code block delimitation not only helps to enforce code correctness, but it even aids implicitly in avoiding potential problems in code that <i>is</i> syntactically correct. One of those such problems is the (in)famous "dangling else" problem, a semantic optical illusion.</p>
+
+					<p>We present some C code here to illustrate our example (which is also illuminated by K&amp;R and other programming texts):</p>
+
+					<pre>
+						
+/* dangling-else in C */
+<b>if</b> (balance &gt; 0.00)
+    <b>if</B> (((balance - amt) &gt; min_bal) &amp;&amp; (atm_cashout() == 1))
+      printf("Here's your cash; please take all bills.\n");
+<b>else</b>
+    printf("Your balance is zero or negative.\n");
+
+					</Pre>
+
+					<p>The question is, which <B><tt clAss="monofont">if</tT></B> does the else belong to? In the C language, the rule is that the <B><Tt claSS="monofont">else</TT></b> stays with the closest <b><tt CLASs="monofont">if.</tt></b> In our example above, although indented for the outer <B><TT Class="monofont">if</tt></b> statement, the <b><tt class="monofont">else</tt></b> statement really belongs to the inner <b><tT clAss="monofont">if</tT></b> statement because the C compiler ignores superfluous whitespace. As a result, if you have a positive balance but is below the minimum, you will get the horrid (and erroneous) message that your balance is either zero or negative.</p>
+
+					<p>Although solving this problem may be facile due to the simplistic nature of the example, any larger sections of code embedded within this framework may be a hair-pulling experience to root out. Python puts up guardrails to not necessarily prevent you from driving off the cliff, but to steer you away from danger. The same example in Python will result in one of the following choices (one of which is correct):</p>
+
+					<Pre>
+						
+<b>if</B> (balance &gt; 0.00):
+    <B>if</B> ((balance - amt) &gt; min_bal) <B>and</b> (atm_cashout() == 1):
+        <b>print</b> "here's your cash; please take all bills."
+<b>else:</B>
+    <B>print</B> "your balance is zero or negative"
+
+					</Pre>
+
+					<p>or</p>
+
+					<PRE>
+						
+<B>if</b> (balance &gt; 0.00):
+    <b>if</b> ((balance - amt) &gt; min_bal) and (atm_cashout() == 1):
+        <b>print</B> "here's your cash; please take all bills."
+    <B>else:</B>
+        <B>print</b> "your balance is zero or negative"
+
+					</pre>
+
+					<p>Python's use of indentation forces the proper alignment of code, giving the programmer the ability to make a conscious decision as to which <b><tt class="monofont">if</tt></b> an <b><tt cLasS="monofont">else</tt></b> statement belongs to. By limiting your choices and thus reducing ambiguities, Python encourages you to develop correct code the first time. It is impossible to create a dangling-else problem in Python.</P>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="131.html" title="if statement"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=132" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="132.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="133.html" title="elif (a.k.a. else-if ) Statement"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

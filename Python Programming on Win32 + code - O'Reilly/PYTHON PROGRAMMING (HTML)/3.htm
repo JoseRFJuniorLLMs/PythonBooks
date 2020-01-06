@@ -1,0 +1,647 @@
+<html><head><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=Generator content="Microsoft Word 10 (filtered)"><link rel="stylesheet" type="text/css" href="1.css"><title></title></head><body lang=EN-US link="#990000" vlink=purple><div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=2.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=4.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div><br><br>
+<h2><a name="_Chapter_1._What_Is_Python?"></a>Chapter 1. What Is Python?</h2>
+
+<p>Python is an interpreted, interactive, object-oriented programming language,
+first developed in 1990 by Guido van Rossum. By the end of 1998, it had grown
+to an estimated user base of 300,000, and it’s beginning to attract wide
+attention in the industry.</p>
+
+<p>Python doesn’t offer revolutionary new features. Rather, it combines many of
+the best design principles and ideas from many different programming languages.
+It’s simple and powerful. More than any other language, it gets out of the way
+so that you can think about the problem, not the language. Programming in
+Python just feels right.</p>
+
+<h3><a name="_1.1_Language_Features"></a>1.1 Language Features</h3>
+
+<p>Here are some of Python’s distinctive features:</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Interpreted
+to bytecodes</span></i><span style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Python code lives in text files ending in <i>.py</i>
+. The program compiles the text files to a machine-independent set of <i>bytecodes</i>
+in a way similar to Java, which are usually saved in files ending in <i>.pyc</i>;
+these can then later be imported and run quickly. The source is recompiled only
+when necessary. Python’s speed is of a similar order of magnitude to Java or
+Perl.</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Very high
+level</span></i><span style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>All languages support basic types such as strings,
+integers, and floating-point numbers. Python has higher-level built-in types
+such as lists and dictionaries, and high-level operations to work on them. For
+example, you can load a file into a string with one line and split it into
+chunks based on a delimiter with another line. This means writing less code. It
+also means that the speed is better than you might suppose: the built-in
+functions have been written in C and extensively optimized by a lot of smart
+people, and are faster than C or C++ code you might write yourself.</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Interactive
+mode</span></i><span style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>You can use Python interactively, entering
+expressions one line at a time. This mode allows you to try ideas quickly and
+cheaply, testing each function or method as you write it. This style of
+programming encourages experimentation and ideas. As with Smalltalk (with which
+it has much in common), the interactive mode is perhaps the major reason your
+productivity will increase with Python.</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>The interpreter
+is always available</span></i><span style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Every Python program has the ability to compile and
+execute text files while running; there is no distinction between the runtime
+and development environments. This makes it a great macro language for other
+programs.</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Clean
+syntax</span></i><span style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The syntax is straightforward and obvious, and
+there are no cryptic special characters to learn. Indentation delimits blocks,
+so the visual structure of a chunk of code mirrors its logical structure; it’s
+easy to read and learn. Eric Raymond, one of the leaders of the Open Source
+movement, now recommends Python as the ideal first language to learn. (See his
+essay, “How to Become a Hacker,” located at <a
+href="http://www.tuxedo.org/~esr/faqs/hacker-howto.html" target="_blank">http://www.tuxedo.org/~esr/faqs/hacker-howto.html</a>.)</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Advanced
+language features</span></i><span style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Python offers all the features expected in a modern
+programming language: object-oriented programming with multiple inheritance,
+exception handling, overloading of common operators, default arguments, namespaces,
+and packages.</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Introspection</span></i><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Python can introspect to an uncanny degree. You can
+ask an object what attributes it has at runtime and give it new ones. Hooks are
+provided to let you control how functions are applied and what to, and when
+attributes are set and fetched. Magic Methods let you define the meaning of
+operators, so that you can define the + operation for a matrix class or trap
+what happens when someone accesses an item in a list. Features from other
+languages can often be easily implemented in Python itself.</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Platform
+independence</span></i><span style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Python is written in ANSI C and is available for a
+wide range of platforms including Windows, Unix, and Macintosh. The core
+language and standard libraries are identical on all platforms, although each
+platform offers its own dedicated extensions.</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Extensible</span></i><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Python is written in C in a modular architecture.
+It can be extended easily to add new features or APIs. If you want a new
+feature, you can add it and find plenty of help to do so.</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Extensive
+libraries</span></i><span style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The Python library, included in the standard
+installation, includes over 200 modules, covering everything from
+operating-system functions and data structures to full-blown web servers. The
+main Python web site provides a comprehensive index to the many Python projects
+and third-party libraries. Whatever your problem domain, you will probably find
+someone else working on it and a good base of code to start with.</p>
+
+<p class=MsoNormal style='page-break-after:avoid'><i><span style='font-family:
+Arial;color:#990000'>Support</span></i><span style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Python has a large and enthusiastic user community;
+it’s currently doubling in size every two years. So far, there are four books
+by O’Reilly alone and several by other publishers, eight annual Python
+conferences have been held, the <i>comp.lang.python</i> newsgroup on Usenet
+attracts well over 100 posts a day, and there are a growing number of
+consultants and small firms offering commercial support. </p>
+
+<h3><a name="_1.2_Python_as_an_Integration_Tool"></a>1.2 Python as an
+Integration Tool</h3>
+
+<p>Python can integrate a variety of disparate systems; you may hear it
+referred to as a <i>glue language,</i> because it’s a powerful way to glue
+systems together. We have broken the basic integration technologies available
+on Windows into five groups: files, DLLs, COM, networking, and distributed
+objects. We’ll take a quick look at the Python features that support each one.</p>
+
+<h4>1.2.1 Working with Files</h4>
+
+<p>The most fundamental technique for making systems talk is working with
+files. They are at the foundation of every operating system, and huge and
+reliable systems can be built and maintained by batch-processing files. Every
+programming language can work with files, but some make it easier than others.
+Here are some key features:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Python can read a file into a string (or read a multiline text
+file into a list of strings) in one line. Strings have no limitations on what
+they can hold: null bytes and non-ASCII encodings are fine.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Python can capture and redirect its own standard input and
+output; subroutines that print to standard output can thus be diverted to
+different destinations.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>It provides a platform-independent API for working with filenames
+and paths, selecting multiple files, and even recursing through directory
+trees.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>For binary files, Python can read and write arrays of uniform
+types.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>A variety of text-parsing tools are available, ranging from
+string splitting and joining operations and a pattern-matching language, up to
+complete data-driven parsers. The key parts of these are written in C, allowing
+Python text-processing programs to run as fast as fully compiled languages.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>When generating output, Python allows you to create multiline
+templates with formatting codes and perform text substitutions to them from a
+set of keys and values. In essence, you can do a mailmerge in one line at
+incredibly high speeds.</p>
+
+<p><a href="21.htm#_Chapter_17._Processes_and_Files">Chapter 17</a>, provides a
+comprehensive introduction to these features.</p>
+
+<h4>1.2.2 Working with DLLs and C Programs</h4>
+
+<p>Windows uses dynamic link libraries extensively. DLLs allow collections of
+functions, usually written in C or C++, to be stored in one file and loaded
+dynamically by many different programs. DLLs influence everything that happens
+on Windows; indeed, the Windows API is a collection of such DLLs.</p>
+
+<p>Python is written in ANSI C, and one of its original design goals was to be
+easy to extend and embed at the C level. Most of its functionality lives in a
+DLL, so that other programs can import Python at runtime and start using it to
+execute and evaluate expressions. Python extension modules can also be written
+in C, C++, or Delphi to add new capabilities to the language that can be
+imported at runtime.</p>
+
+<p>The Win32 extensions for Python, which we cover throughout this book, are a
+collection of such libraries that expose much of the Windows API to Python.</p>
+
+<p>The basic Python distribution includes a manual called <i>Extending and
+Embedding the Python Interpreter</i>, which describes the process in detail. <a
+href="#_Chapter_22._Extending_and_Embedding">Chapter 22</a>, shows you how to
+work with Python at this level on Windows.</p>
+
+<h4>1.2.3 COM</h4>
+
+<p>The Component Object Model (COM) is Microsoft’s newest integration
+technology and pervades Windows 95, 98, NT, and 2000. The DLL lets you call
+functions someone else has written; COM lets you talk to objects someone else
+has written. They don’t even have to be on the same computer!</p>
+
+<p>Windows provides a host of API calls to get things done, but using the calls
+generally requires C programming expertise, and they have a tortuous syntax.
+COM provides alternative, easier-to-use interfaces to a wide range of
+operating-system services, and it lets applications expose and share their
+functionality as well. COM is now mature, stable, and as fast as using DLLs,
+but much easier to use, and so opens up many new possibilities. Want a
+spreadsheet and chart within your application? Borrow the ones in Excel. To a
+programmer with a COM-enabled language (and most of them are by now), Windows
+feels like a sea of objects, each with its own capabilities, standing by and
+waiting to help you get your job done.</p>
+
+<p>Python’s support for COM is superb and is the thrust for a large portion of
+this book.</p>
+
+<h4>1.2.4 Networking</h4>
+
+<p>The fourth integration technology we’ll talk about is the network. Most of
+the world’s networks now run on TCP/IP, the Internet protocol. There is a
+standard programming API to TCP/IP, the <i>sockets</i> interface, which is
+available at the C level on Windows and almost every other operating system.
+Python exposes the sockets API and allows you to directly write network
+applications and protocols. We cover sockets in <a
+href="#_Chapter_19._Communications">Chapter 19</a>.</p>
+
+<p>You may not want to work with sockets directly, but you will certainly have
+use for the higher-level protocols built on top of it, such as Telnet, FTP, and
+HTTP. Python’s standard library provides modules that implement these
+protocols, allowing you to automate FTP sessions or retrieval of data from
+email servers and the Web. It even includes ready-made web servers for you to
+customize. <a href="18.htm#_Chapter_14._Working_with_Email">Chapter 14</a>, and <a
+href="#_Chapter_15._Using_the_Basic_Interne">Chapter 15</a>, cover these
+standard library features.</p>
+
+<h4 style='page-break-after:avoid'>1.2.5 Distributed Objects</h4>
+
+<p>The most sophisticated level of integration yet seen in computing is the
+field of <i>distributed</i> <i>objects</i>: essentially, letting objects on
+different machines (and written in different languages) talk to each other.
+Many large corporations are moving from two-tier applications with databases
+and GUIs to three-tier applications that have a layer of <i>business</i> <i>objects
+</i>in the middle. These objects offer a higher level of abstraction than the
+database row and can represent tangible things in the business such as a
+customer or an invoice. The two main contenders in this arena are COM, which is
+a Windows-only solution and Common<i> </i>Object<i> </i>Request<i> </i>Broker<i>
+</i>Architecture<i> </i>(CORBA), which is multiplatform. Python is used
+extensively with both. Our focus is on COM, and we show how to build a
+distributed Python application in <a
+href="#_Chapter_11._Distributing_Our_Applic">Chapter 11</a>. Building a
+distributed application is absurdly easy; COM does all the work, and it’s a
+matter of configuring the machine correctly.</p>
+
+<p>Python’s support for all five technologies and the fact that it runs on many
+different operating systems are what makes it a superb integration tool. We
+believe that Python can be used to acquire data easily from anything, anywhere.</p>
+
+<h4>1.2.6 Where Python Fits in the Development Picture</h4>
+
+<p>You are of course free to fall in love with Python, switch over to it for
+all your development needs, and hang out extolling its virtues on Usenet in the
+small hours of the morning: you’ll find good company, possibly including the
+authors. However, if you have so far escaped conversion, we have tried to
+identify the areas where Python fits into a corporate computing environment.
+Home users are a more varied bunch, but what follows should give you an idea of
+what the language is good for.</p>
+
+<p>A standard corporate computing environment these days involves Windows NT
+4.0 and Microsoft Office on the desktop; networks using TCP/IP; developers
+building systems tools and business objects in C and C++; GUI development in
+Visual Basic; and relational databases such as Oracle, Sybase, and SQL Server.
+It may involve legacy systems predating relational databases and Unix boxes in
+the back office running databases and network services. It undoubtedly involves
+a dozen applications bought or developed over time that need to be kept talking
+to each other as things evolve. More sophisticated environments are moving from
+two- to three-tier architectures and building distributed object systems with
+COM and CORBA, with libraries of C++ business objects in between the database
+and the GUI.</p>
+
+<p>Maintaining the diversity of skills necessary to support such an environment
+is a challenge, and IT managers won’t allow a new development tool unless it
+offers clear business benefits. Arguments that Language X is twice as
+productive as Language Y just don’t suffice and are impossible to prove. The
+following areas are ones in which you may not be well served at present, and in
+which Python can supply a missing piece of the puzzle:</p>
+
+<p class=MsoNormal style='page-break-after:avoid'><i><span style='font-family:
+Arial;color:#990000'>A macro language</span></i><span style='font-family:Arial'>
+</span></p>
+
+<p style='margin-left:.5in'>If we had to pick one killer feature, this would be
+it. You can use Python to add a macro language or scripting capability to
+existing applications, and it’s simple enough for user-level scripting with a
+minimum of training. If a useful application starts growing more and more
+features, needing larger and larger configuration files and more options
+screens and GUIs to do its job, it may be time to add a macro language. All
+those configuration screens can be replaced with short scripts that do exactly
+what they say and can be adapted easily. The problem is that most people don’t
+have a clue where to start. Developing a new language is often thought of as a
+task for the big boys in Redmond and no one else. You might be vaguely aware
+that Visio Corporation licensed Visual Basic for Applications, but this choice
+is undoubtedly going to (a) be expensive, and (b) require enormous resources
+and levels of skill in making your applications work just like Microsoft
+Office. Python is an off-the-shelf macro language you can plug in to your
+existing tools at a variety of levels. In <a
+href="#_Part_II:_Building_an_Advanced_Pytho">Part II</a> we’ll show you how
+easy it is and how far it can take you.</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>A rapid
+prototyping tool for object models and algorithms</span></i><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Designing software in C++ is expensive and
+time-consuming, although superb results can be achieved. As a consequence, many
+companies try to design object models using data-modeling languages and
+graphical tools, or at least by writing and criticizing design documents before
+allowing their developers to start writing code. But these tools don’t run, and
+they can’t tell you much. You can create objects in Python with fewer lines of
+code and fewer hours than any other language we know, and there is full support
+for inheritance (single and multiple), encapsulation, and polymorphism. A
+popular approach is to prototype a program in Python until you’re sure the
+design is right, and only then move to C++. An even more popular approach is to
+profile the Python application and rewrite just the speed-critical parts in
+C++. There is, however, a risk that the prototype will work so well you may end
+up using Python in a production environment!</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>A testing
+tool</span></i><span style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>New programs and code libraries need testing.
+Experienced developers know that building a test suite for a new function or
+program saves them time and grief. These test suites are often regarded as
+disposable and thus a low-risk place to introduce and start learning about
+Python. If a program works with files as its input and output, Python scripts
+can generate input, execute the program, look at the output, and analyze it. If
+the data is the issue, you can write disposable scripts to check identities in
+the data. If you are building a general-purpose C++ component or library, it’s
+quite likely that only a small proportion of its functionality will be used in
+its early days, and bugs could lurk for a long time. By exposing the component
+or library to Python, you can quickly write test scripts to exercise
+functionality and prove it works correctly, then rerun the scripts every time
+the C++ source changes. We’ll show you how later on.</p>
+
+<p class=MsoNormal style='page-break-after:avoid'><i><span style='font-family:
+Arial;color:#990000'>Data cleaning and transformation</span></i><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>You may need to move data from an old to a new
+database, refreshing daily for months during a changeover, or build interfaces
+to let data flow between incompatible systems. This can be a tedious and
+error-prone process when done by hand, and you always miss something and have
+to redo it later. Python’s native support for lists and dictionaries makes
+complex data transformations easy, and the interactive mode lets programmers
+view the data at each stage in the process. Scripts can be written to transform
+data from source to destination and run as often as needed until they do the
+job right.</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Python as
+glue</span></i><span style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Incompatible systems often need to be tied
+together, and processes need to be automated. Python supports all the key
+technologies for integration; it’s equally happy working with files, network
+protocols, DLLs, and COM objects, and it offers extensive libraries to help you
+get at almost any kind of data. It’s well suited to controlling other packages,
+doing system-administration tasks, and controlling the flow of data between
+other systems. </p>
+
+<h3><a name="_1.3_Case_Studies_of_Python_Deployme"></a>1.3 Case Studies of
+Python Deployment</h3>
+
+<p>Throughout this book we will talk about cases where Python has solved
+problems in the real world. Both of us use Python in our daily work, and we
+will present a couple of examples of how we are personally using Python to
+solve real-world problems.</p>
+
+<h4>1.3.1 A Japanese Python?</h4>
+
+<p>Andy is currently working for a global investment company that is
+internationalizing its core applications to work with Far Eastern markets. The
+company’s client platform is Windows, and core data is stored on Sybase servers
+and AS400 minicomputers; data flows back and forth among all three platforms
+continually. All these systems represent Japanese characters in totally
+different ways and work with different character sets. It was necessary not
+only to develop a library to convert between these encodings, but also to prove
+that it worked with 100% effectiveness for all the data that might be
+encountered in future years. This was not an easy task, as the size of the
+character set varied from one platform to another.</p>
+
+<p>The first stage was to code the conversions in Python, based on published
+algorithms and lookup tables. The interactive prompt lets you look at the input
+and output strings early on and get all the details right working with single,
+short strings. I then developed classes to represent character sets and
+character maps and fed in the published government character sets—easy to do
+with Python’s lists and dictionaries. I found subtle holes in published
+information and was able to correct for them. Having done this, I was able to
+prove that round-trip conversion was possible in many cases and to identify the
+characters that would not survive a round trip in others.</p>
+
+<p>The company’s cross-platform C++ guru then wrote a DLL to carry out string
+translations at high speed. Having a Python prototype allowed me to test the
+output early and compare it with the prototype. Python also generated and
+inspected test data sets with every valid character, something that would have
+taken months by hand. A Python wrapper was written around the DLL, and I wrote
+scripts to perform heavy-duty tests on it, feeding large customer databases
+through all possible conversions and back to the start. Naturally the tests
+uncovered bugs, but I found them in two days rather than in months.</p>
+
+<p>The DLL was then put to work converting large amounts of report data from
+mainframe to PC formats. A Python program called the DLL to perform
+translations of individual strings; it scanned for files, decided what to do
+with them based on the names, broke them up, converted them a field at a time,
+and managed FTP sessions to send the data on to a destination database server.
+It also generated a web page for each file translated, displaying its contents
+in an easy-to-read table along with the results of basic integrity checks. This
+enabled users on two continents to test the data daily. When the data and
+algorithms were fully tested and known to be in their final shape, a fairly
+junior developer with six month’s experience wrote the eventual C++ program in
+less than a week.</p>
+
+<h4>1.3.2 There's a Python on the Scoreboard!</h4>
+
+<p>A number of large sports stadiums in Australia (including the two largest,
+with 100,000-person capacities) run custom scoreboard-control software during
+all matches. The software keeps and displays the score for the games (including
+personal player information) and displays other messages and advertising during
+matches. The information is relayed to huge video scoreboards, as well as
+smaller strip scoreboards located around the ground and locally to the scorers’
+PC using HTML.</p>
+
+<p>The system runs on Windows NT computers and needs to talk to a variety of
+custom software and hardware, including a custom input device for score keeping
+and custom hardware to control the video and strip scoreboards. The system also
+needs to read data during the game from an external database that provides
+detailed game statistics for each player.</p>
+
+<p>The scoreboard software is written in C++ and Python. The C++ components of
+the system are responsible for keeping the match score and maintaining the key
+score database. All scoreboard output functionality is written in Python and
+exposes Python as a macro language.</p>
+
+<p>Each output device (e.g., the video screen, strip scoreboard, or HTML file)
+has a particular “language” that controls the output. HTML, for example, uses
+&lt;TAGS&gt;, while the video scoreboard uses a formatting language somewhat
+similar to PostScript. A common thread is that all output formats are
+text-based.</p>
+
+<p>A scheme has been devised that allows the scoreboard operator to embed
+Python code in the various layout formats. As the format is displayed, the
+Python code is executed to substitute the actual score. For example, the
+scoreboard operator may design a HTML page with code similar to:</p>
+
+<pre>&lt;P&gt;The player name is &lt;I&gt;&lt;%= player.Name %&gt;&lt;/I&gt;</pre>
+
+<p>Anything within the <tt><span style='font-size:10.0pt'>&lt;%</span></tt> <tt><span
+style='font-size:10.0pt'>...%&gt;</span></tt> tag is considered Python code,
+and the value substituted at runtime. Thus, this single HTML layout can display
+the information for any player in the game.</p>
+
+<p>The nature of Python has allowed it to provide features that would not be
+possible using other languages. One such feature is that the scoreboard
+operator is free to create new database fields for a player using Microsoft
+Access and use them in the scoreboard layouts immediately using <tt><span
+style='font-size:10.0pt'>player.FieldName</span></tt> syntax; thus the object
+model exposed to the user is actually partially controlled by the user. The use
+of Python also allows arbitrary code to be executed to control the formatting.
+For example, the scoreboard operator may use the following HTML to display the
+list of players in the home team:</p>
+
+<pre>&lt;P&gt;Team &lt;% = home.Name %&gt;</pre><pre>&lt;% for player in home.Players: %&gt;</pre><pre>&lt;P&gt;&lt;%= player.Name %&gt;</pre><pre>&lt;% #end %&gt;</pre>
+
+<p>These options have resulted in a situation programmers strive for, but see
+all too rarely: a system with enough flexibility to let users do things with
+your software you’d never have dreamt of.</p>
+
+<h4>1.3.3 Other Python Sightings in the Wild</h4>
+
+<p>To further dispel any impressions that Python is new, immature, or unsuited
+to critical applications, we’ve included a small selection of projects and
+organizations using Python in the real world. These have been culled from a
+much longer list on the main Python web site, <a href="http://www.python.org/"
+target="_blank">http://www.python.org/</a>:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>NASA’s Johnson Space Center uses Python as the scripting language
+for its Integrated Planning System.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>UltraSeek Server, Infoseek’s commercial web search engine, is implemented
+as a Python application, with some C extensions to provide primitive operations
+for fast indexing and searching. The core product involves 11,000 lines of
+Python, and the user interface consists of 17,000 lines of Python-scripted HTML
+templates.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The Red Hat Commercial Linux distributions use Python for their
+installation procedures.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Caligari Corporation’s 3D modeling and animation package,
+trueSpace 4, uses Python as a scripting language. Users can create custom
+modeling and animation effects, write interactive applications, and develop
+game prototypes entirely inside trueSpace 4. We’ll show you how to do something
+similar for your own applications in <a
+href="#_Part_II:_Building_an_Advanced_Pytho">Part II</a>.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>IBM’s East Fishkill factory uses Python to control material
+entry, exit, and data collection for an entire semiconductor plant.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Scientists in the Theoretical Physics department of Los Alamos
+National Laboratory are using Python to control large-scale physics
+computations on massively parallel supercomputers, high-end servers, and
+clusters. Python plays a central role in controlling simulations, performing
+data analysis, and visualization.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>SMHI, the Swedish civilian weather, hydrological, and
+oceanographic organization, uses Python extensively to acquire data, analyze
+it, and present it to outside interests such as the media. They are developing
+a Python-based Radar Analysis and Visualization Environment to use with the
+national network of weather radars.</p>
+
+<h3><a name="_1.4_The_Python_Community"></a>1.4 The Python Community</h3>
+
+<p>Let’s take a quick tour around the Python community and view some of the
+available support resources. The home page for the language is at <a
+href="http://www.python.org" target="_blank">www.python.org</a> . The site is
+hosted by the Corporation for National Research Initiatives (CNRI) of Reston,
+Virginia, USA. CNRI employs Guido van Rossum, the inventor of Python, and a
+number of other Python figures. As shown in <a
+href="#_Figure_1.1._Python's_home_page_at_w">Figure 1.1</a>, everything is a
+click or two away.</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_1.1._Python's_home_page_at_w"></a>Figure 1.1. Python's home page
+at www.python.org</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=355
+src="images/image004.gif" alt="figs/ppw.0101.gif"></span></p>
+
+<p>The Python newsgroup on Usenet, <i>comp.lang.python</i>, is another good
+place to start. It attracts over 100 posts per day, with most of the world’s
+Python experts listening in, and has a high signal-to-noise ratio. People are
+generally helpful towards newcomers, although as with all newsgroups, you are
+expected to make at least a token effort to find your own answers before asking
+for help.</p>
+
+<p>The Python Software Activity (<a href="http://www.python.org/psa/"
+target="_blank">http://www.python.org/psa/</a> ) is a nonprofit organization
+that helps to coordinate and promote Python. The PSA operates web, FTP, and email
+services, organizes conferences, and engages in other activities that benefit
+the Python user community. Membership costs $50 per year for individuals, $25
+for students, and $500 for organizations. Benefits include a mailing list for
+members, early previews of new releases, and conference discounts.</p>
+
+<p>PSA members also get an account on Starship. <a
+href="http://starship.python.net" target="_blank">http://starship.python.net</a>
+is a web site devoted to promoting Python; there are currently over 200
+members, many of whom keep Python packages they have written on the site
+(including one of the authors).</p>
+
+<p>The Python web site hosts a number of special interest groups (SIGs) devoted
+to particular topics such as databases or image processing. These are created
+with a fixed lifetime and charter, such as the creation of a standard Database
+API. They each have a home page with useful links, a mailing list, and an
+archive to which anyone can subscribe. Current SIGs include Development of a
+C++ binding, Databases, Distribution Utilities, Distributed Objects,
+Documentation, Image Processing, Matrix Manipulation, Plotting and Graphing,
+Apple Macintosh, String Processing, the Python Type System, and XML Processing.</p>
+
+<p>There is also a specific page covering Windows-related resources at <a
+href="http://www.python.org/windows/" target="_blank">http://www.python.org/windows/</a>.</p>
+
+<h3><a name="_1.5_Installation_and_Setup"></a>1.5 Installation and Setup</h3>
+
+<p>Now it’s time to download and install Python, if you have not already done
+so. Point your web browser at <a href="http://www.python.org/" target="_blank">http://www.python.org/</a>
+and click on the links to Download, then to Windows 95/98/NT,<i> </i>shown in <a
+href="#_Figure_1.2._Windows_download_page">Figure 1.2</a> (or follow the link
+from the Windows resources page). At the time of writing, the full URL of the
+download page for Windows is <a
+href="http://www.python.org/download/download_windows.html" target="_blank">http://www.python.org/download/download_windows.html</a>.</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_1.2._Windows_download_page"></a>Figure 1.2. Windows download page</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=314
+src="images/image005.gif" alt="figs/ppw.0102.gif"></span></p>
+
+<p>You need to download and install two files, both of which are standard
+Windows installation programs. First download and install the latest stable
+build of Python, <i>py152.exe </i>in <a
+href="#_Figure_1.2._Windows_download_page">Figure 1.2</a>, then download and
+install the Python for Windows Extensions package, <i>win32all.exe </i>in the
+figure.</p>
+
+<p>That’s all there is to it. On your Start menu, there should now be a program
+group named <i>Python 1.X</i>, containing a number of items. <a
+href="#_Figure_1.3._Program_items_created_b">Figure 1.3</a> shows the present
+program group, though more may be added in the future.</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_1.3._Program_items_created_b"></a>Figure 1.3. Program items
+created by Python and PythonWin installation</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=200
+src="images/image006.gif" alt="figs/ppw.0103.gif"></span></p>
+
+<p>To verify the installation, click on the PythonWin icon. A Windows
+application should start up and display an input prompt. Enter 2 + 2 and press
+Enter; you should be rewarded by a 4. Python and PythonWin are now successfully
+installed. In the next few chapters, we’ll show you what to do with them.</p>
+
+<p>At this point, it’s well worth clicking on Python Manuals and browsing
+around. The manuals are stored in HTML format and are now installed on your
+hard disk. They include a tutorial and a complete library reference.</p>
+
+<h3><a name="_1.6_Conclusion"></a>1.6 Conclusion</h3>
+
+<p>We have attempted a whistle-stop tour of what Python is, what it’s good for,
+who’s using it, and a little of what makes up the online Python community.
+We’ve also shown you how to install it with the standard configuration.
+Although we sing Python’s praises, the best way to really learn about Python is
+to install and try it out. Sit back, relax, and learn what this language can do
+for you.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+<div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=2.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=4.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div></body></html>

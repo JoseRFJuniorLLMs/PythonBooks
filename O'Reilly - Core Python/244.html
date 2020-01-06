@@ -1,0 +1,101 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Introduction/Motivation</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="242.html" class="navtitle">15. Regular Expressions</a> &gt; <span class="nonavtitle">Introduction/Motivation</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="243.html" title="15. Regular Expressions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=244" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="244.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="245.html" title="Special Symbols and Characters for REs"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A24%3A50+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004228151074163108018168055</font><a href="read5.asp?bookname=0130260363&snode=244&now=5%2F30%2F2002+8%3A24%3A50+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Introduction/Motivation</h3>
+				<p>Manipulating text/data is a big thing. If you don't believe me, look very carefully at what computers primarily do today. Word processing, "fill-out-form" Web pages, streams of information coming from a database dump, stock quote information, news feeds—the list goes on and on. Because we may not know the exact text or data which we have programmed our machines to process, it becomes advantageous to be able to express this text or data in patterns which a machine can recognize and take action upon.</p>
+
+				<P>If I were running an electronic mail (e-mail) archiving company, and you were one of my customers who requested all his or her e-mail sent and received last February, for example, it would be nice if I could set a computer program to collate and forward that information to you, rather than having a human being read through your e-mail and process your request manually. You would be horrified (and infuriated) that someone would be rummaging through your messages, even if his or her eyes were <I>supposed</I> to be looking only at timestamps. Another example request might be to look for a subject line like "ILOVEYOU" indicating a virus-infected message and remove those e-mail messages from your personal archive. So this begs the question of how can we program machines with the ability to look for patterns in text.</P>
+
+				<p>Regular Expressions (REs) provide such an infrastructure for advanced text pattern matching, extraction, and/or search-and-replace functionality. REs are simply strings which use special symbols and characters to indicate pattern repetition or to represent multiple characters so that they can "match" a set of strings with similar characteristics described by the pattern (<a hrEF="244#1.html">Figure15.1</A>). In other words, they enable matching of multiple strings—an RE pattern that matched only one string would be rather boring and ineffective, wouldn't you say?</P>
+
+				<centER>
+					<H5>
+<A name="1"></a>Figure 15.1. You can use regular expressions, such as the one here which recognizes valid Python identifiers. <tt class="monofont">"[A-Za-z]\w+"</tt> means the first character should be alphabetic, i.e., either A–Z or a–z, followed by at least one (+) alphanumeric character (\w). In our filter, notice how many strings go into the filter, but the only ones to come out are the ones we asked for via the RE.</h5>
+					
+						
+							<img boRdeR="0" widTh="500" heiGht="927" sRC="graphics/15fig01.gif" ALt="graphics/15fig01.gif">
+						
+					
+				</cenTER>
+
+				<P>Python supports REs through the standard library <tt clASS="monofont">re</Tt> module. In this introductory subsection, we will give you a brief and concise introduction. Due to its brevity, only the most common aspects of REs used in every day Python programming will be covered. Your experience, will of course, vary. We highly recommend reading any of the official supporting documentation as well as external texts on this interesting subject. You will never look at strings the same way again!</p>
+
+				<diV CLAss="note"><p class="notetitle"><b>NOTE</b></p><p><p><i>Throughout this chapter, you will find references to searching and matching. When we are strictly discussing regular expressions with respect to patterns in strings, we will say "matching," referring to the term pattern-matching. In Python terminology, there are two main ways to accomplish pattern-matching: searching, i.e., looking for a pattern match in any part of a string, and matching, i.e., attempting to match a pattern to an entire string (starting from the beginning). Searches are accomplished using the</i>
+						<tt claSs="monofont">search()</tT>
+						<i>function or method, and matching is done with the</i>
+						<tT clasS="monofont">match()</tt>
+						<i>function or method. In summary, we keep the term "matching" universal when referencing patterns, and we differentiate between "searching" and "matching" in terms of how Python accomplishes pattern-matching.</I></P>
+</P></Div><br>
+
+				
+					<H4>Your First Regular Expression</H4>
+					<P>As we mentioned above, REs are strings containing text and special characters which describe a pattern with which to recognize multiple strings. We also briefly discussed a regular expression <I>alphabet</i> and for general text, the alphabet used for regular expressions is the set of all uppercase and lowercase letters plus numeric digits. Specialized alphabets are also possible, for instance, one consisting of only the characters "0" and "1." The set of all strings over this alphabet describes all binary strings, i.e., "0,"
+						"1,"
+						"00,"
+						"01,"
+						"10,"
+						"11,"
+						"100," etc.</p>
+
+					<p>Let us look at the most basic of regular expressions now to show you that although REs are sometimes considered an "advanced topic," they can also be rather simplistic. Using the standard alphabet for general text, we present some simple REs and the strings which their patterns describe. The following regular expressions are the most basic, "true vanilla," as it were. They simply consist of a string pattern which matches only one string, the string defined by the regular expression. We now present the REs followed by the strings which match them:</p>
+
+					<P><TABle boRDER="1" cellspacing="0" cellpaddiNg="1" wIdth="100%">
+<ColgrOup aLIGN="left" span="2">
+<TR VAlign="top">
+<TH>
+<FOnt siZE="2"><B>RE Pattern</B></font></th>
+<th>
+<font size="2"><b>String(s) Matched</b></foNt></tH>
+</tr>
+<tR valiGn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">foo</tT></FONt></td>
+<tD>
+<FONt size="2"><tt class="monofont">foo</tt></font></td>
+</Tr>
+<tR valIgn="top">
+<td>
+<Font SIZE="2"><tt clASS="monofont">Python</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2"><tt class="monofont">Python</tt></font></td>
+</tr>
+<tr ValIgn="top">
+<tD>
+<font Size="2"><TT CLass="monofont">abc123</tT></FONt></td>
+<tD>
+<FONt sizE="2"><TT Class="monofont">abc123</tt></font></td>
+</tr>
+</colgroUp>
+</tAble></P>
+
+					<p>The first regular expression pattern from the above chart is "foo." This pattern has no special symbols to match any other symbol other than those described, so the only string which matches this pattern is the string "foo." The same thing applies to "Python" and "abc123." The power of regular expressions comes in when special characters are used to define character sets, subgroup matching, and pattern repetition. It is these special symbols that allow a RE to match a set of strings rather than a single one.</p>
+
+				
+			</foNt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="243.html" title="15. Regular Expressions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=244" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="244.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="245.html" title="Special Symbols and Characters for REs"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

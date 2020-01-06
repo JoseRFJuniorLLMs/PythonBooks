@@ -1,0 +1,251 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Running Python</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="35.html" class="navtitle">1. Welcome to Python!</a> &gt; <span class="nonavtitle">Running Python</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="42.html" title="Installing Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=43" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="43.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="44.html" title="Python Documentation"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A05%3A55+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204173116073161083155232226</font><a href="read2.asp?bookname=0130260363&snode=43&now=5%2F29%2F2002+9%3A05%3A55+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Running Python</h3>
+				<p>There are three different ways to start Python. The simplest way is by starting the interpreter interactively, entering one line of Python at a time for execution. Another way to start Python is by running a script written in Python. This is accomplished by invoking the interpreter on your script application. Finally, you can run from a graphical user interface (GUI) from within an integrated development environment (IDE). IDEs typically feature additional tools such as debuggers and text editors.</p>
+
+				
+					<H4>Interactive Interpreter from the Command-line</H4>
+					<P>You can enter Python and start coding right away in the interactive interpreter by starting it from the command line. You can do this from Unix, DOS, or any other system which provides you a command-line interpreter or shell window. One of the best ways to start learning Python is to run the interpreter interactively. Interactive mode is also very useful later on when you want to experiment with specific features of Python.</P>
+
+					
+						<h5>Unix</h5>
+						<p>To access Python, you will need to type in the full pathname to its location unless you have added the directory where Python resides to your search path. Common places where Python is installed include <tT CLAss="monofont">/usr/bin</tt> and <TT CLass="monofont">/usr/local/bin.</tt></p>
+
+						<p>We recommend that you add Python (i.e., the executable file <tt class="monofont">python,</tt> or <tt clAss="monofont">jpython</Tt> if you wish to use the Java version of the interpreter) to your search path because you do not want to have to type in the full pathname every time you wish to run interactively. Once this is accomplished, you can start the interpreter with just its name.</p>
+
+						<p>To add Python to your search path, simply check your login start-up scripts and look for a set of directories given to the <Tt claSs="monofont">set path or PATH=</tt> directive. Adding the full path to where your Python interpreter is located is all you have to do, followed by refreshing your shell's path variable. Now at the Unix prompt (% or $, depending on your shell), you can start the interpreter just by invoking the name <TT CLass="monofont">python</tT> (or <TT Class="monofont">jpython</TT>), as in the following:</P>
+
+						<P><b><i>% python</i></b></P>
+
+						<P>Once Python has started, you'll see the interpreter startup message indicating version and platform and be given the interpreter prompt "<TT class="monofont">&gt;&gt;&gt;</tt>" to enter Python commands. <a href="43#3.html">Figure1-1</a> is a screen shot of what Python looks like when you start it in a Unix environment:</p>
+
+						<center>
+							<H5>
+<a nAme="3"></a>Figure 1-1. Starting Python in a Unix (Solaris) Window</H5>
+							
+								
+									<img bOrdeR="0" WIDth="500" heIGHT="338" src="graphics/01fig01.gif" aLT="graphics/01fig01.gif">
+								
+							
+						</CEnter>
+
+					
+					
+						<H5>DOS</H5>
+						<P>To add Python to your search path, you need to edit the <Tt class="monofont">C:\autoexec.bat</tt> file and add the full path to where your interpreter is installed. It is usually either <tt class="monofont">C:\Python</tt> or <tt cLasS="monofont">C:\Program Files \Python</tt> (or its short DOS name equivalent <tT clasS="monofont">C:\Progra~1\Python</tt>). From a DOS window (either really running in DOS or started from Windows), the command to start Python is the same as Unix, python. The only difference is the prompt, which is <tT CLAss="monofont">C:\&gt;.</tt></P>
+
+						<P><B><I>C:&gt; python</i></b></p>
+
+						<cENTEr>
+							<h5>
+Figure 1-2. Starting Python in a DOS Window</h5>
+							
+								
+									<iMG BOrder="0" width="500" height="295" src="graphics/01fig02.gif" alT="graphics/01fig02.gif">
+								
+							
+						</ceNter>
+
+					
+					
+						<H5>Command-line Options</h5>
+						<p>When starting Python from the command-line, additional options may be provided to the interpreter. Here are some of the options to choose from:</p>
+
+						<p><TablE BORder="1" cELLSpaciNG="0" CEllpaDDINg="1" width="100%">
+<colgroup align="left" sPan="2">
+<Tr vaLign="middle">
+<tD>
+<fonT SIZe="2"><tt cLASS="monofont">-d</tt></foNT></TD>
+<td>
+<foNT SIze="2">provide debug output</font></td>
+</tr>
+<tr valign="middle">
+<td>
+<FonT sizE="2"><tt clAss="monofont">-O</tT></FONt></td>
+<tD>
+<FONt sizE="2">generate optimized bytecode (resulting in <TT Class="monofont">.pyo</TT> files)</FOnt></td>
+</tr>
+<tr valign="middle">
+<td>
+<font SizE="2"><tt cLass="monofont">-S</tT></fonT></TD>
+<Td>
+<fonT SIZe="2">do not run <tt cLASS="monofont">import site</tt> to look for Python paths on startup</foNT></TD>
+</tr>
+<tr valign="middle">
+<td>
+<font size="2"><Tt cLass="monofont">-v</Tt></fonT></td>
+<tD>
+<FONt sizE="2">verbose output (detailed trace on <B><TT clasS="monofont">import</TT></B> statements)</font></TD>
+</TR>
+<tr valign="middle">
+<td>
+<font size="2"><tt ClaSs="monofont">-X</tt></Font></tD>
+<td>
+<fONT Size="2">disable class-based built-in exceptions (just use strings); obsolete starting with version 1.6</fONT></Td>
+</tr>
+<tR VALign="middle">
+<tD>
+<FONt size="2"><tt class="monofont">-c cmd</tt></font></td>
+<Td>
+<fOnt sIze="2">run Python script sent in as cmd string</foNt></td>
+</TR>
+<TR valiGN="middle">
+<TD>
+<font SIZE="2"><tt clASS="monofont">file</Tt></font></td>
+<td>
+<font size="2">run Python script from given file (see below)</fonT></td>
+</Tr>
+</coLgrouP>
+</tabLE></P>
+
+					
+				
+				
+					<H4>As a Script from the Command-line</h4>
+					<p>From Unix, DOS, or any other version with a command-line interface, a Python script can be executed by invoking the interpreter on your application, as in the following:</p>
+
+					<pRE>
+						
+<I>C:\&gt;</I>
+							<b><i>python script.py</i></b>
+<I>unix%</I>
+							<B><I>python script.py</i></b>
+					</prE>
+
+					<P>Most Python scripts end with a file extension of <TT class="monofont">.py,</tt> as indicated above.</p>
+
+					<p>It is also possible in Unix to automatically launch the Python interpreter without explicitly invoking it from the command-line. If you are using any Unix-flavored system, you can use the shell-launching ("sh-bang") first line of your program:</p>
+
+					<pre>
+						
+#!/usr/local/bin/python
+					</pre>
+
+					<p>The "file path," i.e., the part that follows the "#!," is the full path location of the Python interpreter. As we mentioned before, it is usually installed in <tt cLasS="monofont">/usr/local/bin</tt> or <tT clasS="monofont">/usr/bin.</tt> If not, be sure to get the exact pathname correct so that you can run your Python scripts. Pathnames that are not correct will result in the familiar "<tT CLAss="monofont">Command not found</tt>" error message.</P>
+
+					<P>As a preferred alternative, many Unix systems have a command named env, either installed in <TT clasS="monofont">/bin</TT> or <Tt claSS="monofont">/usr/bin,</TT> that will look for the Python interpreter in your path. If you have env, your startup line can be changed to something like this:</p>
+
+					<pre>
+						
+#!/usr/bin/env python
+					</pre>
+
+					<p><tt class="monofont">env</tt> is useful when you either do not know exactly where the Python executable is located, or if it changes location often, yet still remains available via your directory path. Once you add the proper startup directive to the beginning of your script, it becomes directly executable, and when invoked, loads the Python interpreter first, then runs your script. As we mentioned before, Python no longer has to be invoked explicitly from the command. You only need the script name:</p>
+
+					<prE>
+						
+<i>unix%</i>
+							<B><i>script.py</i></b>
+					</Pre>
+
+					<p>Be sure the file permission mode allows execution first. There should be an <tT claSS="monofont">'rwx'</TT> flag for the user in the long listing of your file. Check with your system administrator if you require help in finding where Python is installed or if you need help with file permissions or the <tt clASS="monofont">chmod</Tt> (CHange MODe) command.</p>
+
+					<p>DOS does not support the auto-launching mechanism; however, Windows does provide a "file type" interface. This interface allows Windows to recognize file types based on extension names and to invoke a program to "handle" files of predetermined types. For example, if you install Python with PythonWin (see below), double-clicking on a Python script with the <tT CLAss="monofont">.py</tt> extension will invoke Python or PythonWin IDE (if you have it installed) to run your script.</P>
+
+				
+				
+					<H4>In an Integrated Development Environment</H4>
+					<P>You can run Python from a graphical user interface (GUI) environment as well. All you need is a GUI application on your system that supports Python. If you have found one, chances are that it is also an IDE (integrated development environment). IDEs are more than just graphical interfaces. They typically have source code editors and trace and debugging facilities.</p>
+
+					
+						<h5>Unix</h5>
+						<p>IDLE is the very first Unix IDE for Python. It was also developed by Guido and made its debut in Python 1.5.2. IDLE either stands for IDE with a raised "L," as in Integrated DeveLopment Environment. Suspiciously, IDLE also happens to be the name of a Monty Python troupe member. Hmmm…. IDLE is Tkinter-based, thus requiring you to have Tcl/Tk installed on your system. Current versions of Python include a distributed minimal subset of the Tcl/Tk library so that a full install is no longer required.</p>
+
+						<p>You will find the <tt class="monofont">idle</tt> executable in the <tt claSs="monofont">Tools</tT> subdirectory with the source distribution. The Tk toolkit also exists on Windows, so IDLE is also available on that platform and on the Macintosh as well. A screen shot of IDLE in Unix appears in <a hrEf="43#10.html">Figure1-3</a>.</p>
+
+						<cEnteR>
+							<H5>
+<A Name="10"></a>Figure 1-3. Starting IDLE in Unix</H5>
+							
+								
+									<IMG bordER="0" WIdth="500" hEIGHt="317" src="graphics/01fig03.gif" alt="graphics/01fig03.gif">
+								
+							
+						</center>
+
+					
+					
+						<h5>Windows</h5>
+						<p>PythonWin is the first Windows interface for Python and is an IDE with a GUI. Included with the PythonWin distribution are a Windows API, COM (Component Object Model, a.k.a. OLE [Object Linking and Embedding] and ActiveX) extensions. PythonWin itself was written to the MFC</p>
+
+						<p>(Microsoft Foundation Class) libraries, and it can be used as a development environment to create your own Windows applications.</p>
+
+						<p>PythonWin is usually installed in the same directory as Python, in its own subdirectory, <Tt cLass="monofont">C:\Program Files\Python\Pythonwin</Tt> as the executable <tt cLass="monofont">pythonwin.exe.</TT> PythonWin features a color editor, a new and improved debugger, interactive shell window, COM extensions, and more. A screen snapshot of the PythonWin IDE running on a Windows machine appears in <A Href="43#12.html">Figure1-4</a>.</P>
+
+						<CENter>
+							<h5>
+<A NAMe="12"></a>Figure 1-4. PythonWin Environment in Windows</h5>
+							
+								
+									<iMG BOrder="0" width="500" height="417" src="graphics/01fig04.gif" alT="graphics/01fig04.gif">
+								
+							
+						</ceNter>
+
+						<P>More documentation from the installed software can be found by firing up your web browser and pointing it to the following location (or wherever your PythonWin is installed):</p>
+
+						<pre>
+							
+file://C:/Program Files/Python/Pythonwin/readme.html
+						</Pre>
+
+						<p>As we mentioned before, IDLE is also available on the Windows platform, due to the portability of Tcl/Tk and Python/Tkinter. It looks similar to its Unix counterpart (<A HREf="43#13.html">Figure1-5</a>).</p>
+
+						<cENTEr>
+							<h5>
+<a nAME="13"></A>Figure 1-5. Starting IDLE in Windows</h5>
+							
+								
+									<img BORDer="0" width="500" height="334" src="graphics/01fig05.gif" alt="graphics/01fig05.gif">
+								
+							
+						</cEntEr>
+
+						<p>From Windows, IDLE can be found in the <tT clasS="monofont">Tools\idle</tt> subdirectory of where your Python interpreter is found, usually <tT CLAss="monofont">C:\Program Files \Python\Tools\idle.</tt> To start IDLE from a DOS window, invoke <TT CLass="monofont">idle.py.</tT> You can also invoke <TT Class="monofont">idle.py</TT> from a Windows environment, but that starts an unnecessary DOS window. Instead, double-click on <TT class="monofont">idle.pyw.</tt></p>
+
+					
+					
+						<h5>Macintosh</h5>
+						<p>The Macintosh effort of Python is called MacPython and also available from the main website, downloadable as either MacBinary or BinHex'd files. Python source code is available as a Stuff-It archive. This distribution contains all the software you need to run Python on either the PowerPC or Motorola 68K architectures. MacPython includes an IDE, the numerical Python (NumPy) module, and various graphics modules, and the Tk windowing toolkit comes with the package, so IDLE will work on the Mac as well. <a href="43#15.html">Figure1-6</a> shows what the MacPython environment looks like. Presented in the figure below are a text window open to edit a Python script as well as a Python "shell" running the interpreter:</p>
+
+						<ceNteR>
+							<h5>
+<a nAme="15"></a>Figure 1-6. Running the IDE in MacPython</h5>
+							
+								
+									<Img bORDEr="0" widTH="500" HEight="486" SRC="graphics/01fig06.gif" Alt="graphics/01fig06.gif">
+								
+							
+						</ceNTER>
+
+					
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="42.html" title="Installing Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=43" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="43.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="44.html" title="Python Documentation"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

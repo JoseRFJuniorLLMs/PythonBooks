@@ -1,0 +1,87 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Calling Functions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="170.html" class="navtitle">11. Functions</a> &gt; <span class="nonavtitle">Calling Functions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="172.html" title="What Are Functions?"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=173" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="173.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="174.html" title="Creating Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A31%3A05+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174055131034058209235140</font><a href="read9.asp?bookname=0130260363&snode=173&now=5%2F29%2F2002+9%3A31%3A05+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Calling Functions</h3>
+				
+					<h4>Function Operator</h4>
+					<P>Functions are called using the same pair of parentheses that you are used to. In fact, some consider ( <B><TT clasS="monofont">( )</TT></B> ) to be a two-character operator, the function operator. As you are probably aware, any input parameters or arguments must be placed between these calling parentheses. Parentheses are also used as part of function declarations to define those arguments. Although we have yet to formally study classes and object-oriented programming, you will discover that the function operator is also used in Python for class instantiation.</p>
+
+				
+				<a naME="2"></A>
+					<H4>Keyword Arguments</h4>
+					<p>The concept of keyword arguments applies only to function invocation. The idea here is for the caller to identify the arguments by parameter name in a function call. This specification allows for arguments to be missing or out-of-order because the interpreter is able to use the provided keywords to match values to parameters.</p>
+
+					<p>For a simple example, imagine a function <tt class="monofont">foo()</tt> which has the following pseudocode definition:</p>
+
+					<pre>
+						
+<b>def</b> foo(x):
+    <i>foo_suite</I>   # presumably does so processing with 'x'
+
+					</prE>
+
+					<p>Standard calls to <tt Class="monofont">foo(): foo(42) foo('bar') foo(y)</Tt></p>
+
+					<p>Keyword calls to <TT CLass="monofont">foo(): foo(x=42) foo(x='bar') foo(x=y)</tT></P>
+
+					<P>For a more realistic example, let us assume you have a function called <Tt claSS="monofont">net_conn()</TT> and you know that it takes two parameters, say, <tt clASS="monofont">host</Tt> and <tt class="monofont">port:</tt></p>
+
+					<pre>
+						
+<b>def</b> net_conn(host, port):
+    <i>net_conn_suite</i>
+
+					</prE>
+
+					<p>Naturally, we can call the function giving the proper arguments in the correct positional order which they were declared:</p>
+
+					<Pre>
+						
+net_conn('kappa', 8080)
+
+					</pRe>
+
+					<p>The <tt ClasS="monofont">host</TT> parameter gets the string <Tt claSS="monofont">'kappa'</TT> and <tt clASS="monofont">port</Tt> gets 8080. Keyword arguments allow out-of-order parameters, but you must provide the name of the parameter as a "keyword" to have your arguments match up to their corresponding argument names, as in the following:</p>
+
+					<prE>
+						
+net_conn(port=8080, host='chino')
+
+					</PRE>
+
+					<p>Keyword arguments may also be used when arguments are allowed to be "missing." These are related to functions which have default arguments, which we will introduce in the next section.</p>
+
+				
+				<a name="3"></a>
+					<h4>Default Arguments</h4>
+					<p>Default arguments are those which are declared with default values. Parameters which are not passed on a function call are thus allowed and are assigned the default value. We will cover default arguments more formally in <a href="178.html">Section 11.5.2</a></p>
+
+				
+			</foNt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="172.html" title="What Are Functions?"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=173" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="173.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="174.html" title="Creating Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

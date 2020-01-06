@@ -1,0 +1,431 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Tkinter Examples</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="264.html" class="navtitle">18. GUI Programming with Tkinter</a> &gt; <span class="nonavtitle">Tkinter Examples</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="267.html" title="Tkinter and Python Programming"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=268" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="268.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="269.html" title="Related Modules and Other GUIs"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A33%3A23+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004229221159255055158122116</font><a href="read5.asp?bookname=0130260363&snode=268&now=5%2F30%2F2002+8%3A33%3A23+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Tkinter Examples</h3>
+				
+					<h4><tT CLAss="monofont">Label</tt> Widget</H4>
+					<P>In <A Href="268#2.html">Example 18.1</a>, we present <TT CLass="monofont">tkhello1.py,</tt> the Tkinter version of "Hello World!" In particular, it shows you how a Tkinter application is set up and highlights the <tt class="monofont">Label</tt> widget</p>
+
+					
+						<h5>
+<a namE="2"></a>Example 18.1. <tT claSs="monofont">Label</tt> Widget Demo (<tT claSS="monofont">tkhello1.py</TT>)</h5>
+						<p><b><i>Our first Tkinter example is… what else? "Hello World!" In particular, we introduce our first widget, the</I></B>
+							<TT clasS="monofont">Label.</TT></P>
+
+						<pre cLASS="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2  
+003 3  <b>import</b> Tkinter
+004 4
+005 5  top = Tkinter.Tk()
+006 6  label = Tkinter.Label(top, text='Hello World!')
+007 7  label.pack()
+008 8  Tkinter.mainloop()
+009  &lt;$nopage&gt;</pre>
+					
+					<p>In the first line, we create our top-level window. That is followed by our <tt class="monofont">Label</tt> widget containing the all-too-famous string. We instruct the packer to manage and display our widget, and finally call <tt claSs="monofont">mainloop()</tT> to run our GUI application. <a hrEf="268#3.html">Figure18-1</a> shows what you will see when you run this GUI application.</p>
+
+					<cEnteR>
+						<H5>
+<A Name="3"></a>Figure 18-1. Tkinter <TT CLass="monofont">Label</tT> Widget (<TT Class="monofont">tkhello1.py</TT>)</H5>
+						
+							
+								<Img border="0" width="500" height="180" sRc="graphics/18fig01.gif" aLt="graphics/18fig01.gif">
+							
+						
+					</ceNter>
+
+				
+				
+					<h4><Tt clASS="monofont">Button</Tt> Widget</h4>
+					<p>The next example is pretty much the same as the first. However, instead of a simple text label, we will create a button instead. In <a HREF="268#5.html">Example 18.2</a> is the source code for <tt cLASS="monofont">tkhello2.py:</tt></p>
+
+					
+						<h5>
+<A NAMe="5"></a>Example 18.2. <tt class="monofont">Button</tt>Widget Demo (<tt class="monofont">tkhello2.py</tt>)</H5>
+						<p><b><I>This example is exactly the same as</i></b>
+							<tT clasS="monofont">tkhello1.py</tt>
+							<b><I>except that rather than using a</I></B>
+							<Tt claSS="monofont">Label</TT>
+							<b><i>widget, we create a</i></b>
+							<TT CLass="monofont">Button</tT>
+							<B><I>widget.</I></b></p>
+
+						<pre class="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <b>import</b> Tkinter
+004 4 
+005 5  top = Tkinter.Tk()
+006 6  quit = Tkinter.Button(top, text='Hello World!',
+007 7      command=top.quit)
+008 8  quit.pack()
+009 9  Tkinter.mainloop()
+010  &lt;$nopage&gt;</pre>
+					
+					<p>The first few lines are identical. Things differ only when we create the <tt clAss="monofont">Button</Tt> widget. Our button has one additional parameter, the <tt Class="monofont">Tkinter.quit()</Tt> method. This installs a callback to our button so that if it is pressed (and released), the entire application will exit. The final two lines are the usual <tt CLASs="monofont">pack()</tt> and entering of the <tT CLAss="monofont">mainloop().</tt> This simple button application is shown in <A HREf="268#6.html">Figure18-2</a>.</p>
+
+					<cENTEr>
+						<h5>
+<a name="6"></a>Figure 18-2. Tkinter <tt class="monofont">Button</tt> Widget (<tt cLasS="monofont">tkhello2.py</tt>)</h5>
+						
+							
+								<Img boRder="0" WIDTh="500" heiGHT="185" Src="graphics/18fig02.gif" alT="graphics/18fig02.gif">
+							
+						
+					</CENter>
+
+				
+				
+					<h4><TT CLass="monofont">Label</tt> and <tt class="monofont">Button</tt> Widgets</h4>
+					<p>We combine <tt clAss="monofont">tkhello1.py</Tt> and <tt Class="monofont">tkhello2.py</Tt> into <tt CLASs="monofont">tkhello3.py,</tt> a script which has both a label and a button. In addition, we are providing more parameters now than before when we were comfortable using all the default arguments which are automatically set for us. The source for <tT CLAss="monofont">tkhello3.py</tt> is given in <A HREf="268#8.html">Example 18.3</a>.</p>
+
+					
+						<h5>
+<A NAMe="8"></a>Example 18.3. <tt class="monofont">Label</tt> and <tt class="monofont">Button</tt> Widget Demo (<Tt cLass="monofont">tkhello3.py</Tt>)</h5>
+						<p><b><I>This example features both a</i></b>
+							<tT CLAss="monofont">Label</tt>
+							<B><I>and a</I></B>
+							<tt clASS="monofont">Button</Tt>
+							<b><i>widget. Rather than primarily using default arguments when creating the widget, we are able to specify more now that we know more about</i></B>
+							<TT Class="monofont">Button</tt>
+							<b><i>widgets and how to configure them.</i></b></p>
+
+						<pre class="monofont"> &lt;$nopage&gt;
+001 1   #!/usr/bin/env python 
+002 2
+003 3   <b>import</B> Tkinter
+004 4   top = Tkinter.Tk()
+005 5
+006 6   hello = Tkinter.Label(top, text='Hello World!')
+007 7   hello.pack()
+008 8
+009 9   quit = Tkinter.Button(top, text='QUIT',
+010 10      command=top.quit, bg='red', fg='white')
+011 11  quit.pack(fill=Tkinter.X, expand=1)
+012 12
+013 13  Tkinter.mainloop()
+014  &lt;$nopage&gt;</prE>
+					
+					<p>Besides additional parameters for the widgets, we also see some arguments for the packer. The <tt Class="monofont">fill</Tt> parameter tells the packer to let the QUIT button take up the rest of the horizontal real estate, and the <tt CLASs="monofont">expand</tt> parameter directs the packer to visually fill out the entire horizontal landscape, stretching the button to the left and right sides of the window.</p>
+
+					<P>As you can see in <A HRef="268#9.html">Figure18-3</a>, without any other instructions to the packer, the widgets are placed vertically (on top of each other). Horizontal placement requires creating a new <tT CLAss="monofont">Frame</tt> object with which to add the buttons. That frame will take the place of the parent object as a single child object (see the buttons in the <TT CLass="monofont">listdir.py</tt> module, <a href="268#14.html">Example 18.5</a> in <a href="268#13.html">Section 18.3.5</a>).</p>
+
+					<ceNteR>
+						<h5>
+<a nAme="9"></a>Figure 18-3. Tkinter <tT claSS="monofont">Label</TT> and <tt clASS="monofont">Button</Tt> Widgets (<tt cLASS="monofont">tkhello3.py</tt>)</h5>
+						
+							
+								<iMG BOrder="0" width="500" height="254" src="graphics/18fig03.gif" alT="graphics/18fig03.gif">
+							
+						
+					</ceNter>
+
+				
+				
+					<H4><tt clAss="monofont">Label, Button,</tT> and <TT Class="monofont">Scale</TT> Widgets</H4>
+					<P>Our final trivial example, <tt clASS="monofont">tkhello4.py,</Tt> involves the addition of a <tt cLASS="monofont">Scale</tt> widget. In particular, the <tt class="monofont">Scale</tt> is used to interact with the <tt class="monofont">Label</tt> widget. The <Tt cLass="monofont">Scale</Tt> slider is a tool which controls the size of the text font in the <tt cLass="monofont">Label</TT> widget. The greater the slider position, the larger the font, and the same goes for a lesser position, meaning a smaller font. The code for <TT clasS="monofont">tkhello4.py</TT> is given in <A href="268#11.html">Example 18.4</A>.</P>
+
+					<P>New features of this script include a <Tt claSS="monofont">resize()</TT> callback function (lines 5–7), which is attached to the <tt class="monofont">Scale.</tt> This is the code that is activated when the slider on the <tt class="monofont">Scale</tt> is moved, resizing the size of the text in the <tt ClaSs="monofont">Label.</tt></P>
+
+					<p>We also define the size (250×150) of the top-level window (line 10). The final difference between this script and the first three is that we import the attributes from the <tt cLass="monofont">Tkinter</TT> module into our namespace with "<B><Tt claSS="monofont">from</TT></b>
+							<tt cLASS="monofont">Tkinter</tt>
+							<b><tT CLAss="monofont">import *.</tt></b>" This is mainly due to the fact that this application is larger and involves a large number of references to Tkinter attributes, which would otherwise require their fully-qualified names. The code is shortened a bit and perhaps may not wrap as many lines without importing all the attributes locally.</p>
+
+					
+						<h5>
+<a name="11"></a>Example 18.4. <tt class="monofont">Label, Button,</Tt> and <tT claSs="monofont">Scale</tt> Demo (<tT claSS="monofont">tkhello4.py</TT>)</h5>
+						<p><b><i>Our final introductory widget example introduces the <TT CLass="monofont">Scale</tT> widget and highlights how widgets can "communicate" with each other using callbacks [such as <TT Class="monofont">resize()</TT>]. The text in the <TT class="monofont">Label</tt> widget is affected by actions taken on the <tt class="monofont">Scale</tt> widget.</i></b></p>
+
+						<pRe cLass="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <B>from</b> Tkinter <b>import *</b> &lt;$nopage&gt;
+004 4
+005 5  <b>def</B> resize(ev=None):
+006 6      label.config(font='Helvetica -%d bold' % \
+007 7          scale.get())
+008 8
+009 9  top = Tk()
+010 10 top.geometry('250×150')
+011 11
+012 12 label = Label(top, text='Hello World!',
+013 13     font='Helvetica -12 bold')
+014 14 label.pack(fill=Y, expand=1)
+015 15
+016 16 scale = Scale(top, from_=10, to=40,
+017 17     orient=HORIZONTAL, command=resize)
+018 18 scale.set(12) 
+019 19 scale.pack(fill=X, expand=1) 
+020 20
+021 21 quit = Button(top, text='QUIT', 
+022 22     command=top.quit, activeforeground='white', 
+023 23     activebackground='red') 
+024 24 quit.pack() 
+025 25
+026 26 mainloop()
+027  &lt;$nopage&gt;</pre>
+					
+					<P>As you can see from <A HRef="268#12.html">Figure18-4</a>, both the slider mechanism as well as the current set value show up in the main part of the window.</p>
+
+					<CENTer>
+						<h5>
+<a NAME="12"></a>Figure 18-4. Tkinter <tt cLASS="monofont">Label, Button,</tt> and <tt class="monofont">Scale</tt> Widgets (<tt class="monofont">tkhello4.py</tt>)</H5>
+						
+							
+								<imG borDer="0" wiDth="500" hEIGHt="471" src="graphics/18fig04.gif" ALT="graphics/18fig04.gif">
+							
+						
+					</CenteR>
+
+				
+				<A NAme="13"></a>
+					<h4>Intermediate Tkinter Example</H4>
+					<P>We conclude this section with a larger example, <TT class="monofont">listdir.py.</tt> This application is a directory tree traversal tool. It starts in the current directory and provides a file listing. Double-clicking on any other directory in the list causes the tool to change to the new directory as well as replace the original file listing with the files from the new directory. The source code is given below as <a href="268#14.html">Example 18.5</a>.</p>
+
+					
+						<h5>
+<a name="14"></A>Example 18.5. File System Traversal GUI (<tt ClasS="monofont">listdir.py</tt>)</h5>
+						<p><B><i>This slightly more advanced GUI expands on the use of widgets, adding listboxes, text entry fields, and scrollbars to our repertoire. There are also a good number of callbacks such as mouse clicks, key presses, and scrollbar action.</i></b></P>
+
+						<PRE clasS="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <B>import</B> os
+004 4  <B>from</b> time <b>import</b> sleep
+005 5  <b>from</B> Tkinter <B>import *</B> &lt;$nopage&gt;
+006 6
+007 7  <B>class</b> DirList:
+008 8
+009 9       <b>def</b> __init__(self, initdir=None):
+010 10          self.top = Tk()
+011 11          self.label = Label(self.top, 
+012 12              text='Directory Lister' + ' v1.1')
+013 13          self.label.pack()
+014 14
+015 15          self.cwd=StringVar(self.top)
+016 16
+017 17          self.dirl = Label(self.top, fg='blue',
+018 18              font=('Helvetica', 12, 'bold'))
+019 19          self.dirl.pack()
+020 20
+021 21          self.dirfm = Frame(self.top)
+022 22          self.dirsb = Scrollbar(self.dirfm)
+023 23          self.dirsb.pack(side=RIGHT, fill=Y)
+024 24          self.dirs = Listbox(self.dirfm, height=15,
+025 25              width=50, yscrollcommand=self.dirsb.set)
+026 26          self.dirs.bind('&lt;Double-1&gt;', self.setDirAndGo)
+027 27          self.dirsb.config(command=self.dirs.yview)
+028 28          self.dirs.pack(side=LEFT, fill=BOTH)
+029 29          self.dirfm.pack()
+030 30
+031 31          self.dirn = Entry(self.top, width=50,
+032 32              textvariable=self.cwd)
+033 33          self.dirn.bind('&lt;Return&gt;', self.doLS)
+034 34          self.dirn.pack()
+035 35
+036 36          self.bfm = Frame(self.top)
+037 37          self.clr = Button(self.bfm, text='Clear',
+038 38              command=self.clrDir,
+039 39              activeforeground='white',
+040 40              activebackground='blue')
+041 41          self.ls = Button(self.bfm,
+042 42              text='List.Directory',
+043 43              command=self.doLS,
+044 44              activeforeground='white',
+045 45              activebackground='green')
+046 46          self.quit = Button(self.bfm, text='Quit',
+047 47              command=self.top.quit,
+048 48              activeforeground='white',
+049 49              activebackground='red')
+050 50          self.clr.pack(side=LEFT)
+051 51          self.ls.pack(side=LEFT)
+052 52          self.quit.pack(side=LEFT)
+053 53          self.bfm.pack()
+054 54
+055 55          <b>if</B> initdir:
+056 56              self.cwd.set(os.curdir)
+057 57              self.doLS()
+058 58
+059 59     <B>def</B> clrDir(self, ev=None):
+060 60         self.cwd.set('')
+061 61
+062 62     <B>def</b> setDirAndGo(self, ev=None):
+063 63         self.last = self.cwd.get()
+064 64         self.dirs.config(selectbackground='red')
+065 65         check = self.dirs.get(self.dirs.curselection())
+066 66         <b>if</b>
+067 							<b>not</b> check:
+068 67            check = os.curdir
+069 68         self.cwd.set(check)
+070 69         self.doLS()
+071 70
+072 71     <b>def</b> doLS(self, ev=None):
+073 72         error = ''
+074 73         tdir = self.cwd.get()
+075 74         <b>if</b>
+076 							<b>not</b> tdir: tdir = os.curdir
+077 75
+078 76         <b>if</b>
+079 							<b>not</b> os.path.exists(tdir):
+080 77            error = tdir + ': no such file'
+081 78         <b>elif</b>
+082 							<b>not</b> os.path.isdir(tdir):
+083 79            error = tdir + ': not a directory'
+084 80
+085 81         <b>if</B> error:
+086 82             self.cwd.set(error)
+087 83             self.top.update()
+088 84             sleep(2)
+089 85             <b>if not</b> (hasattr(self, 'last') \
+090 86                 <B>and</b> self.last):
+091 87                 self.last = os.curdir
+092 88             self.cwd.set(self.last)
+093 89             self.dirs.config(\
+094 90                 selectbackground='LightSkyBlue')
+095 91             self.top.update()
+096 92             <b>return</b> &lt;$nopage&gt;
+097 93
+098 94         self.cwd.set(\
+099 95             'FETCHING DIRECTORY CONTENTS…')
+100 96         self.top.update()
+101 97         dirlist = os listdir(tdir)
+102 98         dirlist sort()
+103 99         os.chdir(tdir)
+104 100        self.dirl.config(text=os.getcwd())
+105 101        self.dirs.delete(0, END)
+106 102        self.dirs.insert(END, os.curdir)
+107 103        self.dirs.insert(END, os.pardir)
+108 104        <B>for</b> eachFile <b>in</b> dirlist:
+109 105            self.dirs.insert(END, eachFile)
+110 106        self.cwd.set(os.curdir)
+111 107        self.dirs.config(\
+112 108            selectbackground='LightSkyBlue')
+113 109
+114 110    <b>def</B> main():
+115 111        d = DirList(os.curdir)
+116 112        mainloop()
+117 113
+118 114    <b>if</b> __name__ == '__main__':
+119 115        main()
+120  &lt;$nopage&gt;</pRE>
+					
+					<P>In <A href="268#15.html">Figure18-5</A>, we present what this GUI looks like in a Windows environment:</P>
+
+					<CEnter>
+						<H5>
+<A NAme="15"></a>Figure 18-5. List Directory GUI Application in Windows (<tT CLAss="monofont">listdir.py</tt>)</h5>
+						
+							
+								<img border="0" width="500" hEigHt="357" srC="graphics/18fig05.gif" alt="graphics/18fig05.gif">
+							
+						
+					</cEnteR>
+
+					<P>The Unix version of this application is given in <A Href="268#16.html">Figure18-6</a>.</P>
+
+					<CENter>
+						<h5>
+<A NAMe="16"></a>Figure 18-6. List Directory GUI Application in UNIX (<tt CLASs="monofont">listdir.py</tt>)</h5>
+						
+							
+								<img border="0" width="500" heIghT="346" src="graphics/18fig06.gif" Alt="graphics/18fig06.gif">
+							
+						
+					</ceNter>
+
+					
+						<H5>Line-by-line explanation</H5>
+						
+							<H5>Lines 1–5</H5>
+							<p>These first few lines contain the usual Unix start-up line and importation of the <tt cLASS="monofont">os</tt> module, the <tt CLASs="monofont">time.sleep()</tt> function, and all attributes of the <tT CLAss="monofont">Tkinter</tt> module.</p>
+
+						
+						
+							<h5>Lines 9–13</h5>
+							<p>These lines define the constructor for the <tt class="monofont">DirList</tt> class, an object which represents our application. The first <tt cLasS="monofont">Label</tt> we create contains the main title of the application and the version number.</p>
+
+						
+						
+							<H5>Lines 15–19</h5>
+							<p>We declare a Tk variable named <tt ClasS="monofont">cwd</TT> to hold the name of the directory we are on—we will see where this comes in handy later. Another <Tt claSS="monofont">Label</TT> is created to display the name of the current directory.</p>
+
+						
+						
+							<h5>Lines 21–30</h5>
+							<p>This section defines the core part of our GUI, the <TT CLass="monofont">Listbox dirs,</tT> which contain the list of files of the directory that is being listed. A <TT Class="monofont">Scrollbar</tt> is employed to allow the user to move through a listing if the number of files exceeds the size of the <tt class="monofont">Listbox.</tt> Both of these widgets are contained in a <tt claSs="monofont">Frame</tT> widget. <tt cLass="monofont">Listbox</tT> entries have a callback (<tt cLASS="monofont">setdirandgo</tt>) tied to them using the <tt CLASs="monofont">Listbox bind()</tt> method.</p>
+
+							<P><I>Binding</I> means to tie a keystroke, mouse action, or some other event to a call back to be executed when such an event is generated by the user. <Tt claSS="monofont">setdirandgo()</TT> will be called if any item in the <tt class="monofont">Listbox</tt> is doubleclicked. The <tt class="monofont">Scrollbar</tt> is tied to the <tt ClaSs="monofont">Listbox</tt> by calling the <Tt claSs="monofont">Scrollbar.config()</tt> method.</P>
+
+						
+						
+							<H5>Lines 32–35</H5>
+							<P>We then create a text <tt clASS="monofont">Entry</Tt> field for the user to enter the name of the directory he or she wants to traverse to and see its files listed in the <tt cLASS="monofont">Listbox.</tt> We add a RETURN or Enter key binding to this text entry field so that the user can hit RETURN as an alternative to pressing a button. The same applies for the mouse binding we saw above in the <tt CLASs="monofont">Listbox.</tt> When the user doubleclicks on a <tt class="monofont">Listbox</tt> item, it has the same effect as the user's entering the directory name manually into the text <tt class="monofont">Entry</tT> field and pressing the "go" button.</p>
+
+						
+						
+							<h5>Lines 37–54</H5>
+							<p>We then define a <tt Class="monofont">Button</Tt> frame (<tt CLASs="monofont">bfm</tt>) to hold our three buttons, a "clear" button (<tT CLAss="monofont">clr</tt>), "go" button (<TT CLass="monofont">ls</tT>), and a "quit" button (<TT Class="monofont">quit</tt>). Each button has its own different configuration and callbacks, if pressed.</p>
+
+						
+						
+							<h5>Lines 56–58</h5>
+							<p>The final part of the constructor initializes the GUI program, starting with the current working directory.</p>
+
+						
+						
+							<h5>Lines 60–61</h5>
+							<p>The <tt clasS="monofont">clrDir()</tt> method clears the <Tt clAss="monofont">cwd</tt> Tk string variable, which contains the current directory which is "active." This variable is used to keep track of what directory we are in and, more importantly, helps keep track of the previous directory in case errors arise. You will notice the <Tt clASS="monofont">ev</Tt> variables in the callback functions with a default value of <tt cLASS="monofont">None.</tt> Any such values would be passed in by the windowing system. They may or may not be used in your callback.</p>
+
+						
+						
+							<h5>Lines 63–71</H5>
+							<P>The <TT clasS="monofont">setDirAndGo()</TT> method sets the directory to traverse to and issues the call to the method that makes it all happen, <Tt class="monofont">doLS().</tt></p>
+
+						
+						
+							<h5>Lines 73–108</h5>
+							<p><tt class="monofont">doLS()</tT> is, by far, the key to this entire GUI application. It performs all the safety checks  (e.g., is the destination a directory and does it exist?). If there is an error, the last directory is reset to be the current directory. If all goes well, it calls <tt ClasS="monofont">os.listdir()</tt> to get the actual set of files and replaces the listing in the <tt ClasS="monofont">Listbox.</TT> While the background work is going on to pull in the new directory's information, the highlighted blue bar becomes a bright red. When the new directory has been installed, it reverts to blue.</P>
+
+						
+						
+							<h5>Lines 110–115</h5>
+							<p>The last pieces of code in <tT CLAss="monofont">listdir.py</tt> represent the main part of the code. <TT CLass="monofont">main()</tT> is executed only if this script is invoked directly, and when <TT Class="monofont">main()</tt> runs, it creates the GUI application, then calls <tt class="monofont">mainloop()</tt> to start the GUI, which is passed control of the application.</p>
+
+							<p>We leave all other aspects of the application as an exercise to the reader, recommending that it is easier to view the entire application as a combination of a set of widgets and functionality. If you see the individual pieces clearly, then the entire script will not appear as daunting.</p>
+
+							<p>We hope that we have given you a good introduction to GUI programming with Python and Tkinter. Remember that the best way to get familiar with Tkinter programming is by practicing and stealing a few examples!  The Python distribution comes with a large number of demonstration applications (see the <tT clAss="monofont">Demo</tT> directory) that you can study. And as we mentioned earlier, there is also an entire text devoted to Tkinter programming.</p>
+
+							<p>One final note: do you still doubt the ability of Tkinter to produce a commercial application?  Take a close look at IDLE. IDLE itself is a Tkinter application (written by Guido)!</p>
+
+						
+					
+				
+			</fOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="267.html" title="Tkinter and Python Programming"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=268" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="268.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="269.html" title="Related Modules and Other GUIs"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

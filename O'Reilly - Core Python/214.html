@@ -1,0 +1,77 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Classes</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="210.html" class="navtitle">13. Classes and OOP</a> &gt; <span class="nonavtitle">Classes</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="213.html" title="Object-oriented Programming"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=214" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="214.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="215.html" title="Class Attributes"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A38%3A41+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174062198212142209026187</font><a href="read5.asp?bookname=0130260363&snode=214&now=5%2F29%2F2002+9%3A38%3A41+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Classes</h3>
+				<p>Recall that a class is a data structure that we can use to define objects which hold together data values and behavioral characteristics. Classes are entities which are the programmatic form of an abstraction for a real-world problem, and instances are realizations of such objects. One analogy is to liken classes to blueprints or molds with which to make real objects (instances). So why the term "class?"  The term most likely originates from using classes to identify and categorize biological families of species to which specific creatures belong and can be derived into similar yet distinct subclasses. Many of these features apply to the concept of classes in programming.</p>
+
+				<P>In Python, class declarations are very similar to function declarations, a header line with the appropriate keyword followed by a suite as its definition, as indicated below:</P>
+
+				<PRe>
+					
+<b>def</b> functionName(args):
+    'function documentation string'
+    <i>function_suite</I>
+
+<B>class</B>
+						<I>ClassName:</i>
+    'class documentation string"
+    <i>class_suite</i>
+
+				</pRE>
+
+				<P>The fact that such a declaration is "larger" than a standard type declaration should be proof  that classes in Python are much more than standard types. A class is like a Python container type on steroids. Not only can it hold multiple data items but it can also support its own set of functions, which we have seen before, called methods. You may be asking what other advantages classes have over standard container types such as lists and dictionaries.</P>
+
+				<p>Standard types are fixed, cannot be customized, and come with a hard-coded set of attributes. Data types also do not provide individual namespaces for objects nor can they be used to derive "sub-types."  Objects contained in lists are unrelated except for the name of their container. Its members are accessed only via an index offset into an array-like data structure. All lists have the same set of methods. The same goes for dictionaries, which also have a common set of methods and provide key access to their members (who are also unrelated except for their container name).</p>
+
+				<p>In this section, we will take a close look at classes and what types of attributes they have. Just remember to keep in mind that even though classes are objects (everything in Python is an object), they are not realizations of the objects they are defining. We will look at instances in the next chapter, so stay tuned for that. For now, the limelight is strictly beamed on class objects.</p>
+
+				<p>When you create a class, you are practically creating your own kind of data entity. All instances of that class are similar, but classes differ from each other (and so will instances of different classes by nature). Rather than playing with toys that came from the manufacturer and were bestowed upon you as gifts, why not design and build your own toys to play with?</p>
+
+				
+					<h4>Creating Classes</h4>
+					<p>Python classes are created using the <b><tt class="monofont">class</tt></b> keyword. In the simple form of class declarations, the name of the class immediately follows the keyword:</P>
+
+					<prE>
+						
+<b>class</b> ClassName:
+     'class documentation string'
+     <i>class_suite</I>
+
+					</pre>
+
+					<p><I><tt cLASS="monofont">class_suite</tt></i> consists of all the component statements, defining class members, data attributes, and functions. Classes are generally defined at the top-level of a module so that instances of a class can be created anywhere in a piece of source code where the class is defined.</p>
+
+				
+				
+					<H4>Declaration vs. Definition</H4>
+					<P>As with Python functions, there is no distinction between declaring and defining classes because they occur simultaneously, i.e., the definition (the class suite) immediately follows the declaration (header line with the <B><tt clASS="monofont">class</Tt></b> keyword) and the always recommended, but optional, documentation string. Likewise, all methods must also be defined at this time. If you are familiar with the OOP terms, Python does not support <i>pure virtual functions</i> (à la C++) or <I>abstract methods</I> (as in Java), which coerce the programmer to define a method in a subclass.</P>
+
+				
+			</Font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="213.html" title="Object-oriented Programming"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=214" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="214.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="215.html" title="Class Attributes"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

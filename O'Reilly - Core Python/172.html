@@ -1,0 +1,131 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; What Are Functions?</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="170.html" class="navtitle">11. Functions</a> &gt; <span class="nonavtitle">What Are Functions?</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="171.html" title="11. Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=172" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="172.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="173.html" title="Calling Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A30%3A55+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174054034000073184164173</font><a href="read3.asp?bookname=0130260363&snode=172&now=5%2F29%2F2002+9%3A30%3A55+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>What Are Functions?</h3>
+				<p>Functions are the structured or procedural programming way of organizing the logic in your programs. Large blocks of code can be neatly segregated into manageable chunks, and space is saved by putting oft-repeated code in functions as opposed to multiple copies everywhere—this also helps with consistency because changing the single copy means you do not have to hunt for and make changes to multiple copies of duplicated code. The basics of functions in Python are not much different from those of other languages with which you may be familiar. After a bit of review here in the early part of this chapter, we will focus on what else Python brings to the table.</p>
+
+				<P>Functions can appear in different ways… here is a sampling profile of how you will see functions created, used, or otherwise referenced:</P>
+
+				<P><Table BORDer="1" ceLLSPacing="0" cellpadding="1" widtH="100%">
+<coLgroUp spaN="2">
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><b><I>declaration/definition</I></B></Font></tD>
+<TD>
+<Font size="2"><b><tt class="monofont">def</tt></b>
+									<tt ClaSs="monofont">foo():</tt>
+									<B><tt clAss="monofont">print</tT></B>
+									<TT clasS="monofont">'bar'</TT></Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<font size="2"><b><i>function object/reference</i></b></font></td>
+<tD>
+<foNt siZe="2"><tt cLass="monofont">foo</TT></FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><b><i>function call/invocation</i></b></font></td>
+<td>
+<font size="2"><Tt cLass="monofont">foo()</Tt></fonT></td>
+</tR>
+</COLgrouP>
+</TABle></p>
+
+				
+					<h4>Functions vs. Procedures</H4>
+					<P>Functions are often compared to procedures. Both are entities which can be invoked, but the traditional function or "black box," perhaps taking some or no input parameters, performs some amount of processing and concludes by sending back a return value to the caller. Some functions are Boolean in nature, returning a "yes" or "no" answer, or, more appropriately, a non-zero or zero value, respectively. Procedures, often compared to functions, are simply special cases, functions which do not return a value. As you will see below, Python procedures are implied functions because the interpreter implicitly returns a default value of <TT clasS="monofont">None.</TT></P>
+
+				
+				
+					<h4>Return Values and Function Types</h4>
+					<p>Functions may return a value back to its caller and those which are more procedural in nature do not explicitly return anything at all. Languages which treat procedures as functions usually have a special type or value name for functions that "return nothing." These functions default to a return type of <tt class="monofont">"void"</tt> in C, meaning no value returned. In Python, the equivalent return object type is <tt class="monofont">None.</tT></p>
+
+					<p>The <Tt clAss="monofont">hello()</tt> function acts as a procedure in the code below, returning no value. If the return value is saved, you will see that its value is <Tt clASS="monofont">None:</Tt></p>
+
+					<prE>
+						
+&gt;&gt;&gt; <B>def</B> hello():
+…       <B>print</b> 'hello world'
+&gt;&gt;&gt;
+&gt;&gt;&gt; res = hello()
+hello world
+&gt;&gt;&gt; res
+&gt;&gt;&gt; <b>print</b> res
+None
+&gt;&gt;&gt; type(res)
+&lt;type 'None'&gt;
+
+					</pRE>
+
+					<P>Also, like most other languages, you may return only one value/object from a function in Python. One difference is that in returning a container type, it will seem as if you can actually return more than a single object. In other words, you can't leave the grocery store with multiple items, but you can throw them all in a single shopping bag which you walk out of the store with, perfectly legal.</P>
+
+					<pre>
+						
+<b>def</B> foo():
+    <B>return</B> ['xyz', 1000000, -98.6]
+
+<B>def</b> bar():
+    <b>return</b> 'abc', [42, 'python', "Guido"
+
+					</pre>
+
+					<p>The <tt class="monofont">foo()</tt> function returns a list, and the <tt clAss="monofont">bar()</Tt> function returns a tuple. Because of the tuple's syntax of not requiring the enclosing parentheses, it creates the perfect illusion of returning multiple items. If we were to properly enclose the tuple items, the definition of <tt Class="monofont">bar()</Tt> would look like:</p>
+
+					<pRE>
+						
+<B>def</B> bar():
+    <b>return</b> ('abc', [4-2j, 'python'], "Guido")
+
+					</prE>
+
+					<P>As far as return values are concerned, tuples can be saved in a number of ways. The following three ways of saving the return values are equivalent:</P>
+
+					<Pre>
+						
+&gt;&gt;&gt; aTuple = bar()
+&gt;&gt;&gt; x, y, z = bar()
+&gt;&gt;&gt; (a, b, c) = bar()
+&gt;&gt;&gt;
+&gt;&gt;&gt; aTuple
+('abc', [(4-2j), 'python'], 'Guido')
+&gt;&gt;&gt; x, y, z
+('abc', [(4-2j), 'python'], 'Guido')
+&gt;&gt;&gt; (a, b, c)
+('abc', [(4-2j), 'python'], 'Guido')
+
+					</prE>
+
+					<P>In the assignments for <TT clasS="monofont">x, y, z,</TT> and <Tt class="monofont">a, b, c,</tt> each variable will receive its corresponding return value in the order the values are returned. The <tt class="monofont">aTuple</tt> assignment takes the entire implied tuple returned from the function. Recall that a tuple can be "unpacked" into individual variables or not at all and its reference assigned directly to a single variable. (Refer back to <a hrEf="117#3.html">Section 6.17.3</a> for a review.)</P>
+
+					<p>Many languages which support functions maintain the notion that a function's type is the type of its return value. In Python, no direct type correlation can be made since Python is dynamically-typed and functions can return values of different types. Because overloading is not a feature, the programmer can use the <tt Class="monofont">type()</Tt> built-in function as a proxy for multiple declarations with different <i>signatures</i> (multiple prototypes of the same overloaded function which differ based on its arguments).</P>
+
+				
+			</FONt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="171.html" title="11. Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=172" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="172.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="173.html" title="Calling Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,328 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; String Built-in Methods</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="99.html" class="navtitle">6. Sequences: Strings, Lists, and Tuples</a> &gt; <span class="nonavtitle">String Built-in Methods</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="105.html" title="Built-in Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=106" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="106.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="107.html" title="Special Features of Strings"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A18%3A49+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172044044181139064060063</font><a href="read9.asp?bookname=0130260363&snode=106&now=5%2F29%2F2002+9%3A18%3A49+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>String Built-in Methods</h3>
+				<p>String methods were recently added to Python, introduced in version 1.6 (and in JPython 1.1), and tweaked for 2.0. These methods are intended to replace most of the functionality in the <tT CLAss="monofont">string</tt> module as well as to bring new functionality to the table. <A HREf="106#1.html">Table 6.6</a> shows all the current methods for strings. All string methods should fully support Unicode strings. And some are applicable only to Unicode strings.</p>
+
+				<a NAME="1"></a><p><table border="1" cellspaCinG="0" celLpaddIng="1" wIDTH="100%">
+<captION><H5>Table 6.6. String Type Built-in Methods</h5></capTION><colgROUP align="left" span="2">
+<tr valign="top">
+<th>
+<fOnt Size="2"><B><i>Value</i></b></fOnt></tH>
+<TH>
+<Font sIZE="2"><B><i>Description</i></b></fONT></Th>
+</tr>
+<tR VALign="top">
+<td>
+<font size="2"><i><tt clasS="monofont">string.</tt></I><tt cLass="monofont">capitalize()</tT></fonT></TD>
+<Td>
+<fonT SIZe="2">capitalizes first letter of <i><tt CLASs="monofont">string</tt></i></FONT></td>
+</tr>
+<tr valign="top">
+<td>
+<font siZe="2"><i><Tt clAss="monofont">string.</tt></I><tt cLASS="monofont">center(</tt><i><tT CLAss="monofont">width</tt></I><TT Class="monofont">)</TT></FOnt></td>
+<td>
+<font size="2">returns a space-padded <i><tt claSs="monofont">string</tT></i> with the original <i><tT clasS="monofont">string</tt></i> centered to a total of <I><TT Class="monofont">width</TT></I> columns</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<font size="2"><i><tt class="monofont">string.</tt></i><Tt cLass="monofont">count(</Tt><i><tt ClasS="monofont">str, beg</TT></I><tt clASS="monofont">= 0,</Tt><i><tt CLASs="monofont">end</tt></i><TT CLass="monofont">=len(</tt><i><tt class="monofont">string</tt></i><tt clAss="monofont">))</Tt></foNt></td>
+<tD>
+<fonT SIZe="2">counts how many times <i><tt CLASs="monofont">str</tt></i> occurs in <I><TT Class="monofont">string,</TT></I> or in a substring of <I><tt class="monofont">string</tt></i> if starting index <i><tt class="monofont">beg</tt></I> and ending index <i><tT claSs="monofont">end</tt></i> are given</Font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><i><tT CLAss="monofont">string.</tt></i><tt class="monofont">encode(</tt><i><tt claSs="monofont">encoding</tT></i><tt Class="monofont">='UTF-8',</Tt>
+									<i><tT CLAss="monofont">errors</tt></I><TT Class="monofont">='strict')</TT><FOnt siZE="1"><SUp><a href="#FOOTNOTE-a">[a]</a></sup></font>
+</font></td>
+<Td>
+<fOnt sIze="2">returns encoded string version of string; on error, default is to raise a <tt ClasS="monofont">ValueError</TT> unless <I><tt clASS="monofont">errors</Tt></i> is given with <tt CLASs="monofont">'ignore'</tt> or <tT CLAss="monofont">'replace'.</tt></font></td>
+</tr>
+<tr valign="top">
+<Td>
+<fOnt sIze="2"><i><tT claSS="monofont">string.</TT></i><tt cLASS="monofont">endswith(</tt><i><tT CLAss="monofont">str, beg</tt></I><TT Class="monofont">=0,</tt>
+									<i><tt class="monofont">end</tt></i><tt cLasS="monofont">=len(</tt><i><Tt claSs="monofont">string</tt></I><TT Class="monofont">))</TT><FOnt siZE="1"><SUp><a hrEF="#FOOTNOTE-b">[b]</A></Sup></font>
+</font></td>
+<td>
+<font siZe="2">determines if <i><Tt clAss="monofont">string</tt></I> or a substring of <i><tt CLASs="monofont">string</tt></i> (if starting index <I><TT Class="monofont">beg</TT></I> and ending index <I><tt clASS="monofont">end</Tt></i> are given) ends with <i><tt class="monofont">str;</tt></i> returns 1 if so, and 0 otherwise</font></td>
+</tR>
+<tr ValiGn="top">
+<td>
+<fOnt sIZE="2"><I><tt clASS="monofont">string.</Tt></i><tt CLASs="monofont">expandtabs(</tt><i><TT CLass="monofont">tabsize</tt></i><tt class="monofont">=8)</tt></font></tD>
+<td>
+<Font Size="2">expands tabs in <i><Tt clASS="monofont">string</Tt></i> to multiple spaces; defaults to 8 spaces per tab if <i><tT CLAss="monofont">tabsize</tt></I> not provided</FONt></td>
+</tR>
+<TR Valign="top">
+<td>
+<font size="2"><i><tt clAss="monofont">string.</Tt></i><tT clasS="monofont">find(</tt><i><TT CLass="monofont">str, beg</tT></I><TT clasS="monofont">=0</TT>
+									<I><tt clASS="monofont">end</Tt></i><tt class="monofont">=len(</tt><i><tt class="monofont">string</tT></i><tT claSs="monofont">))</tt></fOnt></tD>
+<TD>
+<Font sIZE="2">determine if <I><tt clASS="monofont">str</Tt></i> occurs in <i><tT CLAss="monofont">string,</tt></i> or in a substring of <i><tt class="monofont">string</tt></i> if starting index <i><tt cLasS="monofont">beg</tt></i> and ending index <I><tt clAss="monofont">end</tT></I> are given; returns index if found and -1 otherwise</FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><i><tt class="monofont">string.</tt></i><tt class="monofont">index(</tt><I><tt ClasS="monofont">str, beg</tt></i><tT claSS="monofont">=0,</TT>
+									<i><tt cLASS="monofont">end</tt></i><tT CLAss="monofont">=len(</tt><I><TT Class="monofont">string</tt></i><tt class="monofont">))</tt></font></Td>
+<tD>
+<fonT size="2">same as <Tt clASS="monofont">find(),</Tt> but raises an exception if <i><tt CLASs="monofont">str</tt></i> not found</FONT></td>
+</tr>
+<TR VAlign="top">
+<td>
+<font size="2"><i><tt claSs="monofont">string.</tT></i><tt Class="monofont">isa1num()</Tt><suP><A HRef="#FOOTNOTE-a">[a]</a></sUP><SUp><a hrEF="#FOOTNOTE-b">[b]</A></Sup><foNT SIze="1"><sup><a href="#FOOTNOTE-c">[c]</a></sup></font>
+</foNt></tD>
+<td>
+<fOnt siZe="2">returns 1 if <i><tT CLAss="monofont">string</tt></I> has at least 1 character and all characters are alphanumeric and 0 otherwise</FONt></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font size="2"><i><tt class="monofont">string.</tt></i><tt ClaSs="monofont">isalpha()</tt><Sup><a hRef="#FOOTNOTE-a">[a]</a></SUP><Sup><a hREF="#FOOTNOTE-b">[b]</A></sup><sUP><A Href="#FOOTNOTE-c">[c]</a></SUP></Font></td>
+<td>
+<font size="2">returns 1 if <i><tt clAss="monofont">string</Tt></i> has at least 1 character and all characters are alphabetic and 0 otherwise</fOnt></td>
+</Tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><I><TT Class="monofont">string.</TT></I><Tt class="monofont">isdecimal()</tt><sup><a href="#FOOTNOTE-b">[b]</a></sup><Sup><A hreF="#FOOTNOTE-c">[c]</a></sup><Font SIZE="1"><sup><a HREF="#FOOTNOTE-d">[d]</a></sup></FONT>
+</font></TD>
+<TD>
+<font size="2">returns 1 if <i><tt class="monofont">string</tt></i> contains only decimal digits and 0 otherwise</fOnt></Td>
+</tr>
+<Tr valIgn="top">
+<tD>
+<FONt sizE="2"><I><TT clasS="monofont">string.</TT></I><tt clASS="monofont">isdigit()</Tt><sup><a href="#FOOTNOTE-b">[b]</a></sup><sup><a hreF="#FOOTNOTE-c">[c]</a></sUp></foNt></td>
+<tD>
+<fonT SIZe="2">returns 1 if <i><tt CLASs="monofont">string</tt></i> contains only digits and 0 otherwise</FONT></td>
+</tr>
+<TR VAlign="top">
+<td>
+<font size="2"><i><tt claSs="monofont">string.</tT></i><tt Class="monofont">islower()</Tt><suP><A HRef="#FOOTNOTE-b">[b]</a></sUP><SUp><a hrEF="#FOOTNOTE-c">[c]</A></Sup></foNT></TD>
+<td>
+<font size="2">returns 1 if <i><tt class="monofont">string</tt></I> has at least 1 cased character and all cased characters are in lowercase and 0 otherwise</foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2"><I><tt clASS="monofont">string.</Tt></i><tt CLASs="monofont">isnumeric()</tt><sup><a href="#FOOTNOTE-b">[b]</a></sup><sup><a hRef="#FOOTNOTE-c">[c]</A></sup><Sup><a hRef="#FOOTNOTE-d">[d]</a></SUP></Font></tD>
+<TD>
+<Font sIZE="2">returns 1 if <I><tt clASS="monofont">string</Tt></i> contains only numeric characters and 0 otherwise</font></td>
+</tr>
+<tr valign="top">
+<td>
+<FonT sizE="2"><i><tt cLass="monofont">string.</TT></I><Tt claSS="monofont">isspace()</TT><sup><a HREF="#FOOTNOTE-b">[b]</a></sup><SUP><A href="#FOOTNOTE-c">[c]</a></sup></font></td>
+<td>
+<font SizE="2">returns 1 if <i><tt Class="monofont">string</Tt></i> contains only whitespace characters and 0 otherwise</fONT></Td>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt sizE="2"><I><TT class="monofont">string.</tt></i><tt class="monofont">istitle()</tt><sup><A hrEf="#FOOTNOTE-b">[b]</a></sUp><sup><A hreF="#FOOTNOTE-c">[c]</A></SUp></fonT></TD>
+<Td>
+<fonT SIZe="2">returns 1 if <i><tt CLASs="monofont">string</tt></i> is properly "titlecased" (see <tt class="monofont">title()</tt>) and 0 otherwise</font></td>
+</tR>
+<tr ValiGn="top">
+<td>
+<fOnt sIZE="2"><I><tt clASS="monofont">string.</Tt></i><tt CLASs="monofont">isupper()</tt><sUP><A Href="#FOOTNOTE-b">[b]</a></sup><sup><a href="#FOOTNOTE-c">[c]</a></sup></fOnt></Td>
+<td>
+<Font sIze="2">returns 1 if <i><TT CLass="monofont">string</tT></I> has at least one cased character and all cased characters are in uppercase and 0 otherwise</FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font size="2"><i><tt class="monofont">string.</tt></i><tT clAss="monofont">join(</tT><i><tt cLass="monofont">seq</TT></I><Tt claSS="monofont">)</TT></font></TD>
+<TD>
+<font SIZE="2">merges (concatenates) the string representations of elements in sequence <i><tt class="monofont">seq</tt></i> into a string, with separator <i><tt class="monofont">string</tT></i></fOnt></tD>
+</tr>
+<tr ValiGN="top">
+<TD>
+<font SIZE="2"><i><tt cLASS="monofont">string.</tt></i><tT CLAss="monofont">ljust(</tt><i><tt class="monofont">width</tt></i><tt claSs="monofont">)</tT></fonT></td>
+<td>
+<Font SIZE="2">returns a space-padded <i><tt cLASS="monofont">string</tt></i> with the original string left-justified to a total of <i><TT CLass="monofont">width</tT></I> columns</FOnt></td>
+</tr>
+<tr valign="top">
+<td>
+<font SizE="2"><i><tt Class="monofont">string.</Tt></i><tT CLAss="monofont">lower()</tt></FONT></td>
+<td>
+<FONT size="2">converts all uppercase letters in <I><TT Class="monofont">string</tt></i> to lowercase</font></td>
+</tr>
+<tr valIgn="top">
+<Td>
+<foNt sizE="2"><i><tt CLASs="monofont">string.</tt></i><TT CLass="monofont">lstrip()</tT></FONt></td>
+<tD>
+<FONt size="2">removes all leading whitespace in <i><tt class="monofont">string</tt></i></font></Td>
+</tR>
+<tr vAlign="top">
+<Td>
+<foNT SIze="2"><i><tT CLAss="monofont">string.</tt></I><TT Class="monofont">replace(</TT><I><Tt class="monofont">str1, str2, num=string.</tt></i><tt class="monofont">count(str1))</tt></foNt></tD>
+<td>
+<fOnt siZe="2">replaces all occurrences of <i><tT CLAss="monofont">str1</tt></I> in <I><TT clasS="monofont">string</TT></I> with <i><tt cLASS="monofont">str2,</tt></i> or at most <i><tt class="monofont">num</tt></i> occurrences if <i><tt claSs="monofont">num</tT></i> given</foNt></td>
+</tR>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><i><TT CLass="monofont">string.</tT></I><TT class="monofont">rfind(</tt><i><tt class="monofont">str, beg</tt></i><tt ClaSs="monofont">=0,</tt><I><tt clAss="monofont">end</tT></I><TT clasS="monofont">=len(</TT><I><tt clASS="monofont">string</Tt></i><tt CLASs="monofont">))</tt></font></td>
+<td>
+<font size="2">same as <tT clAss="monofont">find(),</tT> but search backwards in <i>string</i></foNt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><i><tt cLASS="monofont">string.</tt></i><tt class="monofont">rindex(</tt>
+									<i><tt class="monofont">str, beg</Tt></i><Tt clAss="monofont">=0,</tt>
+									<I><tt cLASS="monofont">end</tt></i><tT CLAss="monofont">=len(</tt><I><TT Class="monofont">string</TT></I><Tt class="monofont">))</tt></font></td>
+<td>
+<font SizE="2">same as <tt cLass="monofont">index(),</tT> but search backwards in <i><tt CLASs="monofont">string</tt></i></FONT></td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt size="2"><i><tt class="monofont">string.</tt></i><tt cLasS="monofont">rjust(</tt><i><Tt claSs="monofont">width</tt></I><TT Class="monofont">)</TT></FOnt></td>
+<TD>
+<FOnt siZE="2">returns a space-padded <I><Tt class="monofont">string</tt></i> with the original string right-justified to a total of <i><tt class="monofont">width</tt></i> columns.</FonT></td>
+</tR>
+<tr vaLign="top">
+<TD>
+<FOnt siZE="2"><I><Tt claSS="monofont">string.</TT></i><tt cLASS="monofont">rstrip()</tt></font></td>
+<td>
+<font size="2">removes all trailing whitespace of <i><tT clAss="monofont">string</tT></i></fonT></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2"><I><tt clASS="monofont">string.</Tt></i><tt class="monofont">split(</tt><i><tt class="monofont">str</tT></i><tT claSs="monofont">="", n</tt><i><Tt clASS="monofont">um</Tt></i><tt CLASs="monofont">=</tt><i><TT CLass="monofont">string.</tT></I><TT class="monofont">count(</tt><i><tt class="monofont">str</tt></i><tt ClaSs="monofont">))</tt></Font></tD>
+<td>
+<fONT Size="2">splits <i><TT CLass="monofont">string</tT></I> according to delimiter <I><Tt claSS="monofont">str</TT></i> (space if not provided) and returns list of substrings; split into at most <i><tt class="monofont">num</tt></i> substrings if given</font></td>
+</tr>
+<Tr vAligN="top">
+<td>
+<foNt siZE="2"><I><Tt claSS="monofont">string.</TT></i><tt cLASS="monofont">splitlines(</tt>
+									<i><tT CLAss="monofont">num</tt></i><tt class="monofont">=string.count('\n'))</tt><sup><a hrEf="#FOOTNOTE-b">[b]</a></Sup><sUp><a hrEf="#FOOTNOTE-c">[c]</a></sUP></FOnt></td>
+<TD>
+<FOnt siZE="2">splits <I><Tt claSS="monofont">string</TT></i> at all (or <i><tt class="monofont">num</tt></i>) NEWLINEs and returns a list of each line with NEWLINEs removed</font></td>
+</tr>
+<Tr vAligN="top">
+<td>
+<foNt siZE="2"><I><Tt claSS="monofont">string.</TT></i><tt cLASS="monofont">startswith(</tt><i><tT CLAss="monofont">str, beg</tt></i><tt class="monofont">=0,</tt><i><tt claSs="monofont">end</tT></i><tt Class="monofont">=len(</Tt><i><tT CLAss="monofont">string</tt></I><TT Class="monofont">))</TT><SUp><a hrEF="#FOOTNOTE-b">[b]</A></Sup><sup><a href="#FOOTNOTE-c">[c]</a></sup></font></td>
+<Td>
+<fOnt sIze="2">determines if <i><tT claSS="monofont">string</TT></i> or a substring of <i><tt CLASs="monofont">string</tt></i> (if starting index <I><TT Class="monofont">beg</TT></I> and ending index <I><tt class="monofont">end</tt></i> are given) starts with substring <i><tt class="monofont">str;</tt></I> returns 1 if so, and 0 otherwise</foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2"><I><tt clASS="monofont">string.</Tt></i><tt CLASs="monofont">strip(</tt><i><tt class="monofont">[obj]</tt></i><tt clasS="monofont">)</tt></Font></Td>
+<td>
+<fOnt sIZE="2">performs both <I><tt clASS="monofont">lstrip()</Tt></i> and <i><tT CLAss="monofont">rstrip()</tt></I> on <I><TT class="monofont">string</tt></i></font></td>
+</tr>
+<tr vaLigN="top">
+<td>
+<fOnt siZe="2"><i><tT CLAss="monofont">string.</tt></I><TT Class="monofont">swapcase()</TT></FOnt></td>
+<TD>
+<FOnt size="2">inverts case for all letters in <i><tt class="monofont">string</tt></i></fonT></td>
+</Tr>
+<tr ValigN="top">
+<td>
+<fONT Size="2"><i><TT CLass="monofont">string.</tT></I><TT clasS="monofont">title()</TT><Sup><a href="#FOOTNOTE-b">[b]</a></sup><sup><a href="#FOOTNOTE-c">[c]</a></Sup></Font></Td>
+<td>
+<fOnt sIZE="2">returns "titlecased" version of <I><tt clASS="monofont">string,</Tt></i> that is, all words begin with uppercase, and the rest are lowercase (also see <tt CLASs="monofont">istitle()</tt>)</fONT></Td>
+</tr>
+<tr valign="top">
+<td>
+<font sizE="2"><i><tT claSs="monofont">string.</tt></i><Tt clASS="monofont">translate(</Tt><i><tt CLASs="monofont">str, del</tt></i><TT CLass="monofont">="")</tT></FONt></td>
+<td>
+<font size="2">translates <i><tt clasS="monofont">string</tt></I> according to translation table <i><tt Class="monofont">str</Tt></i>(256 chars), removing those in the <i><TT CLass="monofont">del</tT></I> string</FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font size="2"><i><tt class="monofont">string.</tt></i><tT clAss="monofont">upper()</tT></font></Td>
+<td>
+<FONT size="2">converts lowercase letters in <I><TT Class="monofont">string</TT></I> to uppercase</Font></tD>
+</TR>
+<Tr valign="top">
+<td>
+<font size="2"><i><tt ClaSs="monofont">string.</tt></I><tt clAss="monofont">zfill (</tT><I><TT clasS="monofont">width</TT></I><tt clASS="monofont">)</Tt></fonT></TD>
+<Td>
+<font size="2">returns original <i><tt class="monofont">string</tt></i> left-padded with zeros to a total of <I><tt ClasS="monofont">width</tt></i> characters; intended for numbers, <tT claSS="monofont">zfill()</TT> retains any sign given (less one zero)</font></TD>
+</TR>
+</colgROUP>
+</tablE></P>
+<BLockquote><font size="1">
+<p claSs="footnote">
+<sUp><a nAme="FOOTNOTE-a">[a]</a></sUp>
+applicable to Unicode strings only in 1.6, but to all string types in 2.0.</p>
+</fONT></BlockQUOTe>
+<bloCKQUote><fONT Size="1">
+<p class="footnote">
+<sup><a name="FOOTNOTE-b">[b]</a></suP>
+not available as a <tt ClasS="monofont">string</tt> module function in 1.5.2</p>
+</fOnt></bLOCKquotE>
+<BLOckquOTE><Font sIZE="1">
+<P class="footnote">
+<sup><a name="FOOTNOTE-c">[c]</a></sup>
+not available as a method in JPython 1.1</p>
+</foNt></bLockQuote>
+<BlocKQUOte><foNT SIze="1">
+<p cLASS="footnote">
+<sup><a NAME="FOOTNOTE-d">[d]</a></sup>
+applicable to Unicode strings only</p>
+</font></blockquote>
+
+				<p>Using JPython, we will show some examples of methods available for strings:</P>
+
+				<prE>
+					
+&gt;&gt;&gt; quest = 'what is your favorite color?'
+&gt;&gt;&gt; quest.capitalize()
+'What is your favorite color?'
+&gt;&gt;&gt;
+&gt;&gt;&gt; quest.center(40)
+'      what is your favorite color?      '
+&gt;&gt;&gt;
+&gt;&gt;&gt; quest.count('or')
+2
+&gt;&gt;&gt;
+&gt;&gt;&gt; quest.endswith('blue')
+0
+&gt;&gt;&gt;
+&gt;&gt;&gt; quest.endswith('color?')
+1
+&gt;&gt;&gt;
+&gt;&gt;&gt; quest.find('or', 30)
+-1
+&gt;&gt;&gt;
+&gt;&gt;&gt; quest.find('or', 22)
+25
+&gt;&gt;
+&gt;&gt;&gt; quest.index('or', 10)
+16
+&gt;&gt;&gt;
+&gt;&gt;&gt; ':'.join(quest.split())
+'what:is:your:favorite:color?'
+&gt;&gt;&gt; quest.replace('favorite color', 'quest')
+&gt;&gt;&gt;
+'what is your quest?'
+&gt;&gt;&gt;
+&gt;&gt;&gt; quest.upper()
+'WHAT IS YOUR FAVORITE COLOR?'
+
+				</pre>
+
+				<P>The most complex example shown above is the one with <tt clAss="monofont">split()</tT> and <TT Class="monofont">join().</TT> We first call <TT clasS="monofont">split()</TT> on our string, which, without an argument, will break apart our string using spaces as the delimiter. We then take this list of words and call <Tt claSS="monofont">join()</TT> to merge our words again, but with a new delimiter, the colon. Notice that we used the <tt class="monofont">split()</tt> method for our string, and the <tt class="monofont">join()</tt> method for single-character string <tt ClaSs="monofont">':'.</tt></P>
+
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="105.html" title="Built-in Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=106" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="106.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="107.html" title="Special Features of Strings"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

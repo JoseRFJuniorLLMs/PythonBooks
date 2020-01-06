@@ -1,0 +1,352 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Built-in Functions for Classes, Instances, and Other Objects</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="210.html" class="navtitle">13. Classes and OOP</a> &gt; <span class="nonavtitle">Built-in Functions for Classes, Instances, and Other Objects</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="221.html" title="Inheritance"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=222" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="222.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="223.html" title="Type vs. Classes/Instances"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A16%3A24+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004231203005074078234144246</font><a href="read5.asp?bookname=0130260363&snode=222&now=5%2F30%2F2002+8%3A16%3A24+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Built-in Functions for Classes, Instances, and Other Objects</h3>
+				
+					<h4><tT CLAss="monofont">issubclass()</tt></H4>
+					<P>The <TT clasS="monofont">issubclass()</TT> Boolean function determines if one class is a subclass or descendant of another class. It has the following syntax:</P>
+
+					<pre>
+						
+issubclass(<i>sub, sup</i>)
+					</pre>
+
+					<p><tt class="monofont">issubclass()</tt> returns 1 if the given subclass <i><tT clAss="monofont">sub</tT></i> is indeed a subclass of the superclass <i><tt ClasS="monofont">sup.</TT></I> This function allows for an "improper" subclass, meaning that a class is viewed as a subclass of itself, so the function returns 1 if <tt clASS="monofont">sub</Tt> is either the same class as <tt cLASS="monofont">sup</tt> or derived from <tt CLASs="monofont">sup.</tt> (A "proper" subclass is strictly a derived subclass of a class.)</p>
+
+					<p>If we were to implement the <tt class="monofont">issubclass()</tt> built-in function ourselves, it may look something like the following:</p>
+
+					<pre>
+						
+<b>def</b> my_issubclass(sub, sup):
+    <B>if</b> sub <b>is</B> sup <b>or</b> sup <b>in</B> sub.__bases__:
+        <b>return</b> 1
+    <b>for</b> cls <B>in</b> sub.__bases__:
+        <b>if</b> my_issubclass(cls, sup):
+            <B>return</B> 1
+        <B>else:</B>
+            <b>return</b> 0
+    <b>return</b> 0
+
+					</PRE>
+
+					<P>We first check to see if they are both the same class. Since we allow for improper subclasses, then we would indicate a successful inquiry if both classes are the same. We also return 1 if <tt clASS="monofont">sup</Tt> is a parent class of <tt cLASS="monofont">sub.</tt> This check is accomplished by looking at the <tt class="monofont">__bases__</tt> attribute of sub.</p>
+
+					<p>If both of those tests fail, then we need to start moving up the family tree to see if <tt class="monofont">sup</Tt> is an ancestor of <tT claSs="monofont">sub.</tt> This is accomplished by checking the parent classes of <tT claSS="monofont">sub</TT> to see if they are subclasses of <tt clASS="monofont">sup.</Tt> If that fails, then we check the grandparent classes, and so on, moving up the tree to see if any of those classes are subclasses of <tt cLASS="monofont">sup.</tt> This is a depth-first recursive check where all ancestors are checked. If all return a negative result, we return 0 for failure.</p>
+
+				
+				
+					<h4><TT CLass="monofont">isinstance()</tt></h4>
+					<p>The <tt class="monofont">isinstance()</tt> Boolean function is useful for determining if an object is an instance of a given class and has the following syntax:</p>
+
+					<pre>
+						
+isinstance(<I>obj1, obj2</i>)
+					</pRe>
+
+					<p><tT clasS="monofont">isinstance()</tt> returns 1 if <i><TT CLass="monofont">obj1</tT></I> is an instance of class <I><Tt claSS="monofont">obj2</TT></i> or is an instance of a subclass of <i><tt CLASs="monofont">obj2,</tt></i> as indicated in the following examples:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; <b>class</b> C1: <b>pass</b>
+…
+&gt;&gt;&gt; <b>class</b> C2: <b>pass</b>
+…
+&gt;&gt;&gt; c1 = C1()
+&gt;&gt;&gt; c2 = C2()
+&gt;&gt;&gt; isinstance(c1, C1)
+1
+&gt;&gt;&gt; isinstance(c2, C1)
+0
+&gt;&gt;&gt; isinstance(c1, C2)
+0
+&gt;&gt;&gt; isinstance(c2, C2)
+1
+&gt;&gt;&gt; isinstance(C2, c2)
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+    isinstance(C2, c2)
+TypeError: second argument must be a class
+
+					</pre>
+
+					<p>Note that the second argument should be a class; otherwise, you get a <Tt cLass="monofont">TypeError.</Tt> The only exception is if the second argument is a type object. This is allowed because you can also use <tt cLass="monofont">isinstance()</TT> to check if an object <I><Tt claSS="monofont">obj1</TT></i> is of the type <i><tt CLASs="monofont">obj2,</tt></i> i.e.,</P>
+
+					<PRE>
+						
+&gt;&gt;&gt; isinstance(4, type(4))
+1
+&gt;&gt;&gt; isinstance(4, type(''))
+0
+&gt;&gt;&gt; isinstance('4', type(''))
+1
+
+					</pre>
+
+					<p>If we were to implement the <tt class="monofont">isinstance()</tt> built-in function ourselves, it may look something like the following:</p>
+
+					<pre>
+						
+<b>def</b> my_isinstance(obj1, obj2):
+  <b>if</B> obj2 <b>is</b> type(type(0)):       # check if obj2 is type obj
+    <B>return</b> type(obj1) <b>is</b> obj2
+  <B>if</b> obj1.__class__ <b>is</b> obj2:      # check if obj1 inst of obj2
+    <b>return</B> 1
+<b>return</b> my_issubclass(obj1.__class__, obj2)
+
+					</pRE>
+
+					<P><Tt claSS="monofont">isinstance()</TT> may appear simpler than <tt clASS="monofont">issubclass(),</Tt> but you will notice that we use <tt cLASS="monofont">issubclass().</tt> Without it, we would have to reimplement <tt class="monofont">issubclass(),</tt> so in actuality, <tt class="monofont">isinstance()</tt> is a bit longer than <Tt cLass="monofont">issubclass().</Tt></p>
+
+					<p>Our rendition of <tT claSS="monofont">isinstance()</TT> works like this:  We first check to see if we are dealing with objects and types by confirming whether <tt clASS="monofont">obj2</Tt> is a type object. If so, then we perform the check and return the result. Otherwise, we are dealing with classes and instances, so the test proceeds to check if instance <tt cLASS="monofont">obj1</tt> is actually a real instance of class <tt CLASs="monofont">obj2.</tt> If it is, then we are done. Otherwise, we recursively check to see if the class of which <tt class="monofont">obj1</tt> is an instance is a descendant of <tt class="monofont">obj2.</tT> If it is, then we return 1 for yes and 0 otherwise.</p>
+
+					
+						<h5>Proxy for Missing Functionality</H5>
+						<p>Both <tt Class="monofont">is*()</Tt> built-in functions (<tt CLASs="monofont">issubclass()</tt> and <tT CLAss="monofont">isinstance()</tt>) are new to Python as of version 1.5. Prior to 1.5, you would have to implement them yourself, as we did above, as well as create your own routine which proxies for the missing functions. While new functions are not always part of Python updates, it is quite possible that due to uncontrollable forces, you are required to use older versions of Python which do not support the new functionality. The solution would be to implement your own solutions and integrate them into your code so that your system at least <I>behaves</I> like a more recent version of the interpreter.</P>
+
+						<P>We present one possible solution below, which attempts to import the <tt clASS="monofont">__builtin__</Tt> module (hopefully loading <tt class="monofont">issubclass()</tt> and <tt class="monofont">isinstance()</tt>), but if not, creates aliases for our homebrewed functions which reference the code we implemented above:</p>
+
+						<Pre>
+							
+<B>if</b> '__builtins__' <b>not in</b> dir() <B>and</b> __import__ <b>in</b> dir():
+     __builtins__ = __import__('__builtin__')
+
+<b>if</B> 'issubclass' <b>not in</b> dir(__builtins__):
+     issubclass = my_issubclass
+
+<b>if</B> 'isinstance' <B>not in</B> dir(__builtins__):
+     isinstance = my_isinstance
+
+						</Pre>
+
+						<p>We will now invoke these functions on the classes and instance we defined in the previous section. Recall that the <tT CLAss="monofont">P*</tt> classes are parent classes, the <TT CLass="monofont">C*</tT> classes are child classes, and the <TT Class="monofont">GC</tt> class is the "grandchild" class.</p>
+
+						<pre>
+							
+&gt;&gt;&gt; <b>for</b> eachCls <b>in</b> (P1, P2, C1, C2, GC):
+…       <b>print</b> "is GC subclass of", eachCls.__name__, '?', \
+…               issubclass(GC, eachCls)
+…       <b>print</b> "is 'gc' an instance of", eachCls, '?', \
+…               isinstance(gc, eachCls)
+
+is GC subclass of P1 ? 1
+is 'gc' an instance of __main__.P1 ? 1
+is GC subclass of P2 ? 1
+is 'gc' an instance of __main__.P2 ? 1
+is GC subclass of C1 ? 1
+is 'gc' an instance of __main__.C1 ? 1
+is GC subclass of C2 ? 1
+is 'gc' an instance of __main__.C2 ? 1
+is GC subclass of GC ? 1
+is 'gc' an instance of __main__.GC ? 1
+
+						</prE>
+
+					
+				
+				
+					<h4><tT claSs="monofont">hasattr(), getattr(), setattr(), delattr()</tt></h4>
+					<P>The <tt cLASS="monofont">*attr()</tt> functions can work with all kinds of objects, not just classes and instances. However, since they are most often used with those objects, we present them here.</p>
+
+					<p>The <TT CLass="monofont">hasattr(obj, attr)</tT> function is Boolean and its only function is to determine whether or not an object has a particular attribute, presumably used as a check before actually <I>trying</I> to access that attribute. The <Tt claSS="monofont">getattr()</TT> and <tt class="monofont">setattr()</tt> functions retrieve and assign values to object attributes, respectively. <tt class="monofont">getattr()</tt> will raise an <tt ClaSs="monofont">AttributeError</tt> exception if you attempt to read an object that does not have the requested attribute. <Tt claSs="monofont">setattr()</tt> will either add a new attribute to the object or replace a pre-existing one. The <TT CLass="monofont">delattr()</tT> function removes an attribute from an object.</P>
+
+					<P>Here are some examples using all the <Tt claSS="monofont">*attr()</TT> BIFs:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; <B>class</B> myClass:
+…       <B>def</B> __init__(self):
+…           self.foo = 100
+…
+&gt;&gt;&gt; myInst = myClass()
+&gt;&gt;&gt; dir(myInst)
+['foo']
+&gt;&gt;&gt; hasattr(myInst, 'foo')
+1
+&gt;&gt;&gt; getattr(myInst, 'foo')
+100
+&gt;&gt;&gt; hasattr(myInst, 'bar')
+0
+&gt;&gt;&gt; setattr(myInst, 'bar', 'my attr')
+&gt;&gt;&gt; dir(myInst)
+['bar', 'foo']
+&gt;&gt;&gt; getattr(myInst, 'bar')
+'my attr'
+&gt;&gt;&gt; delattr(myInst, 'foo')
+&gt;&gt;&gt; dir(myInst)
+['bar']
+&gt;&gt;&gt; hasattr(myInst, 'foo')
+0
+
+					</pre>
+
+				
+				
+					<h4><tt class="monofont">dir()</tt></h4>
+					<p>We first experienced <tt claSs="monofont">dir()</tT> in Exercises 2-12, 2-13, and 4-7. In those exercises, we used <tt cLass="monofont">dir()</tT> to give us information about all the attributes of a module. We now know that <tt cLASS="monofont">dir()</tt> can be applied to any other objects with attributes—these include classes, class instances, files, lists, complex numbers, and so on. As long as an object has a <tt CLASs="monofont">__dict__</tt> attribute dictionary, and/or the <tT CLAss="monofont">__members__</tt> and <TT CLass="monofont">__methods__</tt> lists, <tt class="monofont">dir()</tt> will work. Built-in types do not have a <tt clasS="monofont">__dict__</tt> attribute dictionary and rely primarily on <Tt clAss="monofont">__members__</tt> and <Tt clASS="monofont">__methods__</Tt> as a convention:</p>
+
+					<prE>
+						
+&gt;&gt;&gt; dir(3+3j)              # complex number attributes
+['conjugate', 'imag', 'real']
+&gt;&gt;&gt;
+&gt;&gt;&gt; (3+3j).__dict__
+Traceback (innermost last):
+File "&lt;stdin&gt;", line 1, in ?
+AttributeError: __dict__
+&gt;&gt;&gt;
+&gt;&gt;&gt; (3+3j).__members__
+['imag', 'real']
+&gt;&gt;&gt;
+&gt;&gt;&gt; (3+3j).__methods__
+['conjugate']
+&gt;&gt;&gt;
+&gt;&gt;&gt; f = open('/etc/motd')
+&gt;&gt;&gt; dir(f)            # file oject attributes
+['close', 'closed', 'fileno', 'flush', 'isatty', 'mode',
+'name', 'read', 'readinto', 'readline', 'readlines',
+'seek', 'softspace', 'tell', 'truncate', 'write',
+'writelines]
+&gt;&gt;&gt; f.__dict__
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+AttributeError: __dict__
+&gt;&gt;&gt; f.__members__
+['closed', 'mode', 'name', 'softspace']
+&gt;&gt;&gt; f.__methods__
+['close', 'fileno', 'flush', 'isatty', 'read',
+'readinto', 'readline', 'readlines', 'seek', 'tell',
+'truncate', 'write', 'writelines]
+&gt;&gt;&gt; f.close()
+
+					</PRE>
+
+				
+				
+					<h4><tt cLASS="monofont">vars()</tt></h4>
+					<p>The <TT CLass="monofont">vars()</tt> built-in function is similar to <tt class="monofont">dir()</tt> except that any object given as the argument must have a <tt clasS="monofont">__dict__</tt> attribute. <Tt clAss="monofont">vars()</tt> will return a dictionary of the attributes (keys) and values of the given object based on the values in its <Tt clASS="monofont">__dict__</Tt> attribute. If the object provided does not have such an attribute, an <tt cLASS="monofont">TypeError</tt> exception is raised. If no object is provided as an argument to <tt CLASs="monofont">vars(),</tt> it will display the dictionary of attributes (keys) and the values of the local namespace, i.e., <tT CLAss="monofont">locals().</tt> We present below an example of calling <tt class="monofont">vars()</tt> with a class instance:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; <b>class</b> C:
+…        <b>pass</B>
+
+&gt;&gt;&gt; c=C()
+&gt;&gt;&gt; c.foo = 100
+&gt;&gt;&gt; c.bar = 'Python'
+&gt;&gt;&gt; c.__dict__
+{'foo': 100, 'bar': 'Python'}
+&gt;&gt;&gt; vars(c)
+{'foo': 100, 'bar': 'Python'}
+
+					</prE>
+
+					<p><a hRef="222#7.html">Table 13.3</a> summarizes the built-in functions for classes and class instances.</p>
+
+					<A namE="7"></A><P><Table BORDer="1" ceLLSPacinG="0" CELlpadding="1" width="100%">
+<caption><H5>Table 13.3. Built-in Functions for Classes, Instances, and Other Objects</h5></cAptiOn><colGrouP ALIgn="left" spAN="2">
+<TR valiGN="top">
+<TH>
+<font SIZE="2"><p><b><i>Built-in Function</i></b></p>
+</font></th>
+<th>
+<font siZe="2"><p><B><i>Description</i></b></P>
+</font></Th>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt siZE="2"><P><Tt claSS="monofont">issubclass(</TT><i><tt class="monofont">sub, sup</tt></i><tt class="monofont">)</tt></P>
+</foNt></td>
+<Td>
+<fonT sizE="2"><P>returns 1 if class <I><Tt claSS="monofont">sub</TT></i> is a subclass of class <i><tt CLASs="monofont">sup,</tt></i> 0 otherwise</P>
+</FONt></td>
+</tr>
+<tr valign="top">
+<td>
+<font sIze="2"><P><tt cLass="monofont">isinstance(</tT><i><tt CLASs="monofont">obj1, obj2</tt></i><TT CLass="monofont">)</tT></P>
+</FOnt></td>
+<TD>
+<FOnt size="2"><p>returns 1 if instance <i><tt class="monofont">obj1</tt></i> is an instance of class <i><tT clAss="monofont">obj2</tT></i> or is an instance of a subclass of <i><tt ClasS="monofont">obj2;</TT></I> will also return 1 if <i><tt cLASS="monofont">obj1</tt></i> is of type <i><TT CLass="monofont">obj2</tT></I></P>
+</Font></td>
+</tr>
+<tr valign="top">
+<td>
+<fonT siZe="2"><p><tT clasS="monofont">hasattr(</tt><i><TT CLass="monofont">obj, attr</tT></I><TT clasS="monofont">)</TT></P>
+</font></TD>
+<TD>
+<font size="2"><p>returns 1 if <i><tt class="monofont">obj</tt></i> has attribute <I><tt ClasS="monofont">attr</tt></i> (given as a string)</p>
+</Font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><p><tT CLAss="monofont">getattr(</tt><i><tt class="monofont">obj, attr</tt></i><tt claSs="monofont">)</tT></p>
+</foNt></td>
+<tD>
+<fonT SIZe="2"><p>retrieves attribute <i><tT CLAss="monofont">attr</tt></I> of <I><TT clasS="monofont">obj;</TT></I> same as return <i><tt class="monofont">obj.attr;</tt></i>
+											<tt class="monofont">AttributeError</tt> exception raised if <Tt cLass="monofont">attr</Tt> is not an attribute of <i><tt ClasS="monofont">obj</TT></I></p>
+</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><p><tt class="monofont">setattr(</tt><i><tt clasS="monofont">obj, attr, val</tt></I><tt cLass="monofont">)</tT></p>
+</foNT></TD>
+<td>
+<foNT SIze="2"><p>sets attribute <i><TT CLass="monofont">attr</tT></I> of <I><Tt class="monofont">obj</tt></i> to value <tt class="monofont">val,</tt> overriding any previously-existing attribute value, otherwise, attribute is created; same as <i><tT clAss="monofont">obj.attr = val</tT></i></p>
+</foNt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><p><tt cLASS="monofont">delattr(</tt><i><tt class="monofont">obj, attr</tt></i><tt class="monofont">)</Tt></p>
+</Font></Td>
+<td>
+<fOnt sIZE="2"><P>removes attribute <i><tt cLASS="monofont">attr</tt></i> (given as a string) from <i><TT CLass="monofont">obj;</tT></I> same as <B><Tt class="monofont">del</tt></b>
+											<i><tt class="monofont">obj.attr</tt></i></P>
+</foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2"><P><tt clASS="monofont">dir(</Tt><i><tt CLASs="monofont">obj</tt></i><tt class="monofont">=None)</tt></p>
+</font></td>
+<Td>
+<fOnt sIze="2"><p>returns a list of the attributes of <i><Tt clASS="monofont">obj;</Tt></i> if <i><tT CLAss="monofont">obj</tt></I> not given, <TT Class="monofont">dir()</TT> displays local namespace attributes, i.e., <TT class="monofont">locals().keys()</tt></p>
+</font></td>
+</tr>
+<tr vaLigN="top">
+<td>
+<fOnt siZe="2"><p><tT CLAss="monofont">vars(</tt><I><TT Class="monofont">obj</TT></I><Tt claSS="monofont">=None)</TT></p>
+</font></td>
+<td>
+<font size="2"><p>returns a dictionary of the attributes and values of <i><tT clAss="monofont">obj;</tT></i> if <i><tt ClasS="monofont">obj</TT></I> not given, <tt clASS="monofont">vars()</Tt> displays local namespace dictionary (attributes and values), i.e., <tt cLASS="monofont">locals()</tt></p>
+</fONT></Td>
+</tr>
+</colgroup>
+</table></p>
+
+				
+			</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="221.html" title="Inheritance"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=222" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="222.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="223.html" title="Type vs. Classes/Instances"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

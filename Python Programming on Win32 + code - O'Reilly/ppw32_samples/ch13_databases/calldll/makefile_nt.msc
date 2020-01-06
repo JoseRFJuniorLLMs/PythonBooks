@@ -1,0 +1,27 @@
+# Replace the next to lines as appropriate.
+module=calldll
+pythondir=n:\src\Python-1.5
+
+PCH = 0
+BUILD_DL=1
+!include <$(pythondir)\make_nt.in>
+
+#override the srcdir spec.
+lcustom=$(guilibsdll) shell32.lib comdlg32.lib
+srcdir=$(pythondir)
+
+all: $(module).$(pythondllext) ..\$(module).$(pythondllext)
+
+..\$(module).$(pythondllext): $(module).$(pythondllext)
+	copy $(module).$(pythondllext) ..
+
+$(module).$(pythondllext) : $(module)module.obj
+	link -dll -out:$*.$(pythondllext) $*module.obj $(python_defs_lib) $(ldebug) $(export_statements) $(lcustom)
+
+.ignore:
+
+clean:
+	del *.obj *.lib *.exp *.pdb *.pch 2>nul	# some may not exist - who cares!
+
+clobber: clean
+	del *.$(pythondllext)

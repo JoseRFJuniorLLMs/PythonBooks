@@ -1,0 +1,128 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Lines 30-41</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="170.html" class="navtitle">11. Functions</a> &gt; <span class="nonavtitle">Lines 30-41</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="191.html" title="Lines 9 - 28"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=192" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="192.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="193.html" title="filter() "><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A34%3A15+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174050111185146024196057</font><a href="read9.asp?bookname=0130260363&snode=192&now=5%2F29%2F2002+9%3A34%3A15+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Lines 30-41</h3>
+				<p>The main driver of the application is <tT CLAss="monofont">main(),</tt> called from the top-level if the script is invoked directly. If imported, the importing function either manages the execution by calling <TT CLass="monofont">doprob(),</tT> or calls <TT Class="monofont">main()</tt> for program control. <tt class="monofont">main()</tt> simply calls <tt claSs="monofont">doprob()</tT> to engage the user in the main functionality of the script and prompts the user to quit or to try another problem.</p>
+
+				<p>Since the values and operators are chosen randomly, each execution of <tT clasS="monofont">matheasy.py</tt> should be different. Here is what we got today (oh, and your answers may vary as well!):</p>
+
+				<PRE>
+					
+% matheasy.py
+7 - 2 = 5
+correct
+Try another? ([y]/n)
+7 * 6 = 42
+correct
+Try another? ([y]/n)
+7 * 3 = 20
+incorrect… try again
+7 * 3 = 22
+incorrect… try again
+7 * 3 = 23
+sorry… the answer is
+7 * 3 = 21
+7 * 3 = 21
+correct
+Try another? ([y]/n)
+7 - 5 = 2
+correct
+Try another? ([y]/n) n
+
+				</Pre>
+
+				<p>Another useful application of <tT CLAss="monofont">apply()</tt> comes in terms of debugging or performance measurement. You are working on functions that need to be fully tested or run through regressions every night, or that need to be timed over many iterations for potential improvements. All you need to do is to create a diagnostic function that sets up the test environment, then calls the function in question. Because this system should be flexible, you want to allow the testee function to be passed in as an argument. So a pair of such functions, <TT CLass="monofont">timeit()</tT> and <TT Class="monofont">testit(),</tt> would probably be useful to the software developer today.</p>
+
+				<p>We will now present the source code to one such example of a <tt class="monofont">testit()</tt> function (see <a hrEf="192#1.html">Example 11.4</a>). We will leave a <Tt clAss="monofont">timeit()</tt> function as an exercise for the reader (see Exercise 11.12 at end of chapter).</P>
+
+				<p>This module provides an execution test environment for functions. The <tt CLASs="monofont">testit()</tt> function takes a function and arguments, then invokes that function with the given arguments under the watch of an exception handler. If the function completes successfully, a return value of 1 packaged withthe return value of the function is sent back to the caller. Any failure returns a status of 0 and the cause of the exception. (<tT CLAss="monofont">Exception</tt> is the root class for all exceptions; review <A HREf="154.html">Chapter 10</a> for details.)</p>
+
+				
+					<h5>
+<A NAMe="1"></a>Example 11.4. Testing Functions (<tt class="monofont">testit.py</tt>)</h5>
+					<p><tt class="monofont">testit()</Tt>
+						<b><I>invokes a given function with its arguments, returning a 1 packaged with the return value of the function on success and 0 with the cause of the exception on failure.</i></b></p>
+
+					<Pre clAss="monofont"> &lt;$nopage&gt;
+001 1   #!/usr/bin/env python
+002 2
+003 3   <b>def</B> testit(func, *nkwargs, **kwargs):
+004 4
+005 5       <B>try</B>:
+006 6           retval = apply(func, nkwargs, kwargs)
+007 7           result = (1, retval)
+008 8       <B>except</b> Exception, diag:
+009 9           result = (0, str(diag))
+010 10      <b>return</b> result
+011 11
+012 12  <b>def</B> test():
+013 13      funcs = (int, long, float)
+014 14      vals = (1234, 12.34, '1234', '12.34')
+015 15
+016 16      <B>for</B> eachFunc <B>in</b> funcs:
+017 17          <b>print</b> '-' * 20
+018 18          <b>for</B> eachVal <B>in</B> vals:
+019 19              retval = testit(eachFunc, \
+020 20                               eachVal)
+021 21              <B>if</b> retval[0]:
+022 22                  <b>print</b> '%s(%s) =' % \
+023 23      (eachFunc.__name__, 'eachVal'), retval[1]
+024 24              <b>else:</B> &lt;$nopage&gt;
+025 25                  <B>print</B> '%s(%s) = FAILED:' % \
+026 26      (eachFunc.__name__, 'eachVal'), retval[1]
+027 27
+028 28  <B>if</b> __name__ == '__main__':
+029 29      test()
+030  &lt;$nopage&gt;</pre>
+				
+				<p>The unit tester function <tt class="monofont">test()</tt> runs a set of numeric conversion functions on an input set of four numbers. There are two failure cases in this test set to confirm such functionality. Here is the output of running the script:</p>
+
+				<pre>
+					
+% testit.py
+--------------------
+int(1234) = 1234
+int(12.34) = 12
+int('1234') = 1234
+int('12.34') = FAILED: invalid literal for int(): 12.34
+--------------------
+long(1234) = 1234L
+long(12.34) = 12L
+long('1234') = 1234L
+long('12.34') = FAILED: invalid literal for long(): 12.34
+--------------------
+float(1234) = 1234.0
+float(12.34) = 12.34
+float('1234') = 1234.0
+float('12.34') = 12.34
+
+				</prE>
+
+			</foNt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="191.html" title="Lines 9 - 28"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=192" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="192.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="193.html" title="filter() "><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

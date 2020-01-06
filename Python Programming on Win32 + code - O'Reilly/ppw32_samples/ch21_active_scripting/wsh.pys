@@ -1,0 +1,12 @@
+# wsh.pys
+# A Windows Scripting Host file that uses Python.
+
+WScript.Echo("The script name is", WScript.ScriptName)
+if len(WScript.Arguments):
+	WScript.Echo("The first argument is", WScript.Arguments(0))
+
+net = WScript.CreateObject("Wscript.Network")
+
+netInfo = net.EnumNetworkDrives()
+WScript.Echo(netInfo[0], "=", netInfo[1])
+

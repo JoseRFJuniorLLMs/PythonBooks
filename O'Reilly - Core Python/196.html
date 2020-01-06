@@ -1,0 +1,236 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Variable Scope</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="170.html" class="navtitle">11. Functions</a> &gt; <span class="nonavtitle">Variable Scope</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="195.html" title="reduce() "><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=196" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="196.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="197.html" title="*Recursion"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A35%3A30+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174051007162116113121233</font><a href="read4.asp?bookname=0130260363&snode=196&now=5%2F29%2F2002+9%3A35%3A30+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Variable Scope</h3>
+				<p>The <i>scope</I> of an identifier is defined to be the portion of the program where its declaration applies, or what we refer to as "variable visibility." In other words, it is like asking yourself in which parts of a program do you have access to a specific identifier. Variables either have local or global scope.</P>
+
+				<A Name="1"></a>
+					<H4>Global vs. Local Variables</H4>
+					<P>Variables defined within a function have <I>local</i> scope, and those which are at the highest level in a module have <i>global</i> or <i>nonlocal</I> scope.</P>
+
+					<P>In their famous "dragon" book on compiler theory, Aho, Sethi, and Ullman summarize it this way:</P>
+
+					<p>"The portion of the program to which a declaration applies is called the <i>scope</i> of that declaration. An occurrence of a name in a procedure is said to be <i>local</i> to the procedure if it is in the scope of a declaration within the procedure; otherwise, the occurrence is said to be <i>nonlocal.</i>"</p>
+
+					<p>One characteristic of global variables is that unless deleted, they have a lifespan that lasts as long as the script that is running and whose values are accessible to all functions, whereas local variables, like the stack frame they reside in, live temporarily, only as long as the functions they are defined in are currently active. When a function call is made, its local variables come into scope as they are declared. At that time, a new local name is created for that object, and once that function has completed and the frame deallocated, that variable will go out of scope.</p>
+
+					<pre>
+						
+global_str = 'foo'
+<b>def</b> foo():
+    local_str = 'bar'
+    <b>return</b> global_str + local_str
+
+					</pre>
+
+					<P>In the above example, <tt ClasS="monofont">global_str</tt> is a global variable while <tt ClasS="monofont">local_str</TT> is a local variable. The <Tt claSS="monofont">foo()</TT> function has access to both global and local variables while the main block of code has access only to global variables.</p>
+
+					<div CLASs="note"><p clASS="notetitle"><B>NOTE</b></p><p><p><i>When searching for an identifier, Python searches the local scope first. If the name is not found within the local scope, then an identifier must be found in the global scope or else a</i>
+							<tt class="monofont">NameError</tt>
+							<i>exception is raised.</i></p>
+<p><i>A variable's scope is related to the</I> namespace <i>in which it resides. We will cover namespaces formally in the next chapter; it suffices to say for now that namespaces are just naming domains which maps names to objects, a virtual set of what variable names are currently in use, if you will. The concept of scope relates to the namespace search order that is used to find a variable. All names in the local namespace are within the local scope when a function is executing. That is the first namespace searched when looking for a variable. If it is not found there, then perhaps a globally-scoped variable with that name can be found. These variables are stored (and searched) in the global and built-in namespaces.</i></P>
+<p><i>It is possible to "hide" or override a global variable just by creating a local one. Recall that the local namespace is searched first, being in its local scope. If the name is found, the search does not continue to search for a globally-scoped variable, hence overriding any matching name in either the global or built-in namespaces.</i></P>
+</p></div><Br>
+
+					<p>Also, be careful when using local variables with the same names as global variables. If you use such names in a function (to access the global value) before you assign the local value, you will get an exception <tT CLAss="monofont">(NameError</tt> or <TT CLass="monofont">UnboundLocalError),</tT> depending on which version of Python you are using.</P>
+
+				
+				
+					<H4><Tt claSS="monofont">global</TT> Statement</h4>
+					<p>Global variable names can be overridden by local variables if they are declared within the function. Here is another example, similar to the first, but the global and local nature of the variable is not as clear.</p>
+
+					<pre>
+						
+<b>def</b> foo():
+    <b>print</b> "\ncalling foo()…"
+    bar = 200
+    <b>print</b> "in foo(), bar is", bar
+bar = 100
+<b>print</b> "in __main__, bar is", bar
+foo()
+<b>print</b> "\nin __main__, bar is (still)", bar
+
+					</pre>
+
+					<p>It gave the following output:</P>
+
+					<prE>
+						
+in __main__, bar is 100
+calling foo()…
+in foo(), bar is 200
+in __main__, bar is (still) 100
+
+					</pre>
+
+					<P>Our local <tt clAss="monofont">bar</tT> pushed the global <TT Class="monofont">bar</TT> out of the local scope. To specifically reference a named global variable, one must use the <B><Tt claSS="monofont">global</TT></b> statement. The syntax for global is:</p>
+
+					<prE>
+						
+<B>global</B>
+							<I>var1</i>[, <i>var2</i>[, … <i>varN</i>]]]
+
+					</pre>
+
+					<p>Modifying the example above, we can update our code so that we use the global version of <tt class="monofont">is_this_global</tt> rather than create a new local variable.</p>
+
+					<pRe>
+						
+&gt;&gt;&gt; is_this_global = "xyz"
+&gt;&gt;&gt; <b>def</B> foo():
+…      <b>global</b> is_this_global
+…      this_is_local = 'abc'
+…      is_this_global = 'def'
+…      <b>print</B> this_is_local + is_this_global
+…
+&gt;&gt;&gt; foo()
+abcdef
+&gt;&gt;&gt; <b>print</b> is_this_global
+def
+
+					</prE>
+
+				
+				<a naME="3"></A>
+					<H4>Number of Scopes</h4>
+					<p>Python syntactically supports multiple levels of functional nesting; however, a maximum of two scopes is imposed: a function's local scope and the global scope. Even as more levels of functional nesting exist, you are not able to access more than two scopes.</p>
+
+					<pRE>
+						
+<B>def</B> foo():
+    m = 3
+    <b>def</b> bar():
+        n = 4
+        <b>print</b> m + n
+    <B>print</B> m
+    bar()
+
+&gt;&gt;&gt; foo()
+Traceback (innermost last):
+ File "&lt;interactive input&gt;", line 0, in ?
+ File "&lt;interactive input&gt;", line 7, in foo
+ File "&lt;interactive input&gt;", line 5, in bar
+NameError: m
+
+					</PRe>
+
+					<p>The access to <tt CLASs="monofont">foo()</tt>'s local variable m within function <tt class="monofont">bar()</tt> is illegal because m is declared local to <tt class="monofont">foo().</tT> The only scopes accessible from <tt ClasS="monofont">bar()</tt> are <tt ClasS="monofont">bar()</TT>'s local scope and the global scope. <Tt claSS="monofont">foo()</TT>'s local scope is <i>not</i> included in that short list of two. Note that the output for the "<b><tT CLAss="monofont">print</tt></B>
+							<TT Class="monofont">m</tt>" statement succeeded, and it is the function call to <tt class="monofont">bar()</tt> that fails. (Note: this may change for future versions of Python.)</p>
+
+				
+				
+					<h4>Other Scope Characteristics</h4>
+					
+						<h5>Scope and <tT clAss="monofont">lambda</tT></h5>
+						<p>Python's <b><tT claSS="monofont">lambda</TT></b> expressions follow the same scoping rules as standard functions. A <b><tt CLASs="monofont">lambda</tt></b> expression defines a new scope, just like a function definition, so the scope is inaccessible to any other part of the program except for that local <B><TT Class="monofont">lambda</TT></B>/function.</P>
+
+						<p>Those <b><tt class="monofont">lambda</tt></b> expressions declared local to a function are accessible only within that function; however, the expression in the <b><tt class="monofont">lambda</Tt></b> statement has the same scope access as the function. In other words, they have access to global variables, but neither has access to each other's local scopes. You can also think of a function and a <B><tt cLass="monofont">lambda</tT></b> expression as siblings.</p>
+
+						<pRE>
+							
+&gt;&gt;&gt; x = 10
+&gt;&gt;&gt; <B>def</B> foo():
+…       y = 5
+…       bar = <b>lambda</b> :x+y
+…       <b>print</b> bar()
+…       y = 8
+…       <B>print</B> bar()
+…
+&gt;&gt;&gt; foo()
+Traceback (innermost last):
+ File "&lt;interactive input&gt;", line 0, in ?
+ File "&lt;interactive input&gt;", line 4, in foo
+ File "&lt;interactive input&gt;", line 3, in &lt;lambda&gt;
+NameError: y
+
+						</PRe>
+
+						<p>In the example above, although the <b><tT CLAss="monofont">lambda</tt></B> expression was created in the local scope of <TT Class="monofont">foo(),</tt> it has access to only two scopes: its local scope and the global scope (also see <a href="196#3.html">Section 11.8.3</a>). We can correct it by placing a local variable z within the <b><tt class="monofont">lambda</Tt></b> expression that references the function local variable y.</P>
+
+						<pre>
+							
+&gt;&gt;&gt; x = 10
+&gt;&gt;&gt; <B>def</b> foo():
+…       y = 5
+…       bar = <b>lambda</b> z:x+z
+…       <b>print</B> bar(y)
+…
+…       y = 8
+…       <b>print</b> bar(y)
+…
+&gt;&gt;&gt; foo()
+15
+18
+
+						</pRE>
+
+					
+					
+						<H5>Variable Scope and Namespaces</H5>
+						<p>From our study in this chapter, we can see that at any given time, there are either one or two active scopes—no more, no less. Either we are at the top-level of a module where we have access only to the global scope, or we are executing in a function where we have access to its local scope as well as the global scope. How do namespaces relate to scope?</p>
+
+						<p>From the Core Note in <a HREF="196#1.html">Section 11.8.1</a>, we can also see that at any given time, there are either two or three active namespaces. From within a function, the local scope encompasses the local namespace, the first place a name is searched for. If the name exists here, then checking the global scope (global and built-in namespaces) is skipped. From the global scope (outside of any function), a name lookup begins with the global namespace.  If no match is found, the search proceeds to the built-in namespace.</p>
+
+						<p>We will now present a script with mixed scope everywhere, <a HREF="196#7.html">Example 11.8</a>. We leave it as an exercise to the reader to determine the output of the program.</p>
+
+						
+							<h5>
+<a NAME="7"></a>Example 11.8. Variable Scope (<tt class="monofont">scope.py</tt>)</h5>
+							<p><b><i>Local variables hide global variables, as indicated in this variable scope program. What is the output of this program? (And why?)</i></b></p>
+
+							<pre ClaSs="monofont"> &lt;$nopage&gt;
+001 1   #!/usr/bin/env python
+002 2   j, k = 1, 2
+003 3
+004 4   <b>def</b> proc1():
+005 5
+006 6       j, k = 3, 4
+007 7       <B>print</b> "j == %d and k == %d" % (j, k)
+008 8       k = 5
+009 9
+010 10  <b>def</b> proc2():
+011 11
+012 12      j = 6
+013 13      proc1()
+014 14      <b>print</B> "j == %d and k == %d" % (j, k)
+015 15
+016 16
+017 17  k = 7
+018 18  proc1()
+019 19  <b>print</b> "j == %d and k == %d" % (j, k)
+020 20
+021 21  j = 8
+022 22  proc2()
+023 23  <b>print</B> "j == %d and k == %d" % (j, k)
+024  &lt;$nopage&gt;</PRE>
+						
+					
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="195.html" title="reduce() "><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=196" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="196.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="197.html" title="*Recursion"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

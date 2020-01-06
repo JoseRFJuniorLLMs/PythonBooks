@@ -1,0 +1,792 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Introduction/Motivation</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="282.html" class="navtitle">20. Extending Python</a> &gt; <span class="nonavtitle">Introduction/Motivation</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="283.html" title="20. Extending Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=284" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="284.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="285.html" title="Related Topics"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A44%3A18+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004226050046240040107102051</font><a href="read8.asp?bookname=0130260363&snode=284&now=5%2F30%2F2002+8%3A44%3A18+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT><h3>Introduction/Motivation</h3>
+				<h4>What Are Extensions?</h4>
+					<P>In general, any code that you write that can be integrated or imported into another Python script can be considered an "extension." This new code can be written in pure Python or in a compiled language like C and C++ (or Java for JPython). However, a more "strict" definition of an extension is relegated to the latter category, the topic of this chapter.</P>
+
+					<P>One great feature of Python is that its extensions interact with the interpreter in exactly the same way as the regular Python modules. Python was designed so that the abstraction of module import hides the underlying implementation details from the code which uses such extensions. Unless the client programmer searches the file system, he or she simply cannot tell whether a module is written in Python or in a compiled language.</P>
+
+					<div cLASS="note"><p claSS="notetitle"><B>NOTE</B></p><p><p><i>We will note here that extensions are generally available in a development environment where you compile your own Python interpreter. There is a subtle relationship between manual compilation versus obtaining the binaries. Although compilation may be a bit trickier than just downloading and installing binaries, you have the most flexibility in customizing the version of Python you are using.</i></p>
+<p><i>If you intend to create extensions, you should perform this task in a similar environment. The examples in this chapter use a Unix system (which, by default, comes with compilers), but, assuming you do have access to aC/C++ (or Java) compiler and a Python development environment in C/C++ (or Java), the only differences are in your compilation method. The actual code to make your extensions usable in the Python world is the same on any platform.</i></p>
+</p></div><br>
+
+				
+				<h4>Why Extend Python?</h4>
+					<p>Throughout the brief history of software engineering, programming languages have always been taken at face value. What you see is what you get; it was impossible to add new functionality to an existing language. In today's programming environment however, the ability to customize one's programming environment is now a desired feature; it also promotes code reuse. Languages such as TCL and Python are among the first languages to provide the ability to extend the base language. So why would you want to extend a language like Python which is already feature-rich? There are several good reasons:</p>
+
+					<Ul>
+<lI><p><b>Added/extra (non-Python) functionality</b></P>
+
+							<p>One reason for extending Python is the need to have new functionality not provided by the core part of the language. This can be accomplished in either pure Python or as a compiled extension, but there are certain things such as creating new data types or embedding Python in an existing application.</p>
+</li>
+<Li><p><b>Bottleneck performance improvement</B></P>
+
+							<P>It is well-known that interpreted languages do not perform as fast as compiled languages due to the fact that translation must happen on-the-fly and during runtime. In general, moving a body of code into an extension will improve overall performance. The problem is that it is sometimes not advantageous if the cost is high in terms of resources.</P>
+
+							<p>Percentage-wise, it is a wiser bet to do some simple profiling of the code to identify what the bottlenecks are, and move <i>those</i> pieces of code out to an extension. The gain can be seen more quickly and without expending as much in terms of resources.</p>
+</LI>
+<LI><p><b>Keep proprietary source code private</b></p>
+
+							<P>Another important reason to create extensions is due to one side effect of having a scripting language. For all the ease-of-use such languages bring to the table, there really is no privacy as far as source code is concerned because the executable <I>is</I> the source code.</P>
+
+							<p>Code that is moved out of Python and into a compiled language helps keep proprietary code private because you ship a binary object. Because these objects are compiled, they are not as readily able to be reverse-engineered; thus, the source remains more private. This is key when it involves special algorithms, encryption or software security, etc.</p>
+
+							<p>Another alternative to keeping code private is to only ship pre-compiled <tT CLAss="monofont">.pyc</tt> files only. It serves as a good middle ground between releasing the actual source (<tt class="monofont">.py</tt> files) and having to migrate that code to extensions.</p>
+</li>
+</ul>
+				
+				<h4>Extending Python by Writing Extensions</h4>
+					<P>Creating extensions for Python involve three main steps:</p>
+
+					<oL typE="1">
+<li>
+<p>Create application code</p>
+</Li>
+<li>
+<P>Wrap code with boilerplates</P>
+</LI>
+<li>
+<p>Compilation</p>
+</LI>
+</OL>
+
+					<p>In this section, we will break out all three pieces and expose it all to you.</p>
+
+				
+				<h4>Create Your Application Code</h4>
+					<P>First, before any code becomes an extension, create a standalone "library." In other words, create your code keeping in mind that it is going to turn into a Python module. Design your functions and objects with the vision that Python code will be communicating and sharing data with your C code and vice versa.</P>
+
+					<P>Next, create test code to bulletproof your software. You may even use the "Pythonic" development method of designating your <Tt claSS="monofont">main()</TT> function in C as the testing application so that if your code is compiled, linked, and loaded into an executable (as opposed to just a shared object), that invocation of such an executable will result in a regression test of your software library. For our extension example below, this is exactly what we do.</p>
+
+					<p>The test case involves two C functions which we want to bring to the world of Python programming. The first is the recursive factorial function, <tt class="monofont">fac().</tt> The second, <tt class="monofont">reverse(),</tt> is a simple string reverse algorithm, whose main purpose is to reverse a string "in place," that is, to return a string whose characters are all reversed from their original positions, all without allocating a separate string to copy in reverse order. Because this involves the use of pointers, we need to carefully design and debug our code before bringing Python into the picture.</P>
+
+					<p>Our first version, <tT claSs="monofont">Extest1.c,</tt> is presented in <a Href="284#5.html">Example 20.1</A>.</P>
+
+					
+						<H5>
+<A name="5"></A>Example 20.1. Pure C Version of Library(<TT Class="monofont">Extest1.c</TT>)</H5>
+						<P><b><i>The following code represents our library of C functions which we want to wrap so that we can use this code from within the Python interpreter.</i></b>
+							<TT CLass="monofont">main()</tt>
+							<b><i>is our tester function.</i></b></p>
+
+						<pre class="monofont"> &lt;$nopage&gt;
+001 1  #include &lt;stdio.h&gt;
+002 2  #include &lt;stdlib.h&gt;
+003 3  #include &lt;string.h&gt;
+004 4
+005 5  <b>int</b> fac(<B>int</b> n)
+006 6  {
+007 7      <b>if</B> (n &lt; 2) <b>return</b>(1);
+008 8      <b>return</B>((n)*fac(n-1));
+009 9  }
+010 10
+011 11 <b>char</b> *reverse(<b>char</b> *s)
+012 12 {
+013 13    <B>register char</b> t,
+014 14            *p = s,
+015 15            *q = (s + (strlen(s) - 1));
+016 16
+017 17    <b>while</b> (s &amp;&amp; (p &lt; q))
+018 18    {
+019 19        t = *p;
+020 20        *p++ = *q;
+021 21        *q-- = t;
+022 22    }
+023 23    <B>return</B> s;
+024 24 }
+025 25
+026 26 <B>void</B> main()
+027 27 {
+028 28    <b>char</b> s[BUFSIZ];
+029 29    printf("4! == %d\n", fac(4));
+030 30    printf("8! == %d\n", fac(8));
+031 31    printf("12! == %d\n", fac(12));
+032 32    strcpy(s, "abcdef");
+033 33    printf("reversing 'abcdef', we get '%s'\n", \
+034 34        reverse(s));
+035 35    strcpy(s, "madam");
+036 36    printf("reversing 'madam', we get '%s'\n", \
+037 37        reverse(s));
+038 38 }
+039  &lt;$nopage&gt;</prE>
+					
+					<P>This code consists of a pair of functions, <TT clasS="monofont">fac()</TT> and <Tt claSS="monofont">reverse(),</TT> which are implementations of the functionality we described above. <tt class="monofont">fac()</tt> takes a single integer argument and recursively calculates the result, which is eventually returned to the caller once it exits the outermost call.</p>
+
+					<p>The last piece of code is the required <tt class="monofont">main()</tt> function. We use it to be our tester, sending various arguments to <Tt cLass="monofont">fac()</Tt> and <tt cLass="monofont">reverse().</TT> With this function, we can actual tell whether our code works (or not).</P>
+
+					<P>Now we should compile the code. For many versions of Unix with the <tt clASS="monofont">gcc</Tt> compiler, we use the following command:</p>
+
+					<prE>
+						
+% gcc Extest1.c -o Extest
+%
+
+					</PRE>
+
+					<p>To run our program, we issue the following command and get the output:</p>
+
+					<prE>
+						
+% Extest
+4! == 24
+8! == 40320
+12! == 479001600
+reversing 'abcdef', we get 'fedcba'
+reversing 'madam', we get 'madam'
+%
+
+					</PRE>
+
+					<p>We stress again that you should try to complete your code as much as possible, because you do not want to mix debugging of your library with potential bugs when integrating with Python. In other words, keep the debugging of your core code separate from the debugging of the integration. The closer you write your code to Python interfaces, the sooner your code will be integrated and work correctly.</p>
+
+					<p>Each of our functions takes a single value and returns a single value. It's pretty cut and dried, so there shouldn't be a problem integrating with Python. Note that so far, there no connection or relationship with Python as of now. We are simply creating a standard C or C++ application.</p>
+
+				
+				<h4>Wrap Your Code in Boilerplate</h4>
+					<p>The entire implementation of an extension primarily revolves around the "wrapping" concept which we introduced earlier in <a href="226#1.html">Section 13.15.1</a>. You should design your code in such a way that there is a smooth transition between the world of Python and your implementing language. This interfacing code is commonly called "boilerplate" code because it is a necessity if your code is to talk to the Python interpreter.</p>
+
+					<p>There are 4 main pieces to the boilerplate software:</p>
+
+					<ol tyPe="1">
+<lI>
+<p>Include Python header file</p>
+</lI>
+<li>
+<p>Add <tT claSS="monofont">PyObject* Module_func()</TT> Python wrappers for each module function</p>
+</li>
+<lI>
+<P>Add <TT clasS="monofont">PyMethodDef ModuleMethods[]</TT> array/table for each module function</P>
+</li>
+<li>
+<P>Add <B><TT class="monofont">void</tt></b>
+								<tt class="monofont">initModule()</tt> module initializer function</p>
+</li>
+</Ol>
+
+					<h5>Include Python header file</H5>
+						<p>The first thing you should do is to find out where your Python include files are and make sure your compiler has access to that directory, which is usually <tt Class="monofont">/usr/local/include/python1.x,</Tt> or <tt CLASs="monofont">/usr/include/python1.x,</tt> where the "1.x" is your version of Python. (It is probably 1.5 or 2.0.) If you compiled and installed your Python interpreter, then you shouldn't have a problem because the system generally knows where your files are installed.</p>
+
+						<P>Add the inclusion of the <TT Class="monofont">Python.h</TT> header file to your source. The line will look something like:</P>
+
+						<Pre>
+							
+#include "Python.h"
+
+						</prE>
+
+						<P>That's the easy part. Now you have to add the rest of the boilerplate software.</P>
+
+					
+					<H5>Add <tt class="monofont">PyObject* Module_func()</tt> Python wrappers for each function</h5>
+						<p>This part is the trickiest. For each function which you want accessible to the Python environment, you will create a <b><tt class="monofont">static</tT></b>
+							<tT claSs="monofont">PyObject*</tt> function with the module name (along with an underscore [ <tT claSS="monofont">_</TT> ]) prepended to it.</p>
+
+						<p>For example, we want <tt CLASs="monofont">fac()</tt> to be one of the functions available for import from Python and will use Extest as the name of our final module, so we create a "wrapper" called <tT CLAss="monofont">Extest_fac().</tt> So in the client Python script, there will be an "<B><TT Class="monofont">import</tt></b>
+								<tt class="monofont">Extest</tt>" and an "<tt clAss="monofont">Extest.fac()</Tt>" call somewhere (or just "<tt Class="monofont">fac()</Tt>" for "<b><tT CLAss="monofont">from</tt></B>
+								<TT Class="monofont">Extest</TT>
+								<B><Tt claSS="monofont">import</TT></b>
+								<tt class="monofont">fac</tt>").</p>
+
+						<p>The job of the wrapper is to take Python values, convert them to C, then make a call to the appropriate function with what we want. When our function has completed, and it is time to return to the world of Python, it is also the job of this wrapper to take whatever return values we designate, convert them to Python, and then perform the return, passing back any values as necessary.</p>
+
+						<p>In the case of <tt clasS="monofont">fac(),</tt> when the client program invokes <Tt clAss="monofont">Extest.fac(),</tt> our wrapper will be called. We will accept a Python integer, convert it to a C integer, call our C function <Tt clASS="monofont">fac()</Tt> and obtain another integer result. We then have to take that return value, convert it back to a Python integer, then return from the call. (In your head, try to keep in mind that you are writing the code that will proxy for a "<b><tt CLASs="monofont">def</tt></b>
+								<TT CLass="monofont">fac(n)</tT>" declaration. When you are returning, it is as if that imaginary Python <TT Class="monofont">fac()</tt> function is completing.)</p>
+
+						<p>So, you're asking, how does this conversion take place? The answer is with the <tt class="monofont">PyArg_Parse*()</tt> functions when going from C to Python, and <tt cLasS="monofont">Py_BuildValue()</tt> when returning from C to Python.</p>
+
+						<P>The <tt clAss="monofont">PyArg_Parse*()</tT> functions are similar to the C <TT Class="monofont">sscanf()</TT> function. It takes a stream of bytes, and, according to some format string, parcels them off to corresponding container variables, which, as expected, take pointer addresses. They both return 1 on successful parsing and 0 otherwise.</P>
+
+						<P><tt clASS="monofont">Py_BuildValue()</Tt> works like <tt cLASS="monofont">sprintf(),</tt> taking a format string and converting all arguments to a single returned object containing those values in the formats that you requested.</p>
+
+						<p>You will find a summary of these functions below in <a href="284#9.html">Table 20.1</a>:</p>
+
+						<a name="9"></a><p><taBle BordEr="1" celLspaCING="0" cellPADDing="1" wIDTH="100%">
+<captION><H5>Table 20.1. Converting Data Between Python and C/C++</h5></caption><colgroup aligN="left" spAn="2">
+<tr ValigN="top">
+<th>
+<fONT Size="2"><b><I>Function</I></B></Font></tH>
+<TH>
+<Font sIZE="2"><B><i>Description</i></b></font></th>
+</tr>
+<tr valign="top">
+<tD coLspaN="1">
+<font Size="2"><B><I>C to Python</I></B></font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><p><b><tt class="monofont">int</tt></b></p>
+
+											<p><tt clAss="monofont">PyArg_ParseTuple()</Tt></p>
+</fOnt></td>
+<Td>
+<foNT SIze="2"><p>converts (a tuple of) arguments passed from Python to C</p>
+</FONT></td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt size="2"><p><b><tt class="monofont">int</tt></b></p>
+
+											<p><Tt cLass="monofont">PyArg_ParseTupleAndKeywords()</Tt></p>
+</foNt></td>
+<TD>
+<FOnt siZE="2"><P>same as <Tt claSS="monofont">PyArg_ParseTuple()</TT> but also parses keyword arguments</p>
+</fonT></TD>
+</Tr>
+<tr valign="top">
+<td colspan="1">
+<foNt sIze="2"><b><I>Python to C</i></b></foNt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><p><tt cLASS="monofont">PyObject*</tt></p>
+
+											<p><tt class="monofont">Py_BuildValue()</tt></p>
+</font></td>
+<Td>
+<fOnt sIze="2"><p>converts C data values into a Python return object, either a single object or a single tuple of objects</p>
+</Font></TD>
+</TR>
+</colgROUP>
+</tablE></P>
+
+						<P>A set of conversion codes is used to convert data objects between C and Python; they are given in <A href="284#10.html">Table 20.2</A>.</P>
+
+						<A Name="10"></a><p><table border="1" cellSpaCing="0" CellpAddiNG="1" WIdth="100%">
+<cAPTIon><h5>Table 20.2. Common Codes to Convert Data Between Python and C/C++</h5></CAPTion><cOLGRoup align="left" span="3">
+<tr valign="top">
+<Th>
+<fOnt sIze="2"><b><i>Format Code</I></b></foNT></TH>
+<th>
+<foNT SIze="2"><b><i>Python Type</I></B></FOnt></th>
+<TH>
+<FOnt size="2"><b><i>C/C++ Type</i></b></font></th>
+</tr>
+<tr ValIgn="top">
+<tD>
+<font Size="2"><TT CLass="monofont">s</tT></FONt></td>
+<tD>
+<FONt sizE="2"><TT Class="monofont">string</tt></font></td>
+<td>
+<font siZe="2"><b><Tt clAss="monofont">char*</tt></B></fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><tT CLAss="monofont">z</tt></font></td>
+<td>
+<font size="2"><Tt cLass="monofont">string/None</Tt></fonT></td>
+<tD>
+<FONt sizE="2"><B><TT clasS="monofont">char*c</TT></B><tt clASS="monofont">/NULL</Tt></font></td>
+</tr>
+<tr valign="top">
+<td>
+<fOnt Size="2"><Tt claSs="monofont">i</tt></FONT></td>
+<td>
+<FONT size="2"><TT CLass="monofont">int</tT></FONt></td>
+<td>
+<font size="2"><b><tt clasS="monofont">int</tt></B></fonT></td>
+</tr>
+<Tr vaLIGN="top">
+<td>
+<foNT SIze="2"><tt CLASs="monofont">l</tt></fONT></Td>
+<td>
+<font size="2"><tt class="monofont">long</tt></FonT></td>
+<tD>
+<font Size="2"><B><TT Class="monofont">long</TT></B></Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<font size="2"><tt class="monofont">c</tt></foNt></tD>
+<td>
+<fOnt siZe="2"><tt CLASs="monofont">string</tt></fONT></Td>
+<td>
+<fONT Size="2"><b><TT CLass="monofont">char</tt></b></font></td>
+</tr>
+<tr valiGn="top">
+<tD>
+<fonT size="2"><Tt clASS="monofont">d</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2"><tt cLASS="monofont">float</tt></font></td>
+<td>
+<font size="2"><b><tT clAss="monofont">double</tT></b></fonT></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2"><Tt claSS="monofont">D</TT></font></td>
+<td>
+<font size="2"><tt clAss="monofont">complex</Tt></foNt></td>
+<tD>
+<fonT SIZe="2"><tt cLASS="monofont">Py_Complex*</tt></foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<font size="2"><tt class="monofont">O</tT></foNt></td>
+<Td>
+<fonT sizE="2"><TT Class="monofont">(any)</TT></FOnt></td>
+<TD>
+<FOnt siZE="2"><TT class="monofont">PyObject*</tt></font></td>
+</tr>
+<tr valIgn="top">
+<Td>
+<foNt sizE="2"><tt cLASS="monofont">S</tt></foNT></TD>
+<td>
+<foNT SIze="2"><tt CLASs="monofont">string</tt></font></td>
+<td>
+<font size="2"><tT clAss="monofont">PyStringObject</tT></font></Td>
+</tr>
+</COLGroup>
+</TABLe></p>
+
+						<p>These conversion codes are the ones given in the respective format strings that dictate how the values should be converted when moving between both languages. NOTE: the conversion types are different for Java since all data types are classes. Consult the JPython documentation to obtain the corresponding Java types for Python objects.</p>
+
+						<P>Here we show you our completed <TT Class="monofont">Extest_fac()</TT> wrapper function:</P>
+
+						<Pre>
+							
+<b>static</b> PyObject *
+Extest_fac(PyObject *self, PyObject *args) {
+
+     <b>int</b> res;              // parse result
+     <b>int</b> num;              // arg for fac()
+     PyObject* retval;     // return value
+
+     res = PyArg_ParseTuple(args, "i", &amp;num);
+     <b>if</b> (!res)             // TypeError
+         <b>return</b> NULL;
+     }
+     res = fac(num);
+     retval = (PyObject*)Py_BuildValue("i", res);
+     <b>return</b> retval;
+}
+
+						</pre>
+
+						<p>The first step is to parse the data received from Python.  It should be a regular integer, so we use the "i" conversion code to indicate as such. If the value was indeed an integer, then it gets stored in the num variable. Otherwise, <tt ClaSs="monofont">PyArg_ParseTuple()</tt> will return a NULL, in which case we also return one. In our case, it will generate a <Tt claSs="monofont">TypeError</tt> exception that tells the client user that we are expecting an integer.</P>
+
+						<P>We then call <TT clasS="monofont">fac()</TT> with the value stored in <Tt claSS="monofont">num</TT> and put the result in <tt clASS="monofont">res,</Tt> reusing that variable. Now we build our return object, a Python integer, again using a conversion code of "i". <tt class="monofont">Py_BuildValue()</tt> creates an integer Python object which we then return. That's all there is to it!</p>
+
+						<p>In fact, once you have created wrapper after wrapper, you tend to shorten your code somewhat to avoid extraneous use of variables. Try to keep your code legible, though. We take our <tt class="monofont">Extest_fac()</tT> function and reduce it to its smaller version given here, using only one variable, <tt ClasS="monofont">num:</tt></p>
+
+						<pRe>
+							
+<b>static</b> PyObject *
+Extest_fac(PyObject *self, PyObject *args) {
+    <B>int</B> num;
+    <B>if</B> (!PyArg_ParseTuple(args, "i", &amp;num)) <b>return</b> NULL;
+        <b>return</b> (PyObject*)Py_BuildValue("i", fac(num));
+}
+
+						</PRE>
+
+						<P>What about <tt clASS="monofont">reverse()</Tt>? Well, since you already know how to return a single value, we are going to change our <tt cLASS="monofont">reverse()</tt> example somewhat, returning two values instead of one. We will return a pair of strings as a tuple, the first element being the string as passed in to us, and the second being the newly-reversed string.</p>
+
+						<p>To show you that there is some flexibility, we will call this function <tt class="monofont">Extest.doppel()</tt> to indicate that its behavior differs from <tt class="monofont">reverse().</Tt> Wrapping our code into an <tT claSs="monofont">Extest_doppel()</tt> function, we get:</p>
+
+						<Pre>
+							
+<b>static</B> PyObject *
+Extest_doppel(PyObject *self, PyObject *args) {
+    <B>char</B> *orig_str;
+    <B>if</b> (!PyArg_ParseTuple(args, "s", &amp;orig_str)) <b>return</b> NULL;
+    <b>return</B> (PyObject*)Py_BuildValue("ss", orig_str, \
+        reverse(strdup(orig_str)));
+}
+
+						</PRE>
+
+						<p>As in <tt cLASS="monofont">Extest_fac(),</tt> we take a single input value, this time a string, and store it into <tt CLASs="monofont">orig_str.</tt> Notice that we use the "s" conversion code now. We then call <tt class="monofont">strdup()</tt> to create a copy of the string. (Since we want to return the original one as well, we need a string to reverse, so the best candidate is just a copy of the string.) <tt class="monofont">strdup()</tT> creates and returns a copy which we immediate dispatch to <tt ClasS="monofont">reverse().</tt> We get back a reversed string.</p>
+
+						<p>As you can see, <Tt clASS="monofont">Py_BuildValue()</Tt> puts together both strings using a conversion string of "ss." This creates a tuple of two strings, the original string and the reversed one. End of story, right? Unfortunately, no.</p>
+
+						<p>We got caught by one of the perils of C programming: the memory leak, that is, when memory is allocated but not freed. Memory leaks are analogous to borrowed books from the library but not returning them. You should always release resources which you have acquired when you no longer require them. How did we commit such a crime with our code (which looks innocent enough)?</p>
+
+						<P>When <TT Class="monofont">Py_BuildValue()</TT> puts together the Python object to return, it makes copies of the data it has been passed. In our case here, that would be a pair of strings. The problem is that we allocated the memory for the second string, but we did not release that memory when we finished, leaking it. What we really want to do is to build the return object and then free the memory that we allocated in our wrapper. We have no choice but to lengthen our code to:</P>
+
+						<Pre>
+							
+<b>static</b> PyObject *
+Extest_doppel(PyObject *self, PyObject *args) {
+    <B>char</B> *orig_str;                 // original string
+    <B>char</B> *dupe_str;                 // reversed string
+    PyObject* retval;
+
+    <b>if</b> (!PyArg_ParseTuple(args, "s", &amp;orig_str)) <b>return</b> NULL;
+    retval = (PyObject*)Py_BuildValue("ss", orig_str, \
+        dupestr=reverse(strdup(orig_str)));
+    free(dupe_str);
+    <b>return</b> retval;
+}
+
+						</pre>
+
+						<p>We introduced the <tt class="monofont">dupe_str</tt> variable to point to the newly-allocated string, built the return object and referenced it to <tT clAss="monofont">retval.</tT> Then we <tt clAss="monofont">free()</tT> the memory allocated and finally return back to the caller. Now we are done.</P>
+
+					
+					<H5>Add <Tt claSS="monofont">PyMethodDef ModuleMethods[]</TT>array/table for each module function</h5>
+						<p>Now that both of our wrappers are complete, we want to list them somewhere so that the Python interpreter knows how to import and access them. This is the job of the <tt CLASs="monofont">ModuleMethods[]</tt> array.</p>
+
+						<P>It is made up of an array of arrays, with each individual array containing information about each function, terminated by a NULL array marking the end of the list. For our <TT Class="monofont">Extest</tt> module, we create the following <tt class="monofont">ExtestMethods[]</tt> array:</p>
+
+						<pre>
+							
+<b>static</B> PyMethodDef
+ExtestMethods[] = {
+     { "fac", Extest_fac, METH_VARARGS },
+     { "doppel", Extest_doppel, METH_VARARGS },
+     { NULL, NULL },
+};
+
+						</prE>
+
+						<p>The Python-accessible names are given, followed by the corresponding wrapping functions. The constant <tt Class="monofont">METH_VARARGS</Tt> is given, indicating a set of arguments in the form of a tuple. If we are using <tt CLASs="monofont">PyArg_ParseTupleAndKeywords()</tt> with keyworded arguments, we would logically OR this flag with the <tT CLAss="monofont">METH_KEYWORDS</tt> constant. Finally, a pair of NULLs properly terminates our list of two functions.</P>
+
+					
+					<H5>Add <TT clasS="monofont">void initModule()</TT> module initializer function</H5>
+						<p>The final piece to our puzzle is the module initializer function. This code is called when our module is imported for use by the interpreter. In this code, we make one call to <tt class="monofont">Py_InitModule()</tt> along with the module name and the name of the <tt class="monofont">ModuleMethods[]</tt> array so that the interpreter can access our module functions. For our <tT clAss="monofont">Extest</tT> module, our <tt clAss="monofont">initExtest()</tT> procedure looks like this:</P>
+
+						<PRe>
+							<b>
+    void</b> initExtest() {
+          Py_InitModule("Extest", ExtestMethods);
+    }
+
+						</pRE>
+
+						<P>We are now done with all our wrapping. We add all this code to our original code from <Tt claSS="monofont">Extest1.c</TT> and merge the results into a new file called <tt clASS="monofont">Extest2.c,</Tt> concluding the development phase of our example.</p>
+
+						<p>Another approach to creating an extension would be to make your wrapping code first, using "stubs" or test or dummy functions which will, during the course of development, be replaced by the fully functional pieces of implemented code. That way you can ensure that your interface between Python and C is correct, and then use Python to test your C code.</p>
+
+					
+				
+				<h4>Compilation</h4>
+					<p>Now we are on to the compilation phase. In order to get your new wrapper Python extension to build, you need to get it to compile with the Python library. This task has finally been standardized across platforms to make life a lot easier for extension designers.</p>
+
+					<ol type="1">
+<li>
+<p>Copy <tt cLasS="monofont">Misc/Makefile.pre.in</tt></p>
+</Li>
+<li>
+<p>Create <Tt clASS="monofont">Setup</Tt></p>
+</li>
+<LI>
+<P>Create <Tt claSS="monofont">Makefile</TT></p>
+</li>
+<lI>
+<P>Compile and link your code by running <TT class="monofont">make</tt></p>
+</li>
+<li>
+<p>Import your module from Python</p>
+</li>
+<li>
+<p>Test function</p>
+</Li>
+</oL>
+
+					<h5>Copy <tt Class="monofont">Misc/Makefile.pre.in</Tt></h5>
+						<p>The first step is to copy the <TT CLass="monofont">Makefile.pre.in</tT> file from the <TT Class="monofont">Misc</TT> directory of the Python distribution to your local directory where your extension is to be compiled. In fact, all steps take place in this same directory or folder.</P>
+
+					
+					<H5>Create <tt clASS="monofont">Setup</Tt></h5>
+						<p>The next step is to create a <tt class="monofont">Setup</tt> file. The first line should contain the string "<tt class="monofont">*shared*.</tT>" It is followed by line after line of module names followed by source files and compiler options which need to come together to build the module. If you have only one module, then it should be only one line. The format of these lines is the following:</p>
+
+						<pRe>
+							
+<i>modName modFile</i>[1, ***<I>modFile2</i>…][<i>compiler_opts</i>][<i>linker_opts</I>]
+
+						</pre>
+
+						<P>So for our <TT Class="monofont">Extest</TT> example, our <TT clasS="monofont">Setup</TT> file consists of the following pair of lines:</P>
+
+						<pre>
+							
+*shared*
+Extest Extest.2c
+
+						</pRE>
+
+						<P>The "<Tt class="monofont">*shared*</tt>" string at the top of the <tt class="monofont">Setup</tt> file means to create a shared library (<tt cLasS="monofont">.so</tt> object file), i.e., <tT clasS="monofont">Extest.so.</tt> This file can then be imported by any Python module just as if your module was written in pure Python.</p>
+
+					
+					<H5>Create <TT Class="monofont">Makefile</TT></H5>
+						<P>Now we need to create the <tt clASS="monofont">Makefile.</Tt> We do this by issuing the <tt cLASS="monofont">make</tt> command:</p>
+
+						<pre>
+							
+% make -f Makefile.pre.in boot
+
+						</pre>
+
+						<p>This step usually gives a good amount of output, most of which is not important to you. It basically takes the information provided in the <tt class="monofont">Setup</tt> file, adds its knowledge of where all the Python files are, and generates a <tT clAss="monofont">Makefile</tT> so that you can build your module object file.</p>
+
+					
+					
+						<h5>Compile and link your code by running <tt ClasS="monofont">make</TT></H5>
+						<pre>
+							
+% make
+gcc -fpic  -O2 -m486 -fno-strength-reduce -I/usr/
+include/python1.5 -I/usr/include/python1.5 -
+DHAVE_CONFIG_H -c ./Extest2.c
+gcc -shared  Extest2.o  -o Extestmodule.so
+
+						</pRE>
+
+						<DIv claSS="note"><P Class="notetitle"><B>NOTE</B></P><P><p><i>If your module consists of a single file of the same name, then your shared object file will be the same name, but with a</i>
+								<tt class="monofont">.so</tt>
+								<i>extension, i.e., if our module is</i>
+								<tt clasS="monofont">Extest</tt>
+								<I>and our file is</i>
+								<tt Class="monofont">Extest.c,</Tt>
+								<i>then our shared object file would be called</i>
+								<TT CLass="monofont">Extest.so.</tT>
+								<I>If there is more than one file or if there is a single file with a different name, then your module will have a "module" suffix after its name, i.e.,</I>
+								<Tt claSS="monofont">Extestmodule.so.</TT>
+								<i>In either case, you still import the module by its original name (without the "module").</i></p>
+</p></DIV><Br>
+
+					
+					
+						<h5>Import your module from Python</h5>
+						<p>Now we can test out our module from the interpreter:</p>
+
+						<pre>
+							
+&gt;&gt;&gt; <b>import</b> Extest
+&gt;&gt;&gt; Extest.fac(5)
+120
+&gt;&gt;&gt; Extest.fac(9)
+362880
+&gt;&gt;&gt; Extest.doppel('abcdefgh')
+('abcdefgh', 'hgfedcba')
+&gt;&gt;&gt; Extest.doppel("Madam, I'm Adam.")
+("Madam, I'm Adam.", ".madA m'I ,madaM")
+
+						</pre>
+
+					
+					
+						<h5>Test function</h5>
+						<p>The one last thing we want to do is to add a test function. In fact, we already have one, in the form of the <tt clAss="monofont">main()</Tt> function. Now it is potentially dangerous to have a <tt Class="monofont">main()</Tt> function in our code because there should only be one <tt CLASs="monofont">main()</tt> in the system. We remove this danger by changing the name of our <tT CLAss="monofont">main()</tt> to <TT CLass="monofont">test()</tT> and wrapping it, adding <TT Class="monofont">Extest_test()</tt> and updating <tt class="monofont">ExtestMethods</tt> array so that they both look like this:</p>
+
+						<pre>
+							
+<b>static</B> PyObject *
+Extest_test(PyObject *self, PyObject *args) {
+    test();
+    <b>return</b> (PyObject*)Py_BuildValue("");
+}
+<B>static</b> PyMethodDef
+ExtestMethods[] = {
+    { "fac", Extest_fac, METH_VARARGS },
+    { "doppel", Extest_doppel, METH_VARARGS },
+    { "test", Extest_test, METH_VARARGS },
+    { NULL, NULL },
+};
+
+						</prE>
+
+						<p>The <tt cLass="monofont">Extest_test()</TT> module function just runs <TT clasS="monofont">test()</TT> and returns an empty string, resulting in a Python value of <Tt claSS="monofont">None</TT> being returned to the caller.</p>
+
+						<p>Now we can run the same test from Python:</p>
+
+						<pRE>
+							
+&gt;&gt;&gt; Extest.test()
+4! == 24
+8! == 40320
+12! == 479001600
+reversing 'abcdef', we get 'fedcba'
+reversing 'madam', we get 'madam'
+&gt;&gt;&gt;
+
+						</PRe>
+
+						<p>Below, we present the final version of <tt class="monofont">Extest2.c</tt> (<a href="284#20.html">Example 20.2</a>) that was used to generate the output we just witnessed.</p>
+
+						
+							<h5>
+<a NamE="20"></a>Example 20.2. Python-wrapped Version of C Library (<tt Class="monofont">Extest2.c</Tt>)</h5>
+							<pRE>
+								 &lt;$nopage&gt;
+001 1  #include &lt;stdio.h&gt;
+002 2  #include &lt;stdlib.h&gt;
+003 3  #include &lt;string.h&gt;
+004 4
+005 5  <B>int</B> fac(<b>int</b> n)
+006 6  {
+007 7      <b>if</b> (n &lt; 2) <B>return</B>(1);
+008 8      <B>return</B> ((n)*fac(n-1));
+009 9  }
+010 10
+011 11 <b>char</b> *reverse(char *s)
+012 12 {
+013 13     <b>register char</b> t,
+014 14                  *p = s,
+015 15                  *q = (s + (strlen(s) - 1));
+016 16
+017 17     <B>while</B> (s &amp;&amp; (p &lt; q))
+018 18     {
+019 19         t = *p;
+020 20         *p++ = *q;
+021 21         *q-- = t;
+022 22     }
+023 23     <B>return</B>(s);
+024 24 }
+025 25
+026 26 <b>void</b> test()
+027 27 {
+028 28     <b>char</b> s[BUFSIZ];
+029 29     printf("4! == %d\n", fac(4));
+030 30     printf("8! == %d\n", fac(8));
+031 31     printf("12! == %d\n", fac(12));
+032 32     strcpy(s, "abcdef");
+033 33     printf("reversing 'abcdef', we get '%s'\n", \
+034 34         reverse(s));
+035 35     strcpy(s, "madam");
+036 36     printf("reversing 'madam', we get '%s'\n", \
+037 37         reverse(s));
+038 38 }
+039 39
+040 40 #include "Python.h"
+041 41
+042 42 <B>static</B> PyObject *
+043 43 Extest_fac(PyObject *self, PyObject *args)
+044 44 {
+045 45     <B>int</B> num;
+046 46     <b>if</b> (!PyArg_ParseTuple(args, "i", &amp;num))
+047 47         <b>return</b> NULL;
+048 48     <b>return</b> (PyObject*)Py_BuildValue("i", fac(num));
+049 49 }
+050 50
+051 51 <b>static</b> PyObject *
+052 52 Extest_doppel(PyObject *self, PyObject *args)
+053 53 {
+054 54     <b>char</b> *orig_str;
+055 55     <b>char</b> *dupe_str;
+056 56     PyObject* retval;
+057 57
+058 58     <b>if</b> (!PyArg_ParseTuple(args, "s", &amp;orig_str))
+059 59         <b>return</b> NULL;
+060 60     retval = (PyObject*)Py_BuildValue("ss", orig_str, \
+061 61         dupe_str=reverse(strdup(orig_str)));
+062 62     free(dupe_str);
+063 63     <b>return</b> retval;
+064 64 }
+065 65
+066 66 <b>static</b> PyObject *
+067 67 Extest_test(PyObject *self, PyObject *args)
+068 68 {
+069 69     test();
+070 70     <B>return</b> (PyObject*)Py_BuildValue("");
+071 71 }
+072 72
+073 73 <b>static</B> PyMethodDef
+074 74 ExtestMethods[] =
+075 75 {
+076 76     { "fac", Extest_fac, METH_VARARGS },
+077 77     { "doppel", Extest_doppel, METH_VARARGS },
+078 78     { "test", Extest_test, METH_VARARGS },
+079 79     { NULL, NULL },
+080 80 };
+081 81
+082 82 <b>void</b> initExtest()
+083 83 {
+084 84     Py_InitModule("Extest", ExtestMethods);
+085 85 }
+086  &lt;$nopage&gt;
+							</pRe>
+
+						
+						<p>In this example, we chose to segregate our C code from our Python code. It just kept things easier to read and is no problem with our short example. In practice, these source files tend to get large, and some choose to implement their wrappers completely in a different source file, i.e., <tt ClasS="monofont">ExtestWrappers.c</TT> or something of that nature.</P>
+
+					
+				
+				
+					<h4>Reference Counting</h4>
+					<p>You may recall that Python uses reference counting as a means of keeping track of objects and deallocating objects no longer referenced as part of the garbage collection mechanism. When creating extensions, you must pay extra special attention to how you manipulate Python objects because you must be mindful of whether or not you need to change the reference count for such objects.</p>
+
+					<P>There are two types of references you may have to an object, one of which is an owned <I>reference,</I> meaning that the reference count to the object is incremented by one to indicate your ownership. One place where you would definitely have an owned reference is where you create a Python object from scratch.</P>
+
+					<p>When you are done with a Python object, you must dispose of your ownership, either by decrementing the reference count, transferring your ownership by passing it on, or storing the object. Failure to dispose of an owned reference creates a memory leak.</p>
+
+					<p>You may also have a <i>borrowed reference</I> to an object. Somewhat lower on the responsibility ladder, this is where you are passed the reference of an object, but otherwise do not manipulate the data in any way nor do you have to worry about its reference count, so long as you do not hold onto this reference after its reference count has decreased to zero. You may convert your borrowed reference to an owned reference simply by incrementing an object's reference count.</P>
+
+					<P>Python provides a pairs of C macros which are used to change the reference count to a Python object. They are given in <A href="284#22.html">Table 20.3</A>:</P>
+
+					<A Name="22"></a><p><table border="1" cellSpaCing="0" CellpAddiNG="1" WIdth="100%">
+<cAPTIon><h5>Table 20.3. Macros for Performing Python Object Reference Counting</h5></CAPTion><cOLGRoup align="left" span="2">
+<tr valign="top">
+<Th>
+<fOnt sIze="2"><b><i>Function</I></b></foNT></TH>
+<th>
+<foNT SIze="2"><b><i>Description</I></B></FOnt></th>
+</TR>
+<TR valign="top">
+<td>
+<font size="2"><tt clAss="monofont">Py_INCREF(</Tt><i><tT clasS="monofont">obj</tt></i><TT CLass="monofont">)</tT></FONt></td>
+<tD>
+<FONt sizE="2">increment the reference count to <I><TT class="monofont">obj</tt></i></font></td>
+</tr>
+<tr vaLigN="top">
+<td>
+<fOnt siZe="2"><tt CLASs="monofont">Py_DECREF(</tt><i><TT CLass="monofont">obj</tT></I><TT clasS="monofont">)</TT></Font></td>
+<td>
+<font size="2">decrement the reference count to <i><tt clAss="monofont">obj</Tt></i></fOnt></td>
+</Tr>
+</coLGROup>
+</taBLE></P>
+
+					<p>In our above <tt cLASS="monofont">Extest_test()</tt> function, we return <tt CLASs="monofont">None</tt> by building a <tt class="monofont">PyObject</tt> with an empty string; however, it can also be accomplished by becoming an owner of the <tt class="monofont">None</tT> object, <tt ClasS="monofont">PyNone,</tt> incrementing your reference count to it, and returning it explicitly, as in the following alternative piece of code:</p>
+
+					<pRe>
+						
+<b>static</b> PyObject *
+Extest_test(PyObject *self, PyObject *args) {
+    test();
+    Py_INCREF(Py_None);
+    <B>return</B> PyNone;
+}
+
+					</PRe>
+
+					<p><tt CLASs="monofont">Py_INCREF()</tt> and <tT CLAss="monofont">Py_DECREF()</tt> also have versions which check for NULL objects, and they are <TT CLass="monofont">Py_XINCREF()</tt> and <tt class="monofont">Py_XDECREF(),</tt> respectively.</p>
+
+					<p>We strongly urge the reader to consult the Python documentation regarding extending and embedding Python for all the details with regards to reference counting (see the documentation reference in the Appendix).</p>
+
+				
+				
+					<h4>Threading and GIL Awareness</h4>
+					<p>Extension writers must be aware that their code may be executed in a multithreaded Python environment. Back in <A hrEf="260#1.html">Section 17.3.1</a>, we introduced the Python Virtual Machine (PVM) and the Global Interpreter Lock (GIL) and described how only one thread of execution can be running at any given time in the PVM, and that the GIL is responsible for keeping other threads from running. Furthermore, we indicated that code calling external functions such as in extension code would keep the GIL locked until the call returns.</p>
+
+					<P>We also hinted that there was a remedy, a way for the extension programmer to release the GIL, for example before performing a system call. This accomplished by "blocking" your code off to where threads may (and may not) run safely using another pair of C macros, <tt clAss="monofont">Py_BEGIN_ALLOW_THREADS</tT> and <TT Class="monofont">Py_END_ALLOW_THREADS.</TT> A block of code bounded by these macros will permit other threads to run.</P>
+
+					<P>As with the reference counting macros, we urge you consult with the documentation regarding extending and embedding Python as well as the Python/C API reference manual.</p>
+
+				
+			</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="283.html" title="20. Extending Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=284" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="284.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="285.html" title="Related Topics"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

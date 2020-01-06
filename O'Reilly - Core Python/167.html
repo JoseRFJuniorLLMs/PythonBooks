@@ -1,0 +1,69 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Exceptions and the sys Module</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="154.html" class="navtitle">10. Errors And Exceptions</a> &gt; <span class="nonavtitle">Exceptions and the sys Module</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="166.html" title="Why Exceptions at All?"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=167" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="167.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="168.html" title="Related Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A30%3A08+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174054034005193195016053</font><a href="read9.asp?bookname=0130260363&snode=167&now=5%2F29%2F2002+9%3A30%3A08+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Exceptions and the <tt cLASS="monofont">sys</tt> Module</h3>
+				<p>An alternative way of obtaining exception information is by accessing the <TT CLass="monofont">exc_info()</tT> function in the <TT Class="monofont">sys</tt> module. This function provides a 3-tuple of information, more than what we can achieve by simply using only the exception argument. Let us see what we get using <tt class="monofont">sys.exc_info():</tt></p>
+
+				<pre>
+					
+&gt;&gt;&gt; <b>try:</B>
+…       float('abc123')
+… <b>except:</b>
+…       <B>import</b> sys
+…       exc_tuple = sys.exc_info()
+…
+&gt;&gt;&gt; <b>print</b> exc_tuple
+(&lt;class exceptions.ValueError at f9838&gt;, &lt;exceptions.ValueError instance at 122fa8&gt;,
+&lt;traceback object at 10de18&gt;)
+&gt;&gt;&gt;
+&gt;&gt;&gt; <B>for</b> eachItem <b>in</b> exc_tuple:
+…       <b>print</B> eachItem
+…
+exceptions.ValueError
+invalid literal for float(): abc123
+&lt;traceback object at 10de18&gt;
+
+				</pre>
+
+				<P>What we get from sys.<TT Class="monofont">exc_info()</TT> in a tuple are:</P>
+
+				<Ul>
+<li><p>exception class object</P>
+</LI>
+<Li><p>(this) exception class instance object</p>
+</lI>
+<LI><P>traceback object</p>
+</li>
+</ul>
+				<p>The first two items we are familiar with: the actual exception class and this particular exception's instance (which is the same as the exception argument which we discussed in the previous section). The third item, a traceback object, is new. This object provides the execution context of where the exception occurred. It contains information such as the execution frame of the code that was running and the line number where the exception occurred.</p>
+
+				<p>In older versions of Python, these three values were available in the <tt class="monofont">sys</tt> module as <tt cLasS="monofont">sys.exc_type, sys.exc_value,</tt> and <tT clasS="monofont">sys.exc_traceback.</tt> Unfortunately, these three are global variables and not thread-safe. We recommend using <tT CLAss="monofont">sys.exc_info()</tt> instead.</P>
+
+			</FONt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="166.html" title="Why Exceptions at All?"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=167" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="167.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="168.html" title="Related Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

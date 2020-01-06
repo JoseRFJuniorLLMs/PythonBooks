@@ -1,0 +1,5234 @@
+Date:	1/1/1999
+Comment:	 Initial investment
+MyCo.Assets.NCA.CurAss.Cash              10000.000000
+MyCo.Capital.Shares                      -10000.000000
+
+Date:	1/1/1999
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/1/1999
+Comment:	 Rent paid quarterly in advance
+MyCo.Assets.NCA.CurAss.Cash              -4500.000000
+MyCo.Assets.NCA.CurAss.Prepayments       4500.000000
+
+Date:	1/1/1999
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -373.650000
+MyCo.Assets.NCA.CurLia.VATdue             55.650000
+MyCo.Capital.PL.Expenses.Communications  318.000000
+
+Date:	1/1/1999
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -470.000000
+MyCo.Assets.NCA.CurLia.VATdue             70.000000
+MyCo.Capital.PL.Expenses.Office          400.000000
+
+Date:	2/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -9.000000
+MyCo.Capital.PL.Expenses.Stationery        9.000000
+
+Date:	3/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -43.000000
+MyCo.Capital.PL.Expenses.Travel           43.000000
+
+Date:	4/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -73.000000
+MyCo.Capital.PL.Expenses.Travel           73.000000
+
+Date:	5/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -96.000000
+MyCo.Capital.PL.Expenses.Utilities        96.000000
+
+Date:	8/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -40.000000
+MyCo.Capital.PL.Expenses.Travel           40.000000
+
+Date:	9/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -27.000000
+MyCo.Capital.PL.Expenses.Stationery       27.000000
+
+Date:	9/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -56.000000
+MyCo.Capital.PL.Expenses.Stationery       56.000000
+
+Date:	9/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -3.000000
+MyCo.Capital.PL.Expenses.Travel            3.000000
+
+Date:	10/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -53.000000
+MyCo.Capital.PL.Expenses.Rent             53.000000
+
+Date:	12/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -77.000000
+MyCo.Capital.PL.Expenses.Stationery       77.000000
+
+Date:	13/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -99.000000
+MyCo.Capital.PL.Expenses.Travel           99.000000
+
+Date:	13/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -39.000000
+MyCo.Capital.PL.Expenses.Labour           39.000000
+
+Date:	13/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -81.000000
+MyCo.Capital.PL.Expenses.Stationery       81.000000
+
+Date:	14/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -66.000000
+MyCo.Capital.PL.Expenses.Rent             66.000000
+
+Date:	15/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -21.000000
+MyCo.Capital.PL.Expenses.Rent             21.000000
+
+Date:	16/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -19.000000
+MyCo.Capital.PL.Expenses.Travel           19.000000
+
+Date:	17/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -4.000000
+MyCo.Capital.PL.Expenses.Rent              4.000000
+
+Date:	18/1/1999
+Comment:	 Computer Hardware./Software Investment
+MyCo.Assets.Fixed.Computers.OriginalCost 8000.000000
+MyCo.Assets.NCA.CurLia.Creditors         -9400.000000
+MyCo.Assets.NCA.CurLia.VATdue            1400.000000
+
+Date:	19/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -76.000000
+MyCo.Capital.PL.Expenses.Labour           76.000000
+
+Date:	20/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -22.000000
+MyCo.Capital.PL.Expenses.Stationery       22.000000
+
+Date:	22/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -38.000000
+MyCo.Capital.PL.Expenses.Stationery       38.000000
+
+Date:	22/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -54.000000
+MyCo.Capital.PL.Expenses.Rent             54.000000
+
+Date:	25/1/1999
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	26/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -80.000000
+MyCo.Capital.PL.Expenses.Travel           80.000000
+
+Date:	26/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -49.000000
+MyCo.Capital.PL.Expenses.Travel           49.000000
+
+Date:	27/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -35.000000
+MyCo.Capital.PL.Expenses.Utilities        35.000000
+
+Date:	29/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -37.000000
+MyCo.Capital.PL.Expenses.Labour           37.000000
+
+Date:	30/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -6.000000
+MyCo.Capital.PL.Expenses.Rent              6.000000
+
+Date:	30/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -68.000000
+MyCo.Capital.PL.Expenses.Utilities        68.000000
+
+Date:	31/1/1999
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash                0.000000
+MyCo.Assets.NCA.CurLia.VATdue              0.000000
+MyCo.Capital.PL.Income.Software            0.000000
+
+Date:	31/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -23.000000
+MyCo.Capital.PL.Expenses.Rent             23.000000
+
+Date:	31/1/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -54.000000
+MyCo.Capital.PL.Expenses.Labour           54.000000
+
+Date:	1/2/1999
+Comment:	 Loan drawdown
+MyCo.Assets.NCA.CurAss.Cash              10000.000000
+MyCo.Assets.OtherLia.BankLoan            -10000.000000
+
+Date:	1/2/1999
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/2/1999
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -365.425000
+MyCo.Assets.NCA.CurLia.VATdue             54.425000
+MyCo.Capital.PL.Expenses.Communications  311.000000
+
+Date:	1/2/1999
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -940.000000
+MyCo.Assets.NCA.CurLia.VATdue            140.000000
+MyCo.Capital.PL.Expenses.Office          800.000000
+
+Date:	2/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -64.000000
+MyCo.Capital.PL.Expenses.Stationery       64.000000
+
+Date:	4/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -25.000000
+MyCo.Capital.PL.Expenses.Stationery       25.000000
+
+Date:	5/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -83.000000
+MyCo.Capital.PL.Expenses.Travel           83.000000
+
+Date:	6/2/1999
+Comment:	 Bill raised - Consulting to 31/1/1999
+MyCo.Assets.NCA.CurAss.Debtors           4700.000000
+MyCo.Assets.NCA.CurLia.VATdue            -700.000000
+MyCo.Capital.PL.Income.Consulting        -4000.000000
+
+Date:	6/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -35.000000
+MyCo.Capital.PL.Expenses.Labour           35.000000
+
+Date:	6/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -64.000000
+MyCo.Capital.PL.Expenses.Rent             64.000000
+
+Date:	7/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -77.000000
+MyCo.Capital.PL.Expenses.Stationery       77.000000
+
+Date:	8/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -49.000000
+MyCo.Capital.PL.Expenses.Utilities        49.000000
+
+Date:	9/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -22.000000
+MyCo.Capital.PL.Expenses.Stationery       22.000000
+
+Date:	10/2/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	12/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -93.000000
+MyCo.Capital.PL.Expenses.Stationery       93.000000
+
+Date:	14/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -74.000000
+MyCo.Capital.PL.Expenses.Rent             74.000000
+
+Date:	17/2/1999
+Comment:	 Computer Hardware./Software Payment
+MyCo.Assets.NCA.CurAss.Cash              -9400.000000
+MyCo.Assets.NCA.CurLia.Creditors         9400.000000
+
+Date:	17/2/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	17/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -90.000000
+MyCo.Capital.PL.Expenses.Labour           90.000000
+
+Date:	17/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -86.000000
+MyCo.Capital.PL.Expenses.Utilities        86.000000
+
+Date:	18/2/1999
+Comment:	 Computer Hardware./Software Investment
+MyCo.Assets.Fixed.Computers.OriginalCost 6000.000000
+MyCo.Assets.NCA.CurLia.Creditors         -7050.000000
+MyCo.Assets.NCA.CurLia.VATdue            1050.000000
+
+Date:	19/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -7.000000
+MyCo.Capital.PL.Expenses.Rent              7.000000
+
+Date:	19/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -29.000000
+MyCo.Capital.PL.Expenses.Travel           29.000000
+
+Date:	19/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -61.000000
+MyCo.Capital.PL.Expenses.Travel           61.000000
+
+Date:	20/2/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	20/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -21.000000
+MyCo.Capital.PL.Expenses.Rent             21.000000
+
+Date:	20/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -39.000000
+MyCo.Capital.PL.Expenses.Rent             39.000000
+
+Date:	22/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -7.000000
+MyCo.Capital.PL.Expenses.Utilities         7.000000
+
+Date:	23/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -3.000000
+MyCo.Capital.PL.Expenses.Utilities         3.000000
+
+Date:	24/2/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	24/2/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -30.000000
+MyCo.Capital.PL.Expenses.Labour           30.000000
+
+Date:	25/2/1999
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/2/1999
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/2/1999
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	27/2/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	1/3/1999
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            378.120000
+MyCo.Capital.PL.Expenses.Interest         83.330000
+
+Date:	1/3/1999
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/3/1999
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -425.350000
+MyCo.Assets.NCA.CurLia.VATdue             63.350000
+MyCo.Capital.PL.Expenses.Communications  362.000000
+
+Date:	1/3/1999
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -940.000000
+MyCo.Assets.NCA.CurLia.VATdue            140.000000
+MyCo.Capital.PL.Expenses.Office          800.000000
+
+Date:	1/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -82.000000
+MyCo.Capital.PL.Expenses.Travel           82.000000
+
+Date:	3/3/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	3/3/1999
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash                0.000000
+MyCo.Assets.NCA.CurLia.VATdue              0.000000
+MyCo.Capital.PL.Income.Software            0.000000
+
+Date:	6/3/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	6/3/1999
+Comment:	 Bill raised - Consulting to 3/3/1999
+MyCo.Assets.NCA.CurAss.Debtors           12220.000000
+MyCo.Assets.NCA.CurLia.VATdue            -1820.000000
+MyCo.Capital.PL.Income.Consulting        -10400.000000
+
+Date:	6/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -24.000000
+MyCo.Capital.PL.Expenses.Travel           24.000000
+
+Date:	8/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -72.000000
+MyCo.Capital.PL.Expenses.Rent             72.000000
+
+Date:	10/3/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	10/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -6.000000
+MyCo.Capital.PL.Expenses.Labour            6.000000
+
+Date:	12/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -14.000000
+MyCo.Capital.PL.Expenses.Labour           14.000000
+
+Date:	13/3/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	13/3/1999
+Comment:	 Payment received - Consulting to 31/1/1999
+MyCo.Assets.NCA.CurAss.Cash              4700.000000
+MyCo.Assets.NCA.CurAss.Debtors           -4700.000000
+
+Date:	14/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -36.000000
+MyCo.Capital.PL.Expenses.Rent             36.000000
+
+Date:	14/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -98.000000
+MyCo.Capital.PL.Expenses.Travel           98.000000
+
+Date:	14/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -64.000000
+MyCo.Capital.PL.Expenses.Labour           64.000000
+
+Date:	16/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -71.000000
+MyCo.Capital.PL.Expenses.Travel           71.000000
+
+Date:	16/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -76.000000
+MyCo.Capital.PL.Expenses.Travel           76.000000
+
+Date:	16/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -27.000000
+MyCo.Capital.PL.Expenses.Rent             27.000000
+
+Date:	17/3/1999
+Comment:	 Computer Hardware./Software Payment
+MyCo.Assets.NCA.CurAss.Cash              -7050.000000
+MyCo.Assets.NCA.CurLia.Creditors         7050.000000
+
+Date:	17/3/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	18/3/1999
+Comment:	 Computer Hardware./Software Investment
+MyCo.Assets.Fixed.Computers.OriginalCost 3000.000000
+MyCo.Assets.NCA.CurLia.Creditors         -3525.000000
+MyCo.Assets.NCA.CurLia.VATdue            525.000000
+
+Date:	19/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -73.000000
+MyCo.Capital.PL.Expenses.Utilities        73.000000
+
+Date:	20/3/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	20/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -61.000000
+MyCo.Capital.PL.Expenses.Labour           61.000000
+
+Date:	20/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -19.000000
+MyCo.Capital.PL.Expenses.Utilities        19.000000
+
+Date:	21/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -59.000000
+MyCo.Capital.PL.Expenses.Stationery       59.000000
+
+Date:	21/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -50.000000
+MyCo.Capital.PL.Expenses.Stationery       50.000000
+
+Date:	24/3/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	25/3/1999
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/3/1999
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/3/1999
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	27/3/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	28/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -43.000000
+MyCo.Capital.PL.Expenses.Travel           43.000000
+
+Date:	30/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -7.000000
+MyCo.Capital.PL.Expenses.Utilities         7.000000
+
+Date:	30/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -86.000000
+MyCo.Capital.PL.Expenses.Stationery       86.000000
+
+Date:	31/3/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	31/3/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -24.000000
+MyCo.Capital.PL.Expenses.Rent             24.000000
+
+Date:	1/4/1999
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            381.270000
+MyCo.Capital.PL.Expenses.Interest         80.180000
+
+Date:	1/4/1999
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/4/1999
+Comment:	 Rent paid quarterly in advance
+MyCo.Assets.NCA.CurAss.Cash              -4500.000000
+MyCo.Assets.NCA.CurAss.Prepayments       4500.000000
+
+Date:	1/4/1999
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -482.925000
+MyCo.Assets.NCA.CurLia.VATdue             71.925000
+MyCo.Capital.PL.Expenses.Communications  411.000000
+
+Date:	1/4/1999
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1175.000000
+MyCo.Assets.NCA.CurLia.VATdue            175.000000
+MyCo.Capital.PL.Expenses.Office          1000.000000
+
+Date:	1/4/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -28.000000
+MyCo.Capital.PL.Expenses.Labour           28.000000
+
+Date:	1/4/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -45.000000
+MyCo.Capital.PL.Expenses.Travel           45.000000
+
+Date:	2/4/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -71.000000
+MyCo.Capital.PL.Expenses.Rent             71.000000
+
+Date:	2/4/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -6.000000
+MyCo.Capital.PL.Expenses.Rent              6.000000
+
+Date:	3/4/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	3/4/1999
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash                0.000000
+MyCo.Assets.NCA.CurLia.VATdue              0.000000
+MyCo.Capital.PL.Income.Software            0.000000
+
+Date:	6/4/1999
+Comment:	 Bill raised - Consulting to 3/4/1999
+MyCo.Assets.NCA.CurAss.Debtors           13160.000000
+MyCo.Assets.NCA.CurLia.VATdue            -1960.000000
+MyCo.Capital.PL.Income.Consulting        -11200.000000
+
+Date:	6/4/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -7.000000
+MyCo.Capital.PL.Expenses.Utilities         7.000000
+
+Date:	7/4/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	7/4/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -54.000000
+MyCo.Capital.PL.Expenses.Utilities        54.000000
+
+Date:	9/4/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -51.000000
+MyCo.Capital.PL.Expenses.Utilities        51.000000
+
+Date:	10/4/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	10/4/1999
+Comment:	 Payment received - Consulting to 3/3/1999
+MyCo.Assets.NCA.CurAss.Cash              12220.000000
+MyCo.Assets.NCA.CurAss.Debtors           -12220.000000
+
+Date:	14/4/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	17/4/1999
+Comment:	 Computer Hardware./Software Payment
+MyCo.Assets.NCA.CurAss.Cash              -3525.000000
+MyCo.Assets.NCA.CurLia.Creditors         3525.000000
+
+Date:	17/4/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	18/4/1999
+Comment:	 Computer Hardware./Software Investment
+MyCo.Assets.Fixed.Computers.OriginalCost 3000.000000
+MyCo.Assets.NCA.CurLia.Creditors         -3525.000000
+MyCo.Assets.NCA.CurLia.VATdue            525.000000
+
+Date:	18/4/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -76.000000
+MyCo.Capital.PL.Expenses.Travel           76.000000
+
+Date:	20/4/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -31.000000
+MyCo.Capital.PL.Expenses.Rent             31.000000
+
+Date:	21/4/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	23/4/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -30.000000
+MyCo.Capital.PL.Expenses.Stationery       30.000000
+
+Date:	23/4/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -45.000000
+MyCo.Capital.PL.Expenses.Utilities        45.000000
+
+Date:	24/4/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	25/4/1999
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/4/1999
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/4/1999
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/4/1999
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	28/4/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	28/4/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -19.000000
+MyCo.Capital.PL.Expenses.Travel           19.000000
+
+Date:	28/4/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -24.000000
+MyCo.Capital.PL.Expenses.Travel           24.000000
+
+Date:	29/4/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -5.000000
+MyCo.Capital.PL.Expenses.Labour            5.000000
+
+Date:	1/5/1999
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            384.450000
+MyCo.Capital.PL.Expenses.Interest         77.000000
+
+Date:	1/5/1999
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/5/1999
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -408.900000
+MyCo.Assets.NCA.CurLia.VATdue             60.900000
+MyCo.Capital.PL.Expenses.Communications  348.000000
+
+Date:	1/5/1999
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1175.000000
+MyCo.Assets.NCA.CurLia.VATdue            175.000000
+MyCo.Capital.PL.Expenses.Office          1000.000000
+
+Date:	1/5/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	1/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -75.000000
+MyCo.Capital.PL.Expenses.Utilities        75.000000
+
+Date:	1/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -82.000000
+MyCo.Capital.PL.Expenses.Rent             82.000000
+
+Date:	1/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -9.000000
+MyCo.Capital.PL.Expenses.Utilities         9.000000
+
+Date:	2/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -78.000000
+MyCo.Capital.PL.Expenses.Labour           78.000000
+
+Date:	2/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -59.000000
+MyCo.Capital.PL.Expenses.Rent             59.000000
+
+Date:	3/5/1999
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash                0.000000
+MyCo.Assets.NCA.CurLia.VATdue              0.000000
+MyCo.Capital.PL.Income.Software            0.000000
+
+Date:	4/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -52.000000
+MyCo.Capital.PL.Expenses.Travel           52.000000
+
+Date:	5/5/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	6/5/1999
+Comment:	 Bill raised - Consulting to 3/5/1999
+MyCo.Assets.NCA.CurAss.Debtors           15275.000000
+MyCo.Assets.NCA.CurLia.VATdue            -2275.000000
+MyCo.Capital.PL.Income.Consulting        -13000.000000
+
+Date:	6/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -4.000000
+MyCo.Capital.PL.Expenses.Labour            4.000000
+
+Date:	7/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -71.000000
+MyCo.Capital.PL.Expenses.Rent             71.000000
+
+Date:	8/5/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	8/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -39.000000
+MyCo.Capital.PL.Expenses.Rent             39.000000
+
+Date:	8/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -64.000000
+MyCo.Capital.PL.Expenses.Utilities        64.000000
+
+Date:	9/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -73.000000
+MyCo.Capital.PL.Expenses.Travel           73.000000
+
+Date:	10/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -53.000000
+MyCo.Capital.PL.Expenses.Labour           53.000000
+
+Date:	10/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -30.000000
+MyCo.Capital.PL.Expenses.Travel           30.000000
+
+Date:	11/5/1999
+Comment:	 Payment received - Consulting to 3/4/1999
+MyCo.Assets.NCA.CurAss.Cash              13160.000000
+MyCo.Assets.NCA.CurAss.Debtors           -13160.000000
+
+Date:	11/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -59.000000
+MyCo.Capital.PL.Expenses.Stationery       59.000000
+
+Date:	12/5/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	14/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -1.000000
+MyCo.Capital.PL.Expenses.Rent              1.000000
+
+Date:	15/5/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	15/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -30.000000
+MyCo.Capital.PL.Expenses.Travel           30.000000
+
+Date:	16/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -60.000000
+MyCo.Capital.PL.Expenses.Rent             60.000000
+
+Date:	17/5/1999
+Comment:	 Computer Hardware./Software Payment
+MyCo.Assets.NCA.CurAss.Cash              -3525.000000
+MyCo.Assets.NCA.CurLia.Creditors         3525.000000
+
+Date:	18/5/1999
+Comment:	 Computer Hardware./Software Investment
+MyCo.Assets.Fixed.Computers.OriginalCost 1500.000000
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+
+Date:	19/5/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	20/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -48.000000
+MyCo.Capital.PL.Expenses.Rent             48.000000
+
+Date:	22/5/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	22/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -61.000000
+MyCo.Capital.PL.Expenses.Travel           61.000000
+
+Date:	22/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -29.000000
+MyCo.Capital.PL.Expenses.Utilities        29.000000
+
+Date:	25/5/1999
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/5/1999
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/5/1999
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/5/1999
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -79.000000
+MyCo.Capital.PL.Expenses.Labour           79.000000
+
+Date:	26/5/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	27/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -27.000000
+MyCo.Capital.PL.Expenses.Utilities        27.000000
+
+Date:	28/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -100.000000
+MyCo.Capital.PL.Expenses.Travel          100.000000
+
+Date:	29/5/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	31/5/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -75.000000
+MyCo.Capital.PL.Expenses.Utilities        75.000000
+
+Date:	1/6/1999
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            387.650000
+MyCo.Capital.PL.Expenses.Interest         73.800000
+
+Date:	1/6/1999
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/6/1999
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -591.025000
+MyCo.Assets.NCA.CurLia.VATdue             88.025000
+MyCo.Capital.PL.Expenses.Communications  503.000000
+
+Date:	1/6/1999
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1175.000000
+MyCo.Assets.NCA.CurLia.VATdue            175.000000
+MyCo.Capital.PL.Expenses.Office          1000.000000
+
+Date:	2/6/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	2/6/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -15.000000
+MyCo.Capital.PL.Expenses.Stationery       15.000000
+
+Date:	3/6/1999
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash                0.000000
+MyCo.Assets.NCA.CurLia.VATdue              0.000000
+MyCo.Capital.PL.Income.Software            0.000000
+
+Date:	3/6/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -18.000000
+MyCo.Capital.PL.Expenses.Labour           18.000000
+
+Date:	4/6/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -65.000000
+MyCo.Capital.PL.Expenses.Labour           65.000000
+
+Date:	5/6/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	5/6/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -92.000000
+MyCo.Capital.PL.Expenses.Rent             92.000000
+
+Date:	6/6/1999
+Comment:	 Bill raised - Consulting to 3/6/1999
+MyCo.Assets.NCA.CurAss.Debtors           17390.000000
+MyCo.Assets.NCA.CurLia.VATdue            -2590.000000
+MyCo.Capital.PL.Income.Consulting        -14800.000000
+
+Date:	6/6/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -87.000000
+MyCo.Capital.PL.Expenses.Travel           87.000000
+
+Date:	9/6/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	9/6/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -99.000000
+MyCo.Capital.PL.Expenses.Labour           99.000000
+
+Date:	10/6/1999
+Comment:	 Payment received - Consulting to 3/5/1999
+MyCo.Assets.NCA.CurAss.Cash              15275.000000
+MyCo.Assets.NCA.CurAss.Debtors           -15275.000000
+
+Date:	12/6/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	13/6/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -32.000000
+MyCo.Capital.PL.Expenses.Rent             32.000000
+
+Date:	13/6/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -13.000000
+MyCo.Capital.PL.Expenses.Stationery       13.000000
+
+Date:	13/6/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -9.000000
+MyCo.Capital.PL.Expenses.Rent              9.000000
+
+Date:	16/6/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	16/6/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -89.000000
+MyCo.Capital.PL.Expenses.Travel           89.000000
+
+Date:	17/6/1999
+Comment:	 Computer Hardware./Software Payment
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	18/6/1999
+Comment:	 Computer Hardware./Software Investment
+MyCo.Assets.Fixed.Computers.OriginalCost 1500.000000
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+
+Date:	18/6/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -1.000000
+MyCo.Capital.PL.Expenses.Travel            1.000000
+
+Date:	19/6/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	20/6/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -100.000000
+MyCo.Capital.PL.Expenses.Utilities       100.000000
+
+Date:	21/6/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -94.000000
+MyCo.Capital.PL.Expenses.Stationery       94.000000
+
+Date:	23/6/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	24/6/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -49.000000
+MyCo.Capital.PL.Expenses.Labour           49.000000
+
+Date:	25/6/1999
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/6/1999
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/6/1999
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/6/1999
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/6/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -93.000000
+MyCo.Capital.PL.Expenses.Stationery       93.000000
+
+Date:	26/6/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	27/6/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -68.000000
+MyCo.Capital.PL.Expenses.Utilities        68.000000
+
+Date:	29/6/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -9.000000
+MyCo.Capital.PL.Expenses.Labour            9.000000
+
+Date:	29/6/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -35.000000
+MyCo.Capital.PL.Expenses.Utilities        35.000000
+
+Date:	30/6/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	1/7/1999
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            390.880000
+MyCo.Capital.PL.Expenses.Interest         70.570000
+
+Date:	1/7/1999
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/7/1999
+Comment:	 Rent paid quarterly in advance
+MyCo.Assets.NCA.CurAss.Cash              -4500.000000
+MyCo.Assets.NCA.CurAss.Prepayments       4500.000000
+
+Date:	1/7/1999
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -411.250000
+MyCo.Assets.NCA.CurLia.VATdue             61.250000
+MyCo.Capital.PL.Expenses.Communications  350.000000
+
+Date:	1/7/1999
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1175.000000
+MyCo.Assets.NCA.CurLia.VATdue            175.000000
+MyCo.Capital.PL.Expenses.Office          1000.000000
+
+Date:	1/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -85.000000
+MyCo.Capital.PL.Expenses.Travel           85.000000
+
+Date:	1/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -26.000000
+MyCo.Capital.PL.Expenses.Rent             26.000000
+
+Date:	2/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -90.000000
+MyCo.Capital.PL.Expenses.Utilities        90.000000
+
+Date:	3/7/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	3/7/1999
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash                0.000000
+MyCo.Assets.NCA.CurLia.VATdue              0.000000
+MyCo.Capital.PL.Income.Software            0.000000
+
+Date:	4/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -46.000000
+MyCo.Capital.PL.Expenses.Travel           46.000000
+
+Date:	6/7/1999
+Comment:	 Bill raised - Consulting to 3/7/1999
+MyCo.Assets.NCA.CurAss.Debtors           19505.000000
+MyCo.Assets.NCA.CurLia.VATdue            -2905.000000
+MyCo.Capital.PL.Income.Consulting        -16600.000000
+
+Date:	7/7/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	8/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -63.000000
+MyCo.Capital.PL.Expenses.Rent             63.000000
+
+Date:	8/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -56.000000
+MyCo.Capital.PL.Expenses.Labour           56.000000
+
+Date:	8/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -17.000000
+MyCo.Capital.PL.Expenses.Stationery       17.000000
+
+Date:	9/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -80.000000
+MyCo.Capital.PL.Expenses.Travel           80.000000
+
+Date:	10/7/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	10/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -1.000000
+MyCo.Capital.PL.Expenses.Utilities         1.000000
+
+Date:	11/7/1999
+Comment:	 Payment received - Consulting to 3/6/1999
+MyCo.Assets.NCA.CurAss.Cash              17390.000000
+MyCo.Assets.NCA.CurAss.Debtors           -17390.000000
+
+Date:	12/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -54.000000
+MyCo.Capital.PL.Expenses.Stationery       54.000000
+
+Date:	14/7/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	15/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -40.000000
+MyCo.Capital.PL.Expenses.Rent             40.000000
+
+Date:	15/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -17.000000
+MyCo.Capital.PL.Expenses.Stationery       17.000000
+
+Date:	16/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -64.000000
+MyCo.Capital.PL.Expenses.Stationery       64.000000
+
+Date:	17/7/1999
+Comment:	 Computer Hardware./Software Payment
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	17/7/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	17/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -47.000000
+MyCo.Capital.PL.Expenses.Labour           47.000000
+
+Date:	18/7/1999
+Comment:	 Computer Hardware./Software Investment
+MyCo.Assets.Fixed.Computers.OriginalCost 1500.000000
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+
+Date:	18/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -58.000000
+MyCo.Capital.PL.Expenses.Labour           58.000000
+
+Date:	18/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -30.000000
+MyCo.Capital.PL.Expenses.Travel           30.000000
+
+Date:	19/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -71.000000
+MyCo.Capital.PL.Expenses.Rent             71.000000
+
+Date:	21/7/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	21/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -56.000000
+MyCo.Capital.PL.Expenses.Utilities        56.000000
+
+Date:	23/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -24.000000
+MyCo.Capital.PL.Expenses.Utilities        24.000000
+
+Date:	24/7/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	24/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -94.000000
+MyCo.Capital.PL.Expenses.Travel           94.000000
+
+Date:	25/7/1999
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/7/1999
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/7/1999
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/7/1999
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -56.000000
+MyCo.Capital.PL.Expenses.Rent             56.000000
+
+Date:	28/7/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	28/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -40.000000
+MyCo.Capital.PL.Expenses.Rent             40.000000
+
+Date:	29/7/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -24.000000
+MyCo.Capital.PL.Expenses.Rent             24.000000
+
+Date:	31/7/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	1/8/1999
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            394.140000
+MyCo.Capital.PL.Expenses.Interest         67.310000
+
+Date:	1/8/1999
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/8/1999
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -612.175000
+MyCo.Assets.NCA.CurLia.VATdue             91.175000
+MyCo.Capital.PL.Expenses.Communications  521.000000
+
+Date:	1/8/1999
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1410.000000
+MyCo.Assets.NCA.CurLia.VATdue            210.000000
+MyCo.Capital.PL.Expenses.Office          1200.000000
+
+Date:	3/8/1999
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash                0.000000
+MyCo.Assets.NCA.CurLia.VATdue              0.000000
+MyCo.Capital.PL.Income.Software            0.000000
+
+Date:	3/8/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -61.000000
+MyCo.Capital.PL.Expenses.Utilities        61.000000
+
+Date:	4/8/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	5/8/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -30.000000
+MyCo.Capital.PL.Expenses.Travel           30.000000
+
+Date:	6/8/1999
+Comment:	 Bill raised - Consulting to 3/8/1999
+MyCo.Assets.NCA.CurAss.Debtors           20680.000000
+MyCo.Assets.NCA.CurLia.VATdue            -3080.000000
+MyCo.Capital.PL.Income.Consulting        -17600.000000
+
+Date:	7/8/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	9/8/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -37.000000
+MyCo.Capital.PL.Expenses.Utilities        37.000000
+
+Date:	10/8/1999
+Comment:	 Payment received - Consulting to 3/7/1999
+MyCo.Assets.NCA.CurAss.Cash              19505.000000
+MyCo.Assets.NCA.CurAss.Debtors           -19505.000000
+
+Date:	11/8/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	11/8/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -43.000000
+MyCo.Capital.PL.Expenses.Travel           43.000000
+
+Date:	13/8/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -23.000000
+MyCo.Capital.PL.Expenses.Travel           23.000000
+
+Date:	13/8/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -35.000000
+MyCo.Capital.PL.Expenses.Travel           35.000000
+
+Date:	14/8/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	17/8/1999
+Comment:	 Computer Hardware./Software Payment
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	17/8/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -37.000000
+MyCo.Capital.PL.Expenses.Rent             37.000000
+
+Date:	18/8/1999
+Comment:	 Computer Hardware./Software Investment
+MyCo.Assets.Fixed.Computers.OriginalCost 1500.000000
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+
+Date:	18/8/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	21/8/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	23/8/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -96.000000
+MyCo.Capital.PL.Expenses.Rent             96.000000
+
+Date:	25/8/1999
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/8/1999
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/8/1999
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/8/1999
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/8/1999
+Comment:	 Salary for Richard
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/8/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	28/8/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	28/8/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -64.000000
+MyCo.Capital.PL.Expenses.Labour           64.000000
+
+Date:	28/8/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -25.000000
+MyCo.Capital.PL.Expenses.Rent             25.000000
+
+Date:	29/8/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -87.000000
+MyCo.Capital.PL.Expenses.Utilities        87.000000
+
+Date:	1/9/1999
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            397.430000
+MyCo.Capital.PL.Expenses.Interest         64.020000
+
+Date:	1/9/1999
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/9/1999
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -454.725000
+MyCo.Assets.NCA.CurLia.VATdue             67.725000
+MyCo.Capital.PL.Expenses.Communications  387.000000
+
+Date:	1/9/1999
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1410.000000
+MyCo.Assets.NCA.CurLia.VATdue            210.000000
+MyCo.Capital.PL.Expenses.Office          1200.000000
+
+Date:	1/9/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	2/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -5.000000
+MyCo.Capital.PL.Expenses.Travel            5.000000
+
+Date:	3/9/1999
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash                0.000000
+MyCo.Assets.NCA.CurLia.VATdue              0.000000
+MyCo.Capital.PL.Income.Software            0.000000
+
+Date:	3/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -47.000000
+MyCo.Capital.PL.Expenses.Utilities        47.000000
+
+Date:	4/9/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	4/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -74.000000
+MyCo.Capital.PL.Expenses.Travel           74.000000
+
+Date:	4/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -20.000000
+MyCo.Capital.PL.Expenses.Labour           20.000000
+
+Date:	6/9/1999
+Comment:	 Bill raised - Consulting to 3/9/1999
+MyCo.Assets.NCA.CurAss.Debtors           21855.000000
+MyCo.Assets.NCA.CurLia.VATdue            -3255.000000
+MyCo.Capital.PL.Income.Consulting        -18600.000000
+
+Date:	6/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -31.000000
+MyCo.Capital.PL.Expenses.Utilities        31.000000
+
+Date:	6/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -95.000000
+MyCo.Capital.PL.Expenses.Rent             95.000000
+
+Date:	8/9/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	8/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -3.000000
+MyCo.Capital.PL.Expenses.Rent              3.000000
+
+Date:	8/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -100.000000
+MyCo.Capital.PL.Expenses.Labour          100.000000
+
+Date:	9/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -61.000000
+MyCo.Capital.PL.Expenses.Travel           61.000000
+
+Date:	10/9/1999
+Comment:	 Payment received - Consulting to 3/8/1999
+MyCo.Assets.NCA.CurAss.Cash              20680.000000
+MyCo.Assets.NCA.CurAss.Debtors           -20680.000000
+
+Date:	11/9/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	11/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -77.000000
+MyCo.Capital.PL.Expenses.Stationery       77.000000
+
+Date:	13/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -33.000000
+MyCo.Capital.PL.Expenses.Labour           33.000000
+
+Date:	15/9/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	15/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -62.000000
+MyCo.Capital.PL.Expenses.Rent             62.000000
+
+Date:	17/9/1999
+Comment:	 Computer Hardware./Software Payment
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	18/9/1999
+Comment:	 Computer Hardware./Software Investment
+MyCo.Assets.Fixed.Computers.OriginalCost 1500.000000
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+
+Date:	18/9/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	18/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -85.000000
+MyCo.Capital.PL.Expenses.Labour           85.000000
+
+Date:	18/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -17.000000
+MyCo.Capital.PL.Expenses.Utilities        17.000000
+
+Date:	18/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -11.000000
+MyCo.Capital.PL.Expenses.Travel           11.000000
+
+Date:	22/9/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	23/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -91.000000
+MyCo.Capital.PL.Expenses.Utilities        91.000000
+
+Date:	24/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -56.000000
+MyCo.Capital.PL.Expenses.Rent             56.000000
+
+Date:	25/9/1999
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/9/1999
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/9/1999
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/9/1999
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/9/1999
+Comment:	 Salary for Richard
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/9/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	26/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -70.000000
+MyCo.Capital.PL.Expenses.Utilities        70.000000
+
+Date:	29/9/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	29/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -70.000000
+MyCo.Capital.PL.Expenses.Utilities        70.000000
+
+Date:	29/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -46.000000
+MyCo.Capital.PL.Expenses.Utilities        46.000000
+
+Date:	29/9/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -33.000000
+MyCo.Capital.PL.Expenses.Stationery       33.000000
+
+Date:	1/10/1999
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            400.740000
+MyCo.Capital.PL.Expenses.Interest         60.710000
+
+Date:	1/10/1999
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/10/1999
+Comment:	 Rent paid quarterly in advance
+MyCo.Assets.NCA.CurAss.Cash              -4500.000000
+MyCo.Assets.NCA.CurAss.Prepayments       4500.000000
+
+Date:	1/10/1999
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -667.400000
+MyCo.Assets.NCA.CurLia.VATdue             99.400000
+MyCo.Capital.PL.Expenses.Communications  568.000000
+
+Date:	1/10/1999
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1410.000000
+MyCo.Assets.NCA.CurLia.VATdue            210.000000
+MyCo.Capital.PL.Expenses.Office          1200.000000
+
+Date:	1/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -51.000000
+MyCo.Capital.PL.Expenses.Labour           51.000000
+
+Date:	2/10/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	3/10/1999
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash              5875.000000
+MyCo.Assets.NCA.CurLia.VATdue            -875.000000
+MyCo.Capital.PL.Income.Software          -5000.000000
+
+Date:	4/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -96.000000
+MyCo.Capital.PL.Expenses.Labour           96.000000
+
+Date:	5/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -68.000000
+MyCo.Capital.PL.Expenses.Rent             68.000000
+
+Date:	6/10/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	6/10/1999
+Comment:	 Bill raised - Consulting to 3/10/1999
+MyCo.Assets.NCA.CurAss.Debtors           23030.000000
+MyCo.Assets.NCA.CurLia.VATdue            -3430.000000
+MyCo.Capital.PL.Income.Consulting        -19600.000000
+
+Date:	6/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -87.000000
+MyCo.Capital.PL.Expenses.Stationery       87.000000
+
+Date:	6/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -17.000000
+MyCo.Capital.PL.Expenses.Rent             17.000000
+
+Date:	7/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -75.000000
+MyCo.Capital.PL.Expenses.Travel           75.000000
+
+Date:	9/10/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	9/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -9.000000
+MyCo.Capital.PL.Expenses.Stationery        9.000000
+
+Date:	10/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -7.000000
+MyCo.Capital.PL.Expenses.Labour            7.000000
+
+Date:	10/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -12.000000
+MyCo.Capital.PL.Expenses.Stationery       12.000000
+
+Date:	11/10/1999
+Comment:	 Payment received - Consulting to 3/9/1999
+MyCo.Assets.NCA.CurAss.Cash              21855.000000
+MyCo.Assets.NCA.CurAss.Debtors           -21855.000000
+
+Date:	11/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -47.000000
+MyCo.Capital.PL.Expenses.Rent             47.000000
+
+Date:	11/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -21.000000
+MyCo.Capital.PL.Expenses.Labour           21.000000
+
+Date:	11/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -17.000000
+MyCo.Capital.PL.Expenses.Rent             17.000000
+
+Date:	12/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -92.000000
+MyCo.Capital.PL.Expenses.Rent             92.000000
+
+Date:	13/10/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	13/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -18.000000
+MyCo.Capital.PL.Expenses.Utilities        18.000000
+
+Date:	15/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -96.000000
+MyCo.Capital.PL.Expenses.Utilities        96.000000
+
+Date:	15/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -60.000000
+MyCo.Capital.PL.Expenses.Travel           60.000000
+
+Date:	16/10/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	16/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -37.000000
+MyCo.Capital.PL.Expenses.Labour           37.000000
+
+Date:	16/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -29.000000
+MyCo.Capital.PL.Expenses.Utilities        29.000000
+
+Date:	16/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -25.000000
+MyCo.Capital.PL.Expenses.Rent             25.000000
+
+Date:	16/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -8.000000
+MyCo.Capital.PL.Expenses.Stationery        8.000000
+
+Date:	17/10/1999
+Comment:	 Computer Hardware./Software Payment
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	18/10/1999
+Comment:	 Computer Hardware./Software Investment
+MyCo.Assets.Fixed.Computers.OriginalCost 1500.000000
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+
+Date:	18/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -78.000000
+MyCo.Capital.PL.Expenses.Rent             78.000000
+
+Date:	18/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -75.000000
+MyCo.Capital.PL.Expenses.Travel           75.000000
+
+Date:	20/10/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	22/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -25.000000
+MyCo.Capital.PL.Expenses.Labour           25.000000
+
+Date:	23/10/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	24/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -63.000000
+MyCo.Capital.PL.Expenses.Stationery       63.000000
+
+Date:	25/10/1999
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/10/1999
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/10/1999
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/10/1999
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/10/1999
+Comment:	 Salary for Richard
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	27/10/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	28/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -41.000000
+MyCo.Capital.PL.Expenses.Rent             41.000000
+
+Date:	29/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -56.000000
+MyCo.Capital.PL.Expenses.Travel           56.000000
+
+Date:	30/10/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	30/10/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -98.000000
+MyCo.Capital.PL.Expenses.Rent             98.000000
+
+Date:	1/11/1999
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            404.080000
+MyCo.Capital.PL.Expenses.Interest         57.370000
+
+Date:	1/11/1999
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/11/1999
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -554.600000
+MyCo.Assets.NCA.CurLia.VATdue             82.600000
+MyCo.Capital.PL.Expenses.Communications  472.000000
+
+Date:	1/11/1999
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1410.000000
+MyCo.Assets.NCA.CurLia.VATdue            210.000000
+MyCo.Capital.PL.Expenses.Office          1200.000000
+
+Date:	1/11/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -94.000000
+MyCo.Capital.PL.Expenses.Travel           94.000000
+
+Date:	3/11/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	3/11/1999
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash              6462.500000
+MyCo.Assets.NCA.CurLia.VATdue            -962.500000
+MyCo.Capital.PL.Income.Software          -5500.000000
+
+Date:	4/11/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -25.000000
+MyCo.Capital.PL.Expenses.Travel           25.000000
+
+Date:	4/11/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -85.000000
+MyCo.Capital.PL.Expenses.Travel           85.000000
+
+Date:	6/11/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	6/11/1999
+Comment:	 Bill raised - Consulting to 3/11/1999
+MyCo.Assets.NCA.CurAss.Debtors           24205.000000
+MyCo.Assets.NCA.CurLia.VATdue            -3605.000000
+MyCo.Capital.PL.Income.Consulting        -20600.000000
+
+Date:	7/11/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -14.000000
+MyCo.Capital.PL.Expenses.Travel           14.000000
+
+Date:	7/11/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -26.000000
+MyCo.Capital.PL.Expenses.Stationery       26.000000
+
+Date:	7/11/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -67.000000
+MyCo.Capital.PL.Expenses.Rent             67.000000
+
+Date:	7/11/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -57.000000
+MyCo.Capital.PL.Expenses.Labour           57.000000
+
+Date:	9/11/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -24.000000
+MyCo.Capital.PL.Expenses.Travel           24.000000
+
+Date:	9/11/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -3.000000
+MyCo.Capital.PL.Expenses.Utilities         3.000000
+
+Date:	10/11/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	10/11/1999
+Comment:	 Payment received - Consulting to 3/10/1999
+MyCo.Assets.NCA.CurAss.Cash              23030.000000
+MyCo.Assets.NCA.CurAss.Debtors           -23030.000000
+
+Date:	10/11/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -57.000000
+MyCo.Capital.PL.Expenses.Stationery       57.000000
+
+Date:	13/11/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	13/11/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -60.000000
+MyCo.Capital.PL.Expenses.Rent             60.000000
+
+Date:	14/11/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -94.000000
+MyCo.Capital.PL.Expenses.Rent             94.000000
+
+Date:	14/11/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -93.000000
+MyCo.Capital.PL.Expenses.Utilities        93.000000
+
+Date:	15/11/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -78.000000
+MyCo.Capital.PL.Expenses.Travel           78.000000
+
+Date:	17/11/1999
+Comment:	 Computer Hardware./Software Payment
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	17/11/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	18/11/1999
+Comment:	 Computer Hardware./Software Investment
+MyCo.Assets.Fixed.Computers.OriginalCost 1500.000000
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+
+Date:	20/11/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	23/11/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -77.000000
+MyCo.Capital.PL.Expenses.Rent             77.000000
+
+Date:	24/11/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	25/11/1999
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/11/1999
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/11/1999
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/11/1999
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/11/1999
+Comment:	 Salary for Richard
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/11/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -52.000000
+MyCo.Capital.PL.Expenses.Travel           52.000000
+
+Date:	25/11/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -8.000000
+MyCo.Capital.PL.Expenses.Stationery        8.000000
+
+Date:	26/11/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -74.000000
+MyCo.Capital.PL.Expenses.Labour           74.000000
+
+Date:	27/11/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	29/11/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -72.000000
+MyCo.Capital.PL.Expenses.Stationery       72.000000
+
+Date:	1/12/1999
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            407.440000
+MyCo.Capital.PL.Expenses.Interest         54.010000
+
+Date:	1/12/1999
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/12/1999
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -509.950000
+MyCo.Assets.NCA.CurLia.VATdue             75.950000
+MyCo.Capital.PL.Expenses.Communications  434.000000
+
+Date:	1/12/1999
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1410.000000
+MyCo.Assets.NCA.CurLia.VATdue            210.000000
+MyCo.Capital.PL.Expenses.Office          1200.000000
+
+Date:	1/12/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	1/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -87.000000
+MyCo.Capital.PL.Expenses.Rent             87.000000
+
+Date:	3/12/1999
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash              7108.750000
+MyCo.Assets.NCA.CurLia.VATdue            -1058.750000
+MyCo.Capital.PL.Income.Software          -6050.000000
+
+Date:	4/12/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	6/12/1999
+Comment:	 Bill raised - Consulting to 3/12/1999
+MyCo.Assets.NCA.CurAss.Debtors           25380.000000
+MyCo.Assets.NCA.CurLia.VATdue            -3780.000000
+MyCo.Capital.PL.Income.Consulting        -21600.000000
+
+Date:	6/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -15.000000
+MyCo.Capital.PL.Expenses.Utilities        15.000000
+
+Date:	8/12/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	8/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -96.000000
+MyCo.Capital.PL.Expenses.Travel           96.000000
+
+Date:	11/12/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	11/12/1999
+Comment:	 Payment received - Consulting to 3/11/1999
+MyCo.Assets.NCA.CurAss.Cash              24205.000000
+MyCo.Assets.NCA.CurAss.Debtors           -24205.000000
+
+Date:	13/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -8.000000
+MyCo.Capital.PL.Expenses.Utilities         8.000000
+
+Date:	13/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -54.000000
+MyCo.Capital.PL.Expenses.Stationery       54.000000
+
+Date:	15/12/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	16/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -43.000000
+MyCo.Capital.PL.Expenses.Rent             43.000000
+
+Date:	17/12/1999
+Comment:	 Computer Hardware./Software Payment
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	17/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -62.000000
+MyCo.Capital.PL.Expenses.Stationery       62.000000
+
+Date:	18/12/1999
+Comment:	 Computer Hardware./Software Investment
+MyCo.Assets.Fixed.Computers.OriginalCost 1500.000000
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+
+Date:	18/12/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	18/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -23.000000
+MyCo.Capital.PL.Expenses.Travel           23.000000
+
+Date:	19/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -27.000000
+MyCo.Capital.PL.Expenses.Stationery       27.000000
+
+Date:	19/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -62.000000
+MyCo.Capital.PL.Expenses.Travel           62.000000
+
+Date:	20/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -95.000000
+MyCo.Capital.PL.Expenses.Labour           95.000000
+
+Date:	20/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -41.000000
+MyCo.Capital.PL.Expenses.Rent             41.000000
+
+Date:	21/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -37.000000
+MyCo.Capital.PL.Expenses.Travel           37.000000
+
+Date:	22/12/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	23/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -40.000000
+MyCo.Capital.PL.Expenses.Rent             40.000000
+
+Date:	24/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -80.000000
+MyCo.Capital.PL.Expenses.Rent             80.000000
+
+Date:	25/12/1999
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/12/1999
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/12/1999
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/12/1999
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/12/1999
+Comment:	 Salary for Richard
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/12/1999
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	25/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -97.000000
+MyCo.Capital.PL.Expenses.Stationery       97.000000
+
+Date:	26/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -42.000000
+MyCo.Capital.PL.Expenses.Stationery       42.000000
+
+Date:	27/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -52.000000
+MyCo.Capital.PL.Expenses.Stationery       52.000000
+
+Date:	27/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -26.000000
+MyCo.Capital.PL.Expenses.Rent             26.000000
+
+Date:	28/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -88.000000
+MyCo.Capital.PL.Expenses.Travel           88.000000
+
+Date:	28/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -86.000000
+MyCo.Capital.PL.Expenses.Stationery       86.000000
+
+Date:	29/12/1999
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	29/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -72.000000
+MyCo.Capital.PL.Expenses.Rent             72.000000
+
+Date:	30/12/1999
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -97.000000
+MyCo.Capital.PL.Expenses.Travel           97.000000
+
+Date:	1/1/2000
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            410.840000
+MyCo.Capital.PL.Expenses.Interest         50.610000
+
+Date:	1/1/2000
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/1/2000
+Comment:	 Rent paid quarterly in advance
+MyCo.Assets.NCA.CurAss.Cash              -4500.000000
+MyCo.Assets.NCA.CurAss.Prepayments       4500.000000
+
+Date:	1/1/2000
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -740.250000
+MyCo.Assets.NCA.CurLia.VATdue            110.250000
+MyCo.Capital.PL.Expenses.Communications  630.000000
+
+Date:	1/1/2000
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1410.000000
+MyCo.Assets.NCA.CurLia.VATdue            210.000000
+MyCo.Capital.PL.Expenses.Office          1200.000000
+
+Date:	1/1/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	2/1/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -30.000000
+MyCo.Capital.PL.Expenses.Travel           30.000000
+
+Date:	3/1/2000
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash              7819.625000
+MyCo.Assets.NCA.CurLia.VATdue            -1164.625000
+MyCo.Capital.PL.Income.Software          -6655.000000
+
+Date:	5/1/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	6/1/2000
+Comment:	 Bill raised - Consulting to 3/1/2000
+MyCo.Assets.NCA.CurAss.Debtors           25380.000000
+MyCo.Assets.NCA.CurLia.VATdue            -3780.000000
+MyCo.Capital.PL.Income.Consulting        -21600.000000
+
+Date:	7/1/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -10.000000
+MyCo.Capital.PL.Expenses.Labour           10.000000
+
+Date:	8/1/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	8/1/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -15.000000
+MyCo.Capital.PL.Expenses.Stationery       15.000000
+
+Date:	8/1/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -71.000000
+MyCo.Capital.PL.Expenses.Rent             71.000000
+
+Date:	10/1/2000
+Comment:	 Payment received - Consulting to 3/12/1999
+MyCo.Assets.NCA.CurAss.Cash              25380.000000
+MyCo.Assets.NCA.CurAss.Debtors           -25380.000000
+
+Date:	11/1/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -21.000000
+MyCo.Capital.PL.Expenses.Utilities        21.000000
+
+Date:	12/1/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	12/1/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -92.000000
+MyCo.Capital.PL.Expenses.Travel           92.000000
+
+Date:	15/1/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	15/1/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -97.000000
+MyCo.Capital.PL.Expenses.Stationery       97.000000
+
+Date:	17/1/2000
+Comment:	 Computer Hardware./Software Payment
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	17/1/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -2.000000
+MyCo.Capital.PL.Expenses.Travel            2.000000
+
+Date:	18/1/2000
+Comment:	 Computer Hardware./Software Investment
+MyCo.Assets.Fixed.Computers.OriginalCost 1500.000000
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+
+Date:	18/1/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -96.000000
+MyCo.Capital.PL.Expenses.Rent             96.000000
+
+Date:	18/1/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -43.000000
+MyCo.Capital.PL.Expenses.Stationery       43.000000
+
+Date:	19/1/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	20/1/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -53.000000
+MyCo.Capital.PL.Expenses.Labour           53.000000
+
+Date:	22/1/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	23/1/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -91.000000
+MyCo.Capital.PL.Expenses.Travel           91.000000
+
+Date:	24/1/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -55.000000
+MyCo.Capital.PL.Expenses.Utilities        55.000000
+
+Date:	25/1/2000
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/1/2000
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/1/2000
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/1/2000
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/1/2000
+Comment:	 Salary for Richard
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/1/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -70.000000
+MyCo.Capital.PL.Expenses.Rent             70.000000
+
+Date:	26/1/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	26/1/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -78.000000
+MyCo.Capital.PL.Expenses.Stationery       78.000000
+
+Date:	28/1/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -54.000000
+MyCo.Capital.PL.Expenses.Stationery       54.000000
+
+Date:	29/1/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	30/1/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -10.000000
+MyCo.Capital.PL.Expenses.Stationery       10.000000
+
+Date:	30/1/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -87.000000
+MyCo.Capital.PL.Expenses.Rent             87.000000
+
+Date:	1/2/2000
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            414.260000
+MyCo.Capital.PL.Expenses.Interest         47.190000
+
+Date:	1/2/2000
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/2/2000
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -669.750000
+MyCo.Assets.NCA.CurLia.VATdue             99.750000
+MyCo.Capital.PL.Expenses.Communications  570.000000
+
+Date:	1/2/2000
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1410.000000
+MyCo.Assets.NCA.CurLia.VATdue            210.000000
+MyCo.Capital.PL.Expenses.Office          1200.000000
+
+Date:	1/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -55.000000
+MyCo.Capital.PL.Expenses.Rent             55.000000
+
+Date:	2/2/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	2/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -48.000000
+MyCo.Capital.PL.Expenses.Utilities        48.000000
+
+Date:	3/2/2000
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash              8601.587500
+MyCo.Assets.NCA.CurLia.VATdue            -1281.087500
+MyCo.Capital.PL.Income.Software          -7320.500000
+
+Date:	3/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -47.000000
+MyCo.Capital.PL.Expenses.Rent             47.000000
+
+Date:	5/2/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	6/2/2000
+Comment:	 Bill raised - Consulting to 3/2/2000
+MyCo.Assets.NCA.CurAss.Debtors           25380.000000
+MyCo.Assets.NCA.CurLia.VATdue            -3780.000000
+MyCo.Capital.PL.Income.Consulting        -21600.000000
+
+Date:	6/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -64.000000
+MyCo.Capital.PL.Expenses.Utilities        64.000000
+
+Date:	8/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -47.000000
+MyCo.Capital.PL.Expenses.Labour           47.000000
+
+Date:	8/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -43.000000
+MyCo.Capital.PL.Expenses.Travel           43.000000
+
+Date:	9/2/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	10/2/2000
+Comment:	 Payment received - Consulting to 3/1/2000
+MyCo.Assets.NCA.CurAss.Cash              25380.000000
+MyCo.Assets.NCA.CurAss.Debtors           -25380.000000
+
+Date:	10/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -78.000000
+MyCo.Capital.PL.Expenses.Utilities        78.000000
+
+Date:	10/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -71.000000
+MyCo.Capital.PL.Expenses.Utilities        71.000000
+
+Date:	12/2/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	12/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -74.000000
+MyCo.Capital.PL.Expenses.Labour           74.000000
+
+Date:	13/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -20.000000
+MyCo.Capital.PL.Expenses.Utilities        20.000000
+
+Date:	13/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -37.000000
+MyCo.Capital.PL.Expenses.Rent             37.000000
+
+Date:	16/2/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	17/2/2000
+Comment:	 Computer Hardware./Software Payment
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	17/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -10.000000
+MyCo.Capital.PL.Expenses.Stationery       10.000000
+
+Date:	18/2/2000
+Comment:	 Computer Hardware./Software Investment
+MyCo.Assets.Fixed.Computers.OriginalCost 1500.000000
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+
+Date:	19/2/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	21/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -61.000000
+MyCo.Capital.PL.Expenses.Rent             61.000000
+
+Date:	23/2/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	24/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -38.000000
+MyCo.Capital.PL.Expenses.Utilities        38.000000
+
+Date:	25/2/2000
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/2/2000
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/2/2000
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/2/2000
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/2/2000
+Comment:	 Salary for Richard
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -47.000000
+MyCo.Capital.PL.Expenses.Utilities        47.000000
+
+Date:	26/2/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	26/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -36.000000
+MyCo.Capital.PL.Expenses.Rent             36.000000
+
+Date:	27/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -82.000000
+MyCo.Capital.PL.Expenses.Labour           82.000000
+
+Date:	28/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -1.000000
+MyCo.Capital.PL.Expenses.Utilities         1.000000
+
+Date:	28/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -5.000000
+MyCo.Capital.PL.Expenses.Stationery        5.000000
+
+Date:	28/2/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -24.000000
+MyCo.Capital.PL.Expenses.Utilities        24.000000
+
+Date:	1/3/2000
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            417.720000
+MyCo.Capital.PL.Expenses.Interest         43.730000
+
+Date:	1/3/2000
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/3/2000
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -623.925000
+MyCo.Assets.NCA.CurLia.VATdue             92.925000
+MyCo.Capital.PL.Expenses.Communications  531.000000
+
+Date:	1/3/2000
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1410.000000
+MyCo.Assets.NCA.CurLia.VATdue            210.000000
+MyCo.Capital.PL.Expenses.Office          1200.000000
+
+Date:	1/3/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	1/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -14.000000
+MyCo.Capital.PL.Expenses.Stationery       14.000000
+
+Date:	1/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -35.000000
+MyCo.Capital.PL.Expenses.Stationery       35.000000
+
+Date:	2/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -41.000000
+MyCo.Capital.PL.Expenses.Utilities        41.000000
+
+Date:	3/3/2000
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash              9461.746250
+MyCo.Assets.NCA.CurLia.VATdue            -1409.196250
+MyCo.Capital.PL.Income.Software          -8052.550000
+
+Date:	4/3/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	4/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -82.000000
+MyCo.Capital.PL.Expenses.Rent             82.000000
+
+Date:	5/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -25.000000
+MyCo.Capital.PL.Expenses.Stationery       25.000000
+
+Date:	6/3/2000
+Comment:	 Bill raised - Consulting to 3/3/2000
+MyCo.Assets.NCA.CurAss.Debtors           25380.000000
+MyCo.Assets.NCA.CurLia.VATdue            -3780.000000
+MyCo.Capital.PL.Income.Consulting        -21600.000000
+
+Date:	7/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -18.000000
+MyCo.Capital.PL.Expenses.Travel           18.000000
+
+Date:	8/3/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	10/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -83.000000
+MyCo.Capital.PL.Expenses.Stationery       83.000000
+
+Date:	10/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -47.000000
+MyCo.Capital.PL.Expenses.Labour           47.000000
+
+Date:	10/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -93.000000
+MyCo.Capital.PL.Expenses.Travel           93.000000
+
+Date:	11/3/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	12/3/2000
+Comment:	 Payment received - Consulting to 3/2/2000
+MyCo.Assets.NCA.CurAss.Cash              25380.000000
+MyCo.Assets.NCA.CurAss.Debtors           -25380.000000
+
+Date:	12/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -78.000000
+MyCo.Capital.PL.Expenses.Rent             78.000000
+
+Date:	14/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -13.000000
+MyCo.Capital.PL.Expenses.Utilities        13.000000
+
+Date:	15/3/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	16/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -41.000000
+MyCo.Capital.PL.Expenses.Labour           41.000000
+
+Date:	17/3/2000
+Comment:	 Computer Hardware./Software Payment
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	18/3/2000
+Comment:	 Computer Hardware./Software Investment
+MyCo.Assets.Fixed.Computers.OriginalCost 1500.000000
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+
+Date:	18/3/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	18/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -24.000000
+MyCo.Capital.PL.Expenses.Utilities        24.000000
+
+Date:	20/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -42.000000
+MyCo.Capital.PL.Expenses.Rent             42.000000
+
+Date:	22/3/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	22/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -53.000000
+MyCo.Capital.PL.Expenses.Labour           53.000000
+
+Date:	23/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -30.000000
+MyCo.Capital.PL.Expenses.Travel           30.000000
+
+Date:	24/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -3.000000
+MyCo.Capital.PL.Expenses.Labour            3.000000
+
+Date:	25/3/2000
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/3/2000
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/3/2000
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/3/2000
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/3/2000
+Comment:	 Salary for Richard
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/3/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	25/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -65.000000
+MyCo.Capital.PL.Expenses.Stationery       65.000000
+
+Date:	27/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -51.000000
+MyCo.Capital.PL.Expenses.Labour           51.000000
+
+Date:	29/3/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	30/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -100.000000
+MyCo.Capital.PL.Expenses.Labour          100.000000
+
+Date:	31/3/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -64.000000
+MyCo.Capital.PL.Expenses.Stationery       64.000000
+
+Date:	1/4/2000
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            421.200000
+MyCo.Capital.PL.Expenses.Interest         40.250000
+
+Date:	1/4/2000
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/4/2000
+Comment:	 Rent paid quarterly in advance
+MyCo.Assets.NCA.CurAss.Cash              -4500.000000
+MyCo.Assets.NCA.CurAss.Prepayments       4500.000000
+
+Date:	1/4/2000
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -580.450000
+MyCo.Assets.NCA.CurLia.VATdue             86.450000
+MyCo.Capital.PL.Expenses.Communications  494.000000
+
+Date:	1/4/2000
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1410.000000
+MyCo.Assets.NCA.CurLia.VATdue            210.000000
+MyCo.Capital.PL.Expenses.Office          1200.000000
+
+Date:	1/4/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	1/4/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -8.000000
+MyCo.Capital.PL.Expenses.Labour            8.000000
+
+Date:	3/4/2000
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash              20815.841750
+MyCo.Assets.NCA.CurLia.VATdue            -3100.231750
+MyCo.Capital.PL.Income.Software          -17715.610000
+
+Date:	3/4/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -5.000000
+MyCo.Capital.PL.Expenses.Travel            5.000000
+
+Date:	3/4/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -79.000000
+MyCo.Capital.PL.Expenses.Utilities        79.000000
+
+Date:	5/4/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	6/4/2000
+Comment:	 Bill raised - Consulting to 3/4/2000
+MyCo.Assets.NCA.CurAss.Debtors           25380.000000
+MyCo.Assets.NCA.CurLia.VATdue            -3780.000000
+MyCo.Capital.PL.Income.Consulting        -21600.000000
+
+Date:	7/4/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -31.000000
+MyCo.Capital.PL.Expenses.Travel           31.000000
+
+Date:	8/4/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	10/4/2000
+Comment:	 Payment received - Consulting to 3/3/2000
+MyCo.Assets.NCA.CurAss.Cash              25380.000000
+MyCo.Assets.NCA.CurAss.Debtors           -25380.000000
+
+Date:	11/4/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -16.000000
+MyCo.Capital.PL.Expenses.Travel           16.000000
+
+Date:	11/4/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -6.000000
+MyCo.Capital.PL.Expenses.Utilities         6.000000
+
+Date:	12/4/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	13/4/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -84.000000
+MyCo.Capital.PL.Expenses.Labour           84.000000
+
+Date:	15/4/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	17/4/2000
+Comment:	 Computer Hardware./Software Payment
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	17/4/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -83.000000
+MyCo.Capital.PL.Expenses.Travel           83.000000
+
+Date:	18/4/2000
+Comment:	 Computer Hardware./Software Investment
+MyCo.Assets.Fixed.Computers.OriginalCost 1500.000000
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+
+Date:	19/4/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	20/4/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -72.000000
+MyCo.Capital.PL.Expenses.Labour           72.000000
+
+Date:	22/4/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	24/4/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -58.000000
+MyCo.Capital.PL.Expenses.Rent             58.000000
+
+Date:	25/4/2000
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/4/2000
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/4/2000
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/4/2000
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/4/2000
+Comment:	 Salary for Richard
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/4/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -53.000000
+MyCo.Capital.PL.Expenses.Utilities        53.000000
+
+Date:	26/4/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	26/4/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -63.000000
+MyCo.Capital.PL.Expenses.Rent             63.000000
+
+Date:	29/4/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	30/4/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -85.000000
+MyCo.Capital.PL.Expenses.Rent             85.000000
+
+Date:	1/5/2000
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            424.710000
+MyCo.Capital.PL.Expenses.Interest         36.740000
+
+Date:	1/5/2000
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/5/2000
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -634.500000
+MyCo.Assets.NCA.CurLia.VATdue             94.500000
+MyCo.Capital.PL.Expenses.Communications  540.000000
+
+Date:	1/5/2000
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1410.000000
+MyCo.Assets.NCA.CurLia.VATdue            210.000000
+MyCo.Capital.PL.Expenses.Office          1200.000000
+
+Date:	1/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -59.000000
+MyCo.Capital.PL.Expenses.Stationery       59.000000
+
+Date:	1/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -14.000000
+MyCo.Capital.PL.Expenses.Stationery       14.000000
+
+Date:	2/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -68.000000
+MyCo.Capital.PL.Expenses.Utilities        68.000000
+
+Date:	3/5/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	3/5/2000
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash              22897.424750
+MyCo.Assets.NCA.CurLia.VATdue            -3410.254750
+MyCo.Capital.PL.Income.Software          -19487.170000
+
+Date:	3/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -51.000000
+MyCo.Capital.PL.Expenses.Labour           51.000000
+
+Date:	4/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -7.000000
+MyCo.Capital.PL.Expenses.Stationery        7.000000
+
+Date:	5/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -95.000000
+MyCo.Capital.PL.Expenses.Stationery       95.000000
+
+Date:	6/5/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	6/5/2000
+Comment:	 Bill raised - Consulting to 3/5/2000
+MyCo.Assets.NCA.CurAss.Debtors           25380.000000
+MyCo.Assets.NCA.CurLia.VATdue            -3780.000000
+MyCo.Capital.PL.Income.Consulting        -21600.000000
+
+Date:	7/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -57.000000
+MyCo.Capital.PL.Expenses.Travel           57.000000
+
+Date:	7/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -78.000000
+MyCo.Capital.PL.Expenses.Rent             78.000000
+
+Date:	7/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -43.000000
+MyCo.Capital.PL.Expenses.Labour           43.000000
+
+Date:	8/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -11.000000
+MyCo.Capital.PL.Expenses.Stationery       11.000000
+
+Date:	10/5/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	10/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -11.000000
+MyCo.Capital.PL.Expenses.Rent             11.000000
+
+Date:	11/5/2000
+Comment:	 Payment received - Consulting to 3/4/2000
+MyCo.Assets.NCA.CurAss.Cash              25380.000000
+MyCo.Assets.NCA.CurAss.Debtors           -25380.000000
+
+Date:	13/5/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	14/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -93.000000
+MyCo.Capital.PL.Expenses.Rent             93.000000
+
+Date:	15/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -88.000000
+MyCo.Capital.PL.Expenses.Utilities        88.000000
+
+Date:	16/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -12.000000
+MyCo.Capital.PL.Expenses.Rent             12.000000
+
+Date:	17/5/2000
+Comment:	 Computer Hardware./Software Payment
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	17/5/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	18/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -10.000000
+MyCo.Capital.PL.Expenses.Utilities        10.000000
+
+Date:	18/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -58.000000
+MyCo.Capital.PL.Expenses.Utilities        58.000000
+
+Date:	20/5/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	22/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -53.000000
+MyCo.Capital.PL.Expenses.Rent             53.000000
+
+Date:	23/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -17.000000
+MyCo.Capital.PL.Expenses.Labour           17.000000
+
+Date:	24/5/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	25/5/2000
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/5/2000
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/5/2000
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/5/2000
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/5/2000
+Comment:	 Salary for Richard
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	26/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -80.000000
+MyCo.Capital.PL.Expenses.Travel           80.000000
+
+Date:	26/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -80.000000
+MyCo.Capital.PL.Expenses.Stationery       80.000000
+
+Date:	27/5/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	29/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -66.000000
+MyCo.Capital.PL.Expenses.Stationery       66.000000
+
+Date:	29/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -100.000000
+MyCo.Capital.PL.Expenses.Travel          100.000000
+
+Date:	30/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -96.000000
+MyCo.Capital.PL.Expenses.Rent             96.000000
+
+Date:	31/5/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	31/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -39.000000
+MyCo.Capital.PL.Expenses.Stationery       39.000000
+
+Date:	31/5/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -98.000000
+MyCo.Capital.PL.Expenses.Travel           98.000000
+
+Date:	1/6/2000
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            428.250000
+MyCo.Capital.PL.Expenses.Interest         33.200000
+
+Date:	1/6/2000
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/6/2000
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -600.425000
+MyCo.Assets.NCA.CurLia.VATdue             89.425000
+MyCo.Capital.PL.Expenses.Communications  511.000000
+
+Date:	1/6/2000
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1410.000000
+MyCo.Assets.NCA.CurLia.VATdue            210.000000
+MyCo.Capital.PL.Expenses.Office          1200.000000
+
+Date:	3/6/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	3/6/2000
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash              25187.168400
+MyCo.Assets.NCA.CurLia.VATdue            -3751.280400
+MyCo.Capital.PL.Income.Software          -21435.888000
+
+Date:	3/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -71.000000
+MyCo.Capital.PL.Expenses.Labour           71.000000
+
+Date:	3/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -90.000000
+MyCo.Capital.PL.Expenses.Utilities        90.000000
+
+Date:	5/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -58.000000
+MyCo.Capital.PL.Expenses.Labour           58.000000
+
+Date:	6/6/2000
+Comment:	 Bill raised - Consulting to 3/6/2000
+MyCo.Assets.NCA.CurAss.Debtors           25380.000000
+MyCo.Assets.NCA.CurLia.VATdue            -3780.000000
+MyCo.Capital.PL.Income.Consulting        -21600.000000
+
+Date:	6/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -15.000000
+MyCo.Capital.PL.Expenses.Rent             15.000000
+
+Date:	7/6/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	7/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -59.000000
+MyCo.Capital.PL.Expenses.Utilities        59.000000
+
+Date:	8/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -38.000000
+MyCo.Capital.PL.Expenses.Travel           38.000000
+
+Date:	9/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -68.000000
+MyCo.Capital.PL.Expenses.Rent             68.000000
+
+Date:	9/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -41.000000
+MyCo.Capital.PL.Expenses.Travel           41.000000
+
+Date:	10/6/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	10/6/2000
+Comment:	 Payment received - Consulting to 3/5/2000
+MyCo.Assets.NCA.CurAss.Cash              25380.000000
+MyCo.Assets.NCA.CurAss.Debtors           -25380.000000
+
+Date:	10/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -5.000000
+MyCo.Capital.PL.Expenses.Travel            5.000000
+
+Date:	10/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -50.000000
+MyCo.Capital.PL.Expenses.Labour           50.000000
+
+Date:	11/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -69.000000
+MyCo.Capital.PL.Expenses.Rent             69.000000
+
+Date:	11/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -4.000000
+MyCo.Capital.PL.Expenses.Utilities         4.000000
+
+Date:	12/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -29.000000
+MyCo.Capital.PL.Expenses.Travel           29.000000
+
+Date:	13/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -22.000000
+MyCo.Capital.PL.Expenses.Stationery       22.000000
+
+Date:	14/6/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	17/6/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	18/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -65.000000
+MyCo.Capital.PL.Expenses.Labour           65.000000
+
+Date:	21/6/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	23/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -32.000000
+MyCo.Capital.PL.Expenses.Utilities        32.000000
+
+Date:	24/6/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	25/6/2000
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/6/2000
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/6/2000
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/6/2000
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/6/2000
+Comment:	 Salary for Richard
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	27/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -60.000000
+MyCo.Capital.PL.Expenses.Utilities        60.000000
+
+Date:	28/6/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	28/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -72.000000
+MyCo.Capital.PL.Expenses.Travel           72.000000
+
+Date:	28/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -47.000000
+MyCo.Capital.PL.Expenses.Stationery       47.000000
+
+Date:	28/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -4.000000
+MyCo.Capital.PL.Expenses.Stationery        4.000000
+
+Date:	29/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -97.000000
+MyCo.Capital.PL.Expenses.Rent             97.000000
+
+Date:	29/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -64.000000
+MyCo.Capital.PL.Expenses.Stationery       64.000000
+
+Date:	30/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -52.000000
+MyCo.Capital.PL.Expenses.Stationery       52.000000
+
+Date:	30/6/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -3.000000
+MyCo.Capital.PL.Expenses.Rent              3.000000
+
+Date:	1/7/2000
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            431.810000
+MyCo.Capital.PL.Expenses.Interest         29.640000
+
+Date:	1/7/2000
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/7/2000
+Comment:	 Rent paid quarterly in advance
+MyCo.Assets.NCA.CurAss.Cash              -4500.000000
+MyCo.Assets.NCA.CurAss.Prepayments       4500.000000
+
+Date:	1/7/2000
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -414.775000
+MyCo.Assets.NCA.CurLia.VATdue             61.775000
+MyCo.Capital.PL.Expenses.Communications  353.000000
+
+Date:	1/7/2000
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1410.000000
+MyCo.Assets.NCA.CurLia.VATdue            210.000000
+MyCo.Capital.PL.Expenses.Office          1200.000000
+
+Date:	1/7/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	3/7/2000
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash              27705.889000
+MyCo.Assets.NCA.CurLia.VATdue            -4126.409000
+MyCo.Capital.PL.Income.Software          -23579.480000
+
+Date:	3/7/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -58.000000
+MyCo.Capital.PL.Expenses.Stationery       58.000000
+
+Date:	4/7/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -66.000000
+MyCo.Capital.PL.Expenses.Stationery       66.000000
+
+Date:	5/7/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	6/7/2000
+Comment:	 Bill raised - Consulting to 3/7/2000
+MyCo.Assets.NCA.CurAss.Debtors           25380.000000
+MyCo.Assets.NCA.CurLia.VATdue            -3780.000000
+MyCo.Capital.PL.Income.Consulting        -21600.000000
+
+Date:	6/7/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -47.000000
+MyCo.Capital.PL.Expenses.Labour           47.000000
+
+Date:	6/7/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -88.000000
+MyCo.Capital.PL.Expenses.Utilities        88.000000
+
+Date:	6/7/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -43.000000
+MyCo.Capital.PL.Expenses.Labour           43.000000
+
+Date:	8/7/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	9/7/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -45.000000
+MyCo.Capital.PL.Expenses.Utilities        45.000000
+
+Date:	10/7/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -68.000000
+MyCo.Capital.PL.Expenses.Rent             68.000000
+
+Date:	11/7/2000
+Comment:	 Payment received - Consulting to 3/6/2000
+MyCo.Assets.NCA.CurAss.Cash              25380.000000
+MyCo.Assets.NCA.CurAss.Debtors           -25380.000000
+
+Date:	11/7/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -38.000000
+MyCo.Capital.PL.Expenses.Stationery       38.000000
+
+Date:	12/7/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	12/7/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -9.000000
+MyCo.Capital.PL.Expenses.Utilities         9.000000
+
+Date:	14/7/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -88.000000
+MyCo.Capital.PL.Expenses.Rent             88.000000
+
+Date:	15/7/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	15/7/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -76.000000
+MyCo.Capital.PL.Expenses.Rent             76.000000
+
+Date:	17/7/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -33.000000
+MyCo.Capital.PL.Expenses.Labour           33.000000
+
+Date:	17/7/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -44.000000
+MyCo.Capital.PL.Expenses.Rent             44.000000
+
+Date:	19/7/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	19/7/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -9.000000
+MyCo.Capital.PL.Expenses.Stationery        9.000000
+
+Date:	20/7/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -91.000000
+MyCo.Capital.PL.Expenses.Rent             91.000000
+
+Date:	20/7/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -38.000000
+MyCo.Capital.PL.Expenses.Stationery       38.000000
+
+Date:	22/7/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	24/7/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -30.000000
+MyCo.Capital.PL.Expenses.Labour           30.000000
+
+Date:	25/7/2000
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/7/2000
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/7/2000
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/7/2000
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/7/2000
+Comment:	 Salary for Richard
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	26/7/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	27/7/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -23.000000
+MyCo.Capital.PL.Expenses.Utilities        23.000000
+
+Date:	29/7/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	29/7/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -99.000000
+MyCo.Capital.PL.Expenses.Travel           99.000000
+
+Date:	1/8/2000
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            435.410000
+MyCo.Capital.PL.Expenses.Interest         26.040000
+
+Date:	1/8/2000
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/8/2000
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -722.625000
+MyCo.Assets.NCA.CurLia.VATdue            107.625000
+MyCo.Capital.PL.Expenses.Communications  615.000000
+
+Date:	1/8/2000
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1410.000000
+MyCo.Assets.NCA.CurLia.VATdue            210.000000
+MyCo.Capital.PL.Expenses.Office          1200.000000
+
+Date:	1/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -83.000000
+MyCo.Capital.PL.Expenses.Travel           83.000000
+
+Date:	2/8/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	3/8/2000
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash              30476.468500
+MyCo.Assets.NCA.CurLia.VATdue            -4539.048500
+MyCo.Capital.PL.Income.Software          -25937.420000
+
+Date:	4/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -85.000000
+MyCo.Capital.PL.Expenses.Labour           85.000000
+
+Date:	5/8/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	5/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -70.000000
+MyCo.Capital.PL.Expenses.Labour           70.000000
+
+Date:	6/8/2000
+Comment:	 Bill raised - Consulting to 3/8/2000
+MyCo.Assets.NCA.CurAss.Debtors           25380.000000
+MyCo.Assets.NCA.CurLia.VATdue            -3780.000000
+MyCo.Capital.PL.Income.Consulting        -21600.000000
+
+Date:	6/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -82.000000
+MyCo.Capital.PL.Expenses.Stationery       82.000000
+
+Date:	8/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -72.000000
+MyCo.Capital.PL.Expenses.Utilities        72.000000
+
+Date:	8/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -70.000000
+MyCo.Capital.PL.Expenses.Rent             70.000000
+
+Date:	9/8/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	10/8/2000
+Comment:	 Payment received - Consulting to 3/7/2000
+MyCo.Assets.NCA.CurAss.Cash              25380.000000
+MyCo.Assets.NCA.CurAss.Debtors           -25380.000000
+
+Date:	12/8/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	13/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -48.000000
+MyCo.Capital.PL.Expenses.Labour           48.000000
+
+Date:	14/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -17.000000
+MyCo.Capital.PL.Expenses.Labour           17.000000
+
+Date:	14/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -87.000000
+MyCo.Capital.PL.Expenses.Utilities        87.000000
+
+Date:	14/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -87.000000
+MyCo.Capital.PL.Expenses.Stationery       87.000000
+
+Date:	15/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -84.000000
+MyCo.Capital.PL.Expenses.Stationery       84.000000
+
+Date:	16/8/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	17/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -61.000000
+MyCo.Capital.PL.Expenses.Utilities        61.000000
+
+Date:	19/8/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	23/8/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	24/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -42.000000
+MyCo.Capital.PL.Expenses.Rent             42.000000
+
+Date:	24/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -82.000000
+MyCo.Capital.PL.Expenses.Stationery       82.000000
+
+Date:	25/8/2000
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/8/2000
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/8/2000
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/8/2000
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/8/2000
+Comment:	 Salary for Richard
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -23.000000
+MyCo.Capital.PL.Expenses.Travel           23.000000
+
+Date:	26/8/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	26/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -19.000000
+MyCo.Capital.PL.Expenses.Rent             19.000000
+
+Date:	28/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -99.000000
+MyCo.Capital.PL.Expenses.Rent             99.000000
+
+Date:	28/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -28.000000
+MyCo.Capital.PL.Expenses.Rent             28.000000
+
+Date:	30/8/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	30/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -64.000000
+MyCo.Capital.PL.Expenses.Rent             64.000000
+
+Date:	31/8/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -65.000000
+MyCo.Capital.PL.Expenses.Rent             65.000000
+
+Date:	1/9/2000
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            439.040000
+MyCo.Capital.PL.Expenses.Interest         22.410000
+
+Date:	1/9/2000
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/9/2000
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -692.075000
+MyCo.Assets.NCA.CurLia.VATdue            103.075000
+MyCo.Capital.PL.Expenses.Communications  589.000000
+
+Date:	1/9/2000
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1410.000000
+MyCo.Assets.NCA.CurLia.VATdue            210.000000
+MyCo.Capital.PL.Expenses.Office          1200.000000
+
+Date:	1/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -7.000000
+MyCo.Capital.PL.Expenses.Stationery        7.000000
+
+Date:	1/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -2.000000
+MyCo.Capital.PL.Expenses.Labour            2.000000
+
+Date:	1/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -70.000000
+MyCo.Capital.PL.Expenses.Stationery       70.000000
+
+Date:	2/9/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	3/9/2000
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash              50286.181250
+MyCo.Assets.NCA.CurLia.VATdue            -7489.431250
+MyCo.Capital.PL.Income.Software          -42796.750000
+
+Date:	6/9/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	6/9/2000
+Comment:	 Bill raised - Consulting to 3/9/2000
+MyCo.Assets.NCA.CurAss.Debtors           25380.000000
+MyCo.Assets.NCA.CurLia.VATdue            -3780.000000
+MyCo.Capital.PL.Income.Consulting        -21600.000000
+
+Date:	7/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -100.000000
+MyCo.Capital.PL.Expenses.Travel          100.000000
+
+Date:	8/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -62.000000
+MyCo.Capital.PL.Expenses.Labour           62.000000
+
+Date:	9/9/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	9/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -11.000000
+MyCo.Capital.PL.Expenses.Stationery       11.000000
+
+Date:	10/9/2000
+Comment:	 Payment received - Consulting to 3/8/2000
+MyCo.Assets.NCA.CurAss.Cash              25380.000000
+MyCo.Assets.NCA.CurAss.Debtors           -25380.000000
+
+Date:	10/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -57.000000
+MyCo.Capital.PL.Expenses.Rent             57.000000
+
+Date:	10/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -57.000000
+MyCo.Capital.PL.Expenses.Rent             57.000000
+
+Date:	11/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -67.000000
+MyCo.Capital.PL.Expenses.Labour           67.000000
+
+Date:	13/9/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	13/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -64.000000
+MyCo.Capital.PL.Expenses.Labour           64.000000
+
+Date:	13/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -73.000000
+MyCo.Capital.PL.Expenses.Stationery       73.000000
+
+Date:	16/9/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	17/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -71.000000
+MyCo.Capital.PL.Expenses.Rent             71.000000
+
+Date:	20/9/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	21/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -47.000000
+MyCo.Capital.PL.Expenses.Stationery       47.000000
+
+Date:	23/9/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	23/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -37.000000
+MyCo.Capital.PL.Expenses.Rent             37.000000
+
+Date:	24/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -69.000000
+MyCo.Capital.PL.Expenses.Labour           69.000000
+
+Date:	24/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -89.000000
+MyCo.Capital.PL.Expenses.Rent             89.000000
+
+Date:	25/9/2000
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/9/2000
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/9/2000
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/9/2000
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/9/2000
+Comment:	 Salary for Richard
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -100.000000
+MyCo.Capital.PL.Expenses.Rent            100.000000
+
+Date:	26/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -30.000000
+MyCo.Capital.PL.Expenses.Rent             30.000000
+
+Date:	26/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -39.000000
+MyCo.Capital.PL.Expenses.Rent             39.000000
+
+Date:	27/9/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	27/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -29.000000
+MyCo.Capital.PL.Expenses.Utilities        29.000000
+
+Date:	27/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -54.000000
+MyCo.Capital.PL.Expenses.Stationery       54.000000
+
+Date:	28/9/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -14.000000
+MyCo.Capital.PL.Expenses.Stationery       14.000000
+
+Date:	30/9/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	1/10/2000
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            442.700000
+MyCo.Capital.PL.Expenses.Interest         18.750000
+
+Date:	1/10/2000
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/10/2000
+Comment:	 Rent paid quarterly in advance
+MyCo.Assets.NCA.CurAss.Cash              -4500.000000
+MyCo.Assets.NCA.CurAss.Prepayments       4500.000000
+
+Date:	1/10/2000
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -562.825000
+MyCo.Assets.NCA.CurLia.VATdue             83.825000
+MyCo.Capital.PL.Expenses.Communications  479.000000
+
+Date:	1/10/2000
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1410.000000
+MyCo.Assets.NCA.CurLia.VATdue            210.000000
+MyCo.Capital.PL.Expenses.Office          1200.000000
+
+Date:	2/10/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -97.000000
+MyCo.Capital.PL.Expenses.Utilities        97.000000
+
+Date:	3/10/2000
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash              55314.805250
+MyCo.Assets.NCA.CurLia.VATdue            -8238.375250
+MyCo.Capital.PL.Income.Software          -47076.430000
+
+Date:	3/10/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -91.000000
+MyCo.Capital.PL.Expenses.Stationery       91.000000
+
+Date:	4/10/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	6/10/2000
+Comment:	 Bill raised - Consulting to 3/10/2000
+MyCo.Assets.NCA.CurAss.Debtors           25380.000000
+MyCo.Assets.NCA.CurLia.VATdue            -3780.000000
+MyCo.Capital.PL.Income.Consulting        -21600.000000
+
+Date:	7/10/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	8/10/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -24.000000
+MyCo.Capital.PL.Expenses.Travel           24.000000
+
+Date:	11/10/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	11/10/2000
+Comment:	 Payment received - Consulting to 3/9/2000
+MyCo.Assets.NCA.CurAss.Cash              25380.000000
+MyCo.Assets.NCA.CurAss.Debtors           -25380.000000
+
+Date:	12/10/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -2.000000
+MyCo.Capital.PL.Expenses.Travel            2.000000
+
+Date:	13/10/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -70.000000
+MyCo.Capital.PL.Expenses.Utilities        70.000000
+
+Date:	14/10/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	14/10/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -27.000000
+MyCo.Capital.PL.Expenses.Travel           27.000000
+
+Date:	16/10/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -34.000000
+MyCo.Capital.PL.Expenses.Rent             34.000000
+
+Date:	18/10/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	18/10/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -15.000000
+MyCo.Capital.PL.Expenses.Travel           15.000000
+
+Date:	18/10/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -13.000000
+MyCo.Capital.PL.Expenses.Labour           13.000000
+
+Date:	19/10/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -89.000000
+MyCo.Capital.PL.Expenses.Utilities        89.000000
+
+Date:	20/10/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -90.000000
+MyCo.Capital.PL.Expenses.Utilities        90.000000
+
+Date:	21/10/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	24/10/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -86.000000
+MyCo.Capital.PL.Expenses.Labour           86.000000
+
+Date:	25/10/2000
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/10/2000
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/10/2000
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/10/2000
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/10/2000
+Comment:	 Salary for Richard
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/10/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	27/10/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -39.000000
+MyCo.Capital.PL.Expenses.Labour           39.000000
+
+Date:	27/10/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -59.000000
+MyCo.Capital.PL.Expenses.Labour           59.000000
+
+Date:	28/10/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	30/10/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -83.000000
+MyCo.Capital.PL.Expenses.Labour           83.000000
+
+Date:	30/10/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -57.000000
+MyCo.Capital.PL.Expenses.Rent             57.000000
+
+Date:	1/11/2000
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            446.390000
+MyCo.Capital.PL.Expenses.Interest         15.060000
+
+Date:	1/11/2000
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/11/2000
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -448.850000
+MyCo.Assets.NCA.CurLia.VATdue             66.850000
+MyCo.Capital.PL.Expenses.Communications  382.000000
+
+Date:	1/11/2000
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1410.000000
+MyCo.Assets.NCA.CurLia.VATdue            210.000000
+MyCo.Capital.PL.Expenses.Office          1200.000000
+
+Date:	1/11/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	1/11/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -64.000000
+MyCo.Capital.PL.Expenses.Utilities        64.000000
+
+Date:	3/11/2000
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash              60846.282250
+MyCo.Assets.NCA.CurLia.VATdue            -9062.212250
+MyCo.Capital.PL.Income.Software          -51784.070000
+
+Date:	3/11/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -70.000000
+MyCo.Capital.PL.Expenses.Stationery       70.000000
+
+Date:	4/11/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	4/11/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -94.000000
+MyCo.Capital.PL.Expenses.Utilities        94.000000
+
+Date:	5/11/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -53.000000
+MyCo.Capital.PL.Expenses.Labour           53.000000
+
+Date:	5/11/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -8.000000
+MyCo.Capital.PL.Expenses.Utilities         8.000000
+
+Date:	5/11/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -90.000000
+MyCo.Capital.PL.Expenses.Utilities        90.000000
+
+Date:	6/11/2000
+Comment:	 Bill raised - Consulting to 3/11/2000
+MyCo.Assets.NCA.CurAss.Debtors           25380.000000
+MyCo.Assets.NCA.CurLia.VATdue            -3780.000000
+MyCo.Capital.PL.Income.Consulting        -21600.000000
+
+Date:	7/11/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -17.000000
+MyCo.Capital.PL.Expenses.Labour           17.000000
+
+Date:	7/11/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -59.000000
+MyCo.Capital.PL.Expenses.Stationery       59.000000
+
+Date:	8/11/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	8/11/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -87.000000
+MyCo.Capital.PL.Expenses.Utilities        87.000000
+
+Date:	10/11/2000
+Comment:	 Payment received - Consulting to 3/10/2000
+MyCo.Assets.NCA.CurAss.Cash              25380.000000
+MyCo.Assets.NCA.CurAss.Debtors           -25380.000000
+
+Date:	10/11/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -59.000000
+MyCo.Capital.PL.Expenses.Travel           59.000000
+
+Date:	11/11/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	12/11/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -74.000000
+MyCo.Capital.PL.Expenses.Travel           74.000000
+
+Date:	15/11/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	18/11/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	19/11/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -15.000000
+MyCo.Capital.PL.Expenses.Stationery       15.000000
+
+Date:	22/11/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	22/11/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -90.000000
+MyCo.Capital.PL.Expenses.Utilities        90.000000
+
+Date:	24/11/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -31.000000
+MyCo.Capital.PL.Expenses.Rent             31.000000
+
+Date:	24/11/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -17.000000
+MyCo.Capital.PL.Expenses.Travel           17.000000
+
+Date:	24/11/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -61.000000
+MyCo.Capital.PL.Expenses.Rent             61.000000
+
+Date:	25/11/2000
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/11/2000
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/11/2000
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/11/2000
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/11/2000
+Comment:	 Salary for Richard
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/11/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	26/11/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -18.000000
+MyCo.Capital.PL.Expenses.Utilities        18.000000
+
+Date:	29/11/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	29/11/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -83.000000
+MyCo.Capital.PL.Expenses.Utilities        83.000000
+
+Date:	1/12/2000
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            450.110000
+MyCo.Capital.PL.Expenses.Interest         11.340000
+
+Date:	1/12/2000
+Comment:	 Monthly Rent Accrual
+MyCo.Assets.NCA.CurAss.Prepayments       -1500.000000
+MyCo.Capital.PL.Expenses.Rent            1500.000000
+
+Date:	1/12/2000
+Comment:	 Phone bills
+MyCo.Assets.NCA.CurAss.Cash              -533.450000
+MyCo.Assets.NCA.CurLia.VATdue             79.450000
+MyCo.Capital.PL.Expenses.Communications  454.000000
+
+Date:	1/12/2000
+Comment:	 General office costs
+MyCo.Assets.NCA.CurAss.Cash              -1410.000000
+MyCo.Assets.NCA.CurLia.VATdue            210.000000
+MyCo.Capital.PL.Expenses.Office          1200.000000
+
+Date:	2/12/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	2/12/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -29.000000
+MyCo.Capital.PL.Expenses.Utilities        29.000000
+
+Date:	3/12/2000
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash              66930.914000
+MyCo.Assets.NCA.CurLia.VATdue            -9968.434000
+MyCo.Capital.PL.Income.Software          -56962.480000
+
+Date:	3/12/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -30.000000
+MyCo.Capital.PL.Expenses.Utilities        30.000000
+
+Date:	4/12/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -64.000000
+MyCo.Capital.PL.Expenses.Travel           64.000000
+
+Date:	6/12/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	6/12/2000
+Comment:	 Bill raised - Consulting to 3/12/2000
+MyCo.Assets.NCA.CurAss.Debtors           25380.000000
+MyCo.Assets.NCA.CurLia.VATdue            -3780.000000
+MyCo.Capital.PL.Income.Consulting        -21600.000000
+
+Date:	6/12/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -45.000000
+MyCo.Capital.PL.Expenses.Utilities        45.000000
+
+Date:	8/12/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -39.000000
+MyCo.Capital.PL.Expenses.Rent             39.000000
+
+Date:	9/12/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	10/12/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -18.000000
+MyCo.Capital.PL.Expenses.Rent             18.000000
+
+Date:	10/12/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -19.000000
+MyCo.Capital.PL.Expenses.Labour           19.000000
+
+Date:	10/12/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -20.000000
+MyCo.Capital.PL.Expenses.Rent             20.000000
+
+Date:	11/12/2000
+Comment:	 Payment received - Consulting to 3/11/2000
+MyCo.Assets.NCA.CurAss.Cash              25380.000000
+MyCo.Assets.NCA.CurAss.Debtors           -25380.000000
+
+Date:	11/12/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -27.000000
+MyCo.Capital.PL.Expenses.Labour           27.000000
+
+Date:	13/12/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	13/12/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -56.000000
+MyCo.Capital.PL.Expenses.Stationery       56.000000
+
+Date:	13/12/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -71.000000
+MyCo.Capital.PL.Expenses.Rent             71.000000
+
+Date:	13/12/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -88.000000
+MyCo.Capital.PL.Expenses.Rent             88.000000
+
+Date:	16/12/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	16/12/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -31.000000
+MyCo.Capital.PL.Expenses.Rent             31.000000
+
+Date:	19/12/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -23.000000
+MyCo.Capital.PL.Expenses.Rent             23.000000
+
+Date:	19/12/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -6.000000
+MyCo.Capital.PL.Expenses.Labour            6.000000
+
+Date:	20/12/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	22/12/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash               -9.000000
+MyCo.Capital.PL.Expenses.Rent              9.000000
+
+Date:	23/12/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	24/12/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -60.000000
+MyCo.Capital.PL.Expenses.Rent             60.000000
+
+Date:	25/12/2000
+Comment:	 Salary for Roger
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/12/2000
+Comment:	 Salary for Simon
+MyCo.Assets.NCA.CurAss.Cash              -2000.000000
+MyCo.Capital.PL.Expenses.Wages           2000.000000
+
+Date:	25/12/2000
+Comment:	 Salary for Tim
+MyCo.Assets.NCA.CurAss.Cash              -1500.000000
+MyCo.Capital.PL.Expenses.Wages           1500.000000
+
+Date:	25/12/2000
+Comment:	 Salary for Andy
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/12/2000
+Comment:	 Salary for Richard
+MyCo.Assets.NCA.CurAss.Cash              -3000.000000
+MyCo.Capital.PL.Expenses.Wages           3000.000000
+
+Date:	25/12/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -53.000000
+MyCo.Capital.PL.Expenses.Labour           53.000000
+
+Date:	27/12/2000
+Comment:	 Bill received - Contractor
+MyCo.Assets.NCA.CurLia.Creditors         -1762.500000
+MyCo.Assets.NCA.CurLia.VATdue            262.500000
+MyCo.Capital.PL.Expenses.Contractors     1500.000000
+
+Date:	27/12/2000
+Comment:	 Random Expense
+MyCo.Assets.NCA.CurAss.Cash              -91.000000
+MyCo.Capital.PL.Expenses.Travel           91.000000
+
+Date:	30/12/2000
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	1/1/2001
+Comment:	 Loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -461.450000
+MyCo.Assets.OtherLia.BankLoan            453.860000
+MyCo.Capital.PL.Expenses.Interest          7.590000
+
+Date:	3/1/2001
+Comment:	 Cash Sale - Product Sales for month
+MyCo.Assets.NCA.CurAss.Cash              73623.998938
+MyCo.Assets.NCA.CurLia.VATdue            -10965.276438
+MyCo.Capital.PL.Income.Software          -62658.722500
+
+Date:	6/1/2001
+Comment:	 Bill paid - Contractor
+MyCo.Assets.NCA.CurAss.Cash              -1762.500000
+MyCo.Assets.NCA.CurLia.Creditors         1762.500000
+
+Date:	6/1/2001
+Comment:	 Bill raised - Consulting to 3/1/2001
+MyCo.Assets.NCA.CurAss.Debtors           25380.000000
+MyCo.Assets.NCA.CurLia.VATdue            -3780.000000
+MyCo.Capital.PL.Income.Consulting        -21600.000000
+
+Date:	10/1/2001
+Comment:	 Payment received - Consulting to 3/12/2000
+MyCo.Assets.NCA.CurAss.Cash              25380.000000
+MyCo.Assets.NCA.CurAss.Debtors           -25380.000000
+
+Date:	1/2/2001
+Comment:	 Final loan repayment
+MyCo.Assets.NCA.CurAss.Cash              -457.500000
+MyCo.Assets.OtherLia.BankLoan            457.500000
+
+Date:	10/2/2001
+Comment:	 Payment received - Consulting to 3/1/2001
+MyCo.Assets.NCA.CurAss.Cash              25380.000000
+MyCo.Assets.NCA.CurAss.Debtors           -25380.000000
+

@@ -1,0 +1,167 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; First Python Application</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="69.html" class="navtitle">3. Syntax and Style</a> &gt; <span class="nonavtitle">First Python Application</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="75.html" title="Memory Management"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=76" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="76.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="77.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A12%3A09+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172038188103074146044048</font><a href="read3.asp?bookname=0130260363&snode=76&now=5%2F29%2F2002+9%3A12%3A09+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT><h3>First Python Application</h3>
+				<p>Now that we are familiar with the syntax, style, variable assignment and memory allocation, it is time to look at a more complex example of Python programming. Many of the things in this program will be parts of Python which may have unfamiliar constructs, but we believe that Python is so simple and elegant that the reader should be able to make the appropriate conclusions upon examination of the code.</p>
+
+				<P>The source file we will be looking at is <TT Class="monofont">fgrepwc.py,</TT> named in honor of the two Unix utilities of which this program is a hybrid. <TT clasS="monofont">fgrep</TT> is a simple string searching command. It looks at a text file line by line and will output any line for which the search string appears. Note that a string may appear more than once on a line. <Tt class="monofont">wc</tt> is another Unix command; this one counts the number of characters, words, and lines of an input text file.</p>
+
+				<p>Our version does a little of both. It requires a search string and a filename, and outputs all lines with a match and concludes by displaying the total number of matching lines found. Because a string may appear more than once on a line, we have to state that the count is a strict number of lines that match rather than the total number of times a search string appears in a text file. (One of the exercises at the end of the chapter requires the reader to "upgrade" the program so that the output is the total number of matches.)</p>
+
+				<p>One other note before we take a look at the code: The normal convention for source code in this text is to leave out all comments, and place the annotated version on the CD-ROM. However, we will include comments for this example to aid you as you explore your first longer Python script with features we have yet to introduce.</p>
+
+				<p>We now introduce <tt clasS="monofont">fgrepwc.py,</tt> found below as <A hreF="76#1.html">Listing 3.1</a>, and provide analysis immediately afterward.</p>
+
+				
+					<h5>
+<a Name="1"></A>Example 3.1. File Find (<TT Class="monofont">fgrepwc.py</TT>)</H5>
+					<P><b><i>This application looks for a search word in a file and displays each matching line as well as a summary of how many matching lines were found.</i></b></P>
+
+					<PRE clasS="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  "fgrepwc.py -- searches for string in text file"
+004 4
+005 5  <B>import</B> sys
+006 6  <B>import</b> string
+007 7
+008 8  # print usage and exit
+009 9  <b>def</b> usage():
+010 10     <b>print</b> "usage:  fgrepwc [ -i ] string file"
+011 11     sys.exit(1)
+012 12
+013 13 # does all the work
+014 14 <b>def</b> filefind(word, filename):
+015 15
+016 16     # reset word count
+017 17     count = 0
+018 18
+019 19     # can we open file? if so, return file handle
+020 20     <b>try:</b> &lt;$nopage&gt;
+021 21         <b>fh = open(filename, 'r')</b> &lt;$nopage&gt;
+022 22
+023 23     # if not, exit
+024 24     <b>except:</b> &lt;$nopage&gt;
+025 25         <b>print</b> filename, ":",sys.exc_info()[1]
+026 26         usage()
+027 27
+028 28     # read all file lines into list and close
+029 29     allLines = fh.readlines()
+030 30     fh.close()
+031 31
+032 32     # iterate over all lines of file
+033 33     <b>for</b> eachLine <b>in</b> allLines:
+034 34
+035 35         # search each line for the word
+036 36         <b>if</B> string.find(eachLine, word) &gt; -1:
+037 37             count = count + 1
+038 38             <b>print</b> eachLine,
+039 39
+040 40     # when complete, display line count
+041 41     <B>print</b> count
+042 42
+043 43 # validates arguments and calls filefind()
+044 44 <b>def</b> checkargs():
+045 45
+046 46     # check args; 'argv' comes from 'sys' module
+047 47     argc = len(sys.argv)
+048 48     <B>if</b> argc != 3:
+049 49         usage()
+050 50
+051 51     # call fgrepwc.filefind() with args
+052 52     filefind(sys.argv[1], sys.argv[2])
+053 53
+054 54 # execute as application
+055 55 <b>if</b> __name__ == '__main__':
+056 56     checkargs()
+057  &lt;$nopage&gt;</pRe>
+				
+				
+					<h4>Lines 1–3</h4>
+					<P>The Unix start up line is followed by the module documentation string. If you import the <TT Class="monofont">fgrepwc</TT> module from another module, this string can be accessed with <TT clasS="monofont">fgrepwc.__doc__.</TT> This is a key feature because it makes previously static text information available in a dynamic execution environment. We can also point out that what we described is usually the only use of the documentation string. It serves no other purpose, but it can double as a comment which is conveniently located at the top of a file. (We invite the reader to take a look at the documentation string at the commencement of the <Tt claSS="monofont">cgi</TT> module in the standard library for a serious example of module documentation.)</p>
+
+				
+				
+					<h4>Lines 5–6</h4>
+					<p>We've already seen the <tt class="monofont">sys</tt> and <tt class="monofont">string</Tt> modules. The <tT claSs="monofont">sys</tt> module contains mostly variables and functions that represent interaction between the Python interpreter and the operating system. You will find items in here such as the command-line arguments, the <tT claSS="monofont">exit()</TT> function, the contents of the Python path environment variable <tt clASS="monofont">PYTHONPATH,</Tt> the standard files, and information on errors.</p>
+
+					<p>The <tT CLAss="monofont">string</tt> module contains practically every function you'll need in processing strings, such as integer conversion via <TT CLass="monofont">atoi()</tt> (and related functions), various string variables, and other string manipulation functions.</p>
+
+					<p>The main motivation to provide modules to import is to keep the language small, light, fast, and efficient, and bring in only software that you need to get the job done. Plug'n'play with only the modules you need. Perl and Java have a similar setup, importing modules, packages, and the like, and to a certain extent so do C and C++ with the inclusion of header files.</p>
+
+				
+				
+					<h4>Lines 8–11</h4>
+					<p>We declare a function called <tt class="monofont">usage()</tt> here which has no arguments/parameters. The purpose of this function is to simply display a message to the user indicating the proper command-line syntax with which to initiate the script, and exit the program with the <Tt cLass="monofont">exit()</Tt> function, found in the <tt cLass="monofont">sys</TT> module. We also mentioned that in the Python namespace, calling a function from an imported module requires a "fully-qualified" name. All imported variables and functions have the following formats: <I><Tt claSS="monofont">module.</TT></i><tt cLASS="monofont">variable</tt> or <i><tT CLAss="monofont">module.</tt></i><tt class="monofont">function().</tt> Thus we have <tt clasS="monofont">sys.exit().</tt></P>
+
+					<p>An alternative <b><tT clasS="monofont">from-import</tt></b> statement allows the import of specific functions or variables from a module, bringing them into the current namespace. If this method of importing is used, only the attribute name is necessary.</P>
+
+					<P>For example, if we wanted to import only the <TT clasS="monofont">exit()</TT> function from <Tt claSS="monofont">sys</TT> and nothing else, we could use the following replacement:</p>
+
+					<pre>
+						
+<B>from</B> sys<B> import</B> exit
+
+					</pre>
+
+					<p>Then in the <tt class="monofont">usage()</tt> function, we would call <tt class="monofont">exit(1)</Tt> and leave off the "<tT claSs="monofont">sys.</tt>". One final note about <tT claSS="monofont">exit():</TT> The argument to <tt clASS="monofont">sys.exit()</Tt> is the same as the C <tt cLASS="monofont">exit()</tt> function, and that is the return value to the calling program, usually a command-line shell program. With that said, we point out that this "protocol" of printing usage and exiting applies only to command-line driven applications.</p>
+
+					<p>In web-based applications, this would not be the preferred way to quit a running program, because the calling web browser is expecting an acceptable valid HTML response. For web applications, it is more appropriate to output an error message formatted in HTML so that end-users can correct their input. So, basically, no web application should terminate with an error. Exiting a program will send a system or browser error to the user, which is incorrect behavior and the responsibility falls on the website application developer.</P>
+
+					<P>The same theory applies to GUI-based applications, which should not "crash out" of their executing window. The correct way to handle errors in such applications is to bring up an error dialog and notify the user and perhaps allow for a parameter change which may rectify the situation.</P>
+
+				
+				
+					<H4>Lines 13–41</h4>
+					<p>The core part of our Python program is the <tt class="monofont">filefind()</tt> function. <tt class="monofont">filefind()</tt> takes two parameters: the word the user is searching for, and the name of the file to search.</P>
+
+					<p>A counter is kept to track the total number of successful matches (number of lines that contain the word). The next step is to open the file. The <b><Tt clAss="monofont">try-except</tt></B> construct is used to "catch" errors which may occur when attempting to open the file. One of Python's strengths is its ability to let the programmer handle errors and perform appropriate action rather than simply exiting the program. This results in a more robust application and a more acceptable way of programming. <a hrEF="154.html">Chapter 10</A> is devoted to errors and exceptions.</P>
+
+					<p>Barring any errors, the goal of this section of function is to open a file, read in all the lines into a buffer that can be processed later, and close the file. We took a sneak peek at files earlier, but to recap, the <tt cLASS="monofont">open()</tt> built-in function returns a file object or file handle, with which all succeeding operations are performed on, i.e., <tt CLASs="monofont">readlines()</tt> and <tT CLAss="monofont">close().</tt></p>
+
+					<p>The final part of the function involves iterating through each line, looking for the target word. Searching is accomplished using the <tt class="monofont">find()</tt> function from the string module. <tt claSs="monofont">find()</tT> returns the starting character position (index) if there is a match, or -1 if the string does not appear in the line. All successful matches are tallied and matching lines are displayed to the user.</p>
+
+					<p><tT clasS="monofont">filefind()</tt> concludes by displaying the total number of matching lines that were found.</p>
+
+				
+				
+					<H4>Lines 43–52</H4>
+					<P>The last function found in our program is <Tt claSS="monofont">checkargs(),</TT> which does exactly two things: checking for the correct number of command-line arguments and calling <tt clASS="monofont">filefind()</Tt> to do the real work. The command-line arguments are stored in the <tt cLASS="monofont">sys.argv</tt> list. The first argument is the program name and presumably, the second is the string we are looking for, and the final argument is the name of the file to search.</p>
+
+				
+				
+					<h4>Lines 54–56</h4>
+					<p>This is the special code we alluded to earlier: the code that determines (based on <tt class="monofont">__name__</tt>) the different courses of action to take if this script was imported or executed directly. With the boilerplate <b><tt clAss="monofont">if</Tt></b> statement, we can be sure that <tT clasS="monofont">checkargs()</tt> would not be executed if this module were imported, nor would we want it to. It exits anyway because the check for the command-line arguments would fail. If the code did not have the <b><TT CLass="monofont">if</tT></B> statement and the main body of code consisted of just the single line to call <TT clasS="monofont">checkargs(),</TT> then <Tt claSS="monofont">checkargs()</TT> would be executed whether this module was imported or executed directly.</p>
+
+					<p>One final note regarding <tt class="monofont">fgrepwc.py.</tt> This script was created to run from the command-line. Some work would be required, specifically interface changes, if you wanted to execute this from a GUI or web-based environment.</p>
+
+					<p>The example we just looked at was fairly complex, but hopefully it was not a complete mystery, with the help of our comments in this section as well as any previous programming experience you may have brought. In the next chapter, we will take a closer look at Python objects, the standard data types, and how we can classify them.</p>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="75.html" title="Memory Management"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=76" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="76.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="77.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

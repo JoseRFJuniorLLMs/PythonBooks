@@ -1,0 +1,74 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Python Objects</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="78.html" class="navtitle">4. Python Objects</a> &gt; <span class="nonavtitle">Python Objects</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="79.html" title="4. Python Objects"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=80" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="80.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="81.html" title="Standard Types"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A12%3A41+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172038188099094160165130</font><a href="read1.asp?bookname=0130260363&snode=80&now=5%2F29%2F2002+9%3A12%3A41+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Python Objects</h3>
+				<p>Python uses the object model abstraction for data storage. Any construct which contains any type of value is an object. Although Python is classified as an "object-oriented programming language," OOP is not required to create perfectly working Python applications. You can certainly write a useful Python script without the use of classes and instances. However, Python's object syntax and architecture certainly encourage or "provoke" this type of behavior. Let us now take a closer look at what a Python "object" is.</p>
+
+				<P>All Python objects have the following three characteristics: an <I>identity,</I> a <I>type,</i> and a <i>value.</i></p>
+
+				<P><TABle boRDER="1" cellspacing="0" cellpaddiNg="1" wIdth="100%">
+<ColgrOup aLIGN="left" span="2">
+<TR VAlign="top">
+<TD>
+<FOnt siZE="2"><P>IDENTITY</P>
+</font></td>
+<td>
+<font size="2"><p>Unique identifier that differentiates an object from all others. Any object's identifier can be obtained using the <tt cLasS="monofont">id()</tt> built-in function. This value is as close as you will get to a "memory address" in Python (probably much to the relief of some of you). Even better is that you rarely, if ever, access this value, much less care what it is at all.</p>
+</Font></tD>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt sizE="2"><P>TYPE</P>
+</Font></tD>
+<TD>
+<Font size="2"><p>An object's type indicates what kind of values an object can hold, what operations can be applied to such objects, and what behavioral rules these objects are subject to. You can use the <tt class="monofont">type()</tt> built-in function to reveal the type of a Python object. Since types are also objects in Python (did we mention that Python was object-oriented?), <tt cLasS="monofont">type()</tt> actually returns an object to you rather than a simple literal.</p>
+</Font></tD>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt sizE="2"><P>VALUE</P>
+</Font></tD>
+<TD>
+<Font size="2"><p>Data item that is represented by an object.</p>
+</font></td>
+</tr>
+</colGroUp>
+</taBle></p>
+
+				<p>All three are assigned on object creation and are read-only with one exception, the value. If an object supports updates, its value can be changed; otherwise, it is also read-only. Whether an object's value can be changed is known as an object's <I>mutability,</i> which we will investigate later on in <a hREF="86.html">Section 4.7</A>. These characteristics hang around as long as the object does and are reclaimed when an object is deallocated.</p>
+
+				<p>Python supports a set of basic (built-in) data types, as well as some auxiliary types that may come into play if your application requires them. Most applications generally use the standard types and create and instantiate classes for all specialized data storage.</p>
+
+				<a NAME="1"></a>
+					<h4>Object Attributes</h4>
+					<p>Certain Python objects have attributes, data values or executable code such as methods, associated with them. Attributes are accessed in the dotted attribute notation, which includes the name of the associated object, and were introduced in the Core Note near Section 3.14. The most familiar attributes are functions and methods, but some Python types have data attributes associated with them. Objects with data attributes include (but are not limited to): classes, class instances, modules, complex numbers, and files.</P>
+
+				
+			</FONt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="79.html" title="4. Python Objects"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=80" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="80.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="81.html" title="Standard Types"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

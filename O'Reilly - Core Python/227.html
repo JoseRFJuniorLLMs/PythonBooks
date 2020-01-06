@@ -1,0 +1,179 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Related Modules and Documentation</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="210.html" class="navtitle">13. Classes and OOP</a> &gt; <span class="nonavtitle">Related Modules and Documentation</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="226.html" title="Delegation"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=227" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="227.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="228.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A18%3A09+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004231197152117169126208171</font><a href="read4.asp?bookname=0130260363&snode=227&now=5%2F30%2F2002+8%3A18%3A09+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Related Modules and Documentation</h3>
+				<p>Python has several classes which extend the existing functionality of the core language which we have described in this chapter. The <tT CLAss="monofont">User*</tt> modules are like pre-cooked meals, ready to eat. We mentioned how classes have special methods which, if implemented, can customize classes so that when wrapped around a standard type, they can give instances type-like qualities.</P>
+
+				<P><TT clasS="monofont">UserList</TT> and <Tt class="monofont">UserDict,</tt> along with the new <tt class="monofont">UserString</tt> (introduced in Python 1.6), represent modules that define classes that act as wrappers around list, dictionary, and string objects, respectively. The primary objective of these modules is to provide the desired functionality for you so that you do not have to implement them yourself, and to serve as base classes which are appropriate for subclassing and further customization. Python already provides an abundance of useful built-in types, but the added ability to perform "built-it yourself" typing makes it an even more powerful language.</p>
+
+				<p>In <a HreF="78.html">Chapter 4</a>, we introduced Python's standard as well as other built-in types. The <tt Class="monofont">types</Tt> module is a great place to learn more about Python's types as well as those which are out of the scope of this text. The <tt CLASs="monofont">types</tt> module also defines type objects which can be used to make comparisons. (Such comparisons are popular in Python because it does not support method overloading—this keeps the language simple, yet there are tools that add functionality to a part of the language where it had appeared to be lacking.)</p>
+
+				<P>The following piece of code checks to see if the object <TT Class="monofont">data</TT> is passed into the <TT clasS="monofont">foo</TT> function as an integer or string, and does not allow any other type (raises an exception):</P>
+
+				<pre>
+					
+<b>def</b> foo(data):
+    <b>if</b> type(data) == type(0):
+        <b>print</b> 'you entered an integer'
+    <b>elif</b> type(data) == type(''):
+        <b>print</b> 'you entered a string'
+    <b>else:</b>
+        <b>raise</b> TypeError, 'only integers or strings!'
+
+				</pre>
+
+				<P>Although the above code is effective, you may also use attributes of the <tt ClasS="monofont">types</tt> module instead for more clarity:</p>
+
+				<pRe>
+					
+<b>from</b> types <B>import *</B>
+<B>def</B> foo(data):
+    <b>if</b> type(data) == IntType:
+        <b>print</b> 'you entered an integer'
+    <B>elif</B> type(data) == StringType:
+        <B>print</B> 'you entered a string'
+    <b>else:</b>
+        <b>raise</b> TypeError, 'only integers or strings!'
+
+				</PRE>
+
+				<P>The last related module is the <tt clASS="monofont">operator</Tt> module. This module provides functional versions of most of Python's standard operators. There may be occasions where this type of interface proves more versatile than hard-coding use of the standard operators.</p>
+
+				<p>Given below is one example. As you look through the code, imagine the extra lines of code which would have been required if individual operators had been part of the implementation:</p>
+
+				<pre>
+					
+&gt;&gt;&gt; <b>from</b> operator <b>import *</b>          # import all operators
+&gt;&gt;&gt; vec1 = [12, 24]
+&gt;&gt;&gt; vec2 = [2, 3, 4]
+&gt;&gt;&gt; opvec = (add, sub, mul, div)    # using +, -, *, /
+&gt;&gt;&gt; <b>for</b> eachOp <b>in</b> opvec:            # loop thru operators
+…        <b>for</b> i <b>in</b> vec1:
+…            <b>for</B> j <b>in</b> vec2:
+…               <B>print</b> '%s(%d, %d) = %d' % \
+…                    (eachOp.__name__, i, j, eachOp(i, j))
+…
+add(12, 2) = 14
+add(12, 3) = 15
+add(12, 4) = 16
+add(24, 2) = 26
+add(24, 3) = 27
+add(24, 4) = 28
+sub(12, 2) = 10
+sub(12, 3) = 9
+sub(12, 4) = 8
+sub(24, 2) = 22
+sub(24, 3) = 21
+sub(24, 4) = 20
+mul(12, 2) = 24
+mul(12, 3) = 36
+mul(12, 4) = 48
+mul(24, 2) = 48
+mul(24, 3) = 72
+mul(24, 4) = 96
+div(12, 2) = 6
+div(12, 3) = 4
+div(12, 4) = 3
+div(24, 2) = 12
+div(24, 3) = 8
+div(24, 4) = 6
+
+				</prE>
+
+				<p>The code snippet above defines three vectors, two containing operands and the last representing the set of operations the programmer wants to perform on each pair of available operands. The outermost loop iterates through each operation while the inner pair of loops creates every possible combination of ordered pairs from elements of each operand vector. Finally, the print statement simply applies the current operator with the given arguments.</p>
+
+				<p>A list of the modules we described above is given in <a Href="227#1.html">Table 13.5</A>.</P>
+
+				<A Name="1"></a><P><TABle boRDER="1" cellSPACing="0" cellpadding="1" width="100%">
+<cAptIon><h5>Table 13.5. Class Related Modules</H5></captIon><cOLGRoup aLIGN="left" span="2">
+<TR VAlign="top">
+<TH>
+<FOnt size="2"><p><b><i>Module</i></b></p>
+</font></th>
+<th>
+<FonT sizE="2"><p><b><i>Description</i></B></p>
+</foNT></TH>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><P><TT Class="monofont">UserList</tt></p>
+</font></td>
+<td>
+<font sIze="2"><P>provides a class wrapper around list objects</p>
+</foNt></td>
+</tR>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><p><TT CLass="monofont">UserDict</tT></P>
+</FOnt></td>
+<td>
+<font size="2"><p>provides a class wrapper around dictionary objects</p>
+</font></Td>
+</tR>
+<tr vAlign="top">
+<Td>
+<foNT SIze="2"><p><tT CLAss="monofont">UserString</tt><FONT size="1"><SUP><A href="#FOOTNOTE-a">[a]</a></sup></font>
+</p>
+</font></td>
+<tD>
+<foNt siZe="2"><p>provides a class wrapper around string objects; also included is a <tt ClasS="monofont">MutableString</TT> subclass which provides that kind of functionality, if so desired</P>
+</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><p><tt class="monofont">types</tt></p>
+</font></td>
+<tD>
+<foNt siZe="2"><p>defines names for all Python object types as used by the standard Python interpreter</p>
+</fOnt></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><p><tt CLASs="monofont">operator</tt></p>
+</font></td>
+<td>
+<font size="2"><P>processes site-specific modules or packages</p>
+</fOnt></tD>
+</tr>
+</coLgroUP>
+</TAble></p>
+<BLOCkquoTE><FOnt siZE="1">
+<P Class="footnote">
+<sup><a name="FOOTNOTE-a">[a]</a></sup>
+new in Python 1.6</p>
+</fonT></blOckqUote>
+
+				<p>There are plenty of class and object-oriented programming related questions in the Python FAQ. In <A hreF="216#3.html">Section 13.5.3</A>, we noted how it was dangerous to track instances by keeping references to them. For more information on this phenomenon, see Python FAQ 4.17. Most of the relevant questions on classes and object-oriented programming are found in Sections 4 and 6 of the FAQ.</P>
+
+				<P>The code of <a hreF="226#9.html">Example 13.4</A> is inspired by the code implemented in Python FAQ 4.48. This FAQ includes a short example of wrapping a file object and modifying the <TT clasS="monofont">write()</TT> method. Our version represents a complete class that can be used like a file object rather than simply passing in an existing (and open) file object. The one caveat to our class is that it applies only to files which use the <Tt claSS="monofont">write()</TT> method; therefore, we also refer the reader to Exercise 13–16, where the <tt class="monofont">writelines()</tt> method is also implemented.</p>
+
+				<p>Finally, we point out again, the Python Library and Language Reference manuals are invaluable sources of related material.</p>
+
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="226.html" title="Delegation"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=227" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="227.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="228.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

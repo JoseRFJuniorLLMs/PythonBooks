@@ -1,0 +1,22 @@
+SRCS=		statisticsmodule.c
+
+CFLAGS=		-DHAVE_CONFIG_H 
+C= 		cc
+
+# Symbols used for using shared libraries
+SO=		.so
+LDSHARED=      ld -G
+
+OBJS=		 statisticsmodule.o
+
+PYTHON_INCLUDE= -I/usr/local/include/python1.5 \
+		-I/usr/local/lib/python1.5/config
+
+statistics: 	$(OBJS)
+		$(LDSHARED) -V $(OBJS) \
+		$(ORBLIBS) -Bdynamic -o statisticsmodule.so
+
+statisticsmodule.o:	statisticsmodule.c
+			$(C) -c $(CFLAGS) $(PYTHON_INCLUDE) \
+			statisticsmodule.c
+

@@ -1,0 +1,294 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Regular Expression Adventures</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="242.html" class="navtitle">15. Regular Expressions</a> &gt; <span class="nonavtitle">Regular Expression Adventures</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="246.html" title="REs and Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=247" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="247.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="248.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A26%3A35+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004228149002078137053040174</font><a href="read1.asp?bookname=0130260363&snode=247&now=5%2F30%2F2002+8%3A26%3A35+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Regular Expression Adventures</h3>
+				<p>We will now run through an in-depth example of the different ways of using regular expressions for string manipulation. The first step is to come up with some code that actually generates some random (but-not-so-random) data on which to operate. In <a HREF="247#1.html">Example 15.2</a>, we present <tt cLASS="monofont">gendata.py,</tt> a script which generates a data set. Although this program simply displays the generated set of strings to standard output, this output may very well be redirected to a test file.</p>
+
+				<dIV CLass="note"><p class="notetitle"><b>NOTE</b></p><p><p><i>Unix systems, as well as others, use architecture-size integers to represent the current time in seconds. Since most systems today are 32-bit, the total amount of time recognized by any platform using this mechanism is 2<sup>32</suP> seconds. Such integers are signed, so we really only have 2<suP>31</sup>-1 seconds.</I></p>
+<p><i>The current time is recognized as the number of seconds which have elapsed since time zero, which is pegged at midnight, January 1, 1970. Moving forward to the maximum possible positive 32-bit signed integer (2<sUp>31</suP> - 1), we arrive at the "end of time," which evaluates to Tuesday morning, January 19, 2038 at 3:14 AM and 7 seconds using Universal Coordinated Time (UTC/GMT). Hopefully by then, we would have discontinued the use of 32-bit systems. This phenomena is otherwise known as the Y2038 problem.)</I></P>
+<P><i>Here is one way you could find out what the special date/time it is for your local time, using Python:</i></p>
+<pRE>
+						
+&gt;&gt;&gt; <B>import</B> sys, time
+&gt;&gt;&gt; time.asctime(time.localtime(sys.maxint))# Pacific Time
+'Mon Jan 18 19:14:07 2038'
+
+					</pre>
+<p><TT CLass="monofont">sys.maxint</tT><I>has the last possible second using a 32-bit integer. We feed that time in seconds to</I>
+						<Tt class="monofont">time.localtime()</tt><i>to obtain the tuple for your/our local time (here we are on Pacific Time), and finally, we ship that tuple off to</i>
+						<tt class="monofont">time.asctime()</tt><i>to obtain the standard timestamp for the last possible second. As you can see from our example, we are eight hours west of the Prime/Greenwich Meridian.</I></p>
+<p><I>This is not as much a Python Core Note as it is a general programming note, but should be nevertheless discussed for common knowledge since it applies to all 32-bit systems with applications using on the C language, regardless of platform, i.e., UNIX and non-UNIX, which use UNIX-style dating. In the gendata.py script coming up, we randomly generate integers, effectively generating random dates for our application.</i></p>
+</p></Div><br>
+
+				<P>This script generates strings with three fields, delimited by a pair of colons, or a double-colon. The first field is a random (32-bit) integer, which is converted to a date (see the accompanying Core Note). The next field is a randomly-generated electronic mail (e-mail) address, and the final field is a set of integers separated by a single dash ( <tt cLASS="monofont">-</tt> ).</p>
+
+				
+					<h5>
+<A NAMe="1"></a>Example 15.2. Data Generator for RE Exercises (<tt CLASs="monofont">gendata.py</tt>)</h5>
+					<P><B><I>Create random data for regular expressions practice and output the generated data to the screen.</I></b></p>
+
+					<pre class="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <b>from</b> random <b>import</b> randint,choice
+004 4  <b>from</b> string <b>import</b> lowercase
+005 5  <b>from</b> sys <B>import</b> maxint
+006 6  <b>from</B> time <b>import</b> ctime
+007 7
+008 8  doms = ( 'com', 'edu', 'net', 'org', 'gov' )
+009 9
+010 10  <b>for</B> i <b>in</b> range(randint(5, 10)):
+011 11     dtint = randint(0, maxint-1)          # pick date
+012 12     dtstr = ctime(dtint)                  # date string
+013 13
+014 14     shorter = randint(4, 7)               # login shorter
+015 15     em = ''
+016 16     <b>for</b> j <B>in</b> range(shorter):             # generate login
+017 17        em = em + choice(lowercase)
+018 18
+019 19    longer = randint(shorter, 12)          # domain longer
+020 20    dn = ''
+021 21    <b>for</b> j <B>in</B> range(longer):                # create domain
+022 22        dn = dn + choice(lowercase)
+023 23
+024 24    <B>print</B> '%s::%s@%s.%s::%d-%d-%d' % (dtstr, em,
+025 25        dn, choice(doms), dtint, shorter, longer)
+026  &lt;$nopage&gt;</pre>
+				
+				<p>Running this code, we get the following output (your mileage will definitely vary) and store locally as the file <TT CLass="monofont">redata.txt:</tT></P>
+
+				<PRe>
+					
+Thu Jul 22 19:21:19 2004::izsp@dicqdhytvhv.edu::1090549279-4-11
+Sun Jul 13 22:42:11 2008::zqeu@dxaibjgkniy.com::1216014131-4-11
+Sat May  5 16:36:23 1990::fclihw@alwdbzpsdg.edu::641950583-6-10
+Thu Feb 15 17:46:04 2007::uzifzf@dpyivihw.gov::1171590364-6-8
+Thu Jun 26 19:08:59 2036::ugxfugt@jkhuqhs.net::2098145339-7-7
+Tue Apr 10 01:04:45 2012::zkwaq@rpxwmtikse.com::1334045085-5-10
+
+				</pre>
+
+				<P>You may or may not be able to tell, but the output from this program is ripe for regular expression processing. Following our line-by-line explanation, we will implement several REs to operate on this data, as well as leave plenty for the end-of-chapter exercises.</P>
+
+				
+					<H4>Line-by-line explanation</H4>
+					
+						<h5>Lines 1 – 6</h5>
+						<p>In our example script, we require the use of multiple modules. But since we are utilizing only one or two functions from these modules, rather than importing the entire module, we choose in this case to import only specific attributes from these modules. Our decision to use <b><tt class="monofont">from-import</tt></b> rather than <b><tt claSs="monofont">import</tT></b> was based solely on this reasoning. The <b><tT clasS="monofont">from-import</tt></b> lines succeed the UNIX start-up directive on line 1.</P>
+
+					
+					
+						<H5>Line 8</H5>
+						<P><tt clASS="monofont">doms</Tt> is simply a set of higher-level domain names from which we will randomly pick for each randomly-generated e-mail address.</p>
+
+					
+					
+						<h5>Lines 10–12</h5>
+						<P>Each time <TT Class="monofont">gendata.py</TT> executes, between 5 and 10 lines of output are generated. (Our script uses the <TT class="monofont">random.randint()</tt> function for all cases where we desire a random integer.) For each line, we choose a random integer from the entire possible range (0 to 2<sup>31</sup> - 1 <tt class="monofont">[sys.maxint]</Tt>), then convert that integer to a date using <tT claSs="monofont">time.ctime().</tt></p>
+
+					
+					
+						<H5>Lines 14–22</h5>
+						<p>The login name for the fake e-mail address should be between 4 and 7 characters in length. To put it together, we randomly choose between 4 and 7 random lowercase letters, concatenating each letter to our string one-at-a-time. The functionality of the <tT CLAss="monofont">random.choice()</tt> function is given a sequence, return a random element of that sequence. In our case, the sequence is the set of all 26 lowercase letters of the alphabet, <TT CLass="monofont">string.lowercase.</tT></P>
+
+						<P>We decided that the main domain name for the fake e-mail address should be between 4 and 12 characters in length, but at least as long as the login name. Again, use random lowercase letters to put this name together letter-by-letter.</P>
+
+					
+					
+						<h5>Line 24–25</h5>
+						<p>The key component of our script puts together all of the random data into the output line. The date string comes first, followed by the delimiter. We then put together the random e-mail address by concatenating the login name, the "@" symbol, the domain name, and a randomly chosen high-level domain. After the final double-colon, we put together a random integer string using the original time chosen (for the date string), followed by the lengths of the login and domain names, all separated by a single hyphen.</p>
+
+					
+				
+				
+					<H4>Matching a string</H4>
+					<P>For the following exercises, create both permissive and restrictive versions of your REs. We recommend you test these REs in a short application which utilizes our sample <Tt class="monofont">redata.txt</tt> file above (or use your own generated data from running <tt class="monofont">gendata.py</tt>). You will need to use it again when you do the exercises.</p>
+
+					<p>To test the RE before putting it into our little application, we will import the <tT clAss="monofont">re</tT> module and assign one sample line from <tt clAss="monofont">redata.txt</tT> to a string variable data. These statements are constant across both illustrated examples.</P>
+
+					<PRe>
+						
+&gt;&gt;&gt; <b>import</b> re
+&gt;&gt;&gt; data = Thu Feb 15 17:46:04 2007::uzifzf@dpyivihw.gov::1171590364-6-8
+
+					</pRE>
+
+					<P>In our first example, we will create a regular expression to extract (only) the days of the week from the timestamps from each line of the data file <Tt claSS="monofont">redata.txt.</TT> We will use the following RE:</p>
+
+					<pre>
+						
+"^Mon|^Tue|^Wed|^Thu|^Fri|^Sat|^Sun"
+
+					</PRE>
+
+					<P>This example requires that the string start with ("^" RE operator) any of the seven strings listed. If we were to "translate" the above RE to English, it would read something like, “the string should start with "Mon,"
+						"Tue,"… , "Sat," or "Sun."</p>
+
+					<p>Alternatively, we can bypass all the carat operators with a single carat if we group the day strings like this:</p>
+
+					<pre>
+						
+"^(Mon|Tue|Wed|Thu|Fri|Sat|Sun)"
+
+					</pre>
+
+					<p>The parentheses around the set of strings mean that one of these strings must be encountered for a match to succeed. This is a "friendlier" version of the original RE which we came up with which did not have the parentheses. Using our modified RE, we can take advantage of the fact that we can access the matched string as a subgroup:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; patt = '^(Mon|Tue|Wed|Thu|Fri|Sat|Sun)'
+&gt;&gt;&gt; m = re.match(patt, data)
+&gt;&gt;&gt; m.group()                      # entire match
+'Thu'
+&gt;&gt;&gt; m.group(1)                     # subgroup 1
+'Thu'
+&gt;&gt;&gt; m.groups()                     # all subgroups
+('Thu',)
+
+					</pre>
+
+					<p>This feature may not seem as revolutionary as we have made it out to be for this example, but it definitely advantageous in the next example or anywhere you provide extra data as part of the RE to help in the string matching process, even though those characters may not be part of the string you are interested in.</p>
+
+					<p>Both of the above REs are the most restrictive, specifically requiring a set number of strings. This may not work well in an internationalization environment where localized days and abbreviations are used. A looser RE would be:"<Tt cLass="monofont">^\w{3}.</Tt>"This one requires only that a string begin with three consecutive alphanumeric characters. Again, to translate the RE into English, the carat indicates "begins with," the "\w" means any single alphanumeric character, and the "<tt cLass="monofont">{3}</TT>" means that there should be 3 consecutive copies of the RE which the "<TT clasS="monofont">{3}</TT>" embellishes. Again, if you want grouping, parentheses should be used, i.e., "<Tt claSS="monofont">^(\w{3}):</TT>"</p>
+
+					<pre>
+						
+&gt;&gt;&gt; patt = '^(\w{3})'
+&gt;&gt;&gt; m = re.match(patt, data)
+&gt;&gt;&gt; <B>if</B> m != None: m.group()
+…
+'Thu'
+&gt;&gt;&gt; m.group(1)
+'Thu'
+
+					</PRe>
+
+					<p>Note that an RE of "<tt class="monofont">^(\w){3}</tt>" is not correct. When the "<tt class="monofont">{3}</tt>" was inside the parentheses, the match for 3 consecutive alphanumeric characters was made first, then represented as a group. But by moving the "<Tt cLass="monofont">{3}</Tt>" outside, it is now equivalent to 3 consecutive single alphanumeric characters:</p>
+
+					<prE>
+						
+&gt;&gt;&gt; patt = '^(\w){3}'
+&gt;&gt;&gt; m = re.match(patt, data)
+&gt;&gt;&gt; <b>if</b> m != None: m.group()
+…
+'Thu'
+&gt;&gt;&gt; m.group(1)
+'u'
+
+					</pRE>
+
+					<P>The reason why only the "u" shows up when accessing subgroup 1 is that subgroup 1 was being continually replaced by the next character. In other words, <Tt claSS="monofont">m.group(1)</TT> started out as "T," then changed to "h," then finally was replaced by "u." These are 3 individual (and overlapping) groups of a single alphanumeric character, as opposed to a single group consisting of 3 consecutive alphanumeric characters.</p>
+
+					<p>In our next (and final) example, we will create a regular expression to extract the numeric fields found at the end of each line of <tt CLASs="monofont">redata.txt.</tt></p>
+
+				
+				
+					<H4>Search vs. Match</H4>
+					<P>Before we create any REs, however, we realize that these integer data items are at the end of the data strings. This means that we have a choice of using either search or match. Initiating a search makes more sense because we know exactly what we are looking for (set of 3 integers), that what we seek is not at the beginning of the string, and that it does not make up the entire string. If we were to perform a match, we would have to create an RE to match the entire line and use subgroups to save the data we are interested in. To illustrate the differences, we will perform a search first, then do a match to show you that searching is more appropriate.</P>
+
+					<p>Since we are looking for 3 integers delimited by hyphens, we create our RE to indicate as such: "<tt class="monofont">\d+-\d+-\d+</tt>". This regular expression means, “any number of digits (at least one, though) followed by a hyphen, then more digits, another hyphen, and finally, a final set of digits. We test our RE now using <tt class="monofont">search():</tt></p>
+
+					<Pre>
+						
+&gt;&gt;&gt; patt = '\d+-\d+-\d+'
+&gt;&gt;&gt; re.search(patt, data).group()    # entire match
+'1171590364-6-8'
+
+					</Pre>
+
+					<p>A match attempt, however, would fail. Why?  Because matches start at the beginning of the string, the numeric strings are at the rear. We would have to create another RE to match the entire string. We can be lazy though, by using "<Tt claSs="monofont">.+</tt>" to indicate just an arbitrary set of characters followed by what we are really interested in:</P>
+
+					<PRE>
+						
+patt = '.+\d+-\d+-\d+'
+&gt;&gt;&gt; re.match(patt, data).group()    # entire match
+'Thu Feb 15 17:46:04
+2007::uzifzf@dpyivihw.gov::1171590364-6-8'
+
+					</pre>
+
+					<p>This works great, but we really want the number fields at the end, not the entire string, so we have to use parentheses to group what we want:</P>
+
+					<PRE>
+						
+&gt;&gt;&gt; patt = '.+(\d+-\d+-\d+)'
+&gt;&gt;&gt; re.match(patt, data).group(1)     # subgroup 1
+'4-6-8'
+
+					</pre>
+
+					<p>Eek! What happened? We should have extracted "<TT CLass="monofont">1171590364-6-8,</tT>" not just "<TT Class="monofont">4-6-8</tt>". Where is the rest of the first integer?  The problem is that regular expressions are inherently "greedy." That means that with wildcard patterns, regular expressions are evaluated in left-to-right order and try to "grab" as many characters as possible which match the pattern. In our case above, the "<tt class="monofont">.+</tt>" grabbed every single character from the beginning of the string, including most of the first integer field we wanted. The "\d+" needed only a single digit, so it got "4," while the "<tt claSs="monofont">.+</tT>" matched everything from the beginning of the string up to that first digit: "Thu Feb 15 17:46:04 2007::<a hrEf="mailto:uzifzf@dpyivihw.gov">uzifzf@dpyivihw.gov</a>::117159036," as indicated below in <a hRef="247#10.html">Figure 15-2</a>.</P>
+
+					<CENter>
+						<h5>
+<A NAMe="10"></a>Figure 15.2. </h5>
+						
+							
+								<iMG BOrder="0" WIDTh="500" height="210" src="graphics/15fig02.gif" alt="graphics/15fig02.gif">
+							
+						
+					</center>
+
+					<p>The solution is to use the "don't be greedy" operator, "?". It can be used after "<Tt cLass="monofont">*</Tt>", "<tt cLass="monofont">+</TT>", or "<TT clasS="monofont">?</TT>". This directs the regular expression engine to match as few characters as possible. So if we place a "<Tt claSS="monofont">?</TT>" after the "<tt clASS="monofont">.+</Tt>", we obtain the desired result illustrated in <a href="247#11.html">Figure15-3</a>.</p>
+
+					<center><h5>
+<a name="11"></A>Figure 15.3. Solving the Greedy Problem:? Requests Non-Greediness</h5>
+						
+							
+								<iMg boRder="0" wIdth="500" HEIGht="210" srC="graphics/15fig03.gif" ALT="graphics/15fig03.gif">
+							
+						
+					</centER>
+
+					<PRe>
+						
+&gt;&gt;&gt; patt = '.+?(\d+-\d+-\d+)'
+&gt;&gt;&gt; re.match(patt, data).group(1)    # subgroup 1
+'1171590364-6-8'
+
+					</pre>
+
+					<P>One final example. Let's say we want to pull out only the middle integer of the three-integer field. Here is how we would do it (using a search so we don't have to match the entire string):  "<TT Class="monofont">-(\d+)-</tt>". Trying out this pattern, we get:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; patt = '-(\d+)-'
+&gt;&gt;&gt; m = re.search(patt, data)
+&gt;&gt;&gt; m.group()                 # entire match
+'-6-'
+&gt;&gt;&gt; m.group(1)                # subgroup 1
+'6'
+
+					</pre>
+
+					<p>We barely touched upon the power of regular expressions, and in this limited space we have not been able to give them justice. However, we hope that we have given an informative introduction so that you can add this powerful tool to your programming skills. We suggest you refer to the documentation for more details on how to use REs with Python. For more complete immersion into the world of regular expressions, we recommend <i>Mastering Regular Expressions</i> by Jeffrey E. F. Friedl.</p>
+
+				
+			</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="246.html" title="REs and Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=247" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="247.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="248.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

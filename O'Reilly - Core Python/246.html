@@ -1,0 +1,651 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; REs and Python</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="242.html" class="navtitle">15. Regular Expressions</a> &gt; <span class="nonavtitle">REs and Python</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="245.html" title="Special Symbols and Characters for REs"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=246" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="246.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="247.html" title="Regular Expression Adventures"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A26%3A11+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004228149002076096081221043</font><a href="read8.asp?bookname=0130260363&snode=246&now=5%2F30%2F2002+8%3A26%3A11+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>REs and Python</h3>
+				<p>Now that we know all about regular expressions, we can examine how Python currently supports regular expressions through the <tT CLAss="monofont">re</tt> module. The re module was introduced to Python in version 1.5. If you are using an older version of Python, you will have to use the now-obsolete <TT CLass="monofont">regex</tT> and <TT Class="monofont">regsub</tt> modules—these older modules are more Emacs-flavored, are not as full-featured, and are in many ways incompatible with the current <tt class="monofont">re</tt> module.</p>
+
+				<p>However, regular expressions are still regular expressions, so most of the basic concepts from this section can be used with the old <tt cLasS="monofont">regex</tt> and <tT clasS="monofont">regsub</tt> software. In contrast, the new re module supports the more powerful and regular Perl-style (Perl5) REs, allows multiple threads to share the same compiled RE objects, and supports named subgroups. In addition, there is a transition module called <tT CLAss="monofont">reconvert</tt> to help developers move from <TT CLass="monofont">regex/regsub</tT> to <TT Class="monofont">re.</TT> However, be aware that although there are different flavors of regular expressions, we will primarily focus on the current incarnation for Python.</P>
+
+				<P>The <tt class="monofont">re</tt> engine was rewritten in 1.6 for performance enhancements as well as adding Unicode support. The interface was not changed, hence the reason the module  name was left alone. The new <tt class="monofont">re</tt> engine—known internally as <tt ClaSs="monofont">sre</tt> —thus replaces the existing 1.5 engine—internally called <Tt claSs="monofont">pcre.</tt></P>
+
+				
+					<H4><TT clasS="monofont">re</TT> Module:  Core Functions and Methods</H4>
+					<p>The chart in <a hrEF="246#2.html">Table 15.2</A> lists the more popular functions and methods from the <Tt claSS="monofont">re</TT> module. Many of these functions are also available as methods of compiled regular expression objects "regex objects" and RE "match objects."  In this subsection, we will look at the two main functions/methods, <tt class="monofont">match()</tt> and <tt class="monofont">search(),</tt> as well as the <tt ClaSs="monofont">compile()</tt> function. We will introduce several more in the next section, but for more information on all these and the others which we do not cover, we refer you to the Python documentation.</P>
+
+					<a namE="2"></a><p><tABLE bordER="1" CEllspACINg="0" celLPADding="1" width="100%">
+<caption><h5>Table 15.2. Common Regular Expression Functions and Methods</h5></caPtiOn><coLgrouP aliGN="left" SPan="2">
+<tr VALIgn="top">
+<th>
+<FONT size="2"><B><I>Function/Method</I></B></font></th>
+<th>
+<font size="2"><b><i>Description</i></b></FonT></th>
+</tR>
+<tr vaLign="top">
+<TD COlspaN="1">
+<FONt sizE="2"><TT Class="monofont">re</TT>
+										<B><I>Module Function Only</i></b></font></td>
+</tr>
+<tr valign="top">
+<td>
+<FonT sizE="2"><tt clAss="monofont">compile(</tT><I><TT clasS="monofont">pattern, flags</TT></I><tt clASS="monofont">=0)</Tt></fonT></TD>
+<Td>
+<font size="2">compile RE <i><tt class="monofont">pattern</tt></i> with any optional <I><tt ClasS="monofont">flags</tt></i> and return a regex object</fOnt></tD>
+</TR>
+<Tr valIGN="top">
+<Td colSPAN="1">
+<font SIZE="2"><tt class="monofont">re</tt>
+										<b><i>Module Functions and regex Object Methods</i></b></font></td>
+</tR>
+<tr ValiGn="top">
+<td>
+<fOnt sIZE="2"><Tt claSS="monofont">match(</TT><i><tt cLASS="monofont">pattern, string, flags</tt></i><tT CLAss="monofont">=0)</tt></font></td>
+<td>
+<font size="2">attempt to match RE <I><tt ClasS="monofont">pattern</tt></i> to <i><Tt clASS="monofont">string</Tt></i> with optional <i><tT CLAss="monofont">flags;</tt></I> return match object on success, <TT Class="monofont">None</TT> on failure</FOnt></td>
+</tr>
+<tr valign="top">
+<td>
+<font SizE="2"><tt cLass="monofont">search(</tT><i><tt CLASs="monofont">pattern, string, flags</tt></i><TT CLass="monofont">=0)</tT></FONt></td>
+<tD>
+<FONt size="2">search for first occurrence of RE <i><tt class="monofont">pattern</tt></i> within <i><tt cLasS="monofont">string</tt></i> with optional <I><tt clAss="monofont">flags;</tT></I> return match object on success, <TT clasS="monofont">None</TT> on failure</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<font size="2"><tt class="monofont">findall(</tt><i><tT clAss="monofont">pattern, string</tT></i><tt cLass="monofont">)</TT></FOnt></td>
+<TD>
+<FOnt siZE="2">look for all (non-overlapping) occurrences of <I><Tt claSS="monofont">pattern</TT></i> in <i><tt class="monofont">string;</tt></i> return a list of matches (new as of Python 1.5.2)</font></td>
+</tr>
+<Tr vAligN="top">
+<td>
+<foNt siZE="2"><TT clasS="monofont">split(</TT><I><tt clASS="monofont">pattern, string, max</Tt></i><tt CLASs="monofont">=0)</tt></font></td>
+<td>
+<font size="2">split <i><Tt cLass="monofont">string</Tt></i> into a list according to RE <i><tT claSS="monofont">pattern</TT></i> delimiter and return list of successful matches, splitting at most <i><tt CLASs="monofont">max</tt></i> times (split all occurrences is the default)</FONT></td>
+</tr>
+<TR VAlign="top">
+<td>
+<font size="2"><tt clasS="monofont">sub(</tt><I><tt cLass="monofont">pattern, repl, string, max</tT></i><tt CLASs="monofont">=0)</tt></fONT></Td>
+<td>
+<fONT Size="2">replace all occurrences of the RE <i><TT CLass="monofont">pattern</tt></i> in <i><tt class="monofont">string</tt></i> with <i><tt ClaSs="monofont">repl,</tt></I> substituting all occurrences unless <i><tt cLass="monofont">max</TT></I> provided (also see <Tt claSS="monofont">subn()</TT> which, in addition, returns the number of substitutions made)</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td colspan="1">
+<font size="2"><b><i>Match Object Methods</i></B></foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2"><Tt claSS="monofont">group</TT><tt clASS="monofont">(</Tt><i><tt class="monofont">num</tt></i><tt class="monofont">=0)</tT></foNt></td>
+<Td>
+<fonT sizE="2">return entire match (or specific subgroup <I><TT clasS="monofont">num</TT></I>)</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<font size="2"><tt class="monofont">groups()</tt></fOnt></Td>
+<td>
+<Font sIze="2">return all matching subgroups in a tuple (empty if there weren't any)</fONT></Td>
+</tr>
+</cOLGRoup>
+</tABLE></p>
+
+					<div CLASs="note"><p class="notetitle"><b>NOTE</b></p><p><p><i>In the previous chapter, we described how Python code is eventually compiled into bytecode which is then executed by the interpreter. In particular, we mentioned that calling</i>
+							<tt clasS="monofont">eval()</tt>
+							<I>or</i>
+							<b><tT clasS="monofont">exec</tt></b>
+							<I>with a code object rather than a string provides a significant performance improvement due to the fact that the compilation process does not have to be performed. In other words, using precompiled code objects is faster than using strings because the interpreter will have to compile it into a code object (anyway) before execution.</I></P>
+<P><i>The same concept applies to REs—regular expression patterns must be compiled into regex objects before any pattern matching can occur. For REs which are compared many times during the course of execution, we highly recommend using precompilation first because, again, REs have to be compiled anyway, so doing it ahead of time is prudent for performance reasons.</i>
+							<tt CLASs="monofont">re.compile()</tt>
+							<i>provides this functionality.</I></P>
+<P><I>The module functions do cache the compiled objects, though, so it's not as if every</i>
+							<tt cLASS="monofont">search()</tt>
+							<i>and</i>
+							<tt class="monofont">match()</tt>
+							<i>with the same RE pattern requires compilation. Still, you save the cache lookups and do not have to make function calls with the same string over and over. In Python 1.5.2, this cache held up to 20 compiled RE objects, but in 1.6, due to the additional overhead of Unicode awareness, the compilation engine is a bit slower, so the cache has been extended to 100 compiled regex objects.</i></p>
+</p></div><Br>
+
+					
+						<h5>Compiling REs with <Tt clAss="monofont">compile()</tt></H5>
+						<p>Almost all of the <tt CLASs="monofont">re</tt> module functions we will be describing shortly are available as methods for regex objects. Remember, even with our recommendation, precompilation is not required. If you compile, you will use methods; if you don't, you will just use functions. The good news is that either way, the names are the same whether a function or a method. (This is the reason why there are module functions and methods which are identical, i.e., <tT CLAss="monofont">search(), match(),</tt> etc., in case you were wondering.)  Since it saves one small step for most of our examples, we will use strings instead. We will throw in a few with compilation though just so you know how it is done.</P>
+
+						<P>Optional flags may be given as arguments for specialized compilation. These flags allow for case-insensitive matching, using system locale settings for matching alphanumeric characters, etc. Please refer to the documentation for more details. These flags, some of which have been briefly mentioned (i.e. <TT clasS="monofont">DOTALL, LOCALE</TT>), may also be given to the module versions of <Tt class="monofont">match()</tt> and <tt class="monofont">search()</tt> for a specific pattern match attempt—these flags are mostly for compilation reasons, hence the reason why they can be passed to the module versions of <tt cLasS="monofont">match()</tt> and <tT clasS="monofont">search()</tt> which do compile an RE pattern once. If you want to use these flags with the methods, they must already be integrated into the compiled regex objects.</p>
+
+						<P>In addition to the methods below, regex objects also have some data attributes, two of which include any compilation flags given as well as the regular expression pattern compiled.</P>
+
+					
+					
+						<H5>Match objects and the <Tt claSS="monofont">group()</TT> and <tt clASS="monofont">groups()</Tt> Methods</h5>
+						<p>There is another object type in addition to the regex object when dealing with regular expressions, the <i>match object.</I> These objects are those which are returned on successful calls to <TT Class="monofont">match()</tt> or <tt class="monofont">search().</tt> Match objects have two primary methods, <tt claSs="monofont">group()</tT> and <tt cLass="monofont">groups().</tT></p>
+
+						<p><tT CLAss="monofont">group()</tt> will either return the entire match, or a specific subgroup, if requested. <TT CLass="monofont">groups()</tT> will simply return a tuple consisting of only/all the subgroups. If there are no subgroups requested, then <TT Class="monofont">groups()</TT> returns an empty tuple while <TT class="monofont">group()</tt> still returns the entire match.</p>
+
+						<p>Python REs also allow for named matches, which are beyond the scope of this introductory section on REs. We refer you to the complete <tt class="monofont">re</tt> module documentation regarding all the more advanced details we have omitted here.</p>
+
+					
+					
+						<h5>Matching strings with <Tt cLass="monofont">match()</Tt></h5>
+						<p><tT claSS="monofont">match()</TT> is the first <tt clASS="monofont">re</Tt> module function and RE object (regex object) method we will look at. The <tt cLASS="monofont">match()</tt> function attempts to match the pattern to the string, starting at the beginning. If the match is successful, a match object is returned, but on failure, <tt CLASs="monofont">None</tt> is returned. The <tt class="monofont">group()</tt> method of a match object can be used to show the successful match. Here is an example of how to use <tt class="monofont">match()</tT> [and <tt ClasS="monofont">group()</tt>]:</p>
+
+						<pRe>
+							
+&gt;&gt;&gt; m = re.match('foo', 'foo') # pattern matches string
+&gt;&gt;&gt; <b>if</b> m != None:              # show match if successful
+…     m.group()
+…
+`foo'
+
+						</PRE>
+
+						<P>The pattern "foo" matches exactly the string "foo." We can also confirm that m is an example of a match object from within the interactive interpreter:</p>
+
+						<pre>
+							
+&gt;&gt;&gt; m                       # confirm match object returned
+&lt;re.MatchObject instance at 80ebf48&gt;
+
+						</PRE>
+
+						<P>Here is an example of a failed match where None is returned:</p>
+
+						<pre>
+							
+&gt;&gt;&gt; m = re.match('foo', 'bar')# pattern does not match string
+&gt;&gt;&gt; <B>if</B> m != None: m.group()   # (1-line version of <B>if</B> clause)
+…
+&gt;&gt;&gt;
+
+						</pre>
+
+						<p>The match above fails, thus None is assigned to <TT CLass="monofont">m,</tt> and no action is taken due to the way we constructed our <b><tt class="monofont">if</tt></b> statement. For the remaining examples, we will try to leave out the <b><tt cLasS="monofont">if</tt></b> check for brevity, if possible, but in practice it is a good idea to have it there to prevent <Tt claSs="monofont">AttributeError</tt> exceptions (<TT CLass="monofont">None</tT> is returned on failures, which does not have a <TT Class="monofont">group()</TT> attribute [method].)</P>
+
+						<P>A match will still succeed even if the string is longer than the pattern as long as the pattern matches from the beginning of the string. For example, the pattern "foo" will find a match in the string "food on the table" because it matches the pattern from the beginning:</p>
+
+						<pre>
+							
+&gt;&gt;&gt; m = re.match('foo', 'food on the table')# match succeeds
+&gt;&gt;&gt; m.group()
+'foo'
+
+						</PRE>
+
+						<P>As you can see, although the string is longer than the pattern, a successful match was made from the beginning of the string. The substring "foo" represents the match which was extracted from the larger string.</p>
+
+						<p>We can even sometimes bypass saving the result altogether, taking advantage of Python's object-oriented nature:</p>
+
+						<pre>
+							
+&gt;&gt;&gt; re.match('foo', 'food on the table').group()
+'foo'
+
+						</pre>
+
+						<p>Note from a few paragraphs above that an <tt class="monofont">AttributeError</tt> will be generated on a non-match.</p>
+
+					
+					
+						<H5>Looking for a pattern within a string with <tt ClasS="monofont">search()</tt> (searching vs. matching)</h5>
+						<p>The chances are greater that the pattern you seek is somewhere in the middle of a string, rather than at the beginning. This is where <Tt clASS="monofont">search()</Tt> comes in handy. It works exactly in the same way as match except that it searches for the first occurrence of the given RE pattern anywhere with its string argument. Again, a match object is returned on success and <tt cLASS="monofont">None</tt> otherwise.</p>
+
+						<p>We will now illustrate the difference between <TT CLass="monofont">match()</tT> and <TT Class="monofont">search().</tt> Let us try a longer string match attempt. This time, we will try to match our string "foo" to "seafood:"</p>
+
+						<pre>
+							
+&gt;&gt;&gt; m = re.match('foo', 'seafood')       # no match
+&gt;&gt;&gt; <b>if</b> m != None: m.group()
+…
+&gt;&gt;&gt;
+
+						</pre>
+
+						<p>As you can see, there is no match here. <tt clAss="monofont">match()</Tt> attempts to match the pattern to the string from the beginning, i.e., the "f" in the pattern is matched against the "s" in the string, which fails immediately. However, the string "foo"
+							<i>does</i> appear (elsewhere) in "seafood," so how do we get Python to say "yes?" The answer is by using the <Tt claSs="monofont">search()</tt> function. Rather than attempting a <I>match,</I>
+							<TT clasS="monofont">search()</TT> looks for the first occurrence of the pattern within the string. <Tt claSS="monofont">search()</TT> searches strictly from left to right.</p>
+
+						<pre>
+							
+&gt;&gt;&gt; m = re.search('foo', 'seafood')     # use search() instead
+&gt;&gt;&gt; <B>if</B> m != None: m.group()
+…
+'foo'                    # search succeeds where match failed
+&gt;&gt;&gt;
+
+						</PRe>
+
+						<p>We will be using the <tt class="monofont">match()</tt> and <tt class="monofont">search()</tt> regex object methods and the <Tt cLass="monofont">group()</Tt> and <tt cLass="monofont">groups()</TT> match object methods for the remainder of this subsection, exhibiting a broad range of examples of how to use regular expressions with Python. We will be using almost all of the special characters and symbols which are part of the regular expression syntax.</P>
+
+					
+					
+						<H5>Matching more than one string ( <tt clASS="monofont">|</Tt> )</h5>
+						<p>In <a HREF="245.html">Section 15.2</a>, we used the pipe in the RE "<tt cLASS="monofont">bat|bet|bit</tt>". Here is how we would use that RE with Python:</p>
+
+						<pre>
+							
+&gt;&gt;&gt; bt = 'bat|bet|bit'             # RE pattern: bat, bet, bit
+&gt;&gt;&gt; m = re.match(bt, 'bat')        # 'bat' is a match
+&gt;&gt;&gt; <b>if</b> m != None: m.group()
+…
+'bat'
+&gt;&gt;&gt; m = re.match(bt, 'blt')        # no match for 'blt'
+&gt;&gt;&gt; <b>if</b> m != None: m.group()
+…
+&gt;&gt;&gt; m = re.match(bt, 'He bit me!') # does not match string
+&gt;&gt;&gt; <b>if</b> m != None: m.group()
+…
+&gt;&gt;&gt; m = re.search(bt, 'He bit me!')# found \qbit\q via search
+&gt;&gt;&gt; <b>if</b> m != None: m.group()
+…
+'bit'
+
+						</pre>
+
+					
+					
+						<h5>Matching any single character  ( <tt ClaSs="monofont">.</tt> )</H5>
+						<p>In the examples below, we show that a dot cannot match a NEWLINE or a non-character, i.e., the empty string:</p>
+
+						<prE>
+							
+&gt;&gt;&gt; anyend = '.end'
+&gt;&gt;&gt; m = re.match(anyend, 'bend')      # dot matches 'b'
+&gt;&gt;&gt; <b>if</b> m != None: m.group()
+…
+'bend'
+&gt;&gt;&gt; m = re.match(anyend, 'end')       # no char to match
+&gt;&gt;&gt; <b>if</B> m != None: m.group()
+…
+&gt;&gt;&gt; m = re.match(anyend, '\nend')     # any char except \n
+&gt;&gt;&gt; <B>if</B> m != None: m.group()
+…
+&gt;&gt;&gt; m = re.search('.end', 'The end.') # matches ' ' in search
+&gt;&gt;&gt; <B>if</b> m != None: m.group()
+…
+' end'
+
+						</pre>
+
+						<P>Below is an example of searching for a real dot (decimal point) in a regular expression where we escape its functionality with a backslash:</P>
+
+						<PRe>
+							
+&gt;&gt;&gt; patt314 = '3.14'                   # RE dot
+&gt;&gt;&gt; pi_patt = '3\.14'                  # literal dot (dec. point)
+&gt;&gt;&gt; m = re.match(pi_patt, '3.14')      # exact match
+&gt;&gt;&gt; <b>if</b> m != None: m.group()
+…
+'3.14'
+&gt;&gt;&gt; m = re.match(patt314, '3014')      # dot matches '0'
+&gt;&gt;&gt; <b>if</B> m != None: m.group()
+…
+'3014'
+&gt;&gt;&gt; m = re.match(patt314, '3.14')      # dot matches '.'
+&gt;&gt;&gt; <B>if</B> m != None: m.group()
+…
+'3.14'
+
+						</Pre>
+
+					
+					
+						<h5>Creating character classes ( <tT CLAss="monofont">[ ]</tt> )</h5>
+						<p>Earlier, we had a long discussion regarding "<tt class="monofont">[cr][23][dp][o2]</tt>" and how it differs from "<tt claSs="monofont">r2d2|c3po</tT>". With the examples below, we will show that "<tt cLass="monofont">r2d2|c3po</tT>" is more restrictive than "<tt cLASS="monofont">[cr][23][dp][o2]</tt>":</p>
+
+						<pRE>
+							
+&gt;&gt;&gt; m = re.match('[cr][23][dp][o2]', 'c3po')# matches \qc3po\q
+&gt;&gt;&gt; <B>if</B> m != None: m.group()
+…
+'c3po'
+&gt;&gt;&gt; m = re.match('[cr][23][dp][o2]', 'c2do')# matches 'c2do'
+&gt;&gt;&gt; <b>if</b> m != None: m.group()
+…
+'c2do'
+&gt;&gt;&gt; m = re.match('r2d2|c3po', 'c2do')# does not match 'c2do'
+&gt;&gt;&gt; <b>if</b> m != None: m.group()
+…
+&gt;&gt;&gt; m = re.match('r2d2|c3po', 'r2d2')# matches 'r2d2'
+&gt;&gt;&gt; <B>if</B> m != None: m.group()
+…
+'r2d2'
+
+						</PRe>
+
+					
+					
+						<h5>Repetition, special characters, and grouping</h5>
+						<p>The most common aspects of REs involve the use of special characters, multiple occurrences of RE patterns, and using parentheses to group and extract submatch patterns. One particular RE we looked at related to simple e-mail addresses ("<TT CLass="monofont">\w+@\w+\.com</tt>"). Perhaps we want to match more e-mail addresses than this RE allows. In order to support an additional hostname in front of the domain, i.e., "<tt class="monofont">www.xxx.com</tt>" as opposed to accepting only "<tt clasS="monofont">xxx.com</tt>" as the entire domain, we have to modify our existing RE. To indicate that the hostname is optional, we create a pattern which matches the hostname (followed by a dot), use the ? operator indicating zero or one copy of this pattern, and insert the optional RE into our previous RE as follows:  "<Tt clAss="monofont">\w+@(\w+\.)?\w+\.com</tt>". As you can see from the examples below, either one or two names are now accepted in front of the "<Tt clASS="monofont">.com</Tt>".</p>
+
+						<prE>
+							
+&gt;&gt;&gt; patt = '\w+@(\w+\.)?\w+\.com'
+&gt;&gt;&gt; re.match(patt, 'nobody@xxx.com').group()
+'nobody@xxx.com'
+&gt;&gt;&gt; re.match(patt, 'nobody@www.xxx.com').group()
+'nobody@www.xxx.com'
+
+						</PRE>
+
+						<p>Furthermore, we can even extend our example to allow any number of intermediate subdomain names with the following pattern:  "<tt cLASS="monofont">\w+@(\w+\.)*\w+\.com</tt>":</p>
+
+						<pRE>
+							
+&gt;&gt;&gt; patt = '\w+@(\w+\.)*\w+\.com'
+&gt;&gt;&gt; re.match(patt,
+'nobody@www.xxx.yyy.zzz.com').group()
+'nobody@www.xxx.yyy.zzz.com'
+
+						</PRe>
+
+						<p>However, we must add the disclaimer that using solely alphanumeric characters does not match all the possible characters which may make up e-mail addresses. The above RE patterns would not match a domain such as "<tt class="monofont">xxx-yyy.com</tt>" or other domains with "<tt class="monofont">\W</tt>" characters.</P>
+
+						<p>Earlier, we discussed the merits of using parentheses to match and save subgroups for further processing rather than coding a separate routine to manually parse a string after an RE match had been determined. In particular, we discussed a simple RE pattern of an alphanumeric string and a number separated by a hyphen, "<tT claSs="monofont">\w+-\d+,</tt>" and how adding subgrouping to form a new RE, "<tT claSS="monofont">(\w+)-(\d+),</TT>" would do the job. Here is how the original RE works:</p>
+
+						<pre>
+							
+&gt;&gt;&gt; m = re.match('\w\w\w-\d\d\d', 'abc-123')
+&gt;&gt;&gt; <B>if</B> m != None: m.group()
+…
+'abc-123'
+
+&gt;&gt;&gt; m = re.match('\w\w\w-\d\d\d', 'abc-xyz')
+&gt;&gt;&gt; <B>if</B> m != None: m.group()
+…
+&gt;&gt;&gt;
+
+						</pre>
+
+						<p>In the above code, we created an RE to recognize three alphanumeric characters followed by three digits. Testing this RE on "<TT CLass="monofont">abc-123,</tT>" we obtained with positive results while "<TT Class="monofont">abc-xyz</tt>" fails. We will now modify our RE as discussed before to be able to extract the alphanumeric string and number. Note how we can now use the <tt class="monofont">group()</tt> method to access individual subgroups or the <tt claSs="monofont">groups()</tT> method to obtain a tuple of all the subgroups matched:</p>
+
+						<prE>
+							
+&gt;&gt;&gt; m = re.match('(\w\w\w)-(\d\d\d)', 'abc-123')
+&gt;&gt;&gt; m.group()                  # entire match
+'abc-123'
+&gt;&gt;&gt; m.group(1)                 # subgroup 1
+'abc'
+&gt;&gt;&gt; m.group(2)                 # subgroup 2
+'123'
+&gt;&gt;&gt; m.groups()                 # all subgroups
+('abc', '123')
+
+						</pre>
+
+						<p>As you can see, <Tt clASS="monofont">group()</Tt> is used in the normal way to show the entire match, but can also be used to grab individual subgroup matches. We can also use the <tt cLASS="monofont">groups()</tt> method to obtain a tuple of all the substring matches.</p>
+
+						<p>Here is a simpler example showing different group permutations, which will hopefully make things even more clear:</P>
+
+						<PRE>
+							
+&gt;&gt;&gt; m = re.match('ab', 'ab')      # no subgroups
+&gt;&gt;&gt; m.group()                     # entire match
+'ab'
+&gt;&gt;&gt; m.groups()                    # all subgroups
+()
+&gt;&gt;&gt;
+&gt;&gt;&gt; m = re.match('(ab)', 'ab')    # one subgroup
+&gt;&gt;&gt; m.group()                     # entire match
+'ab'
+&gt;&gt;&gt; m.group(1)                    # subgroup 1
+'ab'
+&gt;&gt;&gt; m.groups()                    # all subgroups
+('ab',)
+&gt;&gt;&gt;
+&gt;&gt;&gt; m = re.match('(a)(b)', 'ab')  # two subgroups
+&gt;&gt;&gt; m.group()                     # entire match
+'ab'
+&gt;&gt;&gt; m.group(1)                    # subgroup 1
+'a'
+&gt;&gt;&gt; m.group(2)                    # subgroup 2
+'b'
+&gt;&gt;&gt; m.groups()                    # all subgroups
+('a', 'b')
+&gt;&gt;&gt;
+&gt;&gt;&gt; m = re.match('(a(b))', 'ab')  # two subgroups
+&gt;&gt;&gt; m.group()                     # entire match
+'ab'
+&gt;&gt;&gt; m.group(1)                    # subgroup 1
+'ab'
+&gt;&gt;&gt; m.group(2)                    # subgroup 2
+'b'
+&gt;&gt;&gt; m.groups()                    # all subgroups
+('ab', 'b')
+
+						</pre>
+
+					
+					
+						<h5>Matching from the beginning and end of strings and on word boundaries</H5>
+						<P>The following examples highlight the positional RE operators. These apply more for searching than matching because <TT class="monofont">match()</tt> always starts at the beginning of a string.</p>
+
+						<pre>
+							
+&gt;&gt;&gt; m = re.search('^The', 'The end.')      # match
+&gt;&gt;&gt; <b>if</b> m != None: m.group()
+…
+'The'
+&gt;&gt;&gt; m = re.search('^The', 'end. The')      # not at beginning
+&gt;&gt;&gt; <b>if</b> m != None: m.group()
+…
+&gt;&gt;&gt; m = re.search(r'\bthe', 'bite the dog')# at a boundary
+&gt;&gt;&gt; <b>if</b> m != None: m.group()
+…
+'the'
+&gt;&gt;&gt; m = re.search(r'\bthe', 'bitethe dog') # no boundary
+&gt;&gt;&gt; <b>if</b> m != None: m.group()
+…
+&gt;&gt;&gt; m = re.search(r'\Bthe', 'bitethe dog') # no boundary
+&gt;&gt;&gt; <b>if</B> m != None: m.group()
+…
+'the'
+
+						</prE>
+
+						<p>You will notice the appearance of raw strings here. You may want to take a look at the Core Note towards the end of the chapter for clarification on why they are here. In general, it is a good idea to use raw strings with regular expressions.</p>
+
+					
+				
+				
+					<h4>Other <Tt claSs="monofont">re</tt> Module Functions and Methods</H4>
+					<P>There are four other <TT clasS="monofont">re</TT> module functions and regex object methods which we think you should be aware of: <Tt claSS="monofont">findall(), sub(), subn(),</TT> and <tt clASS="monofont">split().</Tt></p>
+
+					
+						<h5>Finding every occurrence with <tt class="monofont">findall()</tt></h5>
+						<p><tt clasS="monofont">findall()</tt> is new to Python as of version 1.5.2. It looks for all non-overlapping occurrences of an RE pattern in a string. It is similar to <Tt clAss="monofont">search()</tt> in that it performs a string search, but it differs from <Tt clASS="monofont">match()</Tt> and <tt cLASS="monofont">search()</tt> in that <tt CLASs="monofont">findall()</tt> always returns a list. The list will be empty if no occurrences are found but if successful, it will consist of all matches found (grouped in left-to-right order of occurrence).</p>
+
+						<PRE>
+							
+&gt;&gt;&gt; re.findall('car', 'car')
+['car']
+&gt;&gt;&gt; re.findall('car', 'scary')
+['car']
+&gt;&gt;&gt; re.findall('car', 'carry the barcardi to the car')
+['car', 'car', 'car']
+
+						</Pre>
+
+						<p><i>Subgroup</i> searches result in a more complex list returned, and that makes sense, because subgroups are a mechanism which will allow you to extract specific patterns from within your single regular expression, such as matching an area code which is part of a complete telephone number, or a login name which is part of an entire e-mail address.</p>
+
+						<p>For a single successful match, each subgroup match is a single element of the resulting list returned by <tt class="monofont">findall();</tt> for multiple successful matches, each subgroup match is a single element in a tuple, and such tuples (one for each successful match) are the elements of the resulting list. This part may sound confusing at first, but if you try different examples, it will help clarify things.</p>
+
+					
+					
+						<h5>Searching and replacing with <tt ClaSs="monofont">sub()</tt> [and <Tt claSs="monofont">subn()</tt>]</H5>
+						<P>There are two functions/methods for search-and-replace functionality: <TT clasS="monofont">sub()</TT> and <Tt claSS="monofont">subn().</TT> They are both almost identical and replace all matched occurrences of the RE pattern in a string with some sort of replacement. The replacement is usually a string, but it can also be a function which returns a replacement string. <tt clASS="monofont">subn()</Tt> is exactly the same as <tt class="monofont">sub(),</tt> but it also returns the total number of substitutions made—both the newly-substituted string and the substitution count are returned as a 2-tuple.</p>
+
+						<pre>
+							
+&gt;&gt;&gt; re.sub('X', 'Mr. Smith', 'attn: X\n\nDear X,\n')
+'attn: Mr. Smith\012\012Dear Mr. Smith,\012'
+&gt;&gt;&gt;
+&gt;&gt;&gt; re.subn('X', 'Mr. Smith', 'attn: X\n\nDear X,\n')
+('attn: Mr. Smith\012\012Dear Mr. Smith,\012', 2)
+&gt;&gt;&gt;
+&gt;&gt;&gt; print re.sub('X', 'Mr. Smith', 'attn: X\n\nDear X,\n')
+attn: Mr. Smith
+
+Dear Mr. Smith,
+
+&gt;&gt;&gt; re.sub('[ae]', 'X', 'abcdef')
+'XbcdXf'
+&gt;&gt;&gt; re.subn('[ae]', 'X' , 'abcdef')
+('XbcdXf', 2)
+
+						</pre>
+
+					
+					
+						<h5>Splitting (on delimiting pattern) with <tt ClaSs="monofont">split()</tt></H5>
+						<p>The <tt cLass="monofont">re</TT> module and RE object method <TT clasS="monofont">split()</TT> work similar to its string counterpart, but rather than splitting on a fixed string, it splits a string based on an RE pattern, adding some significant power to string splitting capabilities. If you do not want the string split for every occurrence of the pattern, you can specify the maximum number of splits by setting a value (other than zero) to the <Tt claSS="monofont">max</TT> argument.</p>
+
+						<p>If the delimiter given is not a regular expression which uses special symbols to match multiple patterns, then <tt CLASs="monofont">re.split()</tt> works in exactly the same manner as <tt class="monofont">string.split(),</tt> as illustrated in the example below (which splits on a single colon):</p>
+
+						<pre>
+							
+&gt;&gt;&gt; re.split(':', 'str1:str2:str3')
+['str1', 'str2', 'str3']
+
+						</pre>
+
+						<p>But with regular expressions involved, we have an even more powerful tool. Take, for example, the output from the Unix who command, which lists all the users logged into a system:</P>
+
+						<prE>
+							
+% who
+wesc       console      Jun 20 20:33
+wesc       pts/9        Jun 22 01:38    (192.168.0.6)
+wesc       pts/1        Jun 20 20:33    (:0.0)
+wesc       pts/2        Jun 20 20:33    (:0.0)
+wesc       pts/4        Jun 20 20:33    (:0.0)
+wesc       pts/3        Jun 20 20:33    (:0.0)
+wesc       pts/5        Jun 20 20:33    (:0.0)
+wesc       pts/6        Jun 20 20:33    (:0.0)
+wesc       pts/7        Jun 20 20:33    (:0.0)
+wesc       pts/8        Jun 20 20:33    (:0.0)
+
+						</pre>
+
+						<P>Perhaps we want to save some user login information such as login name, teletype they logged in at, when they logged in, and from where. Using <tt clAss="monofont">string.split()</tT> on the above would not be effective, since the spacing is erratic and inconsistent. The other problem is that there is a space between the month, day, and time for the login timestamps. We would probably want to keep these fields together.</P>
+
+						<P>You need some way to describe a pattern such as, "split on two or more spaces."  This is easily done with regular expressions. In no time, we whip up the RE pattern "\s\s+," which does mean at least two whitespace characters. Let's create a program called <Tt claSS="monofont">rewho.py</TT> that reads the output of the who command, presumably saved into a file called <tt clASS="monofont">whodata.txt.</Tt> Our <tt cLASS="monofont">rewho.py</tt>script initially looks something like this:</p>
+
+						<pre>
+							
+<b>import</b> re
+f = open('whodata.txt', 'r')
+<b>for</b> eachLine <b>in</b> f.readlines():
+    <b>print</b> re.split('\s\s+', eachLine)
+f.close()
+
+						</pre>
+
+						<p>We will now execute the who command, saving the output into <tt ClaSs="monofont">whodata.txt,</tt> and then call <Tt claSs="monofont">rewho.py</tt> and take a look at the results:</P>
+
+						<PRE>
+							
+% who &gt; whodata.txt
+% rewho.py
+['wesc', 'console', 'Jun 20 20:33\012']
+['wesc', 'pts/9', 'Jun 22 01:38\011(192.168.0.6)\012']
+['wesc', 'pts/1', 'Jun 20 20:33\011(:0.0)\012']
+['wesc', 'pts/2', 'Jun 20 20:33\011(:0.0)\012']
+['wesc', 'pts/4', 'Jun 20 20:33\011(:0.0)\012']
+['wesc', 'pts/3', 'Jun 20 20:33\011(:0.0)\012']
+['wesc', 'pts/5', 'Jun 20 20:33\011(:0.0)\012']
+['wesc', 'pts/6', 'Jun 20 20:33\011(:0.0)\012']
+['wesc', 'pts/7', 'Jun 20 20:33\011(:0.0)\012']
+['wesc', 'pts/8', 'Jun 20 20:33\011(:0.0)\012']
+
+						</pre>
+
+						<p>It was a good first try, but not quite correct. For one thing, we did not anticipate a single TAB (ASCII <TT CLass="monofont">\011</tT>) as part of the output (which looked like at least 2 spaces, right?), and perhaps we aren't really keen on saving the NEWLINE (ASCII <TT Class="monofont">\012</TT>) which terminates each line. We are now going to fix those problems as well as improve the overall quality of our application by making a few more changes.</P>
+
+						<P>First, we would rather run the who command from within the script, instead of doing it externally and saving the output to a <tt class="monofont">whodata.txt</tt> file—doing this repeatedly gets tiring rather quickly. To accomplish invoking another program from within ours, we call upon the <tt class="monofont">os.popen()</tt> command, discussed briefly in <a hRef="235#3.html">Section 14.5.2</A>. Although <tt cLass="monofont">os.popen()</tT> is available only on Unix systems, the point is to illustrate the functionality of <tt cLASS="monofont">re.split(),</tt> which is available on all platforms.</p>
+
+						<p>We shall also employ the <TT CLass="monofont">map()</tT> built-in function along with <TT Class="monofont">string.strip()</TT> to get rid of the trailing NEWLINEs. Finally, we will add the detection of a single TAB as an additional, alternative <TT class="monofont">re.split()</tt> delimiter by adding it to the regular expression. Presented below in <a href="246#16.html">Example 15.1</a>. is the final version of our <tt class="monofont">rewho.py</Tt>script:</p>
+
+						
+							<H5>
+<a naMe="16"></a>Example 15.1. Split Output of Unix <tt ClasS="monofont">who</TT> Command (<Tt claSS="monofont">rewho.py</TT>)</h5>
+							<p><b><i>This script calls the</I></B>
+								<B><Tt claSS="monofont">who</TT></b>
+								<b><i>command and parses the input by splitting up its data along various types of whitespace characters.</i></b></p>
+
+							<pre class="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <b>from</b> os <b>import</b> popen
+004 4  <b>from</b> re <B>import</b> split
+005 5  <b>from</B> string <b>import</b> strip
+006 6
+007 7  f = popen('who', 'r')
+008 8  <b>for</B> eachLine <b>in</b> map(strip, f.readlines()):
+009 9      <b>print</b> split('\s\s+|\t', eachLine)
+010 10 f.close()
+011  &lt;$nopage&gt;</Pre>
+						
+						<p>Running this script, we now get the following (correct) output:</P>
+
+						<PRE>
+							
+% rewho.py
+['wesc', 'console', 'Jun 20 20:33']
+['wesc', 'pts/9', 'Jun 22 01:38', '(192.168.0.6)']
+['wesc', 'pts/1', 'Jun 20 20:33', '(:0.0)']
+['wesc', 'pts/2', 'Jun 20 20:33', '(:0.0)']
+['wesc', 'pts/4', 'Jun 20 20:33', '(:0.0)']
+['wesc', 'pts/3', 'Jun 20 20:33', '(:0.0)']
+['wesc', 'pts/5', 'Jun 20 20:33', '(:0.0)']
+['wesc', 'pts/6', 'Jun 20 20:33', '(:0.0)']
+['wesc', 'pts/7', 'Jun 20 20:33', '(:0.0)']
+['wesc', 'pts/8', 'Jun 20 20:33', '(:0.0)']
+
+						</pre>
+
+						<p>A similar exercise can be achieved in a DOS/Windows environment using the <TT CLass="monofont">dir</tT> command in place of <TT Class="monofont">who.</TT></P>
+
+						<Div class="note"><p class="notetitle"><b>NOTE</b></p><p><p><i>You may have seen the use of raw strings in some of the examples above. Regular expressions were a strong motivation for the advent of raw strings. The reason is because of conflicts between ASCII characters and regular expression special characters. As a special symbol, "<tT clAss="monofont">\b</tT>" represents the ASCII character for backspace, but "<tt clAss="monofont">\b</tT>" is also a regular expression special symbol, meaning "match" on a word boundary. In order for the RE compiler to not interpret a "<TT Class="monofont">\b</TT>" in your string as a backspace, you need to escape it using the backslash, resulting in "<TT clasS="monofont">\\b.</TT>"</I></p>
+<p><i>This can get messy, especially if you have a lot of special characters in your string, which adds to the confusion. We were introduced to raw strings back in <a HREF="104#8.html">Section 6.4.2</a>, and they can be (and are often) used to help keep REs looking somewhat manageable. In fact, many Python programmers swear by these and only use raw strings when defining regular expressions.</i></p>
+<p><i>Here are some examples of differentiating between the backspace "<tt class="monofont">\b</tt>" and the regular expression "<tt clasS="monofont">\b,</tt>" with and without raw strings:</I></p>
+<prE>
+								
+&gt;&gt;&gt; m = re.match('\bblow', 'blow')    # backspace, no match
+&gt;&gt;&gt; <b>if</b> m != None: m.group()
+…
+&gt;&gt;&gt; m = re.match('\\bblow', 'blow')   # escaped \, now it works
+&gt;&gt;&gt; <b>if</b> m != None: m.group()
+…
+'blow'
+&gt;&gt;&gt; m = re.match(r'\bblow', 'blow\q)  # or use raw string instead
+&gt;&gt;&gt; <B>if</b> m != None: m.group()
+…
+'blow'
+
+							</prE>
+<P><I>You may have recalled that we had no trouble using "<Tt claSS="monofont">\d</TT>" in our regular expressions without using raw strings. That is because there is no ASCII equivalent special character, so the regular expression compiler already knew you meant a decimal digit.</i></p>
+</p></dIV><BR>
+
+					
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="245.html" title="Special Symbols and Characters for REs"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=246" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="246.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="247.html" title="Regular Expression Adventures"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,155 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Internal Types</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="78.html" class="navtitle">4. Python Objects</a> &gt; <span class="nonavtitle">Internal Types</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="82.html" title="Other Built-in Types"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=83" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="83.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="84.html" title="Standard Type Operators"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A13%3A11+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172039119065024101120054</font><a href="read0.asp?bookname=0130260363&snode=83&now=5%2F29%2F2002+9%3A13%3A11+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Internal Types</h3>
+				<ul>
+<LI><P>Code</P>
+</li>
+<li><P>Frame</P>
+</LI>
+<li><p>Traceback</p>
+</LI>
+<LI><p>Slice</p>
+</li>
+<li><p>Ellipsis</p>
+</li>
+<li><p>Xrange</p>
+</li>
+</ul>
+				<p>We will briefly introduce these internal types here. The general application programmer would typically not interact with these objects directly, but we include them here for completeness. Please refer to the source code or Python internal and online documentation for more information.</p>
+
+				<P>In case you were wondering about exceptions, they are now implemented as classes not types. In older versions of Python, exceptions were implemented as strings.</p>
+
+				
+					<h4>Code Objects</H4>
+					<p>Code objects are executable pieces of Python source that are byte-compiled, usually as return values from calling the <tt Class="monofont">compile()</Tt> built-in function. Such objects are appropriate for execution by either <b><tT CLAss="monofont">exec</tt></B> or by the <TT Class="monofont">eval()</TT> built-in function. All this will be discussed in greater detail in <A Href="229.html">Chapter 14</a>.</P>
+
+					<P>Code objects themselves do not contain any information regarding their execution environment, but they are at the heart of every user-defined function, all of which <I>do</I> contain some execution context. (The actual byte-compiled code as a code object is one attribute belonging to a function). Along with the code object, a function's attributes also consist of the administrative support which a function requires, including its name, documentation string, default arguments, and global namespace.</p>
+
+				
+				
+					<h4>Frames</h4>
+					<p>These are objects representing execution stack frames in Python. Frame objects contain all the information the Python interpreter needs to know during a runtime execution environment. Some of its attributes include a link to the previous stack frame, the code object (see above) that is being executed, dictionaries for the local and global namespaces, and the current instruction. Each function call results in a new frame object, and for each frame object, a C stack frame is created as well. One place where you can access a frame object is in a traceback object (see below).</p>
+
+				
+				
+					<h4>Tracebacks</h4>
+					<p>When you make an error in Python, an exception is raised. If exceptions are not caught or "handled," the interpreter exits with some diagnostic information similar to the output shown below:</p>
+
+					<pre>
+						
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line <i>N?,</i> in ???
+<i>ErrorName:  error reason</i>
+
+					</pre>
+
+					<p>The traceback object is just a data item that holds the stack trace information for an exception and is created when an exception occurs. If a handler is provided for an exception, this handler is given access to the traceback object.</P>
+
+				
+				
+					<h4>Slice Objects</h4>
+					<P>Slice objects are created when using the Python extended slice syntax. This extended syntax allows for different types of indexing. These various types of indexing include <i>stride indexing,</i> multi-dimensional indexing, and indexing using the Ellipsis type. The syntax for multi-dimensional indexing is <i><Tt claSs="monofont">sequence</tt></I><TT Class="monofont">[</TT><I><Tt claSS="monofont">start1 : end1, start2 : end2</TT></i><tt cLASS="monofont">],</tt> or using the ellipsis, <i><tt class="monofont">sequence</tt></i><tt class="monofont">[…,</Tt>
+						<i><Tt clAss="monofont">start1 : end1</tt></I><tt cLASS="monofont">].</tt> Slice objects can also be generated by the <tt CLASs="monofont">slice()</tt> built-in function. Extended slice syntax is currently supported only in external third party modules such as the NumPy module and JPython.</p>
+
+					<P>Stride indexing for sequence types allows for a third slice element that allows for "step"-like access with a syntax of <I><TT clasS="monofont">sequence</TT></I><tt class="monofont">[</tt><i><tt class="monofont">starting_index : ending_index : stride</tt></i><Tt cLass="monofont">].</Tt> We will demonstrate an example of stride indexing using JPython here:</p>
+
+					<prE>
+						
+% jpython
+JPython 1.1 on java1.1.8 (JIT: sunwjit)
+Copyright (C) 1997–1999 Corporation for National Research
+Initiatives
+&gt;&gt;&gt; foostr = 'abcde'
+&gt;&gt;&gt; foostr[::-1]
+'edcba'
+&gt;&gt;&gt; foostr[::-2]
+'eca'
+&gt;&gt;&gt; foolist = [123, 'xba', 342.23, 'abc']
+&gt;&gt;&gt; foolist[::-1]
+['abc', 342.23, 'xba', 123]
+
+					</pre>
+
+				
+				
+					<H4>Ellipsis</H4>
+					<P>Ellipsis objects are used in extended slice notations as demonstrated above. These objects are used to represent the actual ellipses in the slice syntax (<Tt claSS="monofont">…</TT>). Like the Null object, ellipsis objects also have a single name, <tt clASS="monofont">Ellipsis,</Tt> and has a Boolean <i>true</i> value at all times.</p>
+
+				
+				
+					<H4>Xranges</H4>
+					<P>XRange objects are created by the built-in function <Tt class="monofont">xrange(),</tt> a sibling of the <tt class="monofont">range()</tt> built-in function and used when memory is limited and for when <tt cLasS="monofont">range()</tt> generates an unusually large data set. You can find out more about <tT clasS="monofont">range()</tt> and <tT CLAss="monofont">xrange()</tt> in <A HREf="129.html">Chapter 8</a>.</p>
+
+					<p>For an interesting side adventure into Python types, we invite the reader to take a look at the <TT CLass="monofont">types</tT> module in the standard Python library.</P>
+
+					<DIv class="note"><p class="notetitle"><b>NOTE</b></p><p><p><i>All standard type objects can be tested for truth value and compared to objects of the same type. Objects have inherent <b><tT clAss="monofont">true</tT></b> or <b><tt ClasS="monofont">false</TT></B> values. Objects take a false value when they are empty, any numeric representation of zero, or the Null object</i>
+							<tt cLASS="monofont">None.</tt></p>
+<p><I>The following are defined as having false values in Python:</I></P>
+<Ul>
+<li><p><TT CLass="monofont">None</tt></p>
+</li>
+<li><p><i>Any numeric zero:</i></p>
+
+								<ul>
+<li><p><tT clAss="monofont">0</tT>
+											<i>([plain] integer)</i></p>
+</lI>
+<li><p><TT CLass="monofont">0.0</tT>
+											<I>(float)</I></P>
+</li>
+<li><P><TT Class="monofont">0L</TT>
+											<I>(long integer)</I></p>
+</li>
+<li><p><tt class="monofont">0.0+0.0j</tt>
+											<i>(complex)</i></p>
+</li>
+<Li><p><Tt clAss="monofont">""</tt>
+											<I>(empty string)</i></p>
+</lI>
+<LI><P><tt clASS="monofont">[]</Tt>
+											<i>(empty list)</i></p>
+</LI>
+<LI><p><tt cLASS="monofont">()</tt>
+											<i>(empty tuple)</i></p>
+</li>
+<li><p><tt class="monofont">{}</tt>
+											<i>(empty dictionary)</I></p>
+</lI>
+</ul></lI>
+</ul><p><i>Any value for an object other than the those above is considered to have a true value, i.e., non-empty, non-zero, etc. User-created class instances have a false value when their nonzero (</I>
+							<tt cLASS="monofont">__nonzero__()</tt>
+							<i>) or length (</i>
+							<TT CLass="monofont">__len__()</tT>
+							<I>) special methods, if defined, return a zero value.</I></P>
+</p></div><BR>
+
+				
+			</FOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="82.html" title="Other Built-in Types"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=83" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="83.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="84.html" title="Standard Type Operators"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

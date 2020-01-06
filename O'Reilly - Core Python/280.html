@@ -1,0 +1,297 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Related Modules</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="271.html" class="navtitle">19. Web Programming</a> &gt; <span class="nonavtitle">Related Modules</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="279.html" title="Web (HTTP) Servers"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=280" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="280.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="281.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A43%3A30+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004226053241019178080129118</font><a href="read0.asp?bookname=0130260363&snode=280&now=5%2F30%2F2002+8%3A43%3A30+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Related Modules</h3>
+				<p>In <a HREF="280#1.html">Table 19-7</a>, we present a list of modules which you may find useful for Web and Internet development.</p>
+
+				<ul>
+<LI><P>The parsing modules deal with recognizing documents in specific formats.</P>
+</li>
+<li><P>You can write POP- or IMAP-compliant mail clients using the corresponding protocol modules.</P>
+</LI>
+<li><p>Python has plenty of modules to support most kinds of binary file encoding for e-mail and other MIME-oriented applications.</p>
+</li>
+<li><p>You can create clients for common Internet protocols like HTTP, FTP, Telnet, and NNTP with the appropriate modules. Be aware that <tt class="monofont">urllib</tt> provides a high-level interface to protocols supported by your browser such as HTTP and FTP, so use of the lower-level protocol modules only makes sense when you cannot get all you want from <tt ClaSs="monofont">urllib.</tt></P>
+</li>
+<li><P>Finally, we have the <tt cLASS="monofont">HTMLgen</tt> external module and the commercial Zope (Z Object Publishing Environment) system by Digital Creations. We introduced the <tt CLASs="monofont">HTMLgen</tt> module briefly at the end of <a HREF="277.html">Section 19.5</a>. It definitely comes in handy when you need to generate more complex HTML documents via CGI scripts.</p>
+</li>
+</UL>
+				<A Name="1"></a><p><table border="1" cellSpaCing="0" CellpAddiNG="1" WIdth="100%">
+<cAPTIon><h5>Table 19.7. Web Programming Related Modules</h5></CAPTion><cOLGRoup align="left" span="2">
+<tr valign="top">
+<Th>
+<fOnt sIze="2"><p><b><I>Module</i></b></p>
+</FONT></th>
+<th>
+<FONT size="2"><P><B><I>Description</I></b></p>
+</foNT></TH>
+</tr>
+<tr valign="top">
+<td colspan="1">
+<fOnt Size="2"><P><b>Parsing</b></p>
+</fOnt></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><p><tt CLASs="monofont">htmllib</tt></p>
+</font></td>
+<td>
+<font size="2"><P>parses simple HTML files</p>
+</fOnt></tD>
+</tr>
+<tr ValiGN="top">
+<TD>
+<font SIZE="2"><p><tt cLASS="monofont">sgmllib</tt></p>
+</fONT></Td>
+<td>
+<font size="2"><p>parses simple SGML files</p>
+</font></td>
+</tR>
+<tr ValiGn="top">
+<td>
+<fOnt sIZE="2"><P><tt clASS="monofont">xmllib</Tt></p>
+</foNT></TD>
+<td>
+<foNT SIze="2"><p>parses simple XML files</p>
+</font></td>
+</tr>
+<tr valign="top">
+<Td>
+<fOnt sIze="2"><p><tT claSS="monofont">robotparser</TT><font SIZE="1"><sup><a HREF="#FOOTNOTE-a">[a]</a></sup></FONT>
+</p>
+</font></td>
+<td>
+<font size="2"><p>parses <tt ClaSs="monofont">robots.txt</tt> files for URL "fetchability" analysis</P>
+</font></Td>
+</tr>
+<TR VAlign="top">
+<TD COlspaN="1">
+<FONt sizE="2"><P><B>Mail Client Protocols</B></p>
+</font></td>
+</tr>
+<tr valign="top">
+<td>
+<fOnt Size="2"><P><tt clAss="monofont">poplib</tT></P>
+</FOnt></td>
+<TD>
+<FOnt siZE="2"><P>use to create POP3 clients</P>
+</font></TD>
+</TR>
+<tr valign="top">
+<td>
+<font size="2"><p><tT clAss="monofont">imaplib</tT></p>
+</fonT></td>
+<tD>
+<FONt sizE="2"><P>use to create IMAP4 clients</P>
+</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td colspan="1">
+<font size="2"><p><b>Mail and MIME Processing and Data Encoding Formats</b></p>
+</FonT></td>
+</tR>
+<tr vaLign="top">
+<TD>
+<FOnt siZE="2"><P><Tt claSS="monofont">mailcap</TT></p>
+</fonT></TD>
+<Td>
+<font size="2"><p>parses mailcap files to obtain MIME application delegations</p>
+</font></td>
+</tr>
+<tR vaLign="top">
+<Td>
+<fonT sizE="2"><P><TT clasS="monofont">mimetools</TT></P>
+</font></TD>
+<TD>
+<font SIZE="2"><p>provides functions for manipulating MIM-encoded messages</p>
+</font></td>
+</tr>
+<tr valign="top">
+<td>
+<FonT sizE="2"><p><tt cLass="monofont">mimetypes</TT></P>
+</Font></tD>
+<TD>
+<Font sIZE="2"><P>provides MIME type associations</p>
+</fonT></TD>
+</Tr>
+<tr valign="top">
+<td>
+<font size="2"><p><Tt cLass="monofont">MimeWriter</Tt></p>
+</foNt></td>
+<TD>
+<FOnt siZE="2"><P>generates MIME-encoded multipart files</P>
+</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<font size="2"><p><tt class="monofont">multifile</tt></P>
+</foNt></td>
+<Td>
+<fonT sizE="2"><P>can parse multipart MIME-encoded files</P>
+</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><p><tt class="monofont">quopri</tt></p>
+</font></td>
+<td>
+<FonT sizE="2"><p>en-/decodes data using quoted-printable encoding</p>
+</foNt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><p><tt cLASS="monofont">rfc822</tt></p>
+</font></td>
+<td>
+<font size="2"><p>parses RFC822-compliant e-mail headers</P>
+</foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2"><P><tt clASS="monofont">smtplib</Tt></p>
+</foNT></TD>
+<td>
+<font size="2"><p>uses to create SMTP (Simple Mail Transfer Protocol) clients</p>
+</font></td>
+</tr>
+<Tr vAligN="top">
+<td>
+<foNt siZE="2"><P><Tt claSS="monofont">base64</TT></p>
+</fonT></TD>
+<Td>
+<fonT SIZe="2"><p>en-/decodes data using base64 encoding</p>
+</font></td>
+</tr>
+<tr valign="top">
+<tD>
+<foNt siZe="2"><p><tt ClasS="monofont">binascii</TT></P>
+</font></TD>
+<TD>
+<font SIZE="2"><p>en-/decodes data using base64, binhex, or uu (modules)</p>
+</foNT></TD>
+</tr>
+<tr valign="top">
+<td>
+<font size="2"><P><tt ClasS="monofont">binhex</tt></p>
+</fOnt></tD>
+<TD>
+<Font sIZE="2"><P>en-/decodes data using binhex4 encoding</p>
+</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<font size="2"><p><tt class="monofont">uu</tT></p>
+</fOnt></tD>
+<td>
+<foNt siZE="2"><P>en-/decodes data using uuencode encoding</P>
+</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td coLSPAn="1">
+<font size="2"><p><b>Internet Protocols</b></p>
+</font></td>
+</tR>
+<tr ValiGn="top">
+<td>
+<fOnt sIZE="2"><P><tt clASS="monofont">httplib</Tt><sup><A HREf="#FOOTNOTE-a">[a]</a></suP></P>
+</FOnt></td>
+<td>
+<font size="2"><p>use to create HTTP (HyperText Transfer Protocol) clients (modified in Python 1.6 to support HTTP 1.1 and SSL)</p>
+</font></Td>
+</tR>
+<tr vAlign="top">
+<Td>
+<foNT SIze="2"><p><tT CLAss="monofont">ftplib</tt></P>
+</FONt></td>
+<tD>
+<FONt size="2"><p>use to create FTP (File Transfer Protocol) clients</p>
+</font></td>
+</tr>
+<tr valIgn="top">
+<Td>
+<foNt sizE="2"><p><tt CLASs="monofont">gopherlib</tt></p>
+</FONT></td>
+<td>
+<FONT size="2"><P>use to create Gopher clients</P>
+</FOnt></td>
+</tr>
+<tr valign="top">
+<td>
+<font SizE="2"><p><tt Class="monofont">telnetlib</Tt></p>
+</fONT></Td>
+<td>
+<fONT Size="2"><p>use to create Telnet clients</P>
+</FONt></td>
+</tR>
+<TR Valign="top">
+<td>
+<font size="2"><p><tt clAss="monofont">nntplib</Tt></p>
+</fOnt></td>
+<Td>
+<foNT SIze="2"><p>use to create NNTP (Network News Transfer Protocol [Usenet]) clients</p>
+</FONT></td>
+</tr>
+<TR VAlign="top">
+<TD COlspan="1">
+<font size="2"><p><b>External/Commercial</b></p>
+</fonT></td>
+</Tr>
+<tr ValigN="top">
+<td>
+<fONT Size="2"><p><TT CLass="monofont">HTMLgen</tT></P>
+</FOnt></td>
+<TD>
+<FOnt size="2"><p>use with CGI to generate complex HTML documents</p>
+</font></td>
+</tr>
+<tr vaLigN="top">
+<td>
+<fOnt siZe="2"><p><tT CLAss="monofont">Zope</tt>
+										<I>(not a module)</I></P>
+</Font></tD>
+<TD>
+<Font sIZE="2"><P>web object publishing product and Python Web application development environment (<a target="_blank" href="http://www.zope.org">http://www.zope.org</a>)</p>
+</font></td>
+</tR>
+</coLgroUp>
+</tabLe></p>
+<bLOCKquotE><FONt sizE="1">
+<P CLass="footnote">
+<sUP><A Name="FOOTNOTE-a">[a]</a></sup>
+new or modified in Python 1.6</p>
+</font></blockquoTe>
+
+				<p>Zope is an open source Web publishing and application development platform which has Python code everywhere. Part of it is written in Python, and Python can be used to create extensions to Zope. Although it is in our Related Modules section, Zope is not a specific module as it is a powerful system for Web publishing.</P>
+
+				<p>Zope presents an extremely powerful alternative when simple CGI and database access just do not cut it for the application you are trying to build. Material on Zope itself can take up a book's length—you may even see one soon! We invite the reader to explore this system if desiring to create any complex system.</p>
+
+				<p>The <Tt claSs="monofont">robotparser</tt> module is new as of Python 1.6 and the <TT CLass="monofont">httplib</tT> and <TT Class="monofont">urllib</TT> modules have been modified for 1.6 to support HTTP connections over SSL. (See <A Href="273#3.html">Section 19.2.2</a> for a really brief introduction.) Also, a new module <TT CLass="monofont">webbrowser,</tt> was introduced in 2.0 to provide a platform-independent way to launch a Web browser.</p>
+
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="279.html" title="Web (HTTP) Servers"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=280" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="280.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="281.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

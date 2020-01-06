@@ -1,0 +1,136 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; * apply() </TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="170.html" class="navtitle">11. Functions</a> &gt; <span class="nonavtitle">* apply() </span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="187.html" title="Built-in Functions: apply(), filter(), map(), reduce() "><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=188" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="188.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="189.html" title="Lines 1 - 4"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A33%3A39+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174053205054004235083191</font><a href="read0.asp?bookname=0130260363&snode=188&now=5%2F29%2F2002+9%3A33%3A39+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>*<tt cLASS="monofont">apply()</tt></h3>
+				<p>The first built-in function we are looking at is <TT CLass="monofont">apply().</tT> The <TT Class="monofont">apply()</tt> function is the most basic of the four and is simply used to pass in a function object along with any parameters. <tt class="monofont">apply()</tt> will then invoke that function with the given arguments. There is no special magic here; <tt claSs="monofont">apply()</tT> works exactly the way you think it does, so the following pair of calls are practically identical:</p>
+
+				<prE>
+					
+foo(3, 'pyramid')     ?      apply(foo, (3, 'pyramid'))
+
+				</pre>
+
+				<p>Alternatively, the arguments can be stored in a tuple, and then the function can be called with <Tt clASS="monofont">apply():</Tt></p>
+
+				<prE>
+					
+args = (4, 'eve', 79)
+apply(foo, args)
+
+				</PRE>
+
+				<p>Note this is not the same as <tt cLASS="monofont">foo(args)</tt> which is calling <tt CLASs="monofont">foo()</tt> with a single argument (a tuple). Rather, using <tt class="monofont">apply()</tt> means calling <tt class="monofont">foo()</tT> with three arguments, the elements of the tuple.</p>
+
+				<p>If you wanted to call the built-in function <Tt clAss="monofont">dir()</tt> from the interpreter, you could either execute it directly, or use <Tt clASS="monofont">apply().</Tt> In this example, they both have the same effect since no arguments are involved.</p>
+
+				<prE>
+					
+dir()        ?     apply(dir)
+
+				</PRE>
+
+				<p>Below, we perform both function calls in the interpreter to show you they produce identical results:</p>
+
+				<prE>
+					
+&gt;&gt;&gt; dir()
+['__builtins__', '__doc__', '__name__']
+&gt;&gt;&gt;
+&gt;&gt;&gt; apply(dir)
+['__builtins__', '__doc__', '__name__']
+
+				</PRE>
+
+				<p>You may be wondering… why would I ever need to use <tt cLASS="monofont">apply()</tt> when I can just make a function call? Is there ever a need to do the following? Not only does it require more typing on my part, but the syntax is more complicated.</p>
+
+				<p><tt class="monofont">apply()</tt> can be used as an effective tool in certain situations. One scenario where <tt class="monofont">apply()</Tt> comes in handy is when you need to call a function, but its arguments are generated dynamically. Such situations usually involve assembling an argument list. In our math game in <a Href="188#1.html">Example 11.3</A>
+					<tt clAss="monofont">(matheasy.py),</tT> we generate a two-item argument list to send to the appropriate arithmetic function.</P>
+
+				<P>The <Tt claSS="monofont">matheasy.py</TT> application is basically an arithmetic math quiz game for children where an arithmetic operation is randomly chosen between addition, subtraction, and multiplication. We use the functional equivalents of these operators, <tt clASS="monofont">add(),</Tt>
+					<tt cLASS="monofont">sub(),</tt> and <tt class="monofont">mul(),</tt> all found in the <tt class="monofont">operator</tt> module. We then generate the list of arguments (two, since these are binary operators/operations). Then random numbers are chosen as the operands. Since we do not want to support negative numbers in this more elementary edition of this application, we sort our list of two numbers in largest-to-smallest order, then call <Tt cLass="monofont">apply()</Tt> with this argument list and the randomly-chosen arithmetic operator to obtain the correct solution to the posed problem. <tt cLass="monofont">apply()</TT> makes a good choice for our application for two reasons:</P>
+
+				
+					<H5>
+<a namE="1"></A>Example 11.3. Arithmetic Game Using <TT clasS="monofont">apply()</TT>(<Tt claSS="monofont">matheasy.py</TT>)</h5>
+					<p><b><i>Randomly chooses numbers and an arithmetic function, displays the question, and verifies the results. Shows answer after three wrong tries and does not continue until the user enters the correct answer.</i></b></p>
+
+					<pre class="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2  <b>from</b> string <b>import</b> lower
+003 3  <b>from</B> operator <b>import</b> add, sub, mul
+004 4  <B>from</b> random <b>import</b> randint, choice
+005 5
+006 6  ops = { '+': add, '-': sub, '*': mul }
+007 7  MAXTRIES = 2
+008 8
+009 9  <B>def</b> doprob():
+010 10     op = choice('+-*')
+011 11     nums = [randint(1,10), randint(1,10)]
+012 12     nums.sort() ; nums.reverse()
+013 13     ans = apply(ops[op], nums)
+014 14     pr = '%d %s %d = ' % (nums[0], op, nums[1])
+015 15     oops = 0
+016 16     <b>while</b> 1:
+017 17         <b>try:</B> &lt;$nopage&gt;
+018 18             <b>if</b> int(raw_input(pr)) == ans:
+019 19                 <b>print</B> 'correct'
+020 20                 <B>break</B> &lt;$nopage&gt;
+021 21             <B>if</b> oops == MAXTRIES:
+022 22                 <b>print</b> 'answer\n%s%d'%(pr,ans)
+023 23             <b>else:</B> &lt;$nopage&gt;
+024 24                 <B>print</B> 'incorrect… try again'
+025 25                 oops = oops + 1
+026 26         <B>except</b> (KeyboardInterrupt, \
+027 27                 EOFError, ValueError):
+028 28             <b>print</b> 'invalid input… try again'
+029 29
+030 30 <b>def</B> main():
+031 31     <B>while</B> 1:
+032 32         doprob()
+033 33         <B>try:</b> &lt;$nopage&gt;
+034 34             opt = lower(raw_input('Again? '))
+035 35         <b>except</b> (KeyboardInterrupt, EOFError):
+036 36             <b>print</B> ; <B>break</B> &lt;$nopage&gt;
+037 37         <B>if</b> opt <b>and</b> opt[0] == 'n':
+038 38             <b>break</b> &lt;$nopage&gt;
+039 39
+040 40 <b>if</b> __name__ == '__main__':
+041 41     main()
+042  &lt;$nopage&gt;</pre>
+				
+				<ul>
+<li><p>Argument list hand-built</p>
+</li>
+<li><P>Function randomly chosen</p>
+</lI>
+</ul>
+				<p>Since we do not know what our arguments are nor do we know what function we will be calling for each math question posed to the user, <Tt claSs="monofont">apply()</tt> makes for a flexible solution.</P>
+
+			</FONt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="187.html" title="Built-in Functions: apply(), filter(), map(), reduce() "><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=188" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="188.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="189.html" title="Lines 1 - 4"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,156 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Terminating Execution</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="229.html" class="navtitle">14. Execution Environment</a> &gt; <span class="nonavtitle">Terminating Execution</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="236.html" title="Restricted Execution"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=237" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="237.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="238.html" title="Related Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A23%3A10+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004228144072049161134074105</font><a href="read5.asp?bookname=0130260363&snode=237&now=5%2F30%2F2002+8%3A23%3A10+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Terminating Execution</h3>
+				<p>Clean execution occurs when a program runs to completion, where all statements in the top-level of your module finish execution and your program exits. There may be cases where you may want to exit from Python sooner, such as a fatal error of some sort. Another case is when conditions are not sufficient to continue execution.</p>
+
+				<P>In Python, there are varying ways to respond to errors. One is via exceptions and exception handling. Another way is to construct a "cleaner" approach so that the main portions of code are cordoned off with <B><TT clasS="monofont">if</TT></B> statements to execute only in non-error situations, thus letting error scenarios terminate "normally." However, you may also desire to exit to the calling program with an error code to indicate that such an event has occurred.</p>
+
+				
+					<h4><tt CLASs="monofont">sys.exit()</tt> and <tt class="monofont">SystemExit</tt></h4>
+					<p>The primary way to exit a program immediately and return to the calling program is the <tt clasS="monofont">exit()</tt> function found in the <Tt clAss="monofont">sys</tt> module. The syntax for <Tt clASS="monofont">sys.exit()</Tt> is:</p>
+
+					<prE>
+						
+sys.exit(<I>status</I>=0)
+
+					</Pre>
+
+					<p>When <tT CLAss="monofont">sys.exit()</tt> is called, a <TT CLass="monofont">SystemExit</tt> exception is raised. Unless monitored (in a <b><tt class="monofont">try</tt></b> statement with an appropriate <b><tt cLasS="monofont">except</tt></b> clause), this exception is generally not caught nor handled, and the interpreter exits with the given status argument, which defaults to zero if not provided. <Tt claSs="monofont">SystemExit</tt> is the only exception which is not viewed as an error. It simply indicates the desire to exit Python.</P>
+
+					<P>One popular place to use <TT clasS="monofont">sys.exit()</TT> is after an error is discovered in the way a command was invoked. In particular, if the arguments are incorrect, invalid, or if there are an incorrect number of them. The following <A href="237#2.html">Example 14.4</A> (<TT Class="monofont">args.py</TT>) is just a test script we created to require that a certain number of arguments be given to the program before it can execute properly:</P>
+
+					<P>Executing this script we get the following output:</p>
+
+					<pre>
+						
+% args.py
+At least 2 arguments required (incl. cmd name).
+usage:  args.py arg1 arg2 [arg3… ]
+
+% args.py XXX
+At least 2 arguments required (incl. cmd name).
+usage:  args.py arg1 arg2 [arg3… ]
+
+% args.py 123 abc
+number of args entered: 3
+args (incl. cmd name) were: ['args.py', '123', 'abc' ]
+
+% args.py -x -2 foo bar
+number of args entered: 5
+args (incl. cmd name) were: ['args.py', '-x', '-2', 'foo', 'bar' ]
+
+					</pre>
+
+					
+						<h5>
+<a name="2"></a>Example 14.4. Exiting Immediately (<tt clasS="monofont">args.py</tt>)</H5>
+						<p><b><i>Calling</I></b>
+							<tt cLass="monofont">sys.exit()</TT>
+							<B><I>causes the Python interpreter to quit. Any integer argument to</i></b>
+							<tt CLASs="monofont">exit()</tt>
+							<b><I>will be the returned to the caller as the exit status, which has a default value of 0.</I></B></P>
+
+						<pre>
+							 &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <b>import</B> sys
+004 4
+005 5  <B>def</B> usage():
+006 6      <B>print</b> 'At least 2 arguments (incl. cmd name).'
+007 7      <b>print</b> usage: args.py arg1 arg2 [arg3… ]'
+008 8      sys.exit(1)
+009 9
+010 10 argc = len(sys.argv)
+011 11 <b>if</b> argc &lt; 3:
+012 12     usage()
+013 13 <b>print</b> "number of args entered:", argc
+014 14 <b>print</b> "args (incl. cmd name) were:", sys.argv
+015  &lt;$nopage&gt;
+						</pre>
+
+					
+					<p>Many command-line driven programs test the validity of the input before proceeding with the core functionality of the script. If the validation fails at any point, a call is made to a <tt class="monofont">usage()</Tt> function to inform the user what problem caused the error as well as a usage "hint" to aid the user so that he or she will invoke the script properly the next time.</p>
+
+				
+				
+					<H4><tt cLass="monofont">sys.exitfunc()</tT></h4>
+					<p><tT CLAss="monofont">sys.exitfunc()</tt> is disabled by default, but can be overridden to provide additional functionality which takes place when <TT CLass="monofont">sys.exit()</tT> is called and before the interpreter exits. This function will not be passed any arguments, so you should create your function to take no arguments.</P>
+
+					<P>As described in Beazley, if <Tt claSS="monofont">sys.exitfunc</TT> has already been overridden by a previously defined exit function, it is good practice to also execute <i>that</i> code as part of your exit function. Generally, exit functions are used to perform some type of shutdown activity, such as closing a file or network connection, and it is always a good idea to complete these maintenance tasks, such as releasing previously held system resources.</p>
+
+					<p>Here is an example of how to set up an exit function, being sure to execute one if one has already been set:</p>
+
+					<pre>
+						 &lt;$nopage&gt;
+001  &lt;$nopage&gt;<b>import</b> sys
+002  &lt;$nopage&gt;
+003 prev_exit_func = getattr(sys, 'exitfunc', None)
+004  &lt;$nopage&gt;
+005  &lt;$nopage&gt;<b>def</b> my_exit_func(old_exit = prev_exit_func):
+006   #       :
+007   # perform cleanup
+008   #       :
+009   <b>if</b> old_exit != None and callable(old_exit):
+010      old_exit()
+011  &lt;$nopage&gt;
+012 sys.exitfunc = my_exit_func
+013  &lt;$nopage&gt;
+					</pre>
+
+					<p>We execute the old exit function after our cleanup has been performed. The <tt ClaSs="monofont">getattr()</tt> call simply checks to see whether a previous <Tt claSs="monofont">exitfunc</tt> has been defined. If not, then <TT CLass="monofont">None</tT> is assigned to <TT Class="monofont">prev_exit_func;</TT> otherwise, <TT clasS="monofont">prev_exit_func</TT> becomes a new alias to the exiting function, which is then passed as a default argument to our new exit function, <Tt class="monofont">my_exit_func.</tt></p>
+
+					<p>The call to <tt class="monofont">getattr()</tt> could have been rewritten as:</p>
+
+					<Pre>
+						 &lt;$nopage&gt;
+001  &lt;$nopage&gt;<B>if</b> hasattr(sys, 'exitfunc'):
+002     prev_exit_func = sys.exitfunc       # getattr(sys, 'exitfunc')
+003  &lt;$nopage&gt;<b>else:</b> &lt;$nopage&gt;
+004     prev_exit_func = None
+005  &lt;$nopage&gt;
+					</Pre>
+
+				
+				
+					<h4><tT claSS="monofont">os._exit()</TT> Function</h4>
+					<p>The <tt CLASs="monofont">_exit()</tt> function of the <tT CLAss="monofont">os</tt> module should not be used in general practice. (It is platform-dependent and available only on certain platforms anyway [Unix and Windows, to name a pair].) Its syntax is:</P>
+
+					<PRE>
+						 &lt;$nopage&gt;
+001 os._exit(<i>status</i>)
+002  &lt;$nopage&gt;
+					</pre>
+
+					<p>This function provides functionality opposite to that of <tt class="monofont">sys.exit()</tt> and <tt claSs="monofont">sys.exitfunc(),</tT> exiting Python immediately without performing <i>any</i> cleanup (Python or programmer-defined) at all. Unlike <tT clasS="monofont">sys.exit(),</tt> the status argument is required. Exiting via <tT CLAss="monofont">sys.exit()</tt> is the preferred method of quitting the interpreter.</P>
+
+				
+			</FONt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="236.html" title="Restricted Execution"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=237" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="237.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="238.html" title="Related Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

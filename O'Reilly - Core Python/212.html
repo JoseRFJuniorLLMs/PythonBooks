@@ -1,0 +1,266 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Introduction</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="210.html" class="navtitle">13. Classes and OOP</a> &gt; <span class="nonavtitle">Introduction</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="211.html" title="13. Classes and OOP"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=212" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="212.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="213.html" title="Object-oriented Programming"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A38%3A06+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174062198208075092084114</font><a href="read8.asp?bookname=0130260363&snode=212&now=5%2F29%2F2002+9%3A38%3A06+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Introduction</h3>
+				<p>Before we get into the nitty-gritty of OOP and classes, we begin with a high-level overview, then present some simple examples to get you "warmed up." If you are new to object-oriented programming, you may wish to merely skim this section first, then begin the formal reading in <a HREF="213.html">Section 13.2</a>. This section is targeted more to those already familiar with the concepts, who simply want to see "how it's done" in Python.</p>
+
+				<p>The main two entities in Python object-oriented programming are classes and class instances (see <a HREF="212#1.html">Figure13-1</a>).</p>
+
+				<ceNTER>
+					<h5>
+<a name="1"></a>Figure 13.1. The factory manufacturing machines on the left are analogous to classes, while each toy produced are instances of their respective classes. Although each instance has the basic underlying structure, individual attributes like color or feet can be changed—these are similar to instance attributes.</h5>
+					
+						
+							<img border="0" widTh="500" hEighT="861" src="graphics/13fig01.gif" aLt="graphics/13fig01.gif">
+						
+					
+				</ceNTER>
+
+				
+					<h4>Classes and Instances</h4>
+					<p>Classes and instances are related to each other: classes provide the definition of an object, and instances are "the real McCoy," the objects specified in the class definition brought to life.</p>
+
+					<P>Here is an example of how to create a class:</P>
+
+					<PRe>
+						
+<b>class</b> MyNewObjectType:
+    'define MyNewObjectType class'
+   <i>class_suite</I>
+
+					</PRE>
+
+					<p>The keyword is <b>class,</b> followed by the class name. What follows is the suite of code that defines the class. This usually consists of various definitions and declarations. The process of creating an instance is called <i>instantiation,</I> and it is carried out like this (note the conspicuous absence of a <TT Class="monofont">new</tt> keyword):</p>
+
+					<pre>
+						
+myFirstObject = MyNewObjectType()
+
+					</pre>
+
+					<p>The class name is given as an "invocation," using the familiar function operators ( <tt clasS="monofont">( )</tt> ). You then typically assign that newly-created instance to a variable. The assignment is not required syntactically, but if you do not save your instance to a variable, it will be of no use and will be automatically garbage-collected because there would no references to that instance. What you would be doing is allocating memory, then immediately deallocating it.</P>
+
+					<p>Classes can be as simple or as complicated as you wish them to be. At a very minimum, classes can be used as "namespace containers."  By this, we mean that you can store data into variables and group them in such a way that they have all share the same relationship—a named relationship using the standard Python dotted-attribute notation. For example, you may have a class without any inherent attributes and merely use such a class to provide a namespace for data, giving your class characteristics similar to records in Pascal or structures in C, or, in other words, use the class as simply a container object with shared naming.</p>
+
+					<p>Here is one example of such a class:</P>
+
+					<pre>
+						
+<b>class</B> MyData:
+    <b>pass</b>
+
+					</pRE>
+
+					<P>Recall that the <B><tt clASS="monofont">pass</Tt></b> statement is used where code is required syntactically, but no operation is desired. In this case, the required code is the class suite, but we do not wish to provide one. The class we just defined has no methods or any other attributes. We will now create an instance to use the class simply as a namespace container.</p>
+
+					<pRE>
+						
+&gt;&gt;&gt; mathObj = MyData()
+&gt;&gt;&gt; mathObj.x = 4
+&gt;&gt;&gt; mathObj.y = 5
+&gt;&gt;&gt; mathObj.x + mathObj.y
+9
+&gt;&gt;&gt; mathObj.x * mathObj.y
+20
+
+					</PRe>
+
+					<p>We could have used variables "x" and "y" to accomplish the same thing, but in our case, <tt CLASs="monofont">mathObj.x</tt> and <tt class="monofont">mathObj.y</tt> are related by the instance name, <tt class="monofont">mathObj.</tT> This is what we mean by using classes as namespace containers. <tt ClasS="monofont">mathObj.x</tt> and <tt ClasS="monofont">mathObj.y</TT> are known as <I>instance attributes</i> because they are only attributes of their instance object (<tt cLASS="monofont">mathObj</tt>), not of the class (<tt CLASs="monofont">MyData</tt>).</p>
+
+				
+				
+					<H4>Methods</H4>
+					<P>One way we can improve our use of classes is to add functions to them. These class functions are known by their more common name, <I>methods.</i> In Python, methods are defined as part of the class definition, but can be invoked only by an instance. In other words, the path one must take to finally be able to call a method goes like this:  (1) define the class (and the methods), (2) create an instance, and finally, (3) invoke the method from that instance. Here is an example class with a method:</p>
+
+					<pre>
+						
+<b>class</b> MyDataWithMethod:       # define the class
+    <b>def</b> printFoo(self):       # define the method
+        <b>print</b> 'You invoked printFoo()!'
+
+					</pre>
+
+					<p>You will notice the <tt claSs="monofont">self</tT> argument, which must be present in all method invocations. That argument, representing the instance object, is passed to the method implicitly by the interpreter when you invoke a method via an instance, so you, yourself, do not have to worry about passing anything in. Now we will instantiate the class and invoke the method once we have an instance:</p>
+
+					<prE>
+						
+&gt;&gt;&gt; myObj = MyDataWithMethod()  # create the instance
+&gt;&gt;&gt; myObj.printFoo()            # now invoke the method
+You invoked printFoo()!
+
+					</pre>
+
+					<p>We conclude this introductory section by giving you a slightly more complex example of what you can do with classes (and instances) and also introducing you to the special method <Tt clASS="monofont">__init__()</Tt> as well as subclassing and inheritance.</p>
+
+					<p>For those of you who are already familiar with object-oriented programming, <tT CLAss="monofont">__init__()</tt> is the <I>class constructor.</I> If you are new to the world of OOP, a constructor is simply a special method which is called during instantiation that defines additional behavior that should occur when a class is instantiated, i.e., setting up initial values or running some preliminary diagnostic code—basically performing any special tasks or setup after the instance is created but before it is returned from the instantiation call.</P>
+
+					<P>(We will add <b><tt cLASS="monofont">print</tt></b> statements to our methods to better illustrate when certain methods are called. It is generally not typical to have input or output statements in functions unless output is a predetermined characteristic of the body of code.)</p>
+
+				
+				
+					<h4>Creating a Class (Class Definition)</h4>
+					<pre>
+						
+<b>class</b> AddrBookEntry:                 # class definition
+  'address book entry class'
+  <b>def</b> __init__(self, nm, ph):        # define constructor
+    self.name = nm                   # set inst .attr .1
+    self.phone = ph                  # set inst .attr .2
+    <b>print</b> 'Created instance for:', self.name
+
+  <b>def</b> updatePhone(self, newph):      # define method
+    self.phone = newph
+    <b>print</b> 'Updated phone# for:', self.name
+
+					</pRe>
+
+					<p>In the definition for the <Tt clAss="monofont">AddrBookEntry</tt> class, we define two methods: <Tt clASS="monofont">__init__()</Tt> and <tt cLASS="monofont">updatePhone(). __init__()</tt> is called when instantiation occurs, that is, when <tt CLASs="monofont">AddrBookEntry()</tt> is invoked. You can think of such an instantiation call to be an implicit call to <tT CLAss="monofont">__init__()</tt> because the arguments given in the call to AddrBookEntry() are exactly the same as those that are received by <tt class="monofont">__init__().</tt></p>
+
+					<p>Recall that the <tt claSs="monofont">self</tT> (instance object) argument is passed in automatically by the interpreter when the method is invoked from an instance, so in our <tt cLass="monofont">__init__()</tT> above, the only required arguments are <tt cLASS="monofont">nm</tt> and <tt CLASs="monofont">ph,</tt> representing the name and telephone number, respectively. <tT CLAss="monofont">__init__()</tt> sets these two instance attributes on instantiation so that they are available to the programmer by the time the instance is returned from the instantiation call.</P>
+
+					<P>As you may have surmised, the purpose of the <TT class="monofont">updatePhone()</tt> method is to replace an address book entry's telephone number attribute.</p>
+
+				
+				
+					<h4>Creating Instances (Instantiation)</h4>
+					<pre>
+						
+&gt;&gt;&gt; john = AddrBookEntry('John Doe', '408-555-1212')
+Created instance for: John Doe
+&gt;&gt;&gt; jane = AddrBookEntry('Jane Doe', '650-555-1212')
+Created instance for: Jane Doe
+
+					</pre>
+
+					<p>These are our instantiation calls which, in turn, invoke <tt cLasS="monofont">__init__().</tt> Recall that an instance object is passed in automatically as <tT clasS="monofont">self.</tt> So in your head, you can replace <tT CLAss="monofont">self</tt> in methods with the name of the instance. In the first case, when object <TT CLass="monofont">john</tT> is instantiated, it is <TT Class="monofont">john.name</TT> that is set, as you can confirm below.</P>
+
+					<P>Also, without the presence of default arguments, both parameters to <tt class="monofont">__init__()</tt> are required as part of the instantiation invocation.</p>
+
+				
+				
+					<h4>Accessing Instance Attributes</h4>
+					<pre>
+						
+&gt;&gt;&gt; john
+&lt;__main__.AddrBookEntry instance at 80ee610&gt;
+&gt;&gt;&gt; john.name
+'John Doe'
+&gt;&gt;&gt; john.phone
+'408-555-1212'
+&gt;&gt;&gt; jane.name
+'Jane Doe'
+&gt;&gt;&gt; jane.phone
+'650-555-1212'
+
+					</pre>
+
+					<p>Once our instance was created, we can confirm that our instance attributes were indeed set by <tT clAss="monofont">__init__()</tT> during instantiation. Calling the instance within the interpreter tells us what kind of object it is. (We will discover later how we can customize our class so that rather than seeing the default <tt clAss="monofont">&lt;…&gt;</tT> Python object string, a more desired output can be customized.)</P>
+
+				
+				
+					<H4>Method Invocation (via Instance)</H4>
+					<pre>
+						
+&gt;&gt;&gt; john.updatePhone('415-555-1212')
+Updated phone# for: John Doe
+&gt;&gt;&gt; john.phone
+'415-555-1212'
+
+					</pRE>
+
+					<P>The <Tt claSS="monofont">updatePhone()</TT> method requires one explicit argument: the new phone number. We check our instance attribute right after the call to <tt clASS="monofont">updatePhone(),</Tt> making sure that it did what was advertised.</p>
+
+					<p>So far, we have invoked only a method via an instance, as in the above example. These are known as <i>bound methods</i> in Python. Binding is just a Python term to indicate whether we have an instance to invoke a method.</p>
+
+				
+				
+					<h4>Creating a Subclass</h4>
+					<p>Subclassing with inheritance is a way to create and customize a new class type with all the features of an existing class but without modifying the original class definition. The new <i>subclass</i> can be customized with special functionality unique only to that new class type. Aside from its relationship to its <i>parent</i> or <i>base class,</i> a subclass has all the same features as any regular class and is instantiated in the same way as all other classes. Note below that a parent class is part of the subclass declaration:</p>
+
+					<pre>
+						
+<b>class</B> AddrBookEntryWithEmail(AddrBookEntry):    # define subclass
+    'update address book entry class'
+    <b>def</b> __init__(self, nm, ph, em):             # new __init__
+      AddrBookEntry.__init__(self, nm, ph)      # base class cons.
+      self.email = em
+    <B>def</b> updateEmail(self, newem):               # define method
+        self.email = newem
+        <b>print</b> 'Updated e-mail address for:', self.name
+
+					</Pre>
+
+					<p>We will now create our first subclass, <tT claSS="monofont">AddrBookEntryWithEmail.</TT> In Python, when classes are derived, subclasses inherit the base class attributes, so in our case, we will not only define the methods <tt clASS="monofont">__init__()</Tt> and <tt cLASS="monofont">updateEmail(),</tt> but <tt CLASs="monofont">AddrBookEntryWithEmail</tt> will also inherit the <tt class="monofont">updatePhone()</tt> method from <tt class="monofont">AddrBookEntry.</tT></p>
+
+					<p>Each subclass must define its own constructor if desired, otherwise, the base class constructor will be called. However, if a subclass overrides a base class constructor, the base class constructor will <I>not</i> be called automatically—such a request must be made explicitly as we have above. For our subclass, we make an initial call to the base class constructor before performing any "local" tasks, hence the call to <tt Class="monofont">AddrBookEntry.__init__()</Tt> to set the name and phone number. Our subclass sets one additional instance attribute, the e-mail address, which is set by the remaining line of our constructor.</p>
+
+					<p>Note how we have to explicitly pass the <TT CLass="monofont">self</tT> instance object to the base class constructor because we are not invoking that method from an instance. We are invoking that method from an instance of a subclass. Because we are not invoking it via an instance, this <I>unbound method</I> call requires us to pass an acceptable instance (<Tt claSS="monofont">self</TT>) to the method.</p>
+
+					<p>We close out this section with examples of how to create an instance of the subclass, accessing its attributes, and invoking its methods, including those inherited from the parent class.</p>
+
+				
+				
+					<h4>Using a Subclass</H4>
+					<PRE>
+						
+&gt;&gt;&gt; john = AddrBookEntryWithEmail('John Doe, '408-555-
+1212', 'john@spam.doe')
+Created instance for: John Doe
+&gt;&gt;&gt; john
+&lt;__main__.AddrBookEntryWithEmail instance at 80ef6f0&gt;
+&gt;&gt;&gt; john.name
+'John Doe'
+&gt;&gt;&gt; john.phone
+'408-555-1212'
+&gt;&gt;&gt; john.email
+'john@spam.doe'
+&gt;&gt;&gt; john.updatePhone('415-555-1212')
+Updated phone# for: John Doe
+&gt;&gt;&gt; john.phone
+'415-555-1212'
+&gt;&gt;&gt; john.updateEmail('john@doe.spam')
+Updated e-mail address for: John Doe
+&gt;&gt;&gt; john.email
+'john@doe.spam'
+
+					</pre>
+
+					<div class="note"><p class="notetitle"><b>NOTE</b></p><P><p><i>Class names traditionally being with a capital letter. This is the standard convention that will help you identify classes, especially during instantiation (which would look like a function call otherwise). In particular, data attributes should sound like data value names, and methods names should indicate action towards a specific object or value. Another way to phrase this is:  Use nouns for data value names and predicates (verbs plus direct objects) for methods. The data items are the objects you, the programmer, are acting on, and the methods should indicate what action the programmer wants to perform on the object.</I></p>
+<p><i>In the classes we defined above, we attempted to follow this guideline, with data values such as "name,"
+								"phone," and "email," and actions such as "updatePhone" and "updateEmail."  Other good examples for values include "data,"
+								"amount," or "balance;" some recommended method names include "getValue,"
+								"setValue," and "clearDataset." Classes should also be well named; some of those good names include "AddrBookEntry,"
+								"RepairShop," etc.</I></p>
+</p></diV><br>
+
+					<p>We hope that you now have some understanding of how object-oriented programming is accomplished using Python. The remaining sections of this chapter will take you deeper into all the facets of object-oriented programming and Python classes and instances.</P>
+
+				
+			</FONt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="211.html" title="13. Classes and OOP"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=212" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="212.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="213.html" title="Object-oriented Programming"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

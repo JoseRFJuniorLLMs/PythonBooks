@@ -1,0 +1,1734 @@
+<html><head><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=Generator content="Microsoft Word 10 (filtered)"><link rel="stylesheet" type="text/css" href="1.css"><title></title></head><body lang=EN-US link="#990000" vlink=purple><div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=21.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=23.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div><br><br>
+<h2><a name="_Chapter_18._Windows_NT_Services"></a>Chapter 18. Windows NT
+Services</h2>
+
+<p>Windows NT has a special class of processes known as <i>services</i> that
+can execute without a user logged in to the workstation and can be controlled
+by the Windows Service Control Manager. Services must meet certain requirements
+imposed by Windows NT, primarily the ability to handle asynchronous control
+messages (such as Stop) from Windows. Most services also choose to use the standard
+Windows NT Event Log and Performance Monitor to augment their application.</p>
+
+<p>Python has complete support for Windows NT Services. Python programs can run
+as services and meet all the Microsoft Back Office Certified requirements,
+including Event Log and Performance Monitor support. In addition, Python can
+control other services, making it suitable for many administrative tasks, such
+as checking the status of services, and restarting them if necessary.</p>
+
+<h3><a name="_18.1_Services_in_Brief"></a>18.1 Services in Brief</h3>
+
+<p>A Windows NT Service is a normal program with additional responsibilities
+and complications.</p>
+
+<h4>18.1.1 Service Control Manager</h4>
+
+<p>An integral part of Windows NT is the Service Control Manager (SCM). All
+Windows NT services must be registered with the SCM, which is responsible for
+starting and stopping the service process. When a process registers with the
+SCM, it provides attributes about the service, including:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The username that runs the process. This may not be the same as
+the user currently logged in to the system; indeed, there may not be anyone
+logged on to the system when the service starts.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Any other services that this service depends on. For example, if
+you were writing a Microsoft Exchange extension, you may specify your service
+is dependent on the Microsoft Exchange Information Store service. The SCM
+ensures that all dependent services are running before your service can start.
+It also ensures that when a service is stopped, all services that depend on it
+are also stopped.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>How the service is to start: automatically when the system boots
+(and all dependants have also started), or manually (i.e., when initiated by
+the user).</p>
+
+<p>The SCM provides a user interface that allows the user to manually control
+services. This user interface is available from the Services applet in the
+control panel.</p>
+
+<p>The SCM also provides an API to allow programmatic control of services. Thus
+it is possible for a program to control services.</p>
+
+<h4 style='page-break-after:avoid'>18.1.2 Starting and Stopping</h4>
+
+<p>Typically, Windows NT itself is responsible for starting and stopping
+services via the Service Control Manager. The SCM provides a user interface to
+allow the user to start and stop services manually, via the Services applet in
+the control panel.</p>
+
+<p>When a service starts, it must report its status to the SCM. Further, it
+must listen for control requests from the SCM. When a service is to stop, the
+SCM issues a control request to the service. The service itself must act on
+this request and report back to the SCM as it shuts down and just before it
+terminates.</p>
+
+<h4>18.1.3 User Interface</h4>
+
+<p>Services typically have no user interface associated with them. It’s
+important to remember that services may be running while no user is logged into
+the system, so often there is no user with which to interact.</p>
+
+<p>In some cases, it’s possible for the service to display simple dialog boxes,
+such as a MessageBox. However, this is fraught with danger and best avoided.
+Communication with the user is typically done via the Windows NT Event Log.</p>
+
+<h4>18.1.4 Error Reporting and Handling</h4>
+
+<p>Error reporting for Windows NT Services can be viewed as very simple: use
+the Windows NT Event Log. Unfortunately, using the Windows NT Event Log is not
+as simple as it sounds! We will discuss the key concepts of the Windows NT
+Event Log and provide sample code that logs key events.</p>
+
+<h4>18.1.5 Performance Monitor</h4>
+
+<p>It’s often appropriate for a Windows NT service to provide some performance
+statistics. These statistics can be anything that makes sense to the service:
+number of current connections, number of clients connected, some throughput
+information relevant to the service, etc.</p>
+
+<p>The Windows NT Performance Monitor can provide this information. There are a
+number of benefits to using this instead of creating your own scheme,
+including:</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Single
+common repository of performance information</span></i><span style='font-family:
+Arial'> </span></p>
+
+<p style='margin-left:.5in'>Windows NT administrators don’t need to learn a new
+tool of interface simply for your service.</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Nice user
+interface already provided and very general API</span></i><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The Performance Monitor has a decent user interface
+for performance information installed on every copy of Windows NT. As Microsoft
+makes enhancements to this interface, your application automatically benefits.
+The API used by the Performance Monitor is general and should be capable of
+accommodating most performance-logging requirements.</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Third party
+tools already available</span></i><span style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>By providing your data via the Performance Monitor,
+NT administrators can take advantage of third-party tools for monitoring this
+information. For example, tools are available that periodically check the
+performance information, and can take corrective action should they find any
+problems.</p>
+
+<h3><a name="_18.2_Controlling_Services_with_Pyth"></a>18.2 Controlling
+Services with Python</h3>
+
+<p>As a further introduction to Windows NT Services, we will discuss some of
+the functions available from Python to control existing services.</p>
+
+<p>As is common with Python extensions, there are two Python modules that can
+work with services: The <tt><span style='font-size:10.0pt'>win32service</span></tt>
+module implements the Win32 service functions, while the <tt><span
+style='font-size:10.0pt'>win32serviceutil</span></tt> module provides some
+handy utilities that utilize the raw API. We begin with a discussion of the
+Win32 functions exposed by the <tt><span style='font-size:10.0pt'>win32service</span></tt>
+module before moving to some of the utilities.</p>
+
+<h4>18.2.1 Connecting to the SCM</h4>
+
+<p>Most of the Win32 API for working with services requires a handle to the
+SCM. This is obtained by the function <tt><span style='font-size:10.0pt'>win32service.OpenSCManager()</span></tt>
+.</p>
+
+<pre>handle = win32service.OpenSCManager(<tt><i>machineName</i></tt>, <tt><i>databaseName</i></tt>, <tt><i>access</i></tt>)</pre>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>machineName</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The name of the machine on which you wish to open
+the SCM. This can be <tt><span style='font-size:10.0pt'>None</span></tt> or
+left empty for the current machine.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>databaseName</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The name of the service database or <tt><span
+style='font-size:10.0pt'>None</span></tt> for the default. The default is
+almost always used.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>access</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The desired access on the SCM.</p>
+
+<p>The result is a handle to the SCM. Once you are finished with the handle,
+the function <tt><span style='font-size:10.0pt'>win32service.CloseServiceHandle()</span></tt>
+is used. See <a href="29.htm#_Appendix_B._Win32_Extensions_Refere">Appendix B</a>,
+for a complete description of these functions.</p>
+
+<p>To open the SCM on the current machine, we could use the following code:</p>
+
+<pre>&gt;&gt;&gt; import win32service</pre><pre>&gt;&gt;&gt; hscm=win32service.OpenSCManager(None, None, win32service.SC_MANAGER_ALL_ACCESS)</pre><pre>&gt;&gt;&gt; hscm</pre><pre>1368896</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>As you can see, service handles are implemented as integers, although this
+may be changed to a variation of a <tt><span style='font-size:10.0pt'>PyHANDLE</span></tt>
+object.</p>
+
+<h4>18.2.2 Connecting to a Service</h4>
+
+<p>Once you have a handle to the SCM, open a specific service using the
+function <tt><span style='font-size:10.0pt'>win32service.OpenService()</span></tt>
+, which has the following signature.</p>
+
+<pre>handle = win32service.OpenService(<tt><i>schandle</i></tt>, <tt><i>serviceName</i></tt>, <tt><i>desiredAccess</i></tt>)</pre>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>schandle</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>A handle to the SCM, as obtained from <tt><span
+style='font-size:10.0pt'>win32service.OpenSCManager()</span></tt>.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>serviceName</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The name of the service to open.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>desiredAccess</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>A bitmask of flags defining the desired access. <tt><span
+style='font-size:10.0pt'>win32service.SERVICE_ALL_ACCESS</span></tt> provides
+all access.</p>
+
+<p>Now that you’re connected to the SCM, you can obtain a handle to the
+messenger service with the following code:</p>
+
+<pre>&gt;&gt;&gt; hs=win32service.OpenService(hscm, &quot;Messenger&quot;, </pre><pre>...                             win32service.SERVICE_ALL_ACCESS)</pre><pre>&gt;&gt;&gt; hs</pre><pre>1375960</pre><pre>&gt;&gt;&gt;</pre>
+
+<h4>18.2.3 Querying the Status of a Service</h4>
+
+<p>Finally, we can do something useful with the service. The simplest thing is
+to query the current status of the service. <tt><span style='font-size:10.0pt'>win32service.QueryServiceStatus()</span></tt>
+does this:</p>
+
+<pre>&gt;&gt;&gt; status=win32service.QueryServiceStatus(hs)</pre><pre>&gt;&gt;&gt; status</pre><pre>(32, 4, 5, 0, 0, 0, 0)</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>So what does this say? A quick check of <a
+href="http://safari.oreilly.com/main.asp?bookname=pythonwin32&amp;cnode=188"><span
+style='color:black;text-decoration:none'><u><span style='color:#990000'>Appendix
+B</span></u></span></a> gives the data returned for a service status, but
+briefly, the information includes:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The type of service.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The current state of the service, i.e., is it running, stopped,
+stopping, etc.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The type of controls the service accepts, i.e., can it be
+stopped, paused, etc.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>A Win32 error code, as set by the service. This is typically set
+once the service stops.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>A service-specific error code. This is typically set once the
+service stops.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The service’s checkpoint. See <a
+href="http://safari.oreilly.com/main.asp?bookname=pythonwin32&amp;cnode=188"><span
+style='color:black;text-decoration:none'><u><span style='color:#990000'>Appendix
+B</span></u></span></a> for details.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The service’s wait-hint. See <a
+href="http://safari.oreilly.com/main.asp?bookname=pythonwin32&amp;cnode=188"><span
+style='color:black;text-decoration:none'><u><span style='color:#990000'>Appendix
+B</span></u></span></a> for details.</p>
+
+<p>Armed with this information, you can create a function to print a
+description of the service status:</p>
+
+<pre>&gt;&gt;&gt; def PrintServiceStatus(status):</pre><pre>...   svcType, svcState, svcControls, err, svcErr, svcCP, svcWH = status</pre><pre>...   if svcType &amp; win32service.SERVICE_WIN32_OWN_PROCESS:</pre><pre>...     print &quot;The service runs in its own process&quot;</pre><pre>...   if svcType &amp; win32service.SERVICE_WIN32_SHARE_PROCESS:</pre><pre>...     print &quot;The service shares a process with other services&quot;</pre><pre>...   if svcType &amp; win32service.SERVICE_INTERACTIVE_PROCESS:</pre><pre>...     print &quot;The service can interact with the desktop&quot;</pre><pre>...   # Other svcType flags not shown.</pre><pre>...   if svcState==win32service.SERVICE_STOPPED:</pre><pre>...     print &quot;The service is stopped&quot;</pre><pre>...   elif svcState==win32service.SERVICE_START_PENDING:</pre><pre>...     print &quot;The service is starting&quot;</pre><pre>...   elif svcState==win32service.SERVICE_STOP_PENDING:</pre><pre>...     print &quot;The service is stopping&quot;</pre><pre>...   elif svcState==win32service.SERVICE_RUNNING:</pre><pre>...     print &quot;The service is running&quot;</pre><pre>...   # Other svcState flags not shown.</pre><pre>...   if svcControls &amp; win32service.SERVICE_ACCEPT_STOP:</pre><pre>...     print &quot;The service can be stopped&quot;</pre><pre>...   if svcControls &amp; win32service.SERVICE_ACCEPT_PAUSE_CONTINUE:</pre><pre>...     print &quot;The service can be paused&quot;</pre><pre>...   # Other svcControls flags not shown</pre><pre>...</pre>
+
+<p>Now let’s call this function with the previously obtained status:</p>
+
+<pre>&gt;&gt;&gt; PrintServiceStatus(status)</pre><pre>The service shares a process with other services</pre><pre>The service is running</pre><pre>The service can be stopped</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>This says that the messenger service is actually in the same process as one
+or more other services. It is not uncommon for many related services to be
+implemented in a single executable, although Python doesn’t currently support
+hosting multiple services in this way. The service is currently running, but
+can be stopped. Let’s give that a try.</p>
+
+<h4>18.2.4 Controlling a Service</h4>
+
+<p>If you haven’t already guessed, to control a service you use the <tt><span
+style='font-size:10.0pt'>win32service.ControlService()</span></tt> function.
+This function is simple: it takes a handle to the service you wish to control
+and an integer identifying the control to send. The function returns the new
+status for the service, in the same format returned by the <tt><span
+style='font-size:10.0pt'>win32service.QueryServiceStatus()</span></tt>
+function.</p>
+
+<p>Let’s stop the messenger service:</p>
+
+<pre>&gt;&gt;&gt; newStatus=win32service.ControlService(hs, win32service.SERVICE_CONTROL_STOP)</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>And use the helper function to decode the status:</p>
+
+<pre>&gt;&gt;&gt; PrintServiceStatus(newStatus)</pre><pre>The service shares a process with other services</pre><pre>The service is stopping</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>The service status reports the service is stopping. If you query the service
+status in a few seconds, note that it finally stopped:</p>
+
+<pre>&gt;&gt;&gt; PrintServiceStatus(win32service.QueryServiceStatus(hs))</pre><pre>The service shares a process with other services</pre><pre>The service is stopped</pre>
+
+<p>This is an important point. <tt><span style='font-size:10.0pt'>win32service.ControlService()</span></tt>
+returns immediately when the service has accepted the control request; it may
+take some time for the service to complete the request.</p>
+
+<p>Let’s restart the service to bring everything back to the same state in
+which we found it. Starting a service requires the use of the <tt><span
+style='font-size:10.0pt'>win32service.StartService()</span></tt> function. This
+function takes a handle to the service to start and the arguments for the
+service or <tt><span style='font-size:10.0pt'>None</span></tt> if there are no
+arguments.</p>
+
+<p>Now restart the service:</p>
+
+<pre>&gt;&gt;&gt; win32service.StartService(hs, None)</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>The service now goes through its start process. This may take some time to
+complete. If you need to wait until the service startup is complete, poll the <tt><span
+style='font-size:10.0pt'>win32service.QueryServiceStatus()</span></tt>
+function.</p>
+
+<h4 style='page-break-after:avoid'>18.2.5 Closing Service Handles</h4>
+
+<p>You need to manually close all <tt><span style='font-size:10.0pt'>win32service</span></tt>
+handles once you no longer need them; Python doesn’t automatically do so. In
+future, it’s expected that Python will automatically close handles, but it’s
+good practice to do it yourself.</p>
+
+<p>Let’s close the handles used in the examples:</p>
+
+<pre>&gt;&gt;&gt; win32service.CloseServiceHandle(hs)</pre><pre>&gt;&gt;&gt; win32service.CloseServiceHandle(hscm)</pre><pre>&gt;&gt;&gt;</pre>
+
+<h4>18.2.6 Utility Functions to Simplify Working with Services</h4>
+
+<p>While working with the SCM is not difficult, it’s a little tedious dealing
+with the handles and the SCM. To this end, the <tt><span style='font-size:10.0pt'>win32serviceutil</span></tt>
+module attempts to make simple interactions with services quicker and easier.
+The module is poorly documented, so some of the functions are discussed here:</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>status =
+StopService(</span></span><span style='font-family:Arial;color:#990000'> &nbsp;
+</span><tt><i><span style='font-size:10.0pt;color:#990000'>serviceName</span></i></tt><span
+class=monofont1><span style='color:#990000'>,</span></span><span
+style='font-family:Arial;color:#990000'> &nbsp; </span><tt><i><span
+style='font-size:10.0pt;color:#990000'>machine=None</span></i></tt><span
+class=monofont1><span style='color:#990000'>):</span></span><span
+style='font-family:Arial;color:#990000'> &nbsp; </span></p>
+
+<p style='margin-left:.5in'>Stops the named service on the specified machine.
+For example, to stop the messenger service on the computer named <i>skippy </i>:</p>
+
+<pre style='margin-left:.5in'>&gt;&gt;&gt; win32serviceutil.StopService(&quot;Messenger&quot;, &quot;skippy&quot;)</pre><pre
+style='margin-left:.5in'>(32, 3, 0, 0, 0, 6, 20000)</pre><pre style='margin-left:
+.5in'>&gt;&gt;&gt; .</pre>
+
+<p style='margin-left:.5in'>The result is the same as from the <tt><span
+style='font-size:10.0pt'>win32service.StopService()</span></tt> function
+described previously in this chapter.</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>StopServiceWithDeps
+(</span></span><span style='font-family:Arial;color:#990000'> &nbsp; </span><tt><i><span
+style='font-size:10.0pt;color:#990000'>serviceName</span></i></tt><span
+class=monofont1><span style='color:#990000'>,</span></span><span
+style='font-family:Arial;color:#990000'> &nbsp; </span><tt><i><span
+style='font-size:10.0pt;color:#990000'>machine=None</span></i></tt><span
+class=monofont1><span style='color:#990000'>,</span></span><span
+style='font-family:Arial;color:#990000'> &nbsp; </span><tt><i><span
+style='font-size:10.0pt;color:#990000'>waitSecs=30</span></i></tt><span
+class=monofont1><span style='color:#990000'>):</span></span><span
+style='font-family:Arial;color:#990000'> &nbsp; </span></p>
+
+<p style='margin-left:.5in'>Similar to <tt><span style='font-size:10.0pt'>StopService</span></tt>,
+but stops the named service after stopping all dependant services. This
+function waits <tt><i><span style='font-size:10.0pt'>waitSecs</span></i></tt>
+for each service to stop.</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>StartService(</span></span><span
+style='font-family:Arial;color:#990000'> &nbsp; </span><tt><i><span
+style='font-size:10.0pt;color:#990000'>serviceName</span></i></tt><span
+class=monofont1><span style='color:#990000'>,</span></span><span
+style='font-family:Arial;color:#990000'> &nbsp; </span><tt><i><span
+style='font-size:10.0pt;color:#990000'>args=None</span></i></tt><span
+class=monofont1><span style='color:#990000'>,</span></span><span
+style='font-family:Arial;color:#990000'> &nbsp; </span><tt><i><span
+style='font-size:10.0pt;color:#990000'>machine=None</span></i></tt><span
+class=monofont1><span style='color:#990000'>):</span></span><span
+style='font-family:Arial;color:#990000'> &nbsp; </span></p>
+
+<p style='margin-left:.5in'>Starts the named service on the specified machine,
+with the specified arguments. For example, to start the messenger service on
+the computer named <i>skippy</i>:</p>
+
+<pre style='margin-left:.5in'>&gt;&gt;&gt; win32serviceutil.StartService(&quot;Messenger&quot;, None, &quot;skippy&quot;)</pre><pre
+style='margin-left:.5in'>&gt;&gt;&gt;</pre>
+
+<p class=MsoNormal style='page-break-after:avoid'><span class=monofont1><span
+style='color:#990000'>RestartService(</span></span><span style='font-family:
+Arial;color:#990000'> &nbsp; </span><tt><i><span style='font-size:10.0pt;
+color:#990000'>serviceName</span></i></tt><span class=monofont1><span
+style='color:#990000'>,</span></span><span style='font-family:Arial;color:#990000'>
+&nbsp; </span><tt><i><span style='font-size:10.0pt;color:#990000'>args=None</span></i></tt><span
+class=monofont1><span style='color:#990000'>,</span></span><span
+style='font-family:Arial;color:#990000'> &nbsp; </span><tt><i><span
+style='font-size:10.0pt;color:#990000'>waitSeconds=30</span></i></tt><span
+class=monofont1><span style='color:#990000'>,</span></span><span
+style='font-family:Arial;color:#990000'> &nbsp; </span><tt><i><span
+style='font-size:10.0pt;color:#990000'>machine= None</span></i></tt><span
+class=monofont1><span style='color:#990000'>):</span></span><span
+style='font-family:Arial;color:#990000'> </span></p>
+
+<p style='margin-left:.5in'>If the service is already running, stops the
+service and waits <tt><i><span style='font-size:10.0pt'>waitSeconds</span></i></tt>
+for the stop process to complete. Then it starts the service with the specified
+arguments. This is used mainly for debugging services, where stopping then
+restarting a Python service is necessary for code changes to take affect.</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>QueryServiceStatus(</span></span><span
+style='font-family:Arial;color:#990000'> &nbsp; </span><tt><i><span
+style='font-size:10.0pt;color:#990000'>serviceName</span></i></tt><span
+class=monofont1><span style='color:#990000'>, </span></span><span
+style='font-family:Arial;color:#990000'>&nbsp; </span><tt><i><span
+style='font-size:10.0pt;color:#990000'>machine=None</span></i></tt><span
+class=monofont1><span style='color:#990000'>):</span></span><span
+style='font-family:Arial;color:#990000'> &nbsp; </span></p>
+
+<p style='margin-left:.5in'>Query the status of the named service. The result
+is the same as from the <tt><span style='font-size:10.0pt'>win32service.QueryServiceStatus()</span></tt>
+function as described previously in this chapter.</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>ControlService(</span></span><span
+style='font-family:Arial;color:#990000'> &nbsp; </span><tt><i><span
+style='font-size:10.0pt;color:#990000'>serviceName</span></i></tt><span
+class=monofont1><span style='color:#990000'>, </span></span><span
+style='font-family:Arial;color:#990000'>&nbsp; </span><tt><i><span
+style='font-size:10.0pt;color:#990000'>code</span></i></tt><span
+class=monofont1><span style='color:#990000'>, </span></span><span
+style='font-family:Arial;color:#990000'>&nbsp; </span><tt><i><span
+style='font-size:10.0pt;color:#990000'>machine=None</span></i></tt><span
+class=monofont1><span style='color:#990000'>):</span></span><span
+style='font-family:Arial;color:#990000'> &nbsp; </span></p>
+
+<p style='margin-left:.5in'>Sends the specified control code to the named
+service on the specified machine.</p>
+
+<h3><a name="_18.3_Reading_the_Event_Log"></a>18.3 Reading the Event Log</h3>
+
+<p>The Windows NT Event Log is a single repository applications can use to log
+certain types of information. The Event Log provides a number of features that
+make it attractive for applications to use:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>It provides a central point for an NT administrator to view all
+relevant messages, regardless of what application generated them.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>It is transactional and thread-safe. There’s no need to protect multiple
+threads from writing at the same time and no need to worry about partial
+records being written.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>It has functionality for overwriting old records should the Event
+Log become full.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The minimum amount of information possible is written to the
+Event Log. The Event Log message is not written to the Event Log, just the
+“inserts” specific to this entry. For example, a message may be defined as
+“Cannot open file %1.” This message is not written to the log; only the event
+ID and its “inserts” (in this case the filename) is written. This keeps Event
+Log records small.</p>
+
+<p>To view the Event Log, use the Event Log Viewer, which can be found under
+the Administrative Tools folder on the Windows NT Start menu.</p>
+
+<p>Most services write information to the Event Log, but exactly what they
+write depends on the service. Most services write an entry when they start and
+stop, encounter an error, or need to report audit or access control
+information.</p>
+
+<p>There are two Python modules that support the Event Log: <tt><span
+style='font-size:10.0pt'>win32evtlog</span></tt> supplies a Python interface to
+the native Win32 Event Log API, while the <tt><span style='font-size:10.0pt'>win32evtlog-util</span></tt>
+module provides utilities to make working with the Event Log simpler.</p>
+
+<p>The function <tt><span style='font-size:10.0pt'>win32evtlog.OpenEventLog()</span></tt>
+obtains a handle to the Event Log. This handle can then be passed to <tt><span
+style='font-size:10.0pt'>win32evtlog.ReadEventLog()</span></tt> to obtain the
+raw data. When you are finished with the handle, it’s closed with <tt><span
+style='font-size:10.0pt'>win32evtlog.CloseEventLog()</span></tt>. See <a
+href="http://safari.oreilly.com/main.asp?bookname=pythonwin32&amp;cnode=188"><span
+style='color:black;text-decoration:none'><u><span style='color:#990000'>Appendix
+B</span></u></span></a> for more information on these functions.</p>
+
+<p><tt><span style='font-size:10.0pt'>win32evtlog.OpenEventLog()</span></tt>
+takes two parameters:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The name of the machine whose Event Log is to be opened or <tt><span
+style='font-size:10.0pt'>None</span></tt> for the current machine</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The name of the log to open, such as Application or System</p>
+
+<p><tt><span style='font-size:10.0pt'>win32evtlog.ReadEventLog()</span></tt>
+takes three parameters:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The handle to the Event Log</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Flags to indicate how to read the records, e.g., sequentially
+forward, sequentially backwards, random access, and so on</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>If random access is requested, the record number to search</p>
+
+<p><tt><span style='font-size:10.0pt'>win32evtlog.ReadEventLog()</span></tt>
+returns a list of Event Log records; you never know exactly how many records
+you will retrieve in a single call. When you receive zero records, you’ve
+reached the end.</p>
+
+<h4>18.3.1 Python EventLogRecord Object</h4>
+
+<p>A record from an Event Log contains quite a bit of information. Rather than
+attempt to encode this information in a tuple, a <tt><span style='font-size:
+10.0pt'>PyEventLogRecord</span></tt> object is used. These objects have the
+attributes described in <a href="22.htm#_Table_18.1._Attributes_of_a_PyEvent">Table
+18.1</a>.</p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width="100%"
+ style='width:100.0%'>
+ <tr>
+  <td colspan=2 style='border:none;padding:.75pt .75pt .75pt .75pt'>
+  <h5 align=center style='text-align:center'><a
+  name="_Table_18.1._Attributes_of_a_PyEvent"></a>Table&nbsp;18.1. Attributes
+  of a PyEventLogRecord</h5>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p align=center style='text-align:center'><b><span style='font-size:10.0pt'>Attribute</span></b></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p align=center style='text-align:center'><b><span style='font-size:10.0pt'>Description</span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>RecordNumber</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>The number of the Event Log record. This
+  number could be used to seek to the specific record.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>TimeGenerated</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>A </span><tt><span style='font-size:10.0pt'>Time</span></tt><span
+  style='font-size:10.0pt'> object indicating the time the record was generated.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>TimeWritten</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>A </span><tt><span style='font-size:10.0pt'>Time</span></tt><span
+  style='font-size:10.0pt'> object indicating the time the record was actually
+  written to the log.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>EventID</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>An integer event ID, as defined by the
+  application writing the record.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>EventType</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>An integer defining the event type. Will be
+  one of:</span></p>
+  <p><tt><span style='font-size:10.0pt'>EVENTLOG_ERROR_TYPE</span></tt></p>
+  <p><tt><span style='font-size:10.0pt'>EVENTLOG_WARNING_TYPE</span></tt></p>
+  <p><tt><span style='font-size:10.0pt'>EVENTLOG_INFORMATION_TYPE</span></tt></p>
+  <p><tt><span style='font-size:10.0pt'>EVENTLOG_AUDIT_SUCCESS</span></tt></p>
+  <p><tt><span style='font-size:10.0pt'>EVENTLOG_AUDIT_FAILURE</span></tt></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>EventCategory</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>An integer event category, as defined by
+  the application writing the record.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>SourceName</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>The name of the application that generated
+  the Event Log record.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>ComputerName</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>The name of the computer that generated
+  this message.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>StringInserts</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>The string inserts for this message.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>Sid</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>The security identifier of a user to be
+  associated with this record.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><tt><span style='font-size:10.0pt'>Data</span></tt></p>
+  </td>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <p><span style='font-size:10.0pt'>The raw binary data for the Event Log
+  record.</span></p>
+  </td>
+ </tr>
+</table>
+
+<h4>18.3.2 How to Read the Event Log </h4>
+
+<p>This functionality is easy to demonstrate. Let’s open the Event Log and read
+the first few records:</p>
+
+<pre>&gt;&gt;&gt; import win32evtlog</pre><pre>&gt;&gt;&gt; h=win32evtlog.OpenEventLog(None, &quot;Application&quot;)</pre>
+
+<p>You’ve now opened the application Event Log. To read records sequentially
+backwards from the end, combine the flags using the Python bitwise-or operator
+( | ):</p>
+
+<pre>&gt;&gt;&gt; flags= win32evtlog.EVENTLOG_BACKWARDS_READ|win32evtlog.EVENTLOG_SEQUENTIAL_READ</pre><pre>&gt;&gt;&gt; records=win32evtlog.ReadEventLog(h, flags, 0)</pre><pre>&gt;&gt;&gt; len(records)</pre><pre>7</pre>
+
+<p>This call to <tt><span style='font-size:10.0pt'>ReadEventLog()</span></tt>
+returned seven Event Log records. Let’s look at some of the properties of the
+first one:</p>
+
+<pre>&gt;&gt;&gt; records[0]</pre><pre>&lt;PyEventLogRecord object at 187d040&gt;</pre>
+
+<p>It’s one of our objects; let’s look inside:</p>
+
+<pre>&gt;&gt;&gt; records[0].SourceName</pre><pre>L'WinSock Proxy Client'</pre><pre>&gt;&gt;&gt; records[0].TimeWritten.Format() </pre><pre>'01/27/99 11:42:22'</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>This first record was written by the “Winsock Proxy Client,” and you can see
+the date and time it was written. Note the L prefix on the returned string. All
+strings are returned as Unicode objects.</p>
+
+<h4>18.3.3 A Simpler Way to Read Event Log Records</h4>
+
+<p>The function <tt><span style='font-size:10.0pt'>win32evtlogutil.FeedEventLogRecords()</span></tt>
+is a helper function that makes working with Event Log records easier. To use
+this function, you supply your own function that takes a single parameter. As
+records are read, your function is called with the Event Log record. To
+demonstrate, let’s write a function that obtains all Event Log records for the
+“WinSock Proxy Client” application.</p>
+
+<p>First, define the “Feeder” function:</p>
+
+<pre>&gt;&gt;&gt; def CheckRecord(record):</pre><pre>...     if str(record.SourceName)==&quot;WinSock Proxy Client&quot;:</pre><pre>...         print &quot;Have Event ID %s written at %s&quot; % \</pre><pre>...               (record.EventID, record.TimeWritten.Format())</pre><pre>... </pre><pre>...</pre>
+
+<p>Then feed Event Log records to this function. Now call <tt><span
+style='font-size:10.0pt'>FeedEventLogRecords()</span></tt> specifying your
+function as the first parameter:</p>
+
+<pre>&gt;&gt;&gt; win32evtlogutil.FeedEventLogRecords(CheckRecord)</pre><pre>Have Event ID -2147483645 written at 01/27/99 11:42:22</pre><pre>Have Event ID -2147483645 written at 01/27/99 11:42:13</pre><pre>Have Event ID -2147483645 written at 01/27/99 11:42:10</pre><pre>Have Event ID -2147483645 written at 01/21/99 21:46:43</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Note that <tt><span style='font-size:10.0pt'>win32evtlogutil.FeedEventLogRecords()</span></tt>
+takes additional parameters allowing you to specify which Event Log to read,
+and the order for records to be obtained. See the <i>win32evtlogutil.py</i>
+module for details.</p>
+
+<h4>18.3.4 Obtaining the Message for an Event Log Record</h4>
+
+<p>As discussed previously, the text for a message is not written to the Event
+Log, just the inserts specific to this record. Obtaining the text for an Event
+Log record isn’t a trivial matter; it requires you to look up the registry,
+then call a complicated Win32 function to format the message. Fortunately, the <tt><span
+style='font-size:10.0pt'>win32evtlogutil</span></tt> module comes to the
+rescue.</p>
+
+<p>There are two functions in this module that deal with formatting messages. <tt><span
+style='font-size:10.0pt'>win32evtlogutil.FormatMessage()</span></tt> returns a
+formatted message, raising an exception if an error occurs (such as not being
+able to locate the source of the message text). <tt><span style='font-size:
+10.0pt'>win32evtlogutil.SafeFormatMessage()</span></tt> is similar, but it
+traps the exceptions and returns a useful value. Let’s change the feeder
+function to print the full Event Log message:</p>
+
+<pre>&gt;&gt;&gt; def CheckRecord(record):</pre><pre>...     if str(record.SourceName)==&quot;WinSock Proxy Client&quot;:</pre><pre>...         print win32evtlogutil.SafeFormatMessage(record)</pre><pre>...</pre>
+
+<p>And feed Event Log records to it:</p>
+
+<pre>&gt;&gt;&gt; win32evtlogutil.FeedEventLogRecords(CheckRecord)</pre><pre>Application [DCCMAN.EXE]. The application was started while the service manager </pre><pre>was locked and NtLmSsp wasn't running.</pre><pre>If the application will try to remote via WinSock Proxy it can cause a deadlock with the service manager.</pre><pre>[and lots more boring stuff!]</pre>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<h3 style='page-break-after:avoid'><a
+name="_18.4_Windows_NT_Performance_Monitor"></a>18.4 Windows NT Performance
+Monitor Data</h3>
+
+<p>The Windows NT Performance Monitor is a tool and API that allows
+applications to provide performance data in a consistent way. Administrators
+can use the Performance Monitor tool to view this data graphically, or programs
+can themselves use this data for more advanced purposes, such as taking daily
+samples of performance data and logging to a database.</p>
+
+<p>Using the Performance Monitor has a number of benefits for both the
+administrator and programmer. The administrator can use a single, consistent
+interface for monitoring performance, regardless of the application in
+question; indeed, the administrator can simultaneously view performance
+information from two unrelated applications to assist in diagnosing performance
+bottlenecks. For you, the programmer, the biggest advantage is that you can
+provide detailed performance information for your application, but don’t need
+to deliver any tools for viewing or analyzing this data; Windows NT and
+third-party tools provide all the functionality anyone could need!</p>
+
+<p>In the next section we discuss the concepts behind the Performance Monitor,
+and how you can read Performance Monitor data using Python. Later in this
+chapter we will present how Python can provide Performance Monitor data for our
+sample Windows NT Service.</p>
+
+<h4><a name="_18.4.1_Anatomy_of_the_Performance_M"></a>18.4.1 Anatomy of the
+Performance Monitor</h4>
+
+<p>To use the Performance Monitor, an application must register one or more
+Performance Monitor <i>objects</i>. An object is a logical grouping of
+Performance Monitor data; it is quite common for an application to have a
+single object, grouping all performance-related data from the application in
+this single object.</p>
+
+<p>For each object, the application must register one or more <i>counters</i> .
+A counter provides a single piece of performance data. Attributes about a
+counter include the units and the default scale for the final value. The units
+indicate how the counter values are to be transformed (for example, turned into
+a rate per second), while the scale defines a multiplication factor applied
+before the value is displayed or graphed.</p>
+
+<p>For example, let’s assume the application needs to keep a counter for
+connections per second made to it. The application is fast, so expect a hit
+rate in the thousands of connections per second. You would define your counter
+as having units of “per second” and a scale of “divide by 100.” All the
+application needs to do is increment the counter once for each connection
+established, and the Performance Monitor itself will handle the transformation
+of the raw counter data to a value in the range 1 to 100 that represents the
+connections per second. The Performance Monitor has kept track of how many
+counter increments were made in the last second and applied the appropriate
+conversions.</p>
+
+<p>As you can see, from the application’s point of view it’s quite simple and
+unobtrusive; once the counters are defined, simply increment a counter whenever
+you do something interesting. The Performance Monitor manages the translation
+to useful units. For the program that wishes to view Performance Monitor
+information, it’s also simple: the Performance Monitor itself has already
+translated the raw values into user-friendly values ready to display. Unfortunately,
+as we shall see later, the installation and definition of these counters isn’t
+particularly easy, but once that is mastered, the actual usage of the counters
+in your application is simple.</p>
+
+<p>In addition to objects and counters, the final Performance Monitor concept
+we mention is that of an <i>instance</i> . A counter can optionally have any
+number of instances associated with it. An instance is used where a single
+counter applies to multiple things. The most basic example is the Performance
+Monitor data for the CPU in your computer. Windows NT defines the object and a
+few counters for data related to a CPU. However, as there may be multiple CPUs
+installed in a PC, each counter can have an instance, one for each CPU. Thus,
+when you need to collect performance data for a specific CPU, you need to know
+the instance you are interested in, or you can ask to collect data for all
+instances. Most counters provided by applications don’t have instances
+associated with them. In our previous example where we kept total client
+connections, no instance would be associated with the counter. In all the
+Performance Monitor examples that follow, we don’t use counters with instances,
+but the concept is mentioned for completeness.</p>
+
+<p>To see these concepts, the simplest thing is to start the Windows NT
+Performance Monitor (from the Administrative Tools group under the Windows NT
+Start menu), and select Edit <img border=0 width=20 height=16
+src="images/image008.gif" alt="figs/U2192.gif">Add to
+chart. In the dialog that’s presented, you can clearly see the list of objects,
+counters, and instances. As you select different objects, the available
+counters will change. Depending on the counter you select, instances may or may
+not be available. Python can also display this list, so we will move on to
+Python and the Performance Monitor.</p>
+
+<h4>18.4.2 Reading the Performance Monitor from Python</h4>
+
+<p>Python exposes the ability to read Performance Monitor information from the <tt><span
+style='font-size:10.0pt'>win32pdh</span></tt> and <tt><span style='font-size:
+10.0pt'>win32pdhutil</span></tt> modules. These modules use a Microsoft API to
+access the Performance Monitor known as the Performance Data Helper, or PDH,
+hence the name of the Python modules.</p>
+
+<h5>18.4.2.1 Browsing for counters</h5>
+
+<p>To get a feel for these Python modules, let’s start with a demonstration of
+displaying a dialog for the user to browse and select the counters on this or
+any machine.</p>
+
+<p>The <tt><span style='font-size:10.0pt'>win32pdhutil</span></tt> module
+provides a function <tt><span style='font-size:10.0pt'>browse()</span></tt>
+that displays such a dialog. As the user selects the Add button in the dialog,
+a function you provide is called with the selected counter. This callback
+function is supplied as a parameter to <tt><span style='font-size:10.0pt'>win32pdhutil.browse()</span></tt>
+. The first step is to provide the callback function, which takes a single
+parameter—the name of the counter. Our example simply prints this name.</p>
+
+<p>Thus, the callback function can be defined as follows:</p>
+
+<pre>&gt;&gt;&gt; def CounterCallback( counter ):</pre><pre>...     print &quot;Counter is&quot;, counter</pre><pre>...     </pre><pre>&gt;&gt;&gt;</pre>
+
+<p>You can display the dialog by importing the <tt><span style='font-size:10.0pt'>win32pdhutil</span></tt>
+module and calling the <tt><span style='font-size:10.0pt'>browse()</span></tt>
+function passing the callback:</p>
+
+<pre>&gt;&gt;&gt; import win32pdhutil</pre><pre>&gt;&gt;&gt; win32pdhutil.browse(CounterCallback)</pre>
+
+<p>A dialog is presented that allows you to select all the counters available
+on the system and even other systems! Select the Add button and your function
+is called, printing the selected counter. <a
+href="#_Figure_18.1._Browsing_Performance_M">Figure 18.1</a> shows the code
+running under Python-Win, just after selecting the Add button.</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_18.1._Browsing_Performance_M"></a>Figure 18.1. Browsing
+Performance Monitor counters under PythonWin</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=396
+src="images/image056.gif" alt="figs/ppw.1801.gif"></span></p>
+
+<p>The counter definition is a simple string, with the machine, object,
+counter, and instance portions all embedded in the string. The <tt><span
+style='font-size:10.0pt'>win32pdh</span></tt> module contains functions for
+parsing a string of this format into the constituent parts and for building
+such a string from the parts; see the <tt><span style='font-size:10.0pt'>win32pdhutil</span></tt>
+module source code for more details.</p>
+
+<p>Once you’ve determined the counters you want, obtaining the information is
+quite simple: use the <tt><span style='font-size:10.0pt'>win32pdhutil.GetPerformanceAttributes()</span></tt>
+function. In the simple case of a counter on the local machine without
+instances, you need pass only the object name and the counter name. For
+example, an object called Memory provides a number of counters, including one
+called Available Bytes. To obtain the value, use the code:</p>
+
+<pre>&gt;&gt;&gt; win32pdhutil.GetPerformanceAttributes(&quot;Memory&quot;, &quot;Available Bytes&quot;)</pre><pre>18358272</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>This demonstrates an interesting use of the Performance Monitor. There is
+some information about the system that’s not easily available from the Windows
+API, but is available from the Performance Monitor. Statistics about processes
+(including its process ID) or about the memory in the system can often be
+obtained in far more detail by using the Performance Monitor than by using the
+API.</p>
+
+<h3><a name="_18.5_Writing_Services_in_Python"></a>18.5 Writing Services in
+Python</h3>
+
+<p>We have already discussed how Python can control services, now let’s see how
+to write services in Python. Services written in Python are first-class
+services and provide all the functionality of services written in C.</p>
+
+<h4>18.5.1 The Anatomy of a Service</h4>
+
+<p>Before we launch into how to write a service in Python, we must discuss some
+important service concepts. This will help you understand some of the design
+and implementation decisions made for Python services.</p>
+
+<p>Windows NT starts a service by executing a process. Once this process
+starts, it’s expected to report to the SCM that it’s indeed a service and that
+it’s starting. It also must pass to the SCM a control handler; that is, a
+function that responds to control messages sent by the SCM. The service process
+then executes. When the service is to be stopped, the SCM notifies the control
+handler of the stop request. The service itself is responsible for handling
+this request and terminating itself.</p>
+
+<p>This leads to most services, regardless of the language they are written in,
+being structured as follows: A main thread starts. This thread initializes
+itself by reporting to the SCM and passing it the control handler. Once
+initialization is complete, the thread starts a worker loop waiting either for
+work to do or a notification to stop, pause, etc. The SCM calls the control
+handler on another thread, so once the function receives the control
+notification, it reports back to the SCM it’s stopping, then triggers some
+synchronization object that the main thread will notice next time around the
+loop. As the main thread terminates, it continues to report its status to the
+SCM.</p>
+
+<h4>18.5.2 The Anatomy of a Python Service</h4>
+
+<p>The same executable hosts most Python services, <i>PythonService.exe</i> .
+This special executable is aware of the special requirements for services that
+make <i>Python.exe</i> unsuitable for the task.</p>
+
+<p>When <i>PythonService.exe</i> is asked to start a service, it looks in the
+registry for the Python class that implements the service. It then creates an
+instance of this class, and delegates all service functionality to this
+instance. For example, when the service is to start, a method named <tt><span
+style='font-size:10.0pt'>SvcStart</span></tt> is called on the object. When the
+SCM makes a control request, a method named <tt><span style='font-size:10.0pt'>ServiceControlHandler</span></tt>
+is called. These Python methods are expected to correctly report their status
+to the SCM, by calling helper functions provided by <i>PythonService.exe</i>.</p>
+
+<p>To make life as simple as possible for the Python programmer, a base class <tt><span
+style='font-size:10.0pt'>ServiceFramework</span></tt> is provided in the module
+<tt><span style='font-size:10.0pt'>win32serviceutil</span></tt> . The easiest
+way to write a service in Python is to subclass this class, then concentrate on
+the service functionality rather than on the interactions with the SCM.</p>
+
+<h4>18.5.3 The win32serviceutil.ServiceFramework Class</h4>
+
+<p>As described previously, most Python services will be a subclass of the <tt><span
+style='font-size:10.0pt'>win32serviceutil.ServiceFramework</span></tt> class.
+This has a number of default methods and helper methods to make writing
+services in Python easier:</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>__init__</span></span><span
+style='font-family:Arial;color:#990000'> </span></p>
+
+<p style='margin-left:.5in'>The constructor for the class. This registers the
+method <tt><span style='font-size:10.0pt'>ServiceCtrlHandler</span></tt> as the
+handler for notification messages from the SCM.</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>ServiceCtrlHandler</span></span><span
+style='font-family:Arial;color:#990000'> </span></p>
+
+<p style='margin-left:.5in'>Provides a default implementation of the service
+control handler. This method interrogates the class for certain named methods
+to determine which controls the service responds to. For example, if the
+service contains a <tt><span style='font-size:10.0pt'>SvcPause</span></tt>
+method, it’s assumed the service can be paused.</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>SvcRun</span></span><span
+style='font-family:Arial;color:#990000'> </span></p>
+
+<p style='margin-left:.5in'>A default implementation of the entry point for the
+service. This method notifies the SCM that the service has started, calls a
+method <tt><span style='font-size:10.0pt'>SvcDoRun</span></tt>, then when
+complete notifies the SCM the service is stopping (<i>PythonService.exe</i>
+automatically notifies the SCM that the service has stopped). Thus, you need
+only provide a <tt><span style='font-size:10.0pt'>SvcDoRun</span></tt> method
+in the subclass that handles the functionality of your service.</p>
+
+<h4>18.5.4 The Smallest Possible Python Service</h4>
+
+<p>Before we move on to a more substantial service written in Python, let’s
+write the smallest possible service in Python. This service will do no actual
+work other than interact with the SCM.</p>
+
+<p>The key points from this example code are:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The logic for stopping the service must be provided by your
+application. This sample service uses a Win32 event object and when the command
+to stop the service is received, it sets this event. The service itself does
+nothing other than wait for this event to be set.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The name of the service and the display name of the service must
+be provided by the subclass.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>This code contains startup code that handles the command line
+when run as a script. This provides facilities for installing, debugging, and
+starting the service, as described in the next section.</p>
+
+<pre># SmallestService.py</pre><pre>#</pre><pre># A sample demonstrating the smallest possible service written in Python.</pre><pre>&nbsp;</pre><pre>import win32serviceutil</pre><pre>import win32service</pre><pre>import win32event</pre><pre>&nbsp;</pre><pre>class SmallestPythonService(win32serviceutil.ServiceFramework):</pre><pre>    _svc_name_ = &quot;SmallestPythonService&quot;</pre><pre>    _svc_display_name_ = &quot;The smallest possible Python Service&quot;</pre><pre>    def __init__(self, args):</pre><pre>        win32serviceutil.ServiceFramework.__init__(self, args)</pre><pre>        # Create an event which we will use to wait on.</pre><pre>        # The &quot;service stop&quot; request will set this event.</pre><pre>        self.hWaitStop = win32event.CreateEvent(None, 0, 0, None)</pre><pre>&nbsp;</pre><pre>    def SvcStop(self):</pre><pre>        # Before we do anything, tell the SCM we are starting the stop process.</pre><pre>        self.ReportServiceStatus(win32service.SERVICE_STOP_PENDING)</pre><pre>        # And set my event.</pre><pre>        win32event.SetEvent(self.hWaitStop)</pre><pre>&nbsp;</pre><pre>    def SvcDoRun(self):</pre><pre>        # We do nothing other than wait to be stopped!</pre><pre>        win32event.WaitForSingleObject(self.hWaitStop, win32event.INFINITE)</pre><pre>&nbsp;</pre><pre>if __name__=='__main__':</pre><pre>    win32serviceutil.HandleCommandLine(SmallestPythonService)</pre>
+
+<h4>18.5.5 Installing, Debugging, and Running a Python Service</h4>
+
+<p>Now that we have a service written in Python, what to do with it? This section
+discusses installing the service, debugging the service, and starting and
+stopping the service.</p>
+
+<h5>18.5.5.1 Installing the service</h5>
+
+<p>As discussed previously, an application named <i>PythonService.exe</i> hosts
+all Python services. This executable must be registered before you can install
+the service. The registration process need only be run once per machine,
+regardless of how many services the program hosts. The installation package for
+the Python for Windows extensions automatically registers this, but the information
+is included here for completeness. To register <i>PythonService.exe</i>,
+perform the following steps:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Start a command prompt.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Change to the directory containing <i>PythonService.exe</i>, typically <i>\Program
+Files \Python\win32.</i></p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Execute the command:</p>
+
+<pre style='margin-left:.5in;text-indent:-.25in'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>C:\Program Files\Python\win32&gt;PythonService.exe /register</pre><pre
+style='margin-left:.5in;text-indent:-.25in'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Registering the Python Service Manager...</pre><pre
+style='margin-left:.5in'>C:\Program Files\Python\win32&gt;</pre>
+
+<p>Now to install the service, perform the following steps:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Start a command prompt.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Change to the directory containing the Python source code that
+implements the service.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Execute the command:</p>
+
+<pre style='margin-left:.5in;text-indent:-.25in'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>C:\Scripts&gt; SmallestService.py install</pre><pre
+style='margin-left:.5in;text-indent:-.25in'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Installing service SmallestPythonService to Python class </pre><pre
+style='margin-left:.5in;text-indent:-.25in'>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>   C:\Scripts\SmallestService.SmallestPythonService</pre><pre
+style='margin-left:.5in;text-indent:-.25in'>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Service installed</pre><pre
+style='margin-left:.5in'>C:\Scripts&gt;</pre>
+
+<p>The service is now installed and ready to run. To confirm the service has
+been correctly installed, use the control panel to start the Services applet
+and scroll down until you find the “The smallest possible Python Service.”</p>
+
+<h5>18.5.5.2 Starting and stopping the service</h5>
+
+<p>There are a number of ways to start or stop a service. Our Python script can
+start and stop itself. To do this, use the following command:</p>
+
+<pre>C:\Scripts&gt; python.exe SmallestService.py start</pre><pre>Starting service SmallestPythonService</pre><pre>C:\Scripts&gt;</pre>
+
+<p>The service is now running. To confirm this, let’s try executing the same
+command again:</p>
+
+<pre>C:\Scripts&gt; python.exe SmallestService.py start</pre><pre>Starting service SmallestPythonService</pre><pre>Error starting service: An instance of the service is already running.</pre><pre>C:\Scripts&gt;</pre>
+
+<p>As you can see, only one instance of a service can be running at any time.
+To stop the service, use the following command:</p>
+
+<pre>C:\Scripts&gt; python.exe SmallestService.py stop</pre><pre>Stopping service SmallestPythonService</pre><pre>C:\Scripts&gt;</pre>
+
+<p>There are two other common techniques for starting and stopping services:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Using the Services applet in the control panel, which provides a
+GUI for starting, stopping, or pausing services.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Using the <i>net.exe</i> program supplied with Windows NT. From a
+Windows NT command prompt, this command starts the service:</p>
+
+<pre style='margin-left:.5in'>C:\Anywhere&gt; net start SmallestPythonService</pre>
+
+<p style='margin-left:.5in'>This command stops the service:</p>
+
+<pre style='margin-left:.5in'>C:\Anywhere&gt; net stop SmallestPythonService</pre>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<h3><a name="_18.6_Sample_Service_Written_in_Pyth"></a>18.6 Sample Service
+Written in Python</h3>
+
+<p>Before we move to some of the advanced topics, we will develop the basis for
+a real Python service that actually does something useful!</p>
+
+<p>The first version of our service starts by accepting connections over a
+named pipe and comes complete with a client that connects to the service. You
+then enhance the service by writing to the Event Log and by providing Performance
+Monitor data.</p>
+
+<p>The first cut looks very much like the <tt><span style='font-size:10.0pt'>SmallestPythonService</span></tt>,
+except it has more meat in the <tt><span style='font-size:10.0pt'>SvcDoRun()</span></tt>
+method. The main thread creates a named pipe and waits for either a client to
+connect or a service control request.</p>
+
+<p>More information on named pipes can be found in <a
+href="#_Chapter_17._Processes_and_Files">Chapter 17</a>. This example also
+shows a number of concepts important when using named pipes. It shows how to
+use overlapped I/O, and how to create a special security object useful for
+named-pipe services:</p>
+
+<pre># PipeService1.py</pre><pre>#</pre><pre># A sample demonstrating a service which uses a </pre><pre># named-pipe to accept client connections.</pre><pre>&nbsp;</pre><pre>import win32serviceutil</pre><pre>import win32service</pre><pre>import win32event</pre><pre>import win32pipe</pre><pre>import win32file</pre><pre>import pywintypes</pre><pre>import winerror</pre><pre>&nbsp;</pre><pre>class PipeService(win32serviceutil.ServiceFramework):</pre><pre>    _svc_name_ = &quot;PythonPipeService&quot;</pre><pre>    _svc_display_name_ = &quot;A sample Python service using named pipes&quot;</pre><pre>    def __init__(self, args):</pre><pre>        win32serviceutil.ServiceFramework.__init__(self, args)</pre><pre>        # Create an event which we will use to wait on.</pre><pre>        # The &quot;service stop&quot; request will set this event.</pre><pre>        self.hWaitStop = win32event.CreateEvent(None, 0, 0, None)</pre><pre>        # We need to use overlapped IO for this, so we don't block when</pre><pre>        # waiting for a client to connect.  This is the only effective way</pre><pre>        # to handle either a client connection, or a service stop request.</pre><pre>        self.overlapped = pywintypes.OVERLAPPED()</pre><pre>        # And create an event to be used in the OVERLAPPED object.</pre><pre>        self.overlapped.hEvent = win32event.CreateEvent(None,0,0,None)</pre><pre>&nbsp;</pre><pre>    def SvcStop(self):</pre><pre>        # Before we do anything, tell the SCM we are starting the stop process.</pre><pre>        self.ReportServiceStatus(win32service.SERVICE_STOP_PENDING)</pre><pre>        # And set my event.</pre><pre>        win32event.SetEvent(self.hWaitStop)</pre><pre>&nbsp;</pre><pre>    def SvcDoRun(self):</pre><pre>        # We create our named pipe.</pre><pre>        pipeName = &quot;\\\\.\\pipe\\PyPipeService&quot;</pre><pre>        openMode = win32pipe.PIPE_ACCESS_DUPLEX | win32file.FILE_FLAG_OVERLAPPED</pre><pre>        pipeMode = win32pipe.PIPE_TYPE_MESSAGE</pre><pre>        </pre><pre>        # When running as a service, we must use special security for the pipe</pre><pre>        sa = pywintypes.SECURITY_ATTRIBUTES()</pre><pre>        # Say we do have a DACL, and it is empty</pre><pre>        # (ie, allow full access!)</pre><pre>        sa.SetSecurityDescriptorDacl ( 1, None, 0 )</pre><pre>&nbsp;</pre><pre>        pipeHandle = win32pipe.CreateNamedPipe(pipeName,</pre><pre>            openMode,</pre><pre>            pipeMode,</pre><pre>            win32pipe.PIPE_UNLIMITED_INSTANCES,</pre><pre>            0, 0, 6000, # default buffers, and 6 second timeout.</pre><pre>            sa)</pre><pre>&nbsp;</pre><pre>        # Loop accepting and processing connections</pre><pre>        while 1:            </pre><pre>            try:</pre><pre>                hr = win32pipe.ConnectNamedPipe(pipeHandle, self.overlapped)</pre><pre>            except error, details:</pre><pre>                print &quot;Error connecting pipe!&quot;, details</pre><pre>                pipeHandle.Close()</pre><pre>                break</pre><pre>                   </pre><pre>            if hr==winerror.ERROR_PIPE_CONNECTED:</pre><pre>                # Client is fast, and already connected - signal event</pre><pre>                win32event.SetEvent(self.overlapped.hEvent)</pre><pre>            # Wait for either a connection, or a service stop request.</pre><pre>            timeout = win32event.INFINITE</pre><pre>            waitHandles = self.hWaitStop, self.overlapped.hEvent</pre><pre>            rc = win32event.WaitForMultipleObjects(waitHandles, 0, timeout)</pre><pre>            if rc==win32event.WAIT_OBJECT_0:</pre><pre>                # Stop event</pre><pre>                break</pre><pre>            else:</pre><pre>                # Pipe event - read the data, and write it back.</pre><pre>                # (We only handle a max of 255 characters for this sample)</pre><pre>                try:</pre><pre>                    hr, data = win32file.ReadFile(pipeHandle, 256)</pre><pre>                    win32file.WriteFile(pipeHandle, &quot;You sent me:&quot; + data)</pre><pre>                    # And disconnect from the client.</pre><pre>                    win32pipe.DisconnectNamedPipe(pipeHandle)</pre><pre>                except win32file.error:</pre><pre>                    # Client disconnected without sending data</pre><pre>                    # or before reading the response.</pre><pre>                    # Thats OK - just get the next connection</pre><pre>                    continue</pre><pre>                    </pre><pre>if __name__=='__main__':</pre><pre>    win32serviceutil.HandleCommandLine(PipeService)</pre>
+
+<p>This technique for working with named pipes doesn’t scale well; our version
+accepts only a single client connection at a time. Another alternative is to
+use a new thread to process each connection as it comes in, as demonstrated in <i>pipeTestService.py,</i>
+which comes with the Window’s extensions. Even this solution doesn’t scale when
+the number of connections starts to become large, and other techniques, such as
+thread pooling or NT Completion Ports should be used.</p>
+
+<p>Now let’s write a client program to use this service. The client program is
+quite simple, because the Win32 API function <tt><span style='font-size:10.0pt'>CallNamedPipe()</span></tt>
+encapsulates all of the code most clients ever need. <tt><span
+style='font-size:10.0pt'>CallNamedPipe()</span></tt> is available in the <tt><span
+style='font-size:10.0pt'>win32pipe</span></tt> module.</p>
+
+<p>The client sends all the command-line parameters to the server, then prints
+the server’s response:</p>
+
+<pre># PipeServiceClient.py</pre><pre>#</pre><pre># A client for testing the PipeService.</pre><pre>#</pre><pre># Usage:</pre><pre>#</pre><pre>#   PipeServiceClient.py message</pre><pre>&nbsp;</pre><pre>import win32pipe</pre><pre>import sys</pre><pre>import string</pre><pre>&nbsp;</pre><pre>if __name__=='__main__':</pre><pre>    message = string.join(sys.argv[1:])</pre><pre>    pipeName = &quot;\\\\.\\pipe\\PyPipeService&quot;</pre><pre>    data = win32pipe.CallNamedPipe(pipeName, message, 512, 0)</pre><pre>    print &quot;The service sent back:&quot;</pre><pre>    print data</pre>
+
+<p>Now let’s test the service. The first step is to register the service:</p>
+
+<pre>C:\Scripts&gt; PipeService1 install</pre><pre>Installing service PythonPipeService to Python class </pre><pre>   C:\Scripts\PipeService1.PipeService</pre><pre>Service installed</pre><pre>C:\Scripts&gt;</pre>
+
+<p>Now start the service:</p>
+
+<pre>C:\Scripts&gt; PipeService1.py start</pre><pre>Starting service PythonPipeService</pre><pre>C:\Scripts&gt;</pre>
+
+<p>And use the client to send the service some data:</p>
+
+<pre>C:\Scripts&gt; PipeServiceClient.py Hi there, how are you</pre><pre>The service sent back:</pre><pre>You sent me:Hi there, how are you</pre><pre>C:&gt;Scripts&gt;</pre>
+
+<p>Our service seems to be working as expected!</p>
+
+<p>You’re now finished; you can stop the service:</p>
+
+<pre>C:\Scripts&gt; PipeService1.py stop</pre><pre>Stopping service PythonPipeService</pre><pre>C:&gt;Scripts&gt;</pre>
+
+<p>And remove it from the Service database:</p>
+
+<pre>C:\Scripts&gt; PipeService1.py remove</pre><pre>Removing service PythonPipeService</pre><pre>Service removed</pre><pre>C:\Scripts&gt;</pre>
+
+<h3><a name="_18.7_Writing_to_the_Event_Log"></a>18.7 Writing to the Event Log</h3>
+
+<p>Almost all services use the Windows NT Event Log. It’s quite common for
+services to load startup and shutdown events, and error conditions should
+always go to the Event Log.</p>
+
+<p>We look first at the facilities provided by the <tt><span style='font-size:
+10.0pt'>servicemanager</span></tt> module for working with the Event Log. Then
+we will have another look at a couple of modules described previously in this
+chapter, <tt><span style='font-size:10.0pt'>win32evtlog</span></tt> and <tt><span
+style='font-size:10.0pt'>win32evtlogutil</span></tt> . We discussed how to use
+these modules to read the Event Log, so now let’s look at how they can write to
+the Log.</p>
+
+<h4>18.7.1 The servicemanager Module</h4>
+
+<p>As mentioned previously in this chapter, <i>PythonService.exe</i> hosts all
+Python programs running as services. Once this host .<i>exe</i> is running, it
+makes a module <tt><span style='font-size:10.0pt'>servicemanager</span></tt>
+available to the Python program. Because your Python scripts are used both by <i>Python.exe</i>
+(when installing, starting, or debugging the service) and by <i>PythonService.exe</i>
+(when running as a service), you can’t import this module from the top level of
+your Python program; the <tt><span style='font-size:10.0pt'>import</span></tt> <tt><span
+style='font-size:10.0pt'>servicemanager</span></tt> statement will fail for <i>Python.exe</i>.
+In practice, this means you should only import this module locally to a function.</p>
+
+<p>The primary purpose of <tt><span style='font-size:10.0pt'>servicemanager</span></tt>
+is to provide facilities for interacting with the SCM at runtime. Most of this
+interaction is done by the base class <tt><span style='font-size:10.0pt'>win32serviceutil.ServiceFramework()</span></tt>,
+so in general this is covered for you.</p>
+
+<p>There are, however, some useful utility functions you may wish to use. Among
+these is a set of functions for writing to the Event Log. The most general
+purpose is the function <tt><span style='font-size:10.0pt'>LogMsg()</span></tt>
+, which takes the following parameters:</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>ErrorType</span></span><span
+style='font-family:Arial;color:#990000'> </span></p>
+
+<p style='margin-left:.5in'>One of <tt><span style='font-size:10.0pt'>EVENTLOG_INFORMATION_TYPE</span></tt>,
+<tt><span style='font-size:10.0pt'>EVENTLOG_ERROR_TYPE</span></tt>, or <tt><span
+style='font-size:10.0pt'>EVENT-LOG_WARNING_TYPE</span></tt>. These constants
+can be found in <tt><span style='font-size:10.0pt'>servicemanager</span></tt>.</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>ErrorID</span></span><span
+style='font-family:Arial;color:#990000'> </span></p>
+
+<p style='margin-left:.5in'>The message ID. This uniquely identifies the
+message text.</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>Inserts =
+None</span></span><span style='font-family:Arial;color:#990000'> </span></p>
+
+<p style='margin-left:.5in'>A list of string inserts for the message or <tt><span
+style='font-size:10.0pt'>None</span></tt>. The inserts are merged with the
+message text to provide the final result for the user.</p>
+
+<p>There are three other Event Log-related functions in this module. <tt><span
+style='font-size:10.0pt'>LogInfoMsg()</span></tt> , <tt><span style='font-size:
+10.0pt'>LogErrorMsg()</span></tt> , and <tt><span style='font-size:10.0pt'>LogWarningMessage()</span></tt>
+. All take a single string parameter and write a generic message to the Event
+Log. These functions also provide an additional debugging facility. When
+debugging the service, these Event Log helpers write their output to the
+console window. This allows you to see the messages your application would log
+without needing to use the Event Log Viewer. When the service is running
+normally, these messages go to the log. We’ll see this in action for our
+example.</p>
+
+<p>The Event Log facilities of <tt><span style='font-size:10.0pt'>servicemanager</span></tt>
+use the name of the executable as the application name. This means that by
+default, the application name will be PythonService. The only way this can be
+changed is to take a copy of <i>PythonService.exe</i> and rename it to
+something of your liking (it’s only around 20 KB!). Alternatively, you may wish
+to use the Event Log natively, as described later in this chapter.</p>
+
+<p>Our host .<i>exe</i> also contains a number of messages related to starting
+and stopping the services. The <tt><span style='font-size:10.0pt'>servicemanager</span></tt>
+exposes the message ID of these through constants that include <tt><span
+style='font-size:10.0pt'>PYS_SERVICE_STARTING</span></tt>, <tt><span
+style='font-size:10.0pt'>PYS_SERVICE_STARTED</span></tt>, <tt><span
+style='font-size:10.0pt'>PYS_SERVICE_STOPPING</span></tt>, and <tt><span
+style='font-size:10.0pt'>PYS_SERVICE_STOPPED</span></tt>. These messages all
+have two inserts: the name of the service and an arbitrary message to be
+appended.</p>
+
+<h4>18.7.2 Modifying the Service to Add Messages</h4>
+
+<p>Finally we are ready to change our service to use the Event Log. We will change
+the service to write messages as it starts and stops, and also after each user
+has connected.</p>
+
+<p>We add the code for the service starting message at the start of the
+service’s <tt><span style='font-size:10.0pt'>SvcDoRun()</span></tt> method. A
+good place to add the service stopping message is just as this function
+returns.</p>
+
+<p>The top of this function now looks like:</p>
+
+<pre>def SvcDoRun(self):</pre><pre>        # Log a &quot;started&quot; message to the event log.</pre><pre>        import servicemanager</pre><pre>        servicemanager.LogMsg(</pre><pre>                servicemanager.EVENTLOG_INFORMATION_TYPE, </pre><pre>                servicemanager.PYS_SERVICE_STARTED,</pre><pre>                (self._svc_name_, ''))</pre>
+
+<p>And the last lines are:</p>
+
+<pre># Now log a &quot;service stopped&quot; message</pre><pre>        servicemanager.LogMsg(</pre><pre>                servicemanager.EVENTLOG_INFORMATION_TYPE, </pre><pre>                servicemanager.PYS_SERVICE_STOPPED,</pre><pre>                (self._svc_name_, ''))</pre>
+
+<p>Note that you import the <tt><span style='font-size:10.0pt'>servicemanager</span></tt>
+object at the start of the function. This is because, as described previously,
+it’s provided by the host .<i>exe</i> so it can’t be imported at the top level
+of the program. To write a message as the user disconnects, insert this code:</p>
+
+<pre># Log a message to the event log indicating what we did.</pre><pre>message = &quot;Processed %d bytes for client connection&quot; % len(data)</pre><pre>servicemanager.LogInfoMsg(message)</pre>
+
+<p>Let’s see our code in action. First, let’s run this service in debug mode.
+From a command prompt, type:</p>
+
+<pre>C:\Scripts&gt; PipeService2.py debug</pre><pre>Debugging service PythonPipeService</pre><pre>Info 0x40001002 - The PythonPipeService service has started.</pre>
+
+<p>Now make a client connection to the pipe. It’s necessary to open a new
+command prompt, as the service is being debugged in the other one. From this
+new command prompt, type:</p>
+
+<pre>C:\Scripts&gt; PipeServiceClient.py Hi there</pre><pre>The service sent back:</pre><pre>You sent me:Hi there</pre>
+
+<p>If you look at your service’s window, you see the status message:</p>
+
+<pre>Info 0x400000FF - Processed 8 bytes for client connection</pre>
+
+<p>Finally, stop the service by pressing Ctrl-Break, and the service responds:</p>
+
+<pre>Stopping debug service.</pre><pre>Info 0x40001004 - The PythonPipeService service has stopped.</pre>
+
+<p>As you can see, the service works as expected, and now you can run it as a
+real service. This forces the messages to the Event Log.</p>
+
+<p>Start the service using any of the techniques described previously, then
+make a new client connection. If you check the Event Log Viewer, you see the
+messages at the top of the application log. <a
+href="#_Figure_18.2._Event_Log_records_as_d">Figure 18.2</a> shows the Event
+Log Viewer with the list of all events; <a
+href="#_Figure_18.3._Details_for_the_client">Figure 18.3</a> shows the detail
+for the client connection message.</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_18.2._Event_Log_records_as_d"></a>Figure 18.2. Event Log records
+as displayed in the Windows NT Event Viewer</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=245
+src="images/image057.gif" alt="figs/ppw.1802.gif"></span></p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_18.3._Details_for_the_client"></a>Figure 18.3. Details for the
+client connection Event Log record</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=260
+src="images/image058.gif" alt="figs/ppw.1803.gif"></span></p>
+
+<h4>18.7.3 Custom Event Log Writing</h4>
+
+<p>There will be cases where you need better facilities than those provided by
+the <tt><span style='font-size:10.0pt'>servicemanager</span></tt> module. The
+primary reason is that you will require your own set of messages, tailored for
+your application. In this scenario, you need the message compiler from
+Microsoft Visual C++ to create your own custom message texts and IDs.</p>
+
+<h5 style='page-break-after:avoid'>18.7.3.1 Registering with the Event Log</h5>
+
+<p>The Event Log doesn’t store the full text of each message in the log;
+instead, when the text is needed, it uses the ID of the message to look it up
+from a DLL or EXE file nominated by the application. This means you need to
+tell the Event Log where your messages are located.</p>
+
+<p>Applications register with the Event Log by writing an entry to the Event
+Log’s registry. If you open the registry editor, you can view all applications
+providing Event Log data by looking under the key <i>KLM\SYSTEM\CurrentControlSet\Services\EventLog.</i></p>
+
+<p>Fortunately, the <tt><span style='font-size:10.0pt'>win32evtlogutil</span></tt>
+module has a utility function for registering your application. As the registry
+is persistent, it’s necessary to register your application only when it’s installed;
+however, some applications choose to do this each time they start.</p>
+
+<p>Any EXE or DLL can hold messages for the Event Log Viewer. The text for
+messages are typically created with a text editor, and the “message compiler”
+(supplied with Microsoft Visual C++) compiles them. When the application is
+linked, the compiled messages are inserted into the final executable. However,
+this doesn’t help you use the Event Log from Python, so a number of the
+standard Win32 extension files have built-in generic messages for this purpose.</p>
+
+<p>The files <i>PythonService.exe</i>, <i>win32evtlog.pyd</i>, and <i>win32service.pyd</i>
+each have a set of generic messages. Each file has nine messages for each of
+the classes Error, Informational, Warning, and Success.</p>
+
+<p>To register with the Event Viewer, use the function <tt><span
+style='font-size:10.0pt'>win32evtlogutil.Add-SourceToRegistry()</span></tt>.</p>
+
+<pre>win32evtlogutil.AddSourceToRegistry(<tt><i>ApplicationName</i></tt>, <tt><i>MessageDll</i></tt>, EventLogType= &quot;<tt><i>Application</i></tt>&quot;)</pre>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>ApplicationName</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The name of the application, as shown in the Event
+Log Viewer. This is an varbitrary name that need not match the name of the
+service.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>MessageDll</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The name of the DLL or EXE file that contains the
+messages.</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>EventLogType
+= </span></span><span style='font-family:Arial;color:#990000'>&nbsp; &quot;</span><tt><i><span
+style='font-size:10.0pt;color:#990000'>Application</span></i></tt><span
+style='font-family:Arial;color:#990000'>&quot;</span><span style='font-family:
+Arial'> </span></p>
+
+<p style='margin-left:.5in'>The Event Log this application writes to. Valid
+values are <tt><span style='font-size:10.0pt'>Application</span></tt> (the
+default), <tt><span style='font-size:10.0pt'>System</span></tt>, or <tt><span
+style='font-size:10.0pt'>Security</span></tt>.</p>
+
+<h5>18.7.3.2 Writing to the Log</h5>
+
+<p>Now that we are registered with the Event Log, it’s time to start logging
+some messages. As mentioned before, you call the <tt><span style='font-size:
+10.0pt'>win32evtlog</span></tt> and <tt><span style='font-size:10.0pt'>win32evtlogutil</span></tt>
+modules to help out.</p>
+
+<p>To manually insert a message in the Event Log, use the function <tt><span
+style='font-size:10.0pt'>win32evtlog-util.ReportEvent()</span></tt> .</p>
+
+<pre>win32evtlogutil.ReportEvent(<tt><i>ApplicationName</i></tt>, <tt><i>EventID</i></tt>, <tt><i>EventCategory</i></tt>, <tt><i>EventType</i></tt>, </pre><pre>Inserts=[], Data=None, SID=None)</pre>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>ApplicationName</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The name of the application, as registered using
+the <tt><span style='font-size:10.0pt'>AddSourceTo-Registry()</span></tt> function.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>EventID</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The numeric ID of the event.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>EventCategory</span></i></tt><span
+style='font-family:Arial;color:#990000'> </span><span class=monofont1><span
+style='color:#990000'>= 0</span></span><span style='font-family:Arial;
+color:#990000'> &nbsp; </span></p>
+
+<p style='margin-left:.5in'>The event category, as defined by the message file.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>EventType</span></i></tt><span
+style='font-family:Arial;color:#990000'> </span><span class=monofont1><span
+style='color:#990000'>= win32evtlog.EVENTLOG_ERROR_TYPE</span></span><span
+style='font-family:Arial;color:#990000'> &nbsp; </span></p>
+
+<p style='margin-left:.5in'>The numeric event type. This indicates the message
+is an error, a warning, informational, etc.</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>Inserts =
+[]</span></span><span style='font-family:Arial;color:#990000'> </span></p>
+
+<p style='margin-left:.5in'>A list of string inserts for the message. These
+inserts create the full text of the message and are inserted into the message
+text at the appropriate place holders.</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>Data =
+None</span></span><span style='font-family:Arial;color:#990000'> </span></p>
+
+<p style='margin-left:.5in'>The data for the message. This is raw binary data
+as a Python string and is displayed in hexadecimal by the Event Log Viewer.</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>SID = None</span></span><span
+style='font-family:Arial;color:#990000'> </span></p>
+
+<p style='margin-left:.5in'>A security identifier for the user this message
+relates to, if any.</p>
+
+<p>Let’s look at the long way we could add the startup and shutdown messages to
+our service. This should give you a reasonable idea of how you could implement
+your own custom messages in the Log.</p>
+
+<p>If you use the table in <a
+href="http://safari.oreilly.com/main.asp?bookname=pythonwin32&amp;cnode=188"><span
+style='color:black;text-decoration:none'><u><span style='color:#990000'>Appendix
+B</span></u></span></a>, you can see that <i>PythonService.exe</i> has messages
+specifically for this purpose: Informational Event IDs 1002 and 1004,
+respectively. The <tt><span style='font-size:10.0pt'>servicemanager</span></tt>
+module exposes these constants as <tt><span style='font-size:10.0pt'>PYS_SERVICE_STARTED</span></tt>
+and <tt><span style='font-size:10.0pt'>PYS_SERVICE_STOPPED</span></tt>. The
+table also indicates that this message requires two inserts: the first is the
+name of the service, and the second is arbitrary text you can append to the
+message. To log one of these messages, use the following code at the top of
+your <tt><span style='font-size:10.0pt'>SvcDoRun()</span></tt> method:</p>
+
+<pre>def SvcDoRun(self):</pre><pre>        # Log a &quot;started&quot; message to the event log.</pre><pre>        import servicemanager</pre><pre>        win32evtlogutil.ReportEvent( </pre><pre>                self._svc_name_, # Application name</pre><pre>                servicemanager.PYS_SERVICE_STARTED, # Event ID</pre><pre>                0, # Event category</pre><pre>                win32evtlog.EVENTLOG_INFORMATION_TYPE,</pre><pre>                (self._svc_name_, &quot;&quot;)) # The inserts</pre>
+
+<p>This assumes you have already called <tt><span style='font-size:10.0pt'>win32evtlogutil.Add-SourceToRegistry()</span></tt>,
+using the service name (as defined in <tt><span style='font-size:10.0pt'>_svc_name_</span></tt>)
+as the Event Log application name.</p>
+
+<h3><a name="_18.8_Providing_Performance_Monitor_"></a>18.8 Providing
+Performance Monitor Information</h3>
+
+<p>The next step in our service will be to generate performance information
+that can be used by the Windows NT Performance Monitor.</p>
+
+<p>The Performance Monitor itself is a fairly complex beast with many options.
+We will attempt to cover only the basics, enough to install a couple of
+counters into our sample service. If you require more advanced techniques, you
+should see the Win32 SDK documentation on the Performance Monitor.</p>
+
+<p>The Performance Monitor has been designed to have minimal impact on the
+applications providing data. Applications provide raw data (by way of
+counters), and the responsibility of formatting and translating that data falls
+to the application processing the data (e.g., the Performance Monitor
+application provided with Windows NT). When a counter is added to the
+Performance Monitor, it indicates the type of data it represents. For example,
+one counter may indicate a raw count, such as total connections made, or it may
+be a value that should be interpreted over time, such as bytes sent per second.
+In both cases, the application increments a counter, and the Performance
+Monitor itself determines how far the counter was incremented in the last
+second and calculates the actual value to be displayed.</p>
+
+<p>Counters are grouped together to form a Performance Monitor object. These
+objects exist purely to group related counters together. When you use the NT
+Performance Monitor Application, you must first select the object you wish to
+obtain data on, then the counters for that object. Windows NT comes with a
+number of objects and counters that obtain the performance of the operating
+system itself. For example, there is a standard processor object, and this
+object has counters such as percent of processor time, percent of interrupt
+time, and so forth.</p>
+
+<p>The Performance Monitor expects to obtain the counter and object information
+from a special DLL. This DLL has public entry-points specific to Performance
+Monitor, and this DLL is loaded whenever the Performance Monitor needs
+information on the specific object. In general, this DLL is not an integral
+part of the application itself, but is instead a custom DLL written expressly
+for the Performance Monitor. Memory mapped files are typically used to share
+the counter data between the application itself and the Performance Monitor
+DLL.</p>
+
+<p>When the application is installed, it must provide the Performance Monitor
+with definitions of the objects and counters it provides. These definitions
+include a name for the counter, and a description for the counter. The
+application must also provide the name of the DLL that provides the data.</p>
+
+<h4>18.8.1 Performance Monitor Data from Python</h4>
+
+<p>The Python Win32 Extensions include support for providing Performance
+Monitor information. This support consists of the <tt><span style='font-size:
+10.0pt'>perfmon</span></tt> module that your application uses to define the
+counters and provide the counter data. A DLL named <i>perfmondata.dll</i> is
+supplied as the Performance Monitor DLL; this is the DLL that the Performance
+Monitor loads to acquire your performance data.</p>
+
+<h5>18.8.1.1 Installing Performance Monitor information</h5>
+
+<p>As mentioned previously, it’s necessary to register with the Performance
+Monitor when your application is installed. To install Performance Monitor
+information, you must provide the following information:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The name of a C header (<i>.h</i>) file providing information
+about the counters</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The name of a Windows INI file providing the definitions of the
+counters</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The name of the DLL providing Performance Monitor information</p>
+
+<p>This information is necessary only at installation time: the <i>.h</i> and <i>.ini</i>
+files aren’t required at runtime. The Performance Monitor APIs are very much C
+and C++ focussed, hence the requirement for the <i>.h</i> file. Often, this <i>.h</i>
+file would be included in the C/C++ project, but as we are using Python, we
+need to author a <i>.h</i> file that’s used only for the installation process.</p>
+
+<p>The header file contains <tt><span style='font-size:10.0pt'>#define</span></tt>
+statements for each counter. Each <tt><span style='font-size:10.0pt'>#define</span></tt>
+lists the offset of the specific counter in two-byte multiples. The offset zero
+defines the object itself.</p>
+
+<p>For our sample, we provide two counters, connections per second and the
+bytes received per second. Thus, the header file will have three entries: the
+object at offset 0, the first counter at offset 2, and the last counter at
+offset 4.</p>
+
+<p>For the sample application, use the <i>.h</i> file in the following code:</p>
+
+<pre>// PipeService2_install.h</pre><pre>// File used at installation time to install</pre><pre>// Performance Monitor Counters for our sample service.</pre><pre>//</pre><pre>// All these list the counters in order.</pre><pre>// Important that you add these in this order in</pre><pre>// the Python code.</pre><pre>&nbsp;</pre><pre>#define SERVICE 0</pre><pre>#define CONNECTIONS 2 // Number of connections</pre><pre>#define BYTES 4 // Number of bytes received.</pre>
+
+<p>You also need a Windows INI file that defines the counters themselves. This
+INI file has three required sections: the <tt><span style='font-size:10.0pt'>[info]</span></tt>
+section defines the name of the application, the <tt><span style='font-size:
+10.0pt'>[languages]</span></tt> section defines the list of languages in which
+you are providing descriptions, and the <tt><span style='font-size:10.0pt'>[text]</span></tt>
+section that describes the counters themselves. The INI file for the sample
+service looks like the following code:</p>
+
+<pre>; PipeService2_install.ini</pre><pre>; File used at installation time to install</pre><pre>; Performance Monitor Counters for our sample service.</pre><pre>;</pre><pre>[info]</pre><pre>; drivername MUST be the same as the service name</pre><pre>drivername=PythonPipeService</pre><pre>symbolfile=PipeService2_install.h</pre><pre>&nbsp;</pre><pre>[languages]</pre><pre>009=English</pre><pre>&nbsp;</pre><pre>[text]</pre><pre>SERVICE_009_NAME=Python Demo Service</pre><pre>SERVICE_009_HELP=Shows performance statistics for the sample Python service</pre><pre>CONNECTIONS_009_NAME=Number of connections per second.</pre><pre>CONNECTIONS_009_HELP=Indicates the load on the service.</pre><pre>BYTES_009_NAME=Bytes read/sec</pre><pre>BYTES_009_HELP=Number of bytes read per second by the service.</pre>
+
+<p>Note that the text section provides the names and descriptions for both the
+object itself (Python Demo Service) and the counters. Also note that the <tt><span
+style='font-size:10.0pt'>drivername</span></tt> entry must be the same as the
+service.</p>
+
+<p>The final piece of the puzzle is the name of the DLL used to provide the
+Performance Monitor data. As described previously, a generic DLL is provided
+with the Win32 Extensions for this purpose. This file can be found at <i>Python\Win32\perfmondata.dll</i>.</p>
+
+<p>Now we have all the pieces, but how do we install the data? It shouldn’t be
+a surprise to hear that Python makes this much easier for us. As Performance
+Monitor information is a common requirement for services, the Python service
+installation procedure supports additional parameters for this purpose.</p>
+
+<p>When installing a Python service, the command-line options are <tt><span
+style='font-size:10.0pt'>--perfmonini</span></tt> (names the INI file) and
+optionally, <tt><span style='font-size:10.0pt'>--perfmondll</span></tt> (names
+the DLL that provides the data).</p>
+
+<p>Let’s reinstall our service. Because the service uses the default DLL, you
+need to specify only the name of the <i>.ini</i> file. Use the command:</p>
+
+<pre>C:\Scripts&gt; python.exe PipeService2.py --perfmonini=PipeService2_install.ini install</pre><pre>Installing service PythonPipeService to Python class C:\Scripts\PipeService2.PipeService</pre><pre>Changing service configuration</pre><pre>Service updated</pre>
+
+<p>The last message is “service updated” rather than “service installed.” This
+is because the installation procedure realizes the service is already installed
+and simply updates the service configuration. When you remove the service
+later, the Performance Monitor information is automatically uninstalled.</p>
+
+<p>As mentioned previously, the <i>.h</i> and <i>.ini</i> files are needed only
+for this one-time installation process. If you wish, you can remove these files
+now.</p>
+
+<h5>18.8.1.2 Defining the counters</h5>
+
+<p>Now that you’ve successfully registered your service with the Performance
+Monitor, you need to define the counters. Then you can finally update the counters
+while the service is running.</p>
+
+<p>The process for defining the counters is:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Create each counter and set its attributes.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Create the Performance Monitor object and add the counters to it.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Create a Performance Monitor manager, passing the objects.</p>
+
+<p>To do this, add the following two methods to your service class:</p>
+
+<pre>def InitPerfMon(self):</pre><pre>        # Magic numbers (2 and 4) must match header and ini file used</pre><pre>        # at install - could lookup ini, but then Id need it a runtime</pre><pre>        </pre><pre>        # A counter for number of connections per second.</pre><pre>        self.counterConnections=perfmon.CounterDefinition(2) </pre><pre>        # We arent expecting many, so we set the scale high (ie, x10)</pre><pre>        # Note the scale is 10^DefaultScale = ie, to get 10, we use 1!</pre><pre>        self.counterConnections.DefaultScale = 1</pre><pre>&nbsp;</pre><pre>        # Now a counter for the number of bytes received per second.</pre><pre>        self.counterBytes=perfmon.CounterDefinition(4)</pre><pre>        self.counterBytes.DefaultScale = 0</pre><pre>&nbsp;</pre><pre>        # Now register our counters with the performance monitor</pre><pre>        perfObjectType = perfmon.ObjectType( </pre><pre>                          (self.counterConnections, self.counterBytes) )</pre><pre>        </pre><pre>        self.perfManager = perfmon.PerfMonManager(</pre><pre>                        self._svc_name_,</pre><pre>                        (perfObjectType,),</pre><pre>                        &quot;perfmondata&quot;)</pre><pre>                        </pre><pre>    def TermPerfMon(self):</pre><pre>        self.perfManager.Close()</pre><pre>        self.perfManager = None</pre>
+
+<p>Note the magic numbers passed to the <tt><span style='font-size:10.0pt'>perfmon.CounterDefinition()</span></tt>
+calls. These must be the offsets as defined in the <i>.h</i> file used at
+installation. The <tt><span style='font-size:10.0pt'>perfmon.PerfMonManager()</span></tt>
+call also warrants some extra comments. The first parameter is the <tt><span
+style='font-size:10.0pt'>drivername</span></tt> as specified in the <i>.ini</i>
+file. As mentioned previously, this must be the name of the service. The last
+parameter is the name of the memory-mapped file that communicates the data
+between the service and the Performance Monitor DLL. This must be the base name
+of the DLL providing Performance Monitor information. The standard DLL is named
+<i>perfmondata.dll</i>, so you pass <tt><span style='font-size:10.0pt'>perfmondata</span></tt>.
+If you chose to rename the DLL for your own application, you must reflect the
+new name here and also in the installation process.</p>
+
+<p>The <tt><span style='font-size:10.0pt'>DefaultScale</span></tt> property of
+the counter is not intuitive. This property specifies the power of 10 by which
+to scale a chart line (i.e., the base 10 log of the scale). For example, for a
+default scale of 1, you use 0. For a default scale of 10, use 1; to get a scale
+of 100, use 2, etc.</p>
+
+<h5>18.8.1.3 Updating the counters</h5>
+
+<p>Now that you’ve defined the counters in your code, all that remains is to
+update the counters with your data. This is a simple process. The counter
+object has a method <tt><span style='font-size:10.0pt'>Increment()</span></tt>
+taking a single optional parameter (defaulting to 1).</p>
+
+<p>Change the <tt><span style='font-size:10.0pt'>SvcDoRun()</span></tt> method,
+so that just before you process the client connection, you execute the
+following code:</p>
+
+<pre># But first, increment our Performance Monitor data</pre><pre> self.counterConnections.Increment()</pre>
+
+<p>This increments the counter by 1, which is correct for your connections
+counter. Then, just after you write the response to the client, execute:</p>
+
+<pre># Update our performance monitor &quot;bytes read&quot; counter</pre><pre>self.counterBytes.Increment(len(data))</pre>
+
+<p>In this case, you increment the bytes counter by the length of the data
+received. And that’s it: your service is now providing Performance Monitor
+information.</p>
+
+<h5>18.8.1.4 Viewing Performance Monitor data</h5>
+
+<p>All that remains is to view the data the service provides. The service must
+be running before the data is available, so let’s start the new service:</p>
+
+<pre>C:\Scripts&gt; python PipeService2.py debug</pre><pre>Debugging service PythonPipeService</pre><pre>Info 0x40001002 - The PythonPipeService service has started.</pre>
+
+<p>Now you can start the Windows NT Performance Monitor, which can be found
+under the Administrative Tools folder on the Start menu. You are presented with
+an empty Performance Monitor that looks something like <a
+href="#_Figure_18.4._The_Windows_NT_Perform">Figure 18.4</a>.</p>
+
+<h5 align=center style='text-align:center;page-break-after:avoid'><a
+name="_Figure_18.4._The_Windows_NT_Perform"></a>Figure 18.4. The Windows NT
+Performance Monitor after starting</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=325
+src="images/image059.gif" alt="figs/ppw.1804.gif"></span></p>
+
+<p>Now select Edit <img border=0 width=20 height=16
+src="images/image008.gif" alt="figs/U2192.gif">Add to
+Chart. In the dialog displayed, select the Object drop-down and scroll to
+Python Demo Service, as shown in <a href="22.htm#_Figure_18.5._">Figure 18.5</a>.
+Select and add the two counters, and you can now start your service client and
+repeatedly send some data. If all goes well, your Performance Monitor display
+should look something like <a href="22.htm#_Figure_18.6._Collecting_performance">Figure
+18.6</a>.</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_18.5._"></a>Figure 18.5.
+&quot;Add to Chart&quot; dialog showing our counters</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=224
+src="images/image060.gif" alt="figs/ppw.1805.gif"></span></p>
+
+<h5 align=center style='text-align:center;page-break-after:avoid'><a
+name="_Figure_18.6._Collecting_performance"></a>Figure 18.6. Collecting
+performance data for the sample service</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=325
+src="images/image061.gif" alt="figs/ppw.1806.gif"></span></p>
+
+<h3><a name="_18.9_A_Final_Service"></a>18.9 A Final Service</h3>
+
+<p>We have made a number of changes to the sample service since first
+presented. Here’s the full source code:</p>
+
+<pre># PipeService2.py</pre><pre>#</pre><pre># A sample demonstrating a service which uses a </pre><pre># named-pipe to accept client connections,</pre><pre># and writes data to the event log.</pre><pre>&nbsp;</pre><pre>import win32serviceutil</pre><pre>import win32service</pre><pre>import win32event</pre><pre>import win32pipe</pre><pre>import win32file</pre><pre>import pywintypes</pre><pre>import winerror</pre><pre>import perfmon</pre><pre>import os</pre><pre>&nbsp;</pre><pre>class PipeService(win32serviceutil.ServiceFramework):</pre><pre>    _svc_name_ = &quot;PythonPipeService&quot;</pre><pre>    _svc_display_name_ = &quot;A sample Python service using named pipes&quot;</pre><pre>    def __init__(self, args):</pre><pre>        win32serviceutil.ServiceFramework.__init__(self, args)</pre><pre>        # Create an event which we will use to wait on.</pre><pre>        # The &quot;service stop&quot; request will set this event.</pre><pre>        self.hWaitStop = win32event.CreateEvent(None, 0, 0, None)</pre><pre>        # We need to use overlapped IO for this, so we dont block when</pre><pre>        # waiting for a client to connect.  This is the only effective way</pre><pre>        # to handle either a client connection, or a service stop request.</pre><pre>        self.overlapped = pywintypes.OVERLAPPED()</pre><pre>        # And create an event to be used in the OVERLAPPED object.</pre><pre>        self.overlapped.hEvent = win32event.CreateEvent(None,0,0,None)</pre><pre>        # Finally initialize our Performance Monitor counters</pre><pre>        self.InitPerfMon()</pre><pre>&nbsp;</pre><pre>    def InitPerfMon(self):</pre><pre>        # Magic numbers (2 and 4) must match header and ini file used</pre><pre>        # at install - could lookup ini, but then Id need it a runtime</pre><pre>        </pre><pre>        # A counter for number of connections per second.</pre><pre>        self.counterConnections=perfmon.CounterDefinition(2) </pre><pre>        # We arent expecting many, so we set the scale high (ie, x10)</pre><pre>        # Note the scale is 10^DefaultScale = ie, to get 10, we use 1!</pre><pre>        self.counterConnections.DefaultScale = 1</pre><pre>&nbsp;</pre><pre>        # Now a counter for the number of bytes received per second.</pre><pre>        self.counterBytes=perfmon.CounterDefinition(4)</pre><pre>        # A scale of 1 is fine for this counter.</pre><pre>        self.counterBytes.DefaultScale = 0</pre><pre>&nbsp;</pre><pre>        # Now register our counters with the performance monitor</pre><pre>        perfObjectType = perfmon.ObjectType( (self.counterConnections, </pre><pre>                                              self.counterBytes) )</pre><pre>        </pre><pre>        self.perfManager = perfmon.PerfMonManager(</pre><pre>                        self._svc_name_,</pre><pre>                        (perfObjectType,),</pre><pre>                        &quot;perfmondata&quot;)</pre><pre>                        </pre><pre>    def TermPerfMon(self):</pre><pre>        self.perfManager.Close()</pre><pre>        self.perfManager = None</pre><pre>    </pre><pre>    def SvcStop(self):</pre><pre>        # Before we do anything, tell the SCM we are starting the stop process.</pre><pre>        self.ReportServiceStatus(win32service.SERVICE_STOP_PENDING)</pre><pre>        # And set my event.</pre><pre>        win32event.SetEvent(self.hWaitStop)</pre><pre>&nbsp;</pre><pre>    def SvcDoRun(self):</pre><pre>        # Log a &quot;started&quot; message to the event log.</pre><pre>        import servicemanager</pre><pre>        servicemanager.LogMsg(</pre><pre>                servicemanager.EVENTLOG_INFORMATION_TYPE, </pre><pre>                servicemanager.PYS_SERVICE_STARTED,</pre><pre>                (self._svc_name_, ''))</pre><pre>                </pre><pre>        # We create our named pipe.</pre><pre>        pipeName = &quot;\\\\.\\pipe\\PyPipeService&quot;</pre><pre>        openMode = win32pipe.PIPE_ACCESS_DUPLEX | win32file.FILE_FLAG_OVERLAPPED</pre><pre>        pipeMode = win32pipe.PIPE_TYPE_MESSAGE</pre><pre>        </pre><pre>        # When running as a service, we must use special security for the pipe</pre><pre>        sa = pywintypes.SECURITY_ATTRIBUTES()</pre><pre>        # Say we do have a DACL, and it is empty</pre><pre>        # (ie, allow full access!)</pre><pre>        sa.SetSecurityDescriptorDacl ( 1, None, 0 )</pre><pre>&nbsp;</pre><pre>        pipeHandle = win32pipe.CreateNamedPipe(pipeName,</pre><pre>            openMode,</pre><pre>            pipeMode,</pre><pre>            win32pipe.PIPE_UNLIMITED_INSTANCES,</pre><pre>            0, 0, 6000, # default buffers, and 6 second timeout.</pre><pre>            sa)</pre><pre>&nbsp;</pre><pre>        # Loop accepting and processing connections</pre><pre>        while 1:            </pre><pre>            try:</pre><pre>                hr = win32pipe.ConnectNamedPipe(pipeHandle, self.overlapped)</pre><pre>            except error, details:</pre><pre>                print &quot;Error connecting pipe!&quot;, details</pre><pre>                pipeHandle.Close()</pre><pre>                break</pre><pre>                   </pre><pre>            if hr==winerror.ERROR_PIPE_CONNECTED:</pre><pre>                # Client is fast, and already connected - signal event</pre><pre>                win32event.SetEvent(self.overlapped.hEvent)</pre><pre>            # Wait for either a connection, or a service stop request.</pre><pre>            timeout = win32event.INFINITE</pre><pre>            waitHandles = self.hWaitStop, self.overlapped.hEvent</pre><pre>            rc = win32event.WaitForMultipleObjects(waitHandles, 0, timeout)</pre><pre>            if rc==win32event.WAIT_OBJECT_0:</pre><pre>                # Stop event</pre><pre>                break</pre><pre>            else:</pre><pre>                # Pipe event - read the data, and write it back.</pre><pre>                # But first, increment our Performance Monitor data</pre><pre>                self.counterConnections.Increment()</pre><pre>                # (We only handle a max of 255 characters for this sample)</pre><pre>                try:</pre><pre>                    hr, data = win32file.ReadFile(pipeHandle, 256)</pre><pre>                    win32file.WriteFile(pipeHandle, &quot;You sent me:&quot; + data)</pre><pre>                    # And disconnect from the client.</pre><pre>                    win32pipe.DisconnectNamedPipe(pipeHandle)</pre><pre>                    # Update our performance monitor &quot;bytes read&quot; counter</pre><pre>                    self.counterBytes.Increment(len(data))</pre><pre>&nbsp;</pre><pre>                    # Log a message to the event log indicating what we did.</pre><pre>                    message = &quot;Processed %d bytes for client connection&quot; % \</pre><pre>                             len(data)</pre><pre>                    servicemanager.LogInfoMsg(message)</pre><pre>                except win32file.error:</pre><pre>                    # Client disconnected without sending data</pre><pre>                    # or before reading the response.</pre><pre>                    # Thats OK - just get the next connection</pre><pre>                    continue</pre><pre>&nbsp;</pre><pre>        # cleanup our PerfMon counters.</pre><pre>        self.TermPerfMon()</pre><pre>&nbsp;</pre><pre>        # Now log a &quot;service stopped&quot; message</pre><pre>        servicemanager.LogMsg(</pre><pre>                servicemanager.EVENTLOG_INFORMATION_TYPE, </pre><pre>                servicemanager.PYS_SERVICE_STOPPED,</pre><pre>                (self._svc_name_, ''))</pre><pre>                    </pre><pre>if __name__=='__main__':</pre><pre>    win32serviceutil.HandleCommandLine(PipeService)</pre><pre>&nbsp;</pre><pre>&nbsp;</pre>
+
+<h3><a name="_18.10_Conclusion"></a>18.10 Conclusion</h3>
+
+<p>In this chapter, we have covered some advanced capabilities of Python and
+Windows NT Services. We discussed the key concepts behind:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The Windows NT Service Control Manager</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The Windows NT Event Log</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The Windows NT Performance Monitor</p>
+
+<p class=MsoNormal>We have presented three services written completely in
+Python, ranging from the trivial, to a complete service implementation that
+writes key events to the Event Log, provides core performance statistics via
+the Performance Monitor, and uses named pipes to communicate with clients.</p>
+<div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=21.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=23.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div></body></html>

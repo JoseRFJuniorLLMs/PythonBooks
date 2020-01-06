@@ -1,0 +1,93 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Calling Functions with Variable Argument Objects</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="170.html" class="navtitle">11. Functions</a> &gt; <span class="nonavtitle">Calling Functions with Variable Argument Objects</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="183.html" title="Keyword Variable Arguments (Dictionary)"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=184" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="184.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="185.html" title="Functional Programming"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A32%3A59+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174052240196220139181116</font><a href="read0.asp?bookname=0130260363&snode=184&now=5%2F29%2F2002+9%3A32%3A59+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Calling Functions with Variable Argument Objects</h3>
+				<p>Python 1.6 introduces the ability to explicitly provide groups of variable arguments, both a non-keyword tuple and/or a keyword dictionary. In each of the above examples of variable arguments, the variable arguments provided for in the invocation include individual arguments (see all the examples in the preceding section). Prior to 1.6, this was the only way to call a function with a variable number of arguments.</p>
+
+				<P>Function calls have the added ability to take a tuple with contents that will go straight to the non-keyword variable argument tuple and a dictionary containing key-value pairs to add to the keyword variable argument dictionary. The tuple and dictionary may be joined in the function call by those variable arguments that were given the original way, listed individually. The general function invocation full syntax for variable arguments supported by Python starting with 1.6 is:</P>
+
+				<PRe>
+					
+<i>function_name(formal_args, *nonKWtuple, **KWdict)</i>
+
+				</pRE>
+
+				<P>In the previous section, we saw that the <Tt claSS="monofont">'*'</TT> and <tt class="monofont">'**'</tt> constructs are already accepted for function declarations, but now they are valid for function calls as well!</p>
+
+				<p>We will now use our friend <tt class="monofont">newfoo()</tt> defined in the previous section to test the new calling syntax. Our first call to <Tt cLass="monofont">newfoo()</Tt> will use the old-style method of listing all arguments individually, even the variable arguments which follow all the formal arguments:</p>
+
+				<prE>
+					
+&gt;&gt;&gt; newfoo(10, 20, 30, 40, foo=50, bar=60)
+arg1 is: 10
+arg2 is: 20
+additional non-keyword arg: 30
+additional non-keyword arg: 40
+additional keyword arg 'foo': 50
+additional keyword arg 'bar': 60
+
+				</pre>
+
+				<P>We will now make a similar call; however, instead of listing the variable arguments individually, we will put the non-keyword arguments in a tuple and the keyword arguments in a dictionary to make the call:</P>
+
+				<PRe>
+					
+&gt;&gt;&gt; newfoo(2, 4, *(6, 8), **{'foo': 10, 'bar': 12})
+arg1 is: 2
+arg2 is: 4
+additional non-keyword arg: 6
+additional non-keyword arg: 8
+additional keyword arg 'foo': 10
+additional keyword arg 'bar': 12
+
+				</pre>
+
+				<P>Finally, we will make another call but build our tuple and dictionary outside of the function invocation:</P>
+
+				<PRe>
+					
+&gt;&gt;&gt; aTuple = (6, 7, 8)
+&gt;&gt;&gt; aDict = {'z': 9}
+&gt;&gt;&gt; newfoo(1, 2, 3, x=4, y=5, *aTuple, **aDict)
+arg1 is: 1
+arg2 is: 2
+additional non-keyword arg: 3
+additional non-keyword arg: 6
+additional non-keyword arg: 7
+additional non-keyword arg: 8
+additional keyword arg 'z': 9
+additional keyword arg 'x': 4
+additional keyword arg 'y': 5
+
+				</pre>
+
+				<P>Notice how our tuple and dictionary arguments make only a subset of the final tuple and dictionary received within the function call. The additional non-keyword value <TT Class="monofont">'3'</TT> and keyword pairs for <TT class="monofont">'x'</tt> and <tt class="monofont">'y'</tt> were also included in the final argument lists even though they were not part of the <tt clAss="monofont">'*'</Tt> and <tt Class="monofont">'**'</Tt> variable argument parameters.</p>
+
+			</fONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="183.html" title="Keyword Variable Arguments (Dictionary)"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=184" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="184.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="185.html" title="Functional Programming"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

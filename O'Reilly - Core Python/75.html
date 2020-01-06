@@ -1,0 +1,149 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Memory Management</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="69.html" class="navtitle">3. Syntax and Style</a> &gt; <span class="nonavtitle">Memory Management</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="74.html" title="Basic Style Guidelines"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=75" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="75.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="76.html" title="First Python Application"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A11%3A51+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172037206194051189049122</font><a href="read4.asp?bookname=0130260363&snode=75&now=5%2F29%2F2002+9%3A11%3A51+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT><h3>Memory Management</h3>
+				<p>So far you have seen a large number of Python code samples and may have noticed a few interesting details about variables and memory management. Highlighting some of the more conspicuous ones, we have:</p>
+
+				<UL>
+<LI><p>Variables not declared ahead of time</p>
+</li>
+<LI><P>Variable types are not declared</P>
+</li>
+<li><P>No memory management on programmers' part</P>
+</LI>
+<li><p>Variable names can be "recycled"</p>
+</li>
+<li><p><b><tt class="monofont">del</tt></b> statement allows for explicit "deallocation"</P>
+</li>
+</Ul>
+				<h4>Variable Declarations (or Lack Thereof)</h4>
+					<P>In most compiled languages, variables must be declared before they are used. In fact, C is even more restrictive: Variables have to be declared at the beginning of a code block and before any statements are given. Other languages, like C++ and Java, allow "on-the-fly" declarations i.e., those which occur in the middle of a body of code—but these name and type declarations are still required before the variables can be used. In Python, there are no explicit variable declarations. Variables are "declared" on first assignment. Like most languages, however, variables cannot be accessed until they are (created and) assigned:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; a
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+NameError: a
+
+					</Pre>
+
+					<p>Once a variable has been assigned, you can access it by using its name:</P>
+
+					<PRE>
+						
+&gt;&gt;&gt; x = 4
+&gt;&gt;&gt; y = 'this is a string'
+&gt;&gt;&gt; x
+4
+&gt;&gt;&gt; y
+'this is a string'
+
+					</pre>
+
+				
+				<h4>Dynamic Typing</H4>
+					<P>Another observation, in addition to lack of variable declaration, is the lack of type specification. In Python, the type and memory space for an object are determined and allocated at run-time. Although code is byte-compiled, Python is still an interpreted language. On creation, that is, on assignment, the interpreter creates an object whose type is dictated by the syntax that is used for the operand on the right-hand side of an assignment. After the object is created, a reference to that object is assigned to the variable on the left-hand side of the assignment.</P>
+
+				
+				<H4>Memory Allocation</h4>
+					<p>As responsible programmers, we are aware that when allocating memory space for variables, we are borrowing system resources, and eventually, we will have to return that which we borrowed back to the system. Happily, not only do we not have to explicitly allocate the memory, we don't have to deallocate it either. That is memory management made easy. Well, okay, perhaps it had something to do with the decision that Python should simply be a tool for the application writer to and shouldn't have to worry about lower-level, operating system or machine-oriented tasks.</p>
+
+				
+				<h4>Garbage Collection</H4>
+					<P>Memory that is no longer being used is reclaimed by the system using a mechanism known as <I>garbage collection.</I> Python's garbage collector will automatically deallocate a data object once is it no longer needed, all without requiring any management on the programmer's part. How does Python decide when an object is "no longer needed?" By keeping track of the number of references to objects. This is called <i>reference counting.</i></p>
+
+				
+				<h4>Reference Counting</H4>
+					<P>To keep track of memory that has been allocated, Python does something quite similar to card-counting, a popular scheme used in casino gaming. When an object is created, a reference is made to that object. An internal tracking variable, a reference counter, keeps track of how many references are being made to each object. The reference count for an object is initially set to one (1) when an object is created and (its reference) assigned.</P>
+
+					<P>New references to objects, also called <i>aliases,</i> occur when additional variables are assigned to the same object, passed as arguments to invoke other bodies of code such as functions, methods, or class instantiation, or assigned as members of a sequence or mapping.</p>
+
+					<pre>
+						
+# initialize string object, set reference count to 1
+foo1 = 'foobar'
+
+# increment reference count by assigning another variable
+foo2 = foo1  # create an alias
+
+# increment ref count again temporarily by calling function
+check_val(foo1)
+
+					</pre>
+
+					<p>In the function call above, the reference count is set to one on creation, incremented when an alias is created, and incremented again when the object participated in a function call. The reference count is decremented when the function call has completed; and once again if <tt class="monofont">foo2</tt> is removed from the namespace. The reference count goes to zero and the object deallocated when <tT clAss="monofont">foo1</tT> goes out of scope. (See <a hreF="196.html">Section 11.8</a> for more information on variable scope.)</p>
+
+				
+				<a NAME="6"></a><h4><tt CLASs="monofont">del</tt> Statement</h4>
+					<P>The <B><TT clasS="monofont">del</TT></B> statement removes a single reference to an object, and its syntax is:</p>
+
+					<pre>
+						
+<b>del</b> obj1[, obj2[, … objN… ]]
+
+					</pre>
+
+					<p>For example, executing <b><tt class="monofont">del</tt></B>
+						<tt ClasS="monofont">foo2</tt> in the example above has two results:</p>
+
+					<p>(1) removes name <Tt clASS="monofont">foo2</Tt> from namespace</p>
+
+					<p>(2) lowers reference count to object <tT CLAss="monofont">'foobar'</tt> (by one)</P>
+
+					<P>Further still, executing <B><Tt claSS="monofont">del</TT></b>
+						<tt class="monofont">foo1</tt> will remove the final reference to the <tt class="monofont">'foobar'</tt> object, decrementing the reference counter to zero and causing the object to become "inaccessible" or "unreachable." It is at this point that the object becomes a candidate for garbage collection. Note that any tracing or debugging facility may keep additional references to an object, delaying or postponing that object from being garbage-collected.</p>
+
+				
+				<H4>Decrementing Reference Count</h4>
+					<p>You already noticed that when the <B><tt cLass="monofont">del</tT></b> statement was executed, an object was not really "deleted," rather just a reference to it. Likewise, you can "lose" the reference to an object by reassigning it to another object.</p>
+
+					<pRE>
+						
+foo1 = 'foobar'          # create original string
+foo1 = 'a new string'    # 'foobar' "lost" and reclaimed
+
+					</PRe>
+
+					<p>The preceding example shows how all references to an object can occur with reassigning a variable. The most common case utilizes neither reassignment nor calling the <b><tT CLAss="monofont">del</tt></B> statement.</P>
+
+					<P>Exiting from the current <I>scope</i> means that when a piece of code such as a function or method has completed, all the objects created within that scope are destroyed (unless passed back as a return object), such as our example above when <tt cLASS="monofont">foo1</tt> is given as an argument to the <tt class="monofont">check_val()</tt> function. The reference count for <tt class="monofont">foo1</tt> is incremented on the call and decremented when the function completed.</P>
+
+					<p>We present below a reference count decrementing summary. The reference count for an object is decremented when a variable referencing the object…</p>
+
+					<Ul>
+<li><P>Is named explicitly in a <b><tt cLass="monofont">del</TT></B> statement</P>
+</li>
+<li><P>Is (re)assigned to another object</P>
+</LI>
+<li><p>Goes out-of-scope</p>
+</LI>
+</UL>
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="74.html" title="Basic Style Guidelines"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=75" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="75.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="76.html" title="First Python Application"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

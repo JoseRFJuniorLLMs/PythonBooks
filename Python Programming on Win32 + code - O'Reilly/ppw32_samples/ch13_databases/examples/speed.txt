@@ -1,0 +1,18 @@
+This script tests insertion speed with various databases
+and techniques.  1000 rows inserted into empty indexed table with
+fields integer, datetime, string(100), currency.
+Databases:
+    Sybase Adaptive Server Anywhere, MS Access
+Techniques:
+    Slow:  literal statements each time
+    Faster:   prepared statements issued separately (but cached...)
+    Fastest:  execute(stmt, all_my_data_at_once) (loop in mxODBC)
+
+accessdemo/slow:  136.054421/second
+accessdemo/faster:  121.182744/second
+accessdemo/fastest:  152.928584/second
+asademo/slow:  292.056073/second
+asademo/faster:  455.996361/second
+asademo/fastest:  523.012536/second
+Jet raw SQL inserts:  108.660220/second
+Jet AddNew/Delete:  192.752507/second

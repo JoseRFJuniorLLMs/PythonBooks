@@ -1,0 +1,99 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Exercises</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="249.html" class="navtitle">16. Network Programming</a> &gt; <span class="nonavtitle">Exercises</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="254.html" title="Related Modules"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=255" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="255.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="257.html" title="17. Multithreaded Programming"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A29%3A32+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004228154178104029179172088</font><a href="read6.asp?bookname=0130260363&snode=255&now=5%2F30%2F2002+8%3A29%3A32+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Exercises</h3>
+				<p><tABLE bodeR="0" CELlspaCING="16" cellpadding="0">
+					<tr valign="top"><tD alIgn="right"><fOnt><b>1:</b></Font></TD><TD><font><P><I>Sockets.</I> What is the difference between connection-oriented versus connectionless?</P>
+</font></TD></TR>
+					<tr vaLIGN="top"><td align="right"><font><b>2:</b></font></td><tD><foNt><p><i>Sockets.</I> What is the difference between TCP and UDP?</p>
+</fonT></td></tR>
+					<TR ValigN="top"><TD Align="right"><FONT><b>3:</b></foNT></TD><td><font><p><i>Sockets.</i> Between TCP and UDP, which type of servers accept connections and hands them off to separate sockets for client communication?</p>
+</font></td></tr>
+					<tr ValIgn="top"><tD aligN="right"><fonT><B>4:</B></Font></tD><TD><Font><p><I>Clients.</I> Update the TCP (<TT clasS="monofont">tsTclnt.py</TT>) and UDP (<Tt class="monofont">tsUclnt.py</tt>) clients so that the server name is not hard-coded into the application. Allow the user to specify a hostname and port number, and only use the default values if either or both parameters are missing.</p>
+</font></td></tr>
+					<tr vAliGn="top"><td Align="right"><Font><B>5:</B></FOnt></td><TD><FOnt><p><i>Internetworking and Sockets.</I> Implement Guido's sample TCP client/server programs found in <A HRef="124#2.html">Section 7.2.2</a> of the Python Library Reference and get them to work. Set up the server, then the client. An online version of the source is also available here:</p>
+
+							<PRE>
+								
+<A target="_blank" href="http://www.python.org/doc/current/lib/socket_example.html">http://www.python.org/doc/current/lib/Socket_Example.html</a>
+
+							</pre>
+
+							<p>You decide the server is too boring. Update the server so that it can do much more, recognizing the following commands:</p>
+
+							<p><tabLe bOrdeR="1" cellSpacING="0" CellpADDIng="1" wiDTH="100%">
+<ColgrOUP Align="left" span="2">
+<tr valign="top">
+<td>
+<foNt sIze="2"><tT clasS="monofont">date</tt></fONT></Td>
+<td>
+<fONT Size="2">server will return its current date/timestamp, i.e., <tT CLAss="monofont">time.ctime(time.time())</tt></FONT></td>
+</tr>
+<tr valign="top">
+<td>
+<font siZe="2"><tT claSs="monofont">os</tt></fOnt></tD>
+<TD>
+<Font sIZE="2">get OS info (<Tt claSS="monofont">os.name</TT>)</font></TD>
+</TR>
+<tr valign="top">
+<td>
+<font size="2"><tt ClaSs="monofont">ls</tt></Font></tD>
+<td>
+<fONT Size="2">give a listing of the current directory (HINTS: <tT CLAss="monofont">os.listdir()</tt> lists a directory, <TT CLass="monofont">os.curdir</tT> is the current directory) EXTRA CREDIT: accept "<TT Class="monofont">ls dir</tt>" and return <tt class="monofont">dir's</tt> file listing</font></tD>
+</tr>
+</ColgRoup>
+</tAble></P>
+
+							<P>You do not need a network to do this assignment—your machine can talk to itself. Note: After the server exits, the binding must be cleared before you can run it again. You may experience "port already bound" errors. The operating system usually clears the binding within 5 minutes, so be patient!</P>
+</Font></tD></TR>
+					<Tr valIGN="top"><Td aliGN="right"><FOnt><b>6:</b></font></td><td><font><p><i>Daytime Service.</i> Use the <tT clAss="monofont">socket.getservbyname()</tT> to determine the port number for the "daytime" service under the UDP protocol. Check the documentation for <tt clAss="monofont">getservbyname()</tT> to get the exact usage syntax (i.e., <TT Class="monofont">socket.getservbyname.__doc__</TT>). Now write an application which sends a dummy message over and wait for the reply. Once you have received a reply from the server, display it to the screen.</P>
+</Font></tD></TR>
+					<Tr valIGN="top"><Td align="right"><font><b>7:</b></font></td><td><FonT><p><i>Half Duplex Chat.</i> Create a simple, half-duplex chat program. By "half-duplex," we mean that when a connection is made and the service starts, only one person can type. The other participant must wait to get a message before he or she is prompted to enter a message. Once a message is sent, then the sender must wait for a reply before being allowed to send another message. One participant will be on the server side, while the other will be on the client side.</P>
+</font></Td></tr>
+					<TR VAlign="top"><TD ALign="right"><fONT><B>8:</b></fonT></TD><Td><font><p><i>Full Duplex Chat.</i> Update your solution to the previous problem so that your chat service is now full-duplex, meaning that both parties can send and receive independently of each other.</p>
+</font></td></tr>
+					<tr vAliGn="top"><td Align="right"><Font><B>9:</B></FOnt></td><TD><FOnt><p><i>Multi-User Full Duplex Chat.</I> Further update your solution so that your chat service is multi-user.</P>
+</FOnt></td></TR>
+					<TR valign="top"><td align="right"><font><b>10:</b></fOnt></Td><td><Font><p><I>Multi-User Multi-Room Full Duplex Chat.</i> Now make your chat service multi-user and multi-room.</p>
+</fONT></Td></tr>
+					<tR VALign="top"><tD ALIgn="right"><foNT><B>11:</B></font></td><td><font><p><i>Web Client.</i> Write a TCP client which connects to port 80 of your favorite Web site (remove the "http://" and any trailing info; use only the hostname). Once a connection has been established, send the HTTP command string "<tt claSs="monofont">GET /\n</tT>" and write all the data that the server returns to a file. (The <tt cLass="monofont">GET</tT> command retrieves a Web page, the "<tt cLASS="monofont">/</tt>" file indicates the file to get, and the "<tt CLASs="monofont">\n</tt>" sends the command to the server.) Examine the contents of the retrieved file. What is it? How can you check to make sure the data you received is correct? (Note: You may have to give one or two NEWLINEs of the command string. One usually works.)</p>
+</FONT></td></tr>
+					<TR VAlign="top"><td align="right"><font><b>12:</b></fonT></td><Td><foNt><p><i>Sleep Server.</i> Create a "sleep" server. A client will request to be "put to sleep" for a number of seconds. The server will issue the command on behalf of the client, then return a message to the client indicating success. The client should have slept or have been idle for the exact time requested. This is a simple implementation of a "remote procedure call" where a client's request invokes commands on another machine across the network.</P>
+</fonT></TD></Tr>
+					<tr vALIGn="top"><td aLIGN="right"><font><B>13:</B></FOnt></td><td><font><p><i>Name Server.</i> Design and implement a name server. Such a server is responsible for maintaining a database of hostname-port number pairs; perhaps along with the string description of the service that the corresponding servers provide. Take one or more existing servers and have them "register" their service with your name server. (Note that these servers are, in this case, clients of the name server.)</p>
+
+							<p>Every client that starts up has no idea where the server is that it is looking for. Also as clients of the name server, these clients should send a request to the name server indicating what type of service they are seeking. The name server, in reply, returns a hostname-port number pair to this client, which then connects to the appropriate server to process its request.</p>
+
+							<p>EXTRA CREDIT: (1) add caching to your name server for popular requests, (2) add logging capability to your name server, keeping track of which servers have registered and which services clients are requesting; (3) your name server should periodically "ping" the registered hosts at their respective port numbers to ensure that the service is indeed up. Repeated failures will cause a server to be delisted from the list of services.</p>
+
+							<p>You may implement real services for the servers which register for your name service, or just use dummy servers (which merely acknowledge a request)</p>
+</FonT></td></tR>
+				</tablE></p>
+			</foNT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="254.html" title="Related Modules"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=255" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="255.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="257.html" title="17. Multithreaded Programming"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

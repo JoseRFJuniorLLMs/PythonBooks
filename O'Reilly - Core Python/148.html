@@ -1,0 +1,71 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Command-line Arguments</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="141.html" class="navtitle">9. Files and Input/Output</a> &gt; <span class="nonavtitle">Command-line Arguments</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="147.html" title="Standard Files"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=148" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="148.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="149.html" title="File System"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A26%3A32+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175207178020032022153183</font><a href="read1.asp?bookname=0130260363&snode=148&now=5%2F29%2F2002+9%3A26%3A32+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Command-line Arguments</h3>
+				<p>The <tT CLAss="monofont">sys</tt> module also provides access to any <I>command-line arguments</I> via the <TT clasS="monofont">sys.argv.</TT> Command-line arguments are those arguments given to the program in addition to the script name on invocation. Historically, of course, these arguments are so named because they are given on the command-line along with the program name in a text-based environment like a Unix- or DOS-shell. However, in an IDE or GUI environment, this would not be the case. Most IDEs provide a separate window with which to enter your "command-line arguments." These, in turn, will be passed into the program as if you started your application from the command-line.</P>
+
+				<p>Those of you familiar with C programming may ask, "Where is <tt class="monofont">argc?</tt>" The strings "argv" and "argv" stand for "argument count" and "argument vector," respectively. The <tt class="monofont">argv</tt> variable contains an array of strings consisting of each argument from the command-line while the <tT clAss="monofont">argc</tT> variable contains the number of arguments entered. In Python, the value for <tt clAss="monofont">argc</tT> is simply the number of items in the <TT Class="monofont">sys.argv</TT> list, and the first element of the list, <TT clasS="monofont">sys.argv[0],</TT> is always the program name. Summary:</P>
+
+				<ul>
+<li><P><TT Class="monofont">sys.argv</tt>
+							<i>is the list of command-line arguments</i></p>
+</li>
+<li><p><tt clasS="monofont">len(sys.argv)</tt>
+							<I>is the number of command-line arguments (a.k.a. <tt cLass="monofont">argc</tT>)</i></p>
+</lI>
+</UL>
+				<P>Let us create a small test program called <tt clASS="monofont">argv.py</Tt> with the following lines:</p>
+
+				<prE>
+					
+<B>import</B> sys <B>
+
+print</b> 'you entered', len(sys.argv), 'arguments…'
+<b>print</b> 'they were:', str(sys.argv)
+
+				</pRE>
+
+				<P>Here is an example invocation and output of this script:</P>
+
+				<pre>
+					
+% argv.py 76 tales 85 hawk
+you entered 5 arguments…
+they were: ['argv.py', '76', 'tales', '85', 'hawk']
+
+				</pre>
+
+				<p>Are command-line arguments useful? Unix commands are typically programs which take input, perform some function, and send output as a stream of data. This data is usually sent as input directly to the next program, which does some other type of function or calculation and sends the new output to another program, and so on. Rather than saving the output of each program and potentially taking up a good amount of disk space, the output is usually "piped" in to the next program as <i>its</i> input. This is accomplished by providing data on the command-line or through standard input. When a program displays or sends output to the standard output file, the result would be displayed on the screen—unless that program is also "piped" to another program, in which case that standard output file is really the standard input file of the next program. I assume you get the drift by now!</p>
+
+				<p>Command-line arguments allow a programmer or administrator to start a program perhaps with different behavioral characteristics. Much of the time, this execution takes place in the middle of the night and run as a batch job without human interaction. Command-line arguments and program options enable this type of functionality. As long as there are computers sitting idle at night and plenty of work to be done, there will always be a need to run programs in the background on our very expensive "calculators."</p>
+
+				<p>Python features a <tt class="monofont">getopt</Tt> module that helps you parse command-line options and arguments.</p>
+
+			</Font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="147.html" title="Standard Files"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=148" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="148.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="149.html" title="File System"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

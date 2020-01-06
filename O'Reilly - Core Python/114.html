@@ -1,0 +1,386 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Special Features of Lists</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="99.html" class="navtitle">6. Sequences: Strings, Lists, and Tuples</a> &gt; <span class="nonavtitle">Special Features of Lists</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="113.html" title="List Type Built-in Methods"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=114" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="114.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="115.html" title="Tuples"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A20%3A30+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175201138160122254082110</font><a href="read0.asp?bookname=0130260363&snode=114&now=5%2F29%2F2002+9%3A20%3A30+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Special Features of Lists</h3>
+				<a nAME="1"></A>
+					<h4>Creating Other DataStructures Using Lists</h4>
+					<p>Because of their container and mutable features, lists are fairly flexible and it is not very difficult to build other kinds of data structures using lists. Two that we can come up with rather quickly are stacks and queues.</p>
+
+					<P>The two code samples in this section use the <TT Class="monofont">pop()</TT> method which became reality in Python 1.5.2. If you are using an older system, this function is easily duplicated in Python. (See Exercise 6-17.)</P>
+
+					
+						<H5>Stack</h5>
+						<p>A stack is a last-in-first-out (LIFO) data structure which works similar to a cafeteria dining plate spring-loading mechanism. Consider the plates as objects. The first object off the stack is the last one you put in. Every new object gets "stacked" on top of the newest objects. To "push" an item on a stack is the terminology used to mean you are adding onto a stack. Likewise, to remove an element, you "pop" it off the stack. The following example shows a menu-driven program which implements a simple stack used to store strings:</p>
+
+						
+							<h5>
+<a name="3"></a>Example 6.2. Using Lists as a Stack (<tt class="monofont">stack.py</tt>)</h5>
+							<P><b><i>This simple script uses lists as a stack to store and retrieve strings entered through this menu-driven text application using only the</I></b>
+								<tt Class="monofont">append()</Tt>
+								<i>and</i>
+								<TT CLass="monofont">pop()</tT>
+								<I>list methods.</I></P>
+
+							<pre cLASS="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2  
+003 3  stack = []
+004 4  
+005 5  <b>def</b> pushit():
+006 6      stack.append(raw_input('Enter new string: '))
+007 7  
+008 8  <b>def</b> popit():
+009 9      <B>if</B> len(stack) == 0:
+010 10          <B>print</B> 'Cannot pop from an empty stack!'
+011 11     <b>else:</b> &lt;$nopage&gt;
+012 12          <b>print</b> 'Removed [', stack.pop(), ']'
+013 13 
+014 14 <b>def</b> viewstack():
+015 15     <b>print</b> str(stack)
+016 16 
+017 17 <b>def</b> showmenu():
+018 18     prompt = """
+019 19 p(U)sh
+020 20 p(O)p
+021 21 (V)iew
+022 22 (Q)uit
+023 23 
+024 24 Enter choice: """
+025 25 
+026 26     done = 0
+027 27     <b>while not</b> done:
+028 28 
+029 29          chosen = 0
+030 30          <b>while not</b> chosen:
+031 31             <b>try:</b> &lt;$nopage&gt;
+032 32                  choice = raw_input(prompt)[0]
+033 33             <b>except</b> (EOFError, KeyboardInterrupt):
+034 34                  choice = 'q'
+035 35             <b>print</b> 'nYou picked: [%s]' % choice
+036 36             <B>if</b> choice <b>not in</B> 'uovq':
+037 37                 <b>print</b> 'invalid option, try again'
+038 38              else:
+039 39                chosen = 1
+040 40 
+041 41        <b>if</B> choice == 'q': done = 1
+042 42        <b>if</b> choice == 'u': pushit()
+043 43        <b>if</b> choice == 'o': popit()
+044 44        <B>if</b> choice == 'v': viewstack()
+045 45 
+046 46     <b>if</b> __name__ == '__main__':
+047 47     showmenu()
+048  &lt;$nopage&gt;</PRE>
+						
+						
+							<H5>Lines 1–3</h5>
+							<p>In addition to the Unix startup line, we take this opportunity to clear the stack (a list).</p>
+
+						
+						
+							<h5>Lines 5–6</H5>
+							<P>The <TT clasS="monofont">pushit()</TT> function adds an element (a string prompted from the user) to the stack.</P>
+
+						
+						
+							<h5>Lines 8–12</h5>
+							<p>The <tT CLAss="monofont">popit()</tt> function removes an element from the stack (the more recent one). An error occurs when trying to remove an element from an empty stack. In this case, a warning is sent back to the user.</p>
+
+						
+						
+							<h5>Lines 14–15</h5>
+							<p>The <tt class="monofont">viewstack()</tt> function displays a printable string representation of the list.</p>
+
+						
+						
+							<h5>Lines 17–44</h5>
+							<P>The entire menu-driven application is controlled from the <tt ClasS="monofont">showmenu()</tt> function. Here, the user is prompted with the menu options. Once the user makes a valid choice, the proper function is called. We have not covered exceptions and <b><tT claSS="monofont">try-except</TT></b> statement in detail yet, but basically that section of the code allows a user to type ^D (EOF, which generates an <tt cLASS="monofont">EOFError</tt>) or ^C (interrupt to quit, which generates a <tt CLASs="monofont">KeyboardInterrupt</tt> error), both of which will be processed by our script in the same manner as if the user had typed the <tT CLAss="monofont">'q'</tt> to quit the application. This is one place where the exception-handling feature of Python comes in extremely handy.</p>
+
+						
+						
+							<h5>Lines 46–47</h5>
+							<p>This part of the code starts up the program if invoked directly. If this script was imported as a module, only the functions and variables would have been defined, but the menu would not show up. For more information regarding line 46 and the <tt class="monofont">__name__</tt> variable, see <a hrEf="74#5.html">Section 3.4.1</a>.</P>
+
+							<p>Here is a sample execution of our script:</p>
+
+							<pRe>
+								
+% stack.py
+
+p(U)sh
+p(O)p
+(V)iew
+(Q)uit
+
+Enter choice: u
+
+You picked: [u]
+Enter new string: Python
+
+p(U)sh
+p(O)p
+(V)iew
+(Q)uit
+
+Enter choice: u
+
+You picked: [u]
+Enter new string: is
+
+p(U)sh
+p(O)p
+(V)iew
+(Q)uit
+
+Enter choice: u
+
+You picked: [u]
+Enter new string: cool!
+
+p(U)sh
+p(O)p
+(V)iew
+(Q)uit
+
+Enter choice: v
+
+You picked: [v]
+['Python', 'is', 'cool!']
+
+p(U)sh
+p(O)p
+(V)iew
+(Q)uit
+
+Enter choice: o
+
+You picked: [o]
+Removed [ cool! ]
+
+p(U)sh
+p(O)p
+(V)iew
+(Q)uit
+
+Enter choice: o
+
+You picked: [o]
+Removed [ is ]
+
+p(U)sh
+p(O)p
+(V)iew
+(Q)uit
+
+Enter choice: o
+
+You picked: [o]
+Removed [ Python ]
+
+p(U)sh
+p(O)p
+(V)iew
+(Q)uit
+
+Enter choice: o
+
+You picked: [o]
+Cannot pop from an empty stack!
+
+p(U)sh
+p(O)p
+(V)iew
+(Q)uit
+
+Enter choice: ^D
+
+You picked: [q]
+
+							</pre>
+
+						
+					
+					
+						<H5>Queue</h5>
+						<p>A queue is a first-in-first-out (FIFO) data structure which works like a single-file supermarket or bank teller line. The first person in line is the first one served (and hopefully the first one to exit). New elements join by being "enqueued" at the end of the line, and elements are removed from the front by being "dequeued." The following code shows how, with a little modification from our stack script, we can implement a simple queue using lists.</p>
+
+						
+							<H5>
+<A NAme="11"></a>Example 6.3. Using Lists as a Queue (<tT CLAss="monofont">queue.py</tt>)</H5>
+							<P><B><I>This simple script uses lists as a queue to store and retrieve strings entered through this menu-driven text application, using only the</i></b>
+								<tt CLASs="monofont">append()</tt>
+								<i>and</i>
+								<tt class="monofont">pop()</tt>
+								<i>list methods.</i></p>
+
+							<pre ClaSs="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2  
+003 3  queue = []
+004 4  
+005 5  <b>def</b> enQ():
+006 6      queue.append(raw_input('Enter new string: '))
+007 7  
+008 8  <B>def</b> deQ():
+009 9      <b>if</b> len(queue) == 0:
+010 10        <b>print</B> 'Cannot dequeue from empty queue!'
+011 11     <b>else:</b> &lt;$nopage&gt;
+012 12        <b>print</B> 'Removed [', queue.pop(0), ']'
+013 13  
+014 14  <B>def</B> viewQ():
+015 15      <B>print</b> str(queue)
+016 16
+017 17  <b>def</b> showmenu():
+018 18      prompt = """
+019 19  (E)nqueue
+020 20  (D)equeue
+021 21  (V)iew
+022 22  (Q)uit
+023 23  
+024 24  Enter choice: """
+025 25  
+026 26     done = 0
+027 27     <b>while not</B> done:
+028 28  
+029 29          chosen = 0
+030 30         <B>while not</B> chosen:
+031 31               <B>try:</b> &lt;$nopage&gt;
+032 32                   choice = raw_input(prompt)[0]
+033 33              <b>except</b> (EOFError, KeyboardInterrupt):
+034 34                   choice = 'q'
+035 35               <b>print</B> '\nYou picked: [%s]' % choice
+036 36               <B>if</B> choice not in 'devq':
+037 37                 <B>print</b> 'invalid option, try again'
+038 38               <b>else:</b> &lt;$nopage&gt;
+039 39                   chosen = 1
+040 40  
+041 41         <b>if</B> choice == 'q': done = 1
+042 42         <B>if</B> choice == 'e': enQ()
+043 43         <B>if</b> choice == 'd': deQ()
+044 44         <b>if</b> choice == 'v': viewQ()
+045 45  
+046 46     <b>if</b> __name__ == '__main__':
+047 47         showmenu()
+048  &lt;$nopage&gt;</pre>
+						
+						<p>Because of the similarities of this script with the <tt class="monofont">stack.py</tt> script, we will describe only in detail the lines which have changed significantly:</p>
+
+						
+							<h5>Lines 5–6</H5>
+							<p>The <tT claSs="monofont">enQ()</tt> function works exactly like <tT claSS="monofont">pushit(),</TT> only the name has been changed.</p>
+
+						
+						
+							<h5>Lines 8–12</h5>
+							<p>The key difference between the two scripts lies here. The <TT CLass="monofont">deQ()</tT> function, rather than taking the most recent item as <TT Class="monofont">popitem()</TT> did, takes the oldest item on the list, the first element.</P>
+
+							<P>We present some output here as well:</p>
+
+							<pre>
+								
+% queue.py
+(E)nqueue
+(D)equeue
+(V)iew
+(Q)uit
+
+Enter choice: e
+
+You picked: [e]
+Enter new queue element: Bring out
+
+(E)nqueue
+(D)equeue
+(V)iew
+(Q)uit
+
+Enter choice: e
+
+You picked: [e]
+Enter new queue element: your dead!
+
+(E)nqueue
+(D)equeue
+(V)iew
+(Q)uit
+
+Enter choice: v
+
+You picked: [v]
+['Bring out', 'your dead!']
+
+(E)nqueue
+(D)equeue
+(V)iew
+(Q)uit
+
+Enter choice: d
+
+You picked: [d]
+Removed [ Bring out ]
+
+(E)nqueue
+(D)equeue
+(V)iew
+(Q)uit
+
+Enter choice: d
+
+You picked: [d]
+     Removed [ your dead! ]
+
+(E)nqueue
+(D)equeue
+(V)iew
+(Q)uit
+
+Enter choice: d
+
+You picked: [d]
+Cannot dequeue from empty queue!
+
+(E)nqueue
+(D)equeue
+(V)iew
+(Q)uit
+
+Enter choice: ^D
+You picked: [q]
+
+							</pre>
+
+						
+					
+				
+				<a name="14"></a>
+					<h4>Subclassing from "Lists"</h4>
+					<p>Earlier in this text, we described how types are not classes in Python, so you cannot derive subclasses from them (see the Core Note in  <a hreF="81.html">Section 4.2</a>). As a proxy, the Python standard library includes two modules containing class wrappers around two types, lists and dictionaries, from which you can subclass. These are the <tT claSs="monofont">UserList</tt> and <tT claSS="monofont">UserDict</TT> modules. Once you are familiar with classes, you can take these already-implemented classes to create your own subclasses from lists and dictionaries and add whatever functionality you wish. These modules are part of the Python standard library. See <a hreF="118.html">Section 6.18</A> for more information.</P>
+
+				
+			</Font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="113.html" title="List Type Built-in Methods"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=114" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="114.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="115.html" title="Tuples"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

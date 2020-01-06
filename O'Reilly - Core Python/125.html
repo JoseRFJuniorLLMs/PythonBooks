@@ -1,0 +1,153 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Built-in Functions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="121.html" class="navtitle">7. Dictionaries</a> &gt; <span class="nonavtitle">Built-in Functions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="124.html" title="Operators"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=125" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="125.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="126.html" title="Built-in Methods"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A22%3A27+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175203013154167154070116</font><a href="read4.asp?bookname=0130260363&snode=125&now=5%2F29%2F2002+9%3A22%3A27+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Built-in Functions</h3>
+				<p></p>
+
+				
+					<H4>Standard Type Functions <TT Class="monofont">[type(), str(),</TT> and <TT clasS="monofont">cmp()]</TT></H4>
+					<p>The <tt class="monofont">type()</tt> built-in function, when operated on a dictionary, reveals an object of the dictionary type. The <tt class="monofont">str()</tt> built-in function will produce a printable string representation of a dictionary. These are fairly straightfoward.</p>
+
+					<P>In each of the last three chapters, we showed how the <tt ClasS="monofont">cmp()</tt> built-in function worked with numbers, strings, lists, and tuples. So how about dictionaries? Comparisons of dictionaries are based on an algorithm which starts with sizes first, then keys, and finally values. In our example below, we create two dictionaries and compare them, then slowly modify the dictionaries to show how these changes affect their comparisons:</p>
+
+					<pRe>
+						
+&gt;&gt;&gt; dict1 = {}
+&gt;&gt;&gt; dict2 = { 'host': 'earth', 'port': 80 }
+&gt;&gt;&gt; cmp(dict1, dict2)
+-1
+&gt;&gt;&gt; dict1['host'] = 'earth'
+&gt;&gt;&gt; cmp(dict1, dict2)
+-1
+
+					</prE>
+
+					<P>In the first comparison, <TT clasS="monofont">dict1</TT> is deemed smaller because <Tt claSS="monofont">dict2</TT> has more elements (2 items vs. 0 items). After adding one element to <tt clASS="monofont">dict1,</Tt> it is still smaller (2 vs. 1), even if the item added is also in <tt class="monofont">dict2.</tt></p>
+
+					<pre>
+						
+&gt;&gt;&gt; dict1['port'] = 8080
+&gt;&gt;&gt; cmp(dict1, dict2)
+1
+&gt;&gt;&gt; dict1['port'] = 80
+&gt;&gt;&gt; cmp(dict1, dict2)
+0
+
+					</pre>
+
+					<p>After we add the second element to <tt ClaSs="monofont">dict1,</tt> both dictionaries have the same size, so their keys are then compared. At this juncture, both sets of keys match, so comparison proceeds to checking their values. The values for the <Tt claSs="monofont">'host'</tt> keys are the same, but when we get to the <TT CLass="monofont">'port'</tT> key, <TT Class="monofont">dict2</TT> is deemed larger because its value is greater than that of <TT clasS="monofont">dict1</TT>'s <Tt class="monofont">'port'</tt> key (8080 vs. 80). When resetting <tt class="monofont">dict2</tt>'s <tt cLasS="monofont">'port'</tt> key to the same value as <tT clasS="monofont">dict1</tt>'s <tT CLAss="monofont">'port'</tt> key, then both dictionaries form equals: They have the same size, their keys match, and so do their values, hence the reason that 0 is returned by <TT CLass="monofont">cmp().</tT></P>
+
+					<PRe>
+						
+&gt;&gt;&gt; dict1['prot'] = 'tcp'
+&gt;&gt;&gt; cmp(dict1, dict2)
+1
+&gt;&gt;&gt; dict2['prot'] = 'udp'
+&gt;&gt;&gt; cmp(dict1, dict2)
+-1
+
+					</pre>
+
+					<P>As soon as an element is added to one of the dictionaries, it immediately becomes the "larger one," as in this case with <TT Class="monofont">dict1.</tt> Adding another key-value pair to <tt class="monofont">dict2</tt> can tip the scales again, as both dictionaries' sizes match and comparison progresses to checking keys and values.</p>
+
+					<pre>
+						
+&gt;&gt;&gt; cdict = { 'fruits':1 }
+&gt;&gt;&gt; ddict = { 'fruits':1 }
+&gt;&gt;&gt; cmp(cdict, ddict)
+0
+&gt;&gt;&gt; cdict['oranges'] = 0
+&gt;&gt;&gt; ddict['apples'] = 0
+&gt;&gt;&gt; cmp(cdict, ddict)
+14
+
+					</pRe>
+
+					<p>Our final example reminds as that <Tt clAss="monofont">cmp()</tt> may return values other than -1, 0, or 1. The algorithm pursues comparisons in the zzfollowing order:</P>
+
+					
+						<h5>(1) Compares Dictionary Sizes</h5>
+						<p>If the dictionary lengths are different, then for <TT CLass="monofont">cmp</tT><TT Class="monofont">(</TT><I><Tt claSS="monofont">dict1,</TT></i>
+							<i><tt class="monofont">dict2</tt></i><tt class="monofont">),</tT>
+							<tt ClasS="monofont">cmp()</tt> will return a positive number if <i><tT claSS="monofont">dict1</TT></i> is longer and a negative number of <i><tt CLASs="monofont">dict2</tt></i> is longer. In other words, the dictionary with more keys is greater, i.e.,</P>
+
+						<PRE>
+							
+len(dict1) &gt; len(dict2) ? dict1 &gt; dict2
+
+						</pre>
+
+					
+					
+						<h5>(2) Compares Dictionary Keys</H5>
+						<P>If both dictionaries are the same size, then their keys are compared; the order in which the keys are checked is the same order as returned by the <TT class="monofont">keys()</tt> method. (It is important to note here that keys which are the same will map to the same locations in the hash table. This keeps key-checking consistent.) At the point where keys from both do not match, they are directly compared and <tt class="monofont">cmp()</tt> will return a positive number if the first differing key for <i><tt cLasS="monofont">dict1</tt></i> is greater than the first differing key of <I><tt clAss="monofont">dict2.</tT></I></P>
+
+					
+					
+						<H5>(3) Compares Dictionary Values</h5>
+						<p>If both dictionary lengths are the same and the keys match exactly, the values for each key in both dictionaries are compared. Once the first key with non-matching values is found, those values are compared directly. Then <tt CLASs="monofont">cmp()</tt> will return a positive number if, using the same key, the value in <i><TT CLass="monofont">dict1</tT></I> is greater than that of the value in <I><Tt class="monofont">dict2.</tt></i></p>
+
+					
+					
+						<h5>(4) Exact Match</h5>
+						<p>If we have reached this point, i.e., the dictionaries have the same length, the same keys, and the same values for each key, then the dictionaries are an exact match and 0 is returned.</p>
+
+						<p><a href="125#6.html">Figure7-1</A> illustrates the dictionary compare algorithm we just outlined above.</p>
+
+						<cEnteR>
+							<h5>
+<a naMe="6"></a>Figure 7-1. How Dictionaries are Compared</h5>
+							
+								
+									<IMG BordeR="0" WIDth="500" heIGHT="418" src="graphics/07fig01.gif" aLT="graphics/07fig01.gif">
+								
+							
+						</CEnter>
+
+					
+				
+				
+					<h4>Mapping Type Function [ <tt class="monofont">len()</tt> ]</h4>
+					<p>Similar to the sequence type built-in function, the mapping type <tt clAss="monofont">len()</Tt> built-in returns the total number of items, that is, key-value pairs, in a dictionary:</p>
+
+					<pRe>
+						
+&gt;&gt;&gt; dict2 = { 'name': 'earth', 'port': 80 }
+&gt;&gt;&gt; dict2
+{'port': 80, 'name': 'earth'}
+&gt;&gt;&gt; len(dict2)
+2
+
+					</pre>
+
+					<P>We mentioned earlier that dictionary items are unordered. We can see that above, when referencing <tt cLASS="monofont">dict2,</tt> the items are listed in reverse order from which they were entered into the dictionary.</p>
+
+				
+			</fONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="124.html" title="Operators"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=125" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="125.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="126.html" title="Built-in Methods"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

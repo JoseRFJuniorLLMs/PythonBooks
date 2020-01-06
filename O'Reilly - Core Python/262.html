@@ -1,0 +1,656 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; threading Module</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="256.html" class="navtitle">17. Multithreaded Programming</a> &gt; <span class="nonavtitle">threading Module</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="261.html" title="thread Module"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=262" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="262.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="263.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A31%3A10+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004229223066050004198044014</font><a href="read4.asp?bookname=0130260363&snode=262&now=5%2F30%2F2002+8%3A31%3A10+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3><tt cLASS="monofont">threading</tt> Module</h3>
+				<p>We will now introduce the higher-level <TT CLass="monofont">threading</tT> module which gives you not only a <TT Class="monofont">Thread</tt> class but also a wide variety of synchronization mechanisms to use to your heart's content. <a href="262#1.html">Table 17.2</a> represents a list of all the objects which are provided for in the <tt class="monofont">threading</tT> module.</p>
+
+				<a Name="1"></A><p><tabLe boRDER="1" cellSPACing="0" cELLPaddiNG="1" WIdth="100%">
+<caption><h5>Table 17.2. <tt class="monofont">threading</tt> Module Objects</H5></caPtioN><colgRoup ALIGn="left" spaN="2">
+<TR ValigN="top">
+<TH>
+<Font sIZE="2"><B><tt class="monofont">threading</tt></b>
+									<b><i> Module Objects</i></b></font></th>
+<Th>
+<fOnt sIze="2"><b><i>Description</I></b></foNT></TH>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">Thread</tt></font></td>
+<td>
+<font sizE="2">object which represents a single thread of execution</foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2"><Tt claSS="monofont">Lock</TT></font></TD>
+<TD>
+<font size="2">primitive lock object (same lock object as in the <tt class="monofont">thread</tt> module)</fonT></td>
+</Tr>
+<tr ValigN="top">
+<td>
+<fONT Size="2"><tT CLAss="monofont">RLock</tt></FONT></td>
+<td>
+<FONT size="2">re-entrant lock object provides ability for a single thread to (re)acquire an already-held lock (recursive locking)</font></td>
+</tr>
+<tr valign="top">
+<Td>
+<fOnt sIze="2"><tt ClasS="monofont">Condition</TT></Font></tD>
+<TD>
+<Font sIZE="2">condition variable object causes one thread to wait until a certain "condition" has been satisfied by another thread, such as changing of state or of some data value</Font></tD>
+</TR>
+<Tr valign="top">
+<td>
+<font size="2"><tt cLasS="monofont">Event</tt></fOnt></td>
+<Td>
+<foNT SIze="2">general version of condition variables whereby any number of threads are waiting for some event to occur and all will awaken when the event happens</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><tt class="monofont">Semaphore</tt></font></td>
+<tD>
+<foNt siZe="2">provides a "waiting area"-like structure for threads waiting on a lock</fonT></td>
+</tR>
+</COLgrouP>
+</TABle></p>
+
+				<p>In this section, we will examine how to use the <TT CLass="monofont">Thread</tT> class to implement threading. Since we have already covered the basics of locking, we will not cover the locking primitives here. The <TT Class="monofont">Thread()</tt> class also contains a form of synchronization, so explicit use of locking primitives is not necessary.</p>
+
+				
+					<h4><tt class="monofont">Thread</tt> Class</h4>
+					<p>There are a variety of ways you can create threads using the <tT clAss="monofont">Thread</tT> class. We cover three of them here, all quite similar. Pick the one you feel most comfortable with, not to mention the most appropriate for your application and future scalability (we like choice 3 the best):</p>
+
+					<ol tYpe="1">
+<lI>
+<P>Create <TT clasS="monofont">Thread</TT> instance, passing in function</P>
+</li>
+<li>
+<P>Create <TT Class="monofont">Thread</TT> instance, passing in callable class instance</P>
+</Li>
+<li>
+<p>Subclass <tt class="monofont">Thread</tt> and create subclass instance</p>
+</li>
+</ol>
+
+					
+						<h5>Create <tT clAss="monofont">Thread</tT> instance, passing in function</h5>
+						<p>In our first example, we will just instantiate <tt ClasS="monofont">Thread,</TT> passing in our function (and its arguments) in a manner similar to our previous examples. This function is what will be executed when we direct the thread to begin execution. Taking our <Tt claSS="monofont">mtsleep2.py</TT> script and tweaking it, adding the use of <tt clASS="monofont">Thread</Tt> objects, we have <tt cLASS="monofont">mtsleep3.py,</tt> shown in <a href="262#4.html">Example 17.4</a>.</p>
+
+						<p>When we run it, we see output similar to its predecessors':</p>
+
+						<pre>
+							
+% mtsleep3.py
+starting threads…
+start loop 0 at: Sun Aug 13 18:16:38 2000
+start loop 1 at: Sun Aug 13 18:16:38 2000
+loop 1 done at: Sun Aug 13 18:16:40 2000
+loop 0 done at: Sun Aug 13 18:16:42 2000
+all DONE at: Sun Aug 13 18:16:42 2000
+
+						</pre>
+
+						<p>So what <i>did</i> change? Gone are the locks which we had to implement when using the <Tt cLass="monofont">thread</Tt> module. Instead, we create a set of <tt cLass="monofont">Thread</TT> objects. When each <TT clasS="monofont">Thread</TT> is instantiated, we dutifully pass in the function (<Tt claSS="monofont">target</TT>) and arguments (<tt clASS="monofont">args</Tt>) and receive a <tt class="monofont">Thread</tt> instance in return. The biggest difference between instantiating <tt class="monofont">Thread</tt> [calling <tT clAss="monofont">Thread()</tT>] and invoking <tt clAss="monofont">thread.start_new_thread()</tT> is that the new thread does not begin execution right away. This is a useful synchronization feature, especially when you don't want the threads to start immediately.</P>
+
+						
+							<H5>
+<A name="4"></A>Example 17.4. Using the threading Module (<TT Class="monofont">mtsleep3.py</TT>)</H5>
+							<P><b><i>The</i></b>
+								<TT CLass="monofont">Thread</tt>
+								<b><i>class from the</i></b>
+								<tt class="monofont">threading</tt>
+								<b><i>module has a</I></b>
+								<tT claSs="monofont">join()</tt>
+								<b><I>method which lets the main thread wait for thread completion.</i></b></p>
+
+							<PRE Class="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <B>import</B> threading
+004 4  <B>from</B> time <b>import</b> sleep, time, ctime
+005 5
+006 6  loops = [ 4, 2 ]
+007 7
+008 8  <b>def</b> loop(nloop, nsec):
+009 9      <B>print</B> 'start loop', nloop, 'at:', ctime(time())
+010 10     sleep(nsec)
+011 11     <B>print</B> 'loop', nloop, 'done at:', ctime(time())
+012 12
+013 13 <b>def</b> main():
+014 14     <b>print</b> 'starting threads…'
+015 15     threads = []
+016 16     nloops = range(len(loops))
+017 17
+018 18     <B>for</B> i <B>in</B> nloops:
+019 19         t = threading.Thread(target=loop,
+020 20             args=(i, loops[i]))
+021 21         threads.append(t)
+022 22
+023 23     <b>for</b> i <b>in</b> nloops:          # start threads
+024 24         threads[i].start()
+025 25
+026 26     <b>for</b> i <b>in</b> nloops:          # wait for all
+027 27         threads[i].join(       # threads to finish
+028 28
+029 29     <b>print</b> 'all DONE at:', ctime(time())
+030 30
+031 31 <b>if</b> __name__ == '__main__':
+032 32     main()
+033  &lt;$nopage&gt;</pre>
+						
+						<p>Once all the threads have been allocated, we let them go off to the races by invoking each thread's <tt clAss="monofont">start()</Tt> method, but not a moment before that. And rather than having to manage a set of locks (allocating, acquiring, releasing, checking lock state, etc.), we simply call the <tt Class="monofont">join()</Tt> method for each thread. <tt CLASs="monofont">join()</tt> will wait until a thread terminates, or, if provided, a timeout occurs. Use of <tT CLAss="monofont">join()</tt> appears much cleaner than an infinite loop waiting for locks to be released (causing these locks to sometimes be known as "spin locks").</P>
+
+						<P>One other important aspect of <TT clasS="monofont">join()</TT> is that it does not need to be called at all. Once threads are started, they will execute until their given function completes, whereby they will exit. If your main thread has things to do other than wait for threads to complete (such as other processing or waiting for new client requests), it should be all means do so. <Tt class="monofont">join()</tt> is useful only when you <i>want</i> to wait for thread completion.</p>
+
+					
+					
+						<h5>Create <tt class="monofont">Thread</tT> instance, passing in callable class instance</h5>
+						<p>A similar offshoot to passing in a function when creating a thread is to have a callable class and passing in an instance for execution—this is the more OO approach to MT programming. Such a callable class embodies an execution environment that is much more flexible than a function or choosing from a set of functions. You now have the power of a class object behind you, as opposed to a single function or a list/tuple of functions.</P>
+
+						<p>Adding our new class <tt Class="monofont">ThreadFunc</Tt> to the code and making other slight modifications to <tt CLASs="monofont">mtsleep3.py,</tt> we get <tT CLAss="monofont">mtsleep4.py,</tt> given in <A HREf="262#6.html">Example 17.5</a>.</p>
+
+						<p>If we run <TT CLass="monofont">mtsleep4.py,</tt> we get the expected output:</p>
+
+						<pre>
+							
+% mtsleep4.py
+starting threads…
+start loop 0 at: Sun Aug 13 18:49:17 2000
+start loop 1 at: Sun Aug 13 18:49:17 2000
+loop 1 done at: Sun Aug 13 18:49:19 2000
+loop 0 done at: Sun Aug 13 18:49:21 2000
+all DONE at: Sun Aug 13 18:49:21 2000
+
+						</pre>
+
+						<p>So what are the changes this time? The addition of the <tt class="monofont">ThreadFunc</Tt> class and a minor change to instantiate the <tT claSs="monofont">Thread</tt> object, which also instantiates <tT claSS="monofont">ThreadFunc,</TT> our callable class. In effect, we have a double instantiation going on here. Let's take a closer look at our <tt clASS="monofont">ThreadFunc</Tt> class.</p>
+
+						<p>We want to make this class general enough to use with other functions besides our <tT CLAss="monofont">loop()</tt> function, so we added some new infrastructure, such as having this class hold the arguments for the function, the function itself, and also a function name string. The constructor <TT CLass="monofont">__init__()</tt> just sets all the values.</p>
+
+						
+							<h5>
+<a name="6"></a>Example 17.5. Using Callable classes (<tt class="monofont">mtsleep4.py</Tt>)</h5>
+							<P><b><i>In this example we pass in a callable class (instance) as opposed to just a function. It presents more of an OO approach than</i></B>
+								<tt clAss="monofont">mtsleep3.py.</tT></P>
+
+							<PRe claSS="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <B>import</B> threading
+004 4  <b>from</b> time <b>import</b> sleep, time, ctime
+005 5
+006 6  loops = [ 4, 2 ]
+007 7
+008 8  <B>class</B> ThreadFunc:
+009 9
+010 10     <B>def</B> __init__(self, func, args, name=''):
+011 11         self.name = name
+012 12         self.func = func
+013 13         self.args = args
+014 14
+015 15     <b>def</b> __call__(self):
+016 16         apply(self.func, self.args)
+017 17
+018 18 <b>def</b> loop(nloop, nsec):
+019 19     <B>print</B> 'start loop', nloop, 'at:', ctime(time())
+020 20     sleep(nsec)
+021 21     <B>print</B> 'loop', nloop, 'done at:', ctime(time())
+022 22
+023 23 <b>def</b> main():
+024 24     <b>print</b> 'starting threads…'
+025 25     threads = []
+026 26     nloops = range(len(loops))
+027 27
+028 28     <b>for</b> i <b>in</b> nloops: # create all threads
+029 29         t = threading.Thread( \
+030 30             target=ThreadFunc(loop, (i, loops[i]),
+031 31             loop.__name__))
+032 32         threads.append(t)
+033 33
+034 34     <b>for</b> i <b>in</b> nloops: # start all threads
+035 35         threads[i].start()
+036 36
+037 37     <b>for</b> i <b>in</b> nloops: # wait for completion
+038 38         threads[i].join()
+039 39
+040 40     <b>print</b> 'all DONE at:', ctime(time())
+041 41
+042 42 <b>if</b> __name__ == '__main__':
+043 43     main()
+044  &lt;$nopage&gt;</Pre>
+						
+						<P>When the <tt cLass="monofont">Thread</tT> code calls our <tt cLASS="monofont">ThreadFunc</tt> object when a new thread is created, it will invoke the <tt CLASs="monofont">__call__()</tt> special method. Because we already have our set of arguments, we do not need to pass it to the <tT CLAss="monofont">Thread()</tt> constructor, but do have to use <TT CLass="monofont">apply()</tt> in our code now because we have an argument tuple. Those of you who have Python 1.6 and higher can use the new function invocation syntax described in <a href="184.html">Section 11.6.3</a> instead of using <tt class="monofont">apply()</tt> on line 17:</P>
+
+						<prE>
+							
+self.res = self.func(*self.args)
+
+						</pre>
+
+					
+					
+						<H5>Subclass <tt clAss="monofont">Thread</tT> and create subclass instance</H5>
+						<P>The final introductory example involves subclassing <Tt claSS="monofont">Thread(),</TT> which turns out to be extremely similar to creating a callable class as in the previous example. Subclassing is a bit easier to read when you are creating your threads (lines 28–29). We will present the code for <tt clASS="monofont">mtsleep5.py</Tt> in <a hrEF="262#8.html">Example 17.6</A> as well as the output obtained from its execution, and leave it as an exercise for the reader to compare <Tt class="monofont">mtsleep5.py</tt> to <tt class="monofont">mtsleep4.py.</tt></p>
+
+						<p>Here is the output for <tT clAss="monofont">mtsleep5.py,</tT> again, just what we expected:</p>
+
+						<pre>
+							
+% mtsleep5.py
+starting threads…
+start loop 0 at: Sun Aug 13 19:14:26 2000
+start loop 1 at: Sun Aug 13 19:14:26 2000
+loop 1 done at: Sun Aug 13 19:14:28 2000
+loop 0 done at: Sun Aug 13 19:14:30 2000
+all DONE at: Sun Aug 13 19:14:30 2000
+
+						</Pre>
+
+						<p>While the reader compares the source between the <TT CLass="monofont">mtsleep4</tT> and <TT Class="monofont">mtsleep5</TT> modules, we want to point out the most significant changes: (1) our <TT clasS="monofont">MyThread</TT> subclass constructor must first invoke the base class constructor (line 9), and (2) the former special method <Tt class="monofont">__call__()</tt> must be called <tt class="monofont">run()</tt> in the subclass.</p>
+
+						<p>We now modify our <tT clAss="monofont">MyThread</tT> class with some diagnostic output and store it in a separate module called <tt clAss="monofont">myThread</tT> (see <A HRef="262#9.html">Example 17.7</a>) and import this class for the upcoming examples. Rather than simply calling <tT CLAss="monofont">apply()</tt> to run our functions, we also save the result to instance attribute <TT CLass="monofont">self.res,</tT> and create a new method to retrieve that value, <TT Class="monofont">getResult().</tt></p>
+
+						
+							<h5>
+<a name="8"></a>Example 17.6. Subclassing <tt clasS="monofont">Thread</tt> (<Tt clAss="monofont">mtsleep5.py</tt>)</H5>
+							<p><b><i>Rather than instantiating the</I></B>
+								<TT clasS="monofont">Thread</TT>
+								<B><i>class, we subclass it. This gives us more flexibility in customizing our threading objects and simplifies the thread creation call.</i></b></p>
+
+							<PRE Class="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <B>import</B> threading
+004 4  <B>from</B> time <b>import</b> sleep, time, ctime
+005 5
+006 6  loops = ( 4, 2 )
+007 7
+008 8  <b>class</b> MyThread(threading.Thread):
+009 9      <b>def</b> __init__(self, func, args, name=''):
+010 10         threading.Thread.__init__(self)
+011 11         self.name = name
+012 12         self.func = func
+013 13         self.args = args
+014 14
+015 15     <b>def</b> run(self):
+016 16         apply(self.func, self.args)
+017 17
+018 18 <b>def</b> loop(nloop, nsec):
+019 19     <b>print</b> 'start loop', nloop, 'at:', ctime(time())
+020 20     sleep(nsec)
+021 21     <b>print</b> 'loop', nloop, 'done at:', ctime(time())
+022 22
+023 23 <b>def</b> main():
+024 24     <b>print</b> 'starting threads…'
+025 25     threads = []
+026 26     nloops = range(len(loops))
+027 27
+028 28     <b>for</b> i <B>in</b> nloops:
+029 29         t = MyThread(loop, (i, loops[i]), \
+030 30             loop.__name__)
+031 31         threads.append(t)
+032 32
+033 33     <b>for</B> i <b>in</b> nloops:
+034 34         threads[i].start()
+035 35
+036 36     <b>for</B> i <b>in</b> nloops:
+037 37         threads[i].join()
+038 38
+039 39     <b>print</b> 'all DONE at:', ctime(time())'
+040 40
+041 41 <B>if</b> __name__ == '__main__':
+042 42     main()
+043  &lt;$nopage&gt;</prE>
+						
+						
+							<H5>
+<A Name="9"></a>Example 17.7. <TT CLass="monofont">MyThread</tT> Subclass of Thread (<TT Class="monofont">myThread.py</TT>)</H5>
+							<P><b><i>To generalize our subclass of</i></b>
+								<tt class="monofont">Thread</tt>
+								<b><i>from</i></b>
+								<tt cLasS="monofont">mtsleep5.py,</tt>
+								<b><I>we move the subclass to a separate module and add a</i></b>
+								<tt ClasS="monofont">getResult()</TT>
+								<B><i>method for callables which produce return values.</i></b></p>
+
+							<PRE Class="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <B>import</B> threading
+004 4  <B>from</B> time <b>import</b> time, ctime
+005 5
+006 6  <b>class</b> MyThread(threading.Thread):
+007 7      <B>def</B> __init__(self, func, args, name=''):
+008 8          threading.Thread.__init__(self)
+009 9          self.name = name
+010 10         self.func = func
+011 11         self.args = args
+012 12
+013 13     <B>def</B> getResult(self):
+014 14         <b>return</b> self.res
+015 15
+016 16     <b>def</b> run(self):
+017 17         <b>print</b> 'starting', self.name, 'at:', \
+018 18             ctime(time())
+019 19         self.res = apply(self.func, self.args)
+020 20         <b>print</b> self.name, 'finished at:', \
+021 21             ctime(time())
+022  &lt;$nopage&gt;</pre>
+						
+					
+				
+				
+					<h4>Fibonacci and factorial… take 2, plus summation</h4>
+					<p>The <tt clasS="monofont">mtfacfib.py</tt> script, given in <A hreF="262#11.html">Example 17.8</a>, compares execution of the recursive Fibonacci, factorial, and summation functions. This script runs all three functions in a single-threaded manner, then performs the same task using threads to illustrate one of the advantages of having a threading environment.</p>
+
+					
+						<h5>
+<a Name="11"></A>Example 17.8. Fibonacci, Factorial, Summation (<TT Class="monofont">mtfacfib.py</TT>)</H5>
+						<P><b><i>In this MT application, we execute 3 separate recursive functions—first in a single-threaded fashion, followed by the alternative with multiple threads.</i></b></P>
+
+						<PRE clasS="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <B>from</B> myThread <B>import</b> MyThread
+004 4  <b>from</b> time <b>import</b> time, ctime, sleep
+005 5
+006 6  <b>def</b> fib(x):
+007 7      sleep(0.005)
+008 8      <b>if</b> x &lt; 2: <b>return</b> 1
+009 9      <b>return</b> (fib(x-2) + fib(x-1))
+010 10
+011 11 <b>def</b> fac(x):
+012 12     sleep(0.1)
+013 13     <b>if</b> x &lt; 2: <b>return</b> 1
+014 14     <b>return</B> (x * fac(x-1))
+015 15
+016 16 <b>def</b> sum(x):
+017 17     sleep(0.1)
+018 18     <B>if</b> x &lt; 2: <b>return</b> 1
+019 19     <B>return</b> (x + sum(x-1))
+020 20
+021 21 funcs = [fib, fac, sum]
+022 22 n = 12
+023 23
+024 24 <b>def</b> main():
+025 25     nfuncs = range(len(funcs))
+026 26
+027 27     <b>print</B> '*** SINGLE THREAD'
+028 28     <b>for</b> i <b>in</B> nfuncs:
+029 29         <B>print</B> 'starting', funcs[i].__name__, 'at:', \
+030 30             ctime(time())
+031 31         <B>print</b> funcs[i](n)
+032 32         <b>print</b> funcs[i].__name__, 'finished at:', \
+033 33             ctime(time())
+034 34
+035 35     <b>print</B> '\n*** MULTIPLE THREADS'
+036 36     threads = []
+037 37     <B>for</B> i <B>in</b> nfuncs:
+038 38         t = MyThread(funcs[i], (n,),
+039 39             funcs[i].__name__)
+040 40         threads.append(t)
+041 41
+042 42     <b>for</b> i <b>in</B> nfuncs:
+043 43         threads[i].start()
+044 44
+045 45     <B>for</B> i <B>in</b> nfuncs:
+046 46         threads[i].join()
+047 47         <b>print</b> threads[i].getResult()
+048 48
+049 49     <b>print</B> 'all DONE'
+050 50
+051 51 <B>if</B> __name__ == '__main__':
+052 52     main()
+053  &lt;$nopage&gt;</Pre>
+					
+					<p>Running in single-threaded mode simply involves calling the functions one at a time and displaying the corresponding the results right after the function call.</p>
+
+					<p>When running in multithreaded mode, we do not display the result right away. Because we want to keep our <tt class="monofont">MyThread</tt> class as general as possible (being able to execute callables which do and do not produce output), we wait until the end to call the <tt clasS="monofont">getResult()</tt> method to finally show you the return values of each function call.</P>
+
+					<p>Because these functions execute so quickly (well, maybe except for the Fibonacci function), you will noticed that we had to add calls to <tt Class="monofont">sleep()</Tt> to each function to slow things down so that we can see how threading may improve performance, if indeed the actual work had varying execution times—you certainly wouldn't pad your work with calls to <tt CLASs="monofont">sleep().</tt> Anyway, here is the output:</p>
+
+					<PRE>
+						
+% mtfacfib.py
+*** SINGLE THREAD
+starting fib at: Sun Jun 18 19:52:20 2000
+233
+fib finished at: Sun Jun 18 19:52:24 2000
+starting fac at: Sun Jun 18 19:52:24 2000
+479001600
+fac finished at: Sun Jun 18 19:52:26 2000
+starting sum at: Sun Jun 18 19:52:26 2000
+78
+sum finished at: Sun Jun 18 19:52:27 2000
+
+*** MULTIPLE THREADS
+starting fib at: Sun Jun 18 19:52:27 2000
+starting fac at: Sun Jun 18 19:52:27 2000
+starting sum at: Sun Jun 18 19:52:27 2000
+fac finished at: Sun Jun 18 19:52:28 2000
+sum finished at: Sun Jun 18 19:52:28 2000
+fib finished at: Sun Jun 18 19:52:31 2000
+233
+479001600
+78
+all DONE
+
+					</Pre>
+
+				
+				
+					<h4>Producer-Consumer Problem and the <tT CLAss="monofont">Queue</tt> Module</H4>
+					<P>The final example illustrates the producer-consumer scenario where a producer of goods or services creates goods and places it in a data structure such as a queue. The amount of time between producing goods is non-deterministic, as is the consumer consuming the goods produced by the producer.</P>
+
+					<P>We use the <tt class="monofont">Queue</tt> module to provide an interthread communication mechanism which allows threads to share data with each other. In particular, we create a queue for the producer (thread) to place new goods into and where the consumer (thread) can consume goods from.</p>
+
+					<p>In particular, we will use the following attributes from the <tt class="monofont">Queue</tt> module (see <A hrEf="262#13.html">Table 17.3</a>).</p>
+
+					<A name="13"></A><p><taBLE BordeR="1" CELlspaCING="0" cellPADDing="1" width="100%">
+<caption><h5>Table 17.3. Common <tt clAss="monofont">Queue</Tt> Module Attributes</h5></cAptioN><colGROUp aliGN="left" SPan="2">
+<tr VALIgn="top">
+<th>
+<FONT size="2"><b><i>Function/Method</i></b></font></th>
+<th>
+<font SizE="2"><b><i>Description</i></B></font></Th>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt siZE="2"><B><Tt claSS="monofont">Queue</TT></b>
+										<b><i>Module Function</i></b></font></td>
+<td>
+<font sizE="2"> </foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2"><Tt claSS="monofont">queue(</TT><i><tt cLASS="monofont">size</tt></i><tt class="monofont">)</tt></font></td>
+<td>
+<FonT sizE="2">creates a <tt clAss="monofont">Queue</tT> object of given <I><TT clasS="monofont">size</TT></I></font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<font size="2"><b><tt class="monofont">Queue</tt></B>
+										<b><i>Object Methods</I></b></foNt></td>
+<tD>
+<fonT SIZe="2"> </fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><tt class="monofont">qsize()</tt></font></td>
+<td>
+<FonT sizE="2">returns queue size (approximate, since queue may be getting updated by other threads)</font></Td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt siZE="2"><TT clasS="monofont">empty()</TT></Font></td>
+<td>
+<font size="2">returns 1 if queue empty, 0 otherwise</font></tD>
+</tr>
+<Tr vaLign="top">
+<tD>
+<fonT SIZe="2"><tt cLASS="monofont">full()</tt></foNT></TD>
+<td>
+<foNT SIze="2">returns 1 if queue full, 0 otherwise</font></td>
+</tr>
+<tr valign="top">
+<td>
+<FonT sizE="2"><tt clAss="monofont">put(</tT><I><TT clasS="monofont">item, block</TT></I><tt clASS="monofont">=0)</Tt></fonT></TD>
+<Td>
+<font size="2">puts <i><tt class="monofont">item</tt></i> in queue, if <I><tt ClasS="monofont">block</tt></i> given (not 0), block until room is available</fOnt></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><tt cLASS="monofont">get(</tt><i><tt class="monofont">block</tt></i><tt class="monofont">=0)</Tt>
+									</fOnt></tD>
+<td>
+<foNt siZE="2">gets <I><Tt claSS="monofont">item</TT></i> from queue, if <i><tt CLASs="monofont">block</tt></i> given (not 0), block until an item is available</FONT></td>
+</tr>
+</colgroup>
+</table></p>
+
+					<p>Without further ado, we present the code for <tT clAss="monofont">prodcons.</tT><tt clAss="monofont">py,</tT> shown in <A HRef="262#14.html">Example 17.9</a>.</p>
+
+					
+						<H5>
+<A NAme="14"></a>Example 17.9. Producer-Consumer Problem (<tT CLAss="monofont">prodcons.py</tt>)</H5>
+						<P><B><I>We feature an implementation of the Producer–Consumer problem using</i></b>
+							<tt class="monofont">Queue</tt>
+							<b><i>objects and a random number of goods produced (and consumed). The producer and consumer are individually—and concurrently—executing threads.</i></b></p>
+
+						<pre cLasS="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <b>from</b> random <b>import</B> randint
+004 4  <b>from</b> time <b>import</b> time, ctime, sleep
+005 5  <B>from</b> Queue <b>import</b> Queue
+006 6  <B>from</B> myThread <B>import</B> MyThread
+007 7
+008 8  <b>def</b> writeQ(queue):
+009 9      <b>print</b> 'producing object for Q…',
+010 10     queue.put('xxx', 1)
+011 11     <B>print</B> "size now", queue.qsize()
+012 12
+013 13 <B>def</B> readQ(queue):
+014 14     val = queue.get(1)
+015 15 <b>print</b> 'consumed object from Q… size now', \
+016 16              queue.qsize()
+017 17
+018 18 <b>def</b> writer(queue, loops):
+019 19     <B>for</B> i <B>in</B> range(loops):
+020 20         writeQ(queue)
+021 21         sleep(randint(1, 3))
+022 22
+023 23 <b>def</b> reader(queue, loops):
+024 24     <b>for</b> i <B>in</B> range(loops):
+025 25         readQ(queue)
+026 26         sleep(randint(2, 5))
+027 27
+028 28 funcs = [writer, reader]
+029 29 nfuncs = range(len(funcs))
+030 30
+031 31 <B>def</B> main():
+032 32     nloops = randint(2, 5)
+033 33     q = Queue(32)
+034 34
+035 35     threads = []
+036 36     <b>for</b> i <b>in</b> nfuncs:
+037 37         t = MyThread(funcs[i], (q, nloops), \
+038 38             funcs[i].__name__)
+039 39         threads.append(t)
+040 40
+041 41     <b>for</b> i <b>in</b> nfuncs:
+042 42         threads[i].start()
+043 43
+044 44     <b>for</b> i <b>in</b> nfuncs:
+045 45         threads[i].join()
+046 46
+047 47     <b>print</b> 'all DONE'
+048 48
+049 49 <b>if</b> __name__ == '__main__':
+050 50     main()
+051  &lt;$nopage&gt;</pre>
+					<p>Here is the output from one execution of this script:</P>
+
+					<prE>
+						
+% prodcons.py
+starting writer at: Sun Jun 18 20:27:07 2000
+producing object for Q… size now 1
+starting reader at: Sun Jun 18 20:27:07 2000
+consumed object from Q… size now 0
+producing object for Q… size now 1
+consumed object from Q… size now 0
+producing object for Q… size now 1
+producing object for Q… size now 2
+producing object for Q… size now 3
+consumed object from Q… size now 2
+consumed object from Q… size now 1
+writer finished at: Sun Jun 18 20:27:17 2000
+consumed object from Q… size now 0
+reader finished at: Sun Jun 18 20:27:25 2000
+all DONE
+</pre>
+
+					<P>As you can see, the producer and consumer do not necessarily alternate in execution. (Thank goodness for random numbers!) Seriously though, real life is generally random and non-deterministic.</p>
+
+					
+						<h5>Line-by-line explanation</h5>
+						
+							<h5>Lines 1–6</H5>
+							<p>In this module, we will use the <tt CLASs="monofont">Queue.Queue</tt> object as well as our thread class <tT CLAss="monofont">myThread.</tt><TT CLass="monofont">MyThread</tT> which we gave in <A HRef="262#9.html">Example 17.7</a>. We will use <tt class="monofont">random.</tt><tt class="monofont">randint()</tT> to make production and consumption somewhat varied, and also grab the usual suspects from the time module.</p>
+
+						
+						
+							<h5>Lines 8–16</H5>
+							<p>The <tt Class="monofont">writeQ()</Tt> and <tt CLASs="monofont">readQ()</tt> functions each have a specific purpose, to place an object in the queue—we are using the string <tT CLAss="monofont">'xxx'</tt> for example—and to consume a queued object, respectively. Notice that we are producing one object and reading one object each time.</P>
+
+						
+						
+							<H5>Lines 18–26</H5>
+							<P>The <tt clASS="monofont">writer()</Tt> is going to run as a single thread who sole purpose is to produce an item for the queue, wait for a bit, then do it again, up to the specified number of times, chosen randomly per script execution. The <tt class="monofont">reader()</tt> will do likewise, with the exception of consuming an item, of course.</p>
+
+							<p>You will notice that the random number of seconds that the writer sleeps is in general shorter than the amount of time the reader sleeps. This is to discourage the reader from trying to take items from an empty queue. By giving the writer a shorter time period of waiting, it is more likely that there will already be an object for the reader to consume by the time their turn rolls around again.</p>
+
+						
+						
+							<h5>Lines 28–29</h5>
+							<p>These are just setup lines to set the total number of threads that are to be spawned and executed.</p>
+
+						
+						
+							<h5>Lines 31–47</h5>
+							<p>Finally, our <Tt cLass="monofont">main()</Tt> function, which should look quite similar to the <tt cLass="monofont">main()</TT> in all of the other scripts in this chapter. We create the appropriate threads and send them on their way, finishing up when both threads have concluded execution.</P>
+
+							<P>We infer from this example that a program that has multiple tasks to perform can be organized to use separate threads for each of the tasks. This can result in a much cleaner program design than a single threaded program that attempts to do all of the tasks.</p>
+
+							<p>In this chapter, we illustrated how a single-threaded process may limit an application's performance. In particular, programs with independent, non-deterministic, and non-causal tasks which execute sequentially can be improved by division into separate tasks executed by individual threads. Not all applications may benefit from multithreading and its overheads, but now you are more cognizant of Python's threading capability enough to use this tool to your advantage when appropriate.</p>
+
+						
+					
+				
+			</fONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="261.html" title="thread Module"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=262" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="262.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="263.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

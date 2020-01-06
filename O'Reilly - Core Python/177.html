@@ -1,0 +1,56 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Positional Arguments</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="170.html" class="navtitle">11. Functions</a> &gt; <span class="nonavtitle">Positional Arguments</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="176.html" title="Formal Arguments"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=177" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="177.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="178.html" title="Default Arguments"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A31%3A45+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174055131038074115052185</font><a href="read2.asp?bookname=0130260363&snode=177&now=5%2F29%2F2002+9%3A31%3A45+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Positional Arguments</h3>
+				<p>These are the standard vanilla parameters that we are all familiar with. Positional arguments must be passed in the exact order that they are defined for the functions that are called. Also, without the presence of any default arguments (see next section), the exact number of arguments passed to a function (call) must be exactly the number declared:</p>
+
+				<PRE>
+					
+&gt;&gt;&gt; <B>def</b> foo(who):       # defined for only 1 argument
+…       <b>print</b> 'Hello', who
+…
+&gt;&gt;&gt; foo()               # 0 arguments… BAD
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+TypeError: not enough arguments; expected 1, got 0
+&gt;&gt;&gt;
+&gt;&gt;&gt; foo('World!')       # 1 argument… WORKS
+Hello World!
+&gt;&gt;&gt;
+&gt;&gt;&gt; foo('Mr.', 'World!')# 2 arguments… BAD
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+TypeError: too many arguments; expected 1, got 2
+
+				</pRE>
+
+				<P>The <Tt claSS="monofont">foo()</TT> function has one positional argument. That means that any call to <tt class="monofont">foo()</tt> must have exactly one argument, no more, no less. You will become extremely familiar with <tt class="monofont">TypeError</tt> otherwise. Note how informative the Python errors are. As a general rule, all positional arguments for a function must be provided whenever you call it. They may be passed into the function call in position or out-of-position, granted that a keyword argument is provided to match it to its proper position in the argument list (review <a hRef="173#2.html">Section 11.2.2</A>). Default arguments, however, do not have to be provided because of their nature.</p>
+
+			</foNt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="176.html" title="Formal Arguments"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=177" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="177.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="178.html" title="Default Arguments"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

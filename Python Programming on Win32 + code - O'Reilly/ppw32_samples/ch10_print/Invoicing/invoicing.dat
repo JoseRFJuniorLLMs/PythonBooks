@@ -1,0 +1,5 @@
+InvoiceID,ClientID,InvoiceDate,CompanyName,ContactName,Address1,Address2,Address3,Address4,Consultant,PeriodEnding,Hours,HourlyRate,Expenses,ExpenseDetails,TaxRate,Comments
+199904001,MEGAWAD,14/4/99 00:00:00,MegaWad Investments,Hachiro Kobayashi,1 St. Fredericks-Le-Grand,London EC1A 8AB,,,Joe Hacker,18/4/99 00:00:00,40.00,50,0.00,,0.175,
+199904002,MEGAWAD,14/4/99 00:00:00,MegaWad Investments,Hachiro Kobayashi,1 St. Fredericks-Le-Grand,London EC1A 8AB,,,Arthur Suit,18/4/99 00:00:00,24.00,60,230.00,Paris day trip,0.175,
+199904003,MEGAWAD,21/4/99 00:00:00,MegaWad Investments,Hachiro Kobayashi,1 St. Fredericks-Le-Grand,London EC1A 8AB,,,Joe Hacker,25/4/99 00:00:00,57.00,50,0.00,,0.175,Overtime authorized in advance by A. Manager
+199904004,NOSHCO,22/4/99 00:00:00,NoshCo Supermarkets,Accounts Department,17 Merton Road,Wimbledon,London SW19 3XX,,Tim Trainee,25/4/99 00:00:00,18.00,25,0.00,,0.175,

@@ -1,0 +1,462 @@
+<html><head><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=Generator content="Microsoft Word 10 (filtered)"><link rel="stylesheet" type="text/css" href="1.css"><title></title></head><body lang=EN-US link="#990000" vlink=purple><div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=11.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=13.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div><br><br>
+<h2><a name="_Chapter_9._Integration_with_Excel"></a>Chapter 9. Integration
+with Excel</h2>
+
+<p>In this chapter we look at integration with Microsoft Excel using COM. This
+is interesting for technical and business reasons. Technically, it will give us
+a chance to look at both server- and client-side COM. On the business side,
+we’ve built a financial application, and a vast amount of financial data comes
+from and ends up going back into spreadsheets. We’ll develop some simple
+examples that allow you to import and export data from spreadsheets, and see
+how to build an alternative frontend for pulling out data in Excel.</p>
+
+<h3><a name="_9.1_Client-Side_COM_and_the_Excel_O"></a>9.1 Client-Side COM and
+the Excel Object Model</h3>
+
+<p>Using Python for client-side COM basically means using Python to access an
+application somebody else has written. There is little to learn about
+client-side COM per se; what matters is learning the object model of the
+application or library you want to use.</p>
+
+<p>Excel has a large object model—about as complex as anything you are likely
+to encounter. For example, just one of the objects, <tt><span style='font-size:
+10.0pt'>Range</span></tt> , has 84 properties and 72 methods. What’s more, it’s
+not particularly straightforward; the Perl community’s mantra “There’s more
+than one way to do it” probably applies even more to Excel than it does to
+Perl.</p>
+
+<p>In <a href="10.htm#_Chapter_7._Building_a_GUI_with_COM">Chapter 7</a>, we stressed
+the importance of rerunning Office Setup to get the right help files. If you
+didn’t do it then, do it now. The key help file is the <i>Microsoft Excel
+Visual Basic Reference</i>, which covers the object model.</p>
+
+<p>The easiest way to learn the Excel object model is to write programs in
+Visual Basic for Applications. The VB editor is available with every copy of
+Office and is a first-rate development environment. The following key features
+help a great deal in learning:</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_9.1._Drop-down_auto-completi"></a>Figure 9.1. Drop-down
+auto-completion in VBA</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=223
+src="images/image031.gif" alt="figs/ppw.0901.gif"></span></p>
+
+<p class=MsoNormal style='page-break-after:avoid'><i><span style='font-family:
+Arial;color:#990000'>Drop-down auto-completion</span></i><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>If you type <tt><span style='font-size:10.0pt'>ActiveSheet</span></tt>
+into the editor, a list drops down showing all the properties and methods of a <tt><span
+style='font-size:10.0pt'>Sheet</span></tt> object. This saves an enormous
+amount of time learning the object model (see <a
+href="#_Figure_9.1._Drop-down_auto-completi">Figure 9.1</a>).</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Context-sensitive
+help</span></i><span style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>You can click on any variable, property, or method
+name and press F1 to get detailed help on that part of the object model. The
+help file also has a number of genuinely useful topic guides.</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>The F5 key
+and spreadsheet integration</span></i><span style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>You don’t need to write a whole program to get
+started in Excel. You can write a subroutine in the editor, hit F5, and it
+runs. A great way to start learning about ranges and selections is to write a
+short routine to select some cells, and just keep running and extending it.</p>
+
+<p>Having dispensed this piece of advice, we’ll ignore it totally and begin by
+getting at Excel from Python. Within Python, you can’t do any damage, but you
+need to know the objects and methods required.</p>
+
+<p>A one-time step, which isn’t required but which makes things faster and more
+pleasant to develop with, is to run the Python MakePy utility. What this does
+is explained fully in <a href="16.htm#_Chapter_12._Advanced_Python_and_COM">Chapter
+12</a><i>. </i>On the Tools menu, choose COM Makepy utility, and select
+Microsoft Excel 8.0 Object Library from the list box. This may take one or two
+minutes to run but needs to be done only once per machine. This builds a
+support library of Python code for accessing the Excel object model, which
+allows early- rather than late-bound COM. Your code will run faster, and you’ll
+know which Office objects you are accessing. If you don’t do this, it all still
+works, but it uses a different technique behind the scenes.</p>
+
+<h4>9.1.1 Starting Excel</h4>
+
+<p>Start up PythonWin and enter the following:</p>
+
+<pre>&gt;&gt;&gt; from win32com.client import Dispatch</pre><pre>&gt;&gt;&gt; xlApp = Dispatch(&quot;Excel.Application&quot;) </pre><pre>&gt;&gt;&gt; xlApp.Visible = 1</pre><pre>&gt;&gt;&gt; xlApp.Workbooks.Add()</pre><pre>&lt;win32com.gen_py.Microsoft Excel 8.0 Object Library.Workbook&gt;</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>There will be a few-second pause before Excel starts. You should see Excel
+appear when you enter <tt><span style='font-size:10.0pt'>xlApp.Visible</span></tt>
+<tt><span style='font-size:10.0pt'>=</span></tt> <tt><span style='font-size:
+10.0pt'>1</span></tt>, but with an empty main window; the final line creates a
+blank workbook with three sheets. Note that the return value of <tt><span
+style='font-size:10.0pt'>Add</span></tt><i> </i>is informative. This is part of
+what Makepy does for you; if you had not run it, you’d get a less informative
+string back. By the way, we’ve made Excel visible for teaching purposes; if you
+just want to manipulate data, keep it hidden and save processor cycles.</p>
+
+<h4>9.1.2 Navigating Through Collections</h4>
+
+<p>The Excel object hierarchy basically goes <tt><span style='font-size:10.0pt'>Application</span></tt>,
+<tt><span style='font-size:10.0pt'>Workbook</span></tt>, <tt><span
+style='font-size:10.0pt'>Sheet</span></tt>, <tt><span style='font-size:10.0pt'>Range</span></tt>,
+<tt><span style='font-size:10.0pt'>Cell</span></tt>. A <tt><span
+style='font-size:10.0pt'>Range</span></tt> is an arbitrary region on a <tt><span
+style='font-size:10.0pt'>Sheet</span></tt>. You can assign variables to the
+various items in the hierarchy or drill down in one long statement. If you want
+to modify the top left cell of Sheet1 in our new workbook, you can get to it in
+any of the following ways:</p>
+
+<pre>&gt;&gt;&gt; xlApp.ActiveSheet.Cells(1,1).Value = 'Python Rules!'</pre><pre>&gt;&gt;&gt; xlApp.ActiveWorkbook.ActiveSheet.Cells(1,1).Value = 'Python Rules!'</pre><pre>&gt;&gt;&gt; xlApp.Workbooks(&quot;Book1&quot;).Sheets(&quot;Sheet1&quot;).Cells(1,1).Value = &quot;Python Rules!&quot;</pre><pre>&gt;&gt;&gt; xlApp.Workbooks(1).Sheets(1).Cells(1,1).Value = &quot;Python Rules!&quot;  </pre><pre>&gt;&gt;&gt; xlApp.Workbooks(1).Sheets(1).Cells(1,1).Value = &quot;Python Rules!&quot;  </pre><pre>&gt;&gt;&gt; </pre><pre>&gt;&gt;&gt; xlBook = xlApp.Workbooks(1)</pre><pre>&gt;&gt;&gt; xlSheet = xlApp.Sheets(1)</pre><pre>&gt;&gt;&gt; xlSheet.Cells(1,1).Value = &quot;Python Rules!&quot;</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>We recommend getting a reference to the sheet you want and working with
+that.</p>
+
+<p>The last few examples illustrate a common feature of Microsoft object
+models—their dependence on <i>collections</i>. A collection can be viewed as a
+cross between a list and a dictionary; it can be accessed by a numeric index or
+a named string key. Python allows you to access items via numeric indexes with
+both a function-call and an array syntax: in other words, with parentheses or
+square brackets. If you are using a string key, you must use parentheses:</p>
+
+<pre>&gt;&gt;&gt; xlBook.Sheets(1)</pre><pre>&lt;win32com.gen_py.Microsoft Excel 8.0 Object Library._Worksheet&gt;</pre><pre>&gt;&gt;&gt; xlBook.Sheets[1]</pre><pre>&lt;win32com.gen_py.Microsoft Excel 8.0 Object Library._Worksheet&gt;</pre><pre>&gt;&gt;&gt; xlBook.Sheets[&quot;Sheet1&quot;]</pre><pre># some error details omitted</pre><pre>TypeError: Only integer indexes are supported for enumerators</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>However, there is a trap to watch for. Collections can be written to start
+indexing from one or from zero. If you are dealing with a one-based collection,
+you will get different answers; using square brackets gives you the true
+position in the collection, but parentheses gives the position according to the
+numbering system chosen by the author of that collection:</p>
+
+<pre>&gt;&gt;&gt; xlBook.Sheets(1).Name</pre><pre>'Sheet1'</pre><pre>&gt;&gt;&gt; xlBook.Sheets[1].Name</pre><pre>'Sheet2'</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>We recommend using parentheses throughout and relying on the object model’s
+documentation to find how the collections work. For Microsoft Office applications,
+most collections start at 1.</p>
+
+<h4>9.1.3 Keyword Arguments</h4>
+
+<p>Both Python and Excel support keyword arguments. These are generally used
+when you have a long list of possible arguments to a function, most of which
+have default values. Excel takes this to extremes; for example, the function to
+save a workbook is:</p>
+
+<pre>WorkBook.SaveAs(<tt><i>Filename</i></tt>, <tt><i>FileFormat</i></tt>, <tt><i>Password</i></tt>, <tt><i>WriteResPassword</i></tt>, <tt><i>ReadOnlyRecommended</i></tt>, </pre><pre><tt><i>CreateBackup</i></tt>, <tt><i>AddToMru</i></tt>, <tt><i>TextCodePage</i></tt>, <tt><i>TextVisualLayout</i></tt>)</pre>
+
+<p>And that’s a short one: some of the formatting commands have literally
+dozens of arguments. To call these, you supply only the arguments you want, as
+follows:</p>
+
+<pre>&gt;&gt;&gt; xlBook.SaveAs(Filename='C:\\temp\\mysheet.xls')</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>The capitalization of the keywords must be exactly right. Microsoft
+generally uses mixed case for everything but <tt><span style='font-size:10.0pt'>Filename</span></tt>,
+but you’ll undoubtedly have a fun time discovering more exceptions.</p>
+
+<h4>9.1.4 Passing Data In and Out</h4>
+
+<p>We put data into a cell with the <tt><span style='font-size:10.0pt'>Value</span></tt>
+property of a cell. We can also retrieve data the same way. This works with
+numbers and strings. Excel always stores numbers as floating-point values:</p>
+
+<pre>&gt;&gt;&gt; xlSheet.Cells(1,1).Value = 'What shall be the number of thy counting?'</pre><pre>&gt;&gt;&gt; xlSheet.Cells(2,1).Value = 3 </pre><pre>&gt;&gt;&gt; xlSheet.Cells(1,1).Value</pre><pre>'What shall be the number of thy counting?'</pre><pre>&gt;&gt;&gt; xlSheet.Cells(2,1).Value</pre><pre>3.0</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Excel users know that dates are just numbers with formatting applied.
+However, Excel keeps track of which cells are known to be dates and which are
+ordinary numbers internally. Excel (and most Windows applications, as well as
+COM) define a date as the number of days since 1/1/1900, while Python (and
+Unix) counts the number of seconds. If you want to add a date, you can work out
+the number yourself, but the Python COM framework provides a utility to make a
+COM date, which ensures that it’s recognized properly but also accessible in
+Python format:</p>
+
+<pre>&gt;&gt;&gt; import time</pre><pre>&gt;&gt;&gt; now = time.time()</pre><pre>&gt;&gt;&gt; now    # how many seconds since 1970?</pre><pre>923611182.35</pre><pre>&gt;&gt;&gt; import pythoncom</pre><pre>&gt;&gt;&gt; time_object = pythoncom.MakeTime(now)</pre><pre>&gt;&gt;&gt; int(time_object)   # can get the value back...</pre><pre>923611182</pre><pre>&gt;&gt;&gt; xlSheet.Cells(3,1).Value = time_object # ...or send it</pre><pre>&gt;&gt;&gt; xlSheet.Cells(3,1).Value</pre><pre>&lt;time object at 188c080&gt;</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>When you send a date to Excel, it automatically formats the cell as well.</p>
+
+<p>If you want to insert a formula, use the <tt><span style='font-size:10.0pt'>formula</span></tt>
+property and enter the formula exactly as you would in Excel:</p>
+
+<pre>&gt;&gt;&gt; xlSheet.Cells(4,1).Formula = '=A2*2'</pre><pre>&gt;&gt;&gt; xlSheet.Cells(4,1).Value</pre><pre>6.0</pre><pre>&gt;&gt;&gt; xlSheet.Cells(4,1).Formula</pre><pre>'=A2*2'</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Finally, empty cells are represented by the Python value <tt><span
+style='font-size:10.0pt'>None</span></tt> :</p>
+
+<pre>&gt;&gt;&gt; xlSheet.Cells(1,1).Value = None  # clear a cell</pre><pre>&gt;&gt;&gt; xlSheet.Cells(1,1).Value  # returns None</pre><pre>&gt;&gt;&gt;</pre>
+
+<h4>9.1.5 Accessing Ranges</h4>
+
+<p>We’ve been calling the <tt><span style='font-size:10.0pt'>Value</span></tt>
+and <tt><span style='font-size:10.0pt'>Formula</span></tt> methods without
+really knowing what they refer to. They are methods of an object called a <tt><span
+style='font-size:10.0pt'>Range</span></tt> , which refers to a range of cells.
+You can use <tt><span style='font-size:10.0pt'>Ranges</span></tt> to get hold
+of regions of a spreadsheet in several ways:</p>
+
+<pre>&gt;&gt;&gt; myRange1 = xlSheet.Cells(4,1)       # one-cell range</pre><pre>&gt;&gt;&gt; myRange2 = xlSheet.Range(&quot;B5:C10&quot;)  # excel notation</pre><pre>&gt;&gt;&gt; myRange3 = xlSheet.Range(xlSheet.Cells(2,2), xlSheet.Cells(3,8))</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>A sheet has a <tt><span style='font-size:10.0pt'>Range()</span></tt> method
+that returns a <tt><span style='font-size:10.0pt'>Range</span></tt> object. The
+<tt><span style='font-size:10.0pt'>Range</span></tt> method can accept the
+usual Excel notation or a pair of one-cell <tt><span style='font-size:10.0pt'>Range</span></tt>
+objects defining the top left and bottom right. You can even perform intersections
+and unions to build nonrectangular ranges. Once you have a <tt><span
+style='font-size:10.0pt'>Range</span></tt> object, as mentioned earlier, you
+have 84 methods and 72 properties to play with. These cover all the formatting
+options including data.</p>
+
+<h4>9.1.6 Arrays</h4>
+
+<p>In <a href="10.htm#_Chapter_7._Building_a_GUI_with_COM">Chapter 7</a> we built a
+view of an account. To do this, we fetched a 2D array of data from Python and
+looped over it, putting one number at a time into a grid. When we first started
+playing with Python and Excel, we expected to have to do something similar. Not
+so! Ask a range for its value, and you get an array. You can set the value of a
+range to an array, too. At this point we’ve typed a few more items into our
+spreadsheet to refer to (see <a href="12.htm#_Figure_9.2._Passing_arrays_between_">Figure
+9.2</a>).</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_9.2._Passing_arrays_between_"></a>Figure 9.2. Passing arrays
+between Python and Excel</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=280
+src="images/image032.gif" alt="figs/ppw.0902.gif"></span></p>
+
+<p>First, grab a horizontal array:</p>
+
+<pre>&gt;&gt;&gt; xlSheet.Range('C3:E3').Value</pre><pre>((L'left', L'to', L'right'),)</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Note that you get back Unicode strings, which you could convert to Python
+with a <tt><span style='font-size:10.0pt'>str()</span></tt> operation. When you
+asked for a single cell value earlier, the Python COM framework was smart
+enough to convert the Unicode string to a Python string; with a big array, you
+have to do the work.</p>
+
+<p>Now, for a matrix with several rows and columns:</p>
+
+<pre>&gt;&gt;&gt; xlSheet.Range('C5:D7').Value</pre><pre>((L'North', L'South'), (100.0, 200.0), (300.0, 400.0))</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>This returns a tuple of tuples, exactly the natural representation you would
+choose in Python. (For the rest of this section we use the term <i>array</i> to
+mean a Python structure of this shape—a list of lists, tuple of tuples, or list
+of tuples.) Finally, look at a vertical row, taking the items in column F:</p>
+
+<pre>&gt;&gt;&gt; xlSheet.Range('F2:F4').Value</pre><pre>((1.0,), (2.0,), (3.0,))</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>As before, you get a tuple of tuples.</p>
+
+<p>You may be wondering what those extra commas are inside the parentheses.
+They are Python’s way of marking a one-element tuple. The expressions <tt><span
+style='font-size:10.0pt'>2</span></tt>, <tt><span style='font-size:10.0pt'>(2)</span></tt>,
+and <tt><span style='font-size:10.0pt'>((((2)))</span></tt> all evaluate to 2
+in Python, as you would expect from the use of parentheses in mathematical
+formulae in any language. The comma tells Python it’s looking at a one-element
+tuple rather than an expression to simplify.</p>
+
+<p>Passing arrays between Excel and Python is fast. We tried passing a matrix
+with 100 rows and 100 columns on a Pentium 266. Sending it to Excel took 1.7
+seconds; fetching back the same amount of data took just 0.07 seconds. </p>
+
+<h3><a name="_9.2_Excel_Concluded"></a>9.2 Excel Concluded</h3>
+
+<p>Having been through the mechanics, we will now build a class to make it
+slightly easier to get data in and out of Excel. It’s easy already, but if you
+want to do a lot of work with Excel, you can certainly save a few lines of code
+in the users’ scripts. An example of this can be found in the file <i>exceldemos.py</i>.</p>
+
+<p>We’ve created a class called <tt><span style='font-size:10.0pt'>easyExcel</span></tt>
+. When an instance is created, it starts Excel. This class provides methods to
+open, create, and save files, and to get and set cell values and ranges. It can
+also deal with the Unicode strings and time objects if you wish. You could
+easily extend it to add new methods, but here are a selection that should be
+useful:</p>
+
+<pre>class easyExcel:</pre><pre>    &quot;&quot;&quot;A utility to make it easier to get at Excel.  Remembering</pre><pre>    to save the data is your problem, as is  error handling.</pre><pre>    Operates on one workbook at a time.&quot;&quot;&quot;</pre><pre>&nbsp;</pre><pre>    def __init__(self, filename=None):</pre><pre>        self.xlApp = win32com.client.Dispatch('Excel.Application')</pre><pre>        if filename:</pre><pre>            self.filename = filename</pre><pre>            self.xlBook = self.xlApp.Workbooks.Open(filename)</pre><pre>        else:</pre><pre>            self.xlBook = self.xlApp.Workbooks.Add()</pre><pre>            self.filename = ''  </pre><pre>    </pre><pre>    def save(self, newfilename=None):</pre><pre>        if newfilename:</pre><pre>            self.filename = newfilename</pre><pre>            self.xlBook.SaveAs(newfilename)</pre><pre>        else:</pre><pre>            self.xlBook.Save()    </pre><pre>&nbsp;</pre><pre>    def close(self):</pre><pre>        self.xlBook.Close(SaveChanges=0)</pre><pre>        del self.xlApp</pre>
+
+<p>Now put in methods to set and get cells. Users can specify a sheet name or
+index, row, and column:</p>
+
+<pre>def getCell(self, sheet, row, col):</pre><pre>    &quot;Get value of one cell&quot;</pre><pre>    sht = self.xlBook.Worksheets(sheet)</pre><pre>    return sht.Cells(row, col).Value</pre><pre>&nbsp;</pre><pre>def setCell(self, sheet, row, col, value):</pre><pre>    &quot;set value of one cell&quot;</pre><pre>    sht = self.xlBook.Worksheets(sheet)</pre><pre>    sht.Cells(row, col).Value = value</pre><pre>&nbsp;</pre><pre>def getRange(self, sheet, row1, col1, row2, col2):</pre><pre>    &quot;return a 2d array (i.e. tuple of tuples)&quot;</pre><pre>    sht = self.xlBook.Worksheets(sheet)</pre><pre>    return sht.Range(sht.Cells(row1, col1), sht.Cells(row2, col2)).Value</pre>
+
+<p>When you want to insert a block of data, just specify the first cell;
+there’s no need for users to work out the number of rows:</p>
+
+<pre>def setRange(self, sheet, leftCol, topRow, data):</pre><pre>    &quot;&quot;&quot;insert a 2d array starting at given location. </pre><pre>    Works out the size needed for itself&quot;&quot;&quot;</pre><pre>&nbsp;</pre><pre>    bottomRow = topRow + len(data) - 1</pre><pre>    rightCol = leftCol + len(data[0]) - 1</pre><pre>    sht = self.xlBook.Worksheets(sheet)</pre><pre>    sht.Range(</pre><pre>        sht.Cells(topRow, leftCol), </pre><pre>        sht.Cells(bottomRow, rightCol)</pre><pre>        ).Value = data</pre>
+
+<p>Sometimes you need to grab a chunk of data when you don’t know how many
+columns or even rows to expect. The following method scans down and right until
+it hits a blank: all that is needed is the starting point:</p>
+
+<pre>def getContiguousRange(self, sheet, row, col):</pre><pre>    &quot;&quot;&quot;Tracks down and across from top left cell until it</pre><pre>    encounters blank cells; returns the non-blank range.</pre><pre>    Looks at first row and column; blanks at bottom or right</pre><pre>    are OK and return None witin the array&quot;&quot;&quot;</pre><pre>&nbsp;</pre><pre>    sht = self.xlBook.Worksheets(sheet)</pre><pre>&nbsp;</pre><pre>    # find the bottom row</pre><pre>    bottom = row</pre><pre>    while sht.Cells(bottom + 1, col).Value not in [None, '']:</pre><pre>        bottom = bottom + 1</pre><pre>&nbsp;</pre><pre>    # right column</pre><pre>    right = col</pre><pre>    while sht.Cells(row, right + 1).Value not in [None, '']:</pre><pre>        right = right + 1</pre><pre>&nbsp;</pre><pre>    return sht.Range(sht.Cells(row, col), sht.Cells(bottom, right)).Value</pre>
+
+<p>Arrays coming back often contain either Unicode strings or COM dates. You
+could convert these on a per-column basis as needed (sometimes there’s no need
+to convert them), but here’s a utility that returns a new array in which these
+have been cleaned up:</p>
+
+<pre>def fixStringsAndDates(self, aMatrix):</pre><pre>    # converts all unicode strings and times</pre><pre>    newmatrix = []</pre><pre>    for row in aMatrix:</pre><pre>        newrow = []</pre><pre>        for cell in row:</pre><pre>            if type(cell) is UnicodeType:</pre><pre>                newrow.append(str(cell))</pre><pre>            elif type(cell) is TimeType:</pre><pre>                newrow.append(int(cell))</pre><pre>            else:</pre><pre>                newrow.append(cell)</pre><pre>        newmatrix.append(tuple(newrow))</pre><pre>    return newmatrix</pre>
+
+<p>The wrapper class now makes it easy to grab data out of a sheet. You can
+keep extending this when you needed a new function, e.g., searching for cells.</p>
+
+<h3><a name="_9.3_Putting_It_All_Together:_Import"></a>9.3 Putting It All
+Together: Importing Financial Data</h3>
+
+<p>Now we’ll write an import script using our wrapper. Excel is a good medium
+for entering financial data; users can enter data more quickly in Excel than in
+a database; Excel builds pick lists automatically; and it’s easy to copy,
+paste, and rearrange the data quickly. However, data entered in this way isn’t
+always properly validated. Imagine that someone in your organization is
+preparing a list of new invoices raised once a month and emailing the data in a
+standardized spreadsheet. You want to import it, validate it, get the data into
+double-entry format, and save it in a <tt><span style='font-size:10.0pt'>BookSet</span></tt>,
+as part of assembling monthly management accounts. The examples for this
+chapter include a spreadsheet called <i>invoices.xls</i>, which looks like <a
+href="#_Figure_9.3._Invoices_to_be_imported">Figure 9.3</a>.</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_9.3._Invoices_to_be_imported"></a>Figure 9.3. Invoices to be
+imported</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=253
+src="images/image033.gif" alt="figs/ppw.0903.gif"></span></p>
+
+<p>You want to open this up, grab the three facts near the top, and import the
+matrix of cells describing the invoices. You’re not sure how many invoices to
+expect, so you need to count down. If it’s a cash sale (i.e., Date Raised is
+the same as Date Paid), create one transaction; otherwise create two: one for
+the bill and one for the payment. Note that some invoices are not yet paid; in
+this case, estimate a payment date for your forecasts and tag it as a scheduled
+transaction so that it can be filtered out of real accounts.</p>
+
+<p>The full script to do this is in the file <i>exceldemos.py, </i>which you
+can find at <a href="http://starship.python.net/crew/mhammond/ppw32/"
+target="_blank">http://starship.python.net/crew/mhammond/ppw32/</a>. Using the
+wrapper class, it becomes easy to acquire the desired data:</p>
+
+<pre>def getInvoices():</pre><pre>    # the demo - get some data from a spreadsheet, parse it, make</pre><pre>    # transactions, save</pre><pre>    </pre><pre>    # step 1 - acquire the data</pre><pre>    spr = easyExcel('Invoices.xls')</pre><pre>&nbsp;</pre><pre>    MonthEnd = int(spr.getCell('Sheet1', 3, 2))</pre><pre>    PreparedBy = spr.getCell('Sheet1', 4, 2)</pre><pre>    Submitted = int(spr.getCell('Sheet1', 5, 2))</pre><pre>    print 'Month end %s, prepared by %s, submitted %s' % (</pre><pre>                    time.ctime(MonthEnd), </pre><pre>                    PreparedBy,</pre><pre>                    time.ctime(Submitted)</pre><pre>                    )</pre><pre>     </pre><pre>    # do not know how many rows</pre><pre>    rawInvoices = spr.getContiguousRange('Sheet1',8,1)</pre><pre>    rows = spr.fixStringsAndDates(rawInvoices)</pre>
+
+<p>We’ve extracted the needed data and cleaned it up in just a few lines.
+Logically, the next stage is to validate the data. You could go a long way with
+this, but let’s just check that the main table is in the correct place and
+hasn’t been rearranged:</p>
+
+<pre>    # check correct columns</pre><pre>    assert rows[0] == ('Invoice No', 'Date Raised', </pre><pre>        'Customer', 'Comment', 'Category', </pre><pre>        'Amount', 'Terms', 'Date Paid'</pre><pre>         ), 'Column structure is wrong!'</pre><pre>    print '%d invoices found, processing' % len(rows)</pre>
+
+<p>The data looks fine; now all you have to do is build the transactions you
+want:</p>
+
+<pre>    # make a BookSet to hold the data</pre><pre>    bs = BookSet()</pre><pre>&nbsp;</pre><pre>    # process the rows after the headings</pre><pre>    for row in rows[1:]:</pre><pre>         # unpack it into separate variables</pre><pre>        (invno, date, customer, comment, </pre><pre>        category, fmt_amount, terms, datepaid) = row</pre><pre>&nbsp;</pre><pre>        # amounts formatted as currency may be returned as strings</pre><pre>        amount = string.atof(fmt_amount)</pre><pre>    </pre><pre>        if date == datepaid:</pre><pre>            # cash payment, only one transaction</pre><pre>            tran = Transaction()</pre><pre>            tran.date = date</pre><pre>            tran.comment = 'Invoiced - ' + comment</pre><pre>            tran.customer = customer</pre><pre>            tran.invoiceNo = invno</pre><pre>            tran.addLine('MyCo.Capital.PL.Income.' + category, - amount)</pre><pre>            tran.addLine('MyCo.Assets.NCA.CurAss.Cash', amount)</pre><pre>            bs.add(tran)</pre><pre>&nbsp;</pre><pre>        else:</pre><pre>            # need to create an invoice and a (possibly future) payment</pre><pre>            # first the bill</pre><pre>            tran = Transaction()</pre><pre>            tran.date = date</pre><pre>            tran.comment = 'Invoiced - ' + comment</pre><pre>            tran.customer = customer</pre><pre>            tran.invoiceNo = invno</pre><pre>            tran.addLine('MyCo.Capital.PL.Income.' + category, - amount)</pre><pre>            tran.addLine('MyCo.Assets.NCA.CurAss.Creditors', amount)</pre><pre>            bs.add(tran)</pre><pre> </pre><pre>            # now the payment.  If not paid, use the terms to estimate a</pre><pre>            # date, and flag it as a Scheduled transaction (i.e., not real)</pre><pre>            tran = Transaction()</pre><pre>            if datepaid == None:</pre><pre>                datepaid = date + (terms * 86400)</pre><pre>                tran.mode = 'Scheduled'    # tag it as not real</pre><pre>            tran.date = date</pre><pre>            tran.comment = 'Invoice Paid - ' + comment</pre><pre>            tran.customer = customer</pre><pre>            tran.invoiceNo = invno</pre><pre>            tran.addLine('MyCo.Assets.NCA.CurAss.Creditors', - amount)</pre><pre>            tran.addLine('MyCo.Assets.NCA.CurAss.Cash', amount)</pre><pre>            bs.add(tran)</pre><pre> </pre><pre>    # we're done, save and pack up</pre><pre>    filename = 'invoices.dtj'</pre><pre>    bs.save(filename)</pre><pre>    print 'Saved in file', filename</pre><pre>    spr.close()</pre>
+
+<p>Although the code is fairly lengthy, most of it is transferring a field at a
+time from the input to the relevant field or line of a transaction. If you
+define classes to represent invoices and payments, each with a standard set of
+attributes and the right constructors, this is simplified even further. </p>
+
+<h3><a name="_9.4_Server-Side_COM_Again:_Excel_as"></a>9.4 Server-Side COM
+Again: Excel as a GUI</h3>
+
+<p>Excel makes a wonderful frontend for financial applications. We’ve already
+built a COM server that can handle all of our data and return certain views.
+There’s a strong case for turning things on their heads and having Excel use
+Python COM objects in many circumstances. We won’t go through an example here,
+as we have covered all the necessary techniques in detail, but it’s worth
+thinking about what’s possible.</p>
+
+<p>Imagine you regularly generate a set of management accounts, including
+results for the year to date and a forecast a year ahead, and that you extend
+this with various views of the data. You could easily build an Excel
+spreadsheet that starts a COM server when opened. Where our VB GUI had to do a
+double loop over the data to get it into a grid on screen, Excel can insert
+whole arrays into worksheets in a split second. You can configure sheets within
+the workbook to display arbitrary views of the data and link charts to these
+views. Some of these would be user-configurable; for example, selecting an
+account or customer from a combo box at the top of a sheet could fill the sheet
+with the relevant data, and a chart below it would be updated automatically.</p>
+
+<p>This is the ideal format in which to deliver numbers to a user; they can
+immediately start doing their own calculations and building charts or
+comparisons of the data that interest them.</p>
+
+<p>You could as easily build import applications that allow users to prepare
+data for import and click a submit button to save it into a <tt><span
+style='font-size:10.0pt'>BookSet</span></tt>. This involves either writing the
+table-processing code in VB or extending the COM server with some import
+functionality.</p>
+
+<p>When should you use Python as the client and when as the server? There are
+two factors to consider:</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Who's
+starting things off?</span></i><span style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>If a user wants to work interactively with a
+spreadsheet, that implies Excel on top and a Python COM server. If a
+spreadsheet import/export is one step in the execution of a much larger Python
+script that runs over 200 files at 2:00 a.m., do it the other way around.</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Does it
+require complex formatting or manipulation in Excel?</span></i><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>If you’re getting data out of Excel, you need to
+know only the cell references, which we’ve covered. If you want to build
+complex spreadsheets in the middle of the night, where the formatting depends
+on the data, consider writing the code in VBA. The spreadsheet can have an
+AutoOpen macro that starts up a Python COM server to deliver the data, and the
+fetching and formatting can be handled in Excel. The code will be the same
+length, but a lot easier to develop and debug in VBA.</p>
+
+<h3><a name="_9.5_Conclusion"></a>9.5 Conclusion</h3>
+
+<p>In this chapter we looked at the other side of the coin, client-side COM. We
+learned how to control office applications from Python scripts and developed
+some reusable tools that allow us to easily extract data from and send data to
+Microsoft Excel.</p>
+
+<h3 style='page-break-after:avoid'><a name="_9.6_References"></a>9.6 References</h3>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Excel
+Visual Basic for Applications online help</span></i><span style='font-family:
+Arial'> </span></p>
+
+<p style='margin-left:.5in'>This is not installed under the standard Office
+Setup; you need to rerun Office Setup, choose Custom Setup, and explicitly
+select the VBA help.</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Your Python
+installation</span></i><span style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>After reading <a
+href="#_Chapter_5._Introduction_to_COM">Chapter 5</a>, you’ll discover that
+Python can build a complete wrapper around Excel’s object model, documenting
+all objects and properties. This doesn’t tell you what all the methods do but
+provides a comprehensive and remarkably readable listing of the objects and
+methods.</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Microsoft
+Office 97 Developer's Handbook, Microsoft Press</span></i><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>This book describes how to build custom
+applications using all the Office applications. There is a general overview of
+Excel but not enough detail on Range objects.</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Microsoft
+Excel 97 Developer's Handbook, Microsoft Press</span></i><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>This book devotes 500 pages specifically to
+building applications in Excel. Regrettably, the majority focuses on GUI
+development and perhaps only 10% of the book relates to what you might use with
+Python. If you are developing routines in Excel VBA, this is the best
+reference. </p>
+
+<p class=MsoNormal>&nbsp;</p>
+<div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=11.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=13.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div></body></html>

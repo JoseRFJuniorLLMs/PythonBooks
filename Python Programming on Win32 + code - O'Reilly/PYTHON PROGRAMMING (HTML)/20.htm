@@ -1,0 +1,845 @@
+<html><head><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=Generator content="Microsoft Word 10 (filtered)"><link rel="stylesheet" type="text/css" href="1.css"><title></title></head><body lang=EN-US link="#990000" vlink=purple><div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=19.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=21.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div><br><br>
+<h2><a name="_Chapter_16._Windows_NT_Administrati"></a>Chapter 16. Windows NT
+Administration</h2>
+
+<p>Administering Windows NT networks is an onerous task, requiring a
+combination of technical expertise to set up and maintain the machines, and
+also extreme patience when performing the laborious manual task of dealing with
+accounts, user groups, and other details. Scripting languages such as Python
+can help automate this process, leaving the administrator to focus on the
+important tasks.</p>
+
+<p>This chapter shows how Python can access the Windows NT functionality often
+sought by an NT administrator. We show how to deal with user accounts, user
+groups, and information about the servers on the network, and demonstrate how a
+Windows NT machine can be rebooted programmatically from a remote machine. In
+addition to the topics discussed in this chapter, you should see <a
+href="#_Chapter_18._Windows_NT_Services">Chapter 18</a>, for a description of
+how to use the Windows NT Event Log and Performance Monitor from Python
+programs. Finally, if you have an existing command-line tool that provides
+administration functionality Python doesn’t, remember that you can still
+execute command-line tools from within Python to help complement the tools it
+does have. See <a href="21.htm#_Chapter_17._Processes_and_Files">Chapter 17</a>, for
+more details on executing external programs.</p>
+
+<p>All examples in this chapter assume you are running on a Windows NT machine.
+Many of these examples also will require some degree of administrator access;
+for example, creating a new user or initiating a server restart all require
+differing levels of access. If you are in doubt, please see your network
+administrator.</p>
+
+<h3><a name="_16.1_Working_with_Users_and_Groups"></a>16.1 Working with Users
+and Groups</h3>
+
+<p>The Windows NT API provides a rich set of functions to control Windows NT
+users and groups. To cope with the large number of attributes stored for users
+and groups, Windows NT defines different <i>information levels</i> for these
+objects. Programs that require only minimal information, such as the user or
+group name, can specify an information level that returns only this
+information. Other programs may wish to view all information available for a
+user, and will specify a different information level when accessing user
+information.</p>
+
+<p>The Python support for NT users, groups, shares, servers, and so forth is in
+the module <tt><span style='font-size:10.0pt'>win32net</span></tt> . This
+module uses dictionaries to set and obtain information about these objects.
+When you request information about an object, a dictionary is returned; the
+information level you specify determines the items in the dictionary. When you
+create or modify information about a user, you pass a dictionary; the
+information level you specify determines which dictionary elements are expected
+to exist.</p>
+
+<p>For example, when working with users, if you specify an information level of
+1, the data is in the format defined for <tt><span style='font-size:10.0pt'>PyUSER_INFO_1</span></tt>.
+If you specify an information level of 102 when dealing with servers, the data
+is in the format defined for <tt><span style='font-size:10.0pt'>PySERVER_INFO_102</span></tt>.
+<a href="29.htm#_Appendix_B._Win32_Extensions_Refere">Appendix B</a>, describes the
+different information levels and the data.</p>
+
+<p>Most of the Windows NT administration functions take as their first
+parameter the name of a server on which to execute the command. You can pass <tt><span
+style='font-size:10.0pt'>None</span></tt> if you want to apply the changes to
+the local machine, but if you are working within a Windows NT domain, you may
+need to specify the name of a domain controller for that domain. This obviously
+means you will also need the appropriate permissions on that domain. All
+examples in this chapter use the local machine, and hence pass <tt><span
+style='font-size:10.0pt'>None</span></tt> as the first parameter. Also be aware
+that in a typical Windows NT network, you may find Windows NT Primary Domain
+Controllers (PDCs), Backup Domain Controllers (BDCs), Windows NT servers,
+Windows NT workstations, and Windows 2000 machines. Although the APIs are all
+exposed, you may need to ensure the changes are applied as you expect. For
+example, as we shall see later in this chapter, working with NT users or groups
+differs slightly if the changes are applied to the local database, or to the
+domain.</p>
+
+<p>All strings returned from the Windows NT API functions are Unicode, so for
+Python 1.5 you may need to convert them to Python strings, using the <tt><span
+style='font-size:10.0pt'>str()</span></tt> function. When you pass a dictionary
+to these functions, the strings can be normal Python strings or Unicode
+objects; Python converts them to Unicode if necessary.</p>
+
+<h4>16.1.1 Obtaining Information About a User or Group</h4>
+
+<p>To get a feel for this, let’s start by querying information about a current
+user. First, obtain your username:</p>
+
+<pre>&gt;&gt;&gt; import win32api</pre><pre>&gt;&gt;&gt; userName=win32api.GetUserName()</pre>
+
+<p>And to assist working with the Python dictionaries, you can define a simple
+helper function to pretty-print the data:</p>
+
+<pre>&gt;&gt;&gt; def dump(dict):</pre><pre>...     for key, value in dict.items():</pre><pre>...         print key, &quot;=&quot;, str(value)</pre><pre>...     </pre><pre>&gt;&gt;&gt;</pre>
+
+<p>So now you can get the user information and pass it to your function to
+print. Pass <tt><span style='font-size:10.0pt'>None</span></tt> for the first
+parameter, so this function obtains the information from the local machine.
+Pass your current username in the second parameter, and request information
+level 1 in the last parameter, giving the data defined in <tt><span
+style='font-size:10.0pt'>PyUSER_INFO_1</span></tt>:</p>
+
+<pre>&gt;&gt;&gt; import win32net</pre><pre>&gt;&gt;&gt; info=win32net.NetUserGetInfo(None, userName, 1)</pre><pre>&gt;&gt;&gt; print info['name'] # print just the user name</pre><pre>skip</pre><pre>&gt;&gt;&gt; dump(info)</pre><pre>priv = 2</pre><pre>home_dir = c:\winnt\profiles\skip\personal</pre><pre>password = None</pre><pre>script_path = </pre><pre>name = skip</pre><pre>flags = 66049</pre><pre>password_age = 23792806</pre><pre>comment = </pre><pre>&gt;&gt;&gt;</pre>
+
+<p>By referring to <a href="29.htm#_Appendix_B._Win32_Extensions_Refere">Appendix B</a>,
+you can determine the information returned for each information level; however,
+for a thorough description, you should refer to the Win32 documentation for
+these functions. Let’s experiment with this a little from the interactive
+prompt:</p>
+
+<pre>&gt;&gt;&gt; len(info)</pre><pre>8</pre>
+
+<p>Level 1 (<tt><span style='font-size:10.0pt'>PyUSER_INFO_1</span></tt>) has
+eight items of data. You can try some other levels:</p>
+
+<pre>&gt;&gt;&gt; info=win32net.NetUserGetInfo(None, userName, 2)</pre><pre>&gt;&gt;&gt; len(info)</pre><pre>24</pre><pre>&gt;&gt;&gt; info=win32net.NetUserGetInfo(None, userName, 3)</pre><pre>&gt;&gt;&gt; len(info)</pre><pre>29</pre><pre>&gt;&gt;&gt; info=win32net.NetUserGetInfo(None, userName, 4)</pre><pre>Traceback (innermost last):</pre><pre>  File &quot;&lt;interactive input&gt;&quot;, line 1, in ?</pre><pre>ValueError: This information level is not supported</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Level 2 provides 24 pieces of data, while level 3 provides 29. There is no
+information level 4, but if you refer to <a
+href="http://safari.oreilly.com/main.asp?bookname=pythonwin32&amp;cnode=188"><span
+style='color:black;text-decoration:none'><u><span style='color:#990000'>Appendix
+B</span></u></span></a>, you will find other information levels supported we
+don’t demonstrate here.</p>
+
+<p>The <tt><span style='font-size:10.0pt'>win32net.NetGroupGetInfo()</span></tt>
+function is the equivalent for obtaining the information about a group, but
+instead deals with <tt><span style='font-size:10.0pt'>PyGROUP_INFO</span></tt>
+structures.</p>
+
+<p>You can also enumerate (i.e., loop over) all users using the <tt><span
+style='font-size:10.0pt'>win32net.NetUserEnum()</span></tt> function.</p>
+
+<pre>entries, total, resume = win32net.NetUserEnum(<tt><i>server</i></tt>, <tt><i>level</i></tt>, <tt><i>filter</i></tt>, <tt><i>resume</i></tt>, <tt><i>len=4096</i></tt>)</pre>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>server</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The name of the server to execute on, or <tt><span
+style='font-size:10.0pt'>None</span></tt> for the current machine.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>level</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>An integer specifying the level of information
+requested.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>filter</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>An integer defining the type of accounts to list. A
+common value for this is <tt><span style='font-size:10.0pt'>FILTER_NORMAL_ACCOUNT</span></tt>,
+although <a
+href="http://safari.oreilly.com/main.asp?bookname=pythonwin32&amp;cnode=188"><span
+style='color:black;text-decoration:none'><u><span style='color:#990000'>Appendix
+B</span></u></span></a> lists the valid values for Windows NT 4.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>resume</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>A value used to control the iteration when there is
+a large number of users to list. Zero should be passed the first time it is
+called, and while a nonzero <tt><i><span style='font-size:10.0pt'>resume</span></i></tt>
+result is returned from the function, it can be called again with the new <tt><i><span
+style='font-size:10.0pt'>resume</span></i></tt> value to obtain the next set of
+the users. An example of this is shown in the following code.</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>len = 4096</span></span><span
+style='font-family:Arial;color:#990000'> </span></p>
+
+<p style='margin-left:.5in'>A hint to the Win32 function about how much data to
+allocate. See the Win32 documentation for more details.</p>
+
+<p>The <tt><span style='font-size:10.0pt'>NetUserEnum()</span></tt> function
+returns three items:</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>entries</span></span><span
+style='font-family:Arial;color:#990000'> </span></p>
+
+<p style='margin-left:.5in'>A list of dictionaries; one for each user returned.</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>total</span></span><span
+style='font-family:Arial;color:#990000'> </span></p>
+
+<p style='margin-left:.5in'>The total number of items left to read before
+making the call. Thus, <tt><span style='font-size:10.0pt'>total-len(entries)</span></tt>
+is the number of entries left to read after this call.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>resume</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>A resume handle, that can obtain the next set of
+users. When resume is zero, there are no more items to read.</p>
+
+<p>The parameters and arguments to this function are probably not obvious, and
+all the <tt><span style='font-size:10.0pt'>win32net</span></tt> enumeration
+functions follow this pattern, so it’s worth discussing at this point. The
+general idea is that you call this function multiple times, with each call
+obtaining only a portion of the total data. The <tt><span style='font-size:
+10.0pt'>resume</span></tt> parameter controls the looping and indicates when
+there’s no more data available. These functions are designed to allow programs
+to process large sets of data without consuming all the memory on the local
+machine; however, the key drawback is that the code becomes slightly more
+complex.</p>
+
+<p>To demonstrate the use of this function, let’s write a function that loops
+over all users, and prints their username and the date and time they last logged
+on.</p>
+
+<p>If you consult <a
+href="http://safari.oreilly.com/main.asp?bookname=pythonwin32&amp;cnode=188"><span
+style='color:black;text-decoration:none'><u><span style='color:#990000'>Appendix
+B</span></u></span></a>, you’ll notice that an information level of 2 (<tt><span
+style='font-size:10.0pt'>PyUSER_INFO_2</span></tt>) includes the fields <tt><span
+style='font-size:10.0pt'>name</span></tt> and <tt><span style='font-size:10.0pt'>last_logon</span></tt>.
+So you can do an enumeration at level 2. Also, you should exploit the fact that
+the Win32 Networking API time values are all integers holding the number of
+seconds since January 1, 1970, and that this is the same system the standard
+Python <tt><span style='font-size:10.0pt'>time</span></tt> module uses.</p>
+
+<p>As we mentioned, the looping makes the code more complex than most code
+working with users and groups, but it’s still small enough to type
+interactively:</p>
+
+<pre>&gt;&gt;&gt; import win32netcon</pre><pre>&gt;&gt;&gt; import time</pre><pre>&gt;&gt;&gt; def ReportUsers():</pre><pre>...  resume = 0</pre><pre>...  while 1:</pre><pre>...    filter = win32netcon.FILTER_NORMAL_ACCOUNT</pre><pre>...    data, total, resume = win32net.NetUserEnum(None, 2, filter, resume)</pre><pre>...    for user in data:</pre><pre>...      lastlogon= time.strftime(&quot;%c&quot;, time.localtime(user['last_logon']))</pre><pre>...      print user['name'], lastlogon</pre><pre>...    if resume==0:</pre><pre>...      break</pre><pre>&gt;&gt;&gt; ReportUsers()</pre><pre>Administrator 04/15/99 14:57:13</pre><pre>Guest 01/01/70 11:00:00</pre><pre>skip 04/15/99 15:07:26</pre><pre>VUSR_BOBCAT 10/09/98 15:33:55</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Note the use of the <tt><span style='font-size:10.0pt'>resume</span></tt>
+parameter. Initialize this to zero before you start the loop. Each time you
+repeat the loop, you pass the <tt><span style='font-size:10.0pt'>resume</span></tt>
+result from the previous call. When the result returns zero, you’re done.</p>
+
+<h4>16.1.2 Creating, Changing, and Deleting Users and Groups</h4>
+
+<p>Creating users and groups is a simple process. All you need to do is create
+a dictionary with the information for the user and call <tt><span
+style='font-size:10.0pt'>win32net.NetUserAdd()</span></tt> or <tt><span
+style='font-size:10.0pt'>win32net.NetGroupAdd()</span></tt>. Depending on the
+information you need to set for the user, the information level can be 1, 2, or
+3, corresponding to <tt><span style='font-size:10.0pt'>PyGROUP_INFO_1</span></tt>,
+<tt><span style='font-size:10.0pt'>PyGROUP_INFO_2,</span></tt> and <tt><span
+style='font-size:10.0pt'>PyGROUP_INFO_3</span></tt> respectively. Refer to <a
+href="http://safari.oreilly.com/main.asp?bookname=pythonwin32&amp;cnode=188"><span
+style='color:black;text-decoration:none'><u><span style='color:#990000'>Appendix
+B</span></u></span></a> for the dictionary elements in these information
+levels.</p>
+
+<pre>win32net.NetUserAdd(<tt><i>server</i></tt>, <tt><i>level</i></tt>, <tt><i>data</i></tt>)</pre>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>server</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The name of the server to execute on or <tt><span
+style='font-size:10.0pt'>None</span></tt> for the current machine.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>level</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The level of information provided in the data
+parameter.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>data</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>A dictionary with data corresponding to the level.</p>
+
+<p>The simplest way to start is to create a dictionary corresponding to
+information level 1. Some of the attributes are optional. You can create a new
+user with the following code:</p>
+
+<pre>&gt;&gt;&gt; d={}</pre><pre>&gt;&gt;&gt; d['name'] = &quot;PythonTestUser&quot;</pre><pre>&gt;&gt;&gt; d['password'] = &quot;Top Secret&quot;</pre><pre>&gt;&gt;&gt; d['comment'] = &quot;A user created by some Python demo code&quot;</pre><pre>&gt;&gt;&gt; d['flags'] = win32netcon.UF_NORMAL_ACCOUNT | win32netcon.UF_SCRIPT</pre><pre><span
+lang=DE>&gt;&gt;&gt; d['priv'] = win32netcon.USER_PRIV_USER</span></pre><pre>&gt;&gt;&gt; win32net.NetUserAdd(None, 1, d)</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Most of the attributes are self-explanatory. The <tt><span style='font-size:
+10.0pt'>flags</span></tt> attribute specifies the type of account to create.
+The Win32 documentation states that the use of the <tt><span style='font-size:
+10.0pt'>UF_SCRIPT </span></tt>flag is necessary. The <tt><span
+style='font-size:10.0pt'>priv</span></tt> attribute controls the privileges of
+the new user; you are creating a normal user. See <a
+href="http://safari.oreilly.com/main.asp?bookname=pythonwin32&amp;cnode=188"><span
+style='color:black;text-decoration:none'><u><span style='color:#990000'>Appendix
+B</span></u></span></a> for more details on these attributes.</p>
+
+<p>You’ve now created a user. Let’s see if you can read the data for the new
+user:</p>
+
+<pre>&gt;&gt;&gt; win32net.NetUserGetInfo(None, &quot;PythonTestUser&quot;, 0)</pre><pre>{'name': L'PythonTestUser'}</pre>
+
+<p>Information level (<tt><span style='font-size:10.0pt'>PyUSER_INFO_0</span></tt>)
+provides only the username, so the user does exist.</p>
+
+<p>To modify the details for a user, use the function <tt><span
+style='font-size:10.0pt'>win32net.NetUserSetInfo()</span></tt>.</p>
+
+<pre>win32net.NetUserSetInfo(<tt><i>server</i></tt>, <tt><i>userName</i></tt>, <tt><i>level</i></tt>, <tt><i>data</i></tt>)</pre>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>server</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The name of the server to execute on or <tt><span
+style='font-size:10.0pt'>None</span></tt> for the current machine.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>userName</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The username to change. The <tt><span
+style='font-size:10.0pt'>name</span></tt> element in the dictionary is ignored.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>level</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The level of information provided in the <tt><i><span
+style='font-size:10.0pt'>data</span></i></tt> parameter.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>data</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>A dictionary with data corresponding to the level.</p>
+
+<p>The simplest way to fill this dictionary is to call <tt><span
+style='font-size:10.0pt'>win32net.NetUserGetInfo()</span></tt> with the
+appropriate information level, modify the returned dictionary, then pass it to <tt><span
+style='font-size:10.0pt'>win32net.NetUserSetInfo()</span></tt>. This is simple
+to demonstrate. Let’s modify the <tt><span style='font-size:10.0pt'>comment</span></tt>
+field for the new user:</p>
+
+<pre>&gt;&gt;&gt; d = win32net.NetUserGetInfo(None, &quot;PythonTestUser&quot;, 1)</pre><pre>&gt;&gt;&gt; d['comment']</pre><pre>L'A user created by some Python demo code'</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Now you have a dictionary, and the comment is just as you created it. Now,
+update the dictionary and update the user:</p>
+
+<pre>&gt;&gt;&gt; d['comment'] = &quot;The new comment for our user&quot;</pre><pre>&gt;&gt;&gt; d = win32net.NetUserSetInfo(None, &quot;PythonTestUser&quot;, 1, d)</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Finally, you can check that your data made it by rereading the user
+information:</p>
+
+<pre>&gt;&gt;&gt; win32net.NetUserGetInfo(None, &quot;PythonTestUser&quot;, 1)['comment']</pre><pre>L'The new comment for our user'</pre><pre>&gt;&gt;&gt;</pre>
+
+<h5>16.1.2.1 Working with groups</h5>
+
+<p>Working with groups is similar to working with users. The concepts are
+identical; only the specific data that is used changes. Again, you need to
+refer to <a
+href="http://safari.oreilly.com/main.asp?bookname=pythonwin32&amp;cnode=188"><span
+style='color:black;text-decoration:none'><u><span style='color:#990000'>Appendix
+B</span></u></span></a> to find the exact attributes required in the dictionary
+for the specific call. We will now make a slight diversion and play with some
+Windows NT groups while we have a test user.</p>
+
+<p>Add the new user to the standard group named <i>Users</i>. Windows NT
+doesn’t automatically add users to this group, so you need to do it for all new
+users.</p>
+
+<div align=center>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="90%"
+ style='width:90.0%;background:black'>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%"
+   style='width:100.0%;background:white'>
+   <tr>
+    <td width=60 valign=top style='width:45.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt'>
+    <p class=MsoNormal><span style='font-family:Arial'><img border=0 width=50
+    height=54 src="images/image002.gif"></span></p>
+    </td>
+    <td valign=top style='padding:4.5pt 4.5pt 4.5pt 4.5pt'>
+    <p>Although new users are aren’t added to local groups, any new users you
+    create in a domain are automatically added to the<i> Domain Users</i>
+    group.</p>
+    </td>
+   </tr>
+  </table>
+  <p class=MsoNormal></p>
+  </td>
+ </tr>
+</table>
+
+</div>
+
+<p>Windows NT defines two types of groups: <i>local groups</i> are local to the
+machine, while <i>groups</i> are domain groups. Rather than assume your Windows
+NT machine is in a domain, you can use local groups with the function <tt><span
+style='font-size:10.0pt'>win32net.NetLocalGroupAddMembers()</span></tt>. The
+process for using domain groups is similar, but it employs <tt><span
+style='font-size:10.0pt'>win32net.NetGroupAddUser()</span></tt>.</p>
+
+<pre>win32net.NetLocalGroupAddMembers(<tt><i>server</i></tt>, <tt><i>group</i></tt>, <tt><i>level</i></tt>, <tt><i>members_data</i></tt>)</pre>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>server</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The name of the server on which to apply the
+changes, or <tt><span style='font-size:10.0pt'>None</span></tt> for the current
+machine.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>group</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The name of the local group to which the members
+should be added.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>level</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The level of the data contained in each element of <tt><i><span
+style='font-size:10.0pt'>members_data</span></i></tt>.</p>
+
+<p class=MsoNormal style='page-break-after:avoid'><tt><i><span
+style='font-size:10.0pt;color:#990000'>members_data</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>A list of dictionaries, one for each member to be
+added. The dictionaries must be one of the <tt><span style='font-size:10.0pt'>LOCALGROUP_MEMBERS_INFO</span></tt>
+structures, depending on the level parameter.</p>
+
+<p>If you refer to <a
+href="http://safari.oreilly.com/main.asp?bookname=pythonwin32&amp;cnode=188"><span
+style='color:black;text-decoration:none'><u><span style='color:#990000'>Appendix
+B</span></u></span></a>, notice that the <tt><span style='font-size:10.0pt'>LOCALGROUP_MEMBERS_INFO</span></tt>
+levels 0, 1, and 2 all require a user SID, an NT Security Identifier. Although
+you can work with SIDs via the <tt><span style='font-size:10.0pt'>win32security</span></tt>
+module, <tt><span style='font-size:10.0pt'>LOCALGROUP_MEMBERS_INFO_3</span></tt>
+allows you to specify a domain and username. So the first step is to obtain the
+current domain name:</p>
+
+<pre>&gt;&gt;&gt; import win32api</pre><pre>&gt;&gt;&gt; domain = win32api.GetDomainName()</pre>
+
+<p>Now build a dictionary with a single element, <tt><span style='font-size:
+10.0pt'>domainandname</span></tt>, that is a string in the standard Windows NT
+username format, <tt><span style='font-size:10.0pt'>Domain\User</span></tt>.
+This dictionary is stored as the only item in a list:</p>
+
+<pre>&gt;&gt;&gt; data = [ {&quot;domainandname&quot; : domain+&quot;\\PythonTestUser&quot;} ]</pre>
+
+<p>You can now add the member to the group. Note that you must specify
+information level 3, since this is the format of the data in your dictionary:</p>
+
+<pre>&gt;&gt;&gt; win32net.NetLocalGroupAddMembers(None, &quot;Users&quot;, 3, data)</pre>
+
+<p>If you wish, you could use the <tt><span style='font-size:10.0pt'>win32net.NetLocalGroupGetMembers()</span></tt>
+function to list the members in the group to prove the new member is indeed in
+the group.</p>
+
+<h5>16.1.2.2 Deleting users</h5>
+
+<p>Finally, you can delete the new user with the <tt><span style='font-size:
+10.0pt'>win32net.NetUserDel()</span></tt> function.</p>
+
+<pre>win32net.NetUserDel(<tt><i>server</i></tt>, <tt><i>userName</i></tt>)</pre>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>server</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The name of the server on which to delete the user
+or <tt><span style='font-size:10.0pt'>None</span></tt> for the current machine.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>userName</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The name of the user to delete.</p>
+
+<p>Can’t get much simpler than that. Let’s delete the new user:</p>
+
+<pre>&gt;&gt;&gt; win32net.NetUserDel(None, &quot;PythonTestUser&quot;)</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Now, check the deletion by trying to read the user’s information back in:</p>
+
+<pre>&gt;&gt;&gt; win32net.NetUserGetInfo(None, &quot;PythonTestUser&quot;, 1)</pre><pre>Traceback (innermost last):</pre><pre>  File &quot;&lt;interactive input&gt;&quot;, line 0, in ?</pre><pre>api_error: (2221, 'NetUserGetInfo', 'The user name could not be found.')</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>As you can see, the user has been deleted. </p>
+
+<h3><a name="_16.2_Server_and_Share_Information"></a>16.2 Server and Share
+Information</h3>
+
+<p>In many administrative tasks, it’s handy to be able to query and change
+information about particular servers and the resources these servers publish.
+Working with server and share information is identical in concept to working
+with users and groups. Each function defines an information level that
+determines the specific data requested or being set.</p>
+
+<h4>16.2.1 Querying Information About Servers</h4>
+
+<p>Server information is provided by the <tt><span style='font-size:10.0pt'>PySERVER_INFO_*</span></tt>
+structures, as defined in <a
+href="http://safari.oreilly.com/main.asp?bookname=pythonwin32&amp;cnode=188"><span
+style='color:black;text-decoration:none'><u><span style='color:#990000'>Appendix
+B</span></u></span></a>. <tt><span style='font-size:10.0pt'>PySERVER_INFO_100</span></tt>
+provides the lowest level of detail, so let’s see what this includes.</p>
+
+<p>First import the necessary modules and read the data for the server. Then
+print the dictionary:</p>
+
+<pre>&gt;&gt;&gt; import win32net, win32netcon</pre><pre>&gt;&gt;&gt; data=win32net.NetServerGetInfo(None, 100)</pre><pre>&gt;&gt;&gt; data</pre><pre>{'name': L'BOBCAT', 'platform_id': 500}</pre>
+
+<p>Notice the <tt><span style='font-size:10.0pt'>platform_id</span></tt> is
+500. Windows defines only two platform IDs, one for Windows NT and one for
+OS/2:</p>
+
+<pre>&gt;&gt;&gt; win32netcon.SV_PLATFORM_ID_NT</pre><pre>500</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>My workstation is indeed an NT machine: what a relief!</p>
+
+<p>You can also obtain a list of the Windows servers on your network with the <tt><span
+style='font-size:10.0pt'>win32net.NetServerEnum()</span></tt> function.</p>
+
+<pre>entries, total, resume = win32net.NetServerEnum(<tt><i>server</i></tt>, <tt><i>level</i></tt>, serverTypes=</pre><pre>win32netcon.SV_TYPE_ALL, resume = 0, len=4096)</pre>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>server</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The name of the server to execute on or <tt><span
+style='font-size:10.0pt'>None</span></tt> for the current machine.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>level</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>An integer specifying the level of information
+requested.</p>
+
+<p class=MsoNormal style='page-break-after:avoid'><span class=monofont1><span
+style='color:#990000'>serverTypes</span></span><span style='font-family:Arial;
+color:#990000'> </span></p>
+
+<p style='margin-left:.5in'>A bitmask of flags indicating the types of servers
+to list. <a
+href="http://safari.oreilly.com/main.asp?bookname=pythonwin32&amp;cnode=188"><span
+style='color:black;text-decoration:none'><u><span style='color:#990000'>Appendix
+B</span></u></span></a> lists common values for this flag.</p>
+
+<p>We don’t discuss the <tt><span style='font-size:10.0pt'>resume</span></tt>
+or <tt><span style='font-size:10.0pt'>len</span></tt> parameters, or the
+result. Check the previous example for <tt><span style='font-size:10.0pt'>win32net.NetUserEnum()</span></tt>
+to see how to use these enumerators.</p>
+
+<h4>16.2.2 Working with Share Information</h4>
+
+<p>Windows NT defines the concept of a <i>share</i> . A share is a resource
+published by a machine designed for sharing with multiple users. Shares are
+usually disk-based shares or printers.</p>
+
+<p>To obtain information about a share or to enumerate the shares available on
+a Windows NT server, the <tt><span style='font-size:10.0pt'>win32net.NetShare*()</span></tt>
+family of functions are used, with <tt><span style='font-size:10.0pt'>PySHARE_INFO_*</span></tt>
+as the corresponding data structures. The process for shares is identical to
+the process for working with users and servers, as we described previously.</p>
+
+<p>For example, you can use the <tt><span style='font-size:10.0pt'>win32net.NetShareEnum()</span></tt>
+function to view the shares published by a server. This function is almost
+identical to the other enumerator functions described in this chapter, so you
+can use the following code to read the first few shares at your local machine
+at information level 0:</p>
+
+<pre>&gt;&gt;&gt; data, total, resume = win32net.NetShareEnum(None, 0)</pre><pre>&gt;&gt;&gt; for share in data:</pre><pre>...     print share['netname']</pre><pre>... </pre><pre>... </pre><pre>ADMIN$</pre><pre>IPC$</pre><pre>cdrom</pre><pre>C$</pre><pre>c_drive</pre><pre>l_drive</pre><pre>L$</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Note that you haven’t looped calling the function, so you get only the first
+few shares that may be available.</p>
+
+<p>A new share can be created on a server using <tt><span style='font-size:
+10.0pt'>win32net.NetShareAdd()</span></tt>. This function requires data in
+information level 2, a <tt><span style='font-size:10.0pt'>PyNET_SHARE_INFO_2</span></tt>
+structure. By referring to <a
+href="http://safari.oreilly.com/main.asp?bookname=pythonwin32&amp;cnode=188"><span
+style='color:black;text-decoration:none'><u><span style='color:#990000'>Appendix
+B</span></u></span></a>, you can find the data necessary to create a share. The
+following code shows how to create a share to the local <i>C:\TEMP</i>
+directory:</p>
+
+<pre>&gt;&gt;&gt; data={}</pre><pre>&gt;&gt;&gt; data['netname']=&quot;TEMPSHARE&quot;</pre><pre>&gt;&gt;&gt; data['type']=win32netcon.STYPE_DISKTREE</pre><pre>&gt;&gt;&gt; data['path']=&quot;C:\\TEMP&quot;</pre><pre>&gt;&gt;&gt; data['max_uses']=-1</pre><pre>&gt;&gt;&gt; win32net.NetShareAdd(None, 2, data)</pre>
+
+<p>The only nonobvious part may be the <tt><span style='font-size:10.0pt'>max_uses</span></tt>
+element. If you left this at zero, no users could connect to your share. The
+Win32 documentation states that this should be set to -1 to allow for unlimited
+uses.</p>
+
+<h4>16.2.3 User and Share Sample</h4>
+
+<p>We now present a fairly advanced sample of using some of these
+administrative tools in a real-world scenario.</p>
+
+<p>The problem is that our company has just merged with another medium-sized
+company. The merger means 250 new user accounts need to be created on the
+network. This is clearly too many to perform manually when there is a tool such
+as Python available. It’s not a problem to get a text file with the names of
+the new users, but you need a way to automate the process. The requirements for
+creating the new users are to:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Create a new NT user with a default password that must be changed
+at first logon.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Create a home directory for the new user with the user
+information reflecting this as their home directory.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Create a new share for the user’s home directory with the
+appropriate default permissions. Windows NT also supports connecting the user’s
+home directory to a drive letter, so you need to set the user info to nominate <a
+href="P:" target="_blank">P:</a> to connect to this share at logon.</p>
+
+<p>Of course, this is still a contrived example. Any real-world job will have
+additional requirements when creating many new users; for example, creating an
+email account for each new user. In addition, the error-handling requirements
+depend on the particular task at hand. To this end, and to keep the size of the
+sample code down, no error handling exists at all. Notwithstanding these
+restrictions, you should still find the sample valuable when developing your
+own customized scripts.</p>
+
+<p>Before jumping into the code, there are a few things worth mentioning:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The requirements state you should specify the home directory as
+P: and set the password as expired when creating the user. Looking in <a
+href="http://safari.oreilly.com/main.asp?bookname=pythonwin32&amp;cnode=188"><span
+style='color:black;text-decoration:none'><u><span style='color:#990000'>Appendix
+B</span></u></span></a>, you’ll see that you must use information level 3 (<tt><span
+style='font-size:10.0pt'>PyUSER_INFO_3</span></tt>) to obtain access to this
+information. Creating a user at this information level requires you to also set
+the <tt><span style='font-size:10.0pt'>primary_group_id</span></tt> element to
+a default value.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The requirements state that the share must have special security
+settings. This requires the use of information level 502 (<tt><span
+style='font-size:10.0pt'>PySHARE_INFO_502</span></tt>). The directory is
+created without special security. If necessary, you could use <tt><span
+style='font-size:10.0pt'>win32file.CreateDirectory()</span></tt>, passing a
+security object similar to that used for the share.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The handling of the NT security objects is not covered in detail
+in this book; for further information on Windows NT security, refer to the
+Windows NT documentation.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Unlike local groups, new users are automatically added to the
+domain users group when they are created. Therefore, it’s unnecessary to add
+the user to any additional groups when this code is run against a Windows NT
+domain.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>You should also provide some code to delete the new users. This
+is particularly helpful when developing and testing the script; you can delete
+the users created by the previous run, then re-create them with different
+settings.</p>
+
+<p>The following code is quite large by Python standards—just over 100 lines,
+including comments and blank lines:</p>
+
+<pre># BatchUserCreate.py</pre><pre>#</pre><pre># A sample administrative script to perform a batch </pre><pre># creation of many users.</pre><pre>&nbsp;</pre><pre># Input to this program is a text file with one user per </pre><pre># line.  Each line contains the new username and the</pre><pre># user's full name.</pre><pre>&nbsp;</pre><pre># Creates the new user, and a new share on the server </pre><pre># for the user.  The new share is secure, and can only </pre><pre># be accessed by the new user.</pre><pre>import win32security, win32net, win32file, win32api</pre><pre>import win32netcon, ntsecuritycon</pre><pre>import os, sys, string</pre><pre>&nbsp;</pre><pre># The name of the server to use to create the user.</pre><pre>serverName = None</pre><pre>&nbsp;</pre><pre># The logic for naming the home_drive assumes we have</pre><pre># a server name.  If we don't, get the current machine name.</pre><pre>if serverName is None:</pre><pre>    serverName = &quot;\\\\&quot; + win32api.GetComputerName()</pre><pre>&nbsp;</pre><pre># The root of each users personal directory.</pre><pre># This is a local reference to the directory where each </pre><pre># personal directory is created.</pre><pre>homeRoot = &quot;C:\\Users&quot;</pre><pre>&nbsp;</pre><pre>def CreateUserAndShare(userName, fullName):</pre><pre>    homeDir = &quot;%s\\%s&quot; % (serverName, userName)</pre><pre>    # Create user data in information level 3 (PyUSER_INFO_3) format.</pre><pre>    userData = {}</pre><pre>    userData['name'] = userName</pre><pre>    userData['full_name'] = fullName</pre><pre>    userData['password'] = userName</pre><pre>    userData['flags'] = win32netcon.UF_NORMAL_ACCOUNT | win32netcon.UF_SCRIPT</pre><pre>    userData['priv'] = win32netcon.USER_PRIV_USER</pre><pre>    userData['home_dir'] = homeDir</pre><pre>    userData['home_dir_drive'] = &quot;P:&quot;</pre><pre>    userData['primary_group_id'] = ntsecuritycon.DOMAIN_GROUP_RID_USERS</pre><pre>    userData['password_expired'] = 1 # User must change password next logon.</pre><pre>    </pre><pre>    # Create the user</pre><pre>    win32net.NetUserAdd(serverName, 3, userData)</pre><pre>    </pre><pre>    # Create the new directory, then the share</pre><pre>    dirName = os.path.join(homeRoot, userName)</pre><pre>    os.mkdir(dirName)</pre><pre>    shareData = {}</pre><pre>    shareData['netname'] = userName</pre><pre>    shareData['type'] = win32netcon.STYPE_DISKTREE</pre><pre>    shareData['path'] = dirName</pre><pre>    shareData['max_uses'] = -1</pre><pre>    # The security setting for the share.</pre><pre>    sd = CreateUserSecurityDescriptor(userName)</pre><pre>    shareData['security_descriptor'] = sd</pre><pre>    # And finally create it.</pre><pre>    win32net.NetShareAdd(serverName, 502, shareData)</pre><pre>    </pre><pre># A utility function that creates an NT security object for a user.</pre><pre>def CreateUserSecurityDescriptor(userName):</pre><pre>    sidUser = win32security.LookupAccountName(serverName, userName)[0]</pre><pre>    sd = win32security.SECURITY_DESCRIPTOR()</pre><pre>&nbsp;</pre><pre>    # Create the &quot;well known&quot; SID for the administrators group</pre><pre>    subAuths = ntsecuritycon.SECURITY_BUILTIN_DOMAIN_RID, \</pre><pre>               ntsecuritycon.DOMAIN_ALIAS_RID_ADMINS</pre><pre>    sidAdmins = win32security.SID(ntsecuritycon.SECURITY_NT_AUTHORITY, subAuths)</pre><pre>&nbsp;</pre><pre>    # Now set the ACL, giving user and admin full access.</pre><pre>    acl = win32security.ACL(128)</pre><pre>    acl.AddAccessAllowedAce(win32file.FILE_ALL_ACCESS, sidUser)</pre><pre>    acl.AddAccessAllowedAce(win32file.FILE_ALL_ACCESS, sidAdmins)</pre><pre>&nbsp;</pre><pre>    sd.SetSecurityDescriptorDacl(1, acl, 0)</pre><pre>    return sd</pre><pre>&nbsp;</pre><pre># Debug helper to delete our test accounts and shares.</pre><pre>def DeleteUser(name):</pre><pre>    try:    win32net.NetUserDel(serverName, name)</pre><pre>    except win32net.error: pass</pre><pre>&nbsp;</pre><pre>    try: win32net.NetShareDel(serverName, name)</pre><pre>    except win32net.error: pass</pre><pre>&nbsp;</pre><pre>    try: os.rmdir(os.path.join(homeRoot, name))</pre><pre>    except os.error: pass</pre><pre>&nbsp;</pre><pre>if __name__=='__main__':</pre><pre>    import fileinput # Helper for reading files line by line</pre><pre>    if len(sys.argv)&lt;2:</pre><pre>        print &quot;You must specify an options file&quot;</pre><pre>        sys.exit(1)</pre><pre>    if sys.argv[1]==&quot;-delete&quot;:</pre><pre>        for line in fileinput.input(sys.argv[2:]):</pre><pre>            DeleteUser(string.split(line,&quot;,&quot;)[0])</pre><pre>    else:</pre><pre>        for line in fileinput.input(sys.argv[1:]):</pre><pre>            userName, fullName = string.split(string.strip(line), &quot;,&quot;)</pre><pre>            CreateUserAndShare(userName, fullName)</pre><pre>            print &quot;Created&quot;, userName</pre>
+
+<p>To test this code, use a simple data file:</p>
+
+<pre>tu1,Test User 1</pre><pre>tu2,Test User 2</pre><pre>tu3,Test User 3</pre>
+
+<p>To run this script, start a command prompt on an NT server and change to the
+directory with the script and data file, and execute the command:</p>
+
+<pre>C:\Scripts&gt;BatchUserCreate.py userdata.txt</pre><pre>Created tu1</pre><pre>Created tu2</pre><pre>Created tu3</pre><pre>&nbsp;</pre><pre>C:\Scripts&gt;</pre>
+
+<p>There are now three new users. You can remove them by executing :</p>
+
+<pre>C:\Scripts&gt;BatchUserCreate.py -delete userdata.txt</pre>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<h3><a name="_16.3_Rebooting_a_Machine"></a>16.3 Rebooting a Machine</h3>
+
+<p>Occasionally, it’s necessary to force a Windows NT computer to reboot
+programmatically. You may need to perform a scheduled reboot of the current
+machine or force a reboot of a remote PC programmatically.</p>
+
+<p>The function <tt><span style='font-size:10.0pt'>win32api.InitiateSystemShutdown()</span></tt>
+appears perfect for the job.</p>
+
+<pre>win32api.InitiateSystemShutdown(<tt><i>machine</i></tt>, <tt><i>message</i></tt>, <tt><i>timeout</i></tt>, <tt><i>bForce</i></tt>, <tt><i>bReboot</i></tt>)</pre>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>machine</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>The name of the machine to shutdown or <tt><span
+style='font-size:10.0pt'>None</span></tt> for the current machine.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>message</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>A message to be displayed to the user in a dialog
+while the <tt><span style='font-size:10.0pt'>timeout</span></tt> period
+expires.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>timeout</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>A timeout in seconds, during which time a dialog is
+displayed warning the user of the pending shutdown. After the timeout expires, the
+shutdown process begins. If this is zero, the shutdown commences immediately.</p>
+
+<p class=MsoNormal style='page-break-after:avoid'><tt><i><span
+style='font-size:10.0pt;color:#990000'>bForce</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Specifies whether applications with unsaved changes
+are to be forcibly closed. If this parameter is <tt><span style='font-size:
+10.0pt'>true</span></tt>, such applications are closed. If this parameter is <tt><span
+style='font-size:10.0pt'>false</span></tt>, a dialog box is displayed prompting
+the user to close the applications. Note that this implies the user could
+cancel the shutdown process by selecting Cancel in the dialog his application
+displays for unsaved data.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>bReboot</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Specifies whether the machine is rebooted after the
+shutdown process.</p>
+
+<p>Let’s try this function. Start by rebooting the current machine with a
+30-second timeout (without forcing applications shut) and finally restart after
+shutdown:</p>
+
+<pre>&gt;&gt;&gt; import win32api</pre><pre>&gt;&gt;&gt; message = &quot;This machine is being rebooted because it has been naughty&quot;</pre><pre>&gt;&gt;&gt; win32api.InitiateSystemShutdown(None, message, 30, 0, 1)</pre><pre>Traceback (innermost last):</pre><pre>  File &quot;&lt;interactive input&gt;&quot;, line 0, in ?</pre><pre>api_error: (5, 'InitiateSystemShutdown', 'Access is denied.')</pre>
+
+<p>This will, no doubt, lead you into messing with the Windows NT User Manager,
+etc., to try to determine how to get permission to do so. You won’t have much
+luck: everything will indicate you should be allowed to restart the machine.
+The Win32 documentation for this function briefly mentions:</p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'>To stop the local computer from shutting down, the calling process must
+have the <tt><span style='font-size:10.0pt'>SE_SHUTDOWN_NAME</span></tt>
+privilege. To stop a remote computer from shutting down, the calling process
+must have the <tt><span style='font-size:10.0pt'>SE_REMOTE_SHUTDOWN_NAME</span></tt>
+privilege on the remote computer.</p>
+
+<p>But as far as can be seen, you should have the correct privilege. The answer
+lies in the fact that user rights and privileges are different things. Your
+user rights typically allow direct access to securable resources, such as
+files, printers, or the registry, but access to other system resources requires
+privileges. Your user rights determine the privileges you hold; but by default,
+most privileges aren’t enabled. Programs must explicitly enable the privilege
+before they perform an operation that requires the privilege.</p>
+
+<p>Privileges are required for fairly obscure tasks, such as rebooting the
+local or remote machine, changing the system time, creating machine accounts on
+the network, or loading device drivers. Our example of rebooting a machine is
+the only place in this book where you encounter privileges, so we will make a
+slight diversion at this point. Although we discuss only the privileges
+required to reboot the local or remote machine, the same concept applies when
+you perform any operation that requires you to enable special privileges.</p>
+
+<h4 style='page-break-after:avoid'>16.3.1 Obtaining the Necessary Privileges</h4>
+
+<p>The process of enabling new privileges is simple. We will discuss briefly
+the concepts and the code necessary to enable privileges, but for an in-depth
+discussion of privileges, refer to the Microsoft Windows NT Security
+documentation.</p>
+
+<p>You use the <tt><span style='font-size:10.0pt'>win32security</span></tt>
+module to gain access to the necessary functions. The process for enabling a
+privilege is:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Obtain the current access token using the <tt><span
+style='font-size:10.0pt'>win32security.OpenAccess-Token()</span></tt> function.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Obtain the ID for the privilege using <tt><span style='font-size:
+10.0pt'>win32security.Lookup-PrivilegeValue()</span></tt>.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Enable the privilege using <tt><span style='font-size:10.0pt'>win32security.AdjustTokenPrivileges()</span></tt>.</p>
+
+<p>When you’ve performed the operation, you need to disable the privilege
+again. The same process is used: <tt><span style='font-size:10.0pt'>win32security.AdjustTokenPrivileges()</span></tt>
+supports a flag that allows you to enable or disable the privilege. An example
+of this code is presented in the next section.</p>
+
+<h4>16.3.2 Sample Code to Reboot the Current Machine</h4>
+
+<p>You now have the knowledge to successfully make a <tt><span
+style='font-size:10.0pt'>win32api.Initiate-SystemShutdown()</span></tt> call.</p>
+
+<p>The code obtains the necessary privileges to reboot the machine, then makes
+the call to <tt><span style='font-size:10.0pt'>win32api.InitiateSystemShutdown()</span></tt>.
+Unfortunately, the dialog displayed by Windows NT doesn’t include any way to
+disable the shutdown operation. Once the shutdown has begun, the only way to
+stop it is programmatically.</p>
+
+<p>To cater to this, the sample application, shown in the following code,
+initiates a shutdown with a 30-second delay. The code then sleeps for 10
+seconds before programmatically aborting the shutdown using <tt><span
+style='font-size:10.0pt'>win32api.AbortSystem-Shutdown()</span></tt> . If you
+refer to the Windows NT documentation or <a
+href="http://safari.oreilly.com/main.asp?bookname=pythonwin32&amp;cnode=188"><span
+style='color:black;text-decoration:none'><u><span style='color:#990000'>Appendix
+B</span></u></span></a>, you’ll notice that this function requires the same
+privileges needed to initiate the shutdown in the first place. So before
+aborting the shutdown, you must jump through the same privilege hoops. To
+assist the process, let’s move the code that manages the privileges to a helper
+function that should be suitable for managing any type of privilege:</p>
+
+<pre># RebootServer.py - Reboots a remove server</pre><pre>import win32security</pre><pre>import win32api</pre><pre>import sys</pre><pre>import time</pre><pre>from ntsecuritycon import *</pre><pre>&nbsp;</pre><pre>def AdjustPrivilege(priv, enable = 1):</pre><pre>    # Get the process token.</pre><pre>    flags = TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY</pre><pre>    htoken = win32security.OpenProcessToken(win32api.GetCurrentProcess(), flags)</pre><pre>    # Get the ID for the system shutdown privilege.</pre><pre>    id = win32security.LookupPrivilegeValue(None, priv)</pre><pre>    # Now obtain the privilege for this process.</pre><pre>    # Create a list of the privileges to be added.</pre><pre>    if enable:</pre><pre>        newPrivileges = [(id, SE_PRIVILEGE_ENABLED)]</pre><pre>    else:</pre><pre>        newPrivileges = [(id, 0)]</pre><pre>    # and make the adjustment.</pre><pre>    win32security.AdjustTokenPrivileges(htoken, 0, newPrivileges)</pre><pre>&nbsp;</pre><pre>def RebootServer(message=&quot;Server Rebooting&quot;, timeout=30, bForce=0, bReboot=1):</pre><pre>    AdjustPrivilege(SE_SHUTDOWN_NAME)</pre><pre>    try:</pre><pre>        win32api.InitiateSystemShutdown(None, message, timeout, bForce, bReboot)</pre><pre>    finally:</pre><pre>        # Now we remove the privilege we just added.</pre><pre>        AdjustPrivilege(SE_SHUTDOWN_NAME, 0)</pre><pre>&nbsp;</pre><pre>def AbortReboot():</pre><pre>    AdjustPrivilege(SE_SHUTDOWN_NAME)</pre><pre>    try:</pre><pre>        win32api.AbortSystemShutdown(None)</pre><pre>    finally:</pre><pre>        # Now we remove the privilege we just added.</pre><pre>        AdjustPrivilege(SE_SHUTDOWN_NAME, 0)</pre><pre>            </pre><pre>if __name__=='__main__':</pre><pre>        message = &quot;This server is pretending to reboot\r\n&quot;</pre><pre>        message = message + &quot;The shutdown will stop in 10 seconds&quot;</pre><pre>        RebootServer(message)</pre><pre>        print &quot;Sleeping for 10 seconds&quot;</pre><pre>        time.sleep(10)</pre><pre>        print &quot;Aborting shutdown&quot;</pre><pre>        AbortReboot()</pre>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_16.1._Dialog_displayed_when_"></a>Figure 16.1. Dialog displayed
+when RebootServer.py runs</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=195
+src="images/image055.gif" alt="figs/ppw.1601.gif"></span></p>
+
+<p>The function <tt><span style='font-size:10.0pt'>AdjustPrivilege()</span></tt>
+is where you enable the necessary privilege. Notice the specific privilege is
+passed as a parameter. This makes the function general purpose and so, can be
+used for any of the Windows NT privileges. Specifically, if you must reboot a
+remote machine, you should use the privilege <tt><span style='font-size:10.0pt'>SE_REMOTE_SHUTDOWN_NAME</span></tt>.</p>
+
+<p>Running this script from Windows NT, you should see the dialog shown in <a
+href="#_Figure_16.1._Dialog_displayed_when_">Figure 16.1</a>. Once the
+countdown timer reaches 20 seconds before shutdown, the dialog should disappear
+as the shutdown is aborted.</p>
+
+<h3><a name="_16.4_Conclusion"></a>16.4 Conclusion</h3>
+
+<p>Although Windows NT comes with many GUI tools to assist with machine administration,
+the process is often complicated by site-specific requirements or by the sheer
+volume of operations that must be performed. This chapter demonstrated some
+techniques that help automate the administration of a Windows NT Network. We
+demonstrated how users, user groups, share, and server information can be
+perused and maintained using Python, and provided example Python programs that
+can be tailored by an administrator for their particular task at hand.</p>
+
+<h3><a name="_16.5_References"></a>16.5 References</h3>
+
+<p>The Microsoft Developers Network (MSDN) is an excellent resource. It’s
+available online at <a href="http://msdn.microsoft.com" target="_blank">http://msdn.microsoft.com</a>.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+<div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=19.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=21.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div></body></html>

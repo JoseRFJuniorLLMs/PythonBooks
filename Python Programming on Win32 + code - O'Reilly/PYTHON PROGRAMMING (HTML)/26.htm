@@ -1,0 +1,1011 @@
+<html><head><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=Generator content="Microsoft Word 10 (filtered)"><link rel="stylesheet" type="text/css" href="1.css"><title></title></head><body lang=EN-US link="#990000" vlink=purple><div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=25.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=27.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div><br><br>
+<h2><a name="_Chapter_22._Extending_and_Embedding"></a>Chapter 22. Extending
+and Embedding with Visual C++ and Delphi</h2>
+
+<p>Although there are many factors you could attribute to Python’s success, one
+is surely the ability to extend and embed Python in other languages. If there
+is anything Python itself can’t do, but can be done from other languages, there
+is a good chance you can build a Python interface to this other language.</p>
+
+<p>In this chapter, we discuss how to extend Python using the C/C++ and Delphi
+languages. The topics we cover include:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Writing a Python extension in C (or compiling someone else’s) by
+hand</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Using Simplified Wrapper and Interface Generator (SWIG) to make
+it easy to expose C and C++ libraries for use by Python</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Embedding a Python interpreter in a C++ application</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Dynamically calling DLLs without a C compiler</p>
+
+<p>Delphi is another popular programming language that can operate at a low
+enough level to hook into Python at the C level, and a Delphi package exists to
+make this easier than the equivalent steps would be in C or C++. We also cover:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Embedding a Python interpreter in a Delphi application</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Building a Python extension DLL in Delphi</p>
+
+<p>When reading this chapter, you should keep in mind some capabilities offered
+by the Python COM framework, as we discussed in <a
+href="#_Chapter_12._Advanced_Python_and_COM">Chapter 12</a><i>.</i> When Python
+is using COM objects, you could view this as extending Python, since the
+capabilities offered by the COM object are made available to Python. When you
+create a COM object using Python, it’s like embedding Python in another
+application: you make all the facilities of Python available to any application
+that uses your COM object.</p>
+
+<h3><a name="_22.1_Python_and_Visual_C++"></a>22.1 Python and Visual C++</h3>
+
+<p>Python is written in C and can be embedded in both C and C++ programs and
+extended with routines written in C and C++. The standard Python documentation
+includes a good tutorial on extending and embedding Python, which we won’t
+repeat, and we certainly won’t try to teach you C.</p>
+
+<p>There are a number of reasons to use Visual C++ during your travels with
+Python:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>To build Python from sources. Many companies that ship Python
+binaries like to know they can build everything from C sources and have control
+over those sources (for example, checked into their source control system). The
+same applies to all Python extensions your application may use.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>To write a Python extensions as a DLL or if you have the sources
+to an interesting Python extension, but no binary for Windows for your Python
+version.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>To make an existing C or C++ library available to Python.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>To embed Python in a C or C++ application for one of the many
+good reasons for doing so!</p>
+
+<div align=center>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="90%"
+ style='width:90.0%;background:black'>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%"
+   style='width:100.0%;background:white'>
+   <tr>
+    <td width=60 valign=top style='width:45.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt'>
+    <p class=MsoNormal><span style='font-family:Arial'><img border=0 width=50
+    height=54 src="images/image002.gif"></span></p>
+    </td>
+    <td valign=top style='padding:4.5pt 4.5pt 4.5pt 4.5pt'>
+    <p>When you install Python in Windows, the C language header and library
+    files are also optionally installed. These files are enough to build Python
+    extensions on Windows without downloading the full Python sources.</p>
+    </td>
+   </tr>
+  </table>
+  <p class=MsoNormal></p>
+  </td>
+ </tr>
+</table>
+
+</div>
+
+<p>Many of you are familiar with compiling C programs (and Python) on Unix,
+while others aren’t C programmers at all. Although we attempt to make this
+chapter understandable for C novices, we certainly don’t attempt to teach
+either the C++ language or the Microsoft Developers Studio environment.</p>
+
+<h4>22.1.1 One Size Doesn't Fit All</h4>
+
+<p>It should be noted that once you start delving into building from sources, the
+world takes a murkier turn. When you download different source packages and
+attempt to build them into a single system, things rarely work as expected
+first time around.</p>
+
+<p>One of the biggest problems is interproject dependencies. If you download
+the core Python sources, they will probably build well. However, if you then
+download some other Python extensions (such as the Win32 or COM sources), you
+may strike some problems when Visual C++ tries to find the Python files (such
+as header or library files) it needs.</p>
+
+<p>The fundamental problem is that every programmer stores his or her source
+code in a different directory structure than everyone else. Sometimes these
+directory structures are dictated by corporate policy, or sometimes they are
+personal taste. Even worse than this is the problem of changing between
+versions of Python and other extensions you use. When a new version of Python
+comes out, you will probably need to change every single project file to
+reference the new version.</p>
+
+<p>To attempt to make this problem bearable, here are a couple of tricks to
+make working with source code easier:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Don’t specify <i>Python15.lib</i>, <i>PyWinTypes.lib</i>, or <i>PythonCOM.lib</i>
+in your project file. These packages employ a Visual C++ trick so that by
+including the necessary headers (such as <i>Python.h</i> or <i>PyWinTypes.h</i>),
+an implicit reference is made to the necessary <i>.lib</i> files. This
+automatically uses the correct release (e.g., <i>Python15.lib</i>) or debug
+library (<i>Python15_d.lib</i>), and is also useful when upgrading Python; for
+example, Python 1.6 will presumably change the names of these <i>.lib</i>
+files, but this scheme avoids changing your project in that case.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Use Microsoft Visual C++ to specify the Python and other
+directories globally, rather than on a per-project basis. This allows you to
+avoid referencing the location of the Python sources directly in your project
+file and applies for all projects. When you wish to move to a new version of
+Python, you can change Visual C++ so it references the new directories and
+rebuild all your projects.</p>
+
+<h5>22.1.1.1 Configuring Visual C++ to build Python or extensions</h5>
+
+<p>The process of configuring Visual C++ in the manner described previously is
+quite simple. The first thing to do is to determine the location of the
+necessary Python files. If you installed the binary version of Python, these
+files are likely under the <i>C:\Program Files\Python\Include</i> and <i>C:\Program
+Files\Python\libs</i>. If you are building from the Python source archive, the
+directories for the headers may be something like <i>Python-1.5.2\include</i>
+and <i>Python-1.5.2\pc</i>, while the library files would be in <i>Python-1.5.2\pcbuild</i>.
+Then perform the following steps:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Start Microsoft Visual C++.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Select Tools <img border=0 width=20 height=16
+src="images/image008.gif" alt="figs/U2192.gif">Options <img
+border=0 width=20 height=16 src="images/image008.gif"
+alt="figs/U2192.gif">Directories. Drop down the Show Directories For combo box,
+and select Include Files. Add the directory or directories where the Python
+headers can be located. Your screen should look something like <a
+href="#_Figure_22.1._Microsoft_Visual_C++_c">Figure 22.1</a>.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Select the combo box again, select Library files, and update the
+directories appropriately.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Select OK to close the dialog, and you’re ready to go!</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_22.1._Microsoft_Visual_C++_c"></a>Figure 22.1. Microsoft Visual
+C++ configured with the Python include directories</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=253
+src="images/image078.gif" alt="figs/ppw.2201.gif"></span></p>
+
+<p>You may also wish to perform this same process for other common Python
+extensions you use. For example, you may make extensive use of the Win32 or COM
+extensions so you could perform this same procedure and specify their
+directories. Indeed, if you wish to build the COM extensions from sources you
+may need to ensure your directories are set up so that <i>PyWinTypes.h</i> and <i>PyWinTypes.lib</i>
+from the Win32 extensions can be found.</p>
+
+<h4>22.1.2 Building an Extension Using Visual C++</h4>
+
+<p>One of Python’s most powerful features is how well it integrates with
+extensions written in C. If you have a library or toolkit available for C or
+C++, it is almost certain you can expose this library to Python using an
+extension module.</p>
+
+<p>Alternatively, you may have a program with special requirements, such as
+crunching huge complex datasets, and your program could benefit immensely if
+you could speed up one small, but important part of the application. Writing
+this small speed-critical part in C and calling it from your Python program is
+an attractive solution many people adopt.</p>
+
+<p>For whatever reason you need to do this, we provide here a short discussion
+of extension modules and building the modules on Windows.</p>
+
+<p>For this example, we use a simple extension module from the Python tutorial.
+This creates a module called <tt><span style='font-size:10.0pt'>spam</span></tt>
+and exposes a function called <tt><span style='font-size:10.0pt'>system()</span></tt>,
+which runs a DOS command. This is obviously a contrived example as this same
+functionality can be obtained from the Python function <tt><span
+style='font-size:10.0pt'>os.system()</span></tt>; indeed, you would expect to
+find almost identical code implementing <tt><span style='font-size:10.0pt'>os.system()</span></tt>.
+The source code is as follows:</p>
+
+<pre>/* spammodule.c - pasted from Python extending/embedding manual*/</pre><pre>&nbsp;</pre><pre># include &quot;Python.h&quot;</pre><pre>&nbsp;</pre><pre>static PyObject *SpamError;</pre><pre>&nbsp;</pre><pre>static PyObject *spam_system(self, args)</pre><pre>    PyObject *self;</pre><pre>    PyObject *args;</pre><pre>{</pre><pre>    char *command;</pre><pre>    int sts;</pre><pre>    if (!PyArg_ParseTuple(args, &quot;s&quot;, &amp;command))</pre><pre>        return NULL;    </pre><pre>    sts = system(command);</pre><pre>    return Py_BuildValue(&quot;i&quot;, sts);</pre><pre>}</pre><pre>&nbsp;</pre><pre>static PyMethodDef SpamMethods[] = {</pre><pre>    {&quot;system&quot;,  spam_system, METH_VARARGS},</pre><pre>    {NULL,      NULL}        /* Sentinel */</pre><pre>};</pre><pre>&nbsp;</pre><pre>#ifdef MS_WIN32</pre><pre>__declspec(dllexport)</pre><pre>#endif</pre><pre>&nbsp;</pre><pre>void initspam()</pre><pre>{</pre><pre>    PyObject *m, *d;</pre><pre>&nbsp;</pre><pre>    m = Py_InitModule(&quot;spam&quot;, SpamMethods);</pre><pre>    d = PyModule_GetDict(m);</pre><pre>    SpamError = PyErr_NewException(&quot;spam.error&quot;, NULL, NULL);</pre><pre>    PyDict_SetItemString(d, &quot;error&quot;, SpamError);</pre><pre>}</pre>
+
+<p>The format for Python extensions is well covered in the standard Python
+documents and in the various books to date. Our target is simply to get it to
+build on Windows. When this is done, you should end up with a file named <i>spam.pyd</i>,
+and be able to use it just like the following example:</p>
+
+<pre>&gt;&gt;&gt; import spam</pre><pre>&gt;&gt;&gt; spam.system('start notepad')</pre><pre>0</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>And you see a <i>notepad</i> appear on the screen.</p>
+
+<h5>22.1.2.1 You take the high road...</h5>
+
+<p>Before we start on a fairly long spiel about how to create a Microsoft
+Visual C++ Project file by hand, we would be remiss not to make mention of a
+handy Python tool that can save you lots of heartache and may let you skip the
+next section completely!</p>
+
+<p>Python on Unix has a well-established build procedure that uses a file named
+<i>setup.in</i> to control the build process. Each different operating system
+reads the <i>setup.in</i> file and generates an appropriate <i>makefile</i> for
+the system.</p>
+
+<p>David Ascher has developed a tool that takes one of these Unix <i>setup.in</i>
+files, generates a Microsoft Visual C++ project file, then invokes Visual C++
+to build the project. Although this would appear to be of interest mainly for
+people with existing Unix source code, these <i>setup.in</i> files are so
+simple that creating one of these files for our project is simpler than
+mastering Visual C++.</p>
+
+<p>The simplest possible <i>setup.in</i> file consists of two lines. The first
+line contains <tt><span style='font-size:10.0pt'>*shared*</span></tt> (this
+tells Unix systems the module is to be built as a shared module, the equivalent
+of a DLL on Windows). The second line consists of the name of the module we
+wish to build, and the source files needed to build it. The <i>setup.in</i>
+file contains the following two lines:</p>
+
+<pre>*shared*</pre><pre>spam spammodule.c</pre>
+
+<p>Here, the module is called <tt><span style='font-size:10.0pt'>spam</span></tt>
+and there is a single source file, <i>spammodule.c</i>.</p>
+
+<p>The tool that creates the Visual C++ project file is a single Python source
+file, <i>compile.py</i> , available from <a
+href="http://starship.python.net/crew/da/compile/" target="_blank">http://starship.python.net/crew/da/compile/</a>.
+You can also find it, along with this book’s code samples, at <a
+href="http://starship.python.net/crew/mhammond/ppw32/" target="_blank">http://starship.python.net/crew/mhammond/ppw32/</a>.</p>
+
+<p>Using this tool to build the sample is simple; create a directory with <i>spammodule.c</i>
+and <i>setup.in</i> files, and from this directory, run the compile tool. A
+Visual C++ project is generated and the project built. Let’s try this out. For
+this example, assume that <i>compile.py</i> is in your <i>C:\Scripts</i>
+directory and the spam files in <i>C:\Scripts\spam</i>:</p>
+
+<pre>C:\Scripts\spam&gt;dir</pre><pre> Volume in drive C has no label.</pre><pre> Volume Serial Number is B423-50BF</pre><pre>&nbsp;</pre><pre> Directory of C:\Scripts\spam</pre><pre>&nbsp;</pre><pre>18/05/99  19:29         &lt;DIR&gt;          .</pre><pre>18/05/99  19:29         &lt;DIR&gt;          ..</pre><pre>07/05/99  18:59                     33 setup.in</pre><pre>07/05/99  14:53                    761 spammodule.c</pre><pre>               4 File(s)            794 bytes</pre><pre>                            113,135,104 bytes free</pre><pre>&nbsp;</pre><pre>C:\Scripts\spam&gt;..\compile.py</pre><pre>Attempting to start MSDev...</pre><pre>Building workspace (.dsw) file for workspace</pre><pre>  Found python15.lib in L:\src\python-1.5.2\pcbuild</pre><pre>  Found Python include directory in L:\src\python-1.5.2\include</pre><pre>Creating project (.dsp) file for spam</pre><pre>Building project</pre>
+
+<p>As you can see, you start with only the two files mentioned previously and
+run the compile tool. During this process, you should see Visual C++ start, the
+build process complete, then Visual C++ exit. Let’s see what’s in the directory
+now:</p>
+
+<pre>C:\Scripts\spam&gt;dir</pre><pre> Volume in drive C has no label.</pre><pre> Volume Serial Number is B423-50BF</pre><pre>&nbsp;</pre><pre> Directory of C:\Scripts\spam</pre><pre>&nbsp;</pre><pre>18/05/99  19:31         &lt;DIR&gt;          .</pre><pre>18/05/99  19:31         &lt;DIR&gt;          ..</pre><pre>18/05/99  19:30         &lt;DIR&gt;          pyds</pre><pre>07/05/99  18:59                     33 setup.in</pre><pre>18/05/99  19:30                  2,454 spam.dsp</pre><pre>18/05/99  19:30                  1,182 spam.plg</pre><pre>07/05/99  14:53                    761 spammodule.c</pre><pre>18/05/99  19:30         &lt;DIR&gt;          tmp</pre><pre>18/05/99  19:30                    618 workspace.dsw</pre><pre>18/05/99  19:31                 33,792 workspace.ncb</pre><pre>18/05/99  19:31                 49,664 workspace.opt</pre><pre>              11 File(s)         88,504 bytes</pre><pre>                            112,688,128 bytes free</pre><pre>&nbsp;</pre><pre>C:\Scripts\spam&gt;dir pyds\*.pyd</pre><pre> Volume in drive C has no label.</pre><pre> Volume Serial Number is B423-50BF</pre><pre>&nbsp;</pre><pre> Directory of C:\Scripts\spam\pyds</pre><pre>&nbsp;</pre><pre>18/05/99  19:30                 20,480 spam.pyd</pre><pre>               1 File(s)         20,480 bytes</pre><pre>                            113,736,704 bytes free</pre><pre>&nbsp;</pre><pre>C:\Scripts\spam&gt;</pre>
+
+<p>The script creates Visual C++ Project (<i>spam.dsp</i>) and Workspace (<i>workspace.dsw</i>)
+files (you can specify a different name for the workspace file by providing it
+as an argument to <i>compile.py</i>). There are some miscellaneous files
+created by the build process as well as two directories. The <i>tmp</i>
+directory is where the C object files (<i>.obj</i> ) files are stored, and <i>pyds</i>
+is where the final Python extension is built. As you can see, the extension
+weighs in at around 20 KB.</p>
+
+<p>All that’s needed now is to copy the final <i>spam.pyd</i> to a directory on
+the PythonPath. <i>C:\Program Files\Python\Dlls</i> is where Python installed
+some standard extensions, so this may be suitable. Once <i>spam.pyd</i> is in a
+location where Python can find it, the sample code presented earlier should
+work.</p>
+
+<h5>22.1.2.2 ...and I'll take the low road</h5>
+
+<p>There will be cases where you choose to use Visual C++ yourself rather than
+rely on the <i>compile.py</i> tool covered in the previous section. Although
+this takes longer to set up and doesn’t provide a portable build solution, it
+does provide greater control over the build process. Of course, you’re free to
+use both solutions: use the compile tool to generate your first project file
+and workspace, but maintain them manually after creation.</p>
+
+<p>Either way, we will briefly discuss creating a project file from scratch
+using Visual C++ that builds our <i>spam</i> sample. Here are the three steps:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Create a new project file.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Modify the project settings.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Build the project.</p>
+
+<h5>22.1.2.2.1 Create a new project file</h5>
+
+<p>Creating a new project is fairly simple, although we’re faced with a
+Microsoft Wizard! Complete the following steps:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Start Microsoft Visual C++.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Choose File <img border=0 width=20 height=16
+src="images/image008.gif" alt="figs/U2192.gif">New <img
+border=0 width=20 height=16 src="images/image008.gif"
+alt="figs/U2192.gif">Projects <img border=0 width=20 height=16
+src="images/image008.gif" alt="figs/U2192.gif">Win32
+Dynamic Link Library.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Under Location, choose a directory. We have used <i>D:\MyStuff</i>.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>In the Project Name box, enter <i>spam</i>. A subdirectory called <i>spam</i>
+is suggested in the location box. The dialog should now look like <a
+href="#_Figure_22.2._Ready_to_create_the_sp">Figure 22.2</a>.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Select OK to start the New Project Wizard. When asked “What kind of DLL
+would you like to create?” choose “An empty DLL Project.”</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>After a confirmation screen, VC++ creates an empty project, and the
+wizard exits.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Place the <i>spammodule.c</i> source file into the new spam
+directory.Locate and select the File View tab at the bottom of the Workspace
+Explorer window.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>8.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Right-click on Spam Files, and select Add Files To Project from the
+context menu that appears and select the <i>spammodule.c</i> source file.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>9.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>If you expand the Source Files tree and double-click on <i>spammodule.c</i>,
+it’s opened in Visual C++, and the screen should now look like <a
+href="#_Figure_22.3._The_completed_project_">Figure 22.3</a>.</p>
+
+<p style='margin-left:.25in'>&nbsp;</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_22.2._Ready_to_create_the_sp"></a>Figure 22.2. Ready to create
+the spam project</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=342
+src="images/image079.gif" alt="figs/ppw.2202.gif"></span></p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_22.3._The_completed_project_"></a>Figure 22.3. The completed
+project file</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=355
+src="images/image080.gif" alt="figs/ppw.2203.gif"></span></p>
+
+<h5 style='page-break-after:avoid'>22.1.2.2.2 Modify the project settings</h5>
+
+<p>We now have a project file, but some of the default settings aren’t suitable
+for Python, so your next step is to modify some of the project settings.
+Specifically, you need to:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Change the C runtime library settings so the extension and Python
+share this library. This is a fairly obscure requirement, but it’s needed to
+prevent the extension module crashing under specific circumstances (see the
+later section <a href="26.htm#_22.1.3_Debug_Versus_Release_Builds">Section 22.1.3</a>
+for more information).</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Change the extension of the final DLL to <i>.pyd</i>. Although
+unnecessary, this is an established convention that allows easy identification
+of Python extensions versus normal Windows DLLs.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>If you wish to perform a debug build, you need to change the
+debug version of the final DLL <i>spam_d.pyd</i> (again, see the later section <a
+href="http://safari.oreilly.com/main.asp?bookname=pythonwin32&amp;snode=172#21"><span
+style='color:black;text-decoration:none'><u><span style='color:#990000'>Section
+22.1.3</span></u></span></a> for more information).</p>
+
+<p>The process to perform these steps is:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Choose Project <img border=0 width=20 height=16
+src="images/image008.gif" alt="figs/U2192.gif">Settings.
+In the top left combo box, select the Win32 Release configuration.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Select the C/C++ tab and drop down the Category combo box, stopping to
+admire the breathtaking lack of adherence to Microsoft’s own GUI design
+standards. Choose Code Generation, and a new property page appears on the C/C++
+tab. Change “Use runtime library” to “Multithreaded DLL.” The property page
+should look like <a href="26.htm#_Figure_22.4._Changing_the_C_compile">Figure 22.4</a>.</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_22.4._Changing_the_C_compile"></a>Figure 22.4. Changing the C
+compiler options for the Win32 Release build</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=260
+src="images/image081.gif" alt="figs/ppw.2204.gif"></span></p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Select the Link tab and change the name of the output file from <i>Release/spam.dll</i>
+to <i>Release/spam.pyd</i>, which should look like <a
+href="#_Figure_22.5._Changing_the_linker_op">Figure 22.5</a>.</p>
+
+<h5 align=center style='text-align:center;page-break-after:avoid'><a
+name="_Figure_22.5._Changing_the_linker_op"></a>Figure 22.5. Changing the
+linker options for the Win32 Release build</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=320
+src="images/image082.gif" alt="figs/ppw.2205.gif"></span></p>
+
+<p>If you need to perform a debug build, repeat this process for the Win32
+Debug configuration, but substitute Debug Multithreaded DLL for Multithreaded
+DLL in the first step and change the output file to <i>spam_d.pyd</i> as
+discussed previously.</p>
+
+<div align=center>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="90%"
+ style='width:90.0%;background:black'>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%"
+   style='width:100.0%;background:white'>
+   <tr>
+    <td width=60 valign=top style='width:45.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt'>
+    <p class=MsoNormal><span style='font-family:Arial'><img border=0 width=50
+    height=54 src="images/image002.gif"></span></p>
+    </td>
+    <td valign=top style='padding:4.5pt 4.5pt 4.5pt 4.5pt'>
+    <p>You need the full Python sources to build a debug version of your
+    extension, as <i>Python15_d.dll</i> isn’t distributed with the Python
+    binaries. Instead of building a full debug version, consider keeping the
+    standard release build, but temporarily modifying the project settings to
+    include debug information. As discussed later in this chapter, as long as
+    you ensure that the C runtime library in use is Multithreaded DLL,
+    everything should work correctly.</p>
+    </td>
+   </tr>
+  </table>
+  <p class=MsoNormal></p>
+  </td>
+ </tr>
+</table>
+
+</div>
+
+<p>Everyone works differently, so exactly how you manage your environment
+depends on your circumstances, but there are a number of other tips that relate
+to making your built extension module available to Python.</p>
+
+<p>One alternative is to modify your PythonPath to explicitly include the
+directory where your PYD files are built; in our example, that would be <i>D:\MyStuff\Spam\Release</i>.
+Then the latest changes are available to Python as soon as the project is
+built, with no need to copy the extension anywhere else. A further refinement
+to this is to exploit the fact that release and debug builds create different
+files, <i>spam.pyd</i> and <i>spam_d.pyd</i>. This allows you to change your
+project to build our extensions into the same directory, avoiding the need to
+specify one directory for release builds and another for debug builds.</p>
+
+<p>A second alternative is to exploit a feature in Visual C++ that allows you
+to execute an arbitrary command after your extension has built. It’s quite
+common to use this feature to copy the final extension to another directory
+already on your PythonPath. To set this up, again go to the Visual C++ Project
+Settings, and you’ll find, way off to the right in the available tabs, is
+Custom Build. Selecting this allows you to specify a simple copy command. <a
+href="#_Figure_22.6._Specifying_a_Custom_Bu">Figure 22.6</a> shows the project
+setup to copy files into the <i>C:\Program Files\Python\DLLs</i> directory.</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_22.6._Specifying_a_Custom_Bu"></a>Figure 22.6. Specifying a
+Custom Build step in Visual C++</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=291
+src="images/image083.gif" alt="figs/ppw.2206.gif"></span></p>
+
+<p>You’re now almost ready to build, but faced with one Windows-specific
+complication the <i>compile.py</i> tools managed to hide. The problem is that
+you need to tell Windows that your module-initialization function (<tt><span
+style='font-size:10.0pt'>initspam()</span></tt>) is a public function, so
+Python can call it as the module is loaded. There are a number of ways to do
+this, the most common being: providing a module definition (<i>.def </i>) file,
+adding a special <tt><span style='font-size:10.0pt'>/EXPORT:initspam</span></tt>
+argument to the linker or modifying the code itself. For this demonstration
+let’s take the last option and modify the module-initialization code from the
+original:</p>
+
+<pre>void initspam()</pre><pre>{</pre>
+
+<p>To:</p>
+
+<pre>#ifdef MS_WIN32</pre><pre>__declspec(dllexport)</pre><pre>#endif</pre><pre>&nbsp;</pre><pre>void initspam()</pre><pre>{</pre>
+
+<p><a href="26.htm#_Figure_22.3._The_completed_project_">Figure 22.3</a> shows the
+source code after this change.</p>
+
+<h5>22.1.2.2.3 Building our project</h5>
+
+<p>Finally, we’re ready to build the project. Perform the following steps:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Choose Build <img border=0 width=20 height=16
+src="images/image008.gif" alt="figs/U2192.gif">Set
+Active Configuration and select Win32 Release.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Choose Build <img border=0 width=20 height=16
+src="images/image008.gif" alt="figs/U2192.gif">Build <i>spam.pyd</i>.
+If all goes well, you see some messages in the Visual C++ output window,
+finishing like this:</p>
+
+<pre style='margin-left:.5in;text-indent:-.25in'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>---------------Configuration: spam - Win32 Release---------------</pre><pre
+style='margin-left:.5in;text-indent:-.25in'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Compiling...</pre><pre
+style='margin-left:.5in;text-indent:-.25in'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>spammodule.c</pre><pre
+style='margin-left:.5in;text-indent:-.25in'>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Linking...</pre><pre
+style='margin-left:.5in;text-indent:-.25in'>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>   Creating library Release/spam.lib and object Release/spam.exp</pre><pre
+style='margin-left:.5in;text-indent:-.25in'>8.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Performing Custom Build Step on .\Release\spam.pyd</pre><pre
+style='margin-left:.5in;text-indent:-.25in'>9.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>        1 file(s) copied</pre><pre
+style='margin-left:.5in;text-indent:-.25in'>10.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;</pre><pre
+style='margin-left:.5in'>spam.pyd - 0 error(s), 0 warning(s)</pre>
+
+<p>Note that because you specified an additional copy operation after the
+build, you can see the <tt><span style='font-size:10.0pt'>1</span></tt> <tt><span
+style='font-size:10.0pt'>file(s)</span></tt> <tt><span style='font-size:10.0pt'>copied</span></tt>
+message generated by the copy. A quick check in <i>C:\Program Files\Python\DLLs</i>
+shows the new <i>spam.pyd</i>.</p>
+
+<p>Now, start Python (or PythonWin). Type <tt><span style='font-size:10.0pt'>import</span></tt>
+<tt><span style='font-size:10.0pt'>spam</span></tt>, followed by <tt><span
+style='font-size:10.0pt'>spam.system ('start</span></tt> <tt><span
+style='font-size:10.0pt'>notepad')</span></tt> or the command of your choice. </p>
+
+<h4><a name="_22.1.3_Debug_Versus_Release_Builds"></a>22.1.3 Debug Versus
+Release Builds</h4>
+
+<p>A couple of times now, we have glossed over some differences between debug
+and release builds for our extensions and Python. This is a symptom of the
+important, although somewhat technical, issue of the C runtime library.</p>
+
+<p>If you don’t know what a C runtime library is or don’t care about the
+technical details, the simple rules to follow are:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Release builds of your project must use the Multithreaded DLL and
+link with the standard Python <i>.lib</i> files.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Debug builds of your project must use the Debug Multithreaded DLL
+C run-time library, must link with the <tt><span style='font-size:10.0pt'>_d</span></tt>
+version of the Python <i>.lib</i> files, and must themselves be named following
+the <tt><span style='font-size:10.0pt'>_d</span></tt> convention.</p>
+
+<p>This is simple to set up, as we demonstrated when building the <i>spam</i>
+sample. The compile tool described previously automatically creates the correct
+settings, so in some cases you don’t need to do anything. However, a deeper
+understanding of the issues will help you understand why the <tt><span
+style='font-size:10.0pt'>_d</span></tt> convention exists and how to exploit or
+work around it for your situation. Feel free to skip the rest of this section.</p>
+
+<p>The underlying issue is that Python and its extensions are DLLs, and these
+DLLs need the same C runtime library. Particularly at issue are <tt><span
+style='font-size:10.0pt'>FILE</span></tt> objects and memory allocated via <tt><span
+style='font-size:10.0pt'>malloc()</span></tt>. If all Python extensions aren’t
+using the same C runtime library, the <tt><span style='font-size:10.0pt'>FILE</span></tt>
+objects passed between Python and the extensions are considered invalid. The
+result is likely to be an access violation.</p>
+
+<p>Although this problem isn’t unique to Windows, Microsoft Visual C++ is one
+of the few compilers that provide different libraries for debug and release
+builds. The debug libraries are useful and contain all sorts of diagnostic and
+sanity checks for using these objects. As a result, it’s common for a
+programmer to build a debug version of his module, but attempt to run it with a
+release version of Python or other modules. The result is a problem far worse
+than he was originally trying to debug, so Python invented a scheme to avoid
+this common pitfall.</p>
+
+<p>The idea is that when Python itself is built for debug, it looks for only
+modules with <tt><span style='font-size:10.0pt'>_d</span></tt> appended to the
+name. A debug build of Python then finds only specific debug modules, and a
+release build of Python finds only release modules.</p>
+
+<p>As you can see, the <tt><span style='font-size:10.0pt'>_d</span></tt>
+convention is not a true solution to the problem; the underlying issue is that
+Python and all the extensions must be built with the same, shared C runtime
+library. Python’s use of <tt><span style='font-size:10.0pt'>_d</span></tt> is a
+convention that makes the more common errors less likely. This convention also
+means it’s possible to have both debug and release builds of the same extension
+in the same directory. When you run <i>Python.exe</i>, the release extensions
+are automatically found. When you run <i>Python_d.exe</i>, the debug extensions
+are found without needing to change the PythonPath. This makes debugging quite
+simple: just run <i>Python_d.exe</i> under the debugger and your debug
+extension module can be debugged automatically.</p>
+
+<p>The biggest problem with this scheme is that to debug a single extension
+module, you must have debug builds of every extension module your program uses.
+Depending on the application, this may be difficult and even impossible. You
+can exploit this information to make your debugging easier. Because the issue
+we have been discussing is the C runtime library, you can change almost every
+other compiler or linker option for your debug or release build except this.
+Thus, for your release build, you can temporarily disable optimizations and
+enable symbolic debugging information; just make sure the C runtime library
+never changes. Then step through your extension in the C debugger (but not
+through Python or other extensions) before restoring the default project
+settings.</p>
+
+<h4>22.1.4 Building Python Itself</h4>
+
+<p>There are occasions when it’s necessary or desirable to build Python itself
+from its sources. As mentioned previously, reasons may include wanting to build
+a debug version, or simply the satisfaction or security of knowing you can
+build your entire project from scratch.</p>
+
+<p>The process is quite simple, and Python builds easily. The sources come with
+Visual C++ project and workspace files, and building is as simple as opening the
+workspace and starting the build.</p>
+
+<p>The sources are available from <a href="http://www.python.org"
+target="_blank">http://www.python.org</a>, usually in a file with the name <i>pythxxx.tgz</i>,
+where <i>xxx</i> is the version of Python. For example, Python 1.5.2 sources are
+available in <i>pyth152.tgz</i>. The <i>.tgz</i> file is a gzipped <i>tar</i>
+file and is understood by the ubiquitous WinZip program (<a
+href="http://www.winzip.com" target="_blank">http://www.winzip.com</a>). Once
+you expand this archive into a suitable directory (be careful to maintain the
+directory structure when expanding), you should have a Python-1.5.2 directory
+with a number of subdirectories including <i>PCBuild</i>, <i>Python</i>, <i>Modules</i>,
+and so forth.</p>
+
+<p>In the <i>PCBuild</i> directory you’ll find <i>pcbuild.dsw</i>; this is the
+Visual C++ workspace. Once opened, Visual C++ should look similar to <a
+href="#_Figure_22.7._The_Python_sources_rea">Figure 22.7</a>.</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_22.7._The_Python_sources_rea"></a>Figure 22.7. The Python sources
+ready to build</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=299
+src="images/image084.gif" alt="figs/ppw.2207.gif"></span></p>
+
+<p>Depending on your requirements, you may wish to build some or all of the
+projects. At a minimum, you need to build the <i>Python15</i> project that
+builds <i>Python15.dll</i> (or <i>Python15_d.dll</i> for debug builds). All
+built files are placed in the <i>PCBuild</i> directory, ready to be
+distributed, copied to the Windows System directory, etc.</p>
+
+<p>Visual C++ generates large numbers of temporary files, often totaling
+megabytes. When you have created a DLL or EXE you are happy with, you may
+choose to copy it somewhere else and choose Build <img border=0 width=20
+height=16 src="images/image008.gif" alt="figs/U2192.gif">Clean.
+This deletes all the built files reclaiming the list disk space.</p>
+
+<h4>22.1.5 Embedding a Python Interpreter in a C++ Application</h4>
+
+<p>The process we described previously of building a DLL extension module for
+Python is known as <i>extending</i> Python; you extend its capabilities with a
+new module. The other common process is to put Python inside another existing
+application, possibly for use as a macro or extension language. This process is
+known as <i>embedding</i> Python.</p>
+
+<p>If you look at the files Python installs, notice that the bulk of Python
+itself is implemented in a DLL, <i>Python15.dll</i>, for all Python 1.5.x
+versions. <i>Python.exe</i> itself is tiny, and simply uses the Python DLL. In
+fact, consider <i>Python.exe</i> as a trivial example of how to embed Python in
+your application.</p>
+
+<p>Python exposes a large API that embedded programs use. This API is large and
+rich; almost anything you can do from Python code you can do from the C API,
+including running code, calling objects, creating new objects, pulling apart
+Python objects (such as getting the string value from a Python string object),
+and so forth.</p>
+
+<p>The best way to get started with embedding Python is to read the excellent
+extending and embedding documentation (optionally installed with Python) in
+conjunction with the sample in the <i>Demo\Embed</i> directory of the Python
+sources. You can then peruse the <i>Python/C API</i> documentation (also
+optionally installed with Python).</p>
+
+<h3><a name="_22.2_Simplified_Wrapper_and_Interfa"></a>22.2 Simplified Wrapper
+and Interface Generator</h3>
+
+<p>SWIG (available at <a href="http://www.swig.org" target="_blank">www.swig.org</a>)
+is a tool written by David Beazley that helps connect programs written in
+high-level languages such as Python, Perl, and Tcl/Tk with low-level C and C++
+code. It’s a substantial package with a large following. Rather than having to
+write your own wrapper code to intermediate between Python and C data
+structures, SWIG automates the process of producing a Python extension based on
+a description of the functions you wish to export. A large number of popular
+Python extensions have been built using SWIG, including parts of the Win32
+extensions. You should look into SWIG before embarking on any nontrivial Python
+extension project.</p>
+
+<p>Space doesn’t permit a detailed example of SWIG, but we refer you to the
+excellent documentation that comes with the package. This covers all the
+specifics relating to building Python extensions under Visual Studio. </p>
+
+<h3><a name="_22.3_Python_and_Delphi"></a>22.3 Python and Delphi</h3>
+
+<p>The Big Three development environments must be Visual Basic, Visual C++, and
+Borland Delphi. Delphi users feel that the language and development environment
+combine the ease of use of Visual Basic with the power of C++, and the Visual
+Component Library that comes with Delphi does a superb job of hiding the
+complexities of the Windows API. Delphi is particularly popular in Europe,
+where Pascal has often been the teaching language for computer science.</p>
+
+<p>Delphi uses Object Pascal, the latest stage in the evolution of Pascal. Like
+C++, Delphi is a fully compiled language that allows both high-level
+object-oriented programming and “down-to-the-metal” manipulation of raw memory
+and pointers. It’s a pure Windows tool that allows you to write DLLs and EXEs
+and to access all the Windows API calls. It also supports the C calling
+convention. This means that in theory Delphi can access the main Python DLL in
+the same way as C/C++ programs, and can compile DLLs Python can use as
+extensions.</p>
+
+<p>During 1997 and 1998, a package called PyDelphi (included in the examples
+for this chapter at <a href="http://starship.python.net/crew/mhammond/ppw32/"
+target="_blank">http://starship.python.net/crew/mhammond/ppw32/</a> and also
+available at <a href="http://www.multimania.com/marat/delphi/index.htm"
+target="_blank">www.multimania.com/marat/delphi/index.htm</a>) evolved through
+a merger of work by Morgan Martinet, Dietmar Budelsky, and Grzegorz Makarewicz.
+This makes integration of Python and Delphi at the C level almost effortless.
+PyDelphi includes a Delphi package library that can be installed in the
+component gallery and a comprehensive set of demos and tutorials.</p>
+
+<p>The core component is a Pascal module called <i>PythonEngine.pas</i>, which
+declares Pascal types to match those in <i>Python.h</i> and function headers to
+match most of those exported by the Python DLL. This makes it possible to
+access Python the same way as C/C++. Going on from this, the authors provide a
+number of components that represent the Python engine itself, Python modules
+and variables, and I/O components.</p>
+
+<h4>22.3.1 Embedding Python in a Delphi Application</h4>
+
+<p><a href="26.htm#_Figure_22.8._Python_interpreter_ins">Figure 22.8</a> shows the
+first example from the PyDelphi tutorial.</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_22.8._Python_interpreter_ins"></a>Figure 22.8. Python interpreter
+inside a Delphi application</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=184
+src="images/image085.gif" alt="figs/ppw.2208.gif"></span></p>
+
+<p>To achieve this, you create a new project with the visual components shown
+in <a href="26.htm#_Figure_22.8._Python_interpreter_ins">Figure 22.8</a>. In
+addition, place two special Python-Delphi components on the form. These are
+invisible at runtime, but allow you to set up many properties from the Object
+Inspector rather than in code. The essential one is a <tt><span
+style='font-size:10.0pt'>PythonEngine</span></tt>, (highlighted in <a
+href="#_Figure_22.9._The_same_form_at_desig">Figure 22.9</a>).</p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_22.9._The_same_form_at_desig"></a>Figure 22.9. The same form at
+design time</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=303
+src="images/image086.gif" alt="figs/ppw.2209.gif"></span></p>
+
+<p>The <tt><span style='font-size:10.0pt'>PythonEngine</span></tt> component
+has events that can be trapped for initialization and finalization, and—most
+usefully—an <tt><span style='font-size:10.0pt'>InitScript</span></tt> property
+of type <tt><span style='font-size:10.0pt'>TStrings</span></tt>. This is a list
+of strings that can be set at design time in an editor and can hold any Python
+code you want.</p>
+
+<p>In addition, you add a <tt><span style='font-size:10.0pt'>PythonGUIInputOutput</span></tt>
+component. After setting a couple of properties, this redirects the output of
+the Python engine to the upper Rich Edit window in the form. The user can now
+type Python code into the lower window and execute it with a click on a button.</p>
+
+<p>In addition to the usual header, you need one line of code behind the
+button:</p>
+
+<pre>procedure TForm1.Button1Click(Sender: TObject);</pre><pre>begin</pre><pre>  PythonEngine1.ExecStrings( Memo1.Lines );</pre><pre>end;</pre>
+
+<p>PyDelphi exposes almost the entire Python C API; but Delphi also has a very
+useful data structure called a <tt><span style='font-size:10.0pt'>StringList</span></tt>,
+and <tt><span style='font-size:10.0pt'>PythonEngine</span></tt> has some
+higher-level functions to work with these, such as <tt><span style='font-size:
+10.0pt'>ExecStrings</span></tt>, in the previous snippet. A related and useful
+trick with PyDelphi is to place invisible list boxes and memos on a form and
+paste chunks of Python, or even whole modules, into them; these can easily be
+passed to Python later. To distribute an application, you need to include just
+the Delphi executable and the usual <i>python15.dll</i>, plus any extra Python
+modules required; these can be frozen inside the Delphi executable if desired.</p>
+
+<h4>22.3.2 Extending Python with a Delphi DLL</h4>
+
+<p>It’s easy to create a DLL in Delphi and expose it as a Python module. Let’s
+start with one of the PyDelphi tutorial examples, then extend it into something
+more useful. The initial example exports one function to add two numbers
+together. In Delphi, choose File <img border=0 width=20 height=16
+src="images/image008.gif" alt="figs/U2192.gif">New <img
+border=0 width=20 height=16 src="images/image008.gif"
+alt="figs/U2192.gif">DLL to create a DLL project, and save it. Then create a
+new Pascal module (called just <i>module.pas</i>) containing the following
+code:</p>
+
+<pre>unit module;</pre><pre>&nbsp;</pre><pre>interface</pre><pre>uses PythonEngine;</pre><pre>&nbsp;</pre><pre>procedure initdemodll; cdecl;</pre><pre>var</pre><pre>  gEngine : TPythonEngine;</pre><pre>  gModule : TPythonModule;</pre><pre>&nbsp;</pre><pre>implementation</pre><pre>&nbsp;</pre><pre>function Add( Self, Args : PPyObject ) : PPyObject; far; cdecl;</pre><pre>var</pre><pre>  a, b : Integer;</pre><pre>begin</pre><pre>  with GetPythonEngine do</pre><pre>    begin</pre><pre>      if PyArg_ParseTuple( args, 'ii:Add', [@a, @b] ) &lt;&gt; 0 then</pre><pre>        begin</pre><pre>          Result := PyInt_FromLong( a + b );</pre><pre>        end</pre><pre>      else</pre><pre>        Result := nil;</pre><pre>    end;</pre><pre>end;</pre><pre>&nbsp;</pre><pre>procedure initdemodll;</pre><pre>begin</pre><pre>  try</pre><pre>    gEngine := TPythonEngine.Create(nil);</pre><pre>    gEngine.AutoFinalize := False;</pre><pre>    gEngine.LoadDll;</pre><pre>    gModule := TPythonModule.Create(nil);</pre><pre>    gModule.Engine := gEngine;</pre><pre>    gModule.ModuleName := 'demodll';</pre><pre>    gModule.AddMethod( 'add', @Add, 'add(a,b) -&gt; a+b' );</pre><pre>    gModule.Initialize;</pre><pre>  except</pre><pre>  end;</pre><pre>end;</pre><pre>&nbsp;</pre><pre>initialization</pre><pre>finalization</pre><pre>  gEngine.Free;</pre><pre>  gModule.Free;</pre><pre>  frmAbout.Free;</pre><pre>end.</pre>
+
+<p>You can see the similarity between this and the minimal C extension earlier
+in the chapter. However, PyDelphi includes a <tt><span style='font-size:10.0pt'>TPythonModule</span></tt>
+component that slightly changes the initialization of the Python function
+names. Having written this, you can edit the Delphi project file (extension
+DPR) to export the <tt><span style='font-size:10.0pt'>initdemodll </span></tt>function:</p>
+
+<pre>library DemoDll;</pre><pre>&nbsp;</pre><pre>uses</pre><pre>  SysUtils,</pre><pre>  Classes,</pre><pre>  module in 'module.pas';</pre><pre>&nbsp;</pre><pre>exports</pre><pre>  initdemodll;</pre><pre>{$E pyd}</pre><pre>&nbsp;</pre><pre>begin</pre><pre>end.</pre>
+
+<p>The project can be compiled to a DLL and saved with the extension .<i>PYD</i>
+somewhere on the PythonPath.</p>
+
+<h4 style='page-break-after:avoid'>22.3.3 Accessing Delphi's Visual Component
+Library</h4>
+
+<p>If you are creating a Python script to be run from a command prompt, it’s
+perfectly feasible to write GUI code in Delphi. The DLL could contain forms and
+dialogs, which can be launched from within a DLL function called by Python. One
+use for this might be to provide stock dialogs for a Python script, although
+you could go further and write an entire application that is launched from
+Python and uses a Delphi GUI.</p>
+
+<p>For reasons discussed in <a href="24.htm#_Chapter_20._GUI_Development">Chapter 20</a>,
+don’t try to run DLLs that use a GUI within the PythonWin editor. Plain-vanilla
+Object Pascal extensions are safe to use in any Python IDE, but the Delphi VCL
+application framework and the MFC application framework in PythonWin will both
+assume they are running the application and so, you get an immediate error
+message.</p>
+
+<p>The authors of the package have also written their own Python IDE in Delphi
+and a tool that automatically examines Pascal source code and generates Python
+wrappers for the entire Visual Component Library. These make it possible to
+write Python code that creates Delphi forms and objects and accesses their
+methods and properties, just as you would in Delphi. The following is valid
+Python code:</p>
+
+<pre>from Forms import *</pre><pre>from StdCtrls import *</pre><pre>&nbsp;</pre><pre>f = TForm().CreateNew(Application)</pre>
+
+<p>Unfortunately, this incredible capability is still experimental and limited
+to use within Delphi applications; thus, you can write a Delphi application
+with an embedded Python macro language that can create and manipulate Delphi
+GUI elements, but you can’t just write a plain Python script. The latter is
+technically feasible and it is a development we hope to see in the future.</p>
+
+<h3><a name="_22.4_Dynamic_DLL_Access"></a>22.4 Dynamic DLL Access</h3>
+
+<p>As we mentioned in <a href="17.htm#_Chapter_13._Databases">Chapter 13</a>, Sam
+Rushing (<a href="http://www.nightmare.com" target="_blank">http://www.nightmare.com</a>)
+has written an extension that allows Python to dynamically load and call any
+function in any DLL, not just special Python extensions. For the C programmers
+among you, these are equivalent to using the Windows API functions <tt><span
+style='font-size:10.0pt'>LoadLibrary()</span></tt> and <tt><span
+style='font-size:10.0pt'>GetProcAddress()</span></tt>.</p>
+
+<p>These tools offer a great deal of power but also carry risks. When using
+Python extension modules such as the Win32 extensions, you can be fairly
+confident the worst that will happen is a Python exception. When dynamically
+accessing a DLL, you are responsible for ensuring the arguments you pass are
+the correct type; an error in doing so can corrupt the stack and lead to either
+seriously misleading results or a crash.</p>
+
+<p>Using these tools, Sam has built a comprehensive ODBC module that allows
+access to every function in the ODBC API and to a GUI application framework
+sitting directly on top of the Windows API.</p>
+
+<p>In general, the safest way to access existing C libraries is to build Python
+extension modules. However, there may be occasions when a C compiler isn’t
+available or when dynamic loading and unloading are required. A case study
+mentioned in <a href="3.htm#_Chapter_1._What_Is_Python?">Chapter 1</a>, uses <tt><span
+style='font-size:10.0pt'>Calldll/Windll</span></tt> to interface to an encoding
+translation library that moves megabytes of data between operating systems each
+day; for political reasons, C/C++ development was not an option in this case.</p>
+
+<h4>22.4.1 Installation and Setup</h4>
+
+<p>Two packages are available from Sam Rushing’s site. <tt><span
+style='font-size:10.0pt'>CallDLL</span></tt> consists of a Python extension
+module,<i> calldll.pyd</i> that exposes a low-level API for loading modules and
+calling functions within them. The DynWin package builds on this to offer a
+much easier high-level API, and includes the GUI library mentioned previously.
+The package includes a key module, <i>windll.py</i> that provides a
+higher-level wrapper around <tt><span style='font-size:10.0pt'>CallDLL</span></tt>
+making it easy to use. In fact, only two files are needed for dynamic loading: <i>calldll.pyd</i>,
+and <i>windll.py</i>, both of which should be installed on the PythonPath.
+These are included with the examples for the chapter, which can be found at <a
+href="http://starship.python.net/crew/mhammond/ppw32/" target="_blank">http://starship.python.net/crew/mhammond/ppw32/</a>.</p>
+
+<h4>22.4.2 Using WinDll</h4>
+
+<p>As an example we’ve built an extremely basic DLL called <i>simple.dll</i>.
+This exports two functions, <tt><span style='font-size:10.0pt'>Min(a,</span></tt>
+<tt><span style='font-size:10.0pt'>b)</span></tt> and <tt><span
+style='font-size:10.0pt'>Max(a,</span></tt> <tt><span style='font-size:10.0pt'>b)</span></tt>,
+which return the minimum and maximum of two numbers. All arguments and return
+types are integers. The following example shows how to load and use the DLL,
+presuming it’s in <i>c:\temp</i>. You can omit a path if it’s on the Windows
+path:</p>
+
+<pre>&gt;&gt;&gt; from dynwin.windll import *</pre><pre>&gt;&gt;&gt; mod1 = module('c:\\temp\\simple')  # loads the DLL</pre><pre>&gt;&gt;&gt; mod1.handle         # it can report its location in memory</pre><pre>22806528</pre><pre>&gt;&gt;&gt; mod1.Min(27, 28)    # loads and executes Min function</pre><pre>27</pre><pre>&gt;&gt;&gt; mod1.Min            # we now have a 'callable function' object...</pre><pre>&lt;callable function &quot;Min&quot;&gt;</pre><pre>&gt;&gt;&gt; mod1.Min.address    #...which knows its address too</pre><pre>22836704</pre>
+
+<p><tt><span style='font-size:10.0pt'>WinDLL</span></tt> is doing a lot of work
+behind the scenes here, using Python’s abilities to introspect and trap
+attribute access. Go to <i>windll.py</i>`s source to see how it works.</p>
+
+<p><tt><span style='font-size:10.0pt'>WinDLL</span></tt> can transparently
+handle any integer or pointer arguments. The vast majority of Windows API calls
+have arguments that are either an integer, a pointer to a string, or some other
+structure, all of which require four bytes of memory. If you need to handle
+other types of arguments, it may be necessary to drop down a level and use the
+lower-level argument-formatting functions in <tt><span style='font-size:10.0pt'>CallDLL</span></tt>.</p>
+
+<h4>22.4.3 C Strings and Passing by Reference</h4>
+
+<p><tt><span style='font-size:10.0pt'>WinDLL</span></tt> also includes a class <tt><span
+style='font-size:10.0pt'>cstring</span></tt> that makes it easy to pass string
+or character buffer arguments back and forth. This class should be initialized
+with a Python string (which may be empty), and an optional length. Internally, <tt><span
+style='font-size:10.0pt'>cString</span></tt> maintains a buffer with a
+null-terminated string and the address of the buffer it passes to the DLL when
+used as an argument. To test this, the DLL exports a function <tt><span
+style='font-size:10.0pt'>StringRepeat</span></tt> that repeats a string a
+number of times:</p>
+
+<pre>&gt;&gt;&gt; inBuf = cstring('spam')               # make a buffer holding a c string</pre><pre>&gt;&gt;&gt; outBuf = cstring('',50)               # make another big enough for output</pre><pre>&gt;&gt;&gt; mod1.StringRepeat(inBuf, outBuf, 10)  # returns the length of out string</pre><pre>40</pre><pre>&gt;&gt;&gt; outBuf</pre><pre>'spamspamspamspamspamspamspamspamspamspam'</pre>
+
+<p>Rather than go any further, you can refer to the documentation and examples
+in the <tt><span style='font-size:10.0pt'>CallDLL</span></tt> and <tt><span
+style='font-size:10.0pt'>DynWin</span></tt> packages.</p>
+
+<h3><a name="_22.5_References"></a>22.5 References</h3>
+
+<p><i>Extending and Embedding the Python Interpreter</i>, by Guido van Rossum
+is included in HTML format with every Python distribution. Just click Help on
+the PythonWin toolbar.</p>
+
+<p>O’Reilly’s <i>Programming Python</i> and IDG’s <i>Internet Programming with
+Python</i>, by Watters, van Rossum and Ahlstrom, both contain sections on
+extending and embedding. The former is far more detailed while the latter is
+ideal starting point for beginning C programmers.</p>
+
+<p>SWIG lives at <a href="http://www.swig.org/" target="_blank">http://www.swig.org/</a>
+and has good manuals available for download.</p>
+
+<p>PyDelphi is available from <a href="http://www.multimania.com/marat/"
+target="_blank">http://www.multimania.com/marat/</a>. You can also find it,
+along with this book’s examples, at <a
+href="http://starship.python.net/crew/mhammond/ppw32/" target="_blank">http://starship.python.net/crew/mhammond/ppw32/</a>.</p>
+
+<p><tt><span style='font-size:10.0pt'>CallDLL</span></tt> and <tt><span
+style='font-size:10.0pt'>WinDLL</span></tt> are available in the <tt><span
+style='font-size:10.0pt'>DynWin</span></tt><i> </i>package from <a
+href="http://www.nightmare.com" target="_blank">http://www.nightmare.com</a>.
+The key files are included with the examples at <a
+href="http://starship.python.net/crew/mhammond/ppw32/" target="_blank">http://starship.python.net/crew/mhammond/ppw32/</a>.
+</p>
+
+<h3><a name="_22.6_Conclusion"></a>22.6 Conclusion</h3>
+
+<p>This chapter provided a brief introduction to extending Python’s
+capabilities using Visual C++ and Delphi languages. The topics included writing
+Python extensions and extension DLLs, embedding a Python interpreter with a C++
+or Delphi application, and exposing C and C++ libraries for use by Python.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+<div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=25.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=27.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div></body></html>

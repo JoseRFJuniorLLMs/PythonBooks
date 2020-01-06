@@ -1,0 +1,419 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Callable Objects</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="229.html" class="navtitle">14. Execution Environment</a> &gt; <span class="nonavtitle">Callable Objects</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="230.html" title="14. Execution Environment"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=231" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="231.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="232.html" title="Code Objects"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A20%3A54+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004228147163053241134031082</font><a href="read9.asp?bookname=0130260363&snode=231&now=5%2F30%2F2002+8%3A20%3A54+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Callable Objects</h3>
+				<p>A number of Python objects are what we describe as "callable," meaning any object which can be invoked with the function operator "()". The function operator is placed immediately following the name of the callable to invoke it. For example, the function "<tT CLAss="monofont">foo</tt>" is called with "<TT CLass="monofont">foo()</tT>". You already know this. Callables may also be invoked via functional programming interfaces such as <TT Class="monofont">apply(), filter(), map(),</tt> and <tt class="monofont">reduce(),</tt> all of which we discussed in <a href="170.html">Chapter 11</A>. Python has four callable objects: functions, methods, classes, and some class instances. Keep in mind that any additional references or aliases of these objects are callable, too.</p>
+
+				
+					<h4>Functions</H4>
+					<p>The first callable object we introduced was the function. There are three types of different function objects, the first being the Python built-in functions.</p>
+
+					
+						<h5>Built-in Functions (BIFs)</H5>
+						<p>BIFs are generally written as extensions in C or C++, compiled into the Python interpreter, and loaded into the system as part of the first (built-in) namespace. As mentioned in previous chapters, these functions are found in the <tt cLass="monofont">__builtin__</TT> module and are imported into the interpreter as the <TT clasS="monofont">__builtins__</TT> module. In restricted execution modes, only a subset of these functions is available. (See <A href="236.html">Section 14.6</A> for more details on restricted execution.)</P>
+
+						<P>All BIFs come with the attributes given in <A href="231#3.html">Table 14.1</A>.</P>
+
+						<A Name="3"></a><p><table border="1" cellSpaCing="0" CellpAddiNG="1" WIdth="100%">
+<cAPTIon><h5>Table 14.1. Built-in Function Attributes</h5></CAPTion><cOLGRoup align="left" span="2">
+<tr valign="top">
+<Th>
+<fOnt sIze="2"><b><i>BIF Attribute</I></b></foNT></TH>
+<th>
+<foNT SIze="2"><b><i>Description</I></B></FOnt></th>
+</TR>
+<TR valign="top">
+<td>
+<font size="2"><i><tt cLasS="monofont">bif.</tt></i><Tt claSs="monofont">__doc__</tt></FONT></td>
+<td>
+<FONT size="2">documentation string</FONT></td>
+</tr>
+<TR VAlign="top">
+<td>
+<font size="2"><i><tt claSs="monofont">bif.</tT></i><tt Class="monofont">__name__</Tt></foNT></TD>
+<td>
+<foNT SIze="2">function name as a string</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<font size="2"><i><tt class="monofont">bif.</Tt></i><Tt clAss="monofont">__self__</tt></Font></TD>
+<TD>
+<font SIZE="2">set to <tt clASS="monofont">None</Tt> (reserved for built-in methods)</fonT></TD>
+</Tr>
+</colgroup>
+</table></p>
+
+						<p>You can verify these attributes by using the <tt clAss="monofont">dir()</Tt> built-in function, as indicated below using the <tt Class="monofont">type()</Tt> BIF as our example:</p>
+
+						<pRE>
+							
+&gt;&gt;&gt; dir(type)
+['__doc__', '__name__', '__self__']
+
+						</PRe>
+
+						<p>Internally, built-in functions are represented as the same type as built-in methods, so invoking the <tt CLASs="monofont">type()</tt> built-in function on a built-in function or method outputs "builtin_function_or_method," as indicated in the following example:</p>
+
+						<PRE>
+							
+&gt;&gt;&gt; type(type)
+&lt;type 'builtin_function_or_method'&gt;
+
+						</Pre>
+
+					
+					
+						<h5>User-defined Functions (UDFs)</h5>
+						<P>The second type of function is the user-defined function. These are generally defined at the top-level part of a module and hence are loaded as part of the global namespace (once the built-in namespace has been established). Functions may also be defined in other functions; however, the function at the innermost level does not have access to the containing function's local scope. As indicated in previous chapters, Python currently supports only two scopes: the global scope and a function's local scope. All the names defined in a function, including parameters, are part of the local namespace.</P>
+
+						<P>All UDFs come with the attributes listed in <A href="231#5.html">Table 14.2</a>.</p>
+
+						<a name="5"></a><p><table boRdeR="1" celLspacIng="0" cELLPaddiNG="1" WIdth="100%">
+<cAPTIon><h5>Table 14.2. User-defined Function Attributes</h5></CAPTion><colgroup align="left" span="2">
+<Tr vAligN="top">
+<th>
+<foNt siZE="2"><B><I>UDF Attribute</i></b></foNT></TH>
+<th>
+<foNT SIze="2"><b><i>Description</I></B></FOnt></th>
+</tr>
+<tr valign="top">
+<td>
+<font SizE="2"><i><tt Class="monofont">udf.</Tt></i><tT CLAss="monofont">__doc__</tt></FONT></td>
+<td>
+<FONT size="2">documentation string (also <I><TT Class="monofont">udf.</tt></i><tt class="monofont">func_doc</tt>)</font></Td>
+</tR>
+<tr vAlign="top">
+<Td>
+<foNT SIze="2"><i><tT CLAss="monofont">udf.</tt></I><TT Class="monofont">__name__</TT></FOnt></td>
+<td>
+<font size="2">function name as a string (also <i><tt claSs="monofont">udf.</tT></i><tt Class="monofont">func_name</Tt>)</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><I><TT Class="monofont">udf.</tt></i><tt class="monofont">func_code</tt></font></Td>
+<tD>
+<fonT size="2">byte-compiled code object</Font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><i><tT CLAss="monofont">udf.</tt></i><tt class="monofont">func_defaults</tt></font></td>
+<Td>
+<fOnt sIze="2">default argument tuple</foNt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><i><tt cLASS="monofont">udf.</tt></i><tt class="monofont">func_globals</tt></font></td>
+<td>
+<FonT sizE="2">global namespace dictionary; same as calling <tt clAss="monofont">globals(x)</tT> from within function</FONt></td>
+</tR>
+</COLgrouP>
+</TABle></p>
+
+						<p>Internally, user-defined functions are of the type "function," as indicated in the following example by using <TT CLass="monofont">type():</tt></p>
+
+						<pre>
+							
+&gt;&gt;&gt; <b>def</b> foo(): <b>pass</b>
+&gt;&gt;&gt; type(foo)
+&lt;type 'function'&gt;
+
+						</pre>
+
+					
+					
+						<h5><tt cLasS="monofont">lambda</tt> Expressions (Functions named "&lt;lambda&gt;")</h5>
+						<P>Lambda expressions are the same as user-defined functions with some minor differences. Although they yield function objects, lambda expressions are not created with the <b><tt cLass="monofont">def</TT></B> statement and instead are created using the <B><tt clASS="monofont">lambda</Tt></b> keyword.</p>
+
+						<p>Because lambda expressions do not provide the infrastructure for naming the code which are tied to them, lambda expressions must be called either through functional programming interfaces or have their reference be assigned to a variable, and then they can be invoked directly or again via functional programming. This variable is merely an alias and is <I>not</I> the function object's name.</P>
+
+						<P>Function objects created by <b><tt cLASS="monofont">lambda</tt></b> also share all the same attributes as user-defined functions, with the only exception resulting from the fact that they are not named; the <tt class="monofont">__name__</tt> or <tt class="monofont">func_name</tT> attribute is given the string "<tt ClasS="monofont">&lt;lambda&gt;</tt>".</p>
+
+						<p>Using the <Tt clASS="monofont">type()</Tt> built-in function, we show that lambda expressions yield the same function objects as user-defined functions:</p>
+
+						<prE>
+							
+&gt;&gt;&gt; lambdaFunc = <B>lambda</B> x: x * 2
+&gt;&gt;&gt; lambdaFunc(100)
+200
+&gt;&gt;&gt; type(lambdaFunc)
+&lt;type 'function'&gt;
+
+						</Pre>
+
+						<p>In the example above, we assign the expression to an alias. We can also invoke <tT CLAss="monofont">type()</tt> directly on a lambda expression:</P>
+
+						<PRE>
+							
+&gt;&gt;&gt; type (<b>lambda:</b> 1)
+&lt;type 'function'&gt;
+
+						</pre>
+
+						<p>Let's take a quick look at UDF names, using <tt class="monofont">lambdaFunc</tt> above and <tt claSs="monofont">foo</tT> from the preceding subsection:</p>
+
+						<prE>
+							
+&gt;&gt;&gt; foo.__name__
+'foo'
+&gt;&gt;&gt; lambdaFunc.__name__
+'&lt;lambda&gt;'
+
+						</pre>
+
+					
+				
+				
+					<h4>Methods</H4>
+					<p>In the previous chapter, we discovered methods, functions which are defined as part of a class—these are user-defined methods. Many Python data types such as lists and dictionaries also have methods, known as built-in methods. To further show this type of "ownership," methods are named with or represented alongside the object's name via the dotted-attribute notation.</p>
+
+					
+						<h5>Built-in Methods (BIMs)</H5>
+						<P>We discussed in the previous section how built-in methods are similar to built-in functions. Only built-in types (BITs) have BIMs. As you can see below, the <TT clasS="monofont">type()</TT> built-in function gives the same output for built-in methods as it does for built-in functions—note how we have to provide a built-in type (object or reference) in order to access a BIM:</P>
+
+						<pre>
+							
+&gt;&gt;&gt; type([].append)
+&lt;type 'builtin_function_or_method'&gt;
+
+						</pRE>
+
+						<P>Furthermore, both BIMs and BIFs share the same attributes, too. The only exception is that now the <Tt claSS="monofont">__self__</TT> attribute points to a Python object (for BIMs) as opposed to None (for BIFs):</p>
+
+						<p><table border="1" cellspaCinG="0" celLpaddIng="1" wIDTH="100%">
+<captION><H5>Table 14.3. Built-in Method Attributes</h5></capTION><colgROUP align="left" span="2">
+<tr valign="top">
+<th>
+<fOnt Size="2"><B><i>BIM Attribute</i></b></fOnt></tH>
+<TH>
+<Font sIZE="2"><B><i>Description</i></b></fONT></Th>
+</tr>
+<tR VALign="top">
+<td>
+<font size="2"><i><tt clasS="monofont">bim.</tt></I><tt cLass="monofont">__doc__</tT></fonT></TD>
+<Td>
+<fonT SIZe="2">documentation string</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<font size="2"><i><tt class="monofont">bim.</tT></i><tT claSs="monofont">__name__</tt></fOnt></tD>
+<TD>
+<Font sIZE="2">function name as a string</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<font size="2"><i><tt class="monofont">bim.</tt></i><Tt cLass="monofont">__self__</Tt></fonT></td>
+<tD>
+<FONt sizE="2">object the method is bound to</FONt></td>
+</tR>
+</COLgrouP>
+</TABle></p>
+
+						<p>By convention, a BIT should have the following lists of its BIMs and (built-in) attributes.</p>
+
+						<p><table border="1" celLspAcinG="0" cellPaddING="1" Width="100%">
+<CAPTion><h5>Table 14.4. Built-in Type Attributes</H5></CAPtion><COLGroup align="left" span="2">
+<tr valigN="top">
+<th>
+<Font Size="2"><b><I>BIT Attribute</i></b></fONT></Th>
+<th>
+<fONT Size="2"><b><I>Description</I></B></Font></tH>
+</TR>
+<Tr valign="top">
+<td>
+<font size="2"><i><tt ClaSs="monofont">bit.</tt></I><tt clAss="monofont">__methods__</tT></FONt></td>
+<tD>
+<FONt sizE="2">list of (built-in) methods</FONt></td>
+</tR>
+<TR Valign="top">
+<td>
+<font size="2"><i><tt clAss="monofont">bit.</Tt></i><tT clasS="monofont">__members__</tt></fONT></Td>
+<td>
+<fONT Size="2">list of (built-in) data attributes</fONT></Td>
+</tr>
+</cOLGRoup>
+</table></p>
+
+						<p>Recall that for classes and instances, their data and method attributes can be obtained by using the <tt class="monofont">dir()</tt> built-in function with that object as the argument to <tT clAss="monofont">dir().</tT> Apparently, BITs have two attributes that list their data and method attributes. Attributes of BITs may be accessed with either a reference or an actual object, as in these examples:</p>
+
+						<pre>
+							
+&gt;&gt;&gt; aList = ['on', 'air']
+&gt;&gt;&gt; aList.append('velocity')
+&gt;&gt;&gt; aList
+['on', 'air', 'velocity']
+&gt;&gt;&gt; aList.insert(2, 'speed')
+&gt;&gt;&gt; aList
+['on', 'air', 'speed', 'velocity']
+&gt;&gt;&gt;
+&gt;&gt;&gt; [].__methods__
+['append', 'count', 'extend', 'index', 'insert', 'pop',
+'remove', 'reverse', 'sort']
+&gt;&gt;&gt; [3, 'headed', 'knight'].pop()
+'knight'
+
+						</Pre>
+
+						<p>It does not take too long to discover, however, that using an actual object to access its methods does not prove very useful functionally, as in the last example. No reference is saved to the object, so it is immediately garbage-collected. The only thing useful you can do with this type of access is to use it to display what methods (or members) a BIT has.</P>
+
+					
+					
+						<H5>User-defined Methods (UDMs)</H5>
+						<P>User-defined methods are contained in class definitions and are merely "wrappers" around standard functions, applicable only to the class they are defined for. They may also be called by subclass instances if not overridden in the subclass definition.</p>
+
+						<p>As explained in the previous chapter, UDMs are associated with class objects (unbound methods), but can be invoked only with class instances (bound methods). Regardless of whether they are bound or not, all UDMs are of the same type, "instance method," as seen in the following calls to <tt CLASs="monofont">type():</tt></p>
+
+						<PRE>
+							
+&gt;&gt;&gt; <B>class</b> C:                               # define class
+…        <b>def</b> foo(self): <b>pass</B>               # define UDM
+…
+&gt;&gt;&gt; c = C()                                # instantiation
+&gt;&gt;&gt; type(C.foo)                            # type of unbound method
+&lt;type 'instance method'&gt;
+&gt;&gt;&gt; type(c.foo)                            # type of bound method
+&lt;type 'instance method'&gt;
+
+						</PRE>
+
+						<p>UDMs have the following attributes:</p>
+
+						<p><table border="1" cellspAciNg="0" ceLlpadDing="1" WIDTh="100%">
+<capTION><h5>Table 14.5. User-defined Method Attributes</h5></caPTIOn><colGROUp align="left" span="2">
+<tr valign="top">
+<th>
+<FonT sizE="2"><b><i>UDM Attribute</i></b></Font></TH>
+<TH>
+<font SIZE="2"><b><i>Description</i></b></FONT></th>
+</tr>
+<TR VAlign="top">
+<td>
+<font size="2"><i><tt claSs="monofont">udm.</tT></i><tt Class="monofont">__doc__</Tt></foNT></TD>
+<td>
+<foNT SIze="2">documentation string</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<font size="2"><i><tt class="monofont">udm.</Tt></i><Tt clAss="monofont">__name__</tt></Font></TD>
+<TD>
+<font SIZE="2">method name as a string</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<font size="2"><i><tt class="monofont">udm.</tt></I><tt ClasS="monofont">im_class</tt></foNt></td>
+<TD>
+<FOnt siZE="2">class which method is associated with</FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font size="2"><i><tt class="monofont">udm.</tt></i><tT clAss="monofont">im_func</tT></font></Td>
+<td>
+<FONT size="2">function object for method (see UDFs)</FONT></td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt size="2"><i><tt class="monofont">udm.</tt></i><tt cLasS="monofont">im_self</tt></fOnt></td>
+<Td>
+<foNT SIze="2">associated instance if bound, None if unbound</foNT></TD>
+</tr>
+</coLGROup>
+</taBLE></P>
+
+						<p>Accessing the object itself will reveal whether you are referring to a bound or an unbound method. As you can also see below, a bound method reveals to which instance object a method is bound:</p>
+
+						<pre>
+							
+&gt;&gt;&gt; C.foo                         # unbound method object
+&lt;unbound method C.foo&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; c.foo                         # bound method object
+&lt;method C.foo of C instance at 122c78&gt;
+&gt;&gt;&gt; c                             # instance foo()'s bound to
+&lt;__main__.c instance at 122c78&gt;
+
+						</pre>
+
+					
+				
+				
+					<h4>Classes</h4>
+					<p>The callable property of classes allows instances to be created. "Invoking" a class has the effect of creating an instance, better known as instantiation. Classes have default constructors which perform no action, basically consisting of a <b><tt class="monofont">pass</tT></b> statement. The programmer may choose to customize the instantiation process by implementing an <tT claSs="monofont">__init__()</tt> method. Any arguments to an instantiation call are passed on to the constructor:</p>
+
+					<Pre>
+						
+&gt;&gt;&gt; <b>class</B> C:
+    <B>def</B> __init__(self, *args):
+      <B>print</b> 'instantiated with these arguments:\n', args
+
+&gt;&gt;&gt; c1 = C()            # invoking class to instantiate c1
+instantiated with these arguments:
+()
+&gt;&gt;&gt; c2 = C('The number of the counting shall be', 3)
+instantiated with these arguments:
+('The number of the counting shall be', 3)
+
+					</pre>
+
+					<P>We are already familiar with the instantiation process and how it is accomplished, so we will keep this section brief. What is new, however, is how to make <I>instances</I> callable.</P>
+
+				
+				
+					<h4>Class Instances</h4>
+					<p>Python provides the <tT CLAss="monofont">__call__()</tt> special method for classes which allows a programmer to create objects (instances) which are callable. By default, the <TT CLass="monofont">__call__()</tt> method is not implemented, meaning that most instances are not callable. However, if this method is overridden in a class definition, instances of such a class are made callable. Calling such instance objects is equivalent to invoking the <tt class="monofont">__call__()</tt> method. Naturally, any arguments given in the instance call are passed as arguments to <tt clasS="monofont">__call__().</tt></P>
+
+					<p>You also have to keep in mind that <tt Class="monofont">__call__()</Tt> is still a method, so the instance object itself is passed in as the first argument to <tt CLASs="monofont">__call__()</tt> as <tT CLAss="monofont">self.</tt> In other words, if <TT CLass="monofont">foo</tT> is an instance, then <TT Class="monofont">foo()</tt> has the same effect as <tt class="monofont">foo.__call__(foo)—</tt>the occurrence of <tt claSs="monofont">foo</tT> as an argument—simply the reference to <tt cLass="monofont">self</tT> that is automatically part of every method call. If <tt cLASS="monofont">__call__()</tt> has arguments, i.e., <tt CLASs="monofont">__call__(self, arg),</tt> then <tT CLAss="monofont">foo(arg)</tt> is the same as invoking <TT CLass="monofont">foo.__call__(foo, arg).</tt> We present below an example of a callable instance, using a similar example to the previous section:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; <b>class</b> C:
+…       <b>def</b> __call__(self, *args):
+…           <b>print</b> "I'm callable!  Called with args:\n", args
+…
+
+&gt;&gt;&gt; c = C()                             # instantiation
+&gt;&gt;&gt; c                                   # our instance
+&lt;__main__.C instance at babd30&gt;
+&gt;&gt;&gt; callable(c)                         # instance is callable
+1
+&gt;&gt;&gt; c()                                 # instance invoked
+I'm callable!  Called with arguments:
+()
+&gt;&gt;&gt; c(3)                                # invoked with 1 arg
+I'm callable!  Called with arguments:
+(3,)
+&gt;&gt;&gt; c(3, 'no more, no less')            # invoked with 2 args
+I'm callable!  Called with arguments:
+(3, 'no more, no less')
+
+					</pre>
+
+					<p>We close this subsection with a note that class instances cannot be made callable unless the <tT clAss="monofont">__call__()</tT> method is implemented as part of the class definition.</p>
+
+				
+			</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="230.html" title="14. Execution Environment"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=231" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="231.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="232.html" title="Code Objects"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

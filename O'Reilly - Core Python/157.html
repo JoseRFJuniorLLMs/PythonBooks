@@ -1,0 +1,144 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Exceptions in Python</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="154.html" class="navtitle">10. Errors And Exceptions</a> &gt; <span class="nonavtitle">Exceptions in Python</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="156.html" title="What Are Exceptions?"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=157" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="157.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="158.html" title="Detecting and Handling Exceptions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A28%3A14+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175193246038104068157061</font><a href="read3.asp?bookname=0130260363&snode=157&now=5%2F29%2F2002+9%3A28%3A14+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Exceptions in Python</h3>
+				<p>As you were going through some of the examples in the previous chapters, you no doubt noticed what happens when your program "crashes" or terminates due to unresolved errors. A "traceback" notice appears along with a notice with as much diagnostic information as the interpreter can give you, including the error name, reason, and perhaps even the line number near or exactly where the error occurred. All errors have a similar format, regardless of whether running within the Python interpreter or standard script execution, providing a consistent error interface. All errors, whether they be syntactical or logical, result from behavior incompatible with the Python interpreter and cause exceptions to be raised.</p>
+
+				<P> Let us take a look at some exceptions now.</P>
+
+				
+					<H4><Tt claSS="monofont">NameError:</TT> attempt to access an undeclared variable</h4>
+					<pre>
+						
+&gt;&gt;&gt; foo
+Traceback (innermost last):
+ File "&lt;interactive input&gt;", line 0, in ?
+NameError: foo
+
+					</PRE>
+
+					<P><tt class="monofont">NameError</tt> indicates access to an uninitialized variable. The offending identifier was not found in the Python interpreter's symbol table. We will be discussing <i>namespaces</i> in an upcoming chapter, but as an introduction, regard them as "address books" linking names to objects. Any object which is accessible should be listed in a namespace. Accessing a variable entails a search by the interpreter, and if the name requested is not found in any of the namespaces, a <tt class="monofont">NameError</tt> exception will be generated.</P>
+
+				
+				
+					<h4><tT claSs="monofont">ZeroDivisionError:</tt> division by any numeric zero</h4>
+					<Pre>
+						
+&gt;&gt;&gt; 12.4/0.0
+Traceback (innermost last):
+ File "&lt;interactive input&gt;", line 0, in ?
+ZeroDivisionError: float division
+
+					</pRE>
+
+					<P>Our example above used floats, but in general, any numeric division-by-zero will result in a <Tt claSS="monofont">ZeroDivisionError</TT> exception.</p>
+
+				
+				
+					<h4><tt CLASs="monofont">SyntaxError:</tt> Python interpreter syntax error</h4>
+					<PRE>
+						
+&gt;&gt;&gt; <B>for</b>
+  File "&lt;string&gt;", line 1
+    <b>for</b>
+       <b>^</b>
+SyntaxError: invalid syntax
+
+					</pre>
+
+					<p><tt class="monofont">SyntaxError</tt> exceptions are the only ones which do not occur at run-time. They indicate an improperly constructed piece of Python code which cannot execute until corrected. These errors are generated at compile-time, when the interpreter loads and attempts to convert your script to Python bytecode. These may also occur as a result of importing a faulty module.</p>
+
+				
+				
+					<h4><Tt cLass="monofont">IndexError:</Tt> request for an out-of-range index for sequence</h4>
+					<prE>
+						
+&gt;&gt;&gt; aList = []
+&gt;&gt;&gt; aList[0]
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+IndexError: list index out of range
+
+					</pre>
+
+					<P><TT Class="monofont">IndexError</TT> is raised when attempting to access an index which is outside the valid range of a sequence.</P>
+
+				
+				
+					<H4><tt clASS="monofont">KeyError:</Tt> request for a non-existent dictionary key</h4>
+					<prE>
+						
+&gt;&gt;&gt; aDict = {'host': 'earth', 'port': 80}
+&gt;&gt;&gt; <B>print</B> aDict['server']
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+KeyError: server
+
+					</Pre>
+
+					<p>Mapping types such as dictionaries depend on keys to access data values. Such values are not retrieved if an incorrect/nonexistent key is requested. In this case, a <tt class="monofont">KeyError</tt> is raised to indicate such an incident has occurred.</p>
+
+				
+				
+					<h4><tt clasS="monofont">IOError:</tt> input/output error</H4>
+					<pre>
+						
+&gt;&gt;&gt; f = open("blah")
+Traceback (innermost last):
+ File "&lt;interactive input&gt;", line 1, in ?
+IOError: [Errno 2] No such file or directory: 'blah'
+
+					</Pre>
+
+					<p>Attempting to open a non-existent disk file is one example of an operating system input/output (I/O) error. Any type of I/O error raises an <tT claSS="monofont">IOError</TT> exception.</p>
+
+				
+				
+					<h4><tt CLASs="monofont">AttributeError:</tt> attempt to access an unknown object attribute</h4>
+					<PRE>
+						
+&gt;&gt;&gt; <B>class</b> myClass:
+…     <b>pass</b>
+…
+&gt;&gt;&gt; myInst = myClass()
+&gt;&gt;&gt; myInst.bar = 'spam'
+&gt;&gt;&gt; myInst.bar
+'spam'
+&gt;&gt;&gt; myInst.foo
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+AttributeError: foo
+
+					</pRE>
+
+					<P>In our example, we stored a value in <Tt class="monofont">myInst.bar,</tt> the <tt class="monofont">bar</tt> attribute of instance <tt cLasS="monofont">myInst.</tt> Once an attribute has been defined, we can access it using the familiar dotted-attribute notation, but if it has not, as in our case with the <tT clasS="monofont">foo</tt> (non-)attribute, an <tT CLAss="monofont">AttributeError</tt> occurs.</P>
+
+				
+			</FONt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="156.html" title="What Are Exceptions?"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=157" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="157.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="158.html" title="Detecting and Handling Exceptions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

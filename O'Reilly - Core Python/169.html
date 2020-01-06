@@ -1,0 +1,124 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Exercises</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="154.html" class="navtitle">10. Errors And Exceptions</a> &gt; <span class="nonavtitle">Exercises</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="168.html" title="Related Modules"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=169" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="169.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="171.html" title="11. Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A30%3A31+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174054034006118048133039</font><a href="read6.asp?bookname=0130260363&snode=169&now=5%2F29%2F2002+9%3A30%3A31+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Exercises</h3>
+				<p><tABLE bodeR="0" CELlspaCING="16" cellpadding="0">
+					<tr valign="top"><tD alIgn="right"><a Name="1"></a><Font><B>1:</B></FOnt></td><TD><FOnt><p><a HREF="288#27.html"><i>Raising Exceptions.</i> Which of the following can RAISE exceptions during program execution? Note that this question does not ask what may CAUSE exceptions</a>.</p>
+
+							<P>a) the user</P>
+
+							<P>b) the interpreter</P>
+
+							<p>c) the program</p>
+
+							<p>d) all of the above</p>
+
+							<p>e) only (b) and (c)</p>
+
+							<p>f) only (a) and (c)</p>
+
+						</font></td></tr>
+					<tr vaLigN="top"><td aLign="right"><a Name="2"></A><FONt><b>2:</b></fONT></Td><td><fONT><P><a hreF="288#28.html"><I>Raising Exceptions.</I> Referring to the list in the problem above, which could raise exceptions while running within the interactive interpreter?</A></p>
+</font></td></tr>
+					<tr valign="top"><td aLigN="right"><fonT><b>3:</b></foNt></td><TD><FOnt><p><i>Keywords.</I> Name the keyword(s) which is(are) used to raise exceptions.</P>
+</FOnt></td></TR>
+					<TR valiGN="top"><TD align="right"><font><b>4:</b></font></td><td><fOnt><P><i>Keywords.</i> What is the difference between <b><Tt claSs="monofont">try-except</tt></B> and <B><TT clasS="monofont">try-finally?</TT></B></p>
+</fonT></TD></Tr>
+					<tr vALIGn="top"><td align="right"><font><b>5:</b></font></td><Td><fOnt><p><I>Exceptions.</i> Name the exception that would result from executing the following pieces of Python code from within the interactive interpreter (refer back to <a hrEf="163#1.html">Table 10.2</a> for a list of all built-in exceptions):</p>
+
+							<P>a)</P>
+
+							<PRe>
+								
+&gt;&gt;&gt; <b>if</b> 3 &lt; 4 <b>then: print</B> '3 IS less than 4!'</PRE>
+
+							<p>b)</p>
+
+							<prE>
+								
+&gt;&gt;&gt; aList = ['Hello', 'World!', 'Anyone', 'Home?']
+&gt;&gt;&gt; <B>print</B> 'the last string in aList is:', aList[len(aList)]
+</Pre>
+
+							<p>c)</p>
+
+							<PRE>
+								
+&gt;&gt;&gt; x
+</Pre>
+
+							<p>d)</p>
+
+							<pre>
+								
+&gt;&gt;&gt; x = 4 % 0
+</pre>
+
+							<p>e)</p>
+
+							<pre>
+								
+<b>&gt;&gt;&gt; import</b> math
+&gt;&gt;&gt; i = math.sqrt(-1)</pre>
+
+						</FonT></td></tR>
+					<tr vaLign="top"><TD ALign="right"><fONT><B>6:</b></fonT></TD><Td><fonT><P><I>Improving <Tt class="monofont">open().</tt></i> Create a wrapper for the <tt class="monofont">open()</tt> function. When a program opens a file successfully, a file handle will be returned. If the file open fails, rather than generating an error, return <tt ClaSs="monofont">None</tt> to the callers so that they can open files without an exception handler.</P>
+</font></Td></tr>
+					<TR VAlign="top"><TD ALign="right"><fONT><B>7:</b></fonT></TD><Td><font><p><i>Exceptions.</i> What is the difference between Python pseudocode snippets (a) and (b)? Answer in the context of statements A and B, which are part of both pieces of code. (Thanks to Guido for this teaser!)</p>
+
+							<p>a)</p>
+
+							<pre>
+								
+<b>try:</b>
+    <i>statement_A</i>
+<b>except</b> …:
+       …
+<B>else:</b>
+    <i>statement_B</I>
+</pre>
+
+							<P>b)</p>
+
+							<pre>
+								
+<B>try:</b>
+    <i>statement_A</i>
+    <I>statement_B</I>
+<B>except</B> …:
+       …</pre>
+
+						</fONT></Td></tr>
+					<tR VALign="top"><tD ALIgn="right"><font><b>8:</b></font></td><td><font><P><i>Improving <tT claSs="monofont">raw_input().</tt></i> In the beginning of this chapter, we presented a "safe" version of the <Tt clASS="monofont">float()</Tt> built-in function to detect and handle two different types of exceptions which <tt cLASS="monofont">float()</tt> generates. Likewise, the <tt CLASs="monofont">raw_input()</tt> function can generate two different exceptions, either <tT CLAss="monofont">EOFError</tt> or <tt class="monofont">KeyboardInterrupt</tt> on end-of-file (EOF) or cancelled input, respectively. Create a wrapper function, perhaps <tt class="monofont">safe_input();</Tt> rather than raising an exception if the user entered EOF (^D in Unix or ^Z in DOS) or attempted to break out using ^C, have your function return None that the calling function can check for.</p>
+</Font></Td></tr>
+					<tR valIGN="top"><Td aliGN="right"><FOnt><b>9:</b></FONT></td><td><FONT><p><i>Improving <tt class="monofont">math.sqrt().</tt></i> The <tt class="monofont">math</tT> module contains many functions and some constants for performing various mathematics-related operations. Unfortunately, this module does not recognize or operate on complex numbers, which is the reason why the <tt ClasS="monofont">cmath</tt> module was developed. Rather than suffering the overhead of importing an entire module for complex numbers which you do not plan on using in your application, you want to just use the standard arithmetic operators which work fine with complex numbers, but really want just a square root function that can provide a complex number result when given a negative argument. Create a function, perhaps <tt ClasS="monofont">safe_sqrt(),</TT> which wraps <Tt claSS="monofont">math.sqrt(),</TT> but is smart enough to handle a negative parameter and return a complex number with the correct value back to the caller.</p>
+</fonT></TD></Tr>
+				</tabLE></P>
+			</Font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="168.html" title="Related Modules"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=169" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="169.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="171.html" title="11. Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

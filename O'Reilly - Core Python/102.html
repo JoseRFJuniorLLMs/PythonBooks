@@ -1,0 +1,120 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Strings</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="99.html" class="navtitle">6. Sequences: Strings, Lists, and Tuples</a> &gt; <span class="nonavtitle">Strings</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="101.html" title="Sequences"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=102" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="102.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="103.html" title="Strings and Operators"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A17%3A55+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172035020057202074084200</font><a href="read2.asp?bookname=0130260363&snode=102&now=5%2F29%2F2002+9%3A17%3A55+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Strings</h3>
+				<p>Strings are amongst the most popular types in Python. We can create them simply by enclosing characters in quotes. Python treats single quotes the same as double quotes. This contrasts with most other scripting languages, which use single quotes for literal strings and double quotes to allow escaping of characters. Python uses the "raw string" operator to create literal quotes, so no differentiation is necessary. Other languages such as C use single quotes for characters and double quotes for strings. Python does not have a character type; this is probably another reason why single and double quotes are the same.</p>
+
+				<P>Nearly every Python application uses strings in one form or another. Strings are a literal or scalar type, meaning they are treated by the interpreter as a singular value and are not containers which hold other Python objects. Strings are immutable, meaning that changing an element of a string requires creating a new string. Strings are made up of individual characters, and such elements of strings may be accessed sequentially via slicing.</P>
+
+				
+					<H4>How to Create and Assign Strings</H4>
+					<p>Creating strings is as simple as assigning a value to a variable:</p>
+
+					<prE>
+						
+&gt;&gt;&gt; aString = 'Hello World!'
+&gt;&gt;&gt; anotherString = "Python is cool!"
+&gt;&gt;&gt; <B>print</B> aString
+Hello World!
+&gt;&gt;&gt; <B>print</b> anotherString
+Python is cool!
+&gt;&gt;&gt; aBlankString = ''
+&gt;&gt;&gt; <b>print</b> aBlankString
+''
+
+					</pRE>
+
+				
+				
+					<H4>How to Access Values(Characters and Substrings) in Strings</H4>
+					<p>Python does not support a character type; these are treated as strings of length one, thus also considered a substring. To access substrings, use the square brackets for slicing along with the index or indices to obtain your substring:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; aString = 'Hello World!'
+&gt;&gt;&gt; aString[0]
+'H'
+&gt;&gt;&gt; aString[1:5]
+'ello'
+&gt;&gt;&gt; aString[6:]
+'World!'
+
+					</pre>
+
+				
+				
+					<h4>How to Update Strings</h4>
+					<p>You can "update" an existing string by (re)assigning a variable to another string. The new value can be related to its previous value or to a completely different string altogether.</p>
+
+					<pre>
+						
+&gt;&gt;&gt; aString = aString[:6] + 'Python!'
+&gt;&gt;&gt; aString
+'Hello Python!'
+&gt;&gt;&gt; aString = 'different string altogether'
+&gt;&gt;&gt; aString
+'different string altogether'
+
+					</pre>
+
+					<p>Like numbers, strings are not mutable, so you cannot change an existing string without creating a new one from scratch. That means that you cannot update individual characters or substrings in a string. However, as you can see above, there is nothing wrong with piecing together part of your old string and assigning it to a new string.</p>
+
+				
+				
+					<H4>How to Remove Characters and Strings</h4>
+					<p>To repeat what we just said, strings are immutable, so you cannot remove individual characters from an existing string. What you can do, however, is to empty the string, or to put together another string which drops the pieces you were not interested in.</P>
+
+					<p>Let us say you want to remove one letter from "Hello World!"… the (lowercase) letter "l," for example:</p>
+
+					<pRe>
+						
+&gt;&gt;&gt; aString = 'Hello World!'
+&gt;&gt;&gt; aString = aString[:3] + aString[4:]
+&gt;&gt;&gt; aString
+'Helo World!'
+
+					</pre>
+
+					<P>To clear or remove a string, you assign an empty string or use the <b><tt CLASs="monofont">del</tt></b> statement, respectively:</P>
+
+					<PRE>
+						
+&gt;&gt;&gt; aString = ''
+
+&gt;&gt;&gt; aString
+''
+&gt;&gt;&gt; <b>del</b> aString
+
+					</prE>
+
+					<P>In most applications, strings do not need to be explicitly deleted. Rather, the code defining the string eventually terminates, and the string is automatically garbage-collected.</P>
+
+				
+			</Font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="101.html" title="Sequences"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=102" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="102.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="103.html" title="Strings and Operators"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

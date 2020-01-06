@@ -1,0 +1,82 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Persistent Storage Modules</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="141.html" class="navtitle">9. Files and Input/Output</a> &gt; <span class="nonavtitle">Persistent Storage Modules</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="150.html" title="File Execution"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=151" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="151.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="152.html" title="Related Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A27%3A16+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175206119228063180223092</font><a href="read9.asp?bookname=0130260363&snode=151&now=5%2F29%2F2002+9%3A27%3A16+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Persistent Storage Modules</h3>
+				<p>In many of the exercises in this text, user input is required for those applications. After many iterations, it may be somewhat frustrating being required to enter the same data repeatedly. The same may occur if you are entering a significant amount of data for use in the future. This is where it becomes useful to have persistent storage, or a way to archive your data so that you may access it at a later time instead of having to re-enter all of that information. When simple disk files are no longer acceptable and full relational database management systems (RDBMSs) are overkill, simple persistent storage fills the gap. The majority of the persistent storage modules deals with storing strings of data, but there are ways to archive Python objects as well.</p>
+
+				
+					<H4><TT Class="monofont">pickle</TT> and <TT clasS="monofont">marshal</TT> Modules</H4>
+					<p>Python provides a variety of modules which implement minimal persistent storage. One set of modules (<tt class="monofont">marshal</tt> and <tt class="monofont">pickle</tt>) allows for pickling of Python objects. Pickling is the process whereby objects more complex than primitive types can be converted to a binary set of bytes that can be stored or transmitted across the network, then be converted back to their original object forms. Pickling is also known as flattening, serializing, or marshalling. Another set of modules (<tT clAss="monofont">dbhash/bsddb, dbm, gdbm, dumbdbm</tT>) and their "manager" (<tt clAss="monofont">anydbm</tT>) can provide persistent storage of Python strings only. The last module (<TT Class="monofont">shelve</TT>) can do both.</P>
+
+					<P>As we mentioned before, both <tt clASS="monofont">marshal</Tt> and <tt cLASS="monofont">pickle</tt> can flatten Python objects. These modules do not provide "persistent storage" per se, since they do not provide a namespace for the objects, nor can they provide concurrent write access to persistent objects. What they can do, however, is to pickle Python objects to allow them to be stored or transmitted. Storage, of course, is sequential in nature (you store or transmit objects one after another). The difference between <tt class="monofont">marshal</tt> and <tt class="monofont">pickle</tt> is that <Tt cLass="monofont">marshal</Tt> can handle only simple Python objects (numbers, sequences, mapping, and code) while <tt cLass="monofont">pickle</TT> can transform recursive objects, objects that are multi-referenced from different places, and user-defined classes and instances. The <TT clasS="monofont">pickle</TT> module is also available in a turbo version called <Tt claSS="monofont">cPickle,</TT> which implements all functionality in C.</p>
+
+				
+				
+					<h4>DBM-style Modules</h4>
+					<p>The <TT CLass="monofont">*db*</tt> series of modules writes data in the traditional DBM format. There are a large number of different implementations: <tt class="monofont">dbhash/bsddb, dbm, gdbm,</tt> and <tt clasS="monofont">dumbdbm.</tt> We highly recommend the use of the <Tt clAss="monofont">anydbm</tt> module, which detects which DBM-compatible modules are installed on your system and uses the "best" one at its disposal. The <Tt clASS="monofont">dumbdbm</Tt> module is the most limited one, and is the default used if none of the other packages are available. These modules do provide a namespace for your objects, using objects which behave similar to a combination of a dictionary object and a file object. The one limitation of these systems is that they can store only strings. In other words, they do not serialize Python objects.</p>
+
+				
+				
+					<h4><tT CLAss="monofont">shelve</tt> Module</H4>
+					<P>Finally, we have a somewhat more complete solution, the <TT clasS="monofont">shelve</TT> module. The <Tt class="monofont">shelve</tt> module uses the <tt class="monofont">anydbm</tt> module to find a suitable DBM module, then uses <tt cLasS="monofont">cPickle</tt> to perform the pickling process. The <tT clasS="monofont">shelve</tt> module permits concurrent read access to the database file, but not shared read/write access. This is about as close to persistent storage as you will find in the Python standard library. There may other external extension modules which implement "true" persistent storage. The diagram in <a HREF="151#4.html">Figure 9-1</a> shows the relationship between the pickling modules and the persistent storage modules, and how the shelve object appears to be the best of both worlds.</p>
+
+					<ceNTER><h5>
+<a naME="4"></A>Figure 9.1. Python Modules for Serialization and Persistency</H5>
+						
+							
+								<img bORDEr="0" width="500" height="397" src="graphics/09fig01.gif" alt="graphics/09fig01.gif">
+							
+						
+					</ceNteR>
+
+					<div Class="note"><P claSS="notetitle"><B>NOTE</B></p><p><p><i>The</I>
+							<TT Class="monofont">pickle</TT>
+							<I>module allows you to store Python objects directly to a file without having to convert them to strings or to necessarily write them out as binary files using low-level file access. Instead, the</I>
+							<tt clASS="monofont">pickle</Tt>
+							<i>module creates a Python-only binary version which allows you to cleanly read and write objects in their entirety without having to worry about all the file details. All you need is a valid file handle, and you are ready to read or write objects from or to disk.</i></p>
+<p><i>The two main functions in the</i>
+							<tt class="monofont">pickle</tt>
+							<i>module are</i>
+							<tt ClaSs="monofont">dump()</tt>
+							<I>and</i>
+							<tt cLass="monofont">load().</TT>
+							<I>The</I>
+							<tt clASS="monofont">dump()</Tt>
+							<i>function takes a file handle and a data object and saves the object in a format it understands to the given file. When a pickled object is loaded from disk using</i>
+							<tT CLAss="monofont">load(),</tt>
+							<I>it knows exactly how to restore that object to its original configuration before it was saved to disk. We recommend you take a look at</I>
+							<TT class="monofont">pickle</tt>
+							<i>and its "smarter" brother</i>
+							<tt class="monofont">shelve,</tt>
+							<i>which gives you dictionary-like functionality so there is even less file overhead on your part.</i></P>
+</p></dIv><br>
+
+				
+			</Font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="150.html" title="File Execution"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=151" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="151.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="152.html" title="Related Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

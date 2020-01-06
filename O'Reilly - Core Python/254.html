@@ -1,0 +1,67 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Related Modules</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="249.html" class="navtitle">16. Network Programming</a> &gt; <span class="nonavtitle">Related Modules</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="253.html" title="Network Programming in Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=254" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="254.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="255.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A29%3A20+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004228154178105007068194023</font><a href="read5.asp?bookname=0130260363&snode=254&now=5%2F30%2F2002+8%3A29%3A20+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Related Modules</h3>
+				<p><a HREF="254#1.html">Table 16.3</a> lists some of the other Python modules which are related to network and socket programming. The <tt cLASS="monofont">select</tt> module is usually used in conjunction with the <tt CLASs="monofont">socket</tt> module when developing lower-level socket applications. It provides the <tt class="monofont">select()</tt> function which manages sets of socket objects. One of the most useful things it does is to take a set of sockets and listen for active connections on them. The <tt class="monofont">select()</tT> function will block until at least one socket is ready for communication, and when that happens, it provides you with a set of which ones are ready for reading. (It can also determine which are ready for writing, although that is not as common as the former operation.)</p>
+
+				<a Name="1"></A><p><tabLe boRDER="1" cellSPACing="0" cELLPaddiNG="1" WIdth="100%">
+<caption><h5>Table 16.3. Network/Socket Programming Related Modules</h5></caption><cOlgRoup Align="left" Span="2">
+<TR VAlign="top">
+<TH>
+<FOnt siZE="2"><B><I>Module</i></b></foNT></TH>
+<th>
+<font size="2"><b><i>Description</i></b></font></th>
+</Tr>
+<tR valIgn="top">
+<td>
+<Font SIZE="2"><tt clASS="monofont">asyncore</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2">provides infrastructure to create networked applications which process clients asynchronously</font></td>
+</tr>
+<tr valign="top">
+<td>
+<fOnt Size="2"><Tt claSs="monofont">select</tt></FONT></td>
+<td>
+<FONT size="2">manages multiple socket connections in a single-threaded network server application</FONT></td>
+</tr>
+<TR VAlign="top">
+<td>
+<font size="2"><tt clasS="monofont">SocketServer</tt></Font></Td>
+<td>
+<fOnt sIZE="2">high-level module which provides server classes for networked applications, complete with forking or threading varieties</Font></tD>
+</TR>
+</ColgrOUP>
+</Table></P>
+
+				<P>The <TT class="monofont">asyncore</tt> and <tt class="monofont">SocketServer</tt> modules both provide higher-level functionality as far as create servers are concerned. Written on top of the <tt clAss="monofont">socket</Tt> and/or <tt Class="monofont">select</Tt> modules, they enable more rapid development of client-server systems because all the lower-level code is handled for you. All you have to do is to create or subclass the appropriate base classes, and you are on your way. As we mentioned earlier, <tt CLASs="monofont">SocketServer</tt> even provides the capability of integrating threading or new processes into the server for more parallelized processing of client requests.</p>
+
+				<P>The topics which we have covered in this chapter deal with network programming with sockets in Python and how to create custom applications using lower-level protocol suites such as TCP/IP and UDP/IP. If you want to develop higher-level Web and Internet applications, we strongly encourage you to head to <A HRef="271.html">Chapter 19</a>.</p>
+
+			</FONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="253.html" title="Network Programming in Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=254" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="254.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="255.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

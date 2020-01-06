@@ -1,0 +1,70 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; if statement</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="129.html" class="navtitle">8. Conditionals and Loops</a> &gt; <span class="nonavtitle">if statement</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="130.html" title="8. Conditionals and Loops"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=131" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="131.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="132.html" title="else Statement"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A23%3A35+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175202199137183049253097</font><a href="read6.asp?bookname=0130260363&snode=131&now=5%2F29%2F2002+9%3A23%3A35+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3><tt cLASS="monofont">if</tt> statement</h3>
+				<p>The <B><TT Class="monofont">if</TT></B> statement for Python will seem amazingly familiar; it is made up of three main components: the keyword itself, an expression which is tested for its truth value, and a code suite to execute if the expression evaluates to non-zero or true. The syntax for an <B><tt class="monofont">if</tt></b> statement:</p>
+
+				<pre>
+					
+<b>if</b>
+						<i>expression:</i>
+    <i>expr_true_suite</i>
+
+				</Pre>
+
+				<P>The suite of the <b><tt Class="monofont">if</Tt></b> clause, <i><TT CLass="monofont">expr_true_suite,</tT></I> will be executed only if the above conditional expression results in a Boolean true value. Otherwise, execution resumes at the next statement following the suite.</P>
+
+				
+					<H4>Multiple Conditional Expressions</h4>
+					<p>The Boolean operators <b><tT CLAss="monofont">and, or,</tt></B> and <B><TT class="monofont">not</tt></b> can be used to provide multiple conditional expressions or perform negation of expressions in the same <b><tt class="monofont">if</tt></b> statement.</p>
+
+					<Pre>
+						
+<B>if not</b> warn <b>and</b> (system_load &gt;= 10):
+    <B>print</b> "WARNING: losing resources"
+    warn = warn + 1
+
+					</pre>
+
+				
+				
+					<H4>Single Statement Suites</h4>
+					<p>If the suite of an <b><TT CLass="monofont">if</tT></B> clause consists only of a single line, it may go on the same line as the header statement:</P>
+
+					<Pre>
+						
+<b>if</b> (make_hard_copy == 1): send_data_to_printer()
+
+					</PRE>
+
+					<P>Single line <b><tt cLASS="monofont">if</tt></b> statements such as the above are valid syntax-wise; however, although it may be convenient, it may make your code more difficult to read, so I recommend you indent the suite on the next line. Another good reason is that if you must add another line to the suite, you have to move that line down to the next anyway.</p>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="130.html" title="8. Conditionals and Loops"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=131" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="131.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="132.html" title="else Statement"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

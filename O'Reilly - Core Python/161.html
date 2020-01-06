@@ -1,0 +1,156 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Raising Exceptions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="154.html" class="navtitle">10. Errors And Exceptions</a> &gt; <span class="nonavtitle">Raising Exceptions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="160.html" title="*Exceptions as Classes"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=161" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="161.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="162.html" title="Assertions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A29%3A09+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175192054106048080082113</font><a href="read8.asp?bookname=0130260363&snode=161&now=5%2F29%2F2002+9%3A29%3A09+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Raising Exceptions</h3>
+				<p>The interpreter was responsible for raising all of the exceptions which we have seen so far. These exist as a result of encountering an error during execution. A programmer writing an API may also wish to throw an exception on erroneous input, for example, so Python provides a mechanism for the programmer to explicitly generate an exception: the <b><TT CLass="monofont">raise</tT></B> statement.</P>
+
+				
+					<H4><tt clASS="monofont">raise</Tt> Statement</h4>
+					<p>The <b><tt class="monofont">raise</tt></b> statement is quite flexible with the arguments which it supports, translating to a large number of different formats supported syntactically. The general syntax for <b><tt claSs="monofont">raise</tT></b> is:</p>
+
+					<pRe>
+						
+<b>raise</b> [Exception [, args [, traceback]]]
+
+					</pRe>
+
+					<p>The first argument, <tT CLAss="monofont">Exception,</tt> is the name of the exception to raise. If present, it must either be a string, class, or instance (more below). Exception must be given if any of the other arguments (arguments or traceback) are present. A list of all Python standard exceptions is given in <A HREf="163#1.html">Table 10.2</a>.</p>
+
+					<p> The second expression contains optional <I><TT Class="monofont">args</TT></I> (a.k.a. parameters, values) for the exception. This value is either a single object or a tuple of objects. When exceptions are detected, the exception arguments are always returned as a tuple. If <I><tt class="monofont">args</tt></i> is a tuple, then that tuple represents the same set of exception arguments which are given to the handler. If <i><tt class="monofont">args</tt></I> is a single object, then the tuple will consist solely of this one object (i.e., a tuple with one element). In most cases, the single argument consists of a string indicating the cause of the error. When a tuple is given, it usually equates to an error string, an error number, and perhaps an error location, such as a file, etc.</p>
+
+					<p>The final argument, <I><tt cLass="monofont">traceback,</tT></i> is also optional (and rarely used in practice), and, if present, is the traceback object used for the exception—normally a traceback object is newly created when an exception is raised. This third argument is useful if you want to re-raise an exception (perhaps to point to the previous location from the current). Arguments which are absent are represented by the value <b><tT CLAss="monofont">None.</tt></B></P>
+
+					<P>The most common syntax used is when <I><tt clASS="monofont">Exception</Tt></i> is a class. No additional parameters are ever required, but in this case, if they are given, can be a single object argument, a tuple of arguments, or an exception class instance. If the argument is an instance, then it can be an instance of the given class or a derived class (subclassed from a pre-existing exception class). No additional arguments (i.e., exception arguments) are permitted if the argument is an instance.</p>
+
+					<p>What happens if the argument is an instance? No problems arise if <TT CLass="monofont">instance</tt> is an instance of the given exception class. However, if <tt class="monofont">instance</tt> is <i>not</i> an instance of the class nor an instance of a subclass of the class, then a new instance of the exception class will be created with exception arguments copied from the given instance. If <tt clAss="monofont">instance</Tt> is an instance of a subclass of the exception class, then the new exception will be instantiated from the subclass, not the original exception class.</p>
+
+					<p>If the additional parameter to the <B><tt clAss="monofont">raise</tT></B> statement used with an exception class is not an instance—instead, it is a singleton or tuple—then the class is instantiated and <I><Tt claSS="monofont">args</TT></i> is used as the argument list to the exception. If the second parameter is not present or <tt cLASS="monofont">None,</tt> then the argument list is empty.</p>
+
+					<p>If <I><TT Class="monofont">Exception</tt></i> is an instance, then we do not need to instantiate anything. In this case, additional parameters must not be given or must be <tt class="monofont">None.</tt> The exception type is the class which <i><tt cLasS="monofont">instance</tt></i> belongs to; in other words, this is equivalent to raising the class with this instance, i.e., <B><tt clAss="monofont">raise</tT></B>
+						<I><Tt claSS="monofont">instance.__class__, instance.</TT></i></p>
+
+					<p>Use of string exceptions is deprecated in favor of exception classes, but if <i><TT CLass="monofont">Exception</tT></I> is a string, then it raises the exception identified by <I><Tt class="monofont">string,</tt></i> with any optional parameters (<i><tt class="monofont">args</tt></i>) as arguments.</P>
+
+					<p>Finally, the <b><Tt clAss="monofont">raise</tt></B> statement by itself without any parameters is a new construct, introduced in Python 1.5, and causes the last exception raised in the current code block to be re-raised. If no exception was previously raised, a <tt cLASS="monofont">TypeError</tt> exception will occur, because there was no previous exception to re-raise.</p>
+
+					<p>Due to the many different valid syntax formats for <B><TT Class="monofont">raise</TT></B> (i.e., <I><tt clASS="monofont">Exception</Tt></i> can be either a class, instance, or a string), we provide <a href="161#2.html">Table 10.1</a> to illuminate all the different ways which <b><tt class="monofont">raise</tt></b> can be used.</p>
+
+					<A naMe="2"></a><p><Table BordER="1" CEllspACINg="0" celLPADding="1" WIDTh="100%">
+<caption><h5>Table 10.1. Using the <tt class="monofont">raise</tt> Statement</h5></cAptIon><cOlgroUp alIGN="left" Span="2">
+<tR VALign="top">
+<tH>
+<FONt sizE="2"><B><TT class="monofont">raise</tt></b>
+										<i>syntax</i></font></th>
+<th>
+<foNt sIze="2"><i>Description</I></font></Th>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt siZE="2"><B><Tt claSS="monofont">raise</TT></b>
+										<i><tt class="monofont">exclass</tt></i></font></td>
+<td>
+<FonT sizE="2">raise an exception, creating an instance of <i><tt cLass="monofont">exclass</TT></I> (without any exception arguments)</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><b><tt class="monofont">raise</tt></b>
+										<i><tt class="monofont">exclass()</Tt></i></Font></Td>
+<td>
+<fOnt sIZE="2">same as above since classes are now exceptions; invoking the class name with the function call operator instantiates an instance of <I><tt clASS="monofont">exclass,</Tt></i> also with no arguments</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<font size="2"><b><tt class="monofont">raise</Tt></b>
+										<I><tt cLass="monofont">exclass, args</tT></i></foNT></TD>
+<td>
+<foNT SIze="2">same as above, but also providing exception arguments <i><tT CLAss="monofont">args,</tt></I> which can be a single argument or a tuple</FONt></td>
+</tr>
+<tr valign="top">
+<td>
+<font sIze="2"><B><tt cLass="monofont">raise</tT></b>
+										<i><tT CLAss="monofont">exclass(args)</tt></I></FONt></td>
+<tD>
+<FONt sizE="2">same as above</FONt></td>
+</tr>
+<tr valign="top">
+<td>
+<font sIze="2"><B><tt cLass="monofont">raise</tT></b>
+										<i><tT CLAss="monofont">exclass, args, tb</tt></I></FONt></td>
+<tD>
+<FONt sizE="2">same as above, but provides traceback object <I><TT class="monofont">tb</tt></i> to use</font></td>
+</tr>
+<tr vaLigN="top">
+<td>
+<fOnt siZe="2"><b><tT CLAss="monofont">raise</tt></B>
+										<I><TT clasS="monofont">exclass, instance</TT></I></font></TD>
+<TD>
+<font size="2">raise exception using <i><tt class="monofont">instance</tt></i> (normally an instance of <i><Tt cLass="monofont">exclass</Tt></i>); if <i><tT claSS="monofont">instance</TT></i> is an instance of a subclass of <i><tt CLASs="monofont">exclass,</tt></i> then the new exception will be of the subclass type (not of <I><TT Class="monofont">exclass</TT></I> type); if <I><tt class="monofont">instance</tt></i> is <i>not</i> an instance of <i><tt class="monofont">exclass</Tt></i>
+										<I>nor</i> an instance of a subclass of <i><tT clasS="monofont">exclass,</tt></i> then a new instance of <I><TT Class="monofont">exclass</TT></I> will be created with exception arguments copied from <I><tt clASS="monofont">instance</Tt></i></foNT></TD>
+</tr>
+<tr valign="top">
+<td>
+<font size="2"><B><tt ClasS="monofont">raise</tt></b> instance</fOnt></tD>
+<TD>
+<Font sIZE="2">raise exception using <I><tt clASS="monofont">instance:</Tt></i> the exception type is the class which instantiated <i><tT CLAss="monofont">instance;</tt></i> equivalent to <b><tt class="monofont">raise</tt></b>
+										<i><tt cLasS="monofont">instance.</tt></i><Tt claSs="monofont">__class__,</tt>
+										<I><TT Class="monofont">instance</TT></I> (same as above)</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<font size="2"><b><tt class="monofont">raise</tt></b>
+										<I><tt ClasS="monofont">string</tt></i></fOnt></tD>
+<TD>
+<Font sIZE="2">(<I>archaic</i>) raises <i><tt CLASs="monofont">string</tt></i> exception</FONT></td>
+</tr>
+<tr valign="top">
+<td>
+<font siZe="2"><b><Tt clAss="monofont">raise</tt></B>
+										<i><tt CLASs="monofont">string, args</tt></i></FONT></td>
+<td>
+<FONT size="2">same as above, but raises exception with <I><TT Class="monofont">args</tt></i></font></td>
+</tr>
+<tr valIgn="top">
+<Td>
+<foNt sizE="2"><b><tt CLASs="monofont">raise</tt></b>
+										<I><TT Class="monofont">string, args, tb</TT></I></Font></tD>
+<TD>
+<Font size="2">same as above, but provides traceback object <i><tt class="monofont">tb</tt></i> to use</foNt></tD>
+</tr>
+<tR valiGn="top">
+<td>
+<FONT size="2"><B><TT Class="monofont">raise</TT></B></Font></tD>
+<TD>
+<Font size="2">(<i>new in 1.5</i>) re-raises previously raised exception; if no exception was previously raised, a <tt class="monofont">TypeError</tt> is raised</foNt></tD>
+</tr>
+</cOlgroUp>
+</taBLE></P>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="160.html" title="*Exceptions as Classes"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=161" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="161.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="162.html" title="Assertions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

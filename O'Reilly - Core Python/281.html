@@ -1,0 +1,168 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Exercises</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="271.html" class="navtitle">19. Web Programming</a> &gt; <span class="nonavtitle">Exercises</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="280.html" title="Related Modules"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=281" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="281.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="283.html" title="20. Extending Python"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A43%3A46+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004226053241020063154055007</font><a href="read7.asp?bookname=0130260363&snode=281&now=5%2F30%2F2002+8%3A43%3A46+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Exercises</h3>
+				
+					<p>
+					<p>
+					<P>
+					<P>
+					<P>
+					<P>
+				<dl>
+<dd>
+<I><TT Class="monofont">urllib</TT> Module and Files.</I> Update the <Tt class="monofont">friends3.py</tt> script so that it stores names and corresponding number of friends into a 2-column text file on disk and continues to add names each time the script is run.
+						<p>EXTRA CREDIT: Add code to dump the contents of such a file to the Web browser (in HTML format). Additional EXTRA CREDIT: Create a link that clears all the names in this file.</p>
+</dd>
+<dd>
+<p><i><tt clAss="monofont">urllib</Tt> Module.</i> Write a program that takes a user-input URL (either a Web page or an FTP file, i.e., <a TargeT="_blank" hreF="http://www.python.org">http://www.python.org</A> or <A TargeT="_blank" HREf="ftp://ftp.python.org/pub/python/README">ftp://ftp.python.org/pub/python/README</a>, and downloads it to your machine with the same filename (or modified name similar to the original if it is invalid on your system). Web pages (HTTP) should be saved as <tt CLASs="monofont">.htm</tt> or <tT CLAss="monofont">.html</tt> files, and FTP'd files should retain their extension.</p>
+</dd>
+<dd>
+<p><i><tt class="monofont">urllib</tt> Module.</I> Rewrite the <tt ClasS="monofont">grabWeb.py</tt> script of <a hRef="180#1.html">Example 11.2</a> which downloads a Web page and displays the first and last non-blank lines of the resulting HTML file so that you use <TT CLass="monofont">urlopen()</tT> instead of <TT Class="monofont">urlretrieve()</TT> to process the data directly (as opposed to downloading the entire file first before processing it).</P>
+</Dd>
+<dd>
+<p><I>URLs and Regular Expressions.</I> Your browser may save your favorite Web site URLs as a "bookmarks" HTML file (Netscape browsers do this) or as a set of .URL files in a "favorites" directory (Microsoft browsers do this). Find your browser's method of recording your "hot links" and the location of where and how they stored. Without altering any of the files, strip the URLs and names of the corresponding Web sites (if given) and produce a 2-column list of names and links as output, and storing this data into a disk file. Truncate site names or URLs to keep each line of output within 80 columns in size.</P>
+</Dd>
+<dd>
+<p><i>URLs, <tt class="monofont">urllib</tt> Module, Exceptions, and REs.</i> As a follow-up problem to the previous, add code to your script to test each of your favorite links. Report back a list of dead links (and their names), i.e., Web sites that are no longer active or a Web page that has been removed. Only output and save to disk the still-valid links.</p>
+</dd>
+<dd>
+<I>Error Checking.</i> The <tT claSs="monofont">friends3.py</tt> script reports an error if no radio button was selected to indicate the number of friends. Update the CGI script to also report an error if no name (e.g., blank or whitespace) is entered.
+						<p>EXTRA CREDIT: We have so far explored only server-side error checking. Explore JavaScript programming and implement client-side error checking by creating JavaScript code to check for both error situations so that these errors are stopped before they reach the server.</P>
+</dd>
+</dL>
+
+				<P>Problems 19–7 to 19–10 below pertain to <I>Web server access log files and Regular Expressions.</I> Web servers (and their administrators) generally have to maintain an access log file (usually <tt clASS="monofont">logs/access_log</Tt> from the main Web server directory) which tracks requests file. Over a period of time, such files get large and either need to be stored or truncated. Why not save only the pertinent information and delete the files to conserve disk space? The exercises below are designed to give you some exercise with REs and how they can be used to help archive and analyze Web server data.</p>
+
+				
+					<p>
+					<p>
+					<P>
+					<P>
+					<P>
+					<P>
+					<p>
+					<p>
+					<p>
+					<p>
+					<P>
+					<P>
+					<P>
+					<P>
+					<p>
+					<p>
+					<p>
+				<dl>
+<dd>
+<b>Step 19-7. </b>
+<p>Count how many of each type of request (GET vs. POST) exist in the log file.</p>
+</dd>
+<dd>
+<p>Count the successful page/data downloads: Display all links which resulted in a return code of 200 (OK [no error]) and how many times each link was accessed.</p>
+</dd>
+<dD>
+<p>Count the errors: Show all links which resulted in errors (return codes in the 400s or 500s) and how many times each link was accessed.</p>
+</Dd>
+<dd>
+<P>Track IP addresses: For each IP address, output a list of each page/data downloaded and how many times that link was accessed.</p>
+</dd>
+<dD>
+<p><i>Simple CGI.</i> Create a "Comments" or "Feedback" page for a Web site. Take user feedback via a form, process the data in your script, and return a "thank you" screen.</P>
+</DD>
+<Dd>
+<p><i>Simple CGI.</i> Create a Web guestbook. Accept a name, an e-mail address, and a journal entry from a user and log it to a file (format of your choice). Like the previous problem, return a "thanks for filling out a guestbook entry" page. Also provide a link which allows users to view guestbooks.</P>
+</DD>
+<Dd>
+<i>Web Browser Cookies and Web Site Registration.</i> Update your solution to Exercise 13-4. so that your user-password information pertains to Web site registration instead of a simple text-based menu system.
+						<p>EXTRA CREDIT: familiarize yourself with setting Web browser cookies and maintain a login session for 4 hours from the last successful login.</P>
+</DD>
+<Dd>
+<i>Stock Quote Information.</i> There are many online services which allow users to look up stock quote price information. A few of these sites, such as Yahoo! for example, allow users to download such data in a comma-delimited spreadsheet format. Become familiar with one of these sites and learn how to download stock price information onto your local hard drive. Create a Python application not only to perform the download, but also to be able to read, parse, and display the saved data for a specified set of stock ticker symbols.
+						<p>EXTRA CREDIT: Integrate your solution to the previous problem by registering users and allowing individual portfolios using the classes created for your solution to Exercise 13-13.</P>
+</DD>
+<Dd>
+<p><i>Stock Quote Information.</i> Update your solution to the previous problem by bypassing the downloading of the information to a local file. Open a connection directly to a Web server and parse the stock data as it streams down to your application, and display this information to the screen.</p>
+
+						<div class="note"><p class="notetitle"><b>NOTE</B></p><p><P><i>Python on the Windows 32-bit platform contains connectivity to Component Object Model (COM), a Microsoft interfacing technology that allows objects to talk to one another, or more higher-level, applications to talk to one another, without any language- or format-dependence. You can read all about COM in Hammond and Robinson. The combination of Python and COM presents a unique opportunity to create Python scripts which can talk to such applications as Word or Excel.</i></p>
+</P></div></dD>
+<dd>
+<p><I>Stock Quotes and Excel/COM programming</I> (<IMg borDER="0" Width="30" HEIGht="31" srC="graphics/w.gif" ALT="graphics/w.gif">). Familiarize yourself with COM programming in Python, then use your solution to the previous problem to create a new application which downloads stock quote information and transfers that data directly to an Excel spreadsheet. You may choose to have the user manually invoke the Python script to update the data, or if you have a direct connection to the Internet, have your script update the data periodically during the business day. Merge any element of your solution to the previous problem by providing automatically-updating Excel spreadsheets for multiple portfolios.</p>
+</dd>
+<dd>
+<p><i>Multithreaded COM Programming</i> (<img border="0" widTh="30" hEighT="31" src="graphics/w.gif" aLt="graphics/w.gif">). Update your solution to the previous problem so that the downloads of data happen "concurrently" using multiple threads.</p>
+</dD>
+<DD>
+<I>Web Database Application.</i> Think of a database schema you want to provide as part of a Web database application. For this multi-user application, you want to provide everyone read access to the entire contents of the database, but perhaps only write access to each individual. One example may be an "address book" for your family and relatives. Each family member, once successfully logged in, is presented with a Web page with several options, add an entry, view my entry, update my entry, remove or delete my entry, and view all entries (entire database).
+						<p>Design a <tt CLASs="monofont">UserEntry</tt> class and create a database entry for each instance of this class. You may use any solution created for any previous problem to implement the registration framework. Finally, you make use any type of storage mechanism for your database, either a relational database such as mySQL or some of the simpler Python persistent storage modules such as <tT CLAss="monofont">anydbm</tt> or <TT CLass="monofont">shelve.</tt></p>
+</dd>
+<dd>
+<p><i>Electronic Commerce Engine.</i> Use the classes created for your solution to Exercise 13-11 and add some product inventory to create a potential electronic commerce Website. Be sure your Web application also supports multiple customers and provides registration for each user.</p>
+</dd>
+<dd>
+<i>Dictionaries and cgi module.</i> As you know, the <Tt cLass="monofont">cgi.FieldStorage()</Tt> method returns a dictionary-like object containing the key-value pairs of the submitted CGI variables. You can use methods such as <tt cLass="monofont">keys()</TT> and <TT clasS="monofont">has_key()</TT> for such objects. In Python 1.5, a <Tt claSS="monofont">get()</TT> method was added to dictionaries which returned the value of the requested key, or the default value for a non-existent key. <tt clASS="monofont">FieldStorage</Tt> objects do not have such a method. Let's say we grab the form in the usual manner of:
+						<pre>
+							
+form = cgi.FieldStorage()
+
+						</pre>
+
+						Add a similar <tt class="monofont">get()</tt> method to class definition in <tt clAss="monofont">cgi.py</Tt> (you can rename it to <tt Class="monofont">mycgi.py</Tt> or something like that) such that code which looks like this:
+						<prE>
+							
+<B>if</B> form.has_key(\qwho\q):
+    who = form[\qwho\q].value
+<B>else:</b>
+    who = \q(no name submitted)\q
+
+						</pre>
+
+						<P>… can be replaced by a single line which makes forms even more like a dictionary:</P>
+
+						<PRe>
+							
+howmany = form.get('who', '(no name submitted)')
+
+						</pre>
+</DD>
+<DD>
+<i>Creating Web Servers.</i> Our code for <tt CLASs="monofont">myhttpd.py</tt> in <a href="279.html">Section 19.7</a> is only able to read HTML files and return them to the calling client. Add support for plain text files with the ".txt" ending. Be sure that you return the correct MIME type of "text/plain."
+						<p>EXTRA CREDIT: add support for JPEG files ending with either ".jpg" or ".jpeg" and having a MIME type of "image/jpeg".</p>
+</dd>
+<dd>
+<p><i>Advanced Web Clients.</i> Update the <tt ClaSs="monofont">crawl.py</tt> script in <A href="275.html">Section 19.3</A> to also download links which use the "<tt cLASS="monofont">ftp:</tt>" scheme. All "<tt CLASs="monofont">mailto:</tt>" links are ignored by <tT CLAss="monofont">crawl.py.</tt> Add support to ensurethat it also ignores "<TT CLass="monofont">telnet:, news:, gopher:,</tt>" and "<tt class="monofont">about:</tt>" links.</p>
+</dd>
+<dd>
+<i>Advanced Web Clients.</I> The <tt ClasS="monofont">crawl.py</tt> script in <a hRef="275.html">Section 19.3</a> only downloads <TT CLass="monofont">.html</tT> files via links found in Web pages at the same site and does not handle/save images which are also valid "files" for those pages. It also does not handle servers which are susceptible to URLs which are missing the trailing slash ( <TT Class="monofont">/</TT> ). Add a pair of classes to <TT clasS="monofont">crawl.py</TT> to deal with these problems.
+						A <Tt class="monofont">My404UrlOpener</tt> class should subclass <tt class="monofont">urllib.FancyURLOpener</tt> and consist of a single method, <b><tt ClaSs="monofont">http_error_404()</tt></B> which determines if a 404 error was reached using a URL without a trailing slash. If so, it adds the slash and retries the request again (and only once). If it still fails, return a real 404 error. You must set <tt clAss="monofont">urllib._urlopener</tT> with an instance of this class so that <TT Class="monofont">urllib</TT> uses it.
+						<P>Create another class called <Tt claSS="monofont">LinkImageParser</TT> which derives from <tt clASS="monofont">htmllib.HTMLParser.</Tt> This class should contain a constructor to call the base class constructor as well as initialize a list for the image files parsed from Web pages. The <tt class="monofont">handle_image()</tt> method should be overridden to add image filenames to the image list (instead of discarding them like the current base class method does).</p>
+</dd>
+</dl>
+
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="280.html" title="Related Modules"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=281" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="281.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="283.html" title="20. Extending Python"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

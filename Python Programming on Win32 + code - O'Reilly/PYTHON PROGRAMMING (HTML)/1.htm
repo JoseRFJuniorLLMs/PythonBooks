@@ -1,0 +1,475 @@
+<html><head><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=Generator content="Microsoft Word 10 (filtered)"><link rel="stylesheet" type="text/css" href="1.css"><title></title></head><body lang=EN-US link="#990000" vlink=purple><div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=0.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=2.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div><br><br>
+<h2><a name="_Preface"></a>Preface</h2>
+
+<h3><a name="_About_This_Book"></a>About This Book</h3>
+
+<p>This book is about using Python to get jobs done on Windows.</p>
+
+<p>We hope by now you have heard of Python, the exciting object-oriented
+scripting language that is rapidly entering the programming mainstream.
+Although Python is perhaps better known on the Unix platform, it offers a
+superb degree of integration with the Windows environment. One of us, Mark
+Hammond, is responsible for many of Python’s Windows extensions and has
+coauthored the Python COM support, both of which are major topics of this book.
+This book can thus be considered the definitive reference to date for Python on
+the Windows platform.</p>
+
+<p>This is intended to be a practical book focused on tasks. It doesn’t aim to
+teach Python programming, although we do provide a brief tutorial. Instead, it
+aims to cover:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>How Python works on Windows</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The key integration technologies supported by Python on Windows,
+such as the Win32 extensions, which let you call the Windows API, and the
+support for COM</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Examples in many topic areas showing what Python can do and how
+to put it to work</p>
+
+<p>In the end, we hope you will have a clear idea of what Python can do and how
+to put it to work on real-world tasks.</p>
+
+<h3><a name="_Who_Is_This_Book_for?"></a>Who Is This Book for?</h3>
+
+<p>We expect this book to be of interest to two groups of people:</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Windows
+developers, administrators, and IT managers</span></i><span style='font-family:
+Arial'> </span></p>
+
+<p style='margin-left:.5in'>You may be an experienced Windows developer using
+C++, Visual Basic, Delphi or other development tools, or you may be involved in
+managing information technology (IT) and need to make decisions as to the right
+tools for large projects. No doubt you hear about several new languages every
+year and meet zealots who insist that each is the ultimate development tool.
+You’ve perhaps heard a colleague talking about Python or read a few articles
+about it and are curious why people rave about it. By the end of this book, you
+should know!</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Python
+converts from Unix</span></i><span style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Python is one of the major products of the Open
+Source revolution ( <a href="http://opensource.org/" target="_blank">http://opensource.org/</a>)
+and has a large following on Unix platforms. There are a large number of Python
+users within the Unix tradition who are forced, with varying degrees of
+resistance, to work in a Windows environment. We hope to open your eyes. Most
+of the things you do on Unix can be done on Windows, and Windows offers
+exciting programming possibilities.</p>
+
+<p>Readers may vary considerably in their programming experience. We don’t aim
+to teach the language systematically and assume you are familiar with other
+programming languages. Someone familiar with Visual Basic, for example, should
+be able to follow most of the book. However, some sections regarding Windows
+internals or C integration assume C or C++ familiarity.</p>
+
+<p>We assume a fairly typical business-computing platform with Windows NT 4.0,
+Microsoft Office, access to the Internet or an internal TCP/IP network, and
+adequate memory to run smoothly. Python is equally happy on Windows 95 and 98,
+and we have tried to comment on the differences as they occur.</p>
+
+<h3><a name="_How_the_Book_Is_Organized"></a>How the Book Is Organized</h3>
+
+<p>The book is broken into three parts. The first part is mainly introductory
+in nature and sets the framework for the other two sections. The second section
+focuses on building an advanced Windows application using Python. The main
+purpose of this application is to show some possibilities for your
+applications. The third section provides a Python on Windows cookbook.</p>
+
+<h4><a href="2.htm#_Part_I:_Introduction_to_Python">Part I</a></h4>
+
+<p style='margin-left:.5in'>This part covers the basics about the language and
+the platform and should be read by everyone not familiar with using Python on
+Windows.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_1._What_Is_Python?">Chapter 1</a></span><span style='font-family:
+Arial'> </span></p>
+
+<p style='margin-left:.5in'>This is a Python primer: what it’s good for, who’s
+using it for what, and where to get hold of it. If you want to brief your
+manager on Python, show her this chapter!</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_2._Python_Language_Review">Chapter 2</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>This chapter is a high-speed minitutorial; it
+should at least enable you to follow the code examples. We don’t aim to teach
+Python from scratch, but instead point you to the right places for more
+detailed tutorials.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_3._Python_on_Windows">Chapter 3</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Here we cover how Python is set up on Windows and
+review some of the Windows-specific packages and extensions.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_4._Integrated_Development_E">Chapter 4</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'><a href="6.htm#_Chapter_4._Integrated_Development_E">Chapter
+4</a> covers PythonWin and IDLE, two integrated development environments for
+Python, each complete with syntax coloring, object browsers, and debuggers.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_5._Introduction_to_COM">Chapter 5</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Here we introduce Python’s support for COM,
+Microsoft’s key integration technology.</p>
+
+<h4><a href="8.htm#_Part_II:_Building_an_Advanced_Pytho">Part II</a></h4>
+
+<p>This part is an in-depth exploration of what you can do with a Python
+application on Windows. “Advanced” refers to the capabilities Python gives to
+your programs, not to the level of programming difficulty. Although the focus
+is on COM, it brings many features of the language together. In some cases, we
+use features not fully explained until later chapters; we want to make you say
+“Wow, so you <i>can</i> do that,” rather than “Wow, so <i>that </i>‘<i>s</i>
+how you do it”: we save that revelation for the last section. The project is to
+develop an extensible accounting toolkit in Python. <a
+href="#_Part_II:_Building_an_Advanced_Pytho">Part II</a>, like <a
+href="#_Part_I:_Introduction_to_Python">Part I</a>, is intended to be read
+straight through.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_6._A_Financial_Modeling_Too">Chapter 6</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>This chapter explains the business requirements of
+our application and develops a Python class library that encapsulates the basic
+rules followed by accounting systems. For people new to Python, this provides a
+more in-depth set of examples of object-oriented programming with Python.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_7._Building_a_GUI_with_COM">Chapter 7</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Here we show how to build a COM server that exposes
+our Python “engine” to other applications, building a fairly standard user
+interface in Visual Basic on top of our application. In the process, we cover
+how to move data of all types back and forth between Python and other languages
+using COM.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_8._Adding_a_Macro_Language">Chapter 8</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Next we show how to expose the Python interpreter
+to end users. Our application allows users to work with a command prompt, write
+scripts, and even define new event handlers and graphical views, thereby making
+the application extensible. Python makes this capability, normally found only
+in large commercial applications, child’s play.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_9._Integration_with_Excel">Chapter 9</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>This chapter shows the other side of the coin:
+using Python as a COM object to acquire data from and send data to Excel.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_10._Printed_Output">Chapter 10</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Here we cover a range of techniques for printing
+and for producing reports in general, including direct printer control,
+automating Microsoft Word, and direct generation of financial reports in PDF
+format.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_11._Distributing_Our_Applic">Chapter 11</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Finally, we show how COM makes it extremely easy to
+run the Python engine on one machine and the client interface on another.</p>
+
+<h4><a href="15.htm#_Part_III:_Python_on_Windows_Cookboo">Part III</a></h4>
+
+<p>Each chapter in this section may be taken in isolation and covers one
+particular area of interest in detail. The focus is task-based, and we look at
+various technologies and libraries in each section, concentrating on how to get
+jobs done with Python. These chapters naturally vary in their technical depth
+and appeal, but we hope that there will be plenty of interest for everyone.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_12._Advanced_Python_and_COM">Chapter 12</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>This is the definitive reference on Python’s
+support for COM.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_13._Databases">Chapter 13</a></span><span style='font-family:
+Arial'> </span></p>
+
+<p style='margin-left:.5in'>This chapter shows how to connect to databases from
+Python and illustrates how to manipulate data.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_14._Working_with_Email">Chapter 14</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Here we take a look at some common techniques for
+dealing with email on Windows.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_15._Using_the_Basic_Interne">Chapter 15</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>This is a brief discussion on how to use common
+Internet protocols from Python on Windows.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_16._Windows_NT_Administrati">Chapter 16</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>In this chapter, we discuss the language extensions
+for working with users, groups, drives, shares, servers, and so forth.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_17._Processes_and_Files">Chapter 17</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>This chapter presents Python’s facilities for
+working with processes and files, both in a portable and a Windows-specific
+way.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_18._Windows_NT_Services">Chapter 18</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Here we explore Python’s thorough support for
+Windows NT services.</p>
+
+<p class=MsoNormal style='page-break-after:avoid'><span style='font-family:
+Arial;color:#990000'><a href="23.htm#_Chapter_19._Communications">Chapter 19</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>This chapter discusses serial I/O, remote access
+services, and TCP/IP sockets.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_20._GUI_Development">Chapter 20</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Here we present three toolkits: PythonWin, Tkinter,
+and wxPython.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_21._Active_Scripting">Chapter 21</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>This chapter presents a complete guide to Python’s
+extensions to support Microsoft’s Active Scripting technology.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Chapter_22._Extending_and_Embedding">Chapter 22</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>As the name implies, this chapter explains how you
+can extend Python’s capabilities using other languages.</p>
+
+<h4><a href="27.htm#_Part_IV:_Appendixes">Part IV</a></h4>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Appendix_A._Key_Python_Modules_and_">Appendix A</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>This appendix is a short reference to the most
+important modules and functions in Python.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Appendix_B._Win32_Extensions_Refere">Appendix B</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>This appendix is a brief reference to the SDK
+functions and objects presented in this book.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Appendix_C._The_Python_Database_API">Appendix C</a></span><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>This appendix is a reproduction of the
+specification.</p>
+
+<p class=MsoNormal><span style='font-family:Arial;color:#990000'><a
+href="#_Appendix_D._Threads">Appendix D</a></span><span style='font-family:
+Arial'> </span></p>
+
+<p style='margin-left:.5in'>This appendix is limited to Windows-specific
+threading issues.</p>
+
+<h3><a name="_About_the_Examples"></a>About the Examples</h3>
+
+<p>All examples in this book have been tested with Python 1.5.2, but should
+work as later versions of Python are released.</p>
+
+<p>Many examples are so small they can be typed interactively into the Python
+interpreter. In these cases, the examples always show the Python prompts and
+responses:</p>
+
+<pre>&gt;&gt;&gt; print &quot;This is interactive source code&quot;</pre><pre>This is interactive source code</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>All example code presented as source files are available for download from
+the authors’ web page, <a href="http://starship.python.net/crew/mhammond/ppw32/"
+target="_blank">http://starship.python.net/crew/mhammond/ppw32/</a>. The source
+code is available as a ZIP file organized by chapter. See the web page and the <i>README.TXT</i>
+file in the ZIP file for more details.</p>
+
+<h3><a name="_Font_Conventions_Used_in_This_Book"></a>Font Conventions Used in
+This Book</h3>
+
+<p>This book uses the following typographical conventions:</p>
+
+<p class=MsoNormal><i><span style='font-family:Arial;color:#990000'>Italic</span></i><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Introduces new terms and indicates URLS, variables
+or user-defined files and directories, programs, file extensions, filenames,
+hostnames, directory or folder names, and UNC pathnames.</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>Constant
+width</span></span><span style='font-family:Arial;color:#990000'> </span></p>
+
+<p style='margin-left:.5in'>Indicates Python language elements, command-line
+computer output, code examples, commands, keywords, functions, modules,
+classes, interfaces, instances, collections, objects, properties, methods,
+packages, and constants.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>Constant
+width italic</span></i></tt><span style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>Indicates placeholder names in syntax
+specifications and registry keys.</p>
+
+<div align=center>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="90%"
+ style='width:90.0%;background:black'>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%"
+   style='width:100.0%;background:white'>
+   <tr>
+    <td width=60 valign=top style='width:45.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt'>
+    <p class=MsoNormal><span style='font-family:Arial'><img border=0 width=50
+    height=54 src="images/image002.gif"></span></p>
+    </td>
+    <td valign=top style='padding:4.5pt 4.5pt 4.5pt 4.5pt'>
+    <p>This icon designates a note, which is an important aside to the nearby
+    text.</p>
+    </td>
+   </tr>
+  </table>
+  <p class=MsoNormal></p>
+  </td>
+ </tr>
+</table>
+
+</div>
+
+<p style='margin:0in;margin-bottom:.0001pt'><span style='display:none'>&nbsp;</span></p>
+
+<div align=center>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="90%"
+ style='width:90.0%;background:black'>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%"
+   style='width:100.0%;background:white'>
+   <tr>
+    <td width=60 valign=top style='width:45.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt'>
+    <p class=MsoNormal><span style='font-family:Arial'><img border=0 width=51
+    height=36 src="images/image003.gif"></span></p>
+    </td>
+    <td valign=top style='padding:4.5pt 4.5pt 4.5pt 4.5pt'>
+    <p>This icon designates a warning relating to the nearby text.</p>
+    </td>
+   </tr>
+  </table>
+  <p class=MsoNormal></p>
+  </td>
+ </tr>
+</table>
+
+</div>
+
+<h3><a name="_How_to_Contact_Us"></a>How to Contact Us</h3>
+
+<p>Please address comments and questions concerning this book to the publisher:</p>
+
+<p class=MsoNormal><span style='font-family:Arial'>O'Reilly &amp; Associates </span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>101 Morris Street </span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>Sebastopol, CA 95472 </span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>1-800-998-9938 (in United
+States or Canada) </span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>1-707-829-0515
+(international or local) </span></p>
+
+<p class=MsoNormal><span style='font-family:Arial'>1-707-829-0104 (fax) </span></p>
+
+<p>You can also send us messages electronically. To be put on the mailing list
+or request a catalog, send email to <a href="mailto:info@oreilly.com">info@oreilly.com</a>.</p>
+
+<p>To ask technical questions or comment on the book, send email to <a
+href="mailto:bookquestions@oreilly.com">bookquestions@oreilly.com</a>.</p>
+
+<p>We have a web site for the book, where we list errata and any plans for
+future editions. You can find it at <a
+href="http://www.oreilly.com/catalog/pythonwin32/" target="_blank">http://www.oreilly.com/catalog/pythonwin32/</a>.</p>
+
+<p>For more information about this book and others, see the O’Reilly web site <a
+href="http://www.oreilly.com" target="_blank">http://www.oreilly.com</a>.</p>
+
+<h3><a name="_Acknowledgments"></a>Acknowledgments</h3>
+
+<p>Although we were warned about what it takes to write a book like this, we
+were still not prepared! Many people contributed to this book and assisted with
+the enormous workload it involved.</p>
+
+<p>The support of Guido van Rossum, the author of the Python language, for the
+Windows version of Python has enabled it to develop into a serious contender
+for most Windows development work. Guido somehow manages to balance the
+opposing forces of maintaining platform independence and allowing Python to
+take advantage of the platform’s unique features.</p>
+
+<p>The wonderful Python community also has itself to thank for allowing this
+book to come to fruition. The Python newsgroup seems to be one of the final
+bastions of Usenet where spams are ignored, newbies are treated kindly, and
+trolls are either ignored or quickly turned into a serious and on-topic
+discussion. Many smart and friendly people hang out on the newsgroup, and it’s
+one of the more esoteric reasons many people find using the language enjoyable.</p>
+
+<p>The following people have provided invaluable help, whether with full
+reviews, in-depth knowledge of particular areas, or informal feedback: Guido
+van Rossum, Gordon McMillan, Greg Stein, Marc-André Lemburg, Christian Tismer,
+Gary Herron, Robin Dunn, Mike Da Silva, Richard Kennedy, and Damien Watkins.
+Many others too numerous to mention, have played a part in shaping the book,
+whether in direct correspondence with us or in developing and working with the
+packages in this book.</p>
+
+<p>At O’Reilly, we’d like to thank Robert Denn, Steven Abrams, and probably a
+whole bunch of other people we have never heard of.</p>
+
+<p>Most important of all, Mark and Andy both wish to thank their families for
+their support and incredible patience, and they promise not to do this again
+any time soon.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+<div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=0.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=2.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div></body></html>

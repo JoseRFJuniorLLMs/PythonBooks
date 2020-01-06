@@ -1,0 +1,51 @@
+KABQ Albuquerque
+KATL Atlanta
+KACY Atlantic City
+KBWI Baltimore
+KBSM Bergstrom
+KBVY Beverly
+KBID Block Island
+KBOS Boston
+KBUF Buffalo
+KCMI Champaign / Urbana
+KCLT Charlotte
+KORD Chicago
+KCLE Cleveland
+KCMH Columbus
+KDFW Dallas / Fort Worth
+KDBQ Dubuque
+KFAR Fargo
+KFAY Fayetteville
+KFDR Frederick
+KGNV Gainesville
+KMDT Harrisburg
+KIAH Houston
+KJAX Jacksonville
+KMCI Kansas City
+KLFT Lafayette
+KLEE Leesburg
+KMLB Melbourne
+KMIA Miami
+KONT Ontario
+KMCO Orlando
+KPSP Palm Springs
+KPHL Philadelphia
+KPHX Phoenix
+KPDX Portland
+KPOU Poughkeepsie
+KPVD Providence
+KRDU Raleigh / Durham
+KRNO Reno
+KROC Rochester
+KMBS Saginaw
+KSAT San Antonio
+KSAN San Diego
+KSFO San Francisco
+KPHN St. Clair
+KTLH Tallahassee
+KTPA Tampa
+KMVY Marthas Vineyard
+KPBI West Palm Beach
+KORH Worcester
+KZZV Zanesville
+

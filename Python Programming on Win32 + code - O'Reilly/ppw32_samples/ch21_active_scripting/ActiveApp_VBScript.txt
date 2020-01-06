@@ -1,0 +1,9 @@
+rem Sample VBScript code to be used with ActiveApp.py
+
+sub JustForTheSakeOfIt
+    Application.Echo("Hello from VBScript")
+end sub
+
+rem Now call the Sub
+JustForTheSakeOfIt
+

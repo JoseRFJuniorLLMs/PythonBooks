@@ -1,0 +1,127 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Lists</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="99.html" class="navtitle">6. Sequences: Strings, Lists, and Tuples</a> &gt; <span class="nonavtitle">Lists</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="109.html" title="Summary of String Highlights"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=110" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="110.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="111.html" title="Operators"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A19%3A41+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172045119253098246000201</font><a href="read1.asp?bookname=0130260363&snode=110&now=5%2F29%2F2002+9%3A19%3A41+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Lists</h3>
+				<p>Like strings, lists provide sequential storage through an index offset and access to single or consecutive elements through slices. However, the comparisons usually end there. Strings consist only of characters and are immutable (cannot change individual elements) while lists are flexible container objects which hold an arbitrary number of Python objects. Creating lists is simple; adding to lists is easy, too, as we see in the following examples.</p>
+
+				<P>The objects that you can place in a list can include standard types and objects as well as user-defined ones. Lists can contain different types of objects and are more flexible than an array of C structs or Python arrays (available through the external array module) because arrays are restricted to containing objects of a single type. Lists can be populated, empty, sorted, and reversed. Lists can be grown and shrunk. They can be taken apart and put together with other lists. Individual or multiple items can be inserted, updated, or removed at will.</P>
+
+				<P>Tuples share many of the same characteristics of lists and although we have a separate section on tuples, many of the examples and list functions are applicable to tuples as well. The key difference is that tuples are immutable, i.e., read-only, so any operators or functions which allow updating lists, such as using the slice operator on the left-hand side of an assignment, will not be valid for tuples.</P>
+
+				
+					<h4>How to Create and Assign Lists</h4>
+					<p>Creating lists is as simple as assigning a value to a variable. You handcraft a list (empty or with elements) and perform the assignment. Lists are delimited by surrounding square brackets ( <b><TT CLass="monofont">[ ]</tT></B> ).</P>
+
+					<Pre>
+						
+&gt;&gt;&gt; aList = [123, 'abc', 4.56, ['inner', 'list'], 7-9j]
+&gt;&gt;&gt; anotherList = [None, 'something to see here']
+&gt;&gt;&gt; <b>print</b> aList
+[123, 'abc', 4.56, ['inner', 'list'], (7-9j)]
+&gt;&gt;&gt; <b>print</b> anotherList
+[None, 'something to see here']
+&gt;&gt;&gt; aListThatStartedEmpty = []
+&gt;&gt;&gt; <b>print</b> aListThatStartedEmpty
+[]
+
+					</pre>
+
+				
+				
+					<h4>How to Access Values in Lists</h4>
+					<p>Slicing works similar to strings; use the square bracket slice operator ( <b><tt claSs="monofont">[ ]</tT></b> ) along with the index or indices.</p>
+
+					<pRe>
+						
+&gt;&gt;&gt; aList[0]
+123
+&gt;&gt;&gt; aList[1:4]
+['abc', 4.56, ['inner', 'list']]
+&gt;&gt;&gt; aList[:3]
+[123, 'abc', 4.56]
+&gt;&gt;&gt; aList[3][1]
+'list'
+
+					</pre>
+
+				
+				
+					<H4>How to Update Lists</h4>
+					<p>You can update single or multiple elements of lists by giving the slice on the left-hand side of the assignment operator, and you can add to elements in a list with the <tT CLAss="monofont">append()</tt> method:</P>
+
+					<PRE>
+						
+&gt;&gt;&gt; aList
+[123, 'abc', 4.56, ['inner', 'list'], (7-9j)]
+&gt;&gt;&gt; aList[2]
+4.56
+&gt;&gt;&gt; aList[2] = 'float replacer'
+&gt;&gt;&gt; aList
+[123, 'abc', 'float replacer', ['inner', 'list'], (7-9j)]
+&gt;&gt;&gt;
+&gt;&gt;&gt; anotherList.append("hi, i'm new here")
+&gt;&gt;&gt; <b>print</b> anotherList
+[None, 'something to see here', "hi, i'm new here"]
+&gt;&gt;&gt; aListThatStartedEmpty.append('not empty anymore')
+&gt;&gt;&gt; <b>print</b> aListThatStartedEmpty
+['not empty anymore']
+
+					</PRE>
+
+				
+				
+					<H4>How to Remove List Elements and Lists</h4>
+					<p>To remove a list element, you can use either the <b><tT CLAss="monofont">del</tt></b> statement if you know exactly which element(s) you are deleting or the <tt class="monofont">remove()</tt> method if you do not know.</p>
+
+					<pre>
+						
+&gt;&gt;&gt; aList
+[123, 'abc', 'float replacer', ['inner', 'list'], (7-9j)]
+&gt;&gt;&gt; <b>del</b> aList[1]
+&gt;&gt;&gt; aList
+[123, 'float replacer', ['inner', 'list'], (7-9j)]
+&gt;&gt;&gt; aList.remove(123)
+&gt;&gt;&gt; aList
+['float replacer', ['inner', 'list'], (7-9j)]
+
+					</Pre>
+
+					<P>You can also use the <tt cLass="monofont">pop()</tT> method to remove and return a specific object from a list.</p>
+
+					<p>Normally, removing an entire list is not something application programmers do. Rather, they tend to let it go out of scope (i.e., program termination, function call completion, etc.) and be garbage-collected, but if they do want to explicitly remove an entire list, use the <b><TT CLass="monofont">del</tT></B> statement:</P>
+
+					<Pre>
+						
+<b>del</b> aList
+
+					</PRE>
+
+				
+			</Font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="109.html" title="Summary of String Highlights"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=110" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="110.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="111.html" title="Operators"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

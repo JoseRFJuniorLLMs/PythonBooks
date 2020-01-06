@@ -1,0 +1,363 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Standard Type Operators</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="78.html" class="navtitle">4. Python Objects</a> &gt; <span class="nonavtitle">Standard Type Operators</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="83.html" title="Internal Types"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=84" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="84.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="85.html" title="Standard Type Built-in Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A13%3A22+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172039119066042195214133</font><a href="read4.asp?bookname=0130260363&snode=84&now=5%2F29%2F2002+9%3A13%3A22+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Standard Type Operators</h3>
+				
+					<h4>Value Comparison</h4>
+					<P>Comparison operators are used to determine equality of two data values between members of the same type. These comparison operators are supported for all built-in types. Comparisons yield true or false values, based on the validity of the comparison expression. Python chooses to interpret these values as the plain integers 0 and 1 for false and true, respectively, meaning that each comparison will result in one of those two possible values. A list of Python's value comparison operators is given in <A HRef="84#2.html">Table 4.1</a>.</p>
+
+					<A NAMe="2"></a><p><tABLE border="1" cellspacing="0" celLpaDdinG="1" widtH="100%">
+<capTION><h5>Table 4.1. Standard Type Value Comparison Operators</h5></caPTIOn><colGROUp aliGN="left" SPan="2">
+<tr valign="top">
+<th>
+<font size="2"><P><b><i>operator</I></b></p>
+</fOnt></th>
+<Th>
+<foNT SIze="2"><p><b><I>function</I></B></P>
+</font></TH>
+</TR>
+<tr vaLIGN="top">
+<td>
+<font size="2"><p><i><tt class="monofont">expr1 &lt; expr2</tT></i></p>
+</Font></Td>
+<td>
+<fOnt sIZE="2"><P><i>expr1</i> is less than <i>expr2</i></P>
+</FONt></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font size="2"><p><i><tt class="monofont">expr1 &gt; expr2</tt></i></p>
+</FonT></td>
+<tD>
+<font Size="2"><P><I>expr1</I> is greater than <I>expr2</i></p>
+</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><p><i><tt class="monofont">expr1 &lt;= expr2</tt></i></p>
+</fonT></td>
+<Td>
+<foNt sizE="2"><p><i>expr1</i> is less than or equal to <I>expr2</I></P>
+</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><p><i><tt class="monofont">expr1 &gt;= expr2</tt></i></p>
+</font></td>
+<Td>
+<fOnt sIze="2"><p><i>expr1</I> is greater than or equal to <i>expr2</i></p>
+</FONT></td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt siZE="2"><P><I><tt class="monofont">expr1 == expr2</tt></i></p>
+</font></td>
+<td>
+<fOnt Size="2"><P><i>expr1</i> is equal to <i>expr2</i></P>
+</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><p><I><TT Class="monofont">expr1 != expr2</tt></i></p>
+</font></td>
+<td>
+<font SizE="2"><p><i>expr1</i> is not equal to <I>expr2</i> (C-style)</p>
+</foNt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><p><i><tt CLASs="monofont">expr1 &lt;&gt; expr2</tt></i></p>
+</font></td>
+<td>
+<font sizE="2"><p><i>expr1</I> is not equal to <i>expr2</i> (ABC/Pascal-style)<fOnt siZe="1"><suP><A HRef="#FOOTNOTE-a">[a]</a></sUP></FOnt>
+</p>
+</fONT></Td>
+</tr>
+</cOLGRoup>
+</table></p>
+<blockquote><fOnt Size="1">
+<P clasS="footnote">
+<sup><A NAMe="FOOTNOTE-a">[a]</a></suP>
+This "not equals" sign will slowly be phased out. Use != instead.</P>
+</FOnt></blOCKQuote>
+
+					<P>Note that comparisons performed are those that are appropriate for each data type. In other words, numeric types will be compared according to numeric value in sign and magnitude, strings will compare lexicographically, etc.</P>
+
+					<PRe>
+						
+&gt;&gt;&gt; 2 == 2
+1
+&gt;&gt;&gt; 2.46 &lt;= 8.33
+1
+&gt;&gt;&gt; 5+4j &gt;= 2-3j
+1
+&gt;&gt;&gt; 'abc' == 'xyz'
+0
+&gt;&gt;&gt; 'abc' &gt; 'xyz'
+0
+&gt;&gt;&gt; 'abc' &lt; 'xyz'
+1
+&gt;&gt;&gt; [3, 'abc'] == ['abc', 3]
+0
+&gt;&gt;&gt; [3, 'abc'] == [3, 'abc']
+1
+
+					</pre>
+
+					<p>Also, unlike many other languages, multiple comparisons can be made on the same line, evaluated in left-to-right order:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; 3 &lt; 4 &lt; 7       # same as ( 3 &lt; 4 ) and ( 4 &lt; 7 )
+1
+&gt;&gt;&gt; 4 &gt; 3 == 3      # same as ( 4 &gt; 3 ) and ( 3 == 3 )
+1
+&gt;&gt;&gt; 4 &lt; 3 &lt; 5 != 2 &lt; 7
+0
+
+					</pre>
+
+					<p>We would like to note here that comparisons are strictly between object values, meaning that the comparisons are between the data values and not the actual data objects themselves. For the latter, we will defer to the object identity comparison operators described next.</p>
+
+				
+				
+					<h4>Object Identity Comparison</h4>
+					<p>In addition to value comparisons, Python also supports the notion of directly <i>comparing objects</i> themselves. Objects can be assigned to other variables (by reference). Because each variable points to the same (shared) data object, any change effected through one variable will change the object and hence be reflected through all references to the same object.</p>
+
+					<P>In order to understand this, you will have to think of variables as linking to objects now and be less concerned with the values themselves. Let us take a look at three examples.</p>
+
+					
+						<h5>Example 1: foo1 and foo2 reference the same object</H5>
+						<pre>
+							
+foo1 = foo2 = 4
+
+						</Pre>
+
+						<p>When you look at this statement from the value point-of-view, it appears that you are performing a multiple assignment and assigning the numeric value of 4 to both the <tT claSS="monofont">foo1</TT> and <tt clASS="monofont">foo2</Tt> variables. This is true to a certain degree, but upon lifting the covers, you will find that a numeric object with the contents or value of 4 has been created. Then that object's reference is assigned to both <tt cLASS="monofont">foo1</tt> and <tt CLASs="monofont">foo2,</tt> resulting in both <tt class="monofont">foo1</tt> and <tt class="monofont">foo2</tT> aliased to the same object. <a hRef="84#6.html">Figure 4-1</a> shows an object with two references.</P>
+
+						<centEr>
+							<h5>
+<a NAME="6"></a>Figure 4-1. <tt cLASS="monofont">foo1</tt> and <tt CLASs="monofont">foo2</tt> Reference the Same Object</h5>
+							
+								
+									<IMG Border="0" width="245" height="162" src="graphics/04fig01.gif" aLt="graphics/04fig01.gif">
+								
+							
+						</cEnteR>
+
+					
+					
+						<h5>Example 2: foo1 and foo2 reference the same object</h5>
+						<prE>
+							
+foo1 = 4
+foo2 = foo1
+
+						</pre>
+
+						<P>This example is very much like the first: A numeric object with value 4 is created, then assigned to one variable. When <TT Class="monofont">foo2 = foo1</TT> occurs, <TT clasS="monofont">foo2</TT> is directed to the same object as <Tt claSS="monofont">foo1</TT> since Python deals with objects by passing references. <tt class="monofont">foo2</tt> then becomes a new and additional reference for the original value. So both <tt class="monofont">foo1</tt> and <tt ClaSs="monofont">foo2</tt> now point to the same object. The same figure above applies here as well.</P>
+
+					
+					
+						<h5>Example 3: foo1 and foo2 reference different objects</h5>
+						<prE>
+							
+foo1 = 4
+foo2 = 1 + 3
+
+						</pre>
+
+						<P>This example is different. First, a numeric object is created, then assigned to <TT Class="monofont">foo1.</TT> Then a second numeric object is created, and this time assigned to <TT clasS="monofont">foo2.</TT> Although both objects are storing the exact same value, there are indeed two distinct objects in the system, with <Tt claSS="monofont">foo1</TT> pointing to the first, and <tt class="monofont">foo2</tt> being a reference to the second. <a href="84#9.html">Figure 4-2</a> below shows now we have two distinct objects even though both objects have the same value.</p>
+
+						<centEr>
+							<h5>
+<A namE="9"></a>Figure 4-2. <tt cLass="monofont">foo1</TT> and <TT clasS="monofont">foo2</TT> Reference Different Objects</H5>
+							
+								
+									<img bORDEr="0" widTH="500" HEight="106" src="graphics/04fig02.gif" alt="graphics/04fig02.gif">
+								
+							
+						</center>
+
+						<p>Why did we choose to use boxes in our diagrams above? Well, a good way to visualize this concept is to imagine a box (with contents inside) as an object. When a variable is assigned an object, that creates a "label" to stick on the box, indicating a reference has been made. Each time a new reference to the same object is made, another sticker is put on the box. When references are abandoned, then a label is removed. A box can be "recycled" only when all the labels have been peeled off the box. How does the system keep track of how many labels are on a box?</p>
+
+						<p>Each object has associated with it a counter that tracks the total number of references that exist to that object. This number simply indicates how many variables are "pointing to" any particular object. This is the <i>reference count</I> that we introduced in the last chapter in Sections 3.5.5–3.5.7. Python provides the <b><tT claSs="monofont">is</tt></b> and <B><tt cLASS="monofont">is not</tt></b> operators to test if a pair of variables do indeed refer to the same object. Performing a check such as</p>
+
+						<PRE>
+							
+a <B>is</b> b
+
+						</pre>
+
+						<P>is an equivalent expression to</P>
+
+						<PRe>
+							
+id(a) == id(b)
+
+						</pre>
+
+						<P>The object identity comparison operators all share the same precedence level and are presented in <A HRef="84#10.html">Table 4.2</a>.</p>
+
+						<a name="10"></a><p><table bordEr="1" cEllsPacinG="0" celLPADding="1" WIDTh="100%">
+<capTION><h5>Table 4.2. Standard Type Object Identity Comparison Operators</h5></caPTIOn><colgroup align="left" span="2">
+<tr ValIgn="top">
+<tH>
+<font Size="2"><P><B><I>operator</I></b></p>
+</foNT></TH>
+<th>
+<foNT SIze="2"><p><b><I>function</I></B></P>
+</font></th>
+</tr>
+<tr valign="top">
+<td>
+<foNt sIze="2"><p><I><tt clAss="monofont">obj1</tT></I>
+												<B><Tt claSS="monofont">is</TT></b>
+												<tt cLASS="monofont">obj2</tt></p>
+</fONT></Td>
+<td>
+<font size="2"><p><i><tt class="monofont">obj1</Tt></i> is the same object as <I><tt cLass="monofont">obj2</tT></i></p>
+</fONT></Td>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt sizE="2"><P><I><Tt class="monofont">obj1</tt></i>
+												<b><tt class="monofont">is not</tt></b>
+												<I><tt ClasS="monofont">obj2</tt></i></p>
+</Font></TD>
+<TD>
+<font SIZE="2"><p><i><tt CLASs="monofont">obj1</tt></i> is not the same object as <I><TT Class="monofont">obj2</tt></i></p>
+</font></td>
+</tr>
+</colgRouP>
+</tabLe></p>
+
+						<p>In the example below, we create a variable, then another that points to the same object.</p>
+
+						<Pre>
+							
+&gt;&gt;&gt; a = [ 5, 'hat', -9.3]
+&gt;&gt;&gt; b = a
+&gt;&gt;&gt; a <b>is</B> b
+1
+&gt;&gt;&gt; a <B>is not</B> b
+0
+&gt;&gt;&gt;
+&gt;&gt;&gt; b = 2.5e-5
+&gt;&gt;&gt; b
+2.5e-005
+&gt;&gt;&gt; a
+[5, 'hat', -9.3]
+&gt;&gt;&gt; a <B>is</b> b
+0
+&gt;&gt;&gt; a <b>is not</b> b
+1
+
+						</pRE>
+
+						<P>Both the <B><tt clASS="monofont">is</Tt></b> and <b><tT CLAss="monofont">not</tt></b> identifiers are Python keywords.</p>
+
+					
+				
+				
+					<h4>Boolean</h4>
+					<p>Expressions may be linked together or negated using the boolean logical operators <b><tt class="monofont">and,</tt></b>
+						<B><tt ClasS="monofont">or,</tt></b> and <b><Tt clASS="monofont">not,</Tt></b> all of which are Python keywords. These Boolean operations are in highest-to-lowest order of precedence in <a hREF="84#12.html">Table 4.3</A>. The <b><tt cLASS="monofont">not</tt></b> operator has the highest precedence and is immediately one level below all the comparison operators. The <b><TT CLass="monofont">and</tt></b> and <b><tt class="monofont">or</tt></b> operators follow, respectively.</p>
+
+					<a nAme="12"></A><p><taBle boRder="1" CELLspacING="0" CellpADDIng="1" wiDTH="100%">
+<Caption><h5>Table 4.3. Standard Type Boolean Operators</h5></caption><colgrOup AligN="left" span="2">
+<Tr vaLIGN="top">
+<th>
+<foNT SIze="2"><p><b><I>operator</I></B></P>
+</font></TH>
+<TH>
+<font size="2"><p><b><i>function</i></b></p>
+</font></th>
+</Tr>
+<tR valIgn="top">
+<td>
+<Font SIZE="2"><p><b><tt CLASs="monofont">not</tt></b>
+											<I><TT Class="monofont">expr</TT></I></P>
+</font></td>
+<td>
+<font size="2"><p>logical NOT of <i>expr</i> (negation)</p>
+</FonT></td>
+</tR>
+<tr vaLign="top">
+<TD>
+<FOnt siZE="2"><P><I><tt clASS="monofont">expr1</Tt></i>
+											<b><tT CLAss="monofont">and</tt></b>
+											<i><tt class="monofont">expr2</tt></i></p>
+</fonT></td>
+<Td>
+<foNt sizE="2"><p>logical AND of <i>expr1</i> and <I>expr2</I> (conjunction)</P>
+</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><p><i><tt class="monofont">expr1</tt></i>
+											<b><tt clasS="monofont">or</tt></B>
+											<i><tt Class="monofont">expr2</Tt></i></p>
+</FONT></td>
+<td>
+<FONT size="2"><P>logical OR of <I>expr1</I> and <I>expr2</i> (disjunction)</p>
+</foNT></TD>
+</tr>
+</colgroup>
+</table></p>
+
+					<pre>
+						
+&gt;&gt;&gt; x, y = 3.1415926536, -1024
+&gt;&gt;&gt; x &lt; 5.0
+1
+&gt;&gt;&gt; <b>not</B> (x &lt; 5.0)
+0
+&gt;&gt;&gt; (x &lt; 5.0) <b>or</b> (y &gt; 2.718281828)
+1
+&gt;&gt;&gt; (x &lt; 5.0) <B>and</b> (y &gt; 2.718281828)
+0
+&gt;&gt;&gt; <b>not</b> (x <B>is</b> y)
+1
+
+					</pre>
+
+					<P>Earlier, we introduced the notion that Python supports multiple comparisons within one expression. These expressions have an implicit <b><tt CLASs="monofont">and</tt></b> operator joining them together.</P>
+
+					<PRE>
+						
+&gt;&gt;&gt; 3 &lt; 4 &lt; 7      # same as "( 3 &lt; 4 ) <b>and</b> ( 4 &lt; 7 )"
+1
+
+					</prE>
+
+				
+			</FONt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="83.html" title="Internal Types"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=84" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="84.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="85.html" title="Standard Type Built-in Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

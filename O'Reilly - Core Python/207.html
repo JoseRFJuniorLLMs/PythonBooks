@@ -1,0 +1,131 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Packages</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="199.html" class="navtitle">12. Modules</a> &gt; <span class="nonavtitle">Packages</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="206.html" title="Module Built-in Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=207" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="207.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="208.html" title="Other Features of Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A37%3A25+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174049228072020001127037</font><a href="read6.asp?bookname=0130260363&snode=207&now=5%2F29%2F2002+9%3A37%3A25+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Packages</h3>
+				<p>A <i>package</I> is a hierarchical file directory structure that defines a single Python application environment that consists of modules and subpackages. Packages were added to Python 1.5 to aid with a variety of problems including:</P>
+
+				<UL>
+<li><p>Adding hierarchical organization to flat namespace</p>
+</LI>
+<LI><p>Allowing developers to group-related modules</p>
+</li>
+<LI><P>Allowing distributors to ship directories vs. bunch of files</P>
+</li>
+<li><p>Helping resolve conflicting module names</p>
+</li>
+</ul>
+				<p>Along with classes and modules, packages use the familiar attribute/dotted attribute notation to access their elements. Importing modules within packages use the standard <b><tt class="monofont">import</tT></b> and <b><Tt clAss="monofont">from-import</tt></B> statements.</p>
+
+				
+					<h4>Directory Structure</h4>
+					<P>The example package directory structure below is available for you to experiment with on the CD-ROM accompanying this book. Just browse the code samples and navigate to <A HRef="199.html">Chapter 12</a>.</p>
+
+					<PRE>
+						
+Phone/
+    __init__.py
+    Voicedta/
+        __init__.py
+        Pots.py
+        Isdn.py
+    Fax/
+        __init__.py
+        G3.py
+    Mobile/
+        __init__.py
+        Analog.py
+        Digital.py
+    Pager/
+        __init__.py
+        Numeric.py
+
+					</Pre>
+
+					<p><tT CLAss="monofont">Phone</tt> is top-level package and <TT CLass="monofont">Voicedta,</tt> etc., are subpackages. Import subpackages by using <b><tt class="monofont">import</tt></b> like this:</p>
+
+					<pre>
+						
+<B>import</b> Phone.Mobile.Analog
+
+Phone.Mobile.Analog.dial()
+
+					</pRe>
+
+					<p>Alternatively, you can use <b><Tt claSs="monofont">from-import</tt></B> in a variety of ways:</P>
+
+					<P>The first way is importing just the top-level subpackage and referencing down the subpackage tree using the attribute/dotted notation:</P>
+
+					<pre>
+						
+<b>from</B> Phone <B>import</B> Mobile
+
+Mobile.Analog.dial('4 555–1212')
+
+					</Pre>
+
+					<p>Further more, we can do down one more subpackage for referencing:</p>
+
+					<PRE>
+						
+<B>from</b> Phone.Mobile <b>import</b> Analog
+
+Analog.dial('555–1212')
+
+					</pRE>
+
+					<P>In fact, you can go all the way down in the subpackage tree structure:</P>
+
+					<pre>
+						
+<b>from</b> Phone.Mobile.Analog <b>import</b> dial
+
+dial('555–1212')
+
+					</pre>
+
+					<p>In our above directory structure hierarchy, we observe a number of <tt class="monofont">__init__.py</tt> files. These are initializer modules that are required when using <B><tt ClasS="monofont">from-import</tt></b> to import subpackages, but should otherwise exist though they can remain empty.</p>
+
+				
+				
+					<H4>Using <tt cLASS="monofont">from-import</tt> with Packages</h4>
+					<p>Packages also support the <B><TT Class="monofont">from-import</TT></B> all statement:</P>
+
+					<pre>
+						
+<b>from</B>
+							<I>package.module</I>
+							<B>import *</b>
+
+					</pre>
+
+					<p>However, such a statement is too operating system filesystem-dependent for Python to make the determination which files to import. Thus the <tt class="monofont">__all__</tt> variable in <tt clasS="monofont">__init__.py</tt> is required. This variable contains all the module names that should be imported when the above statement is invoked if there is such a thing. It consists of a list of module names as strings.</P>
+
+				
+			</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="206.html" title="Module Built-in Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=207" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="207.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="208.html" title="Other Features of Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,548 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Web Surfing with Python: Creating Simple Web Clients</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="271.html" class="navtitle">19. Web Programming</a> &gt; <span class="nonavtitle">Web Surfing with Python: Creating Simple Web Clients</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="273.html" title="Introduction"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=274" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="274.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="275.html" title="Advanced Web Clients"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A37%3A25+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004229217069070068135012236</font><a href="read4.asp?bookname=0130260363&snode=274&now=5%2F30%2F2002+8%3A37%3A25+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT><h3>Web Surfing with Python: Creating Simple Web Clients</h3>
+				<p>One thing to keep in mind is that a browser is only one type of Web client. Any application that makes a request for data from a Web server is considered a "client." Yes, it is possible to create other clients which retrieve documents or data off the Internet. One important reason to do this is that a browser provides only limited capacity, i.e., it is used primarily for viewing and interacting with Web sites. A client program, on the other hand, has the ability to do more—it can not only download data, it can also store it, manipulate it, or perhaps even transmit it to another location or application.</p>
+
+				<P>Applications which use the <TT Class="monofont">urllib</TT> module to download or access information on the Web [using either <TT clasS="monofont">urllib.urlopen()</TT> or <Tt class="monofont">urllib.urlretrieve()</tt>] can be considered a simple Web client. All you need to do is provide a valid Web address.</p>
+
+				
+					<h4>Uniform Resource Locators</h4>
+					<p>Simple Web surfing involves using Web addresses called <i>Uniform Resource Locators</i> (URLs). Such addresses are used to locate a document on the Web or to call a CGI program to generate a document for your client. URLs are part of a larger set of identifiers known as <i>URIs</i> (<i>Uniform Resource Identifiers</i>). This superset was created in anticipation of other naming conventions which have yet to be developed. A URL is simply a URI which uses an existing protocol or scheme (i.e., http, ftp, etc.) as part of its addressing. To complete this picture, we'll add that non-URL URIs are sometimes known as <i>URNs</i> (<I>Uniform Resource Names</i>), but because URLs are the only URIs in use today, you really don't hear much about URIs or URNs.</p>
+
+					<P>Like street addresses, Web addresses have some structure. An American street address usually is of the form "number street designation," i.e., 123 Main Street. It differs from other countries, which have their own rules. A  URL is of the format:</p>
+
+					<prE>
+						
+<i>prot_sch://net_loc/path;params?query#frag</i>
+
+					</prE>
+
+					<p><a hREF="274#2.html">Table 19.1</A> describes each of the components.</p>
+
+					<a naME="2"></A><P><tablE BORder="1" cELLSpacing="0" cellpadding="1" widTh="100%">
+<cAptiOn><h5>Table 19.1. Web Address Components</h5></cAptiON><COlgroUP ALign="left" sPAN="2">
+<Tr valIGN="top">
+<Th>
+<font size="2"><p><b><i>URL Component</i></b></p>
+</font></tH>
+<th>
+<Font Size="2"><p><B><i>Description</i></b></P>
+</FONt></th>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2"><P><i><tt class="monofont">prot_sch</tt></i></p>
+</font></td>
+<td>
+<FonT sizE="2"><p>network protocol or download scheme</p>
+</foNt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><p><i><tt CLASs="monofont">net_loc</tt></i></p>
+</font></td>
+<td>
+<font sizE="2"><p>location of server (and perhaps user information)</p>
+</Font></Td>
+</tr>
+<tR valIGN="top">
+<Td>
+<fonT SIZe="2"><p><i><tT CLAss="monofont">path</tt></I></P>
+</FOnt></td>
+<td>
+<font size="2"><p>slash ( / ) delimited path to file or CGI application</p>
+</font></Td>
+</tR>
+<tr vAlign="top">
+<Td>
+<foNT SIze="2"><p><i><TT CLass="monofont">params</tT></I></P>
+</Font></tD>
+<TD>
+<Font size="2"><p>optional parameters</p>
+</font></td>
+</tr>
+<tr vAliGn="top">
+<td>
+<Font sIze="2"><p><I><TT Class="monofont">query</TT></I></P>
+</font></TD>
+<TD>
+<font SIZE="2"><p>ampersand ( &amp; ) delimited set of "key=value" pairs</p>
+</font></td>
+</tr>
+<tr valign="top">
+<td>
+<FonT sizE="2"><p><i><tt ClasS="monofont">frag</TT></I></p>
+</fonT></TD>
+<Td>
+<fonT SIZe="2"><p>fragment to a specific anchor within document</p>
+</fONT></Td>
+</tr>
+</colgroup>
+</table></p>
+
+					<p><i><tT clAss="monofont">net_loc</tT></i> can be broken down into several more components, some required, others optional. The <i><tt ClasS="monofont">net_loc</TT></I> string looks like this:</p>
+
+					<pre>
+						
+<I>user:passwd@host:port</I>
+
+					</PRe>
+
+					<p>These individual components are described in <a hREF="274#3.html">Table 19.2</A>.</p>
+
+					<a naME="3"></A><P><table border="1" cellspaciNg="0" cEllpAddinG="1" widTH="100%">
+<CAptioN><H5>Table 19.2. Network Location Components</H5></CaptiON><COlgroUP ALign="left" span="2">
+<tr valign="top">
+<th valIgn="bottom">
+<Font Size="2"><p><I><tt cLASS="monofont">net_loc</tt></i></p>
+</FONT></th>
+<th>
+<FONT size="2"> </FONT></th>
+</tr>
+<tr valign="top">
+<th>
+<font siZe="2"><p><B><i>Component</i></b></P>
+</font></Th>
+<th>
+<FONT size="2"><P><B><I>Description</I></b></p>
+</foNT></TH>
+</tr>
+<tr VALIgn="top">
+<td>
+<font size="2"><p><i><tt clasS="monofont">user</tt></I></p>
+</foNt></td>
+<tD>
+<fonT SIZe="2"><p>user name or login</p>
+</fONT></Td>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt size="2"><p><i><tt class="monofont">passwd</tt></i></p>
+</foNt></tD>
+<td>
+<fOnt siZe="2"><p>user password</p>
+</FONT></td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt siZE="2"><P><I><tt class="monofont">host</tt></i></p>
+</font></td>
+<td>
+<fOnt Size="2"><P>name or address of machine running Web server [required]</p>
+</fonT></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2"><P><i><tt cLASS="monofont">port</tt></i></p>
+</font></td>
+<td>
+<font size="2"><P>port number (if not 80, the default)</p>
+</fOnt></tD>
+</tr>
+</coLgroUP>
+</TAble></p>
+
+					<P>Of the four, the <TT Class="monofont">host</TT> name is the most important. The <TT clasS="monofont">port</TT> number is necessary only if the Web server is running on a different port number from the default. (If you aren't sure what a port number is, go back to <A href="249.html">Chapter 16</a>.)</p>
+
+					<p>User names and perhaps passwords are used only when making FTP connections, and even then, they usually aren't necessary because the majority of such connections are "anonymous."</p>
+
+					<p>Python supplies two different modules, each dealing with URLs in completely different functionality and capacities. One is <tt class="monofont">urlparse,</tt> and the other is <tt ClaSs="monofont">urllib.</tt> We will briefly introduce some of their functions here.</P>
+
+				
+				
+					<h4><tt cLass="monofont">urlparse</TT> Module</H4>
+					<P>The <tt clASS="monofont">urlparse</Tt> module provides basic functionality with which to manipulate URL strings. These functions include <tt cLASS="monofont">urlparse(),</tt>
+						<tt CLASs="monofont">urlunparse(),</tt> and <tt class="monofont">urljoin().</tt></p>
+
+					
+						<h5><tt clasS="monofont">urlparse.urlparse()</tt></H5>
+						<p><tt Class="monofont">urlparse()</Tt> breaks up a URL string into some of the major components described above and has the following syntax:</p>
+
+						<pRE>
+							
+urlparse(<I>urlstr, defProtSch</I>=None, <i>allowFrag</i>=None)
+
+						</prE>
+
+						<P><TT clasS="monofont">urlparse()</TT> parses <I><tt clASS="monofont">urlstr</Tt></i> into a 6-tuple (<tt class="monofont">prot_sch, net_loc, path, params, query, frag</tt>). Each of these components has been described above. <i><tt class="monofont">defProtSch</tT></i> indicates a default network protocol or download scheme in case one is not provided in <tT claSs="monofont">urlstr.</tt>
+							<i><Tt clASS="monofont">allowFrag</Tt></i> is a flag that signals whether or not a fragment part of a URL is allowed. Here is what <tt CLASs="monofont">urlparse()</tt> outputs when given a URL:</p>
+
+						<PRE>
+							
+&gt;&gt;&gt; urlparse.urlparse('http://www.python.org/doc/FAQ.html')
+('http',  'www.python.org', '/doc/FAQ.html', '', '', '')
+
+						</Pre>
+
+					
+					
+						<h5><tT CLAss="monofont">urlparse.urlunparse()</tt></h5>
+						<p><tt class="monofont">urlunparse()</tt> does the exact opposite of <tt claSs="monofont">urlparse()—</tT>it merges a 6-tuple <tt cLass="monofont">(prot_sch, net_loc, path, params, query, frag)—</tT><i><tt CLASs="monofont">urltup,</tt></i> which could be the output of <TT CLass="monofont">urlparse()</tT>, into a single URL string and returns it. Accordingly, we state the following equivalence:</P>
+
+						<PRe>
+							
+urlunparse(urlparse(<i>urlstr</i>)) = <i>urlstr</I>
+
+						</PRE>
+
+						<p>You may have already surmised that the syntax of <tt class="monofont">urlunparse()</tt> is as follows:</p>
+
+						<pre>
+							
+urlunparse(<i>urltup</i>)
+
+						</pre>
+
+					
+					
+						<h5><Tt cLass="monofont">urlparse.urljoin()</Tt></h5>
+						<p>The <tT claSS="monofont">urljoin()</TT> function is useful in cases where many related URLs are needed, for example, the URLs for a set of pages to be generated for a Web site. The syntax for <tt clASS="monofont">urljoin()</Tt> is:</p>
+
+						<prE>
+							
+urljoin(<I>baseurl, newurl, allowFrag</I>=None)
+
+						</Pre>
+
+						<p><tT CLAss="monofont">urljoin()</tt> takes <i><tt class="monofont">baseurl</tt></i> and joins its base path (<i><tt clAss="monofont">net_loc</Tt></i> plus the full path up to, but not including, a file at the end) with <i><Tt claSs="monofont">newurl.</tt></I> For example:</P>
+
+						<PRe>
+							
+&gt;&gt;&gt; urlparse.urljoin('http://www.python.org/doc/FAQ.html', \
+… 'current/lib/lib.htm')
+'http://www.python.org/doc/current/lib/lib.html'
+
+						</pre>
+
+						<P>A summary of the functions in <TT Class="monofont">urlparse</TT> can be found in <A Href="274#8.html">Table 19.3</a></P>
+
+						<A NAme="8"></a><p><table border="1" cellsPacIng="0" cEllpaDdinG="1" WIDth="100%">
+<caPTIOn><h5>Table 19.3. Core <tt CLASs="monofont">urlparse</tt> Module Functions</h5></CAPTion><colgroup align="left" span="2">
+<Tr vAligN="top">
+<th>
+<foNt siZE="2"><P><Tt claSS="monofont">urlparse</TT>
+												<b><i>Functions</i></b></P>
+</FONt></th>
+<tH>
+<FONt size="2"><p><b><i>Description</i></b></p>
+</font></th>
+</tr>
+<tR vaLign="top">
+<Td>
+<fonT sizE="2"><P><TT clasS="monofont">urlparse(</TT><I><tt clASS="monofont">urlstr, defProtSch</Tt></i><tt CLASs="monofont">=None,</tt>
+												<i><tt class="monofont">allowFrag</tt></i><tt clasS="monofont">=None)</tt></P>
+</fonT></td>
+<td>
+<Font SIZE="2"><p>parses <i><tt CLASs="monofont">urlstr</tt></i> into separate components, using <I><TT Class="monofont">defProtSch</TT></I> if the protocol or scheme is not given in <I><tt class="monofont">urlstr; allowFrag</tt></i> determines whether a URL fragment is allowed</p>
+</font></td>
+</tr>
+<tR vaLign="top">
+<Td>
+<fonT sizE="2"><P><TT clasS="monofont">urlunparse(</TT><I><tt clASS="monofont">urltup</Tt></i><tt CLASs="monofont">)</tt></p>
+</font></td>
+<td>
+<font size="2"><P>unparses a tuple of URL data (<i><tT claSs="monofont">urltup</tt></i>) into a single URL string</P>
+</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><p><TT CLass="monofont">urljoin(</tt><i><tt class="monofont">baseurl, newurl,allowFrag</tt></i><tt clAss="monofont">=None)</Tt></p>
+</fOnt></td>
+<Td>
+<foNT SIze="2"><p>merges the base part of the <i><TT CLass="monofont">baseurl</tT></I> URL with <I><Tt claSS="monofont">newurl</TT></i> to form a complete URL; <i><tt class="monofont">allowFrag</tt></i> is the same as for <tt class="monofont">urlparse()</tT></p>
+</fOnt></tD>
+</tr>
+</coLgroUP>
+</TAble></p>
+
+					
+				
+				<H4><TT Class="monofont">urllib</TT> Module</H4>
+					<Div clASS="note"><P class="notetitle"><b>NOTE</b></p><p><p><i>Unless you are planning on writing a more lower-level network client, the <tt class="monofont">urllib</tt> module provides all the functionality you need. <Tt cLass="monofont">urllib</Tt> provides a high-level Web communication library, supporting the basic Web protocols, HTTP, FTP, and Gopher, as well as providing access to local files. Specifically, the functions of the <tt cLass="monofont">urllib</TT> module are designed to download data (from the Internet, local network, or local host) using the aforementioned protocols. Use of this module generally obviates the need for using the <TT clasS="monofont">httplib,</TT>
+								<Tt claSS="monofont">ftplib,</TT> and <tt clASS="monofont">gopherlib</Tt> modules unless you desire their lower-level functionality. In those cases, such modules can be considered as alternatives. (Note: most modules named <tt class="monofont">*lib</tt> are generally for developing clients of the corresponding protocols. This is not always the case, however, as perhaps <tt class="monofont">urllib</tt> should then be renamed as "internetlib" or something similar!)</i></P>
+</p></dIv><br>
+
+					<P>The <tt clAss="monofont">urllib</tT> module provides functions to download data from given URLs as well as encoding and decoding strings to make them suitable for including as part of valid URL strings. The functions functions which we will be looking at in this upcoming section include: <TT Class="monofont">urlopen(), urlretrieve(), quote(), quote_plus(), unquote(), unquote_plus(),</TT> and <TT clasS="monofont">urlencode().</TT></P>
+
+					<p>We will also look at some of the methods available to the file-like object returned by <tt cLASS="monofont">urlopen().</tt></p>
+
+					
+						<h5><tt class="monofont">urllib.urlopen()</tt></h5>
+						<p><tt claSs="monofont">urlopen()</tT> opens a Web connection to the given URL string and returns a file-like object. It has the following syntax:</p>
+
+						<prE>
+							
+urlopen(<i>urlstr, postQueryData</i>=None)
+
+						</prE>
+
+						<p><tt CLASs="monofont">urlopen()</tt> opens the URL pointed to by <i><TT CLass="monofont">urlstr</tT></I>. If no protocol or download scheme is given, or if a "file" scheme is passed in, <TT clasS="monofont">urlopen()</TT> will open a local file.</P>
+
+						<p>For all HTTP requests, the normal request type is "GET." In these cases, the query string provided to the Web server (key-value pairs encoded or "quoted," such as the string output of the <tt class="monofont">urlencode()</tt> function [see below]), should be given as part of <i><tt class="monofont">urlstr.</tt></I></p>
+
+						<p>If the "POST" request method is desired, then the query string (again encoded) should be placed in the <I><tt cLass="monofont">postQueryData</tT></i> variable. (For more information regarding the GET and POST request methods, refer to any general documentation or texts on programming CGI applications—which we will also discuss below. GET and POST requests are the two ways to "upload" data to a Web server.</p>
+
+						<p>When a successful connection is made, <TT CLass="monofont">urlopen()</tT> returns a file-like object as if the destination was a file opened in read mode. If our file object is f, for example, then our "handle" would support the expected read methods such as <TT Class="monofont">f.read(), f.readline(), f.readlines(), f.close(),</TT> and <TT clasS="monofont">f.fileno().</TT></P>
+
+						<p>In addition, a <tt class="monofont">f.info()</tt> method is available which returns the <i>MIME</i> (<i>Multipurpose Internet Mail Extension</i>) headers. Such headers give the browser information regarding which application can view returned file types. For example, the browser itself can view HTML (<i>Hypertext Markup Language</i>) or plain text type files as well as <i>GIF</i> (<i>Graphics Interchange Format</i>) and <I>JPEG</i> (<i>Joint Photographic Experts Group</I>) graphics files. Other files such as multimedia or specific document types require external applications in order to view.</p>
+
+						<p>Finally, a <tT clasS="monofont">geturl()</tt> method exists to obtain the true URL of the final opened destination, taking into consideration any redirection which may have occurred. A summary of these file-like object methods is given in <a HREF="274#11.html">Table 19.4</a>.</p>
+
+						<a nAME="11"></A><p><tabLE BOrder="1" CELLspacing="0" cellpadding="1" wiDth="100%">
+<CaptIon><h5>Table 19.4. <tT claSS="monofont">urllib.urlopen()</TT> File-like Object Methods</h5></capTION><colgROUP aligN="left" SPAn="2">
+<tr valign="top">
+<th>
+<font size="2"><p><Tt cLass="monofont">urlopen()</Tt>
+												<b><i>Object Methods</i></B></p>
+</foNT></TH>
+<th>
+<foNT SIze="2"><p><b><I>Description</I></B></P>
+</font></TH>
+</TR>
+<tr valign="top">
+<td>
+<font size="2"><p><i><Tt cLass="monofont">f.</Tt></i>
+												<tt ClasS="monofont">read ([</TT><I><tt clASS="monofont">bytes</Tt></i><tt CLASs="monofont">])</tt></p>
+</FONT></td>
+<td>
+<font size="2"><p>reads all or bytes <tt class="monofont">bytes</Tt> from <tT claSs="monofont">f</tt></p>
+</Font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><p><i><TT CLass="monofont">f.</tt></i><tt class="monofont">readline()</tt></p>
+</font></Td>
+<tD>
+<fonT size="2"><P>reads a single line from <tt cLASS="monofont">f</tt></p>
+</fONT></Td>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt size="2"><p><i><tt class="monofont">f.</tt></i><tt cLasS="monofont">readlines()</tt></p>
+</Font></tD>
+<td>
+<fONT Size="2"><p>reads a all lines from <TT CLass="monofont">f</tT> into a list</P>
+</FOnt></td>
+</TR>
+<TR valign="top">
+<td>
+<font size="2"><p><i><tt ClaSs="monofont">f.</tt></I><tt clAss="monofont">close()</tT></P>
+</FOnt></td>
+<TD>
+<FOnt siZE="2"><P>closes URL connection for <Tt claSS="monofont">f</TT></p>
+</font></td>
+</tr>
+<tr valign="top">
+<td>
+<fOnt Size="2"><P><i><tt cLass="monofont">f.</TT></I><Tt claSS="monofont">fileno()</TT></p>
+</fonT></TD>
+<Td>
+<fonT SIZe="2"><p>returns file number of <tt class="monofont">f</tt></p>
+</font></td>
+</tr>
+<Tr vAligN="top">
+<td>
+<foNt siZE="2"><P><I><tt clASS="monofont">f.</Tt></i><tt CLASs="monofont">info()</tt></p>
+</FONT></td>
+<td>
+<font size="2"><p>gets MIME headers of <tt class="monofont">f</Tt></p>
+</Font></Td>
+</tr>
+<tR valIGN="top">
+<Td>
+<fonT SIZe="2"><p><i><tT CLAss="monofont">f.</tt></I><TT Class="monofont">geturl()</tt></p>
+</font></td>
+<td>
+<font sIze="2"><P>returns true URL opened for <tt cLass="monofont">f</tT></p>
+</foNT></TD>
+</tr>
+</coLGROup>
+</taBLE></P>
+
+					
+					<h5><tt cLASS="monofont">urllib.urlretrieve()</tt></h5>
+						<p><tt class="monofont">urlretrieve()</tt> will do some quick and dirty work for you if you are interested in working with a URL document as a whole. Here is the syntax for <tt class="monofont">urlretrieve():</Tt></p>
+
+						<Pre>
+							
+urlretrieve(<i>urlstr, localfile</I>=None, <i>downloadStatusHook</i>=None)
+
+						</prE>
+
+						<p>Rather than reading from the URL like <tt CLASs="monofont">urlopen()</tt> does, <tT CLAss="monofont">urlretrieve()</tt> will simply download the entire HTML file located at <I><TT Class="monofont">urlstr</TT></I> to your local disk. It will store the downloaded data into <I><tt class="monofont">localfile</tt></i> if given or a temporary file if not. If the file has already been copied from the Internet or if the file is local, no subsequent downloading will occur.</p>
+
+						<p>The <i><tt class="monofont">downloadStatusHook,</Tt></i> if provided, is a function that is called after each block of data has been downloaded and delivered. It is called with the following three arguments: number of blocks read so far, the block size in bytes, and the total (byte) size of the file. This is very useful if you are implementing "download status" information to the user in a text-based or graphical display.</P>
+
+						<p><tt Class="monofont">urlretrieve()</Tt> returns a 2-tuple, (<i><tT CLAss="monofont">filename, mime_hdrs</tt></I>). <I><TT clasS="monofont">filename</TT></I> is the name of the local file containing the downloaded data. <i><tt cLASS="monofont">mime_hdrs</tt></i> is the set of MIME headers returned by the responding Web server. For more information, see the <tt class="monofont">Message</tt> class of the <tt class="monofont">mimetools</tT> module. <i><tT claSs="monofont">mime_hdrs</tt></i> is <Tt clASS="monofont">None</Tt> for local files.</p>
+
+						<p>For an example using <tT CLAss="monofont">urlretrieve(),</tt> take a look at <A HREf="180#1.html">Example 11.2</a>
+							<tt CLASs="monofont">(grabweb.py).</tt></p>
+
+					
+					
+						<h5><tt class="monofont">urllib.quote()</tt> and <tt clasS="monofont">urllib.quote_plus()</tt></H5>
+						<p>The <tt Class="monofont">quote*()</Tt> functions take URL data and "encodes" them so that they are "fit" for inclusion as part of a URL string. In particular, certain special characters that are unprintable or cannot be part of valid URLs acceptable to a Web server must be converted. This is what the <tt CLASs="monofont">quote*()</tt> functions do for you. Both <tT CLAss="monofont">quote*()</tt> functions have the following syntax:</P>
+
+						<PRE>
+							
+quote(<i>urldata, safe</i>='/')
+
+						</prE>
+
+						<P>Characters that are never converted include commas, underscores, periods and dashes as well as alphanumerics. All others are subject to conversion. In particular, the disallowed characters are changed to their hexadecimal ordinal equivalents prepended with a percent sign ( <TT class="monofont">%</tt> ), i.e., "<tt class="monofont">%xx</tt>" where "<tt clAss="monofont">xx</Tt>" is the hexadecimal representation of a character's ASCII value. When calling <tt Class="monofont">quote*(),</Tt> the <i><tT CLAss="monofont">urldata</tt></I> string is converted to an equivalent string that can be part of a URL string. The <I><TT clasS="monofont">safe</TT></I> string should contain a set of characters which should also <i>not</i> be converted. The default is the slash ( <tt CLASs="monofont">/</tt> ).</p>
+
+						<p><tt class="monofont">quote_plus()</tt> is similar to <tt clasS="monofont">quote()</tt> except that it also encodes spaces to plus signs ( <Tt clAss="monofont">+</tt> ). Here is an example using <Tt clASS="monofont">quote()</Tt> vs. <tt cLASS="monofont">quote_plus():</tt></p>
+
+						<pRE>
+							
+&gt;&gt;&gt; name = 'joe mama'
+&gt;&gt;&gt; number = 6
+&gt;&gt;&gt; base = 'http://www/~foo/cgi-bin/s.py'
+&gt;&gt;&gt; final = '%s?name=%s&amp;num=%d' % (base, name, number)
+&gt;&gt;&gt; final
+'http://www/~foo/cgi-bin/s.py?name=joe mama&amp;num=6'
+&gt;&gt;&gt;
+&gt;&gt;&gt; urllib.quote(final)
+'http:%3a//www/%7efoo/cgi-bin/s.py%3fname%3djoe%20mama%26num%3d6'
+&gt;&gt;&gt;
+&gt;&gt;&gt; urllib.quote_plus(final)
+'http%3a//www/%7efoo/cgi-bin/s.py%3fname%3djoe+mama%26num%3d6'
+
+						</PRe>
+
+					
+					
+						<h5><tt CLASs="monofont">urllib.unquote()</tt> and <tt class="monofont">urllib.unquote_plus()</tt></h5>
+						<p>As you have probably guessed, the <tt clasS="monofont">unquote*()</tt> functions do the exact opposite of the <Tt clAss="monofont">quote*()</tt> functions—they convert all characters encoded in the "<Tt clASS="monofont">%xx</Tt>" fashion to their ASCII equivalents. The syntax of <tt cLASS="monofont">unquote*()</tt> is as follows:</p>
+
+						<pRE>
+							
+unquote*(<I>urldata</I>)
+
+						</pre>
+
+						<p>Calling <TT CLass="monofont">unquote()</tt> will decode all URL-encoded characters in <tt class="monofont">urldata</tt> and return the resulting string. <tt clasS="monofont">unquote_plus()</tt> will also convert plus signs back to space characters.</P>
+
+					
+					
+						<h5><tt Class="monofont">urllib.urlencode()</Tt></h5>
+						<p><TT CLass="monofont">urlencode(),</tT> recently added to Python (as of version 1.5.2) takes a dictionary of key-value pairs and encodes them to be included as part of a query in a CGI request URL string. The pairs are in "<TT Class="monofont">key=value</TT>" format and are delimited by ampersands ( <TT clasS="monofont">&amp;</TT> ). Furthermore, the keys and their values are sent to <Tt class="monofont">quote_plus()</tt> for proper encoding. Here is an example output from <tt class="monofont">urlencode():</tt></p>
+
+						<prE>
+							
+&gt;&gt;&gt; aDict = { 'name': 'Georgina Garcia', 'hmdir': '~ggarcia' }
+&gt;&gt;&gt; urllib.urlencode(aDict)
+'name=Georgina+Garcia&amp;hmdir=%7eggarcia'
+
+						</prE>
+
+						<p>There are other functions in <tt Class="monofont">urllib</Tt> and <tt CLASs="monofont">urlparse</tt> which we did not have the opportunity to cover here. Refer to the documentation for more information.</p>
+
+					
+					
+						<H5>Secure Socket Layer support</H5>
+						<P>The <Tt claSS="monofont">urllib</TT> module has been modified for Python 1.6 so that it now supports opening HTTP connections using the Secure Socket Layer (SSL). The core change to add SSL is implemented in the <tt clASS="monofont">socket</Tt> module. Consequently, the <tt class="monofont">urllib</tt> and <tt class="monofont">httplib</tt> modules were updated to support URLs using the "https" connection scheme. Note, however, that as of time of publication, only HTTP requests using SSL have been implemented. The future may see additional updates to the other protocols supported by the <tT clAss="monofont">urllib</tT> module, such as FTP.</p>
+
+						<p>A summary of the <tt ClasS="monofont">urllib</TT> functions discussed in this section can be found in <A href="274#17.html">Table 19.5</A>.</P>
+
+						<A Name="17"></a><P><TABle boRDER="1" cellspacing="0" cellpaddiNg="1" wIdth="100%">
+<CaptiOn><h5>Table 19.5. Core <tT CLAss="monofont">urllib</tt> Module Functions</H5></CAPtion><COLGroup ALIGn="left" span="2">
+<tr valign="top">
+<th>
+<font sIze="2"><P><tt cLass="monofont">urllib</tT>
+												<b><i>Functions</i></B></P>
+</FOnt></th>
+<TH>
+<FOnt siZE="2"><P><B><i>Description</i></b></p>
+</FONT></th>
+</tr>
+<tr valign="top">
+<td>
+<font siZe="2"><p><Tt clAss="monofont">urlopen(</tt><I><tt cLASS="monofont">urlstr, postQueryData</tt></i><tT CLAss="monofont">=None)</tt></P>
+</FONt></td>
+<tD>
+<FONt size="2"><p>opens the URL <i><tt class="monofont">urlstr,</tt></i> sending the query data in <i><tt ClaSs="monofont">postQueryData</tt></I> if a POST request</p>
+</fonT></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2"><P><tt clASS="monofont">urlretrieve(</Tt><i><tt class="monofont">urlstr, localfileV</tt></i><tt class="monofont">=None,</tT>
+												<i><tT claSs="monofont">downloadStatusHook</tt></i><Tt clASS="monofont">=None)</Tt></p>
+</foNT></TD>
+<td>
+<foNT SIze="2"><p>downloads the file located at the <i><TT CLass="monofont">urlstr</tt></i> URL to <i><tt class="monofont">localfile</tt></i> or a temporary file if <i><tt ClaSs="monofont">localfile</tt></I> not given; if present, <i><tt cLass="monofont">downloaStatusHook</TT></I> is a function which can receive download statistics</P>
+</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><p><tt class="monofont">quote(</tt><i><tt class="monofont">urldata, safe</Tt></i><Tt clAss="monofont">='/')</tt></P>
+</fonT></TD>
+<Td>
+<fonT SIZe="2"><p>encodes invalid URL characters of <i><tT CLAss="monofont">urldata;</tt></I> characters in <I><TT class="monofont">safe</tt></i> string are also not encoded</p>
+</font></td>
+</tr>
+<tr vAliGn="top">
+<td>
+<Font sIze="2"><p><TT CLass="monofont">quote_plus(</tT><I><TT clasS="monofont">urldata, safe</TT></I><tt clASS="monofont">='/')</Tt></p>
+</font></td>
+<td>
+<font size="2"><p>same as <tT clAss="monofont">quote()</tT> except encodes spaces as plus signs</p>
+</fonT></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2"><P><tt clASS="monofont">unquote(</Tt><i><tt class="monofont">urldata</tt></i><tt class="monofont">)</tT></p>
+</fOnt></tD>
+<td>
+<foNt siZE="2"><P>decodes encoded characters of <I><tt clASS="monofont">urldata</Tt></i></p>
+</fONT></Td>
+</tr>
+<tR VALign="top">
+<td>
+<font size="2"><p><tt clasS="monofont">unquote_plus(</tt><I><tt cLass="monofont">urldata</tT></i><tt CLASs="monofont">)</tt></p>
+</FONT></td>
+<td>
+<FONT size="2"><P>same as <TT Class="monofont">unquote()</tt> but converts plus signs to spaces</p>
+</font></td>
+</tr>
+<tr valIgn="top">
+<Td>
+<foNt sizE="2"><p><tt CLASs="monofont">urlencode(</tt><i><TT CLass="monofont">dict</tT></I><TT clasS="monofont">)</TT></P>
+</font></td>
+<td>
+<font size="2"><p>encodes the key-value pairs of <i><tt ClaSs="monofont">dict</tt></I> into a valid string for CGI queries and encodes the key and value strings with <tt clAss="monofont">quote_plus()</tT></P>
+</FOnt></td>
+</TR>
+</COlgroUP>
+</TAble></p>
+
+					
+				
+			</FONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="273.html" title="Introduction"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=274" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="274.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="275.html" title="Advanced Web Clients"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

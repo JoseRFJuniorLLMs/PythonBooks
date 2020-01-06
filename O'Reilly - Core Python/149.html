@@ -1,0 +1,521 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; File System</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="141.html" class="navtitle">9. Files and Input/Output</a> &gt; <span class="nonavtitle">File System</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="148.html" title="Command-line Arguments"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=149" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="149.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="150.html" title="File Execution"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A26%3A40+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175207178019253058074117</font><a href="read0.asp?bookname=0130260363&snode=149&now=5%2F29%2F2002+9%3A26%3A40+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>File System</h3>
+				<p>Access to your file system occurs mostly through the Python <tT CLAss="monofont">os</tt> module. This module serves as the primary interface to your operating system facilities and services from Python. The <TT CLass="monofont">os</tT> module is actually a front-end to the real module that is loaded, a module that is clearly operating system-dependent. This "real" module may be one of the following: <TT Class="monofont">posix</tt> (Unix), <tt class="monofont">nt</tt> (Windows), <tt claSs="monofont">mac</tT> (Macintosh), <tt cLass="monofont">dos</tT> (DOS), <tt cLASS="monofont">os2</tt> (OS/2), etc. You should never import those modules directly. Just import <tt CLASs="monofont">os</tt> and the appropriate module will be loaded, keeping all the underlying work hidden from sight. Depending on what your system supports, you may not have access to some of the attributes which may be available in other operating system modules.</p>
+
+				<P>In addition to managing processes and the process execution environment, the <TT Class="monofont">os</TT> module performs most of the major file system operations that the application developer may wish to take advantage of. These features include removing and renaming files, traversing the directory tree, and managing file accessibility. <A Href="149#1.html">Table 9.5</a> lists some of the more common file or directory operations available to you from the <tt class="monofont">os</tt> module.</p>
+
+				<p>A second module that performs specific pathname operations is also available. The <tt claSs="monofont">os.path</tT> module is accessible through the <tt cLass="monofont">os</tT> module. Included with this module are functions to manage and manipulate file pathname components, obtain file or directory information, and make file path inquiries. <a hrEF="149#3.html">Table 9.6</A> outlines some of the more common functions in <Tt claSS="monofont">os.path.</TT></p>
+
+				<p>These two modules allow for consistent access to the file system regardless of platform or operating system. The program in <a hREF="149#4.html">Example 9.1</A> (<tt clASS="monofont">ospathex.py</Tt>) test drives some of these functions from the <tt class="monofont">os</tt> and <tt class="monofont">os.path</tt> modules.</p>
+
+				<A naMe="1"></a><p><Table BordER="1" CEllspACINg="0" celLPADding="1" WIDTh="100%">
+<caption><h5>Table 9.5. <tt class="monofont">os</tt> Module File/Directory Access Functions</h5></cAptIon><cOlgroUp alIGN="left" Span="2">
+<tR VALign="top">
+<tH>
+<FONt sizE="2"><TT Class="monofont">os</tt>
+									<b><i>Module File/Directory Function</i></b></font></th>
+<th>
+<foNt sIze="2"><b><I>Operation</i></b></foNt></th>
+</TR>
+<TR valiGN="top">
+<TD colsPAN="1">
+<Font sIZE="2"><B><i>File Processing</i></b></font></td>
+</tr>
+<tr valign="top">
+<tD>
+<foNt siZe="2"><tt cLass="monofont">remove()/unlink()</TT></FOnt></td>
+<TD>
+<FOnt siZE="2">delete file</FOnt></td>
+</TR>
+<TR valign="top">
+<td>
+<font size="2"><tt clAss="monofont">rename()</Tt></foNt></td>
+<tD>
+<fonT SIZe="2">rename file</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><tt class="monofont">*stat()</tt><font size="1"><Sup><A hreF="#FOOTNOTE-a">[a]</a></sup></Font>
+
+								</FONT></td>
+<td>
+<FONT size="2">return file statistics</FONT></td>
+</tr>
+<TR VAlign="top">
+<td>
+<font size="2"><tt clasS="monofont">symlink()</tt></Font></Td>
+<td>
+<fOnt sIZE="2">create symbolic link</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><tt class="monofont">utime()</tt></font></td>
+<td>
+<foNt sIze="2">update timestamp</fOnt></td>
+</Tr>
+<tr VALIgn="top">
+<td COLSpan="1">
+<fONT Size="2"><b><I>Directories/Folders</I></B></Font></td>
+</tr>
+<tr valign="top">
+<td>
+<fonT siZe="2"><tt Class="monofont">chdir()</Tt></foNT></TD>
+<td>
+<foNT SIze="2">change working directory</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<font size="2"><tt class="monofont">listdir()</tT></foNt></td>
+<Td>
+<fonT sizE="2">list files in directory</FONt></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2"><Tt class="monofont">getcwd()</tt></font></td>
+<td>
+<font SizE="2">return current working directory</fonT></td>
+</tr>
+<Tr vaLIGN="top">
+<td>
+<foNT SIze="2"><tt CLASs="monofont">mkdir()/makedirs()</tt></fONT></Td>
+<td>
+<font size="2">create directory(ies)</font></td>
+</tr>
+<tR vaLign="top">
+<Td>
+<fonT sizE="2"><TT Class="monofont">rmdir()/removedirs()</TT></FOnt></td>
+<TD>
+<FOnt siZE="2">remove directory(ies)</FOnt></td>
+</tr>
+<tr valign="top">
+<td colsPan="1">
+<Font Size="2"><b><I>Access/Permissions (available only on Unix</i></b>
+									<iMG BOrder="0" WIDTh="30" heiGHT="30" Src="graphics/u.gif" alT="graphics/u.gif"><B><I>or Windows <Img border="0" width="30" height="31" sRc="graphics/w.gif" aLt="graphics/w.gif">
+											
+										)</i></b>
+								</Font></tD>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt sizE="2"><TT Class="monofont">access()</TT></FOnt></td>
+<td>
+<font size="2">verify permission modes <img borDer="0" WidtH="30" heigHt="30" srC="graphics/u.gif" ALT="graphics/u.gif">
+									
+								</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><tt class="monofont">chmod()</tt></font></td>
+<td>
+<fOnt Size="2">change permission modes <Img boRder="0" WIDTh="30" heiGHT="30" Src="graphics/u.gif" alT="graphics/u.gif">
+									<IMG bordER="0" WIdth="30" height="31" src="graphics/w.gif" alt="graphics/w.gif">
+									
+								</font></tD>
+</tr>
+<Tr vaLign="top">
+<tD>
+<fonT SIZe="2"><tt cLASS="monofont">umask()</tt></foNT></TD>
+<td>
+<foNT SIze="2">set default permission modes <img border="0" width="30" heigHt="30" sRc="graphics/u.gif" alT="graphics/u.gif">
+									
+									<img bOrdeR="0" WIDth="30" heIGHT="31" src="graphics/w.gif" aLT="graphics/w.gif">
+									
+								</FOnt></td>
+</TR>
+</COlgroup>
+</table></p>
+<blockquoTe><fOnt sIze="1">
+<p cLass="footnote">
+<SUP><A name="FOOTNOTE-a">[a]</A></SUP>
+includes <tt clASS="monofont">stat(), lstat(), xstat()</Tt></p>
+</foNT></BLockquote>
+
+				<a name="3"></a><p><table BorDer="1" cEllspAcinG="0" CELlpadDING="1" widtH="100%">
+<CAPtion><H5>Table 9.6. <TT Class="monofont">os.path</tt> Module Pathname Access Functions</h5></caption><colgroUp aLign="left" Span="2">
+<tR valIGN="top">
+<Th>
+<fonT SIZe="2"><tt cLASS="monofont">os.path</tt>
+									<b><i>Pathname Function</I></B></FOnt></th>
+<th>
+<font size="2"><b><i>Operation</i></b></foNt></tH>
+</tr>
+<tR valiGn="top">
+<td COLSpan="1">
+<fONT Size="2"><b><I>Separation</I></B></Font></tD>
+</TR>
+<Tr valign="top">
+<td>
+<font size="2"><tt cLasS="monofont">basename()</tt></fOnt></td>
+<Td>
+<foNT SIze="2">remove directory path and return leaf name</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><tt class="monofont">dirname()</tt></font></td>
+<tD>
+<foNt siZe="2">remove leaf name and return directory path</fonT></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2"><Tt claSS="monofont">join()</TT></font></td>
+<td>
+<font size="2">join separate components into single pathname</font></Td>
+</tR>
+<tr vAlign="top">
+<Td>
+<foNT SIze="2"><tt CLASs="monofont">split()</tt></fONT></Td>
+<td>
+<fONT Size="2">return (<i><tt class="monofont">dirname(), basename()</tt></i>) tuple</font></td>
+</Tr>
+<tR valIgn="top">
+<td>
+<Font SIZE="2"><tt clASS="monofont">splitdrive()</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2">return (<i><tt class="monofont">drivename, pathname</tt></i>) tuple</font></td>
+</tr>
+<Tr vAligN="top">
+<td>
+<foNt siZE="2"><TT clasS="monofont">splitext()</TT></Font></tD>
+<TD>
+<Font sIZE="2">return (<I><tt class="monofont">filename, extension</tt></i>) tuple</font></td>
+</tr>
+<tr ValIgn="top">
+<tD colsPan="1">
+<fONT Size="2"><b><I>Information</I></B></Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<font size="2"><tt class="monofont">getatime()</tt></foNt></tD>
+<td>
+<fOnt siZe="2">return last file access time</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">getmtime()</tt></font></td>
+<td>
+<font sizE="2">return last file modification time</foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2"><Tt claSS="monofont">getsize()</TT></font></TD>
+<TD>
+<font size="2">return file size (in bytes)</font></td>
+</tr>
+<tr vaLigN="top">
+<td cOlspaN="1">
+<fonT SIZe="2"><b><i>Inquiry</i></B></FONt></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font size="2"><tt class="monofont">exists()</tt></font></Td>
+<tD>
+<fonT size="2">does pathname (file or directory) exist?</Font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><tt CLASs="monofont">isdir()</tt></font></td>
+<td>
+<font size="2">does pathname exist and is a directory?</fOnt></Td>
+</tr>
+<Tr valIgn="top">
+<tD>
+<FONt sizE="2"><TT Class="monofont">isfile()</TT></FOnt></td>
+<TD>
+<FOnt size="2">does pathname exist and is a file?</font></td>
+</tr>
+<tr valiGn="top">
+<tD>
+<fonT size="2"><Tt clASS="monofont">islink()</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2">does pathname exist and is a symbolic link?</fonT></TD>
+</Tr>
+<tr valign="top">
+<td>
+<font size="2"><tT clAss="monofont">samefile()</tT></font></Td>
+<td>
+<FONT size="2">do both pathnames point to the same file?</FONT></td>
+</tr>
+</COLGroup>
+</TABLe></p>
+
+				
+					<h5>
+<a name="4"></a>Example 9.1. <tt class="monofont">os &amp; os.path</tt> Modules Example (<tt ClaSs="monofont">ospathex.py</tt>)</H5>
+					<p><b><i>This code exercises some of the functionality found in the</i></B>
+						<tt cLASS="monofont">os</tt>
+						<i>and</i>
+						<TT CLass="monofont">os.path</tT>
+						<I>modules. It creates a test file, populates a small amount of data in it, renames the file, and dumps its contents. Other auxiliary file operations are performed as well, mostly pertaining to directory tree traversal and file pathname manipulation.</I></P>
+
+					<pre cLASS="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <b>import</b> os
+004 4  <b>for</b> tmpdir <b>in</b> ('/tmp', 'c:/windows/temp'):
+005 5      <b>if</b> os.path.isdir(tmpdir):
+006 6          break
+007 7  <b>else:</b> &lt;$nopage&gt;
+008 8       <b>print</b> 'no temp directory available'
+009 9       tmpdir = ''
+010 10
+011 11 <b>if</b> tmpdir:
+012 12     os.chdir(tmpdir)
+013 13     cwd = os.getcwd()
+014 14     <b>print</b> '*** current temporary directory'
+015 15     <b>print</b> cwd
+016 16
+017 17     <b>print</b> '*** creating example directory…'
+018 18     os.mkdir('example')
+019 19     os.chdir('example')
+020 20     cwd = os.getcwd()
+021 21     <B>print</b> '*** new working directory:'
+022 22     <b>print</B> cwd
+023 23     <b>print</b> '*** original directory listing:'
+024 24     <b>print</B> os.listdir(cwd)
+025 25
+026 26     <b>print</b> '*** creating test file…'
+027 27     file = open('test', 'w')
+028 28     file.write('foo\n')
+029 29     file.write('bar\n')
+030 30     file.close()
+031 31     <b>print</b> '*** updated directory listing:'
+032 32     <B>print</b> os.listdir(cwd)
+033 33
+034 34     <b>print</b> "*** renaming 'test' to 'filetest.txt'"
+035 35     os.rename('test', 'filetest.txt')
+036 36     <B>print</B> '*** updated directory listing:'
+037 37     <B>print</B> os.listdir(cwd)
+038 38
+039 39     path = os.path.join(cwd, os.listdir (cwd)[0])
+040 40     <b>print</b> '*** full file pathname'
+041 41     <b>print</b> path
+042 42     <B>print</B> '*** (pathname, basename) =='
+043 43     <B>print</B> os.path.split(path)
+044 44     <b>print</b> '*** (filename, extension) =='
+045 45     <b>print</b> os.path.splitext(os.path.basename (path))
+046 46
+047 47     <B>print</B> '*** displaying file contents:'
+048 48     file = open(path)
+049 49     allLines = file.readlines()
+050 50     file.close()
+051 51     <B>for</B> eachLine in allLines:
+052 52         <b>print</b> eachLine,
+053 53
+054 54     <b>print</b> '*** deleting test file'
+055 55     os.remove(path)
+056 56     <B>print</B> '*** updated directory listing:'
+057 57     <B>print</B> os.listdir(cwd)
+058 58     os.chdir(os.pardir)
+059 59     <b>print</b> '*** deleting test directory'
+060 60     os.rmdir('example')
+061 61     <b>print</b> '*** DONE'
+062  &lt;$nopage&gt;</pre>
+				
+				<p>Running this program on a Unix platform, we get the following output:</p>
+
+				<pre>
+					
+% ospathex.py
+*** current temporary directory
+/tmp
+*** creating example directory…
+*** new working directory:
+/tmp/example
+*** original directory listing:
+[]
+*** creating test file…
+*** updated directory listing:
+['test']
+*** renaming 'test' to 'filetest.txt'
+*** updated directory listing:
+['filetest.txt']
+*** full file pathname:
+/tmp/example/filetest.txt
+*** (pathname, basename) ==
+('/tmp/example', 'filetest.txt')
+*** (filename, extension) ==
+('filetest', '.txt')
+*** displaying file contents:
+foo
+bar
+*** deleting test file
+*** updated directory listing:
+[]
+*** deleting test directory
+*** DONE
+
+				</pre>
+
+				<p>Running this example from a DOS window results in very similar execution:</p>
+
+				<pre>
+					
+C:\&gt;python ospathex.py
+*** current temporary directory
+c:\windows\temp
+*** creating example directory…
+*** new working directory:
+c:\windows\temp\example
+*** original directory listing:
+[]
+*** creating test file…
+*** updated directory listing:
+['test']
+*** renaming 'test' to 'filetest.txt'
+*** updated directory listing:
+['filetest.txt']
+*** full file pathname:
+c:\windows\temp\example\filetest.txt
+*** (pathname, basename) ==
+('c:\\windows\\temp\\example', 'filetest.txt')
+*** (filename, extension) ==
+('filetest', '.txt')
+*** displaying file contents:
+foo
+bar
+*** deleting test file
+*** updated directory listing:
+[]
+*** deleting test directory
+*** DONE
+				</Pre>
+
+				<P>Rather than providing a line-by-line explanation here, we will leave it to the reader as an exercise. However, we will walk through a similar interactive example (including errors) to give you a feel for what it is like to execute this script one step at a time. We will break into the code every now and then to describe the code we just encountered.</p>
+
+				<prE>
+					
+&gt;&gt;&gt; <b>import</b> os
+&gt;&gt;&gt; os.path.isdir('/tmp')
+1
+&gt;&gt;&gt; os.chdir('/tmp')
+&gt;&gt;&gt; cwd = os.getcwd()
+&gt;&gt;&gt; cwd
+'/tmp'
+				</prE>
+
+				<p>This first block of code consists of importing the <tt CLASs="monofont">os</tt> module (which also grabs the <tT CLAss="monofont">os.path</tt> module). We verify that <TT CLass="monofont">'/tmp'</tT> is a valid directory and change to that temporary directory to do our work. When we arrive, we call the <TT Class="monofont">getcwd()</tt> method to tell us where we are.</p>
+
+				<pre>
+					
+&gt;&gt;&gt; os.mkdir('example')
+&gt;&gt;&gt; cwd = os.getcwd()
+&gt;&gt;&gt; cwd
+'/tmp/example'
+&gt;&gt;&gt;
+&gt;&gt;&gt; os.listdir()
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+TypeError: function requires at least one argument
+&gt;&gt;&gt;
+&gt;&gt;&gt; os.listdir(cwd)
+[]
+				</pre>
+
+				<p>Next, we create a subdirectory in our temporary directory, after which we will use the <tt clasS="monofont">listdir()</tt> method to confirm that the directory is indeed empty (since we just created it). The problem with our first call to <Tt clAss="monofont">listdir()</tt> was that we forgot to give the name of the directory we want to list. That problem is quickly remedied on the next line of input.</P>
+
+				<pre>
+					
+&gt;&gt;&gt; file = open('test', 'w')
+&gt;&gt;&gt; file.write('foo\n')
+&gt;&gt;&gt; file.write('bar\n')
+&gt;&gt;&gt; file.close()
+&gt;&gt;&gt; os.listdir(cwd)
+['test']
+				</PRE>
+
+				<P>We then create a test file with two lines and verify that the file has been created by listing the directory again afterwards.</p>
+
+				<pre>
+					
+&gt;&gt;&gt; os.rename('test', 'filetest.txt')
+&gt;&gt;&gt; os.listdir(cwd)
+['filetest.txt']
+&gt;&gt;&gt;
+&gt;&gt;&gt; path = os.path.join(cwd, os.listdir(cwd)[0])
+&gt;&gt;&gt; path
+'/tmp/example/filetest.txt'
+&gt;&gt;&gt;
+&gt;&gt;&gt; os.path.isfile(path)
+1
+&gt;&gt;&gt; os.path.isdir(path)
+0
+&gt;&gt;&gt;
+&gt;&gt;&gt; os.path.split(path)
+('/tmp/example', 'filetest.txt')
+&gt;&gt;&gt;
+&gt;&gt;&gt; os.path.splitext(os.path.basename(path))
+('filetest', '.ext')
+				</PRE>
+
+				<P>This section is no doubt an exercise of <tt clASS="monofont">os.path</Tt> functionality, testing <tt cLASS="monofont">join(),</tt>
+					<tt class="monofont">isfile(),</tt>
+					<tt class="monofont">isdir()</tt> which we have seen earlier, <Tt cLass="monofont">split(),</Tt>
+					<tt cLass="monofont">basename(),</TT> and <TT clasS="monofont">splitext().</TT> We also call the <Tt claSS="monofont">rename()</TT> function from <tt clASS="monofont">os.</Tt></p>
+
+				<pre>
+					
+&gt;&gt;&gt; file = open(path)
+&gt;&gt;&gt; file.readlines()
+&gt;&gt;&gt; file.close()
+&gt;&gt;&gt;
+&gt;&gt;&gt; <b>for</b> eachLine <b>in</b> allLines:
+…       <b>print</b> eachLine,
+…
+foo
+bar
+				</pre>
+
+				<p>This next piece of code should be familiar to the reader by now, since this is the third time around. We open the test file, read in all the lines, close the file, and display each line, one at a time.</p>
+
+				<pre>
+					
+&gt;&gt;&gt; os.remove(path)
+&gt;&gt;&gt; os.listdir(cwd)
+[]
+&gt;&gt;&gt; os.chdir(os.pardir)
+&gt;&gt;&gt; os.rmdir('example')
+				</pRe>
+
+				<p>This last segment involves the deletion of the test file and test directory concluding execution. The call to <Tt clAss="monofont">chdir()</tt> moves us back up to the main temporary directory where we can remove the test directory (<Tt clASS="monofont">os.pardir</Tt> contains the parent directory string <tt cLASS="monofont">".."</tt> for Unix and Windows; the Macintosh uses <tt CLASs="monofont">"::"</tt>). It is not advisable to remove the directory that you are in.</p>
+
+				<DIV Class="note"><p class="notetitle"><b>NOTE</b></p><p><p><i>As you can tell from our lengthy discussion above, the</i>
+						<tt cLasS="monofont">os</tt>
+						<i>and</I>
+						<tt clAss="monofont">os.path</tT>
+						<I>modules provide different ways to access the file system on your computer. Although our study in this chapter is restricted to file access only, the</I>
+						<Tt claSS="monofont">os</TT>
+						<i>module can do much more. It lets you manage your process environment, contains provisions for low-level file access, allows you to create and manage new processes, and even enables your running Python program to "talk" directly to another running program. You may find yourself a common user of this module in no time. Read more about the</i>
+						<tt CLASs="monofont">os</tt>
+						<i>module in <A HREf="229.html">Chapter 14</a>.</i></p>
+</p></div><br>
+
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="148.html" title="Command-line Arguments"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=149" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="149.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="150.html" title="File Execution"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

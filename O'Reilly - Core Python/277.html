@@ -1,0 +1,458 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Building CGI Application</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="271.html" class="navtitle">19. Web Programming</a> &gt; <span class="nonavtitle">Building CGI Application</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="276.html" title="CGI: Helping Web Servers Process Client Data"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=277" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="277.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="278.html" title="Advanced CGI"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A38%3A33+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004229214167184217227190176</font><a href="read5.asp?bookname=0130260363&snode=277&now=5%2F30%2F2002+8%3A38%3A33+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Building CGI Application</h3>
+				
+					<h4>Generating the Results Page</h4>
+					<P>In <A HRef="277#2.html">Example 19.2</a>, we present the code for a simple Web form, <tT CLAss="monofont">friends.htm.</tt></P>
+
+					
+						<H5>
+<A Name="2"></a>Example 19.2. Static Form Web Page (<tt class="monofont">friends.htm</tt>)</h5>
+						<p><b><i>This HTML file presents a form to the user with an empty field for the user's name and a set of radio buttons for the user to choose from.</i></b></p>
+
+						<Pre ClasS="monofont"> &lt;$nopage&gt;
+001 1   &lt;<b>HTML</b>&gt;&lt;<b>HEAD</b>&gt;&lt;<B>TITLE</b>&gt;
+002 2   Friends CGI Demo (static screen)
+003 3   &lt;/<b>TITLE</b>&gt;&lt;/<B>HEAD</B>&gt;
+004 4   &lt;<B>BODY</B>&gt;&lt;<b>H3</b>&gt;Friends list for: &lt;I&gt;NEW USER&lt;/<b>I</b>&gt;&lt;/<B>H3</B>&gt;
+005 5   &lt;<B>FORM</B> ACTION="/cgi-bin/friends1.py"&gt;
+006 6   &lt;<b>B</b>&gt;Enter your Name:&lt;/<b>B</b>&gt;
+007 7   &lt;<B>INPUT</B> TYPE=text NAME=person SIZE=15&gt;
+008 8   &lt;<B>P</B>&gt;&lt;<b>B</b>&gt;How many friends do you have?&lt;/<b>B</b>&gt;
+009 9   &lt;<B>INPUT</B> TYPE=radio NAME=howmany VALUE="0"&gt; CHECKED&gt; 0
+010 10  &lt;<B>INPUT</B> TYPE=radio NAME=howmany VALUE="10"&gt; 10
+011 11  &lt;<b>INPUT</b> TYPE=radio NAME=howmany VALUE="25"&gt; 25
+012 12  &lt;<b>INPUT</b> TYPE=radio NAME=howmany VALUE="50"&gt; 50
+013 13  &lt;<b>INPUT</b> TYPE=radio NAME=howmany VALUE="100"&gt; 100
+014 14  &lt;<b>P</b>&gt;&lt;<b>INPUT</b> TYPE=submit&gt;&lt;/<b>FORM</b>&gt;&lt;/<b>BODY</b>&gt;&lt;/<b>HTML</b>&gt;
+015  &lt;$nopage&gt;</pre>
+					
+					<p>As you can see in the code, the form contains two input variables: person and howmany. The values of these two fields will be passed to our CGI script, <Tt cLass="monofont">friends1.py.</Tt></p>
+
+					<p>You will notice in our example that we install our CGI script into the default <tT claSS="monofont">cgi-bin</TT> directory (see the "Action" link) on the local host. (If this information does not correspond with your development environment, update the form action before attempting to test the Web page and CGI script.) Also, because a METHOD subtag is missing from the form action, all requests will be of the default type, GET. We choose the GET method because we do not have very many form fields, and also, we want our query string to show up in the "Location" (a.k.a. "Address,"
+						"Go To") bar so that you can see what URL is sent to the server.</p>
+
+					<p>Let's take a look at the screen which is rendered by <tt CLASs="monofont">friends.htm</tt> in a Web browser. <a HREF="277#3.html">Figure19-4</a> illustrates what the page would look like using Netscape Communicator 4 in a UNIX environment, while <a hrEF="277#3.html">Figure19-5</A> is an example of using Microsoft IE5 on Windows.</P>
+
+					<center>
+						<h5>
+<a name="3"></a>Figure 19-4. Friends Form Page in Netscape4 on Unix (<tt class="monofont">friends.htm</Tt>)</h5>
+						
+							
+								<Img bOrder="0" WidtH="500" HEIght="361" sRC="graphics/19fig04.gif" ALt="graphics/19fig04.gif">
+							
+						
+					</cenTER>
+
+					<P>The input is entered by the user and the "Submit" button is pressed. (Alternatively, the user can also press the RETURN or Enter key within the text field to cause a similar effect.) When this occurs, the script in <a hreF="277#5.html">Example 19.3</A>, <TT class="monofont">friends1.py,</tt> is executed via CGI.</p>
+
+					<center>
+						<h5>
+Figure 19-5. Friends Form Page in IE5 on Windows (<tt claSs="monofont">friends.htm</tT>)</h5>
+						
+							
+								<imG bordEr="0" wiDTH="500" HeighT="353" SRC="graphics/19fig05.gif" alt="graphics/19fig05.gif">
+							
+						
+					</cENTEr>
+
+					
+						<h5>
+<a nAME="5"></A>Example 19.3. Results Screen CGI code (<tt class="monofont">friends1.py</tt>)</h5>
+						<p><b><i>This CGI script grabs the</i></b>
+							<tt claSs="monofont">person</tT>
+							<b><i>and</i></B>
+							<tt clAss="monofont">howmany</tT>
+							<B><I>fields from the form and uses that data to create the dynamically-generated results screen.</I></b></p>
+
+						<prE CLAss="monofont"> &lt;$nopage&gt;
+001   1   #!/usr/bin/env python
+002 2
+003 3  <b>import</b> cgi
+004 4
+005 5  reshtml = '''Content-Type: text/html\n
+006 6  &lt;<B>HTML</B>&gt;&lt;<B>HEAD</B>&gt;&lt;<b>TITLE</b>&gt;
+007 7  Friends CGI Demo (dynamic screen)
+008 8  &lt;/<b>TITLE</b>&gt;&lt;/<B>HEAD</B>&gt;
+009 9  &lt;<B>BODY</B>&gt;&lt;<b>H3</b>&gt;Friends list for: &lt;<b>I</b>&gt;%s&lt;<b>/I</b>&gt;&lt;/<b>H3</b>&gt;
+010 10 Your name is: &lt;<b>B</b>&gt;%s&lt;<b>/B</b>&gt;&lt;<b>P</b>&gt;
+011 11 You have &lt;<b>B</b>&gt;%s&lt;<b>/B</b>&gt; friends.
+012 12 &lt;<b>/BODY</b>&gt;&lt;<B>/HTML</b>&gt;'''
+013 13
+014 14 form = cgi.FieldStorage()
+015 15 who = form['person'].value
+016 16 howmany = form['howmany'].value
+017 17 <b>print</B> reshtml % (who, who, howmany)
+018  &lt;$nopage&gt;</pre>
+					
+					<P>This script contains all the programming power to read the form input and process it, as well as return the resulting HTML page back to the user. All the "real" work in this script takes place in only four lines of Python code (lines 14–17).</p>
+
+					<p>The form variable is our <tt ClasS="monofont">FieldStorage</TT> instance, containing the values of the <Tt claSS="monofont">person</TT> and <tt clASS="monofont">howmany</Tt> fields. We read these into the Python <tt cLASS="monofont">who</tt>and <tt class="monofont">howmany</tt> variables, respectively. The <tt class="monofont">reshtml</tt> variable contains the general body of HTML text to return, with a few fields filled in dynamically, the data just read in from the form.</P>
+
+					<diV claSs="note"><p clAss="notetitle"><b>NOTE</B></P><P><P><i>One thing which always nails CGI beginners is that when sending results back to a CGI script, it must return the appropriate HTTP headers first before any HTML. Furthermore, to distinguish between these headers and the resulting HTML, several newline characters must be inserted between both sets of data, as in line 5 of our</i>
+							<tt CLASs="monofont">friends1.py</tt>
+							<i>example as well as for the code in the remaining part of the chapter.</I></P>
+</P></Div><br>
+
+					<P>One possible resulting screen appears in <A HRef="277#6.html">Figure19-6</a>, assuming the user typed in "erick allen" as the name and clicked on the "10 friends" radio button.</p>
+
+					<center>
+						<h5>
+<a name="6"></a>Figure 19-6. Friends Results Page in IE3 on Windows</h5>
+						
+							
+								<imG boRder="0" Width="500" HeigHT="295" SRc="graphics/19fig06.gif" alt="graphics/19fig06.gif">
+							
+						
+					</CENTer>
+
+					<p>The screen snapshot this time is represented by the older IE3 browser in a Windows environment.</p>
+
+					<P>If you are a Web site producer, you may be thinking, "Gee, wouldn't it be nice if I could automatically capitalize this person's name, especially if they forgot?" This can easily be accomplished using Python CGI. (And we shall do so soon!)</P>
+
+					<P>Notice how on a GET request that our form variables and their values are added to the form action URL in the "Address" bar. Also, did you observe that the title for the <Tt claSS="monofont">friends.htm</TT> page has the word "static" in it while the output screen from friends.py has the work "dynamic" in <i>its</i> title? We did that for a reason: to indicate that <tt class="monofont">friends.htm</tt> file is a static text file while the results page is dynamically-generated. In other words, the HTML for the results page did not exist on disk as a text file; rather, it was generated by our CGI script and returned it as if it <i>was</i> a local file.</p>
+
+					<p>In our next example, we will bypass static files altogether by updating our CGI script to be somewhat more multifaceted.</p>
+
+				
+				<h4>Generating Form and Results Pages</h4>
+					<p>We obsolete <tT clAss="monofont">friends.html</tT> and merge it into <tt clAss="monofont">friends2.py.</tT> The script will now generate both the form page as well as the results page. But how can we tell which page to generate? Well, if there is form data being sent to us, that means that we should be creating a results page. If we do not get any information at all, that tells us that we should generate a form page for the user to enter his or her data.</P>
+
+					<P>Our new <Tt claSS="monofont">friends2.py</TT> script is shown in <a hreF="277#8.html">Example 19.4</A>.</P>
+
+					
+						<H5>
+<a namE="8"></A>Example 19.4. Generating Form and Results Pages (<TT class="monofont">friends2.py</tt>)</h5>
+						<p><b><i>Both</i></b>
+							<tt class="monofont">friends.html</Tt>
+							<b><I>and</i></b>
+							<tT clasS="monofont">friends1.py</tt>
+							<b><I>are merged together as</I></B>
+							<Tt claSS="monofont">friends2.py.</TT>
+							<b><i>The resulting script can now output both form and results pages as dynamically-generated HTML and has the smarts to know which page to output.</i></b></P>
+
+						<PRE clasS="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <B>import</B> cgi
+004 4  
+005 5  header =  'Content-Type: text/html\n\n'
+006 6  
+007 7  formhtml =  '''&lt;<B>HTML</b>&gt; &lt;<b>HEAD</b>&gt;&lt;<b>TITLE</b>&gt;
+008 8  Friends CGI Demo&lt;<b>/TITLE</b>&gt;&lt;/HEAD&gt;
+009 9  &lt;<b>BODY</b>&gt;&lt;<b>H3</b>&gt;Friends list for: &lt;<b>I</b>&gt;NEW USER&lt;<b>/I&gt;</b>&gt;&lt;<b>/H3</b>&gt;
+010 10 &lt;<b>FORM</b> ACTION="/cgi-bin/friends2.py"&gt;
+011 11 &lt;<b>B</B>&gt;Enter your Name:&lt;<b>/B</b>&gt;
+012 12 &lt;<B>INPUT</b> TYPE=hidden NAME=action VALUE=edit&gt;
+013 13 &lt;<b>INPUT</b> TYPE=text NAME=person SIZE=15&gt;
+014 14 &lt;<B>P</b>&gt;&lt;<b>B</b>&gt;How many friends do you have?&lt;<b>/B</B>&gt;
+015 15 %s
+016 16 &lt;<b>P</b>&gt;&lt;<b>INPUT</B> TYPE=submit&gt;&lt;<B>/FORM</B>&gt;&lt;<B>/BODY</b>&gt;&lt;<b>/HTML</b>&gt;'''
+017 17
+018 18 fradio = '&lt;<b>INPUT</B> TYPE=radio NAME=howmany VALUE="%s" %s&gt; %s\n'
+019 19
+020 20 <B>def</B> showForm():
+021 21     friends = ''
+022 22     <B>for</b> i <b>in</b> [0, 10, 25, 50, 100]:
+023 23         checked = ''
+024 24         <b>if</B> i == 0:
+025 25            checked = 'CHECKED'
+026 26         friends = friends + fradio % \
+027 27             (str(i), checked, str(i))
+028 28
+029 29     <B>print</B> header + formhtml % (friends)
+030 30
+031 31 reshtml = '''&lt;<B>HTML</b>&gt;&lt;<b>HEAD</b>&gt;&lt;<b>TITLE</B>&gt;
+032 32 Friends CGI Demo&lt;<B>/TITLE</B>&gt;&lt;<B>/HEAD</b>&gt;
+033 33 &lt;<b>BODY</b>&gt;&lt;<b>H3</b>&gt;Friends list for: &lt;<b>I</b>&gt;%s&lt;<b>/I</b>&gt;&lt;<b>/H3</b>&gt;
+034 34 Your name is: &lt;<b>B</b>&gt;%s&lt;<b>/B</b>&gt;&lt;<b>P</b>&gt;
+035 35 You have &lt;<b>B</b>&gt;%s&lt;<b>/B</B>&gt; friends.
+036 36 &lt;<b>/BODY</b>&gt;&lt;<B>/HTML</b>&gt;'''
+037 37
+038 38 <b>def</b> doResults(who, howmany):
+039 39     <B>print</b> header + reshtml % (who, who, howmany)
+040 40
+041 41 <b>def</b> process():
+042 42     form = cgi.FieldStorage()
+043 43     <b>if</B> form.has_key('person'):
+044 44         who = form['person'].value
+045 45     <b>else:</b> &lt;$nopage&gt;
+046 46         who = 'NEW USER'
+047 47
+048 48     <b>if</B> form.has_key('howmany'):
+049 49         howmany = form['howmany'].value
+050 50     <B>else:</B> &lt;$nopage&gt;
+051 51         howmany = 0
+052 52
+053 53     <B>if</b> form.has_key('action'):
+054 54         doResults(who, howmany)
+055 55     <b>else:</b> &lt;$nopage&gt;
+056 56         showForm()
+057 57 
+058 58 if __name__ == '__main__':
+059 59      process()
+060  &lt;$nopage&gt;</pRE>
+					
+					<P>So what did we change in our script? Let's take a look at some of the blocks of code in this script.</P>
+
+					<h5>Line-by-line explanation</h5>
+						<h5>Lines 1 – 5</h5>
+							<P>In addition to the usual start-up and module import lines, we separate the HTTP MIME header from the rest of the HTML body because we will use it for both types of pages (form page and results page) returned and don't want to duplicate the text. We will add this header string to the corresponding HTML body when it comes time for output to occur.</P>
+
+						
+						<H5>Lines 7 – 29</H5>
+							<p>All of this code is related to the now-integrated <tt cLASS="monofont">friends.htm</tt> form page in our CGI script. We have a variable for the form page text, <tt class="monofont">formhtml,</tt> and we also have a string to build the list of radio buttons, <tt class="monofont">fradio.</tt> We could have duplicated this radio button HTML text as it is in <Tt cLass="monofont">friends.htm,</Tt> but we wanted to show how we could use Python to generate more dynamic output—see the <b><tt ClasS="monofont">for</TT></B>-loop on lines 22–27.</p>
+
+							<p>The <tt CLASs="monofont">showForm()</tt> function has the responsibility of generating a form for user input. It builds a set of text for the radio buttons, merges those lines of HTML into the main body of <tT CLAss="monofont">formhtml,</tt> prepends the header to the form, and then returns the entire wad of data back to the client by sending the entire string to standard output.</P>
+
+							<P>There are a couple of interesting things to note about this code. The first is the "hidden" variable in the form called <TT class="monofont">action,</tt> containing the value, "edit" on line 12. This field is the only way we can tell which screen to display (i.e., the form page or the results page). We will see this field come into play in lines 53–56.</p>
+
+							<p>Also, observe that we set the 0 radio button as the default by "checking" it within the loop that generates all the buttons. This will also allow us to update the layout of the radio buttons and/or their values on a single line of code (line 18) rather than over multiple lines of text. It will also offer some more flexibility in letting the logic determine which radio button is checked—see the next update to our script, <tt class="monofont">friends3.py</tt> coming up.</p>
+
+							<p>Now you may be thinking, "Why do we need an <Tt cLass="monofont">action</Tt> variable when I could just as well be checking for the presence of <tt cLass="monofont">person</TT> or <TT clasS="monofont">howmany?</TT>" That is a valid question because yes, you could have just used <Tt claSS="monofont">person</TT> or <tt clASS="monofont">howmany</Tt> in this situation.</p>
+
+							<p>However, the <tt class="monofont">action</tt> variable is a more conspicuous presence, in as far as its name as well as what it does—the code is easier to understand. The <tt class="monofont">person</tT> and <tt ClasS="monofont">howmany</tt> variables are used for their values while the <tt ClasS="monofont">action</TT> variable is used as a flag.</P>
+
+							<p>The other reason for creating <tt cLASS="monofont">action</tt> is that we will be using it again to help us determine which page to generate. In particular, we will need to display a form <i>with</i> the resence of a <TT CLass="monofont">person</tT> variable (rather than a results page)—this will break your code if you are solely relying on there being a <TT Class="monofont">person</tt> variable.</p>
+
+						
+						<h5>Lines 31 – 39</h5>
+							<p>The code to display the results page is practically identical to that of <tt class="monofont">friends1.py.</tt></p>
+
+						
+						<H5>Lines 41 – 56</h5>
+							<p>Since there are different pages which can result from this one script, we created an overall <Tt clAss="monofont">process()</tt> function to get the form data and decide which action to take. The main portion of <Tt clASS="monofont">process()</Tt> will also look familiar to the main body of code in <tt cLASS="monofont">friends1.py.</tt> There are two major differences, however.</p>
+
+							<p>Since the script may or may not be getting the expected fields (invoking the script the first time to generate a form page, for example, will not pass any fields to the server), we need to "bracket" our retrieval of the form fields with <B><TT Class="monofont">if</TT></B> statements to check if they are even there. Also, we mentioned the <Tt class="monofont">action</tt> field above which helps us decide which page to bring up. The code that performs this determination is in lines 53–56.</p>
+
+							<p>In <a href="277#14.html">Figure19-8</a> and <a hreF="277#15.html">Figure19-7</a>, you will see first the form screen generated by our script (with a name entered and radio button chosen), followed by the results page, also generated by our script.</p>
+
+							<CentEr>
+								<h5>
+<a nAme="14"></a>Figure 19-8. Friends Form Page in Netscape4 on Windows</H5>
+								
+									
+										<IMG bordER="0" WIdth="500" hEIGHt="246" src="graphics/19fig08.gif" ALT="graphics/19fig08.gif">
+									
+								
+							</Center>
+
+							<center>
+								<h5>
+<a name="15"></a>Figure 19-7. Friends Results Page in Netscape4 on Windows</h5>
+								
+									
+										<iMg bOrdeR="0" widtH="500" heiGHT="247" Src="graphics/19fig07.gif" alT="graphics/19fig07.gif">
+									
+								
+							</CENter>
+
+							<p>If you look at the location or "Go to" bar, you will not see a URL referring to a static <TT CLass="monofont">friends.htm</tT> file as you did in <A HRef="277#3.html">Figure19-4</a> or <a href="277#3.html">Figure19-5</a> earlier.</p>
+
+						
+					
+				
+				<h4>Fully Interactive Web Sites</h4>
+					<p>Our final example will complete the circle. As in the past, a user enters his or her information from the form page. We then process the data and output a results page. Now we will add a link to the results page that will allow the user to go <i>back</i> to the form page, but rather than presenting a blank form, we will fill in the data that the user has already provided. We will also add some error processing to give you an example of how it can be accomplished.</p>
+
+					<p>We now present our final update, <tt cLasS="monofont">friends3.py</tt> in <a Href="277#17.html">Example 19.5</a>.</P>
+
+					
+						<h5>
+<a nAME="17"></A>Example 19.5. Full User Interaction and Error Processing (<tt clASS="monofont">friends3.py</Tt>)</h5>
+						<p><b><I>By adding a link to return to the form page with information already provided, we have come "full circle," giving the user a fully-interactive Web surfing experience. Our application also now performs simple error checking which notifies the user if no radio button was selected.</I></B></P>
+
+						<pre cLASS="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2  
+003 3  <b>import</b> cgi
+004 4  <b>from</b> urllib <b>import</b> quote_plus
+005 5  <b>from</b> string <b>import</b> capwords
+006 6
+007 7  header = 'Content-Type: text/html\n\n'
+008 8  url = '/cgi-bin/friends3.py'
+009 9
+010 10 errhtml = '''&lt;<b>HTML</b>&gt;&lt;HEAD&gt;&lt;<b>TITLE</b>&gt;
+011 11 Friends CGI Demo&lt;<b>/TITLE</b>&gt;&lt;<b>/HEAD</b>&gt;
+012 12 &lt;<b>BODY</b>&gt;&lt;<B>H3</b>&gt;ERROR&lt;<b>/H3</B>&gt;
+013 13 &lt;<b>B</b>&gt;%s&lt;<b>/B</B>&gt;&lt;<b>P</b>&gt;
+014 14 &lt;<b>FORM</b>&gt;&lt;<B>INPUT</b> TYPE=button VALUE=Back
+015 15 ONCLICK="window.history.back()"&gt;&lt;<b>/FORM</b> &lt;$nopage&gt;
+016 16 &lt;<B>/BODY</B>&gt;&lt;<B>/HTML</B>&gt;'''
+017 17
+018 18 <b>def</b> showError(error_str):
+019 19      <b>print</b> header + errhtml % (error_str)
+020 20
+021 21 formhtml = '''&lt;<B>HTML</B>&gt;&lt;<B>HEAD</B>&gt;&lt;<b>TITLE</b>&gt;
+022 22 Friends CGI Demo&lt;<b>/TITLE</b>&gt;&lt;<B>/HEAD</B>&gt;
+023 23 &lt;<B>BODY</B>&gt;&lt;<b>H3</b>&gt;Friends list for: &lt;<b>I</b>&gt;%s&lt;<B>/I</B>&gt;&lt;<B>/H3</B>&gt;
+024 24 &lt;<b>FORM</b> ACTION="%s"&gt;
+025 25 &lt;<b>B</b>&gt;Your Name:&lt;<b>/B</b>&gt;
+026 26 &lt;<b>INPUT</b> TYPE=hidden NAME=action VALUE=edit&gt;
+027 27 &lt;<b>INPUT</b> TYPE=text NAME=person VALUE="%s" SIZE=15&gt;
+028 28 &lt;<b>P</b>&gt;&lt;<b>B</b>&gt;How many friends do you have?&lt;<b>/B</b>&gt;
+029 29 %s
+030 30 &lt;<b>P</b>&gt;&lt;<b>INPUT</b> TYPE=submit&gt;&lt;<B>/FORM</b>&gt;&lt;<b>/BODY</B>&gt;&lt;<b>/HTML</b>&gt;'''
+031 31
+032 32 fradio = '&lt;<b>INPUT</B> TYPE=radio NAME=howmany VALUE="%s" %s&gt; %s\n'
+033 33
+034 34 <b>def</b> showForm(who, howmany):
+035 35      friends = ''
+036 36      <b>for</b> i <B>in</b> [0, 10, 25, 50, 100]:
+037 37         checked = ''
+038 38         <b>if</b> str(i) == howmany:
+039 39            checked = 'CHECKED'
+040 40         friends = friends + fradio % \
+041 41            (str(i), checked, str(i))
+042 42      <B>print</B> header + formhtml % (who, url, who, friends)
+043 43
+044 44 reshtml = '''&lt;<B>HTML</B>&gt;&lt;<b>HEAD</b>&gt;&lt;<b>TITLE</b>&gt;
+045 45 Friends CGI Demo&lt;<B>/TITLE</B>&gt;&lt;<B>/HEAD</B>&gt;
+046 46 &lt;<b>BODY</b>&gt;&lt;<b>H3</b>&gt;Friends list for: &lt;<B>I</B>&gt;%s&lt;<B>/I</B>&gt;&lt;<b>/H3</b>&gt;
+047 47 Your name is: &lt;<b>B</b>&gt;%s&lt;<B>/B</B>&gt;&lt;<B>P</B>&gt;
+048 48 You have &lt;<b>B</b>&gt;%s&lt;<b>/B</b>&gt; friends.
+049 49 &lt;<b>P</b>&gt;Click &lt;<b>A HREF</b>="%s"&gt;here&lt;<b>/A</b>&gt; to edit your data again.
+050 50 &lt;<b>/BODY</b>&gt;&lt;<b>/HTML</b>&gt;'''
+051 51
+052 52 <b>def</b> doResults(who, howmany):
+053 53      newurl = url + '?action=reedit&amp;person=%s&amp;howmany=%s'%\
+054 54         (quote_plus(who), howmany)
+055 55      <b>print</b> header + reshtml % (who, who, howmany, newurl)
+056 56
+057 57 <b>def</b> process():
+058 58      error = ''
+059 59      form = cgi.FieldStorage()
+060 60
+061 61      <B>if</b> form.has_key('person'):
+062 62        who = capwords(form['person'].value)
+063 63      <b>else:</B> &lt;$nopage&gt;
+064 64        who = 'NEW USER'
+065 65
+066 66      <b>if</b> form.has_key('howmany'):
+067 67        howmany = form['howmany'].value
+068 68      <b>else:</B> &lt;$nopage&gt;
+069 69        <b>if</b> form.has_key('action') <b>and</b> \
+070 70               form['action'].value == 'edit':
+071 71           error = 'Please select number of friends.'
+072 72        <B>else:</b> &lt;$nopage&gt;
+073 73          howmany = 0
+074 74
+075 75      <b>if not</b> error:
+076 76         <B>if</B> form.has_key('action') <B>and</B> \
+077 77               form['action'].value != 'reedit':
+078 78           doResults(who, howmany)
+079 79      <b>else:</b> &lt;$nopage&gt;
+080 80        showForm(who, howmany)
+081 81      <b>else:</b> &lt;$nopage&gt;
+082 82        showError(error)
+083 83
+084 84 <B>if</B> __name__ == '__main__':
+085 85      process()
+086  &lt;$nopage&gt;</PRe>
+					
+					<p><tt CLASs="monofont">friends3.py</tt> is not too unlike <tT CLAss="monofont">friends2.py.</tt> We invite the reader to compare the differences; we present a brief summary of the major changes for you here:</p>
+
+					<h5>Abridged line-by-line explanation</h5>
+						<h5>Line 8</h5>
+							<p>We take the URL out of the form because we now need it in two places, the results page being the new customer.</p>
+
+						
+						<h5>Lines 10 – 19, 69 – 71, 75 – 82</h5>
+							<p>All of these lines deal with the new feature of having an error screen. If the user does not select a radio button indicating the number of friends, the <tt clasS="monofont">howmany</tt> field is not passed to the server. In such a case, the <Tt clAss="monofont">showError()</tt> function returns the error page to the user.</P>
+
+							<p>The error page also features a JavaScript "Back" button. Because buttons are input types, we need a form, but no action is needed because we are simply just going back one page in the browsing history. Although our script currently supports (a.k.a. detects, tests for) only one type of error, we still use a generic <tt CLASs="monofont">error</tt> variable in case we wanted to continue development of this script to add more error detection in the future.</p>
+
+						
+						<H5>Lines 27, 38–41, 49, and 52–55</H5>
+							<P>One goal for this script is to create a meaningful link back to the form page from the results page. This is implemented as a link to give the user the ability to return to a form page to update the data her or she entered, in case it was erroneous. The new form page makes sense only if it contains information pertaining to the data that has already been entered by the user. (It is frustrating for users to reenter their information from scratch!)</P>
+
+							<p>To accomplish this, we need to embed the current values into the updated form. In line 27, we add a value for the name. This value will be inserted into the name field, if given. Obviously, it will be blank on the initial form page. In Line 38–41, we set the radio box which corresponds to the number of friends currently chosen. Finally, on lines 49 and the updated <tt cLASS="monofont">doResults()</tt> function on lines 52–55, we create the link with all the existing information which "returns" the user to our modified form page.</p>
+
+						
+						<h5>Line 62</H5>
+							<P>Finally, we added a simple feature that we thought would add a nice aesthetic touch. In the screens for <TT class="monofont">friends1.py</tt> and <tt class="monofont">friends2.py,</tt> the text entered by the user as his or her name is taken verbatim. You will notice in the screens above that if the user does not capitalize his or her names, that is reflected in the results page. We added a call to the <tt clAss="monofont">string.capwords()</Tt> function to automatically capitalize a user's name. The <tt Class="monofont">capwords()</Tt> function will capitalize the first letter of each word in the string that is passed in. This may or may not be a desired feature, but we thought that we would share it with you so that you know that such functionality exists.</p>
+
+							<p>We will now present four screens which shows the progression of user interaction with this CGI form and script.</P>
+
+							<P>In the first screen, shown in <A Href="277#23.html">Figure19-9</a>, we invoke <TT CLass="monofont">friends3.py</tT> to bring up the now-familiar form page. We enter a name "bar foo," but deliberately avoid checking any of the radio buttons. The resulting error after submitting the form can be seen in the second screen (<A HRef="277#23.html">Figure19-10</a>).</p>
+
+							<CENTer>
+								<h5>
+<a name="23"></a>Figure 19-9. Friends Initial Form Page in Netscape3 on Windows</h5>
+								
+									
+										<img border="0" wIdtH="500" heiGht="345" srC="graphics/19fig09.gif" alt="graphics/19fig09.gif">
+									
+								
+							</CENTer>
+
+							<p>We click on the "Back" button, check the "50" radio button, and resubmit our form. The results page, seen in <a HREF="277#24.html">Figure 19-11</a>, is also familiar, but now has an extra link at the bottom. This link will take us back to the form page.</p>
+
+							<ceNTER>
+								<h5>
+<a naME="24"></A>Figure 19-11. Friends Results Page (Valid Input)</H5>
+								
+									
+										<img border="0" width="500" height="344" Src="graphics/19fig11.gif" Alt="graphics/19fig11.gif">
+									
+								
+							</cEnter>
+
+							<P>The only difference between the new form page and our original is that all the data filled in by the user is now set as the "default" settings, meaning that the values are already available in the form. We can see this in <a hrEF="277#26.html">Figure19-12</A>.</P>
+
+							<centER>
+								<H5>
+Figure 19-10. Friends Error Page (invalid user input)</H5>
+								
+									
+										<img bORDEr="0" widTH="500" HEight="347" src="graphics/19fig10.gif" alt="graphics/19fig10.gif">
+									
+								
+							</center>
+
+							<centEr>
+								<h5>
+<A namE="26"></a>Figure 19-12. Friends Updated Form Page with Current Information</h5>
+								
+									
+										<imG borDER="0" Width="500" HEIGht="345" srC="graphics/19fig12.gif" ALT="graphics/19fig12.gif">
+									
+								
+							</centER>
+
+							<P>Now the user is able to make changes to either of the fields and resubmit their form.</P>
+
+							<p>You will no doubt begin to notice that as our forms and data get more complicated, so does the generated HTML, especially for complex results pages. If you ever get to a point where generating the HTML text is interfering with your application, you may consider connecting with a Python module such as <tt class="monofont">HTMLgen,</tt> an external Python module which specializes in HTML generation.</p>
+
+						
+					
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="276.html" title="CGI: Helping Web Servers Process Client Data"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=277" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="277.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="278.html" title="Advanced CGI"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

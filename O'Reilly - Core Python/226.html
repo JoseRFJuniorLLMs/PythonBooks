@@ -1,0 +1,383 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Delegation</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="210.html" class="navtitle">13. Classes and OOP</a> &gt; <span class="nonavtitle">Delegation</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="225.html" title="Privacy"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=226" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="226.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="227.html" title="Related Modules and Documentation"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A17%3A42+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004231202153046039057030079</font><a href="read7.asp?bookname=0130260363&snode=226&now=5%2F30%2F2002+8%3A17%3A42+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Delegation</h3>
+				<p></p>
+
+				<A NAMe="1"></a>
+					<h4>Wrapping</h4>
+					<P>"Wrapping" is a term you will hear often in the Python programming world. It is a generic moniker to describe the packaging of an existing object, whether it be a data type or a piece of code, adding new, removing undesired, or otherwise modifying existing functionality to the existing object.</P>
+
+					<P>The subclassing or derivation of a standard type in Python is not allowed; however, you can wrap any type as the core member of a class so that the new object's behavior mimics all existing behavior of the data type that you want, does not do what you do not want it to do, and perhaps does something a little extra. This is called "wrapping a type." In the Appendix, we will discuss how to extend Python, another form of wrapping.</P>
+
+					<p>Wrapping consists of defining a class whose instances have the core behavior of a standard type. In other words, it not only sings and dances now, but also walks and talks like our original type. <a hrEF="226#2.html">Figure13-2</A> attempts to illustrate what a type wrapped in a class looks like. The core behavior of a standard type is in the center of the figure, but it is also enhanced by new or updated functionality, and perhaps even by different methods of accessing the actual data.</P>
+
+					<center>
+						<h5>
+<a name="2"></a>Figure 13.2. Wrapping a Type</h5>
+						
+							
+								<img borDer="0" WidtH="500" heigHt="309" srC="graphics/13fig02.gif" ALT="graphics/13fig02.gif">
+							
+						
+					</centER>
+
+					
+						<H5>Class Object (which behaves like a type)</H5>
+						<p>You may also wrap classes, but this does not make as much sense because there is already a mechanism for taking an object and wrapping it in a manner as described above for a standard type. How would you take an existing class, mimic the behavior you desire, remove what you do not like, and perhaps tweak something to make the class perform differently from the original class?  That process, as we discussed recently, is derivation. We wrap only types because they cannot be subclassed.</p>
+
+					
+				
+				
+					<h4>Implementing Delegation</h4>
+					<P>Delegation is a characteristic of wrapping that you can utilize which simplifies the process with regards to dictating functionality.</P>
+
+					<P>Delegation is a form of wrapping which takes advantage of pre-existing functionality to maximize code reuse. Wrapping a type generally consists of some sort of customization to the existing type. As we mentioned before, this "tweaking" comes in the form of new, modified, or removed functionality compared to the original product. Everything else should "remain the same," or keep its existing functionality and behavior. Delegation is the process whereby all the updated functionality is handled as part of the new class, but the existing functionality is "delegated" to the default attributes of the object.</P>
+
+					<p>The key to implementing delegation is to override the <tt cLASS="monofont">__getattr__()</tt> method with code containing a call to the built-in <tt class="monofont">getattr()</tt> function. Specifically, <tt class="monofont">getattr()</tt> is invoked to obtain the default object attribute (data attribute or method) and return it for access or invocation. The way the special method <Tt cLass="monofont">__getattr__()</Tt> works is that when an attribute is searched for, any local ones are found first (the customized ones). If the search fails, then <tt cLass="monofont">__getattr__()</TT> is invoked, which then calls <TT clasS="monofont">getattr()</TT> to obtain an object's default behavior.</P>
+
+					<p>In other words, when an attribute is referenced, the Python interpreter will attempt to find that name in the local namespace, such as a customized method or local instance attribute. If it is not found in the local dictionary, then the class namespace is searched, just in case a class attribute was accessed. Finally, if both searches fail, the hunt begins to delegate the request to the original object, and that is when <tt cLASS="monofont">__getattr__()</tt> is invoked.</p>
+
+					
+						<h5>Simple Example Wrapping Any Object</H5>
+						<P>Let us take a look at an example. We present below a class which wraps nearly any object, providing basic functionality as string representations with <TT class="monofont">repr()</tt> and <tt class="monofont">str().</tt> Additional customization comes in the form of the <tt clAss="monofont">get()</Tt> method, which removes the wrapping and returns the raw object. All remaining functionality is delegated to the object's native attributes as retrieved by <tt Class="monofont">__getattr__()</Tt> when necessary.</p>
+
+						<p>Here's an example wrapping class:</P>
+
+						<PRE>
+							
+<b>class</b> WrapMe:
+
+     <b>def</b> __init__(self, obj):
+         self.__data = obj
+
+     <B>def</B> get(self):
+         <B>return</B> self.__data
+
+     <b>def</b> __repr__(self):
+         <b>return</b> 'self.__data'
+
+     <B>def</B> __str__(self):
+         <B>return</B> str(self.__data)
+
+     <b>def</b> __getattr__(self, attr):
+         <b>return</b> getattr(self.__data, attr)
+
+						</PRE>
+
+						<P>In our first example, we will use complex numbers, because of all Python's numeric types, complex numbers are the only one with attributes, data attributes as well as its <tt class="monofont">conjugate()</tt> built-in method. Remember that attributes can be both data attributes as well as functions or methods. Again, we chose complex numbers because it is an example of a standard which has both attribute types. Here is an example with a complex number:</p>
+
+						<pre>
+							
+&gt;&gt;&gt; wrappedComplex = WrapMe(3.5+4.2j)
+&gt;&gt;&gt; wrappedComplex             # wrapped object [repr()]
+[repr()]
+(3.5+4.2j)
+&gt;&gt;&gt; wrappedComplex.real        # real attribute
+3.5
+&gt;&gt;&gt; wrappedComplex.imag        # imaginary attribute
+42.2
+&gt;&gt;&gt; wrappedComplex.conjugate() # conjugate() method
+(3.5–4.2j)
+&gt;&gt;&gt; wrappedComplex.get()       # actual object
+(3.5+4.2j)
+
+						</pre>
+
+						<p>Once we create our wrapped object type, we obtain a string representation, silently using the call to <tt cLasS="monofont">repr()</tt> by the interactive interpreter. We then proceed to access all three complex number attributes, none of which is defined for our class. All three accesses are delegated to the object's attributes via the <tT clasS="monofont">getattr()</tt> method. The final access to our example object is to retrieve an attribute that is defined for our object, the <tT CLAss="monofont">get()</tt> method which returns the actual data object that we wrapped.</P>
+
+						<P>Our next example using our wrapping class uses a list. We will create the object, then perform multiple operations, delegating each time to list methods.</P>
+
+						<Pre>
+							
+&gt;&gt;&gt; wrappedList = WrapMe([123, 'foo', 45.67])
+&gt;&gt;&gt; wrappedList.append(\xd4 bar\xd5 )
+&gt;&gt;&gt; wrappedList.append(123)
+&gt;&gt;&gt; wrappedList
+[123, 'foo', 45.67, 'bar', 123]
+&gt;&gt;&gt; wrappedList.index(45.67)
+2
+&gt;&gt;&gt; wrappedList.count(123)
+2
+&gt;&gt;&gt; wrappedList.pop()
+123
+&gt;&gt;&gt; wrappedList
+[123, 'foo', 45.67, 'bar']
+
+						</prE>
+
+						<P>Notice that although we are using a class instance for our examples, they exhibit behavior extremely similar to the data types which they wrap. Be aware, however, that only existing attributes can delegated.</P>
+
+						<P>Special behaviors which are not in a type's method list will not be accessible since they are not attributes. One example is the slicing operations of lists which are built-in to the type and not available as an attribute like the <tt clASS="monofont">append()</Tt> method for example. Another way of putting it is that the slice operator ( <tt class="monofont">[ ]</tt> ) is part of the sequence type and is not implemented through the <tt class="monofont">__getitem__()</tt> special method.</p>
+
+						<Pre>
+							
+&gt;&gt;&gt; wrappedList[3]
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+  File "wrapme.py", line 21, in __getattr__
+    return getattr(self.data, attr)
+AttributeError: __getitem__
+
+						</Pre>
+
+						<p>The <Tt claSs="monofont">AttributeError</tt> exception results from the fact that the slice operator invokes the <TT CLass="monofont">__getitem__()</tT> method, and <TT Class="monofont">__getitem__()</TT> is not defined as a class instance method nor is it a method of list objects. Recall that <TT clasS="monofont">getattr()</TT> is called only when an exhaustive search through an instance's or class's dictionaries fails to find a successful match. As you can see above, the call to <Tt class="monofont">getattr()</tt> is the one which fails, triggering the exception.</p>
+
+						<p>However, we can always cheat by accessing the real object [with our <tt class="monofont">get()</tt> method] and its slicing ability instead:</p>
+
+						<Pre>
+							
+&gt;&gt;&gt; realList = wrappedList.get()
+&gt;&gt;&gt; realList[3]
+'bar'
+
+						</Pre>
+
+						<p>You probably have a good idea now why we implemented the <Tt claSs="monofont">get()</tt> method—just for cases like this where we need to obtain access to the original object. We can bypass assigning local variable (<TT CLass="monofont">realList</tT>) by accessing the attribute of the object directly from the access call:</P>
+
+						<PRe>
+							
+&gt;&gt;&gt; wrappedList.get()[3]
+'bar'
+
+						</pre>
+
+						<P>The <TT Class="monofont">get()</TT> method returns the object which is then immediately indexed to obtain the sliced subset.</P>
+
+						<Pre>
+							
+&gt;&gt;&gt; f = WrapMe(open('/etc/motd'))
+&gt;&gt;&gt; f
+&lt;open file '/etc/motd', mode 'r' at 80e95e0&gt;
+&gt;&gt;&gt; f.readline()
+'Have a lot of fun…\012'
+&gt;&gt;&gt; f.tell()
+21
+&gt;&gt;&gt; f.seek(0)
+&gt;&gt;&gt; <b>print</b> f.readline(),
+Have a lot of fun…
+&gt;&gt;&gt; f.close()
+&gt;&gt;&gt; f
+&lt;closed file '/etc/motd', mode 'r' at 80e95e0&gt;
+
+						</pre>
+
+						<p>Once you become familiar with an object's attributes, you begin to understand where certain pieces of information originate and are able to duplicate functionality with your newfound knowledge:</p>
+
+						<pre>
+							
+&gt;&gt;&gt; <b>print</b> "&lt;%s file %s, mode %s at %x&gt;"  % \
+… (f.closed <b>and</b> 'closed' <b>or</b> 'open', "f.name",
+"f.mode", id(f.get()))
+&lt;closed file '/etc/motd', mode 'r' at 80e95e0&gt;
+
+						</prE>
+
+						<p>This concludes the sampling of our simple wrapping class. We have only just begun to touch on class customization with type emulation. You will discover that there are an infinite number of enhancements you can make to further increase the usefulness of your code. One such enhancement would be to add timestamps to objects. In the next subsection, we will add another dimension to our wrapping class:  time.</p>
+
+					
+					
+						<H5>Updating Our Simple Wrapping Class</h5>
+						<p>Creation time, modification time, and access time are familiar attributes of files, but nothing says that you cannot add this type of information to objects. After all, certain applications may benefit from these additional pieces of information.</p>
+
+						<P>If you are unfamiliar with using these three pieces of chronological data, we will attempt to clarify them. The creation time (or "ctime") is the time of instantiation, the modification time (or "mtime") refers to the time that the core data was updated [accomplished by calling the new <tt clAss="monofont">set()</tT> method], and the access time (or "atime") is the timestamp of when the data value of the object was last retrieved or an attribute was accessed.</P>
+
+						<P>Proceeding to updating the class we defined earlier, we create the module <Tt claSS="monofont">twrapme.py,</TT> given in <a hreF="226#7.html">Example 13.3</A>.</P>
+
+						<P>How did we update the code? Well, first, you will notice the addition of three new methods: <tt clASS="monofont">gettimeval(), gettimestr(),</Tt> and <tt class="monofont">set().</tt> We also added lines of code throughout which update the appropriate timestamps based on the type of access performed.</p>
+
+						<p>The <tt class="monofont">gettimeval()</tT> method takes a single character argument, either "c,"
+							"m," or "a," for create, modify, or access time, respectively, and returns the corresponding time that is stored as a float value. <tt ClasS="monofont">gettimestr()</tt> simply returns a pretty-printable string version of the time as formatted by the <tt ClasS="monofont">time.ctime()</TT> function.</P>
+
+						<p>Let us take a test drive of our new module. We have already seen how delegation works, so we are going to wrap objects without attributes to highlight the new functionality we just added.</p>
+
+						
+							<h5>
+<a NAME="7"></a>Example 13.3. Wrapping Standard Types (<tt cLASS="monofont">twrapme.py</tt>)</h5>
+							<p><B><I>Class definition which wraps any built-in type, adding time attributes;</I></B>
+								<tt class="monofont">get(), set(),</tt>
+								<b><i>and string representation methods; and delegating all remaining attribute access to those of the standard type.</i></b></p>
+
+							<pre>
+								 &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <b>from</b> time <b>import</B> time, ctime
+004 4
+005 5  <b>class</b> TimedWrapMe:
+006 6
+007 7      <B>def</b> __init__(self, obj):
+008 8         self.__data = obj
+009 9         self.__ctime = self.__mtime = \
+010 10        self.__atime = time()
+011 11
+012 12     <b>def</b> get(self):
+013 13        self.__atime = time()
+014 14        <B>return</b> self.__data
+015 15
+016 16     <b>def</b> gettimeval(self, t_type):
+017 17        <b>if</B> type(t_type) != type('') <b>or</b> \
+018 18                t_type[0] <b>not in</B> 'cma':
+019 19             <B>raise</B> TypeError, \
+020 20             "argument of 'c', 'm', or 'a' req'd"
+021 21        <B>return</b> eval('self._%s__%stime' % \
+022 22             (self.__class__.__name__, t_type[0]))
+023 23
+024 24     <b>def</b> gettimestr(self, t_type):
+025 25        <b>return</B> ctime(self.gettimeval(t_type))
+026 26
+027 27     <B>def</B> set(self, obj):
+028 28        self.__data = obj
+029 29        self.__mtime = self.__atime = time()
+030 30
+031 31     <B>def</b> __repr__(self):# rep()
+032 32        self.__atime = time()
+033 33        <b>return</b> \xd4 self.__data\xd4
+034 34
+035 35     <b>def</B> __str__(self):# str()
+036 36        self.__atime = time()
+037 37        <B>return</B> str(self.__data)
+038 38
+039 39     <B>def</b> __getattr__(self, attr):# delegate
+040 40        self.__atime = time()
+041 41        <b>return</b> getattr(self.__data, attr)
+042  &lt;$nopage&gt;
+							</pRE>
+
+							<PRe>
+								
+&gt;&gt;&gt; timeWrappedObj = TimedWrapMe(932)
+&gt;&gt;&gt; timeWrappedObj.gettimestr('c')
+'Wed Apr 26 20:47:41 2000'
+&gt;&gt;&gt; timeWrappedObj.gettimestr('m')
+'Wed Apr 26 20:47:41 2000'
+&gt;&gt;&gt; timeWrappedObj.gettimestr('a')
+'Wed Apr 26 20:47:41 2000'
+&gt;&gt;&gt; timeWrappedObj
+932
+&gt;&gt;&gt; timeWrappedObj.gettimestr('c')
+'Wed Apr 26 20:47:41 2000'
+&gt;&gt;&gt; timeWrappedObj.gettimestr('m')
+'Wed Apr 26 20:47:41 2000'
+&gt;&gt;&gt; timeWrappedObj.gettimestr('a')
+'Wed Apr 26 20:48:05 2000'
+
+							</pre>
+
+							<p>You will notice that when an object is first wrapped, the creation, modification, and last access times are all the same. Once we access the object, the access time is updated, but not the others. If we use <tt class="monofont">set()</tt> to replace the object, the modification and last access times are updated. One final read access to our object concludes our example.</p>
+
+							<pre>
+								
+&gt;&gt;&gt; timeWrappedObj.set('time is up!')
+&gt;&gt;&gt; timeWrappedObj.gettimestr('m')
+'Wed Apr 26 20:48:35 2000'
+&gt;&gt;&gt; timeWrappedObj
+'time is up!'
+&gt;&gt;&gt; timeWrappedObj.gettimestr('c')
+'Wed Apr 26 20:47:41 2000'
+&gt;&gt;&gt; timeWrappedObj.gettimestr('m')
+'Wed Apr 26 20:48:35 2000'
+&gt;&gt;&gt; timeWrappedObj.gettimestr('a')
+'Wed Apr 26 20:48:46 2000'
+
+							</prE>
+
+						
+					
+					
+						<h5>Wrapping a Specific Object with Enhancements</h5>
+						<P>The next example represents a class which wraps a file object. Our class will behave exactly in the same manner as a regular file object with one exception:  In write mode, only strings in all capital letters are written to the file.</p>
+
+						<p>The problem we are trying to solve here is for a case where you are writing text files whose data is to be read by an old mainframe computer. Many older style machines are restricted to uppercase letters for processing, so we want to implement a file object where all text written to the file is automatically converted to uppercase without the programmer's having to worry about it. In fact, the only noticeable difference is that rather than using the <tT clasS="monofont">open()</tt> built-in function, a call is made to instantiate the <tT CLAss="monofont">capOpen</tt> class. Even the parameters are exactly the same as for <TT CLass="monofont">open().</tT></P>
+
+						<P><A href="226#9.html">Example 13.4</A> represents that code, written as <TT Class="monofont">capOpen.py.</tt> Let us take a look at an example of how to use this class:</p>
+
+						
+							<h5>
+<a name="9"></a>Example 13.4. Wrapping a File Object (<tt clasS="monofont">capOpen.py</tt>)</H5>
+							<p><b><i>This class extends on the example from Python FAQ 4.48, providing a file-like object which customizes the</I></b>
+								<tt cLass="monofont">write()</TT>
+								<B><I>method while delegating the rest of the functionality to the file object.</i></b></p>
+
+							<pRE>
+								 &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <B>from</B> string <b>import</b> upper
+004 4
+005 5  <b>class</b> capOpen:
+006 6      <B>def</B> __init__(self, fn, mode='r', buf=-1):
+007 7          self.file = open(fn, mode, buf)
+008 8
+009 9      <B>def</B> __str__(self):
+010 10         <b>return</b> str(self.file)
+011 11
+012 12     <b>def</b> __repr__(self):
+013 13         <B>return</B> 'self.file'
+014 14
+015 15     <B>def</B> write(self, line):
+016 16         self.file.write(upper(line))
+017 17
+018 18     <b>def</b> __getattr__(self, attr):
+019 19         <b>return</b> getattr(self.file, attr)
+020  &lt;$nopage&gt;
+							</pre>
+
+							<pre>
+								
+&gt;&gt;&gt; f = capOpen('/tmp/xxx', 'w')
+&gt;&gt;&gt; f.write('delegation example\n')
+&gt;&gt;&gt; f.write('faye is good\n')
+&gt;&gt;&gt; f.write('at delegating\n')
+&gt;&gt;&gt; f.close()
+&gt;&gt;&gt; f
+&lt;closed file '/tmp/xxx', mode 'w' at 12c230&gt;
+
+							</pre>
+
+							<p>As you can see above, the only call out of the ordinary is the first one to <tt clasS="monofont">capOpen()</tt> rather than <Tt clAss="monofont">open().</tt> All other code is identical to what you would do if you were interacting with a real file object rather than a class instance which behaves like a file object. All attributes other than <Tt clASS="monofont">write()</Tt> have been delegated to the file object. To confirm the success of our code, we load up the file and display its contents. (Note that we can use either <tt cLASS="monofont">open()</tt> or <tt CLASs="monofont">capOpen(),</tt> but chose only <tT CLAss="monofont">capOpen()</tt> because we have been working with this example.)</p>
+
+							<pre>
+								
+&gt;&gt;&gt; f = capOpen('/tmp/xxx')
+&gt;&gt;&gt; allLines = f.readlines()
+&gt;&gt;&gt; <b>for</b> eachLine <b>in</b> allLines:
+…       <b>print</b> eachLine,
+…
+DELEGATION EXAMPLE
+FAYE IS GOOD
+AT DELEGATING
+
+							</pre>
+
+						
+					
+				
+			</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="225.html" title="Privacy"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=226" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="226.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="227.html" title="Related Modules and Documentation"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

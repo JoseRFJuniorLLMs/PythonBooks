@@ -1,0 +1,244 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; map() </TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="170.html" class="navtitle">11. Functions</a> &gt; <span class="nonavtitle">map() </span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="193.html" title="filter() "><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=194" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="194.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="195.html" title="reduce() "><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A34%3A42+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174050111188071080213172</font><a href="read9.asp?bookname=0130260363&snode=194&now=5%2F29%2F2002+9%3A34%3A42+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3><tt cLASS="monofont">map()</tt></h3>
+				<p>The <TT CLass="monofont">map()</tT> built-in function is similar to <TT Class="monofont">filter()</tt> in that it can process a sequence through a function. However, unlike <tt class="monofont">filter(),</tt>
+					<tt claSs="monofont">map()</tT>
+					"maps" the function call to each sequence item and returns a list consisting of all the return values.</p>
+
+				<p>In its simplest form, <tT clasS="monofont">map()</tt> takes a function and sequence, applies the function to each item of the sequence, and creates a return value list that is comprised of each application of the function. So if your mapping function is to add 2 to each number that comes in and you feed that function to <tT CLAss="monofont">map()</tt> along with a list of numbers, the resulting list returned is the same set of numbers as the original, but with 2 added to each number. If we were to code how this simple form of <TT CLass="monofont">map()</tT> works in Python, it might look something like the code below and is illustrated in <A HRef="194#1.html">Figure11-2</a></p>
+
+				<CENTer>
+					<h5>
+<a name="1"></a>Figure 11-2. How the <tt class="monofont">map()</tt> Built-in Function Works</h5>
+					
+						
+							<iMg bOrdeR="0" widtH="500" heiGHT="303" Src="graphics/11fig02.gif" alT="graphics/11fig02.gif">
+						
+					
+				</CENter>
+
+				<pRE>
+					
+<B>def</B> map(<i>func, seq</i>):
+mapped_seq = []
+<b>for</b> eachItem <B>in</B>
+						<I>seq:</I>
+ mapped_seq.append(apply(func, eachItem))
+    <b>return</b> mapped_seq
+
+				</pre>
+
+				<p>We can whip up a few quick <b><tt class="monofont">lambda</tt></b> functions to show you how <tt cLasS="monofont">map()</tt> works on real data:</p>
+
+				<Pre>
+					
+&gt;&gt;&gt; map((<b>lambda</b> x: x+2), [0, 1, 2, 3, 4, 5])
+[2, 3, 4, 5, 6, 7]
+&gt;&gt;&gt;
+&gt;&gt;&gt; map(<B>lambda</b> x: x**2, [0, 1, 2, 3, 4, 5])
+[0, 1, 4, 9, 16, 25]
+&gt;&gt;&gt;
+&gt;&gt;&gt; map((<b>lambda</b> x: x**2), range(6))
+[0, 1, 4, 9, 16, 25]
+
+				</PRE>
+
+				<P>The more general form of <tt clASS="monofont">map()</Tt> can take more than a single sequence as its input. If this is the case, then <tt cLASS="monofont">map()</tt> will iterate through each sequence in parallel. On the first invocation, it will bundle the first element of each sequence into a tuple, apply the <tt CLASs="monofont">func</tt> function to it, and return the result as a tuple into the <i><tt class="monofont">mapped_seq</tt></i> mapped sequence that is finally returned as a whole when <tt clasS="monofont">map()</tt> has completed execution.</P>
+
+				<p><a hRef="194#1.html">Figure11-2</a> illustrated how <tT claSS="monofont">map()</TT> works with a single sequence. If we used <tt clASS="monofont">map()</Tt> with <i>M</i> sequences of <i>N</I> objects each, our previous diagram would be converted to something like the diagram presented in <A HRef="194#2.html">Figure11-3</a></p>
+
+				<CENTer>
+					<h5>
+<a name="2"></a>Figure 11-3. How the <tt class="monofont">map()</tt> Built-in Function Works with &gt; 1 Sequence</h5>
+					
+						
+							<iMg bOrdeR="0" widtH="500" heiGHT="347" Src="graphics/11fig03.gif" alT="graphics/11fig03.gif">
+						
+					
+				</CENter>
+
+				<p>For example, let us consider the following call to <TT CLass="monofont">map():</tT></P>
+
+				<PRe>
+					
+&gt;&gt;&gt; map(lambda x, y: x + y, [1,3,5], [2,4,6])
+[3, 7, 11]
+
+				</pre>
+
+				<p>In the above example, the number of sequences, <i>M,</i> is two. The lists [1, 3, 5] and [2, 4, 6] are our sequences. And each of these sequences has cardinality or size three, or N. The result then consists of the following:</p>
+
+				<p>Let:</p>
+
+				<pre>
+					
+f(x, y) \xba  x + y,
+seq0 = [1, 3, 5], and
+seq1 = [2, 4, 6]
+
+				</pre>
+
+				<p>Then:</p>
+
+				<prE>
+					
+     map(f, seq0, seq1)
+=    [ f(seq0[0], seq1[0]), f(seq0[1], seq1[1]), \
+         f(seq0[2], seq1[2])
+=    [ 1 + 2, 3 + 4, 5 + 6 ]
+=    [3, 7, 11]
+
+				</prE>
+
+				<p>Also, <tt Class="monofont">map()</Tt> can also take <tt CLASs="monofont">None</tt> as the function argument. If <tT CLAss="monofont">None</tt> is used instead of a real function object, <TT CLass="monofont">map()</tT> will take that clue to default to the identity function, meaning that the resulting map will be of the same one as the sequence you passed in. If more than one sequence is passed in, then the resulting list will consist of a tuple with one element from each sequence. Here are a few more examples of using <TT Class="monofont">map()</tt> with multiple sequences, including one with <tt class="monofont">None</tt> passed in as the <tt claSs="monofont">map()</tT> function:</p>
+
+				<prE>
+					
+&gt;&gt;&gt; map(lambda x, y: (x+y, x-y), [1,3,5], [2,4,6])
+[(3, -1), (7, -1), (11, -1)]
+&gt;&gt;&gt; map(lambda x, y: (x+y, x*y), [1,3,5], [2,4,6])
+[(3, 2), (7, 12), (11, 30)]
+&gt;&gt;&gt; map(None, [1,3,5], [2,4,6])
+[(1, 2), (3, 4), (5, 6)]
+
+				</pre>
+
+				<p>This idiom is so commonly used that a new built-in function, Zip<Tt clASS="monofont">(),</Tt> which does the same thing (given sequences of identical size), was added in Python 2.0.</p>
+
+				<p>Now these "real-time" examples are nice, but we should also show you some code that you can use in real life. In the next example, we created a text file called <tT CLAss="monofont">map.txt,</tt> which has a few lines of text surrounded by whitespace. We will use the script <TT CLass="monofont">strupper.py,</tT> given in <A HRef="194#3.html">Example 11.6</a>, to strip all the leading and trailing whitespace by passing each line to <tt class="monofont">string.strip()</tt> and converting all text to uppercase using <tt class="monofont">string.upper().</tT> The output of this script will show you the file contents before our manipulation and what the lines look like after we are finished:</p>
+
+				
+					<h5>
+<A namE="3"></a>Example 11.6. Text File Processing (<tt cLass="monofont">strupper.py</TT>)</H5>
+					<P><tt clASS="monofont">strupper.py</Tt><b><i>takes an existing text file, strips all leading and trailing whitespace, and converts all the text to uppercase.</i></B></P>
+
+					<PRe claSS="monofont"> &lt;$nopage&gt;
+001 1   #!/usr/bin/env python
+002 2
+003 3   <B>from</B> string <b>import</b> strip, upper
+004 4
+005 5   f = open('map.txt')
+006 6   lines = f.readlines()
+007 7   f.close()
+008 8
+009 9   <b>print</b> 'BEFORE:\n'
+010 10  <b>for</b> eachLine <b>in</b> lines:
+011 11      <b>print</b> '[%s]' % eachLine[:-1]
+012 12
+013 13  <b>print</b> '\nAFTER:\n'
+014 14  <b>for</b> eachLine <b>in</b> map(upper, \
+015 15          map(strip, lines)):
+016 16      <b>print</b> '[%s]' % eachLine
+017  &lt;$nopage&gt;</prE>
+				
+				<prE>
+					
+% strupper.py
+BEFORE:
+
+[    Apply function to every item of list and return a ]
+[list of the results.  If additional list arguments are    ]
+[passed, function must take that many arguments and is     ]
+[applied to the  items of all lists in parallel.        ]
+
+AFTER:
+
+[APPLY FUNCTION TO EVERY ITEM OF LIST AND RETURN A]
+[LIST OF THE RESULTS.  IF ADDITIONAL LIST ARGUMENTS ARE]
+[PASSED, FUNCTION MUST TAKE THAT MANY ARGUMENTS AND IS]
+[APPLIED TO THE  ITEMS OF ALL LISTS IN PARALLEL.]
+
+				</pre>
+
+				<P>Notice that only leading and trailing whitespace is removed. Extra whitespace in the middle of a string such as the last sentence is left as-is.</p>
+
+				<p>Our final example in this chapter deals with processing numbers. In particular, assume we have a text file full of numeric dollar amounts. Let us say that these numbers are to go on your income tax form, but you want to round them all to the nearest dollar amount. Here are the contents of our test text file <tt ClasS="monofont">round.txt:</TT></P>
+
+				<pre>
+					
+98.76
+90.69
+51.36
+50.89
+28.34
+49.64
+6.87
+36.95
+59.25
+55.96
+
+				</pRE>
+
+				<P>We now present in <A href="194#4.html">Example 11.7</A> the code to <TT Class="monofont">rounder.py,</TT> a script which strips the trailing NEWLINE character and rounds all the values to the nearest dollar (converting the data from strings to floats first, of course).</P>
+
+				
+					<H5>
+<a name="4"></a>Example 11.7. Text File Number Crunching (<tt class="monofont">rounder.py</tt>)</h5>
+					<p><tt cLasS="monofont">rounder.py</tt>
+						<b><I>takes a set of floating point values stored in a text file, and rounds them to the closest whole number. The exercise is to simulate taking numbers destined for income taxes and rounding them to the nearest dollar.</i></b></p>
+
+					<pRe clASS="monofont"> &lt;$nopage&gt;
+001 1   #!/usr/bin/env python
+002 2
+003 3   f = open('round.txt')
+004 4   values = map(float, f.readlines())
+005 5   f.close()
+006 6
+007 7   <B>print</b> 'original\trounded'
+008 8   <b>for</b> eachVal <b>in</B> map(None, values, \
+009 9           map(round, values)):
+010 10      <B>print</B> '%6.02f\t\t%6.02f' % eachVal
+011  &lt;$nopage&gt;</Pre>
+				
+				<p>The first thing that this script does is to call <tT CLAss="monofont">map(),</tt> sending each line to the <TT CLass="monofont">float()</tt> built-in function, thereby converting the string values to numeric ones while ignoring any leading or trailing whitespace.</p>
+
+				<p>Finally, the main part of the code will now present the original values as well as the rounded ones. This is accomplished by sending the values to the <tt class="monofont">round()</tt> built-in function via <tt clAss="monofont">map().</Tt> At the same time, we call <tt Class="monofont">map()</Tt> with a <tt CLASs="monofont">None</tt> function—implying identity which does nothing but merge its sequence arguments into a single list consisting of tuples, each containing one value from each sequence. (Starting in 2.0, we could have also used the zip<tT CLAss="monofont">()</tt> function, as indicated earlier in this section.) In our case, this constitutes an original value and a rounded value. The <B><TT Class="monofont">for</TT></B> loop thus iterates over this list of tuples, each tuple representing the original and rounded values, which are then displayed to the user in a nice and readable format.</P>
+
+				<p>Executing the <tt class="monofont">rounder.py</tt> script, we get the following output:</p>
+
+				<pre>
+					
+% rounder.py
+original        rounded
+ 98.76           99.00
+ 90.69           91.00
+ 51.36           51.00
+ 50.89           51.00
+ 28.34           28.00
+ 49.64           50.00
+  6.87            7.00
+ 36.95           37.00
+ 59.25           59.00
+ 55.96           56.00
+
+				</pre>
+
+			</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="193.html" title="filter() "><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=194" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="194.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="195.html" title="reduce() "><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

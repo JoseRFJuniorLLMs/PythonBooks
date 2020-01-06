@@ -1,0 +1,624 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Network Programming in Python</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="249.html" class="navtitle">16. Network Programming</a> &gt; <span class="nonavtitle">Network Programming in Python</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="252.html" title="Sockets: Communication Endpoints"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=253" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="253.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="254.html" title="Related Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A29%3A02+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004228154178107060254245006</font><a href="read2.asp?bookname=0130260363&snode=253&now=5%2F30%2F2002+8%3A29%3A02+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Network Programming in Python</h3>
+				<p>Now that you know all about client-server architecture, sockets, and networking, let us try to bring this concept to Python. The primary module we will be using in this section is the <tT CLAss="monofont">socket</tt> module. Found within this module is the <TT CLass="monofont">socket()</tT> function, which is used to create socket objects. Sockets also have their own set of methods which enable socket-based network communication.</P>
+
+				
+					<H4><Tt class="monofont">socket()</tt> Module Function</h4>
+					<p>To create a socket, you must use the <tt class="monofont">socket.socket()</tt> function, which has the general syntax:</p>
+
+					<Pre>
+						
+socket (<I>socket_family, socket_type, protocol</i>=0)
+
+					</prE>
+
+					<p>The <i><tt ClasS="monofont">socket_family</TT></I> is either AF_UNIX or AF_INET, as explained earlier, and the <i><tt cLASS="monofont">socket_type</tt></i> is either SOCK_STREAM or SOCK_DGRAM, also explained earlier. The <i><TT CLass="monofont">protocol</tT></I> is usually left out, defaulting to 0.</P>
+
+					<P>So to create a TCP/IP socket, you call <tt class="monofont">socket.socket()</tt> like this:</p>
+
+					<pre>
+						
+tcpSock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+					</pre>
+
+					<p>Likewise, to create a UDP/IP socket you perform:</p>
+
+					<prE>
+						
+udpSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+					</prE>
+
+					<p>Since there are numerous <tt Class="monofont">socket</Tt> module attributes, this is one of the exceptions where using "<b><tT CLAss="monofont">from</tt></B>
+							<I><TT clasS="monofont">module</TT></I>
+							<b><tt cLASS="monofont">import *</tt></b>" is acceptable because of the number of module attributes. If we applied "<b><tt class="monofont">from</tt></b>
+							<i><tt claSs="monofont">socket</tT></i>
+							<b><tT clasS="monofont">import *</tt></b>", we bring the socket attributes into our namespace, but our code is shortened considerably, i.e.,</P>
+
+					<PRE>
+						
+tcpSock = socket(AF_INET, SOCK_STREAM)
+					</pre>
+
+					<p>Once we have a socket object, all further interaction will occur using that socket object's methods.</P>
+
+				
+				
+					<H4>Socket Object (Built-in) Methods</H4>
+					<P>In <a hreF="253#3.html">Table 16.1</A>, we present a list of the most common socket methods. In the next subsection, we will create both TCP and UDP clients and servers, all of which use these methods. Although we are focusing on Internet sockets, these methods have similar meanings when using Unix sockets.</P>
+
+					<A name="3"></A><P><TAble border="1" cellspacing="0" CelLpadDing="1" wIdth="100%">
+<CAPTion><h5>Table 16.1. Common Socket Object Methods</H5></CAPtion><COLGroup ALIGn="left" span="2">
+<tr valign="top">
+<th>
+<font sIze="2"><Tt clAss="monofont">Method</tt></Font></TH>
+<TH>
+<font SIZE="2"><b><i>Description</i></b></FONT></th>
+</tr>
+<TR VAlign="top">
+<td colspan="1">
+<font sizE="2"><b><i>Server Socket Methods</I></b></foNt></td>
+</tR>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><i><TT CLass="monofont">s.</tT></I><TT class="monofont">bind()</tt></font></td>
+<td>
+<font sIze="2">bind address (hostname, port number pair) to socket</Font></Td>
+</tr>
+<tR valIGN="top">
+<Td>
+<fonT SIZe="2"><i><tt CLASs="monofont">s.</tt></i><TT CLass="monofont">listen()</tt></font></td>
+<td>
+<font sizE="2">set up and start TCP listener</foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2"><I><tt clASS="monofont">s.</Tt></i><tt CLASs="monofont">accept()</tt></font></td>
+<td>
+<font size="2">passively accept TCP client connection, waiting until connection arrives (blocking)</fOnt></Td>
+</tr>
+<Tr valIgn="top">
+<tD COLspan="1">
+<FONT size="2"><B><I>Client Socket Methods</I></B></font></TD>
+</TR>
+<tr valign="top">
+<td>
+<font size="2"><i><tT clAss="monofont">s.</tT></i><tt cLass="monofont">connect()</TT></FOnt></td>
+<TD>
+<FOnt siZE="2">actively initiate TCP server connection</FOnt></td>
+</TR>
+<TR valign="top">
+<td colspan="1">
+<font sIze="2"><B><i>General Socket Methods</i></b></Font></tD>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt sizE="2"><I><TT clasS="monofont">s.</TT></I><tt class="monofont">recv()</tt></font></td>
+<td>
+<fonT siZe="2">receive TCP message</foNt></td>
+</tR>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><i><TT CLass="monofont">s.</tT></I><TT class="monofont">send()</tt></font></td>
+<td>
+<font sIze="2">transmit TCP message</Font></Td>
+</tr>
+<tR valIGN="top">
+<Td>
+<fonT SIZe="2"><i><tt CLASs="monofont">s.</tt></i><TT CLass="monofont">recvfrom()</tt></font></td>
+<td>
+<font sizE="2">receive UDP message</foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2"><I><tt clASS="monofont">s.</Tt></i><tt CLASs="monofont">sendto()</tt></font></td>
+<td>
+<font size="2">transmit UDP message</fOnt></Td>
+</tr>
+<Tr valIgn="top">
+<tD>
+<FONt sizE="2"><I><TT clasS="monofont">s.</TT></I><tt clASS="monofont">close()</Tt></font></td>
+<td>
+<font size="2">close socket</fonT></td>
+</Tr>
+</coLgrouP>
+</tabLE></P>
+
+				
+				
+					<H4>Creating a TCP Server</h4>
+					<p>We will first present some general pseudocode involved with creating a generic TCP server, then describe in general what is going on. Keep in mind that this is only one way of designing your server. Once you become comfortable with server design, you will be able to modify the pseudocode to operate the way you want it to:</p>
+
+					<pRE>
+						
+ss = socket()                 # create server socket
+ss.bind()                     # bind socket to address
+ss.listen()                   # listen for connections
+<I>inf_loop:</I>                     # server infinite loop
+    cs = ss.accept()          # accept client connection
+    <i>comm_loop:</i>                # communication loop
+        cs.recv()/cs.send()   # dialog (receive/send)
+    cs.close()                # close client socket
+ss.close()                    # close server socket
+
+					</prE>
+
+					<P>All sockets are created using the <TT clasS="monofont">socket.socket()</TT> function. Servers need to "sit on a port" and wait for requests, so they all must "bind" to a local address. Because TCP is a connection-oriented communication system, some infrastructure must be set up before a TCP server can begin operation. In particular, TCP servers must "listen" for (incoming) connections. Once this setup process is complete, a server can start its infinite loop.</P>
+
+					<p>A simple (single-threaded) server will then sit on an <tt class="monofont">accept()</tt> call waiting for a connection. By default, <tt class="monofont">accept()</tt> is blocking, meaning that execution is suspended until a connection arrives. Sockets do support a non-blocking mode; refer to the documentation or operating systems textbooks for more details on why and how you would use non-blocking sockets.</p>
+
+					<P>Once a connection is accepted, a separate client socket is returned [by <tt ClasS="monofont">accept()</tt>] for the upcoming message interchange. Using the new client socket is similar to handing off a customer call to a service representative. When a client eventually does come in, the main switchboard operator takes the incoming call and patches it through, using another line to the right person to handle their needs.</p>
+
+					<p>This frees up the main line, i.e., the original server socket so that the operator can resume waiting for new calls (client requests) while the customer and the service representative he or she was connected to carry on their own conversation. Likewise, when an incoming request arrives, a new communication port is created to converse directly with that client while the main one is free to accept new client connections.</P>
+
+					<div CLASs="note"><p clASS="notetitle"><B>NOTE</b></p><p><p><I>We do not implement this in our examples, but it is also fairly common to hand a client request off to a thread or new process to complete the client processing. The</I>
+							<TT clasS="monofont">SocketServer</TT>
+							<I>module, a high-level socket communication module written on top of</i>
+							<tt class="monofont">socket,</tt>
+							<i>supports both threaded and spawned process handling of client requests. We refer the reader to the documentation to obtain more information about the</i>
+							<tt class="monofont">SocketServer</tT>
+							<i>module as well as the exercises in <a Href="256.html">Chapter 17</A>, Multithreaded Programming.</i></p>
+</p></dIv><br>
+
+					<P>Once the temporary socket is created, communication can commence, and both client and server proceed to engage in a dialog of sending and receiving using this new socket until the connection is terminated. This usually happens when one of the parties either closes its connection or sends an empty string to its partner.</P>
+
+					<P>In our code, after a client connection is closed, the server goes back to wait for another client connection. The final line of code, where we close the server socket, is never encountered since it is supposed to run in an infinite loop. We leave this code in our example as a reminder to the reader that calling the <Tt claSS="monofont">close()</TT> method is recommended when implementing an intelligent exit scheme for the server, for example, a handler which detects some external condition whereby the server should be shut down. In those cases, a <tt clASS="monofont">close()</Tt> method call is warranted.</p>
+
+					<p>In <a HREF="253#5.html">Example 16.1</a>, we present <tt class="monofont">tsTserv.py,</tt> a TCP server program which takes the data string sent from a client and returns it timestamped (format: "<tt class="monofont">[timestamp] data</tt>") back to the client. ("tsTserv" stands for <i>t</I>ime<i>s</i>tamp <I>T</i>CP <i>serv</i>er. The other files are named in a similar manner.)</P>
+
+					
+						<h5>
+<a naMe="5"></a>Example 16.1. TCP Timestamp Server (<tT CLAss="monofont">tsTserv.py</tt>)</H5>
+						<P><B><I>Creates a TCP server which accepts messages from clients and returns them with a timestamp prefix.</i></b></p>
+
+						<pRE CLass="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <b>from</B> socket <B>import *</B> &lt;$nopage&gt;
+004 4  <B>from</b> time <b>import</b> time, ctime
+005 5
+006 6  HOST = ''
+007 7  PORT = 21567
+008 8  BUFSIZ = 1024
+009 9  ADDR = (HOST, PORT)
+010 10
+011 11 tcpSerSock = socket(AF_INET, SOCK_STREAM)
+012 12 tcpSerSock.bind(ADDR)
+013 13 tcpSerSock.listen(5)
+014 14
+015 15 <b>while</b> 1:
+016 16     <b>print</b> 'waiting for connection…'
+017 17     tcpClisock, addr = tcpSerSock.accept()
+018 18     <b>print</b> '…connected from:', addr
+019 19
+020 20     <b>while</b> 1:
+021 21         data = tcpCliSock.recv(BUFSIZ)
+022 22         <b>if not</b> data: <b>break</b> &lt;$nopage&gt;
+023 23         tcpCliSock.send('[%s] %s' % \
+024 24             ctime(time()), data)
+025 25
+026 26     tcpCliSock.close()
+027 27 tcpSerSock.close()
+028  &lt;$nopage&gt;</pre>
+					
+					
+						<h5>Line-by-line</h5>
+						
+							<H5>Lines 1–4</h5>
+							<p>After the Unix start-up line, we import <Tt clAss="monofont">time.time(), time.ctime(),</tt> and all the attributes from the <Tt clASS="monofont">socket</Tt> module.</p>
+
+						
+						
+							<h5>Lines 6–13</h5>
+							<P>The <TT Class="monofont">HOST</TT> variable is blank, an indication to the <TT clasS="monofont">bind()</TT> method that it can use any address that is available. We also choose an arbitrarily random port number which does not appear to be used or reserved by the system. For our application, we set the buffer size to 1K. You may vary this size based on your networking capability and application needs. The argument for the <Tt class="monofont">listen()</tt> method is simply a maximum number of incoming connection requests to accept before connections are turned away or refused.</p>
+
+							<p>The TCP server socket (<tt class="monofont">tcpSerSock</tt>) is allocated on line 11, followed by the calls to bind the socket to the server's address and to start the TCP listener.</p>
+
+						
+						
+							<H5>Lines 15–27</h5>
+							<p>Once we are inside the server's infinite loop, we (passively) wait for a connection. When one comes in, we enter the dialog loop where we wait for the client to send its message. If the message is blank, that means that the client has quit, so we would break from the dialog loop, close the client connection, and go back to wait for another client. If we did get a message from the client, then we format and return the same data but prepended with the current timestamp. The final line (27) is never executed, but is there as a reminder to the reader that a <Tt clAss="monofont">close()</tt> call should be made if a handler is written to allow for a more graceful exit, as we discussed before.</P>
+
+						
+					
+				
+				
+					<h4>Creating a TCP Client</h4>
+					<p>Creating a client is much simpler than a server. Similar to our description of the TCP server, we will present the pseudocode with explanations first, then show you the real thing.</P>
+
+					<PRE>
+						
+cs = socket()              # create client socket
+cs.connect()               # attempt server connection
+<i>comm_loop:</i>                 # communication loop
+    cs.send()/cs.recv()    # dialog (send/receive)
+cs.close()                 # close client socket
+
+					</prE>
+
+					<P>As we noted before, all sockets are created using <TT clasS="monofont">socket.socket().</TT> Once a client has a socket, however, it can immediately make a connection to a server by using the socket's <Tt claSS="monofont">connect()</TT> method. When the connection has been established, then it can participate in dialog with the server. Once the client has completed its transaction, it may close its socket, terminating the connection.</p>
+
+					<p>We present the code for <tt class="monofont">tsTclnt.py</tt> in <a href="253#11.html">Example 16.2</a>; it connects to the server and prompts the user for line-after-line of data. The server returns this data timestamped, which is presented to the user by the client code.</p>
+
+					
+						<h5>
+<a NamE="11"></a>Example 16.2. TCP Timestamp Client (<tt Class="monofont">tsTclnt.py</Tt>)</h5>
+						<p><B><I>Creates a TCP client which prompts the user for messages to send to the server, gets them back with a timestamp prefix, and displays the results to the user.</I></B></p>
+
+						<pre CLASs="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <b>from</b> socket <b>import *</B> &lt;$nopage&gt;
+004 4
+005 5  HOST = 'localhost'
+006 6  PORT = 21567
+007 7  BUFSIZ = 1024
+008 8  ADDR = (HOST, PORT)
+009 9
+010 10 tcpCliSock = socket(AF_INET, SOCK_STREAM)
+011 11 tcpCliSock.connect(ADDR)
+012 12
+013 13 <B>while</B> 1:
+014 14     data = raw_input('&gt; ')
+015 15     <B>if not</b> data: <b>break</b> &lt;$nopage&gt;
+016 16     tcpCliSock.send(data)
+017 17     data = tcpCliSock.recv(1024)
+018 18     <b>if not</B> data: <B>break</B> &lt;$nopage&gt;
+019 19     <B>print</b> data
+020 20
+021 21 tcpCliSock.close()
+022  &lt;$nopage&gt;</pre>
+					
+					
+						<h5>Line-by-line</h5>
+						
+							<h5>Lines 1–3</h5>
+							<p>After the Unix start-up line, we import all the attributes from the <tt class="monofont">socket</tt> module.</p>
+
+						
+						
+							<h5>Lines 5–11</H5>
+							<p>The <tT claSs="monofont">HOST</tt> and <tT claSS="monofont">PORT</TT> variables refer to the server's hostname and port number. Since we are running our test (in this case) on the same machine, <tt clASS="monofont">HOST</Tt> contains the local hostname (change it accordingly if you are running your server on a different host). The port number <tt cLASS="monofont">PORT</tt> should be exactly the same as what you set for your server (otherwise there won't be much communication[!]). We also choose the same buffer size, 1K.</p>
+
+							<p>The TCP client socket (<TT CLass="monofont">tcpCliSock</tt>) is allocated on line 10, followed by the call to connect to the server.</p>
+
+						
+						
+							<h5>Lines 13–21</h5>
+							<p>The client also has an infinite loop, but it is not meant to run forever like the server's loop. The client loop will exit on either of two conditions: If the user enters no input (line 15), or if the server somehow quit and our call to the <tt class="monofont">recv()</tt> method fails (line 18). Otherwise, in a normal situation, the user enters in some string data, which is sent to the server for processing. The newly-timestamped input string is then received and displayed to the screen.</p>
+
+						
+					
+				
+				
+					<h4>Executing Our TCP Client-server Application</H4>
+					<p>Now let's run the server and client programs to see how they work. Should we run the server first or the client first? Naturally, if we ran the client first, no connection would be possible because there is no server waiting to accept the request. The server is considered a "passive" partner because it has to establish itself first and passively wait for a connection. A client on the other hand is an "active" partner because it actively initiates a connection. In other words:</p>
+
+					<BlocKquotE>
+<p><p><b>Start the server first (before any clients try to connect).</B></P>
+</P>
+</BlockQUOTe>
+					<p>In our example running of the client and server, we use the same machine, but there is nothing to stop us from using another host for the server. If this is the case, then just change the hostname. (It is rather exciting when you get your first networked application running the server and client from different machines!)</p>
+
+					<p>We now present the corresponding (input and) output from the client program, which exits with a simple RETURN (or Enter key) keystroke with no data entered:</P>
+
+					<PRE>
+						
+% tsTclnt.py
+&gt; hi
+[Sat Jun 17 17:27:21 2000] hi
+&gt; spanish inquisition
+[Sat Jun 17 17:27:37 2000] spanish inquisition
+&gt;
+%
+
+					</pre>
+
+					<p>The server's output is mainly diagnostic:</P>
+
+					<PRE>
+						
+% tsTserv.py
+waiting for connection…
+…connected from: ('127.0.0.1', 1040)
+waiting for connection…
+
+					</pre>
+
+					<p>The "…connected from…" message was received when our client made its connection. The server went back to wait for new clients while we continued receiving "service." When we exited from the server, we had to break out of it, resulting in an exception. The best way to avoid such an error is to create a more graceful exit, as we have been discussing.</p>
+
+					<div class="note"><p class="notetitle"><b>NOTE</B></p><p><P><i>One way to create this "friendly" exit is to put the server's</i>
+							<b><Tt claSs="monofont">while</tt></B>
+							<I>loop inside the</I>
+							<B><tt clASS="monofont">except</Tt></b>
+							<i>clause of a</i>
+							<B><TT Class="monofont">try-except</TT></B>
+							<I>statement and monitor for</i>
+							<tt class="monofont">EOFError</tt>
+							<i>or</i>
+							<tt class="monofont">KeyboardInterrupt</tT>
+							<i>exceptions. Then in the</i>
+							<B><tt cLass="monofont">except</tT></b>
+							<i>clause, you can make a call to close the server's socket.</i></P>
+</P></DIv><br>
+
+					<p>The interesting thing about this simple networked application is that we are not only showing how our data takes a round trip from the client to the server and back to the client, but we also use the server as a sort of "time server," because the timestamp we receive is purely from the server.</P>
+
+				
+				
+					<H4>Creating a UDP Server</H4>
+					<P>UDP servers do not require as much setup as TCP servers because they are not connection-oriented. There is virtually no work that needs to be done other than just waiting for incoming connections.</p>
+
+					<pre>
+						
+ss = socket()                        # create server socket
+ss.bind()                            # bind server socket
+<I>inf_loop:</I>                            # server infinite loop
+    cs = ss.recvfrom()/ss.sendto()   # dialog (receive/send)
+ss.close()                           # close server socket
+
+					</PRe>
+
+					<p>As you can see from the pseudocode, there is nothing extra other than the usual create-the-socket and bind it to the local address (host/port pair). The infinite loop consists of receiving a message from a client, returning a timestamped one, then going back to wait for another message. Again, the <tt CLASs="monofont">close()</tt> method will not be reached due to the infinite loop, but serves as a reminder that it should be part of the graceful or intelligent exit scheme we've been mentioning.</p>
+
+					<p>One other significant different between UDP and TCP servers is that because datagram sockets are connectionless, there is no "handing off" of a client connection to a separate socket for succeeding communication. These servers just accept messages and perhaps reply.</p>
+
+					<p>You will find the code to <tt class="monofont">tsUserv.py</tt> in <a hreF="253#18.html">Example 16.3</a>, a UDP version of the TCP server seen earlier. It accepts a client message and returns it to the client timestamped.</p>
+
+					
+						<H5>
+<a naMe="18"></a>Example 16.3. UDP Timestamp Server (<tt ClasS="monofont">tsUserv.py</TT>)</H5>
+						<p><b><i>Creates a UDP server which accepts messages from clients and returns them with a timestamp prefix.</i></B></P>
+
+						<PRe claSS="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <B>from</B> socket <b>import *</b> &lt;$nopage&gt;
+004 4  <b>from</b> time <B>import</B> time, ctime
+005 5
+006 6  HOST = ''
+007 7  PORT = 21567
+008 8  BUFSIZ = 1024
+009 9  ADDR = (HOST, PORT)
+010 10
+011 11 udpSerSock = socket(AF_INET, SOCK_DGRAM)
+012 12 udpSerSock.bind(ADDR)
+013 13
+014 14 <B>while</B> 1:
+015 15     <b>print</b> 'waiting for message…'
+016 16     data, addr = udpSerSock.recvfrom(BUFSIZ)
+017 17     udpSerSock.sendto('[%s] %s' % \
+018 18         (ctime(time()), data), addr)
+019 19     <b>print</b> '…received from, returned to:', addr
+020 20
+021 21 udpSerSock.close()
+022  &lt;$nopage&gt;</pre>
+					
+					
+						<h5>Line-by-line</h5>
+						
+							<h5>Lines 1–4</h5>
+							<p>After the Unix start-up line, we import <tt class="monofont">time.time(), time.ctime(),</tT> and all the attributes from the <tt ClasS="monofont">socket</tt> module, just like the TCP server setup.</p>
+
+						
+						
+							<h5>Lines 6–12</H5>
+							<p>The <tt CLASs="monofont">HOST</tt> and <tT CLAss="monofont">PORT</tt> variables are the same as before, and for all the same reasons. The call <TT CLass="monofont">socket()</tT> differs only in that we are now requesting a datagram/UDP socket type, but <TT Class="monofont">bind()</tt> is invoked in the same way as in the TCP server version. Again, because UDP is connectionless, no call to "listen() for incoming connections" is made here.</p>
+
+						
+						
+							<h5>Lines 14–21</h5>
+							<p>Once we are inside the server's infinite loop, we (passively) wait for a connection. When one comes in, we process it (by adding a timestamp to it), then send it right back and go back to wait for another message. The socket <tt class="monofont">close()</tt> method is there for show only, as indicated before.</p>
+
+						
+					
+				
+				
+					<H4>Creating a UDP Client</h4>
+					<p>Of the four highlighted here in this section, the UDP client is the shortest bit of code which we will look at. The pseudocode looks like this:</P>
+
+					<pre>
+						
+cs = socket()                   # create client socket
+<I>comm_loop:</i>                      # communication loop
+    cs.sendto()/cs.recvfrom()   # dialog (send/receive)
+cs.close()                      # close client socket
+
+					</pre>
+
+					<P>Once a socket object is created, we enter the dialog loop of exchanging messages with the server. When communication is complete, the socket is closed.</p>
+
+					<p>The real client code, <tT CLAss="monofont">tsUclnt.py,</tt> is presented in <A HREf="253#24.html">Example 16.4</a>.</p>
+
+					
+						<h5>
+<A NAMe="24"></a>Example 16.4. UDP Timestamp Client (<tt CLASs="monofont">tsUclnt.py</tt>)</h5>
+						<p><b><i>Creates a UDP client which prompts the user for messages to send to the server, gets them back with a timestamp prefix, and displays them back to the user.</i></b></p>
+
+						<pre class="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <b>from</b> socket <B>import *</b> &lt;$nopage&gt;
+004 4
+005 5  HOST = 'localhost'
+006 6  PORT = 21567
+007 7  BUFSIZ = 1024
+008 8  ADDR = (HOST, PORT)
+009 9
+010 10 udpCliSock = socket(AF_INET, SOCK_DGRAM)
+011 11
+012 12 <b>while</B> 1:
+013 13     data = raw_input('&gt; ')
+014 14     <b>if not</b> data: <b>break</B> &lt;$nopage&gt;
+015 15     udpCliSock.sendto(data, ADDR)
+016 16     data, ADDR = udpCliSock.recvfrom(BUFSIZ)
+017 17     <b>if not</b> data: <b>break</b> &lt;$nopage&gt;
+018 18     <B>print</b> data
+019 19
+020 20 udpCliSock.close()
+021  &lt;$nopage&gt;</prE>
+					
+					
+						<H5>Line-by-line</H5>
+						
+							<H5>Lines 1–3</h5>
+							<p>After the Unix start-up line, we import all the attributes from the <tt CLASs="monofont">socket</tt> module, again, just like in the TCP version of the client.</p>
+
+						
+						
+							<H5>Lines 5–10</H5>
+							<P>Because we are running the server on our local machine again, we use "localhost" and the same port number on the client side, not to mention the same 1K buffer. We allocate our socket object in the same way as the UDP server.</P>
+
+						
+						
+							<h5>Lines 12–20</h5>
+							<p>Our UDP client loop works almost exactly in the same manner as the TCP client. The only difference is that we do not have to establish a connection to the UDP server first, we simply send a message to it and await the reply. After the timestamped string is returned, we display it to the screen and go back for more. When the input is complete, we break out of the loop and close the socket.</p>
+
+						
+					
+				
+				
+					<H4>Executing Our UDP Client-Server Application</H4>
+					<P>The UDP client behaves the same as the TCP client:</P>
+
+					<pre>
+						
+% tsUclnt.py
+&gt; hi
+[Sat Jun 17 19:55:36 2000] hi
+&gt; spam! spam! spam!
+[Sat Jun 17 19:55:40 2000] spam! spam! spam!
+&gt;
+%
+
+					</pre>
+
+					<p>Likewise for the server:</p>
+
+					<pre>
+						
+% tsUserv.py
+waiting for message…
+… received from and returned to: ('27.0.0.1' 1025)
+waiting for message…
+
+					</pre>
+
+					<p>In fact, we output the client's information because we can be receiving messages from multiple clients and sending replies, and such output helps in telling us where messages came from. With the TCP server, we know where messages come from because each client makes a connection. Note how the messages says, "waiting for message" as opposed to "waiting for connection."</p>
+
+				
+				
+					<h4>Other <tt cLasS="monofont">socket</tt> Module Functions</h4>
+					<P>In addition to the <tt clAss="monofont">socket.socket()</tT> function which creates a socket object, the <TT Class="monofont">socket</TT> module features a whole host of other ancillary functions to aid you in your networked applications, as seen below in <A Href="253#31.html">Table 16.2</a>.</P>
+
+					<A NAme="31"></a><p><TABLe border="1" cellspacing="0" ceLlpAddiNg="1" widTh="100%">
+<caPTIOn><h5>Table 16.2. Other <tt CLASs="monofont">socket</tt> Module Functions</h5></CAPTion><cOLGRoup align="left" span="2">
+<tr valign="top">
+<Th>
+<fOnt sIze="2"><b><i>Function Name</I></b></foNT></TH>
+<th>
+<foNT SIze="2"><b><i>Description</I></B></FOnt></th>
+</TR>
+<TR valign="top">
+<td>
+<font size="2"><tt clAss="monofont">fromfd()</Tt></foNt></td>
+<tD>
+<fonT SIZe="2">create a socket object from an open file descriptor</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><tt class="monofont">gethostname()</tt></font></td>
+<td>
+<FonT sizE="2">return the current hostname</font></Td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt siZE="2"><TT clasS="monofont">gethostbyname()</TT></Font></td>
+<td>
+<font size="2">map a hostname to its IP number</font></tD>
+</tr>
+<Tr vaLign="top">
+<tD>
+<fonT SIZe="2"><tt cLASS="monofont">gethostbyaddr()</tt></foNT></TD>
+<td>
+<foNT SIze="2">map an IP number or hostname to DNS info</font></td>
+</tr>
+<tr valign="top">
+<td>
+<FonT sizE="2"><tt clAss="monofont">getservbyname()</tT></FONt></td>
+<tD>
+<FONt sizE="2">map a service name and a protocol name to a port number</FONt></td>
+</tR>
+<TR Valign="top">
+<td>
+<font size="2"><tt claSs="monofont">getprotobyname()</tT></fonT></td>
+<td>
+<Font SIZE="2">map a protocol name (e.g. 'tcp') to a number</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><tt class="monofont">ntohl()/ntohs()</tt></font></td>
+<td>
+<fOnt Size="2">converts integers from network to host byte order</Font></tD>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt sizE="2"><TT Class="monofont">htonl()/htons()</TT></FOnt></td>
+<td>
+<font size="2">converts integers from host to network byte order</font></td>
+</Tr>
+<tR valIgn="top">
+<td>
+<Font SIZE="2"><tt clASS="monofont">inet_aton()</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2">convert IP address octet string to 32-bit packed format</font></td>
+</tr>
+<tr valign="top">
+<td>
+<fOnt Size="2"><Tt claSs="monofont">inet_ntoa()</tt></FONT></td>
+<td>
+<FONT size="2">convert 32-bit packed format to IP address string</FONT></td>
+</tr>
+<TR VAlign="top">
+<td>
+<font size="2"><tt clasS="monofont">ssl()</tt></Font></Td>
+<td>
+<fOnt sIZE="2">Secure Socket Layer support (must be configured); new in 1.6</Font></tD>
+</TR>
+</ColgrOUP>
+</Table></P>
+
+					<P>For more information, we refer you to the <TT class="monofont">socket</tt> Module documentation in the Python Library Reference.</p>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="252.html" title="Sockets: Communication Endpoints"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=253" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="253.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="254.html" title="Related Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

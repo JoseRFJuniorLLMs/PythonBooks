@@ -1,0 +1,125 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Classes</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="48.html" class="navtitle">2. Getting Started</a> &gt; <span class="nonavtitle">Classes</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="65.html" title="Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=66" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="66.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="67.html" title="Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A10%3A21+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172036093230151123052147</font><a href="read7.asp?bookname=0130260363&snode=66&now=5%2F29%2F2002+9%3A10%3A21+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Classes</h3>
+				<p>A class is merely a container for static data members or function declarations, called a class's <i>attributes.</I> Classes provide something which can be considered a blueprint for creating "real" objects, called <I>class instances.</I> Functions which are part of classes are called methods. Classes are an object-oriented construct that are not required at this stage in learning Python. However, we will present it here for those who have some background in object-oriented methodology and would like to see how classes are implemented in Python.</P>
+
+				
+					<h4>How to Declare a Class</h4>
+					<prE>
+						
+ <B>class</B> class_name[( <I>base_classes_if_any</i>)]:
+    "<i>optional documentation string</i>"
+    <i>static_member_declarations</I>
+    <I>method_declarations</I>
+
+					</Pre>
+
+					<p>Classes are declared using the <b><tt class="monofont">class</tt></b> keyword. If a subclass is being declared, then the super or base classes from which it is derived is given in parentheses. This header line is then terminated and followed by an optional class documentation string, static member declarations, and any method declarations.</p>
+
+					<pre>
+						
+ <b>class</b> FooClass:
+     'my very first class: FooClass'
+     version = 0.1            # class (data) attribute
+
+     <B>def</b> __init__(self, nm='John Doe'):
+         'constructor'
+         self.name = nm       # class instance (data) attribute
+         <b>print</B> 'Created a class instance for', nm
+
+     <b>def</b> showname(self):
+         'display instance attribute and class name'
+         <b>print</B> 'Your name is', self.name
+         <b>print</b> 'My name is', self.__class__   # full class name
+
+     <b>def</b> showver(self):
+         'display class(static) attribute'
+         <B>print</b> self.version  # references FooClass.version
+
+     <b>def</b> addMe2Me(self, x):  # does not use 'self'
+         'apply + operation to argument'
+         <B>return</B> (x + x)
+
+					</PRe>
+
+					<p>In the above class, we declared one static data type variable <tt CLASs="monofont">version</tt> shared among all instances and four methods, <tT CLAss="monofont">__init__(), showname(), showver(),</tt> and the familiar <TT CLass="monofont">addMe2Me().</tt> The <tt class="monofont">show*()</tt> methods do not really do much but output the data they were created to. The <tt clasS="monofont">__init__()</tt> method has a special name, as do all those whose name begins and ends with a double underscore <Tt clAss="monofont">( __ ).</tt></P>
+
+					<p>The <tt CLASs="monofont">__init__()</tt> method is a function provided by default that is called when a class instance is created, similar to a constructor and called after the object has been instantiated. Its purpose is to perform any other type of "start up" necessary for the instance to take on a life of its own. By creating our own <tT CLAss="monofont">__init__()</tt> method, we override the default method (which does not do anything) so that we can do customization and other "extra things" when our instance is created. In our case, we initialize a class instance attribute called <TT CLass="monofont">name.</tT> This variable is associated only with class instances and is not part of the actual class itself. <TT Class="monofont">__init__()</tt> also features a default argument, introduced in the previous section. You will no doubt also notice the one argument which is part of every method, <tt class="monofont">self.</tt></p>
+
+					<p>What is <tt cLasS="monofont">self?</tt> Self is basically an instance's handle to itself. (In other object-oriented languages such as C++ or Java, <tT clasS="monofont">self</tt> is called <tT CLAss="monofont">this.</tt>) When a method is called, <TT CLass="monofont">self</tT> refers to the instance which made the call. No class methods may be called without an instance, and is one reason why <TT Class="monofont">self</TT> is required. Class methods which belong to an instance are called <I>bound methods.</I> (Those not belonging to a class instance are called <i>unbound methods</i> and cannot be invoked [unless an instance is explicitly passed in as the first argument].)</p>
+
+				
+				
+					<h4>How to Create Class Instances</h4>
+					<pre>
+						
+&gt;&gt;&gt; foo1 = FooClass()
+Created a class instance for John Doe
+
+					</pre>
+
+					<p>The string that is displayed is a result of a call to the <tt class="monofont">__init__()</tT> method which we did not explicitly have to make. When an instance is created, <tt ClasS="monofont">__init__()</tt> is automatically called, whether we provided our own or the interpreter used the default one.</p>
+
+					<p>Creating instances looks just like calling a function and has the exact syntax. Class instantiation apparently uses the same functional operator as invoking a function or method. Do not get confused between the two, however. Just because the same symbols are used does not necessarily mean equivalent operations. Function calls and creating class instances are very different animals. The same applies for the <Tt clASS="monofont">+</Tt> operator. Given a pair of integers, it performs integer addition; given a pair of floating point numbers, it performs real number addition; and giving it two strings results in string concatenation. All three of these operations are distinct.</p>
+
+					<p>Now that we have successfully created our first class instance, we can make some method calls, too:</p>
+
+					<PRE>
+						
+&gt;&gt;&gt; foo1.showname()
+Your name is John Doe
+My name is __main__.FooClass
+&gt;&gt;&gt;
+&gt;&gt;&gt; foo1.showver()
+0.1
+&gt;&gt;&gt; <B>print</b> foo1.addMe2Me(5)
+10
+&gt;&gt;&gt; <b>print</b> foo1.addMe2Me('xyz')
+xyzxyz
+
+					</pRE>
+
+					<P>The result of each function call is as we expected. One interesting piece of data is the class name. In the <Tt claSS="monofont">showname()</TT> method, we displayed the <tt class="monofont">self.__class__</tt> variable which, for an instance, represents the name of the class from which it has been instantiated. In our example, we did not pass in a name to create our instance, so the <tt class="monofont">'John Doe'</tt> default argument was used. In our next example, we do not use it.</p>
+
+					<pRe>
+						
+&gt;&gt;&gt; foo2 = FooClass('Jane Smith')
+Created a class instance for Jane Smith
+&gt;&gt;&gt; foo2.showname()
+Your name is Jane Smith
+__main__.FooClass
+
+					</pRe>
+
+					<p>There is plenty more on Python classes and instances in <a Href="210.html">Chapter 13</a>.</P>
+
+				
+			</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="65.html" title="Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=66" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="66.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="67.html" title="Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

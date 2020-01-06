@@ -1,0 +1,61 @@
+# -*- Mode: Makefile; tab-width: 4 -*-
+
+# Put this in the root of your python source distribution.
+# Various PYD makefiles use it.
+
+!include <win32.mak>	# bring in platform specific stuff.
+
+# Core DLL name.
+pyversion = 15
+python_dll=Python$(pyversion).dll
+
+pythondllext=pyd
+linker=$(link)
+libmgr=$(implib)
+LINK=
+
+#cdebug = -Z7 -Od	# Z7 for win32s debugging
+
+#
+# Additional common definitions
+#
+cinclude=/I$(pythondir)\Include /I$(pythondir)\PC
+python_defs_lib=$(pythondir)\vc40\Python$(pyversion).lib
+python_defs_exp=$(pythondir)\vc40\Python$(pyversion).exp
+pythonopts=/nologo /MD /G3
+
+!IFNDEF NODEBUG
+ldebug = -debug:full -debugtype:both
+!ENDIF
+
+#
+# Useful stuff for building DL modules under NT.
+#
+
+cdl=
+
+#if you have a .DEF file, define HAVE_DEF
+# if you want precompiled headers, define PCH=1 (in your makefile, not here!)
+!if "$(PCH)"=="1"
+cpch=/YX
+!else
+cpch=
+!endif
+
+!ifdef HAVE_DEF
+export_statements=/DEF:$*.def 
+!else
+export_statements=/EXPORT:init$(*:module=) 
+!endif
+# Note for 'C', I use /Tp, to force as CPP - this will allow .C to define types.
+.c.obj:
+	@echo Warning - compiling as C++ file
+	@echo $(cinclude)
+	@$(cc) $(cdl) $(cflags) $(ccustom) $(cdebug) $(cinclude) $(cpch) $(pythonopts) /Tp $*.c
+
+.cpp.obj:
+	@$(cc) $(cdl) $(cflags) $(ccustom) $(cdebug) $(cinclude) $(cpch) $(pythonopts) $*.cpp
+
+.obj.$(pythondllext):
+	@link -dll -out:$*.$(pythondllext) $*.obj $(ldebug) $(export_statements) $(guilibsdll) $(lcustom) $(python_defs_lib)
+

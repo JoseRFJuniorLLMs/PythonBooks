@@ -1,0 +1,82 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; if Statement</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="48.html" class="navtitle">2. Getting Started</a> &gt; <span class="nonavtitle">if Statement</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="59.html" title="Code Blocks Use Indentation"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=60" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="60.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="61.html" title="while Loop"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A09%3A19+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204173120061000063012170099</font><a href="read2.asp?bookname=0130260363&snode=60&now=5%2F29%2F2002+9%3A09%3A19+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3><tt cLASS="monofont">if</tt> Statement</h3>
+				<p>The standard <B><TT Class="monofont">if</TT></B> conditional statement follows this syntax:</P>
+
+				<pre>
+					
+ <b>if</b>
+						<i>expression:</i>
+    <i>if_suite</i>
+
+				</pre>
+
+				<p>If the <i><tt clasS="monofont">expression</tt></I> is non-zero or true, then the statement <i><tt Class="monofont">suite</Tt></i> is executed; otherwise, execution continues on the first statement after. "Suite" is the term used in Python to refer to a sub-block of code and can consist of single or multiple statements.</p>
+
+				<PRE>
+					
+&gt;&gt;&gt; <B>if</b> counter &gt; 5:
+…       <b>print</b> 'stopping after 5 iterations'
+…       <b>break</B>
+
+				</PRE>
+
+				<p>Python supports an <b><tt CLASs="monofont">else</tt></b> statement that is used with <B><TT Class="monofont">if</tt></b> in the following manner:</p>
+
+				<pre>
+					
+ <b>if</b> expression:
+      <i>if_suite</i>
+ <b>else:</b>
+      <i>else_suite</i>
+
+				</pRe>
+
+				<p>Python has an "else-if" statement named <B><tt cLass="monofont">elif</tT></b> which has the following syntax:</p>
+
+				<pRE>
+					
+ <B>if</B>
+						<i>expression1:</i>
+      <i>if_suite</i>
+ <B>elif</B>
+						<I>expression2:</I>
+      <i>elif_suite</i>
+ <b>else:</b>
+      <I>else_suite</I>
+
+				</PRe>
+
+				<p>Another surprise: There is no <tt CLASs="monofont">switch</tt> or <tt class="monofont">case</tt> statement in Python. This may also seem strange and/or detracting at first, but a set of <b><tt class="monofont">if-elif-else</Tt></b> statements are not as "ugly" because of Python's clean syntax. If you really want to circumvent a set of chained <B><tt cLass="monofont">if-elif-else</tT></b> statements, another elegant workaround is using a <b><tT CLAss="monofont">for</tt></B> loop (see below) to iterate through your list of possible "cases."</P>
+
+				<P>You can learn more about <B><tt clASS="monofont">if, elif,</Tt></b> and <b><tT CLAss="monofont">else</tt></b> statements in the conditional section of <a href="129.html">Chapter 8</a>.</p>
+
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="59.html" title="Code Blocks Use Indentation"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=60" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="60.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="61.html" title="while Loop"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

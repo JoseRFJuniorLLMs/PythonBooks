@@ -1,0 +1,241 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; thread Module</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="256.html" class="navtitle">17. Multithreaded Programming</a> &gt; <span class="nonavtitle">thread Module</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="260.html" title="Threads and Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=261" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="261.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="262.html" title="threading Module"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A30%3A49+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004229222111161084016162077</font><a href="read1.asp?bookname=0130260363&snode=261&now=5%2F30%2F2002+8%3A30%3A49+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3><tt cLASS="monofont">thread</tt> Module</h3>
+				<p>Let's take a look at what the <TT CLass="monofont">thread</tT> module has to offer. In addition to being able to spawn threads, the <TT Class="monofont">thread</tt>module also provides a basic synchronization data structure called a <i>lock object</i> (a.k.a. primitive lock, simple lock, mutual exclusion lock, mutex, binary semaphore). As we mentioned earlier, such synchronization primitives go hand-in-hand with thread management.</p>
+
+				<p>Listed in <a href="261#1.html">Table 17.1</a> are a list of the more commonly-used thread functions and <tt clAss="monofont">LockType</Tt> lock object methods:</p>
+
+				<a Name="1"></a><P><tabLE BOrder="1" CELLspacING="0" CellpADDIng="1" width="100%">
+<caption><h5>Table 17.1. <tt claSs="monofont">thread</tT> Module and Lock Objects</h5></caPtion><ColgROUP aligN="left" SPAn="2">
+<tr vALIGn="top">
+<th>
+<fONT Size="2"><b><i>Function/Method</i></b></font></th>
+<th>
+<font sIze="2"><B><i>Description</i></b></Font></tH>
+</tr>
+<tR VALign="top">
+<tD COLspan="1">
+<FONT size="2"><B><TT Class="monofont">thread</tt></b>
+									<b><i>Module Functions</i></b></font></td>
+</tr>
+<tR vaLign="top">
+<Td>
+<fonT sizE="2"><TT Class="monofont">start_new_thread(</TT><I><Tt claSS="monofont">function, args, kwargs</TT></i><tt cLASS="monofont">=None)</tt></font></td>
+<td>
+<font size="2">spawns a new thread and execute <i><tT clAss="monofont">function</tT></i> with the given <i><tt ClasS="monofont">args</TT></I> and optional <i><tt cLASS="monofont">kwargs</tt></i></fONT></Td>
+</tr>
+<tR VALign="top">
+<td>
+<font size="2"><tt class="monofont">allocate_lock()</Tt></fOnt></tD>
+<td>
+<foNt siZE="2">allocates <TT clasS="monofont">LockType</TT> lock object</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<font size="2"><tt class="monofont">exit()</tt></foNt></tD>
+<td>
+<fOnt siZe="2">instructs a thread to exit</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td COLSpan="1">
+<fONT Size="2"><b><tt class="monofont">LockType</tt></b>
+									<b><i>Lock Object Methods</i></b></foNt></tD>
+</tr>
+<tR valiGn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">acquire(</tT><I><TT clasS="monofont">wait</TT></I><tt class="monofont">=None)</tt></font></td>
+<td>
+<fonT siZe="2">attempts to acquire lock object</foNt></td>
+</tR>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><tT CLAss="monofont">locked()</tt></FONT></td>
+<td>
+<font size="2">returns 1 if lock acquired, 0 otherwise</font></td>
+</tr>
+<Tr vAligN="top">
+<td>
+<foNt siZE="2"><TT clasS="monofont">release()</TT></Font></tD>
+<TD>
+<Font sIZE="2">releases lock</Font></td>
+</tr>
+</colgroup>
+</table></P>
+
+				<p>The key function of the <tT claSs="monofont">thread</tt> module is <tT claSS="monofont">start_new_thread().</TT> Its syntax is exactly that of the <tt clASS="monofont">apply()</Tt> built-in function, taking a function along with arguments and optional keyword arguments. The difference is that instead of the main thread executing the function, a new thread is spawned to invoke the function.</p>
+
+				<p>Let's take our <tT CLAss="monofont">onethr.py</tt> example and integrate threading into it. By slightly changing the call to the <TT CLass="monofont">loop*()</tt> functions, we now present <tt class="monofont">mtsleep1.py</tt> in <a href="261#2.html">Example 17.2</a>.</P>
+
+				
+					<h5>
+<a Name="2"></A>Example 17.2. Using the <tt clAss="monofont">thread</tT> Module (<TT Class="monofont">mtsleepl.py</TT>)</H5>
+					<P><b><i>The same loops from</i></b>
+						<TT CLass="monofont">onethr.py</tT>
+						<B><I>are executed, but this time using the simple multithreaded mechanism provided by the</I></b>
+						<tt class="monofont">thread</tt>
+						<b><i>module. The two loops are executed concurrently (with the shorter one finishing first, obviously), and the total elapsed time is only as long as the slowest thread rather than the total time for each separately.</i></b></p>
+
+					<pre clAss="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <B>import</b> thread
+004 4  <b>from</b> time <B>import</b> sleep, time, ctime
+005 5
+006 6  <b>def</b> loop0():
+007 7      <b>print</B> 'start loop 0 at:', ctime(time())
+008 8      sleep(4)
+009 9      <b>print</b> 'loop 0 done at:', ctime(time())
+010 10
+011 11 <b>def</B> loop1():
+012 12     <B>print</B> 'start loop 1 at:', ctime(time())
+013 13     sleep(2)
+014 14     <B>print</b> 'loop 1 done at:', ctime(time())
+015 15
+016 16 <b>def</b> main():
+017 17     <b>print</B> 'starting threads…'
+018 18     thread.start_new_thread(loop0, ())
+019 19     thread.start_new_thread(loop1, ())
+020 20     sleep(6)
+021 21     <B>print</B> 'all DONE at:', ctime(time))
+022 22
+023 23 <B>if</b> __name__ == '__main__':
+024 24     main()
+025  &lt;$nopage&gt;</pre>
+				
+				<P><TT Class="monofont">start_new_thread()</TT> requires the first two arguments, so that's the reason for passing in an empty tuple even if the executing function requires no arguments.</P>
+
+				<P>Upon execution of this program, our output changes drastically. Rather than taking a full 6 or 7 seconds, our script now runs in 4, the length of time of our longest loop, plus any overhead.</p>
+
+				<pre>
+					
+% mtsleep1.py
+starting threads…
+start loop 0 at: Sun Aug 13 05:04:50 2000
+start loop 1 at: Sun Aug 13 05:04:50 2000
+loop 1 done at: Sun Aug 13 05:04:52 2000
+loop 0 done at: Sun Aug 13 05:04:54 2000
+all DONE at: Sun Aug 13 05:04:56 2000
+
+				</pre>
+
+				<p>The pieces of code that sleep for 4 and 2 seconds now occur concurrently, contributing to the lower overall runtime.</p>
+
+				<p>The only other major change to our application is the addition of the "<tt class="monofont">sleep(6)</tt>" call. Why is this necessary? The reason is that if we did not stop the main thread from continuing, it would proceed to the next statement, displaying "all done" and exit, killing both threads running <tT clAss="monofont">loop0()</tT> and <tt clAss="monofont">loop1().</tT></P>
+
+				<P>We did not have any code which told the main thread to wait for the child threads to complete before continuing. This is what we mean by threads requiring some sort of synchronization. In our case, we used another <Tt claSS="monofont">sleep()</TT> call as our synchronization mechanism. We used a value of 6 seconds because we know that both threads (which take 4 and 2 seconds, as you know) should have completed by the time the main thread has counted to 6.</p>
+
+				<p>You are probably thinking that there should be a better way of managing threads than creating that extra delay of 6 seconds in the main thread. Because of this delay, the overall runtime is no better than in our single-threaded version. Using <tt CLASs="monofont">sleep()</tt> for thread synchronization as we did is not reliable. What if our loops had independent and varying execution times? We may be exiting the main thread too early or too late. This is where locks come in.</p>
+
+				<P>Making yet another update to our code to include locks as well as getting rid of separate loop functions, we get <TT Class="monofont">mtsleep2.py,</tt> presented in <a href="261#3.html">Example 17.3</a>. Running it, we see that the output is similar to <tt class="monofont">mtsleep1.py.</tT> The only difference is that we did not have to wait the extra time for <tt ClasS="monofont">mtsleep1.py</tt> to conclude. By using locks, we were able to exit as soon as both threads had completed execution.</p>
+
+				<pRe>
+					
+% mtsleep2.py
+starting threads…
+start loop 0 at: Sun Aug 13 16:34:41 2000
+start loop 1 at: Sun Aug 13 16:34:41 2000
+loop 1 done at: Sun Aug 13 16:34:43 2000
+loop 0 done at: Sun Aug 13 16:34:45 2000
+all DONE at: Sun Aug 13 16:34:45 2000
+
+				</prE>
+
+				
+					<H5>
+<A Name="3"></a>Example 17.3. Using <TT CLass="monofont">thread</tT> and Locks (<TT Class="monofont">mtsleep2.py</TT>)</H5>
+					<P><b><i>Rather than using a call to</i></b>
+						<tt class="monofont">sleep()</tt>
+						<b><i>to hold up the main thread as in</i></b>
+						<tt cLasS="monofont">mtsleep1.py,</tt>
+						<b><I>the use of locks makes more sense.</i></b></p>
+
+					<pRe clASS="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <B>import</b> thread
+004 4  <b>from</b> time <b>import</B> sleep, time, ctime
+005 5
+006 6  loops = [ 4, 2 ]
+007 7
+008 8  <B>def</B> loop(nloop, nsec, lock):
+009 9      <B>print</b> 'start loop', nloop, 'at:', ctime(time())
+010 10     sleep(nsec)
+011 11     <b>print</b> 'loop', nloop, 'done at:', ctime(time())
+012 12     lock.release()
+013 13
+014 14 <b>def</B> main():
+015 15     <B>print</B> 'starting threads…'
+016 16     locks = []
+017 17     nloops = range(len(loops))
+018 18
+019 19     <B>for</b> i <b>in</b> nloops:
+020 20         lock = thread.allocate_lock()
+021 21         lock.acquire()
+022 22         locks.append(lock)
+023 23
+024 24     <b>for</B> i <B>in</B> nloops:
+025 25         thread.start_new_thread(loop, \
+026 26             (i, loops[i], locks[i]))
+027 27
+028 28     <B>for</b> i <b>in</b> nloops:
+029 29         <b>while</b> locks[i].locked(): <b>pass</b> &lt;$nopage&gt;
+030 30
+031 31     <b>print</b> 'all DONE at:', ctime(time())
+032 32
+033 33 <b>if</b> __name__ == '__main__':
+034 34    main()
+035  &lt;$nopage&gt;</pre>
+				
+				<p>So how did we accomplish our task with locks? Let's take a look at the source code:</p>
+
+				
+					<h4>Line-by-line explanation</h4>
+					
+						<h5>Lines 1–6</h5>
+						<P>After the Unix start-up line, we import the <tt ClasS="monofont">thread</tt> module and a few familiar attributes of the <tt ClasS="monofont">time</TT> module. Rather than hardcoding separate functions to count to 4 and 2 seconds, we will use a single <Tt claSS="monofont">loop()</TT> function and place these constants in a list, <tt clASS="monofont">loops.</Tt></p>
+
+					
+					
+						<h5>Lines 8–12</h5>
+						<P>The <TT Class="monofont">loop()</tt> function will proxy for the now-removed <tt class="monofont">loop*()</tt> functions from our earlier examples. We had to make some cosmetic changes to <tt claSs="monofont">loop()</tT> so that it can now perform its duties using locks. The obvious changes are that we need to be told which loop number we are as well as how long to sleep for. The last piece of new information is the lock itself. Each thread will be allocated an acquired lock. When the <tt cLass="monofont">sleep()</tT> time has concluded, we will release the corresponding lock, indicating to the main thread that this thread has completed.</p>
+
+					
+					
+						<h5>Lines 14–34</h5>
+						<P>The bulk of the work is done here in <TT Class="monofont">main()</TT> using three separate <B><Tt claSS="monofont">for</TT></b> loops. We first create a list of locks, which we obtain using the <tt cLASS="monofont">thread.allocate_lock()</tt> function and acquire each lock with the <tt class="monofont">acquire()</tt> method. Acquiring a lock has the effect of "locking the lock." Once it's locked, we add the lock to the lock list, <tt class="monofont">locks.</tt> The next loop actually spawns the threads, invoking the <Tt cLass="monofont">loop()</Tt> function per thread, and for each thread, provides it with the loop number, the time to sleep for, and the acquired lock for that thread. So why didn't we start the threads in the lock acquisition loop? There are several reasons: (1) we wanted to synchronize the threads, so that "all the horses started out the gate" around the same time, and (2) locks take a little bit of time to be acquired. If your thread executes "too fast," it is possible that it completes before the lock has a chance to be acquired.</p>
+
+						<p>It is up to each thread to unlock its lock object when it has completed execution. The final loop just sits-and-spins (pausing the main thread) until both locks have been released before continuing execution. Since we are checking each lock sequentially, we may be at the mercy of all the slower loops if they are more towards the beginning of the set of loops. In such cases, the majority of the wait time may be for the first loop(s). When that lock is released, remaining locks may have already been unlocked (meaning that corresponding threads have completed execution). The result is that the main thread will fly through those lock checks without pause. Finally, you should be well aware that the final pair of lines will execute <tT claSS="monofont">main()</TT> only if we are invoking this script directly.</p>
+
+						<p>As hinted in the earlier Core Note, we presented the <tt CLASs="monofont">thread</tt> module only to introduce the reader to threaded programming. Your MT application should use higher-level modules such as the <tT CLAss="monofont">threading</tt> module, which we will now discuss.</P>
+
+					
+				
+			</FONt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="260.html" title="Threads and Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=261" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="261.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="262.html" title="threading Module"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

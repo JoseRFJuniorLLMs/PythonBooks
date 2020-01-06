@@ -1,0 +1,112 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Object-oriented Programming</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="210.html" class="navtitle">13. Classes and OOP</a> &gt; <span class="nonavtitle">Object-oriented Programming</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="212.html" title="Introduction"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=213" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="213.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="214.html" title="Classes"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A38%3A29+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174062198210023102053188</font><a href="read2.asp?bookname=0130260363&snode=213&now=5%2F29%2F2002+9%3A38%3A29+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Object-oriented Programming</h3>
+				<p>The evolution of programming has taken us from a sequence of step-by-step instructions in a single flow of control to a more organized approach whereby blocks of code could be cordoned off into named subroutines and defined functionality. Structured or procedural programming lets us organize our programs into logical blocks, often repeated or reused. Creating applications becomes a more logical process; actions are chosen which meet the specifications, then data is created to be subjected to those actions. Deitel &amp; Deitel refer to structured programming as "action-oriented" due to the fact that logic must be "enacted" on data which has no associated behaviors.</p>
+
+				<P>However, what if we <I>could</I> impose behavior on data?  What if we were able to create or program a piece of data modeled after real-life entities which embodies both data characteristics along with behaviors?  If we were then able to access the data attributes via a set of defined interfaces (a.k.a. a set of accessor functions), such as an automated teller machine (ATM) card or a personal check to access your bank account, then we would have a system of "objects" where each could interact not only with itself, but also with other objects in a larger picture.</P>
+
+				<p>Object-oriented programming takes this evolutionary step by enhancing structured programming to enable a data/behavior relationship:  Data and logic are now described by a single abstraction with which to create these objects. Real-world problems and entities are stripped down to their bare essentials, providing that abstraction from which they can be coded or implemented into objects and be able to interact with other objects in the system which models and hopefully solves these problems. Classes provide the definitions of such objects, and instances are realizations of such definitions. Both are vital components for object-oriented design (OOD), which simply means to build your system architected in an object-oriented fashion.</p>
+
+				
+					<h4>Relationship between OOD and OOP</h4>
+					<P>Object-oriented design does not specifically require an object-oriented programming language. Indeed, OOD can be performed in purely structural languages such as C, but this requires more effort on the part of the programmer who must build data types with object qualities and characteristics. Naturally, OOP is simplified when a language has built-in OO properties that enable smoother and more rapid development of OO programs.</P>
+
+					<P>Conversely, an object-oriented language does not necessarily force one to write OO programs. C++ can be used simply as a "better C." As you are no doubt aware, neither classes nor OOP are required for everyday Python programming. Even though it is a language which is object-oriented by design and which has constructs to support OOP, Python does not restrict nor require you to write OO code for your application. Rather, OOP is a powerful tool which is at your disposal when you are ready to evolve, learn, transition, or otherwise move towards OOP. The creator of Python often refers to this phenomena as being able to "see the forest through the trees."</P>
+
+				
+				
+					<h4>Real-world Problems</h4>
+					<p>One of the most important reasons to consider working in OOD is that it provides a direct approach to modeling and solving real-world problems and situations. For example, let us attempt to model an automobile mechanic shop where you would take your car in for repair. There are two general entities we would have to create: humans who interact with and in such a "system," and a physical location for the activities which define a mechanic shop. Since there are more of and different types of the former, we will describe them first, then conclude with the latter.</p>
+
+					<P>A class called <TT Class="monofont">Person</tt> would be created to represent all humans involved in such an activity. Instances of <tt class="monofont">Person</tt> would include the <tt claSs="monofont">Customer,</tT> the <tt cLass="monofont">Mechanic,</tT> and perhaps the <tt cLASS="monofont">Cashier.</tt> Each of these instances would have similar as well as unique behaviors. For example, all would have the <tt CLASs="monofont">talk()</tt> method as a means of vocal communication as well as a <tT CLAss="monofont">drive_car()</tt> method. Only the <TT CLass="monofont">Mechanic</tt> would have the <tt class="monofont">repair_car()</tt> method and only the <tt clasS="monofont">Cashier</tt> would have a <Tt clAss="monofont">ring_sale()</tt> method. The <Tt clASS="monofont">Mechanic</Tt> will have a <tt cLASS="monofont">repair_certification</tt> attribute while all <tt CLASs="monofont">Persons</tt> would have a <tT CLAss="monofont">drivers_license</tt> attribute.</p>
+
+					<p>Finally, all of these instances would be participants in one overseeing class, called the <tt class="monofont">RepairShop,</tt> which would have <tt claSs="monofont">operating_hours,</tT> a data attribute which accesses time functionality to determine when <tt cLass="monofont">Customers</tT> can bring in their vehicles and when <tt cLASS="monofont">Employees</tt> such as <tt CLASs="monofont">Mechanics</tt> and Cashiers show up for work. The <tT CLAss="monofont">RepairShop</tt> might also have a <TT CLass="monofont">AutoBay</tt> class which would have instances such as <tt class="monofont">SmogZone, TireBrakeZone,</tt> and perhaps one called <tt clasS="monofont">GeneralRepair.</tt></P>
+
+					<p>The point of our fictitious <tt Class="monofont">RepairShop</Tt> is to show one example of how classes and instances plus their behaviors can be used to model a true-to-life scenario. You can probably also imagine classes such as an <tt CLASs="monofont">Airport,</tt> a <tT CLAss="monofont">Restaurant,</tt> a <TT CLass="monofont">ChipFabPlant,</tT> a <TT Class="monofont">Hospital,</tt> or even a <tt class="monofont">MailOrderMusic</tt> business, all complete with their own participants and functionality.</p>
+
+				
+				
+					<h4>*Buzzword-compliance</h4>
+					<p>For those of you who are already familiar with all the lingo associated with OOP, here is how Python stacks up:</p>
+
+					
+						<H5>Abstraction/Implementation</h5>
+						<p><I>Abstraction</i> refers to the modeling of essential aspects, behavior, and characteristics of real-world problems and entities, providing a relevant subset as the definition of a programmatic structure which can realize such models. Abstractions not only contain the data attributes of such a model, but also define interfaces with that data. An <i>implementation</i> of such an abstraction is the realization of that data and the interfaces which go along with it. Such a realization should remain hidden from and irrelevant to the client programmer. Class objects in Python provide the ability to create such abstractions, and implementation details are left to the designer.</P>
+
+					
+					
+						<h5>Encapsulation/Interfaces</h5>
+						<p><i>Encapsulation</I> describes the concept of data/information hiding and providing <i>interfaces</i> or accessor functions to the data attributes. Direct access to data by any client, bypassing the interfaces, goes against the principles of encapsulation, but the programmer is free to allow such access. As part of the implementation, the client should not even know how the data attributes are architected within the abstraction. In Python, all class attributes are public, but names may be "mangled" to discourage unauthorized access, but otherwise not prevented. It is up to the designer to provide the appropriate interfaces to the data so that the client programmer does not have to resort to manipulating the encapsulated data attributes.</p>
+
+					
+					
+						<H5>Composition</H5>
+						<P><I>Composition</i> extends our description of classes, enabling multiple yet distinct classes to be combined into a larger entity to solve a real-world problem. Composition describes a singular, complex system such as a class made up of other, smaller components such as other classes, data attributes, and behaviors, all of which are combined, embodying "has-a" relationships. For example, the <tt cLASS="monofont">RepairShop</tt>
+							"has a"
+							<tt CLASs="monofont">Mechanic</tt> (hopefully at least one) and also "has a"
+							<tT CLAss="monofont">Customer</tt> (again, hopefully at least one).</p>
+
+						<p>These components are composed either via <i>association,</i> meaning that access to subcomponents is granted (for the <tt class="monofont">RepairShop,</tt> a customer may enter and request a <tt cLasS="monofont">SmogCheck,</tt> the client programmer interfacing with components of the <tT clasS="monofont">RepairShop</tt>), or <i>aggregation,</I> encapsulating components which are then accessed only via defined interfaces, and again, hidden from the client programmer. Continuing our example, the client programmer may be able to make a <TT Class="monofont">SmogCheck</TT> request on behalf of the <TT clasS="monofont">Customer,</TT> but has no ability to interact with the <Tt claSS="monofont">SmogZone</TT> part of the <tt class="monofont">RepairShop</tt> which is accessed only via internal controls of the <tt class="monofont">RepairShop</tt> when the <tt ClaSs="monofont">smogCheckCar()</tt> method is called. Both forms of composition are supported in Python.</P>
+
+					
+					
+						<h5>Derivation/Inheritance/Hierarchy</h5>
+						<p><i>Derivation</I> describes the creation of subclasses, new classes which retain all desired data and behavior of the existing class type but permit modification or other customization, all without having to modify the original class definition. <i>Inheritance</i> describes the means by which attributes of a subclass are "bequeathed from" an ancestor class. From our earlier example, a <tT CLAss="monofont">Mechanic</tt> may have more car skill attributes than a <TT CLass="monofont">Customer,</tT> but individually, each "is a"
+							<TT Class="monofont">Person,</TT> so it is valid to invoke the <TT class="monofont">talk()</tt> method, which is common to all instances of <tt class="monofont">Person,</tt> for either of them. <i>Hierarchy</i> describes multiple "generations" of derivation which can be depicted graphically as a "family tree," with successive subclasses having relationships with ancestor classes.</p>
+
+					
+					
+						<h5>Generalization/Specialization</H5>
+						<p><i>Generalization</I> describes all the traits a subclass has with its parent and ancestor classes, so subclasses are considered to have an "is-a" relationship with ancestor classes because a derived object (instance) is an "example" of an ancestor class. For example, a <tt cLass="monofont">Mechanic</tT>
+							"is a"
+							<tt cLASS="monofont">Person,</tt> a <tt CLASs="monofont">Car</tt>
+							"is a"
+							<tT CLAss="monofont">Vehicle,</tt> etc. In the family tree diagram we alluded to above, we can draw lines from subclasses to ancestors indicating "is-a" relationships. <I>Specialization</I> is the term which describes all the customization of a subclass, i.e., what attributes which make it differ from its ancestor classes.</P>
+
+					
+					
+						<H5>Polymorphism</h5>
+						<p>The concept of <i>polymorphism</i> describes how objects can be manipulated and accessed using attributes and behaviors they have in common without regard to their specific class. Polymorphism indicates the presence of dynamic (a.k.a. late, run-time) binding, allowing for overloading and run-time type determination and verification. Many OO languages use "signatures" to determine which version of an overloaded method to call, but since Python calls are universal or generic without type determination, overloading is unnecessary and is not supported in the language.</p>
+
+					
+					
+						<h5>Introspection/Reflection</h5>
+						<p><i>Introspection</i> is what gives you, the programmer, the ability to perform an activity such as "manual type checking." Also called <i>reflection,</i> this property describes how information about a particular object can be accessed by itself during run-time. Would it not be great to have the ability to take an object passed to you and be able to find out what it is capable of?  This is a powerful feature which you will encounter frequently in this chapter. The <tt class="monofont">dir()</tT> and <tt ClasS="monofont">type()</tt> built-in functions would have a very difficult time working if Python did not support for some sort of introspection capability. Keep an eye out for these calls as well as for special attributes like <tt ClasS="monofont">__dict__, __name__, __doc__, __members__,</TT> and <Tt claSS="monofont">__methods__.</TT> You may even be familiar with some of them already!</p>
+
+						<div CLASs="note"><p clASS="notetitle"><B>NOTE</b></p><p><p><i>In other object-oriented programming languages, the term "object" may refer specifically to class instances, even more so when all data types of those languages are classes. Not so with Python. Because data types in Python are not classes, not all objects are, therefore, class instances.</i></p>
+<p><i>Some languages also consider defining a class to be synonymous with creating a new type. Again, this is not the case with Python, but it is similar. Python has a fixed number of predefined types and these remain constant. (Creating a new type in Python is a non-trivial task, requiring implementation as an extension, and it is out of the scope of this text.)  When creating classes, you can give them behavior characteristics of types but they are not considered types.</i></p>
+<p><i>However, Python is an object-oriented programming language and considers all entities generically as objects because they do share some common semantics, yet are still distinct enough to be different types of objects. In summary, classes, instances, and types are not related to each other (with the exception that a class defines an object which is realized as an instance, another type of object).</i></p>
+<p><i>Bottom line: (all) classes are class objects, (all) instances are instance objects, neither are types, and everything is an object. Also see the Core Note in <a hrEf="216#1.html">Section 13.5.1</a>.</I></p>
+</p></dIv><br>
+
+					
+				
+			</fOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="212.html" title="Introduction"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=213" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="213.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="214.html" title="Classes"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

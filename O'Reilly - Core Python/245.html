@@ -1,0 +1,625 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Special Symbols and Characters for REs</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="242.html" class="navtitle">15. Regular Expressions</a> &gt; <span class="nonavtitle">Special Symbols and Characters for REs</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="244.html" title="Introduction/Motivation"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=245" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="245.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="246.html" title="REs and Python"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A25%3A53+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004228150016161174145033020</font><a href="read4.asp?bookname=0130260363&snode=245&now=5%2F30%2F2002+8%3A25%3A53+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Special Symbols and Characters for REs</h3>
+				<p>We will now introduce the most popular of the <i>metacharacters,</I> special characters and symbols, which give regular expressions their power and flexibility. You will find the most common of these symbols and characters in <A HRef="245#1.html">Table 15.1</a>.</p>
+
+				<A NAMe="1"></a><p><tABLE border="1" cellspacing="0" celLpaDdinG="1" widtH="100%">
+<capTION><h5>Table 15.1. Common Regular Expression Symbols and Special Characters</h5></caPTIOn><colGROUp aliGN="left" SPan="3">
+<tr valign="top">
+<th>
+<font size="2"><B><i>Notation</i></B></fonT></th>
+<th>
+<Font SIZE="2"><b><i>Description</i></b></FONT></th>
+<th>
+<FONT size="2"><B><I>Example RE</I></B></font></th>
+</tr>
+<tr valign="top">
+<td coLspAn="1">
+<foNt sizE="2"><b><i>Symbols</i></B></FONt></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2"><I><tt class="monofont">re_string</tt></i></font></td>
+<td>
+<foNt sIze="2">match literal string value <i><Tt claSs="monofont">re_string</tt></I></FONt></td>
+<tD>
+<FONt sizE="2"><TT Class="monofont">foo</TT></FOnt></td>
+</tr>
+<tr valign="top">
+<td>
+<font SizE="2"><i><tt Class="monofont">re1|re2</Tt></i></fONT></Td>
+<td>
+<fONT Size="2">match literal string value <i><TT CLass="monofont">re1</tT></I> or <I><Tt class="monofont">re2</tt></i></font></td>
+<td>
+<fonT siZe="2"><tt Class="monofont">foo|bar</Tt></foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">.</tt></font></td>
+<td>
+<font sizE="2">match <i>any character</i> (except NEWLINE)</Font></Td>
+<td>
+<fOnt sIZE="2"><Tt claSS="monofont">::.+::</TT></font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<font size="2"><tt class="monofont">^</tt></fOnt></Td>
+<td>
+<Font sIze="2">match <i>start of string</I></FONt></td>
+<tD>
+<FONt sizE="2"><TT Class="monofont">^Dear</TT></FOnt></td>
+</tr>
+<tr valign="top">
+<td>
+<font SizE="2"><tt cLass="monofont">$</tT></fonT></TD>
+<Td>
+<fonT SIZe="2">match <i>end of string</i></fONT></Td>
+<td>
+<fONT Size="2"><tt class="monofont">/bin/\w*sh$</tt></font></td>
+</tr>
+<Tr vAligN="top">
+<td>
+<foNt siZE="2"><TT clasS="monofont">*</TT></Font></tD>
+<TD>
+<Font sIZE="2">match <I>0 or more</i> occurrences of preceding RE</font></td>
+<td>
+<font size="2"><tt cLasS="monofont">[A-Za-z]\w*</tt></fOnt></td>
+</Tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">+</tT></FONt></td>
+<td>
+<font size="2">match <i>1 or more</i> occurrences of preceding RE</font></tD>
+<td>
+<Font Size="2"><tT claSS="monofont">\d+\.|\.\d+</TT></font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><tt class="monofont">?</tt></font></td>
+<td>
+<fOnt Size="2">match <I>0 or 1</i> occurrence(s) of preceding RE</fonT></td>
+<tD>
+<FONt sizE="2"><TT Class="monofont">goo?</TT></FOnt></td>
+</TR>
+<TR valign="top">
+<td>
+<font size="2"><tt clAss="monofont">{</Tt><i><tT clasS="monofont">N</tt></i><TT CLass="monofont">}</tT></FONt></td>
+<tD>
+<FONt sizE="2">match <I>N</I> occurrences of preceding RE</Font></td>
+<td>
+<font size="2"><tt claSs="monofont">\d{3}</tT></fonT></td>
+</tr>
+<Tr vaLIGN="top">
+<td>
+<foNT SIze="2"><tt CLASs="monofont">{</tt><i><TT CLass="monofont">M,N</tt></i><tt class="monofont">}</tt></font></tD>
+<td>
+<Font Size="2">match from <i>M</I> to <i>N</i> occurrences of preceding RE</fONT></Td>
+<td>
+<fONT Size="2"><tT CLAss="monofont">\d{5,9}</tt></FONT></td>
+</tr>
+<tr valign="top">
+<td>
+<font siZe="2"><tT claSs="monofont">[…]</tt></fOnt></tD>
+<TD>
+<Font sIZE="2">match any single character from <I>character</i> class</fonT></TD>
+<Td>
+<fonT SIZe="2"><tt class="monofont">[aeiou]</tt></font></td>
+</tr>
+<tr ValIgn="top">
+<tD>
+<font Size="2"><TT CLass="monofont">[..</tT><I><TT clasS="monofont">x–y</TT></I><tt clASS="monofont">..]</Tt></font></td>
+<td>
+<font size="2">match any single character in the <i>range from</i>
+									<tT clAss="monofont">x</tT> to <tt clAss="monofont">y</tT></FONt></td>
+<tD>
+<FONt sizE="2"><TT Class="monofont">[0–9], [A-Za-z]</TT></FOnt></td>
+</tr>
+<tr valign="top">
+<td>
+<font SizE="2"><tt cLass="monofont">[^…]</tT></fonT></TD>
+<Td>
+<fonT SIZe="2"><i>do not match</i> any character from character class, including any ranges, if present</fONT></Td>
+<td>
+<fONT Size="2"><tt class="monofont">[^aeiou], [^A-Za-z0–9_]</tt></font></td>
+</tr>
+<Tr vAligN="top">
+<td>
+<foNt siZE="2"><TT clasS="monofont">(*|+|?|{})?</TT></Font></tD>
+<TD>
+<Font sIZE="2">apply non-greedy versions of above occurrence/repetition symbols <Tt class="monofont">( *, +, ?, {})</tt></font></td>
+<td>
+<font SizE="2"><tt cLass="monofont">.*?\w</tT></fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><tT CLAss="monofont">(…)</tt></font></td>
+<td>
+<font size="2">match enclosed RE and save as <I>subgroup</i></fOnt></tD>
+<td>
+<foNt siZE="2"><TT clasS="monofont">(\d{3})?, f(oo|u)bar</TT></Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td colspan="1">
+<font size="2"><b><i>Special Characters</i></b></FonT></td>
+</tR>
+<tr vaLign="top">
+<TD>
+<FOnt siZE="2"><TT clasS="monofont">\d</TT></Font></tD>
+<TD>
+<Font size="2">match any decimal <i>digit,</i> same as <tt class="monofont">[0–9]</tt> (<tt ClaSs="monofont">\D</tt> is inverse of <Tt claSs="monofont">\d:</tt> do not match any numeric digit)</FONT></td>
+<td>
+<FONT size="2"><TT CLass="monofont">data\d+.txt</tT></FONt></td>
+</tr>
+<tr valign="top">
+<td>
+<font sIze="2"><Tt clAss="monofont">\w</tt></Font></TD>
+<TD>
+<font SIZE="2">match any <i>alphanumeric</i> character, same as <tt CLASs="monofont">[A-Za-z0-9_]</tt> (<tT CLAss="monofont">\W</tt> is inverse of <tt class="monofont">\w</tt>)</font></td>
+<tD>
+<foNt siZe="2"><tt cLass="monofont">[A-Za-z_]\w+</TT></FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><tt class="monofont">\s</tt></font></td>
+<td>
+<fonT siZe="2">match <i>any whitespace</i> character, same as <Tt claSs="monofont">[ \n\t\r\v\f]</tt> (<TT CLass="monofont">\S</tT> is inverse of <TT Class="monofont">\s</TT>)</FOnt></td>
+<TD>
+<FOnt size="2"><tt class="monofont">of\sthe</tt></font></tD>
+</tr>
+<Tr vaLign="top">
+<tD>
+<fonT SIZe="2"><tt cLASS="monofont">\b</tt></foNT></TD>
+<td>
+<foNT SIze="2">match any <i>word boundary</i> (<tt class="monofont">\B</tt> is inverse of <tt class="monofont">\b</Tt>)</fOnt></tD>
+<td>
+<foNt siZE="2"><TT clasS="monofont">\bThe\b</TT></Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<font size="2"><tt class="monofont">\</tt><i><tT clAss="monofont">nn</tT></i></fonT></td>
+<tD>
+<FONt sizE="2">match saved <I>subgroup</I>
+									<Tt claSS="monofont">nn</TT> (see <tt clASS="monofont">(…)</Tt> above)</font></td>
+<td>
+<font size="2"><tt cLasS="monofont">price: \16</tt></fOnt></td>
+</Tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">\</tT><I><TT class="monofont">c</tt></i></font></td>
+<td>
+<font SizE="2">match any <i>special character</i>
+									<i><Tt claSs="monofont">c</tt></I> verbatim (i.e., without its special meaning, literal)</FONt></td>
+<tD>
+<FONt sizE="2"><TT Class="monofont">\., \\, \*</TT></FOnt></td>
+</tr>
+<tr valign="top">
+<td>
+<font SizE="2"><tt cLass="monofont">\A (\Z)</tT></fonT></TD>
+<Td>
+<fonT SIZe="2">match <i>start (end) of string</i> (also see <tT CLAss="monofont">^</tt> and <TT CLass="monofont">$</tt> above)</font></td>
+<td>
+<font sizE="2"><tt ClasS="monofont">\ADear</tt></foNt></td>
+</TR>
+</COlgroUP>
+</TAble></p>
+
+				
+					<H4>Matching more than one RE pattern with alternation ( <TT Class="monofont">|</TT> )</H4>
+					<P>The pipe symbol <tt class="monofont">( | ),</tt> a vertical bar on your keyboard, indicates an <i>alternation</i> operation, meaning that it is used to choose from one of the different regular expressions which are separated by the pipe symbol. For example, below are some patterns which employ alternation, along with the strings they match:</p>
+
+					<p><table boRdeR="1" celLspacIng="0" cELLPaddiNG="1" WIdth="100%">
+<cOLGRoup aLIGN="left" span="2">
+<tr valign="top">
+<th>
+<font siZe="2"><b>RE Pattern</B></fonT></th>
+<th>
+<Font SIZE="2"><b>Strings Matched</b></foNT></TH>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><tt class="monofont">at|home</tt></font></td>
+<tD>
+<foNt siZe="2"><tt cLass="monofont">at, home</TT></FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><tt class="monofont">r2d2|c3po</tt></font></td>
+<td>
+<fonT siZe="2"><tt Class="monofont">r2d2, c3po</Tt></foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">bat|bet|bit</tt></font></td>
+<td>
+<font sizE="2"><tt ClasS="monofont">bat, bet, bit</tt></foNt></td>
+</TR>
+</COlgroUP>
+</TAble></p>
+
+					<P>With this one symbol, we have just increased the flexibility of our regular expressions, enabling the matching of more than just one string. Alternation is also sometimes called union or logical OR.</P>
+
+				
+				
+					<H4>Matching any single character ( <Tt claSS="monofont">.</TT> )</h4>
+					<p>The dot or period ( <tt class="monofont">.</tt> ) symbol matches any single character except for NEWLINE (Python REs have a compilation flag [S or DOTALL] which can override this to include NEWLINEs.). Whether letter, number, whitespace not including "\n," printable, non-printable, or a symbol, the dot can match them all.</p>
+
+					<p><table boRdeR="1" celLspacIng="0" cELLPaddiNG="1" WIdth="100%">
+<cOLGRoup aLIGN="left" span="2">
+<tr valign="top">
+<th>
+<font siZe="2"><b>RE Pattern</B></fonT></th>
+<th>
+<Font SIZE="2"><b>Strings Matched</b></foNT></TH>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><tt class="monofont">f.o</tt></font></td>
+<tD>
+<foNt siZe="2">any character between "f" and "o," e.g., <tt cLass="monofont">fao,f9o, f#o,</TT> etc.</FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><tt class="monofont">..</tt></font></td>
+<td>
+<fonT siZe="2">any pair of characters</foNt></td>
+</tR>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><tT CLAss="monofont">.end</tt></FONT></td>
+<td>
+<font size="2">any character before the string end</font></td>
+</tr>
+</ColGrouP>
+</tablE></p>
+
+					<p><tABLE bodeR="0" CELlspaCING="16" cellPADDing="0">
+						<tr valign="top"><td align="right"><foNt><b>Q:</B></fonT></td><td><Font><P>"What if I want to match the dot or period character?"</P>
+</FOnt></td></TR><TR valiGN="top"><TD aligN="right"><FONt><b>A:</b></font></td>
+<td><font><p>In order to specify a dot character explicitly, you must escape its functionality with a backslash, as in "\."</p></fonT></td></Tr>
+					</taBle></p>
+				
+				
+					<h4>Matching from the beginning or end of strings or word boundaries ( <Tt clASS="monofont">^/$</Tt>)</h4>
+					<p>There are also symbols and related special characters to specify searching for patterns at the beginning and ending of strings. To match a pattern starting from the beginning, you must use the carat symbol ( <tT CLAss="monofont">^</tt> ) or the special character <TT CLass="monofont">\A</tT> (backslash-capital "A"). The latter is primarily for keyboards which do not have the carat symbol, i.e., international. Similarly, the dollar sign ( <TT Class="monofont">$</tt> ) or <tt class="monofont">\Z</tt> will match a pattern from the end of a string.</p>
+
+					<p>Patterns which use these symbols differ from most of the others we describe in this chapter since they dictate location or position. In the Core Note above, we noted that a distinction is made between "matching," attempting matches of entire strings starting at the beginning, and "searching," attempting matches from anywhere within a string. Because we are looking specifically at symbols and special characters which deal with position, they make sense only when applied to searching.</p>
+
+					<p>That said, here are some examples of "edge-bound" RE search patterns:</p>
+
+					<P><taBle bOrder="1" CellSPACing="0" cELLPaddiNG="1" WIdth="100%">
+<cOLGRoup align="left" span="2">
+<tr valign="top">
+<Th>
+<fOnt sIze="2"><b>RE Pattern</b></Font></TH>
+<TH>
+<font SIZE="2"><b>Strings Matched</b></foNT></TH>
+</tr>
+<tr VALIgn="top">
+<td>
+<font size="2"><tt class="monofont">^From</tT></foNt></td>
+<Td>
+<fonT sizE="2">any string which starts with <TT Class="monofont">From</TT></FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font size="2"><tt class="monofont">/bin/tcsh$</tt></fonT></td>
+<Td>
+<foNt sizE="2">any string which ends with <tt cLASS="monofont">/bin/tcsh</tt></foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><tt class="monofont">^Subject: hi$</tt></font></td>
+<tD>
+<foNt siZe="2">any string consisting solely of the string <tt cLass="monofont">Subject: hi</TT></FOnt></td>
+</TR>
+</COlgroUP>
+</TAble></p>
+
+					<P>Again, if you want to match either (or both) of these characters verbatim, you must use an escaping backslash. For example, if you wanted to match any string which ended with a dollar sign, one possible RE solution would be the pattern ".<TT Class="monofont">*\$$</tt>".</p>
+
+					<p>The <tt class="monofont">\b</tt> and <tt cLasS="monofont">\B</tt> special characters will match the empty string, meaning that they can start performing the match anywhere. The difference is that <tT clasS="monofont">\b</tt> will match a pattern to a word boundary, meaning that a pattern must be at the beginning of a word, whether there are any characters in front of it (word in the middle of a string) or not (word at the beginning of a line). And likewise, <tT CLAss="monofont">\B</tt> will match a pattern only if it appears starting in the middle of a word (i.e., not at a word boundary). Here are some examples:</P>
+
+					<P><TAble bORDEr="1" celLSPAcing="0" cellpadding="1" width="100%">
+<ColGrouP aligN="left" spaN="2">
+<TR ValigN="top">
+<TH>
+<Font sIZE="2"><B>RE Pattern</b></fonT></TH>
+<Th>
+<font size="2"><b>Strings Matched</b></font></th>
+</tr>
+<tR vaLign="top">
+<Td>
+<fonT sizE="2"><TT Class="monofont">the</TT></FOnt></td>
+<TD>
+<FOnt siZE="2">any string containing <TT class="monofont">the</tt></font></td>
+</tr>
+<tr valIgn="top">
+<Td>
+<foNt sizE="2"><tt cLASS="monofont">\bthe</tt></foNT></TD>
+<td>
+<foNT SIze="2">any word which starts with <tt CLASs="monofont">the</tt></font></td>
+</tr>
+<tr valign="top">
+<tD>
+<foNt siZe="2"><tt cLass="monofont">\bthe\b</TT></FOnt></td>
+<TD>
+<FOnt siZE="2">matches only the word <TT clasS="monofont">the</TT></Font></td>
+</tr>
+<tr valign="top">
+<td>
+<fonT siZe="2"><tt Class="monofont">\Bthe</Tt></foNT></TD>
+<td>
+<foNT SIze="2">any string which contains but does not begin with <tt CLASs="monofont">the</tt></fONT></Td>
+</tr>
+</colgroup>
+</table></p>
+
+				
+				
+					<h4>Creating character classes ( <tt ClaSs="monofont">[ ]</tt> )</H4>
+					<p>While the dot is good for allowing matches of any symbols, there may be occasions where there are specific characters you want to match. For this reason, the bracket symbols ( <tt cLass="monofont">[ ]</TT> ) were invented. The regular expression will match from any of the enclosed characters. Here are some examples:</P>
+
+					<P><tablE BORder="1" cELLSpaciNG="0" CEllpadding="1" width="100%">
+<colgroUp aLign="left" Span="2">
+<tR valIGN="top">
+<Th>
+<fonT SIZe="2"><b>RE Pattern</b></fONT></Th>
+<th>
+<fONT Size="2"><b>Strings Matched</b></font></th>
+</tr>
+<tr valigN="top">
+<td>
+<Font Size="2"><tT claSS="monofont">b[aeiu]t</TT></font></TD>
+<TD>
+<font SIZE="2"><tt clASS="monofont">bat, bet, bit, but</Tt></font></td>
+</tr>
+<tr valign="top">
+<td>
+<fOnt Size="2"><Tt claSs="monofont">[cr][23][dp][o2]</tt></FONT></td>
+<td>
+<FONT size="2">"r" or "c" then "2" or "3" followed by "d" or "p" and finally, either "o" or "2," e.g., <TT CLass="monofont">c2do, r3p2, r2d2, c3po,</tT> etc.</FONt></td>
+</tr>
+</colgroup>
+</table></p>
+
+					<p>One side note regarding the RE "<Tt cLass="monofont">[cr][23][dp][o2]</Tt>"—a more restrictive version of this RE would be required to allow only "r2d2" or "c3po" as valid strings. Because brackets merely imply "logical OR" functionality, it is not possible to use brackets to enforce such a requirement. The only solution is to use the pipe, as in "<tt cLass="monofont">r2d2|c3po</TT>".</P>
+
+					<P>For single character REs, though, the pipe and brackets are equivalent. For example, let's start with the regular expression "ab" which matches only the string with an "a" followed by a "b." If we wanted either a one-letter string, i.e., either "a" or a "b," we could use the RE "<tt clASS="monofont">[ab]</Tt>". Because "a" and "b" are individual strings, we can also choose the RE "<tt cLASS="monofont">a|b</tt>". However, if we wanted to match the string with the pattern "ab" followed by "cd," we cannot use the brackets because they work only for single characters. In this case, the only solution is "<tt CLASs="monofont">ab|cd,</tt>" similar to the "<tt class="monofont">r2d2/c3po</tt>" problem just mentioned.</p>
+
+				
+				
+					<h4>Denoting ranges ( <tt clasS="monofont">-</tt> ) and negation ( <Tt clAss="monofont">^</tt> )</H4>
+					<p>In addition to single characters, the brackets also support ranges of characters. A hyphen between a pair of symbols enclosed in brackets is used to indicate a range of characters, e.g., A–Z, a–z, or 0–9 for uppercase letters, lowercase letters, and numeric digits, respectively. This is a lexicographic range, so you are not restricted to using just alphanumeric characters. Additionally, if a caret ( <tt CLASs="monofont">^</tt> ) is the first character immediately inside the open left bracket, this symbolizes a directive to not match any of the characters in the given character set.</p>
+
+					<P><TABle boRDER="1" cellSPACing="0" cellpadding="1" width="100%">
+<cOlgRoup Align="left" Span="2">
+<TR VAlign="top">
+<TH>
+<FOnt siZE="2"><B>RE Pattern</B></font></TH>
+<TH>
+<font size="2"><b>Strings Matched</b></font></th>
+</tr>
+<tr ValIgn="top">
+<tD>
+<font Size="2"><TT CLass="monofont">z.[0–9]</tT></FONt></td>
+<tD>
+<FONt sizE="2">"z" followed by any character then followed by a single digit</FONt></td>
+</tr>
+<tr valign="top">
+<td>
+<font sIze="2"><Tt clAss="monofont">[r–u][env-y][us]</tt></Font></TD>
+<TD>
+<font SIZE="2">"r"
+										"s,"
+										"t" or "u" followed by "e,"
+										"n,"
+										"v,"
+										"w,"
+										"x," or "y" followed by "u" or "s"</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<font size="2"><tt class="monofont">[^aeiou]*</tt></fOnt></Td>
+<td>
+<Font sIze="2">zero or more (*symbol introduced in next subsection) non-vowels (EXERCISE: Why do we say "non-vowels" rather than "consonants?")</fONT></Td>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt sizE="2"><TT Class="monofont">[^\t\n]+</tt></font></td>
+<td>
+<font siZe="2">one or more (+symbol introduced in next subsection) characters up to, but not including, the first TAB or NEWLINE encountered</fOnt></tD>
+</tr>
+<tr ValiGN="top">
+<TD>
+<font SIZE="2"><tt clASS="monofont">["-a]</Tt></fonT></TD>
+<Td>
+<font size="2">in an ASCII system, all characters which fall between """ and "a," i.e., between ordinals 34 and 97.</font></td>
+</tr>
+</colGroUp>
+</taBle></p>
+
+				
+				
+					<h4>Multiple occurrence/repetition using closure operators ( <Tt clASS="monofont">*, +, ?, { }</Tt> )</h4>
+					<p>We will now introduce the most common RE notations, namely, the special symbols <tT CLAss="monofont">*, +,</tt> and <TT CLass="monofont">?,</tT> all of  which can be used to match single, multiple, or no occurrences of string patterns. The asterisk or star operator ( <TT Class="monofont">*</tt> ) will match zero or more occurrences of the RE immediately to its left (in language and compiler theory, this operation is known as the Kleene Closure). The plus operator ( <tt class="monofont">+</tt> ) will match one or more occurrences of an RE (known as Positive Closure), and the question mark operator ( <tt claSs="monofont">?</tT> ) will match exactly 0 or 1 occurrences of an RE.</p>
+
+					<p>There are also brace operators ( <tT clasS="monofont">{ }</tt> ) with either a single value or a comma-separated pair of values. These indicate a match of exactly <i><TT CLass="monofont">N</tT></I> occurrences (for <TT clasS="monofont">{</TT>
+						<I><tt clASS="monofont">N</Tt></i>
+						<tt class="monofont">}</tt>) or a range of occurrences, i.e., <tt class="monofont">{</tt><I><tt ClasS="monofont">M, N</tt></i><tT claSS="monofont">}</TT> will match from <i><tt cLASS="monofont">M</tt></i> to <i><TT CLass="monofont">N</tT></I> occurrences. These symbols may also be escaped with the backslash, i.e., "<TT class="monofont">\*</tt>" matches the asterisk, etc.</p>
+
+					<p>Finally, the question mark ( <tt class="monofont">?</tt> ) is overloaded so that if it follows any of the following symbols, it will direct the regular expression engine to match as few repetitions as possible.</p>
+
+					<p>Here are some examples using the closure operators:</P>
+
+					<p><tAble BordeR="1" celLSPAcing="0" CELLpaddING="1" Width="100%">
+<COLGroup align="left" span="2">
+<tr valigN="top">
+<th>
+<Font Size="2"><b>RE Pattern</B></fonT></TH>
+<Th>
+<fonT SIZe="2"><b>Strings Matched</b></fONT></Th>
+</tr>
+<tR VALign="top">
+<td>
+<font size="2"><tt class="monofont">[dn]ot?</Tt></fOnt></tD>
+<td>
+<foNt siZE="2">"d" or "n," followed by an "o" and, at most, one "t" after that, i.e., <TT clasS="monofont">do, no, dot, not</TT></Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<font size="2"><tt class="monofont">0?[1–9]</tt></foNt></tD>
+<td>
+<fOnt siZe="2">any numeric digit, possibly prepended with a "0," e.g., the set of numeric representations of the months January to September, whether single- or double-digits</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">[0–9]{15,16}</tt></font></td>
+<td>
+<font sizE="2">fifteen or sixteen digits, e.g., credit card numbers</foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2"><Tt claSS="monofont">&lt;/?[^&gt;]+&gt;</TT></font></TD>
+<TD>
+<font size="2">strings which match all valid (and invalid) HTML tags</font></td>
+</tr>
+<tr vaLigN="top">
+<td>
+<fOnt siZe="2"><tt CLASs="monofont">[KQRBNP][a–h][1–8]-[a–h][1–8]</tt></fONT></Td>
+<td>
+<fONT Size="2">Legal chess move in "long algebraic" notation (move only, no capture, check, etc.), i.e., strings which start with any of "K,"
+										"Q,"
+										"R,"
+										"B,"
+										"N," or "P" followed by a hyphenated-pair of chess board grid locations from "a1" to "h8" (and everything in between), with the first coordinate indicating the former position and the second being the new position.</fONT></Td>
+</tr>
+</colgroup>
+</table></p>
+
+				
+				
+					<h4>Special characters representing character sets</h4>
+					<p>We also mentioned that there are special characters which may represent character sets. Rather than using a range of "0–9," you may simply use "<Tt cLass="monofont">\d</Tt>" to indicate the match of any decimal digit. Another special character "<tt cLass="monofont">\w</TT>" can be used to denote the entire alphanumeric character class, serving as a shortcut for "<TT clasS="monofont">A–Za–z0–9_,</TT>" and "<Tt claSS="monofont">\s</TT>" for whitespace characters. Uppercase versions of these strings symbolizes a <i>non</i>-match, i.e., "<tt CLASs="monofont">\D</tt>" matches any non-decimal digit (same as "<tt class="monofont">[^0–9]</tt>"), etc.</p>
+
+					<p>Using these shortcuts, we will present a few more complex examples:</p>
+
+					<p><tablE boRder="1" CellsPaciNG="0" CEllpaDDINg="1" widTH="100%">
+<COlgroUP ALign="left" span="2">
+<tr valign="top">
+<th>
+<fonT siZe="2"><b>RE Pattern</b></Font></tH>
+<th>
+<fONT Size="2"><b>Strings Matched</B></FONt></th>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font size="2"><tt class="monofont">\w+-\d+</tt></font></Td>
+<tD>
+<fonT size="2">alphanumeric string and number separated by a hyphen</Font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><tt CLASs="monofont">[A–Za–z]\w*</tt></font></td>
+<td>
+<font size="2">alphabetic first character, additional characters (if present) can be alphanumeric (almost equivalent to the set of valid Python identifiers [see exercises])</fOnt></Td>
+</tr>
+<Tr valIgn="top">
+<tD>
+<FONt sizE="2"><TT Class="monofont">\d{3}-\d{3}-\d{4}</TT></FOnt></td>
+<TD>
+<FOnt size="2">(American) telephone numbers with an area code prefix, as in 800-555-1212</font></td>
+</tr>
+<tr valiGn="top">
+<tD>
+<fonT size="2"><Tt clASS="monofont">\w+@\w+\.com</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2">simple e-mail addresses of the form <i><tt CLASs="monofont">XXX@YYY.com</tt></i></font></td>
+</tr>
+</colgroup>
+</TabLe></p>
+
+					<p>Note that all special characters, including all the ones mentioned before such as "<Tt claSs="monofont">\A,</tt>"
+						"<TT CLass="monofont">\B,</tT>"
+						"<TT Class="monofont">\d,</TT>" etc., may or may not have ASCII equivalents. To be sure you are using the regular expression versions, it would be a safe bet to use raw strings to escape backslash functionality (see the Core Note later in this chapter).</P>
+
+					<P>Also, the "<tt clASS="monofont">\w</Tt>" and "<tt class="monofont">\W</tt>" alphanumeric character sets are affected by the <tt class="monofont">L</tt> or <tT clAss="monofont">LOCALE</tT> compilation flag and in Python 1.6 and newer, by Unicode flags.</p>
+
+				
+				
+					<h4>Designating groups with parentheses ( <tt ClasS="monofont">( )</TT> )</H4>
+					<p>Now, perhaps we have achieved the goal of matching a string and discarding non-matches, but in some cases, we may also be more interested in the data that we did match. Not only do we want to know whether the entire string matched our criteria, but whether we can also extract any specific strings or substrings which were part of a successful match. The answer is yes. To accomplish this, surround any RE with a pair of parentheses.</p>
+
+					<p>A pair of parentheses ( <tT CLAss="monofont">( )</tt> ) can accomplish either (or both) of the below when used with regular expressions:</P>
+
+					<OL Type="1">
+<lI>
+<P>grouping regular expressions</P>
+</Li>
+<li>
+<p>matching subgroups</p>
+</li>
+</ol>
+
+					<p>One good example for wanting to group regular expressions is when you have two different REs with which you want to compare a string. Another reason is to group an RE in order to use a repetition operator on the entire RE (as opposed to an individual characters or character classes).</p>
+
+					<p>One side-effect of using parentheses is that the substring which matched the pattern is saved for future use. These subgroups can be recalled for the same match or search, or extracted for post-processing. Why are matches of subgroups important?  The main reason is that there are times where you want to extract the patterns you match, in addition to making a match.</p>
+
+					<p>For example, what if we decided to match the pattern "<tt clasS="monofont">\w+-\d+</tt>" but wanted save the alphabetic first part and the numeric second part individually?  This may be desired because with any successful match, we may want to see just what those strings were that matched our RE patterns. If we add parentheses to both subpatterns, i.e., "<Tt clAss="monofont">(\w+)-(\d+),</tt>" then we can access each of the matched subgroups individually. Subgrouping is preferred because the alternative is to write code to determine we have a match, then execute another separate routine (which we also had to create) to parse the entire match just to extract both parts. Why not let Python do it, since it is a supported feature of the <Tt clASS="monofont">re</Tt> module, instead of "reinventing the wheel"?</p>
+
+					<p><tABLE bordER="1" CEllspACINg="0" cellpadding="1" width="100%">
+<colGroUp alIgn="left" spAn="2">
+<tr VALIgn="top">
+<th>
+<FONT size="2"><B>RE Pattern</B></FOnt></th>
+<TH>
+<FOnt size="2"><b>Strings Matched</b></font></th>
+</tr>
+<tr vaLigN="top">
+<td>
+<fOnt siZe="2"><tt CLASs="monofont">\d+(\.\d*)?</tt></fONT></Td>
+<td>
+<fONT Size="2">strings representing simple floating point number, that is, any number of digits followed optionally by a single decimal point and zero or more numeric digits, as in "0.004,"
+										"2,"
+										"75.," etc.</fONT></Td>
+</tr>
+<tr valign="top">
+<td>
+<font sizE="2"><tt ClasS="monofont">(Mr?s?\. )?[A–Z][a–z]* [ A–Za–z-]+</tt></foNt></td>
+<TD>
+<FOnt siZE="2">first name and last name, with a restricted first name (must start with uppercase; lowercase only for remaining letters, if any), the full name prepended by an optional title of "Mr.,"
+										"Mrs.,"
+										"Ms.," or "M.," and a flexible last name, allowing for multiple words, dashes, and uppercase letters</FOnt></td>
+</TR>
+</COlgroUP>
+</TAble></p>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="244.html" title="Introduction/Motivation"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=245" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="245.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="246.html" title="REs and Python"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

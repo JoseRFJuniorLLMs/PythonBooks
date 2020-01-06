@@ -1,0 +1,287 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; for Statement</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="129.html" class="navtitle">8. Conditionals and Loops</a> &gt; <span class="nonavtitle">for Statement</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="134.html" title="while Statement"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=135" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="135.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="136.html" title="break Statement"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A24%3A17+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175205161206104062154197</font><a href="read1.asp?bookname=0130260363&snode=135&now=5%2F29%2F2002+9%3A24%3A17+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3><tt cLASS="monofont">for</tt> Statement</h3>
+				<p>The other looping mechanism in Python comes to us in the form of the <B><TT Class="monofont">for</TT></B> statement. Unlike the traditional conditional looping <B><tt class="monofont">for</tt></b> statement found in mainstream third-generation languages (3GLs) like C, Fortran, or Pascal, Python's <b><tt class="monofont">for</tt></B> is more akin to a scripting language's iterative <tt ClasS="monofont">foreach</tt> loop.</p>
+
+				
+					<h4>General Syntax</H4>
+					<p>Iterative loops index through individual elements of a set and terminate when all the items are exhausted. Python's <b><tT CLAss="monofont">for</tt></B> statement iterates only through sequences, as indicated in the general syntax here:</P>
+
+					<PRe>
+						
+<b>for</b>
+							<i>iter_var <B>in</B> sequence:</I>
+    <I>suite_to_repeat</i>
+
+					</pre>
+
+					<P>The sequence <I><TT class="monofont">sequence</tt></i> will be iterated over, and with each loop, the <i><tt class="monofont">iter_var</tt></i> iteration variable is set to the current element of the sequence, presumably for use in <i><Tt cLass="monofont">suite_to_repeat.</Tt></i></p>
+
+				
+				<a Name="2"></A>
+					<H4>Used with Sequence Types</H4>
+					<P>In this section, we will see how the <b><tt cLASS="monofont">for</tt></b> loop works with the different sequence types. The examples will include string, list, and tuple types.</p>
+
+					<PRE>
+						
+&gt;&gt;&gt; <B>for</b> eachLetter <b>in</b> 'Names':
+…       <b>print</B> 'current letter:', eachLetter
+…
+current letter: N
+current letter: a
+current letter: m
+current letter: e
+current letter: s
+
+					</PRE>
+
+					<p>When iterating over a string, the iteration variable will always consist of only single characters (strings of length 1). Such constructs may not necessarily be useful. When seeking characters in a string, more often than not, the programmer will either use <b><tt class="monofont">in</tt></b> to test for membership, or one of the string module functions or string methods to check for substrings.</p>
+
+					<p>One place where seeing individual characters does come in handy is during the debugging of sequences in a <b><tt claSs="monofont">for</tT></b> loop in an application where you are expecting strings or entire objects to show up in your <b><tT clasS="monofont">print</tt></b> statements. If you see individual characters, this is usually a sign that you received a single string rather than a sequence of objects.</P>
+
+					<P>There are two basic ways of iterating over a sequence:</P>
+
+					
+						<H5>Iterating by Sequence Item</h5>
+						<pre>
+							
+&gt;&gt;&gt; nameList ['Walter', "Nicole", 'Steven', 'Henry']
+&gt;&gt;&gt; <B>for</B> eachName <B>in</B> nameList:
+…        <b>print</b> eachName, "Lim"
+…
+Walter Lim
+Nicole Lim
+Steven Lim
+Henry Lim
+
+						</prE>
+
+						<P>In the above example, a list is iterated over, and for each iteration, the <TT clasS="monofont">eachName</TT> variable contains the list element that we are on for that particular iteration of the loop.</P>
+
+					
+					
+						<h5>Iterating by Sequence Index</h5>
+						<p>An alternative way of iterating through each item is by index offset into the sequence itself:</p>
+
+						<pre>
+							
+&gt;&gt;&gt; nameList = ['Shirley', "Terry", 'Joe', 'Heather', 'Lucy']
+&gt;&gt;&gt; <b>for</b> nameIndex <b>in</b> range(len(nameList)):
+…       <b>print</b> "Liu,", nameList[nameIndex]
+…
+Liu, Shirley
+Liu, Terry
+Liu, Joe
+Liu, Heather
+Liu, Lucy
+
+						</pre>
+
+						<p>Rather than iterating through the elements themselves, we are iterating through the indices of the list.</p>
+
+						<p>We employ the assistance of the <b><Tt cLass="monofont">len()</Tt></b> built-in function, which provides the total number of elements in the tuple as well as the <tt ClasS="monofont">range()</TT> built-in function (which we will discuss in more detail below) to give us the actual sequence to iterate over.</P>
+
+						<pre>
+							
+&gt;&gt;&gt; len(nameList)
+5
+&gt;&gt;&gt; range(len(nameList))
+[0, 1, 2, 3, 4]
+
+						</pRE>
+
+						<P>Using <Tt claSS="monofont">range(),</TT> we obtain a list of the indexes that <tt clASS="monofont">nameIndex</Tt> iterates over; and using the slice/subscript operator ( <tt class="monofont">[ ]</tt> ), we can obtain the corresponding sequence element.</p>
+
+						<p>Those of you who are performance pundits will no doubt recognize that iteration by sequence item wins over iterating via index. If not, this is something to think about. (See Exercise 8-13).</p>
+
+					
+				
+				<a name="5"></a>
+					<h4><Tt cLass="monofont">Switch/Case</Tt> Statement Proxy</h4>
+					<p>Earlier in <a Href="133.html">Section 8.3</A>, we introduced the <B><TT clasS="monofont">if-elif-else</TT></B> construct and indicated that Python did not support a <tt clASS="monofont">switch/case</Tt> statement. In many cases, an incredibly long set of <b><tt CLASs="monofont">if-elif-else</tt></b> statements can be replaced by a <b><tt class="monofont">for</tt></b> loop, which contains the "case" items in a sequence which is iterated over. We present a modified version of the example in <a href="133.html">Section 8.3</A>, moving all the <b><tT claSs="monofont">elif</tt></b> statements into the <B><tt cLASS="monofont">for</tt></b> loop:</p>
+
+					<PRE>
+						
+<B>for</b> cmd <b>in</b> ('add', 'delete', 'quit'):
+    <b>if</B> cmd == user.cmd:
+        action = cmd + " item"
+        valid = 1
+        <B>break</B>
+<B>else:</b>
+    action = "invalid choice… try again!"
+    valid = 0
+
+					</pre>
+
+					<P>You are now probably glad to see that there is some kind of substitute for the lack of a <TT Class="monofont">switch/case</tt> statement in Python, but do you realize that using a list gives you even more power as a programmer?  In other languages, the elements of a <tt class="monofont">case</tt> statement are constant and a static part of the code. By using lists in Python, not only can these elements be variables, but they can also be dynamic and changed during run-time!</p>
+
+					<p>Final note, it may have surprised you to see an <b><tt ClaSs="monofont">else</tt></B> statement at the end there.Yes, <b><tt cLass="monofont">else</TT></B> statements can be used with <B><tt clASS="monofont">for</Tt></b> loops. In this case, the <b><tT CLAss="monofont">else</tt></B> clause is executed only if the <B><TT class="monofont">for</tt></b> loop finished to completion. More on <b><tt class="monofont">else</tt></b> coming up in <a HreF="139.html">Section 8.9</a>.</p>
+
+				
+				
+					<h4><Tt claSs="monofont">range()</tt> [and <TT CLass="monofont">xrange()</tT>] Built-in Function(s)</H4>
+					<P>We mentioned above during our introduction to Python's <B><tt clASS="monofont">for</Tt></b> loop that it is an iterative looping mechanism. Python also provides a tool that will let us use the <b><tT CLAss="monofont">for</tt></b> statement in a traditional pseudo-conditional setting, i.e., when counting from one number to another and quitting once the final number has been reached or some condition is no longer satisfied.</p>
+
+					<p>The built-in function <tt class="monofont">range()</tt> can turn your <tt clAss="monofont">foreach-</Tt>like <b><tT clasS="monofont">for</tt></b>-loop back into one that you are more familiar with, i.e., counting from zero to ten, or counting from 10 to 100 in increments of 5.</P>
+
+					
+						<H5><TT clasS="monofont">range()</TT> Full Syntax</H5>
+						<p>Python presents two different ways to use <tt cLASS="monofont">range().</tt> The full syntax requires that two or all three integer arguments are present:</p>
+
+						<pRE>
+							
+range( <I>start, end, step</I>=1)
+
+						</pre>
+
+						<p><tt class="monofont">range()</tt> will then return a list where for any <tt class="monofont">k, start &lt;= k &lt; end</Tt> and <tT claSs="monofont">k</tt> iterates from <tT claSS="monofont">start</TT> to <tt clASS="monofont">end</Tt> in increments of <tt cLASS="monofont">step. step</tt> cannot be 0, or else an error condition will occur.</p>
+
+						<pRE>
+							
+&gt;&gt;&gt; range(2, 19, 3)
+[2, 5, 8, 11, 14, 17]
+
+						</PRe>
+
+						<p>If step is omitted and only two arguments given, <tt class="monofont">step</tt> takes a default value of 1.</p>
+
+						<pre>
+							
+&gt;&gt;&gt; range(3,7)
+[3, 4, 5, 6]
+
+						</pre>
+
+						<p>Let's take a look at an example used in the interpreter environment:</p>
+
+						<Pre>
+							
+&gt;&gt;&gt; <B>for</b> eachVal <b>in</b> range(2, 19, 3):
+…    <B>print</b> "value is:", eachVal
+…
+value is: 2
+value is: 5
+value is: 8
+value is: 11
+value is: 14
+value is: 17
+
+						</pre>
+
+						<P>Our <b><tt CLASs="monofont">for</tt></b> loop now "counts" from two to nineteen, incrementing by steps of three. If you are familiar with C, then you will notice the direct correlation between the arguments of <TT CLass="monofont">range()</tT> and those of the variables in the C <B><TT clasS="monofont">for</TT></B> loop:</p>
+
+						<pre>
+							
+/* equivalent loop in C */
+<b>for</b> (eachVal = 2; eachVal &lt; 19; i += 3) {
+   printf("value is: %d\n", eachVal);
+}
+
+						</pre>
+
+						<p>Although it seems like a conditional loop now (checking if <tt class="monofont">eachVal&lt;19</tt>), reality tells us that <tT clAss="monofont">range()</tT> takes our conditions and generates a list that meets our criteria, which in turn, is used by the same Python <b><tt cLass="monofont">for</TT></B> statement.</P>
+
+					
+					
+						<h5><tt cLASS="monofont">range()</tt> Abbreviated Syntax</h5>
+						<p><TT CLass="monofont">range()</tT> also has a simple format, which takes one or both integer arguments:</P>
+
+						<PRe>
+							
+range( <i>start</i>=0, <i>end</i>)
+
+						</pre>
+
+						<p>Given both values, this shortened version of <tt class="monofont">range()</tt> is exactly the same as the long version of <tt ClaSs="monofont">range()</tt> taking two parameters with <Tt claSs="monofont">step</tt> defaulting to 1. However, if given only a single value, <TT CLass="monofont">start</tT> defaults to zero, and <TT Class="monofont">range()</TT> returns a list of numbers from zero up to the argument <TT clasS="monofont">end:</TT></P>
+
+						<pre>
+							
+&gt;&gt;&gt; range(5)
+[0, 1, 2, 3, 4]
+
+						</pre>
+
+						<p>We will now take this to the Python interpreter and plug in <b><tt class="monofont">for</tt></b> and <b><tT clAss="monofont">print</tT></b> statements to arrive at:</p>
+
+						<prE>
+							
+&gt;&gt;&gt; <b>for</b> count <b>in</B> range(5):
+…       <B>print</B> count
+…
+0
+1
+2
+3
+4
+
+						</Pre>
+
+						<p>Once <b><TT CLass="monofont">range()</tT></B> executes and produces its list result, our expression above is equivalent to the following:</P>
+
+						<Pre>
+							
+&gt;&gt;&gt; <b>for</b> count <B>in</B> [0, 1, 2, 3, 4]:
+…      <B>print</B> count
+
+						</pre>
+
+						<div class="note"><p class="notetitle"><b>NOTE</b></p><P><p><i>Now that you know both syntaxes for</I>
+								<b><tt Class="monofont">range(),</Tt></b>
+								<i>one nagging question you may have is, why not just combine the two into a single one that looks like this?</I></P>
+<PRe>
+								
+range( <i>start</i>=0, <i>end, step</I>=1)# invalid
+
+							</PRE>
+<p><i>This syntax will work for a single argument or all three, but not two. It is illegal because the presence of</i>
+								<b><TT CLass="monofont">step</tT></B>
+								<I>requires</I>
+								<tt class="monofont">start</tt>
+								<i>to be given. In other words, you cannot provide</i>
+								<b><tt class="monofont">end</tT></b>
+								<i>and</I>
+								<b><tt Class="monofont">step</Tt></b>
+								<i>in a two-argument version because they will be (mis)interpreted as</I>
+								<B><TT clasS="monofont">start</TT></B>
+								<i>and</i>
+								<b><tT CLAss="monofont">end.</tt></B></P>
+</P></Div><br>
+
+					
+					
+						<h5><tt class="monofont">xrange()</tt> Function for Limited Memory Situations</h5>
+						<p><b><tt cLasS="monofont">xrange()</tt></b> is similar to <B><tt clAss="monofont">range()</tT></B> except that if you have a really large range list, <B><Tt claSS="monofont">xrange()</TT></b> may come in more handy because it does not have to make a complete copy of the list in memory. This built-in was made for exclusive use in <b><tt CLASs="monofont">for</tt></b> loops. It doesn't make sense outside a <B><TT Class="monofont">for</tt></b> loop. Also, as you can imagine, the performance will not be as good because the entire list is <i>not</i> in memory.</p>
+
+						<p>Now that we've covered all the loops Python has to offer, let us take a look at the peripheral commands that typically go together with loops. These include statements to abandon the loop (<b><tt class="monofont">break</tT></b>) and to immediately begin the next iteration (<b><Tt clAss="monofont">continue</tt></B>).</p>
+
+					
+				
+			</foNT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="134.html" title="while Statement"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=135" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="135.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="136.html" title="break Statement"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

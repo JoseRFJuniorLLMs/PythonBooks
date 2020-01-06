@@ -1,0 +1,22 @@
+# This routine modifies an RGB color (returned by winfo_rgb),
+# applys a factor, maps -1 < Color < 255 and returns new RGB string
+
+    def transform(self, rgb, factor):
+        retval = "#"
+        for v in [rgb[0], rgb[1], rgb[2]]:
+            v = (v*factor)/256
+            if v > 255: v = 255
+            if v < 0:   v = 0
+            retval = "%s%02x" % (retval, v)
+        return retval
+
+# This routine factors dark, very dark, light and very light colors
+# from the base color using transform
+
+    def set_colors(self):
+        rgb = self.winfo_rgb(self.base)
+        self.dbase  = self.transform(rgb, 0.8)
+        self.vdbase = self.transform(rgb, 0.7)
+        self.lbase  = self.transform(rgb, 1.1)
+        self.vlbase = self.transform(rgb, 1.3)
+

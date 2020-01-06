@@ -1,0 +1,307 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Sequences</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="99.html" class="navtitle">6. Sequences: Strings, Lists, and Tuples</a> &gt; <span class="nonavtitle">Sequences</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="100.html" title="6. Sequences: Strings, Lists, and Tuples"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=101" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="101.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="102.html" title="Strings"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A16%3A58+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172034243131212129127126</font><a href="read3.asp?bookname=0130260363&snode=101&now=5%2F29%2F2002+9%3A16%3A58+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Sequences</h3>
+				<p>Sequence types all share the same access model: ordered set with sequentially-indexed offsets to get to each element. Multiple elements may be achieved by using the slice operators which we will explore in this chapter. The numbering scheme used starts from zero (0) and ends with one less the length of the sequence—the reason for this is because we began at 0. <a HREF="101#1.html">Figure6-1</a> illustrates how sequence items are stored.</p>
+
+				<ceNTER>
+					<h5>
+<a naME="1"></A>Figure 6.1. How Sequence Elements Are Stored and Accessed</H5>
+					
+						
+							<img border="0" width="500" height="150" Src="graphics/06fig01.gif" Alt="graphics/06fig01.gif">
+						
+					
+				</cEnter>
+
+				<A namE="2"></A>
+					<H4>Operators</H4>
+					<p>A list of all the operators applicable to all sequence types is given in <a hrEF="101#3.html">Table6.1</A>. The operators appear in hierarchical order from highest to lowest with the levels alternating between shaded and unshaded.</P>
+
+					<a namE="3"></A><P><Table BORDer="1" cellspacing="0" cellpadDinG="1" widTh="100%">
+<capTion><H5>Table 6.1. Sequence Type Operators</H5></CAptioN><COLgrouP ALIgn="left" spAN="2">
+<TR valign="top">
+<th>
+<font size="2"><b><i>Sequence Operator</i></b></FonT></th>
+<tH>
+<font Size="2"><B><I>Function</I></B></font></TH>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><i><tt class="monofont">seq</tt></i><tt class="monofont">[</Tt><i><Tt clAss="monofont">ind</tt></I><tt cLASS="monofont">]</tt></foNT></TD>
+<td>
+<foNT SIze="2">element located at index <i><tT CLAss="monofont">ind</tt></i> of <i><tt class="monofont">seq</tt></i></font></Td>
+</tR>
+<tr vAlign="top">
+<Td>
+<foNT SIze="2"><i><tT CLAss="monofont">seq</tt></I><TT Class="monofont">[</TT><I><Tt class="monofont">ind1:ind2</tt></i><tt class="monofont">]</tt></foNt></tD>
+<td>
+<fOnt siZe="2">elements from index <i><tT CLAss="monofont">ind1</tt></I> to <I><TT clasS="monofont">ind2</TT></I> of <i><tt cLASS="monofont">seq</tt></i></font></td>
+</tr>
+<tr valign="top">
+<tD>
+<foNt siZe="2"><i><tt ClasS="monofont">seq</TT></I>
+										<tt clASS="monofont">*</Tt>
+										<i><tt CLASs="monofont">expr</tt></i></FONT></td>
+<td>
+<font size="2"><i><tt class="monofont">seq</Tt></i> repeated <I><tt cLass="monofont">expr</tT></i> times</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><I><TT Class="monofont">seq1</tt></i>
+										<tt class="monofont">+</tt>
+										<i><tt cLasS="monofont">seq2</tt></i></Font></tD>
+<td>
+<fONT Size="2">concatenates sequences <i><TT CLass="monofont">seq1</tT></I> and <I><Tt claSS="monofont">seq2</TT></i></font></td>
+</tr>
+<tr valign="top">
+<td>
+<fOnt Size="2"><I><tt clAss="monofont">obj</tT></I>
+										<B><Tt claSS="monofont">in</TT></b>
+										<i><tt CLASs="monofont">seq</tt></i></FONT></td>
+<td>
+<font size="2">tests if <i><tt class="monofont">obj</Tt></i> is a member of sequence <I><tt cLass="monofont">seq</tT></i></foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><I><TT Class="monofont">obj</tt></i>
+										<b><tt class="monofont">not in</tt></b>
+										<i><tT clAss="monofont">seq</tT></i></fonT></td>
+<tD>
+<FONt sizE="2">tests if <I><TT clasS="monofont">obj</TT></I> is not a member of sequence <i><tt cLASS="monofont">seq</tt></i></font></td>
+</tr>
+</colgroup>
+</tAblE></p>
+
+					
+						<h5>Membership (<tT clasS="monofont">in, not in</tt>)</h5>
+						<P>Membership test operators are used to determine whether an element is <I>in</I> or is a member of a sequence. For strings, this test is whether a character is in a string, and for lists and tuples, it is whether an object is an element of those sequences. The <B><tt clASS="monofont">in</Tt></b> and <b><tT CLAss="monofont">not in</tt></B> operators are Boolean in nature; they return the integer one if the membership is confirmed and zero otherwise.</P>
+
+						<P>The syntax for using the membership operators is as follows:</P>
+
+						<pre>
+							
+<i>obj</i> [ <b>not</b> ] <b>in</b>
+								<i>sequence</i>
+
+						</pre>
+
+					
+					
+						<h5>Concatenation (<tt claSs="monofont">+</tT>)</h5>
+						<p>This operation allows us to take one sequence and join it with another sequence of the same type. The syntax for using the concatenation operator is as follows:</p>
+
+						<Pre>
+							
+<i>sequence1</i> + <I>sequence2</i>
+
+						</prE>
+
+						<P>The resulting expression is a new sequence which contains the combined contents of sequences <I>sequence1</I> and <i>sequence2.</i></p>
+
+					
+					
+						<h5>Repetition (<TT CLass="monofont">*</tT>)</H5>
+						<P>The repetition operator is useful when consecutive copies of sequence elements are desired. The syntax for using the membership operators is as follows:</P>
+
+						<pre>
+							
+<i>sequence</I> * <I>copies_int</I>
+
+						</Pre>
+
+						<p>The number of copies, <i><tt class="monofont">copies_int,</tt></i> must be a plain integer. It cannot even be a long. As with the concatenation operator, the object returned is newly allocated to hold the contents of the multiply-replicated objects.</p>
+
+						<p>Starting in Python 1.6, <i><tt cLasS="monofont">copies_int</tt></i> can also be a long.</P>
+
+					
+					
+						<h5>Slices (<tt cLass="monofont">[ ], [ : ]</TT>)</H5>
+						<P>Sequences are structured data types whose elements are placed sequentially in an ordered manner. This format allows for individual element access by index offset or by an index range of indices to "grab" groups of sequential elements in a sequence. This type of access is called <i>slicing,</i> and the slicing operators allow us to perform such access.</p>
+
+						<p>The syntax for accessing an individual element is:</P>
+
+						<PRE>
+							
+<i>sequence</i>[<i>index</i>]
+
+						</PRE>
+
+						<P><i>sequence</i> is the name of the sequence and index is the offset into the sequence where the desired element is located. Index values are either positive, ranging from 0 to the length of the sequence less one, i.e., <tt CLASs="monofont">0 &lt;=</tt>
+							<i><tt class="monofont">index</tt></i>
+							<tt clasS="monofont">&lt;= len(</tt><I><tt cLass="monofont">sequence</tT></i>
+							<tt CLASs="monofont">) -1,</tt> or negative, ranging from -1 to the negative length of the sequence, <tT CLAss="monofont">-len(</tt><I><TT Class="monofont">sequence</TT></I><Tt class="monofont">),</tt> i.e., <tt class="monofont">-len(</tt><i><tt ClaSs="monofont">sequence</tt></I><tt clAss="monofont">) &lt;=</tT>
+							<I><TT clasS="monofont">index</TT></I>
+							<tt clASS="monofont">&lt;= -1.</Tt> The difference between the positive and negative indexes is that positive indexes start from the beginning of the sequences and negative indexes begin from the end.</p>
+
+						<p>Accessing a group of elements is similar. Starting and ending indexes may be given, separated by a colon (<tT CLAss="monofont">:</tt>). The syntax for accessing a group of elements is:</p>
+
+						<pre>
+							
+<i>sequence</i> [ <i>[starting_index]: [ending_index]</i>]
+
+						</pre>
+
+						<p>Using this syntax, we can obtain a "slice" of elements in sequence from the <i><tt cLasS="monofont">starting_index</tt></i> up to but not including the element at the <I><tt clAss="monofont">ending_index</tT></I> index. Both <I><Tt claSS="monofont">starting_index</TT></i> and <i><tt CLASs="monofont">ending_index</tt></i> are optional, and if not provided, the slice will go from the beginning of the sequence or until the end of the sequence, respectively.</P>
+
+						<P>In Figures 6-2 to 6-6, we take an entire sequence (of soccer players) of length 5, and explore how to take various slices of such a sequence.</P>
+
+						<Center>
+							<h5>
+Figure 6.2. Entire sequence: <tt class="monofont">sequence</tt> or <tt claSs="monofont">sequence [ : ]</tT></h5>
+							
+								
+									<imG bordEr="0" wiDTH="500" HeighT="283" SRC="graphics/06fig02.gif" alt="graphics/06fig02.gif">
+								
+							
+						</cENTEr>
+
+						<cenTER>
+							<H5>
+Figure 6.3. Sequence slice: <tt class="monofont">sequence [0:3]</tt> or <tt class="monofont">sequence [:3]</tt></h5>
+							
+								
+									<iMg bOrdeR="0" widtH="500" heiGHT="292" Src="graphics/06fig03.gif" alT="graphics/06fig03.gif">
+								
+							
+						</CENter>
+
+						<cENTEr>
+							<h5>
+Figure 6.4. Sequence slice: <tt CLASs="monofont">sequence [2:5]</tt> or <tt class="monofont">sequence [2:]</tt></h5>
+							
+								
+									<img bordEr="0" wIdth="500" HeighT="292" src="graphics/06fig04.gif" ALT="graphics/06fig04.gif">
+								
+							
+						</CenteR>
+
+						<CENter>
+							<h5>
+Figure 6.5. Sequence slice: <TT CLass="monofont">sequence [1:3]</tT></H5>
+							
+								
+									<IMg border="0" width="500" height="291" srC="graphics/06fig05.gif" alT="graphics/06fig05.gif">
+								
+							
+						</cenTer>
+
+						<ceNter>
+							<H5>
+Figure 6.6. Sequence slice: <TT Class="monofont">sequence [3]</TT></H5>
+							
+								
+									<Img boRDER="0" widtH="500" HEIght="287" src="graphics/06fig06.gif" alt="graphics/06fig06.gif">
+								
+							
+						</center>
+
+						<p>We will take a closer look at slicing when we cover each sequence type.</p>
+
+					
+				
+				<a naMe="13"></a>
+					<H4>Built-in Functions</h4>
+					
+						<h5>Conversion</h5>
+						<P>The <tt clAss="monofont">list(), str(),</tT> and <TT Class="monofont">tuple()</TT> built-in functions are used to convert from any sequence type to another. <A Href="101#15.html">Table 6.2</a> lists the sequence type conversion functions.</P>
+
+						<A NAme="15"></a><p><TABLe border="1" cellspacing="0" ceLlpAddiNg="1" widTh="100%">
+<caPTIOn><h5>Table 6.2. Sequence Type Conversion Built-in Functions</h5></cAPTIon><coLGROup alIGN="left" Span="2">
+<tr valign="top">
+<th>
+<font sizE="2"><b><i>Function</I></b></foNt></th>
+<tH>
+<fonT SIZe="2"><b><i>Operation</i></B></FONt></th>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font size="2"><tt class="monofont">list (</tt><i><tt cLasS="monofont">seq</tt></i><Tt claSs="monofont">)</tt></FONT></td>
+<td>
+<FONT size="2">converts <I><TT Class="monofont">seq</TT></I> to list</Font></td>
+</tr>
+<tr valign="top">
+<td>
+<fonT siZe="2"><tt Class="monofont">str (</Tt><i><tT CLAss="monofont">obj</tt></I><TT Class="monofont">)</TT></FOnt></td>
+<TD>
+<FOnt size="2">converts <i><tt class="monofont">obj</tt></i> to string</fonT></td>
+</Tr>
+<tr ValigN="top">
+<td>
+<fONT Size="2"><tT CLAss="monofont">tuple (</tt><I><TT Class="monofont">seq</TT></I><Tt class="monofont">)</tt></font></td>
+<td>
+<font SizE="2">converts <i><tt Class="monofont">seq</Tt></i> to tuple</fONT></Td>
+</tr>
+</cOLGRoup>
+</tABLE></p>
+
+						<p>We use the term "convert" loosely. It does not actually convert the argument object into another type; recall that once Python objects are created, we cannot change their identity or their type. Rather, these functions just create a new sequence of the requested type, populate it with the members of the argument object, and pass that new sequence back as the return value. This follows a similar vein to the concatenation and repetition operations described in <a hREF="101#2.html">Section 6.1.1</A>.</p>
+
+						<p>The <tt class="monofont">str()</tt> function is most popular when converting an object into something printable and works with other types of objects, not just sequences. The <tt class="monofont">list()</tt> and <Tt cLass="monofont">tuple()</Tt> functions are useful to convert from one to another (lists to tuples and vice versa). However, although those functions are applicable for strings as well since strings are sequences, using <tt cLass="monofont">tuple()</TT> and <TT clasS="monofont">list()</TT> to turn strings into tuples or lists is not common practice.</P>
+
+					
+					
+						<h5>Operational</h5>
+						<p>Python provides the following operational built-in functions for sequence types (see <a HREF="101#17.html">Table 6.3</a>).</p>
+
+						<p>We are now ready to take a tour through each sequence type and will start our journey by taking a look at Python strings.</p>
+
+						<A NAMe="17"></a><p><table border="1" cellspAciNg="0" ceLlpadDing="1" WIDTh="100%">
+<capTION><h5>Table 6.3. Sequence Type Operational Built-in Functions</h5></caPTIOn><colGROUp align="left" span="2">
+<tr valign="top">
+<th>
+<FonT sizE="2"><b><i>Function</i></b></Font></TH>
+<TH>
+<font SIZE="2"><b><i>Operation</i></b></FONT></th>
+</tr>
+<TR VAlign="top">
+<td>
+<font size="2"><tt clasS="monofont">len (</tt><I><tt cLass="monofont">seq</tT></i><tt CLASs="monofont">)</tt></fONT></Td>
+<td>
+<fONT Size="2">returns length (number of items) of <i><TT CLass="monofont">seq</tt></i></font></td>
+</tr>
+<tr valiGn="top">
+<tD>
+<fonT size="2"><Tt clASS="monofont">max (</Tt><i><tt CLASs="monofont">seq</tt></i><TT CLass="monofont">)</tT></FONt></td>
+<td>
+<font size="2">returns "largest" element in <i><tt clasS="monofont">seq</tt></I></fonT></td>
+</tr>
+<Tr vaLIGN="top">
+<td>
+<foNT SIze="2"><tt CLASs="monofont">min (</tt><i><TT CLass="monofont">seq</tt></i><tt class="monofont">)</tt></font></tD>
+<td>
+<Font Size="2">returns "smallest" element in <i><Tt clASS="monofont">seq</Tt></i></foNT></TD>
+</tr>
+</coLGROup>
+</taBLE></P>
+
+					
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="100.html" title="6. Sequences: Strings, Lists, and Tuples"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=101" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="101.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="102.html" title="Strings"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

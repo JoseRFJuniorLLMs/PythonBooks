@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>MySQLdb.converters</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="MySQLdb-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="trees.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="indices.html">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="MySQLdb-module.html">Package&nbsp;MySQLdb</a> ::
+        Module&nbsp;converters
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<b>show&nbsp;private</b>&nbsp;|&nbsp;hide&nbsp;private]</font></td></tr>
+      <tr><td align="right"><font size="-2">[<a href="frames.html"target="_top">frames</a>&nbsp;|&nbsp;<a href="../private/MySQLdb.converters-module.html" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+
+<!-- =========== START OF MODULE DESCRIPTION =========== -->
+<h2 class="module">Module MySQLdb.converters</h2>
+
+<p>MySQLdb type conversion module</p>
+<p>This module handles all the type conversions for MySQL. If the default
+type conversions aren't what you need, you can make your own. The
+dictionary conversions maps some kind of type to a conversion function
+which returns the corresponding value:</p>
+<p>Key: FIELD_TYPE.* (from MySQLdb.constants)</p>
+<p>Conversion function:</p>
+<blockquote>
+<p>Arguments: string</p>
+<p>Returns: Python object</p>
+</blockquote>
+<p>Key: Python type object (from types) or class</p>
+<p>Conversion function:</p>
+<blockquote>
+<dl>
+<dt>Arguments: Python object of indicated type or class AND </dt>
+<dd>conversion dictionary</dd>
+</dl>
+<p>Returns: SQL literal value</p>
+<dl>
+<dt>Notes: Most conversion functions can ignore the dictionary, but</dt>
+<dd>it is a required parameter. It is necessary for converting
+things like sequences and instances.</dd>
+</dl>
+</blockquote>
+<p>Don't modify conversions if you can avoid it. Instead, make copies
+(with the copy() method), modify the copies, and then pass them to
+MySQL.connect().</p>
+<hr/>
+
+<!-- =========== START OF FUNCTION SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Function Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="array2Str"></a><span class="summary-sig"><span class="summary-sig-name">array2Str</span>(<span class=summary-sig-arg>o</span>,
+          <span class=summary-sig-arg>d</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="char_array"></a><span class="summary-sig"><span class="summary-sig-name">char_array</span>(<span class=summary-sig-arg>s</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="Float2Str"></a><span class="summary-sig"><span class="summary-sig-name">Float2Str</span>(<span class=summary-sig-arg>o</span>,
+          <span class=summary-sig-arg>d</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/MySQLdb.converters-module.html#Instance2Str" class="summary-sig-name"><code>Instance2Str</code></a>(<span class=summary-sig-arg>o</span>,
+          <span class=summary-sig-arg>d</span>)</span></code>
+<br />
+Convert an Instance to a string representation.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/MySQLdb.converters-module.html#Thing2Str" class="summary-sig-name"><code>Long2Int</code></a>(<span class=summary-sig-arg>s</span>,
+          <span class=summary-sig-arg>d</span>)</span></code>
+<br />
+Convert something into a string via str().</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/MySQLdb.converters-module.html#None2NULL" class="summary-sig-name"><code>None2NULL</code></a>(<span class=summary-sig-arg>o</span>,
+          <span class=summary-sig-arg>d</span>)</span></code>
+<br />
+Convert None to NULL.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="Str2Set"></a><span class="summary-sig"><span class="summary-sig-name">Str2Set</span>(<span class=summary-sig-arg>s</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/MySQLdb.converters-module.html#Thing2Literal" class="summary-sig-name"><code>Thing2Literal</code></a>(<span class=summary-sig-arg>o</span>,
+          <span class=summary-sig-arg>d</span>)</span></code>
+<br />
+Convert something into a SQL string literal.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/MySQLdb.converters-module.html#Thing2Str" class="summary-sig-name"><code>Thing2Str</code></a>(<span class=summary-sig-arg>s</span>,
+          <span class=summary-sig-arg>d</span>)</span></code>
+<br />
+Convert something into a string via str().</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/MySQLdb.converters-module.html#Unicode2Str" class="summary-sig-name"><code>Unicode2Str</code></a>(<span class=summary-sig-arg>s</span>,
+          <span class=summary-sig-arg>d</span>)</span></code>
+<br />
+Convert a unicode object to a string using the default encoding.</td></tr>
+</table><br />
+
+
+<!-- =========== START OF VARIABLE SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Variable Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>dict</code></font></td>
+<td><b><a href="../private/MySQLdb.converters-module.html#conversions"><code>conversions</code></a></b> = <span title="{&lt;type 'str'&gt;: &lt;function Thing2Literal at 0xb7cc0c34&gt;, 0: &lt;class 'decimal.Decimal'&gt;, 2: &lt;type 'int'&gt;, 3: &lt;type 'long'&gt;, 4: &lt;type 'float'&gt;, 5: &lt;type 'float'&gt;, 1: &lt;type 'int'&gt;, 8: &lt;type 'long'&gt;, 9: &lt;type 'int'&gt;, 10: &lt;function Date_or_None at 0xb7cb7f7c&gt;, &lt;type 'NoneType'&gt;: &lt;function None2NULL at 0xb7cc0bfc&gt;, 12: &lt;function DateTime_or_None at 0xb7cb7ed4&gt;, 13: &lt;type 'int'&gt;, &lt;type 'object'&gt;: &lt;function Instance2Str at 0xb7cc0c6c&gt;, &lt;type 'dict'&gt;: &lt;built-in function escape_dict&gt;, &lt;type 'tuple'&gt;: &lt;built-in function escape_sequence&gt;, &lt;type 'int'&gt;: &lt;function Thing2Str at 0xb7cc0b54&gt;, &lt;type 'float'&gt;: &lt;..."><code>{&lt;type&nbsp;'str'&gt;:&nbsp;&lt;function&nbsp;Thing2Literal&nbsp;at&nbsp;<span class="variable-ellipsis">...</span></code>
+</span></td></tr>
+</table><br />
+
+
+<!-- =========== START OF FUNCTION DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Function Details</th></tr>
+</table>
+
+<a name="Instance2Str"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">Instance2Str</span>(<span class=sig-arg>o</span>,
+          <span class=sig-arg>d</span>)</span>
+  </h3>
+Convert an Instance to a string representation.  If the __str__()
+method produces acceptable output, then you don't need to add the
+class to conversions; it will be handled by the default
+converter. If the exact class is not found in d, it will use the
+first class it can find for which o is an instance.  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+
+<a name="Thing2Str"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">Long2Int</span>(<span class=sig-arg>s</span>,
+          <span class=sig-arg>d</span>)</span>
+  </h3>
+Convert something into a string via str().  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+
+<a name="None2NULL"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">None2NULL</span>(<span class=sig-arg>o</span>,
+          <span class=sig-arg>d</span>)</span>
+  </h3>
+Convert None to NULL.  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+
+<a name="Thing2Literal"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">Thing2Literal</span>(<span class=sig-arg>o</span>,
+          <span class=sig-arg>d</span>)</span>
+  </h3>
+Convert something into a SQL string literal.  If using
+MySQL-3.23 or newer, string_literal() is a method of the
+_mysql.MYSQL object, and this function will be overridden with
+that method when the connection is created.  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+
+<a name="Thing2Str"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">Thing2Str</span>(<span class=sig-arg>s</span>,
+          <span class=sig-arg>d</span>)</span>
+  </h3>
+Convert something into a string via str().  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+
+<a name="Unicode2Str"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">Unicode2Str</span>(<span class=sig-arg>s</span>,
+          <span class=sig-arg>d</span>)</span>
+  </h3>
+Convert a unicode object to a string using the default encoding.
+This is only used as a placeholder for the real function, which
+is connection-dependent.  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br />
+
+
+<!-- =========== START OF VARIABLE DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Variable Details</th></tr>
+</table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="conversions"></a>
+<h3>conversions</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>dict</code>
+
+      </dd>
+<span title="{&lt;type 'str'&gt;: &lt;function Thing2Literal at 0xb7cc0c34&gt;, 0: &lt;class 'decimal.Decimal'&gt;, 2: &lt;type 'int'&gt;, 3: &lt;type 'long'&gt;, 4: &lt;type 'float'&gt;, 5: &lt;type 'float'&gt;, 1: &lt;type 'int'&gt;, 8: &lt;type 'long'&gt;, 9: &lt;type 'int'&gt;, 10: &lt;function Date_or_None at 0xb7cb7f7c&gt;, &lt;type 'NoneType'&gt;: &lt;function None2NULL at 0xb7cc0bfc&gt;, 12: &lt;function DateTime_or_None at 0xb7cb7ed4&gt;, 13: &lt;type 'int'&gt;, &lt;type 'object'&gt;: &lt;function Instance2Str at 0xb7cc0c6c&gt;, &lt;type 'dict'&gt;: &lt;built-in function escape_dict&gt;, &lt;type 'tuple'&gt;: &lt;built-in function escape_sequence&gt;, &lt;type 'int'&gt;: &lt;function Thing2Str at 0xb7cc0b54&gt;, &lt;type 'float'&gt;: &lt;...">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+{0: &lt;class 'decimal.Decimal'&gt;,
+ 1: &lt;type 'int'&gt;,
+ 2: &lt;type 'int'&gt;,
+ 3: &lt;type 'long'&gt;,
+ 4: &lt;type 'float'&gt;,
+ 5: &lt;type 'float'&gt;,
+ 7: &lt;function mysql_timestamp_converter at 0xb7cc0064&gt;,
+ 8: &lt;type 'long'&gt;,
+<span class="variable-ellipsis">...</span>                                                                    </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<br />
+
+
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="MySQLdb-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="trees.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="indices.html">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.0 on Mon Jan 31 23:02:12 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net"
+                      ><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

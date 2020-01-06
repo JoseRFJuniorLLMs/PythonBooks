@@ -1,0 +1,196 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Binding and Method Invocation</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="210.html" class="navtitle">13. Classes and OOP</a> &gt; <span class="nonavtitle">Binding and Method Invocation</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="217.html" title="Instance Attributes"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=218" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="218.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="219.html" title="Composition"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A15%3A24+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004231200013195213104036005</font><a href="read0.asp?bookname=0130260363&snode=218&now=5%2F30%2F2002+8%3A15%3A24+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Binding and Method Invocation</h3>
+				<p>Now we need to readdress the Python concept of binding, which is associated only with method invocation. We will first review the facts about methods. First, a method is simply a function defined as part of a class. This means that methods are class attributes (not instance attributes). Second, methods can be invoked only when there is an instance of the class in which the method was defined. When there is an instance present, the method is considered bound. Without an instance, a method is considered unbound. And third, the first argument in any method definition is the variable <tT CLAss="monofont">self,</tt> which represents the instance object which invokes the method.</P>
+
+				<DIV clasS="note"><P CLass="notetitle"><b>NOTE</b></p><p><p><i>The variable</i>
+						<tt class="monofont">self</tt>
+						<i>is used in class instance methods to reference the instance which the method is bound to. Because a method's instance is always passed as the first argument in any method call,</I>
+						<tt ClasS="monofont">self</tt>
+						<i>is the name that was chosen to represent the instance. You are required to put</i>
+						<Tt clASS="monofont">self</Tt>
+						<i>in the method declaration (you may have noticed this already) but do not need to actually use the instance (</i><tT CLAss="monofont">self</tt><I>) within the method.</I></P>
+<P><i>If you do not use</i>
+						<tt CLASs="monofont">self</tt>
+						<i>in your method, you might consider creating a regular function instead, unless you have a particular reason not to. After all, your code, because it does not use the instance object in any way, "unlinks" its functionality from the class, making it seem more like a general function.</i></p>
+<p><i>We will now create a class C with a method called</i>
+						<tt class="monofont">showSelf()</tt>
+						<i>which will display more information about the instance object that was just created:</i></P>
+<prE>
+						
+&gt;&gt;&gt; <b>class</b> C:
+…        <b>def</B> showSelf(self):
+…            self
+…            type(self)
+…            id(self)
+
+&gt;&gt;&gt; c = C()
+&gt;&gt;&gt; c.showSelf()
+&lt;__main__.C instance at 94abe0&gt;
+&lt;type 'instance'&gt;
+9743328
+
+					</pre>
+<p><I>Now let us take a look directly at the instance to see if the information matches—and it does:</i></p>
+<pRE>
+						
+&gt;&gt;&gt; c
+&lt;__main__.C instance at 94abe0&gt;
+&gt;&gt;&gt; type(c)
+&lt;type 'instance'&gt;
+&gt;&gt;&gt; id(c)
+9743328
+
+					</PRe>
+<p><i>In other object-oriented languages,</i>
+						<TT CLass="monofont">self</tT>
+						<I>is named</I>
+						<Tt claSS="monofont">this.</TT></p>
+</p></div><br>
+
+				
+					<h4>Invoking Bound Methods</h4>
+					<p>Methods, bound or not, is made up of the same code. The only difference is whether there is an instance present so that the method can be invoked. Recall that even though <tt class="monofont">self</tt> is required as the first argument in every method declaration, it never needs to be passed explicitly when you invoke it from an instance. The interpreter automatically performs that task for you.</p>
+
+					<P>Once again, here is an example of invoking a bound method, first found in <a hRef="224#14.html">Section 13.4.2</a>:</P>
+
+					<pre>
+						
+&gt;&gt;&gt; <b>class</B> MyClass:
+…       <b>def</b> myNoActionMethod(self):
+…           <b>pass</B>
+…
+&gt;&gt;&gt;
+&gt;&gt;&gt; myInstance = MyClass()            # create instance
+&gt;&gt;&gt; myInstance.myNoActionMethod()     # invoke method
+
+					</PRE>
+
+					<p>To invoke a method, use the name of the instance and the name of the method in dotted attribute notation followed by the function operator and any arguments.</p>
+
+					<p>Also in <a HREF="224#14.html">Section 13.4.2</a>, we briefly noted the failure of invoking the method with the class name. The cause of this failure is that no instance was given to the method. Without invoking a method using an instance (and having that instance passed automatically as <tt cLASS="monofont">self</tt> to the method), the interpreter complained that <tt CLASs="monofont">self</tt> was not passed in. What we did wrong was to invoke an unbound method without an instance.</p>
+
+				
+				<a name="2"></a>
+					<h4>Invoking Unbound Methods</h4>
+					<p>There are generally two reasons a programmer might attempt to invoke an unbound method. One is when a programmer is trying to implement static methods (which is not supported in Python), and the other is when a specific instance of the class defining the method is not available. We begin our tale by describing a workaround to the lack of static method support in Python.</p>
+
+					
+						<h5>Static Method Workaround</h5>
+						<p>Static methods are generally desired in two different scenarios. The first is a situation where a programmer wants to keep his or her global or local namespace "pure," by not adding another function to the corresponding namespace. Or secondly, perhaps it is a small or insignificant function which is somehow related to the class he wants to define it in, or maybe it is a function that helps manage static data. The first case presents a relatively weak argument, but there is some merit for the latter case, this static member management function. Here, we simply want to invoke the method in a functional sense (meaning independent of instances) in order to update static data.</p>
+
+						<prE>
+							
+&gt;&gt;&gt; <b>class</b> C:
+…        version = 1.0         # static data attribute
+…        <B>def</b> updateVersion(self, newv):
+…            C.version = newv  # update static data
+…
+
+						</prE>
+
+						<p>And of course, invoking this method without an instance gives us the same <tt cLass="monofont">TypeError</TT> exception we have seen before:</P>
+
+						<Pre>
+							
+&gt;&gt;&gt; C.updateVersion(2.0)
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+    C.updateVersion()
+TypeError: unbound method must be called with class
+instance 1st argument
+
+						</prE>
+
+						<P>The only workaround, which may be unpleasant, is to give up and move the function to the global domain which has access to class <TT clasS="monofont">C</TT> (and thus the attributes of <Tt claSS="monofont">C</TT>). We can obtain the desired functionality:</p>
+
+						<pre>
+							
+&gt;&gt;&gt; <b>def</b> updateVersion(newv):
+…        C.version = newv
+…
+&gt;&gt;&gt; updateVersion(2.0)
+&gt;&gt;&gt; C.version
+2.0
+
+						</pre>
+
+						<p>One problem with using a global function as the solution is that you do not get the "feel" that <tt class="monofont">updateVersion()</tt> is a class method, because it is not. The desire is to call <tT clAss="monofont">C.updateVersion()</tT> or something. Yes, there are other, more sinister workarounds which new Python programmers should avoid because, to paraphrase from the Python FAQ, "[if] you don't understand why you'd ever want to do this, that's because you are pure of mind, and you probably never will want to do it!  This is dangerous trickery, [and] not recommended when avoidable."</p>
+
+					
+					
+						<h5>Convenient Instance Unavailable</h5>
+						<p>When a bound method is invoked, for example, <Tt clASS="monofont">instance.method(x, y),</Tt> the interpreter would be executing the equivalent of <tt cLASS="monofont">method(instance, x, y),</tt> as in the following example:</p>
+
+						<pRE>
+							
+&gt;&gt;&gt; <B>class</B> MyData:
+…        <b>def</b> myMethod(self, arg):
+…            <b>print</b> 'called myMethod with:', arg
+…
+&gt;&gt;&gt;
+&gt;&gt; myInstance = MyData()
+&gt;&gt;&gt; myInstance.myMethod('grail')
+called myMethod with: grail
+
+						</PRE>
+
+						<P>The call <tt class="monofont">myInstance.myMethod('grail')</tt> results in the equivalent call of <tt class="monofont">myMethod(myInstance, 'grail'),</tt> which matches the function signature, <tt ClaSs="monofont">myMethod(self, arg).</tt></P>
+
+						<p>However, invoking an unbound method does not work quite as well. Since there is no bound instance, the method call will fail because the call would be simply <tt cLass="monofont">method(x, y)</TT> rather than <TT clasS="monofont">method(instance, x, y).</TT> Here is the error one more time:</P>
+
+						<pre>
+							
+&gt;&gt;&gt; MyData.myMethod(932)
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+    MyData.myMethod(932)
+TypeError: unbound method must be called with class
+instance 1st argument
+
+						</pRE>
+
+						<P>Notice that the <Tt claSS="monofont">TypeError</TT> exception states, "unbound method must be called with class instance 1st argument."  Ah, that's the problem. The first argument passed to the method was an integer, not a class instance. The function signatures did not match, i.e., <tt class="monofont">myMethod(932)</tt> versus <tt class="monofont">myMethod(self, arg).</tt> What if we <i>did</i> pass an instance as the first argument (to make the signatures match)?</P>
+
+						<prE>
+							
+&gt;&gt;&gt; MyData.myMethod(myInstance, 932)
+called myMethod with: 932
+
+						</pre>
+
+						<P>Presto! It now works. So an interesting result of having an instance is that you can now invoke an unbound method if you explicitly provide the instance so that the call is <tt clAss="monofont">method(instance, x, y).</tT></P>
+
+						<P>This is all rather nice, but what if there is no instance nearby for us to use?  What if in the above example, we had not created the <Tt claSS="monofont">myInstance</TT> object?  Well, then we would <i>not</i> have been able to invoke <tt CLASs="monofont">myMethod()</tt> then. Does this ever happen?  The answer is yes and comes into play in <a HREF="220.html">Section 13.9</a> below. Such situations require the invocation of a base class method from the method of a derived class. We've already seen it once, in the "Creating a Subclass" subsection of <a href="212.html">Section 13.1</a>.</p>
+
+					
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="217.html" title="Instance Attributes"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=218" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="218.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="219.html" title="Composition"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

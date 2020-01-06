@@ -1,0 +1,64 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Exercises</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="256.html" class="navtitle">17. Multithreaded Programming</a> &gt; <span class="nonavtitle">Exercises</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="262.html" title="threading Module"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=263" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="263.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="265.html" title="18. GUI Programming with Tkinter"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A31%3A31+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004229223066048221007067232</font><a href="read1.asp?bookname=0130260363&snode=263&now=5%2F30%2F2002+8%3A31%3A31+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Exercises</h3>
+				
+					<p>
+					<p>
+					<P>
+					<P>
+					<P>
+					<P>
+					<p>
+				<dl>
+<dD>
+<P><I>Processes vs. Threads.</I> What are the differences between processes and threads?</p>
+</dd>
+<dD>
+<P><I>Threads.</I> If multiple threads are running on a single CPU system, how do they share the CPU?</p>
+</dd>
+<dd>
+<p><i>Threads.</i> Do you think anything significant happens if you have multiple threads on a multiple CPU system? How do you think multiple threads run on these systems?</p>
+</dd>
+<dd>
+<p><i>Threads and Files.</i> Update your solution to Exercise 9-19 which obtains a byte value and a file name, displaying the number of times that byte appears in the file. Let's suppose this is a really big file. Multiple readers in a file is acceptable, so create multiple threads that count in different parts of the file so that each thread is responsible for a certain part of the file. Collate the data from each thread and provide the summed-up result. Use your <tt clAss="monofont">timeit()</Tt> code to time both the single threaded version and your new multithreaded version and say something about the performance improvement.</p>
+</dD>
+<dd>
+<p><i>Threads, Files, and Regular Expressions.</I> You have a very large mailbox file—if you don't have one, put all of your e-mail messages together into a single text file. Your job is to take the regular expressions you designed in <a hrEF="242.html">Chapter 15</A> that recognizes e-mail addresses and Web site URLs, and use them to convert all e-mail addresses and URLs in this large file into live links so that when the new file is saved as a .<Tt claSS="monofont">html</TT> (or .<tt clASS="monofont">htm</Tt>)file, will show up in a Web browser as live and clickable. Use threads to segregate the conversion process across the large text file and collate the results into a single new .<tt cLASS="monofont">html</tt> file. Test the results on your Web browser to ensure the links are indeed working.</p>
+</dd>
+<dd>
+<p><i>Threads and Networking.</i> Your solution to the chat service application in the previous chapter (Exercises 16-7 to 16-10) may have required you to use heavyweight threads or processes as part of your solution. Convert that to be multithreaded <tt class="monofont">code.</tt></p>
+</Dd>
+<dD>
+<p><i>*Threads and Web Programming.</i> The <Tt claSs="monofont">Crawler</tt> in <A HREf="275#1.html">Example 19.1</a> is a single-threaded application that downloads Web pages that would benefit from MT programming. Update <tt CLASs="monofont">crawl.py</tt> (you could call it <tT CLAss="monofont">mtcrawl.py</tt>) such that independent threads are used to download pages. Be sure to use some kind of  locking mechanism to prevent conflicting access to the links queue.</P>
+</DD>
+</Dl>
+
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="262.html" title="threading Module"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=263" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="263.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="265.html" title="18. GUI Programming with Tkinter"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

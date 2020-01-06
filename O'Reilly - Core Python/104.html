@@ -1,0 +1,373 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; String-only Operators</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="99.html" class="navtitle">6. Sequences: Strings, Lists, and Tuples</a> &gt; <span class="nonavtitle">String-only Operators</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="103.html" title="Strings and Operators"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=104" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="104.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="105.html" title="Built-in Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A18%3A24+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172044044179211038032227</font><a href="read2.asp?bookname=0130260363&snode=104&now=5%2F29%2F2002+9%3A18%3A24+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>String-only Operators</h3>
+				<p></p>
+
+				<A NAMe="1"></a>
+					<h4>Format Operator (<tT CLAss="monofont">%</tt>)</H4>
+					<P>One of Python's coolest features is the string format operator. This operator is unique to strings and makes up for the pack of having functions from C's <TT class="monofont">printf()</tt> family. In fact, it even uses the same symbol, the percent sign (<tt class="monofont">%</tt>), and supports all the <tt clAss="monofont">printf()</Tt> formatting codes.</p>
+
+					<p>The syntax for using the format operator is as follows:</P>
+
+					<pre>
+						
+<i>format_string</I> % (<i>arguments_to_convert</i>)
+
+					</pRE>
+
+					<P>The <I><tt clASS="monofont">format_string</Tt></i> on the left-hand side is what you would typically find as the first argument to <tt CLASs="monofont">printf(),</tt> the format string with any of the embedded % codes. The set of valid codes is given in <a HREF="104#2.html">Table6.4</a>. The <i><tt class="monofont">arguments_to_convert</tt></i> parameter matches the remaining arguments you would send to <tt class="monofont">printf(),</tT> namely the set of variables to convert and display.</p>
+
+					<a Name="2"></A><p><tabLe boRDER="1" cellSPACing="0" cELLPaddiNG="1" WIdth="100%">
+<caption><h5>Table 6.4. Format Operator Conversion Symbols</h5></caption><cOlgRoup Align="left" Span="2">
+<TR VAlign="top">
+<TH>
+<FOnt siZE="2"><B><I>Format Symbol</i></b></foNT></TH>
+<th>
+<font size="2"><b><i>Conversion</i></b></font></th>
+</Tr>
+<tR valIgn="top">
+<td>
+<Font SIZE="2"><tt clASS="monofont">%c</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2">character</font></td>
+</tr>
+<tr valign="top">
+<td>
+<fOnt Size="2"><Tt claSs="monofont">%s</tt></FONT></td>
+<td>
+<FONT size="2">string conversion via <TT CLass="monofont">str()</tT> prior to formatting</FONt></td>
+</tr>
+<tr valign="top">
+<td>
+<font sIze="2"><Tt clAss="monofont">%i</tt></Font></TD>
+<TD>
+<font SIZE="2">signed decimal integer</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<font size="2"><tt class="monofont">%d</tt></fOnt></Td>
+<td>
+<Font sIze="2">signed decimal integer</fONT></Td>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt sizE="2"><TT Class="monofont">%u</tt></font></td>
+<td>
+<font siZe="2">unsigned decimal integer</fOnt></tD>
+</tr>
+<tr ValiGN="top">
+<TD>
+<font SIZE="2"><tt clASS="monofont">%o</Tt></fonT></TD>
+<Td>
+<font size="2">octal integer</font></td>
+</tr>
+<tr vAliGn="top">
+<td>
+<Font sIze="2"><tT CLAss="monofont">%x</tt></FONT></td>
+<td>
+<FONT size="2">hexadecimal integer (lowercase letters)</FONT></td>
+</tr>
+<tr valign="top">
+<td>
+<font siZe="2"><tT claSs="monofont">%X</tt></fOnt></tD>
+<TD>
+<Font sIZE="2">hexadecimal integer (UPPERcase letters)</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<font size="2"><tt class="monofont">%e</tt></foNt></tD>
+<td>
+<fOnt siZe="2">exponential notation (with lowercase <tt CLASs="monofont">'e'</tt>)</fONT></Td>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt size="2"><tt class="monofont">%E</tt></font></td>
+<Td>
+<fOnt sIze="2">exponential notation (with UPPERcase <tt ClasS="monofont">'E'</TT>)</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><tt class="monofont">%f</tt></font></td>
+<td>
+<foNt sIze="2">floating point real number</fOnt></td>
+</Tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">%g</tT></FONt></td>
+<td>
+<font size="2">the shorter of <tt class="monofont">%f</Tt> and <tT claSs="monofont">%e</tt></fOnt></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><tt cLASS="monofont">%G</tt></font></td>
+<td>
+<font size="2">the shorter of <tt ClaSs="monofont">%f</tt> and <Tt claSs="monofont">%E</tt></FONT></td>
+</tr>
+</COLGroup>
+</TABLe></p>
+
+					<p>Python supports two formats for the input arguments. The first is a tuple (introduced in <a HREF="57.html">Section 2.8</a>, formally in <a href="115.html">6.15</a>), which is basically the set of arguments to convert, just like for C's <tt class="monofont">printf().</tt> The second format which Python supports is a dictionary (<a hreF="121.html">Chapter 7</a>). A dictionary is basically a set of hashed key-value pairs. The keys are requested in the <i><Tt clAss="monofont">format_string,</tt></I> and the corresponding values are provided when the string is formatted.</p>
+
+					<p>Converted strings can either be used in conjunction with the <b><TT CLass="monofont">print</tT></B> statement to display out to the user or saved into a new string for future processing or displaying to a graphical user interface.</P>
+
+					<P>Other supported symbols and functionality are listed in <a hreF="104#3.html">Table 6.5</A>.</P>
+
+					<A name="3"></A><P><TAble border="1" cellspacing="0" CelLpadDing="1" wIdth="100%">
+<CAPTion><h5>Table 6.5. Format Operator Auxiliary Directives</H5></CAPtion><COLGroup ALIGn="left" span="2">
+<tr valign="top">
+<th>
+<font sIze="2"><B><i>Symbol</i></b></Font></tH>
+<th>
+<fONT Size="2"><b><I>Functionality</I></B></Font></tH>
+</TR>
+<Tr valIGN="top">
+<Td>
+<font size="2"><tt class="monofont">*</tt></foNt></tD>
+<td>
+<fOnt siZe="2">argument specifies width or precision</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">-</tt></font></td>
+<td>
+<font sizE="2">left justification</foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2"><Tt claSS="monofont">+</TT></font></TD>
+<TD>
+<font size="2">display the sign</font></td>
+</tr>
+<tr vaLigN="top">
+<td>
+<fOnt siZe="2"><tt CLASs="monofont">&lt;sp&gt;</tt></fONT></Td>
+<td>
+<fONT Size="2">leave a blank space before a positive number</fONT></Td>
+</tr>
+<tr valign="top">
+<td>
+<font sizE="2"><tt ClasS="monofont">#</tt></foNt></td>
+<TD>
+<FOnt siZE="2">add the octal leading zero ( <TT clasS="monofont">'0'</TT> ) or hexadecimal leading <Tt claSS="monofont">'0x'</TT> or <tt class="monofont">'0X',</tt> depending on whether <tt class="monofont">'x'</tt> or <tt ClaSs="monofont">'X'</tt> were used.</Font></tD>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt sizE="2"><TT Class="monofont">0</TT></FOnt></td>
+<td>
+<font size="2">pad from left with zeros (instead of spaces)</font></td>
+</Tr>
+<tR valIgn="top">
+<td>
+<Font SIZE="2"><tt clASS="monofont">%</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2"><tt class="monofont">'%%'</tt> leaves you with a single literal <tt class="monofont">'%'</tt></fOnt></Td>
+</tr>
+<Tr valIgn="top">
+<tD>
+<FONt sizE="2"><I><TT clasS="monofont">(var)</TT></I></font></TD>
+<TD>
+<font size="2">mapping variable (dictionary arguments)</font></td>
+</tr>
+<tr vaLigN="top">
+<td>
+<fOnt siZe="2"><i><tT CLAss="monofont">m.n.</tt></I></FONt></td>
+<tD>
+<FONt sizE="2"><I><TT class="monofont">m</tt></i> is the minimum total width and <i><tt class="monofont">n</tt></i> is the number of digits to display after the decimal point (if appl.)</fOnt></Td>
+</tr>
+</ColgrOup>
+</tABLE></p>
+
+					<p>As with C's <tt CLASs="monofont">printf(),</tt> the asterisk symbol (<tT CLAss="monofont">*</tt>) may be used to dynamically indicate the width and precision via a value in argument tuple. Before we get to our examples, one more word of caution: long integers are more than likely too large for conversion to standard integers, so we recommend using exponential notation to get them to fit.</P>
+
+					<P>Here are some examples using the string format operator:</P>
+
+					
+						<H5>Hexadecimal Output</h5>
+						<pre>
+							
+&gt;&gt;&gt; "%x" % 108
+'6c'
+&gt;&gt;&gt;
+&gt;&gt;&gt; "%X" % 108
+'6C'
+&gt;&gt;&gt;
+&gt;&gt;&gt; "%#X" % 108
+'0X6C'
+&gt;&gt;&gt;
+&gt;&gt;&gt; "%#x" % 108
+'0x6c'
+
+						</pre>
+
+					
+					
+						<h5>Floating Point and Exponential Notation Output</h5>
+						<pre>
+							
+&gt;&gt;&gt;
+&gt;&gt;&gt; '%f' % 1234.567890
+'1234.567890'
+&gt;&gt;&gt;
+&gt;&gt;&gt; '%.2f' % 1234.567890
+'1234.57'
+&gt;&gt;&gt;
+&gt;&gt;&gt; '%E' % 1234.567890
+'1.234568E+03'
+&gt;&gt;&gt;
+&gt;&gt;&gt; '%e' % 1234.567890
+'1.234568e+03'
+&gt;&gt;&gt;
+&gt;&gt;&gt; '%g' % 1234.567890
+'1234.57'
+&gt;&gt;&gt;
+&gt;&gt;&gt; '%G' % 1234.567890
+'1234.57'
+&gt;&gt;&gt;
+&gt;&gt;&gt; "%e" % (1111111111111111111111L)
+'1.111111e+21'
+
+						</pre>
+
+					
+					
+						<h5>Integer and String Output</h5>
+						<pre>
+							
+&gt;&gt;&gt; "%+d" % 4
+'+4'
+&gt;&gt;&gt;
+&gt;&gt;&gt; "%+d" % -4
+'-4'
+&gt;&gt;&gt;
+&gt;&gt;&gt; "we are at %d%%" % 100
+'we are at 100%'
+&gt;&gt;&gt;
+&gt;&gt;&gt; 'Your host is: %s' % 'earth'
+'Your host is: earth'
+&gt;&gt;&gt;
+&gt;&gt;&gt; 'Host: %s\tPort: %d' % ('mars', 80)
+'Host: marsPort: 80'
+&gt;&gt;&gt;
+&gt;&gt;&gt; num = 123
+&gt;&gt;&gt; 'dec: %d/oct: %#o/hex: %#X' % (num, num, num)
+'dec: 123/oct: 0173/hex: 0X7B'
+&gt;&gt;&gt;
+&gt;&gt;&gt; "MM/DD/YY = %02d/%02d/%d" % (2, 15, 67)
+'MM/DD/YY = 02/15/67'
+&gt;&gt;&gt;
+&gt;&gt;&gt; w, p = 'web', 'page'
+&gt;&gt;&gt; 'http://xxx.yyy.zzz/%s/%s.html' % (w, p)
+'http://xxx.yyy.zzz/web/page.html'
+
+						</Pre>
+
+						<P>The previous examples all use tuple arguments for conversion. Below, we show how to use a dictionary argument for the format operator:</p>
+
+						<prE>
+							
+&gt;&gt;&gt; 'There are %(howmany)d %(lang)s Quotation Symbols' % \
+…     {'lang': 'Python', 'howmany': 3}
+'There are 3 Python Quotation Symbols'
+
+						</pre>
+
+					
+					
+						<h5>Amazing Debugging Tool</H5>
+						<p>The string format operator is not only a cool, easy-to-use, and familiar feature, but a great and useful debugging tool as well. Practically all Python objects have a string presentation (either evaluatable from <tt CLASs="monofont">repr()</tt> or <tT CLAss="monofont">'',</tt> or printable from <TT CLass="monofont">str()</tT>). The <B><TT class="monofont">print</tt></b> statement automatically invokes the <tt class="monofont">str()</tt> function for an object. This gets even better. When you are defining your own objects, there are hooks for you to create string representations of your object such that <tt cLasS="monofont">repr()</tt> and <tT clasS="monofont">str()</tt> (and <tT CLAss="monofont">''</tt> and <B><TT Class="monofont">print</TT></B>) return an appropriate string as output. And if worse comes to worst and neither <Tt claSS="monofont">repr()</TT> or <tt class="monofont">str()</tt> is able to display an object, the Pythonic default is to at least give you something of the format:</p>
+
+						<pre>
+							
+&lt;… <i>something that is useful</i> …&gt;.
+
+						</pre>
+
+					
+				
+				<a nAme="8"></A>
+					<h4>Raw String Operator ( r / R )</h4>
+					<p>The purpose of raw strings, introduced to Python in version 1.5, is to counteract the behavior of the special escape characters that occur in strings (see the subsection below on what some of these characters are). In raw strings, all characters are taken verbatim with no translation to special or non-printed characters.</P>
+
+					<p>This feature makes raw strings absolutely convenient when such behavior is desired, such as when composing regular expressions (see the <tt cLass="monofont">re</TT> module documentation). Regular expressions (REs) are strings which define advanced search patterns for strings and usually consist of special symbols to indicate characters, grouping and matching information, variable names, and character classes. The syntax for REs contains enough symbols already, but when you have to insert additional symbols to make special characters act like normal characters, you end up with a virtual "alphanumersymbolic" soup! Raw strings lend a helping hand by not requiring all the normal symbols needed when composing RE patterns.</P>
+
+					<P> The syntax for raw strings is exactly the same as for normal strings with the exception of the raw string operator, the letter "<b><tt cLASS="monofont">r,</tt></b>" which precedes the quotation marks. The "<b><TT CLass="monofont">r</tT></B>" can be lowercase (<B><Tt class="monofont">r</tt></b>) or uppercase (<b><tt class="monofont">R</tt></b>) and must be placed immediately preceding the first quote mark.</P>
+
+					<prE>
+						
+&gt;&gt;&gt; <b>print</b> r'\n'
+\n
+&gt;&gt;&gt;
+&gt;&gt;&gt;<b>print</B> '\n'
+&gt;&gt;&gt;
+&gt;&gt;&gt;<b>print</b> r'werbac'
+werbac
+&gt;&gt;&gt;
+&gt;&gt;&gt;<b>print</b> r'webbac\n'
+webbac\n
+&gt;&gt;&gt;
+&gt;&gt;&gt; <B>print</b> r'fglkjfg\][123=091'
+fglkjfg\\][123=091
+&gt;&gt;&gt;
+&gt;&gt;&gt; <b>import</b> re
+&gt;&gt;&gt; aFloatRE = re.compile(R'([+-]?\d+(\.\d*)?([eE][+-
+]?\d+)?))
+&gt;&gt;&gt; match = aFloatRE.search('abcde')
+&gt;&gt;&gt; <B>print</B> "our RE matched:", match.group(1)
+''
+&gt;&gt;&gt; match = aFloatRE.search('-1.23e+45')
+&gt;&gt;&gt; <B>print</B> 'our RE matched:', match.group(1)
+'-1.23e+45'
+
+					</pre>
+
+				
+				
+					<h4>Unicode String Operator (<TT CLass="monofont">u/U</tT>)</H4>
+					<P>The Unicode string operator, uppercase (<B><tt clASS="monofont">U</Tt></b>) and lowercase (<b><tt class="monofont">u</tt></b>), introduced with Unicode string support in Python 1.6, takes standard strings or strings with Unicode characters in them and converts them to a full Unicode string object. More details on Unicode strings are available in <a href="107#5.html">Section 6.7.4</a>. In addition, Unicode support is available in the new string methods (<a HreF="106.html">Section 6.6</a>) and the new regular expression engine. Here are some examples:</p>
+
+					<pRe>
+						
+u'abc'          U+0061 U+0062 U+0063
+u'\u1234'       U+1234
+u'abc\u1234\n'  U+0061 U+0062 U+0063 U+1234 U+0012
+
+					</pre>
+
+					<P>The Unicode operator can also accept raw Unicode strings if used in conjunction with the raw string operator discussed in the previous section. The Unicode operator must precede the raw string operator.</p>
+
+					<prE>
+						
+ur 'Hello\nWorld!'
+
+					</PRE>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="103.html" title="Strings and Operators"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=104" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="104.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="105.html" title="Built-in Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

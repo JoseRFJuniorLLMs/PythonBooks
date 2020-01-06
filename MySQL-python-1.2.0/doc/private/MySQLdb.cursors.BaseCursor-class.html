@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>MySQLdb.cursors.BaseCursor</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="MySQLdb-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="trees.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="indices.html">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="MySQLdb-module.html">Package&nbsp;MySQLdb</a> ::
+        <a href="MySQLdb.cursors-module.html">Module&nbsp;cursors</a> ::
+        Class&nbsp;BaseCursor
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[show&nbsp;private&nbsp;|&nbsp;<a href="../public/MySQLdb.cursors.BaseCursor-class.html">hide&nbsp;private</a>]</font></td></tr>
+      <tr><td align="right"><font size="-2">[<a href="frames.html"target="_top">frames</a>&nbsp;|&nbsp;<a href="MySQLdb.cursors.BaseCursor-class.html" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class BaseCursor</h2>
+
+<pre class="base-tree">
+<a href="__builtin__.object-class.html"><code>object</code></a> --+
+         |
+        <b>BaseCursor</b>
+</pre><br />
+
+<dl><dt><b>Known Subclasses:</b></dt>
+<dd>
+    <a href="MySQLdb.cursors.Cursor-class.html"><code>Cursor</code></a>,
+    <a href="MySQLdb.cursors.DictCursor-class.html"><code>DictCursor</code></a>,
+    <a href="MySQLdb.cursors.SSCursor-class.html"><code>SSCursor</code></a>,
+    <a href="MySQLdb.cursors.SSDictCursor-class.html"><code>SSDictCursor</code></a></dd></dl>
+
+<hr/>
+
+<p>A base for Cursor classes. Useful attributes:</p>
+<p>description -- DB API 7-tuple describing columns in last query
+arraysize -- default number of rows fetchmany() will fetch</p>
+<p>See the MySQL docs for more information.</p>
+<hr/>
+
+
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="__init__"></a><span class="summary-sig"><span class="summary-sig-name">__init__</span>(<span class=summary-sig-arg>self</span>,
+          <span class=summary-sig-arg>connection</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="__del__"></a><span class="summary-sig"><span class="summary-sig-name">__del__</span>(<span class=summary-sig-arg>self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="__iter__"></a><span class="summary-sig"><span class="summary-sig-name">__iter__</span>(<span class=summary-sig-arg>self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="MySQLdb.cursors.BaseCursor-class.html#close" class="summary-sig-name"><code>close</code></a>(<span class=summary-sig-arg>self</span>)</span></code>
+<br />
+Close the cursor.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="MySQLdb.cursors.BaseCursor-class.html#execute" class="summary-sig-name"><code>execute</code></a>(<span class=summary-sig-arg>self</span>,
+          <span class=summary-sig-arg>query</span>,
+          <span class=summary-sig-arg>args</span>)</span></code>
+<br />
+Execute a query.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="MySQLdb.cursors.BaseCursor-class.html#executemany" class="summary-sig-name"><code>executemany</code></a>(<span class=summary-sig-arg>self</span>,
+          <span class=summary-sig-arg>query</span>,
+          <span class=summary-sig-arg>args</span>)</span></code>
+<br />
+Execute a multi-row query.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="MySQLdb.cursors.BaseCursor-class.html#nextset" class="summary-sig-name"><code>nextset</code></a>(<span class=summary-sig-arg>self</span>)</span></code>
+<br />
+Advance to the next result set.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="MySQLdb.cursors.BaseCursor-class.html#setinputsizes" class="summary-sig-name"><code>setinputsizes</code></a>(<span class=summary-sig-arg>self</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+<br />
+Does nothing, required by DB API.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="MySQLdb.cursors.BaseCursor-class.html#setoutputsizes" class="summary-sig-name"><code>setoutputsizes</code></a>(<span class=summary-sig-arg>self</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+<br />
+Does nothing, required by DB API.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="_check_executed"></a><span class="summary-sig"><span class="summary-sig-name">_check_executed</span>(<span class=summary-sig-arg>self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="_do_get_result"></a><span class="summary-sig"><span class="summary-sig-name">_do_get_result</span>(<span class=summary-sig-arg>self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="_do_query"></a><span class="summary-sig"><span class="summary-sig-name">_do_query</span>(<span class=summary-sig-arg>self</span>,
+          <span class=summary-sig-arg>q</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="_fetch_row"></a><span class="summary-sig"><span class="summary-sig-name">_fetch_row</span>(<span class=summary-sig-arg>self</span>,
+          <span class=summary-sig-arg>size</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="_get_db"></a><span class="summary-sig"><span class="summary-sig-name">_get_db</span>(<span class=summary-sig-arg>self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="_post_get_result"></a><span class="summary-sig"><span class="summary-sig-name">_post_get_result</span>(<span class=summary-sig-arg>self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="_query"></a><span class="summary-sig"><span class="summary-sig-name">_query</span>(<span class=summary-sig-arg>self</span>,
+          <span class=summary-sig-arg>q</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="_warning_check"></a><span class="summary-sig"><span class="summary-sig-name">_warning_check</span>(<span class=summary-sig-arg>self</span>)</span></code>
+</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from object</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__delattr__" class="summary-sig-name"><code>__delattr__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+x.__delattr__('name') &lt;==&gt; del x.name</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__getattribute__" class="summary-sig-name"><code>__getattribute__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+x.__getattribute__('name') &lt;==&gt; x.name</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__hash__" class="summary-sig-name"><code>__hash__</code></a>(<span class=summary-sig-arg>x</span>)</span></code>
+<br />
+x.__hash__() &lt;==&gt; hash(x)</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__reduce__" class="summary-sig-name"><code>__reduce__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+helper for pickle</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__reduce_ex__" class="summary-sig-name"><code>__reduce_ex__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+helper for pickle</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__repr__" class="summary-sig-name"><code>__repr__</code></a>(<span class=summary-sig-arg>x</span>)</span></code>
+<br />
+x.__repr__() &lt;==&gt; repr(x)</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__setattr__" class="summary-sig-name"><code>__setattr__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+x.__setattr__('name', value) &lt;==&gt; x.name = value</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__str__" class="summary-sig-name"><code>__str__</code></a>(<span class=summary-sig-arg>x</span>)</span></code>
+<br />
+x.__str__() &lt;==&gt; str(x)</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from type</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.type-class.html#__new__" class="summary-sig-name"><code>__new__</code></a>(<span class=summary-sig-arg>T</span>,
+          <span class=summary-sig-arg>S</span>,
+          <span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+T.__new__(S, ...) -&gt; a new object with type S, a subtype of T</td></tr>
+</table><br />
+
+
+<!-- =========== START OF CLASS VARIABLE SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Class Variable Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="DatabaseError"></a><b><code>DatabaseError</code></b> = <a href="../private/_mysql_exceptions.DatabaseError-class.html"><code>_mysql_exceptions.DatabaseError</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="DataError"></a><b><code>DataError</code></b> = <a href="../private/_mysql_exceptions.DataError-class.html"><code>_mysql_exceptions.DataError</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="Error"></a><b><code>Error</code></b> = <a href="../private/_mysql_exceptions.Error-class.html"><code>_mysql_exceptions.Error</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="IntegrityError"></a><b><code>IntegrityError</code></b> = <a href="../private/_mysql_exceptions.IntegrityError-class.html"><code>_mysql_exceptions.IntegrityError</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="InterfaceError"></a><b><code>InterfaceError</code></b> = <a href="../private/_mysql_exceptions.InterfaceError-class.html"><code>_mysql_exceptions.InterfaceError</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="InternalError"></a><b><code>InternalError</code></b> = <a href="../private/_mysql_exceptions.InternalError-class.html"><code>_mysql_exceptions.InternalError</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="MySQLError"></a><b><code>MySQLError</code></b> = <a href="../private/_mysql_exceptions.MySQLError-class.html"><code>_mysql_exceptions.MySQLError</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="NotSupportedError"></a><b><code>NotSupportedError</code></b> = <a href="../private/_mysql_exceptions.NotSupportedError-class.html"><code>_mysql_exceptions.NotSupportedError</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="OperationalError"></a><b><code>OperationalError</code></b> = <a href="../private/_mysql_exceptions.OperationalError-class.html"><code>_mysql_exceptions.OperationalError</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="ProgrammingError"></a><b><code>ProgrammingError</code></b> = <a href="../private/_mysql_exceptions.ProgrammingError-class.html"><code>_mysql_exceptions.ProgrammingError</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="Warning"></a><b><code>Warning</code></b> = <a href="../private/_mysql_exceptions.Warning-class.html"><code>_mysql_exceptions.Warning</code></a></td></tr>
+</table><br />
+
+
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+
+<a name="close"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">close</span>(<span class=sig-arg>self</span>)</span>
+  </h3>
+Close the cursor. No further queries will be possible.  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+
+<a name="execute"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">execute</span>(<span class=sig-arg>self</span>,
+          <span class=sig-arg>query</span>,
+          <span class=sig-arg>args</span>=<span class=sig-default>None</span>)</span>
+  </h3>
+<p>Execute a query.</p>
+<p>query -- string, query to execute on server
+args -- optional sequence or mapping, parameters to use with query.</p>
+<p>Note: If args is a sequence, then %s must be used as the
+parameter placeholder in the query. If a mapping is used,
+%(key)s must be used as the placeholder.</p>
+<p>Returns long integer rows affected, if any</p>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+
+<a name="executemany"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">executemany</span>(<span class=sig-arg>self</span>,
+          <span class=sig-arg>query</span>,
+          <span class=sig-arg>args</span>)</span>
+  </h3>
+<p>Execute a multi-row query.</p>
+<p>query -- string, query to execute on server</p>
+<p>args</p>
+<blockquote>
+Sequence of sequences or mappings, parameters to use with
+query.</blockquote>
+<p>Returns long integer rows affected, if any.</p>
+<p>This method improves performance on multiple-row INSERT and
+REPLACE. Otherwise it is equivalent to looping over args with
+execute().</p>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+
+<a name="nextset"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">nextset</span>(<span class=sig-arg>self</span>)</span>
+  </h3>
+<p>Advance to the next result set.</p>
+<p>Returns None if there are no more result sets.</p>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+
+<a name="setinputsizes"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setinputsizes</span>(<span class=sig-arg>self</span>,
+          <span class="sig-vararg">*args</span>)</span>
+  </h3>
+Does nothing, required by DB API.  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+
+<a name="setoutputsizes"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setoutputsizes</span>(<span class=sig-arg>self</span>,
+          <span class="sig-vararg">*args</span>)</span>
+  </h3>
+Does nothing, required by DB API.  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br />
+
+
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="MySQLdb-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="trees.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="indices.html">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.0 on Mon Jan 31 23:02:12 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net"
+                      ><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

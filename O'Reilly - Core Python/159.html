@@ -1,0 +1,94 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; *Exceptions as Strings</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="154.html" class="navtitle">10. Errors And Exceptions</a> &gt; <span class="nonavtitle">*Exceptions as Strings</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="158.html" title="Detecting and Handling Exceptions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=159" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="159.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="160.html" title="*Exceptions as Classes"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A28%3A45+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175193246035228203128059</font><a href="read1.asp?bookname=0130260363&snode=159&now=5%2F29%2F2002+9%3A28%3A45+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>*Exceptions as Strings</h3>
+				<p>Prior to Python 1.5, standard exceptions were implemented as strings. However, this became limiting in that it did not allow for exceptions to have any relationships to each other. With the advent of exception classes, this is no longer the case. As of 1.5, all standard exceptions are now classes. It is still possible for programmers to generate their own exceptions as strings, but we recommend using exception classes from now on.</p>
+
+				<P>For backwards compatibility, it is possible to revert to string-based exceptions. Starting the Python interpreter with the command-line option -X will provide you with the standard exceptions as strings. This feature will be obsoleted beginning with Python 1.6.</P>
+
+				<P>If you must use string exceptions, we will now show you how to do it right. The following piece of code may or may not work:</P>
+
+				<pre>
+					
+# this may not work… risky!
+<b>try:</B>
+
+           <I>:</I>
+     <B>raise</b> 'myexception'
+           <i>:</i>
+<b>except</B> 'myexception'
+     <I>suite_to_handle_my_string_exception</I>
+<B>except:</b>
+     <i>suite_for_other_exceptions</i>
+
+				</pre>
+
+				<p>The reason why the above code may not work is because exceptions are based on object identity as opposed to object value (see <a href="160#1.html">Section 10.5.1</a>). There are two different string objects above, both with the same value. To rectify the potential problem, create a static string object with which to use:</p>
+
+				<pre>
+					
+# this is a little bit better
+myexception = 'myexception'
+<b>try:</b>
+
+           <i>:</I>
+     <b>raise</b> myexception
+           <I>:</i>
+<b>except</b> myexception:
+     <I>suite_to_handle_my_string_exception</i>
+<b>except:</b>
+     <i>suite_for_other_exceptions</I>
+
+				</pre>
+
+				<P>With this update, the same string object is used. However, if you are going to use this code, you might as well use an exception class. Substitute the <TT Class="monofont">myexception</TT> assignment above with:</P>
+
+				<Pre>
+					
+# this is the best choice
+<b>class</b> MyException(Exception):
+      <B>pass</B>
+            <I>:</I>
+<b>try:</b>
+            <i>:</i>
+
+     <B>raise</B> MyException
+            <I>:</I>
+
+<b>except</b> MyException:
+     <i>suite_to_handle_my_string_exception
+</i><b>except:</b>
+     <i>suite_for_other_exceptions
+</i>
+				</pre>
+
+				<p>So you see, there really is no reason <i>not</i> to use exception classes from now on when creating your own exceptions. Be careful, however, because you may end up using an external module which may still have exceptions implemented as strings.</p>
+
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="158.html" title="Detecting and Handling Exceptions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=159" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="159.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="160.html" title="*Exceptions as Classes"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

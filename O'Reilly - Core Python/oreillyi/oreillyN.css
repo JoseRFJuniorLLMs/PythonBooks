@@ -1,0 +1,214 @@
+.monofont
+{
+	FONT-FAMILY:"Courier New",Courier,mono;
+}
+.romanfont
+{
+	FONT-FAMILY:"Times New Roman",Times,serif;
+}
+
+BODY,DIV,SPAN,CAPTION,TH,TD,H1,H2,H3,H4,H5
+{
+	FONT-FAMILY:Arial,Helvetica,sans-serif;
+}
+P
+{
+	FONT-FAMILY:"Times New Roman",Times,serif;
+}
+CODE
+{
+	FONT: 12px monospace;
+}
+H2
+{
+	COLOR:#990000;
+}
+H3
+{
+	COLOR:#990000;
+}
+H4
+{
+	COLOR:#990000;
+}
+H5
+{
+	COLOR:#990000;
+}
+DIV
+{
+	MARGIN:0px 10px;
+}
+.Section1
+{
+}
+.Section2
+{
+}
+.Section3
+{
+}
+.Section4
+{
+}
+
+.Title {
+	COLOR:#990000;
+	FONT-WEIGHT:bold;
+	font-style: normal; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 16px; 
+	}
+.ATitle	{
+	COLOR:#990000;
+	font: bold 12px Arial, Helvetica, sans-serif;
+	}
+.ATitle:link
+{
+}
+.ATitle:visited
+{
+}
+.ATitle:active
+{
+	COLOR:#c00000;
+}
+.ATitle:hover
+{
+	COLOR:#CC0000;
+	TEXT-DECORATION:underline;
+}
+.ChapterTitle
+{
+	COLOR:#990000;
+	MARGIN: 0px 10px;
+}
+.SectionTitle
+{
+	COLOR:#990000;
+	MARGIN: 0px 20px;
+}
+.ITable
+{
+	BORDER-BOTTOM:#990000 1px solid;
+	BORDER-LEFT:#990000 1px solid;
+	BORDER-RIGHT:#990000 1px solid;
+	BORDER-TOP:#990000 1px solid;
+}
+.tiny
+{
+	FONT:9px Arial,Helvetica,sans-serif;
+}
+.multiselect 
+{  
+	font-family: "Times New Roman", Times, serif; 
+	font-size: 10px; 
+	width: 40%
+}
+
+/* Safari Nav Styles */
+.safnavoff { 	
+	color: #FFFFFF; 
+	text-decoration: none; 
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal; 
+	font-size: 11px; 
+	text-transform: uppercase;
+	}
+
+.safnavoff:hover { text-decoration: underline}
+.safnavon { 
+	color: #FFFFFF; 
+	text-decoration: none; 
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold; 
+	font-size: 11px; 
+	text-transform: uppercase;
+	}
+.safnavon:hover { text-decoration: underline}
+
+.navtopbg { background-color: #990000}
+.navleftbg { background-color: #666666}
+.navleftbgalt { background-color: #666666}
+.navtitle { 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 12px; 
+	font-weight: bold; 
+	color: #FFFFFF;
+	}
+.navtitle:visited { color:white }
+.navtitle:active { color:yellow }
+.navtitle:link { color:white }
+.nonavtitle { 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 12px; 
+	font-weight: bold; 
+	color: #FFFFFF;
+	}
+.bimodoff { color: silver; font-family: Arial, Helvetica, sans-serif; text-decoration: none}
+.bimodon { color: white; font-family: Arial, Helvetica, sans-serif; text-decoration: none}
+.btblinks {
+	color: #333333;
+	text-decoration: none;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px
+	}
+.btblinks:link {}
+.btblinks:visited {}
+.btblinks:active {}
+.btblinks:hover { text-decoration:underline; }
+.btlinksactive { text-decoration: none; color: #000099; font-weight: bold }
+.btlinksactive:hover { text-decoration:underline; }
+.inputtext { font-family:Arial,Helvetica,sans-serif; font-size:10 }
+.inputbutton { font-family:Arial,Helvetica,sans-serif; font-size:10; font-weight:bold }
+.endsearch { font-family:Arial,Helvetica,sans-serif; font-size:10; font-weight:bold }
+.dropdown { font-family:Arial,Helvetica,sans-serif; font-size:10; font-weight:normal }
+
+.navtoptoolbg { background-color: #000000}
+
+
+/* Safari Content Styles */
+
+.headingbarbg { background-color: #333333}
+.headingsubbarbg { background-color: #CCCCCC}
+.headingbartitle { 	
+	COLOR:white;
+	FONT-WEIGHT:bold;
+	font-size: 14px;
+	font-family: Arial, Helvetica, sans-serif; 
+	}
+.headingsubbartitle { 	
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	color: black; 
+	font-weight: bold;
+	font-size: 12px;
+	}
+
+.tablestripe { background-color: #EEEEEE}
+.pgtitle { font-family:Arial,Helvetica,sans-serif; color: #FFFFFF; font-weight: bold}
+
+.buyprint {
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 10px; 
+	color: #666666; 
+	text-decoration: underline;
+	}
+.resulthighlight { background-color:lightblue }
+
+/* Help Styles */
+
+.pgsubtitle { 
+	font-family:Arial,Helvetica,sans-serif; 
+	color: #EE4000; 
+	font-weight: bold;	
+	}
+
+.helphead { font-family:"Times New Roman", Times, serif; color: #990000;; font-weight: bold}
+.helpsubhead { font-family:Arial,Helvetica,sans-serif; font-size: smaller;}
+.helpcaption { font-family: "Times New Roman",Times,serif; font-size: smaller;}
+.helptab { font-family:Arial,Helvetica,sans-serif; font-size: smaller;}
+a {  color: #990000}
+.sm {  vertical-align: super; font-size: 8px}
+.gowild {  font-family: Arial, Helvetica, sans-serif; font-size: 18px; font-style: oblique; font-weight: bold; color: #990000; line-height: normal; vertical-align: text-bottom}
+.getstarted {  font-family: Arial, Helvetica, sans-serif; font-size: 10pt; font-style: oblique; font-weight: bold; color: #990000}
+

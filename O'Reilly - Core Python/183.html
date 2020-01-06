@@ -1,0 +1,112 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Keyword Variable Arguments (Dictionary)</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="170.html" class="navtitle">11. Functions</a> &gt; <span class="nonavtitle">Keyword Variable Arguments (Dictionary)</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="182.html" title="Non-keyword Variable Arguments (Tuple)"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=183" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="183.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="184.html" title="Calling Functions with Variable Argument Objects"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A32%3A48+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174052240197139120155099</font><a href="read9.asp?bookname=0130260363&snode=183&now=5%2F29%2F2002+9%3A32%3A48+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Keyword Variable Arguments (Dictionary)</h3>
+				<p>In the case where we have a variable number or extra set of keyword arguments, these are placed into a dictionary where the "keyworded" argument variable names are the keys, and the arguments are their corresponding values. Why must it be a dictionary? Because a pair of items is given for every argument—the name of the argument and its value—so it is a natural fit to use a dictionary to hold these arguments. Here is the syntax of function definitions which use the variable argument dictionary for extra keyword arguments:</p>
+
+				<PRE>
+					
+<B>def</b>
+						<i>function_name</i>(<i>[formal_args,][*vargst,] **vargsd</I>):
+    <I>function_documentation_string</I>
+    <I>function_body_suite</i>
+
+				</pre>
+
+				<P>To differentiate keyword variable arguments from non-keyword informal arguments, a double asterisk ( <TT Class="monofont">**</tt> ) is used. The <tt class="monofont">**</tt> is overloaded so it should not be confused with exponentiation. The keyword variable argument dictionary should be the last parameter of the function definition prepended with the <tt claSs="monofont">'**'.</tT> We now present an example of how to use such a dictionary:</p>
+
+				<prE>
+					
+<b>def</b> dictVarArgs(arg1, arg2='defaultB', **theRest):
+    'display 2 regular args and keyword variable args'
+    <b>print</b> 'formal arg1:', dictVarArgs
+    <B>print</b> 'formal arg2:', arg2
+    <b>for</b> eachXtrArg <B>in</B> theRest.keys():
+        <B>print</B> 'Xtra arg %s: %s' % \
+            (eachXtrArg, str(theRest[eachXtrArg]))
+
+				</pre>
+
+				<p>Executing this code in the interpreter, we get the following output:</P>
+
+				<PRE>
+					
+&gt;&gt;&gt; dictVarArgs(1220, 740.0, c='grail'
+formal arg1: 1220
+formal arg2: 740.0
+Xtra arg c: grail
+&gt;&gt;&gt;
+&gt;&gt;&gt; dictVarArgs(arg2='tales', c=123, d='poe',
+a='mystery')
+formal arg1: mystery
+formal arg2: tales
+Xtra arg c: 123
+Xtra arg d: poe
+&gt;&gt;&gt;
+&gt;&gt;&gt; dictVarArgs('one', d=10, e='zoo', men=('freud',
+'gaudi'))
+formal arg1: one
+formal arg2: defaultB
+Xtra arg men: ('freud', 'gaudi')
+Xtra arg d: 10
+Xtra arg e: zoo
+
+				</pre>
+
+				<p>Both keyword and non-keyword variable arguments may be used in the same function as long as the keyword dictionary is last and is preceded by the non-keyword tuple, as in the following example:</P>
+
+				<PRE>
+					
+<b>def</b> newfoo(arg1, arg2, *nkw, **kw):
+    display regular args and all variable args'
+    <b>print</b> 'arg1 is:', arg1
+    <B>print</B> 'arg2 is:', arg2
+    <B>for</B> eachNKW <b>in</b> nkw:
+        print 'additional non-keyword arg:', eachNKW
+    <b>for</b> eachKW <b>in</b> kw.keys():
+        <b>print</b> "additional keyword arg '%s': %s" % \
+            (eachKW, kw[eachKW])
+
+				</pre>
+
+				<p>Calling our function within the interpreter, we get the following output:</p>
+
+				<pre>
+					
+&gt;&gt;&gt; newfoo('wolf', 3, 'projects', freud=90, gamble=96)
+arg1 is: wolf
+arg2 is: 3
+additional non-keyword arg: projects
+additional keyword arg 'freud': 90
+additional keyword arg 'gamble': 96
+
+				</pre>
+
+			</fOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="182.html" title="Non-keyword Variable Arguments (Tuple)"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=183" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="183.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="184.html" title="Calling Functions with Variable Argument Objects"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

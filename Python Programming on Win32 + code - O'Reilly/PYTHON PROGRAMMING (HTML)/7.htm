@@ -1,0 +1,356 @@
+<html><head><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=Generator content="Microsoft Word 10 (filtered)"><link rel="stylesheet" type="text/css" href="1.css"><title></title></head><body lang=EN-US link="#990000" vlink=purple><div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=6.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=8.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div><br><br>
+<h2><a name="_Chapter_5._Introduction_to_COM"></a>Chapter 5. Introduction to
+COM</h2>
+
+<p>In this chapter, we provide an introduction to using the Microsoft Component
+Object Model (COM) from Python. We will present enough introductory material so
+you can understand the key concepts and some simple examples that use Python
+and COM.</p>
+
+<p>COM is a technique for using or publishing objects, regardless of the
+language they were implemented in. Any COM-aware environment uses a COM object
+in a consistent and reliable way; you need to know nothing about how the object
+is implemented.</p>
+
+<p>COM has grown from humble beginnings. Its lineage can be traced through the
+Object Linking and Embedding (OLE) technology that first appeared in the
+Microsoft Windows 3.x family. The first version of Visual Basic included a
+technology known as Visual Basic Extensions, or VBXs. Microsoft started merging
+these technologies into OLE2, which was soon renamed COM. Since then, the
+Microsoft marketing machine has begun to refer to the technology as ActiveX,
+although COM remains the mnemonic of choice in the Windows development world.
+Recently, COM has been extended with the ability to distribute objects across a
+network, and these extensions are known as Distributed COM, or DCOM. Over time,
+the term DCOM will slowly vanish as the capabilities it offers are considered a
+standard part of COM. Microsoft is already hard at work on the next major
+revision of COM, currently known as COM+. Although COM+ isn’t discussed in this
+book, all the existing COM concepts will remain for the foreseeable future.</p>
+
+<p>Throughout the rest of the book, we present a number of examples that use
+Python and COM, so the intent of this chapter is to give you the groundwork to
+follow the samples. In <a href="16.htm#_Chapter_12._Advanced_Python_and_COM">Chapter
+12</a>, we expand on all these concepts, explaining the Python COM support in
+greater detail.</p>
+
+<h3><a name="_5.1_What_It_Is"></a>5.1 What It Is</h3>
+
+<p>COM is a technology from Microsoft that allows objects to communicate
+without the need for either object to know any details about the other, even
+the language it’s implemented in.</p>
+
+<p>At the lowest level, COM deals with interfaces and objects and makes a clear
+distinction between an object’s interface and its implementation. The interface
+defines how an object is used, but the implementation of the interface is up to
+the object.</p>
+
+<p>COM defines many interfaces but doesn’t provide implementations for many of
+these interfaces. One commonly used interface, <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+, allows COM objects to be used from a scripting environment, such as Visual
+Basic or Python. Although COM has defined the interface for <tt><span
+style='font-size:10.0pt'>IDispatch</span></tt>, it’s the responsibility of the
+COM objects themselves to implement this interface, and exactly how they
+implement it depends on the object model or functionality the COM object is
+trying to expose.</p>
+
+<p>Objects that implement the <tt><span style='font-size:10.0pt'>IDispatch</span></tt>
+interface are known as automation objects. The rest of this chapter shows how
+to use automation objects from Python, and then we show how to create a COM
+object in Python and call from Visual Basic. <a
+href="#_Chapter_12._Advanced_Python_and_COM">Chapter 12</a> covers all these
+details in greater depth.</p>
+
+<h3><a name="_5.2_Using_COM_Objects_from_Python"></a>5.2 Using COM Objects from
+Python</h3>
+
+<p>When people discuss COM, they are often talking about only one side of
+COM—using automation objects. Automation objects are objects that expose a programmable
+interface that can be used by another program or environment. Examples of
+automation objects are Microsoft Office, the Netscape browser, or programs you
+write yourself in any language, such as Visual Basic, Python, Delphi, C++, and
+so forth.</p>
+
+<p>Information about COM objects is stored in the Windows registry. Details
+about the object’s class are stored, so that when that particular object needs
+to be created, the correct class is located and used. Although the term “class”
+doesn’t refer to a Python (or C++) class, the concept is identical: the class
+defines the implementation, and the object is an instance of the class. Classes
+are registered with a unique (but complex) class ID (CLSID) and a friendly (but
+not guaranteed unique) program ID (ProgID). The CLSID is a globally unique
+identifier (GUID), as discussed later in this chapter, while the ProgID for an
+object is a short string that names the object and typically creates an
+instance of the object. For example, Microsoft Excel defines its ProgID as <tt><span
+style='font-size:10.0pt'>Excel.Application</span></tt>, Microsoft Word defines <tt><span
+style='font-size:10.0pt'>Word.Application</span></tt>, and so forth.</p>
+
+<p>Python programs use the <tt><span style='font-size:10.0pt'>win32com.client.Dispatch()</span></tt>
+method to create COM objects from a ProgID or CLSID. For example, you could use
+this code to create an Excel object:</p>
+
+<pre>&gt;&gt;&gt; import win32com.client</pre><pre>&gt;&gt;&gt; xl = win32com.client.Dispatch(&quot;Excel.Application&quot;)</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>or to create a Microsoft Word object:</p>
+
+<pre>&gt;&gt;&gt; import win32com.client</pre><pre>&gt;&gt;&gt; wd = win32com.client.Dispatch(&quot;Word.Application&quot;)</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>So what to do with these objects? One of COM’s greatest strengths is also
+one of its greatest weaknesses. Each COM object can define its own object
+model, that is, the methods and properties the object exposes to allow it to
+perform its task. The problem with this approach is that many COM objects
+present a unique object model, and if you learn how to use Microsoft Office
+using COM, the next COM object you need to use could define a different model.
+Microsoft is addressing this issue in its own products by attempting to define
+a similar object model across applications: the interface to Microsoft Excel is
+similar to the interface for Microsoft Word. However, the COM objects you need
+may present a completely different interface. The only solution to this problem
+is documentation; you must locate and read the documentation on the object
+model for the COM object you wish to use.</p>
+
+<div align=center>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="90%"
+ style='width:90.0%;background:black'>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%"
+   style='width:100.0%;background:white'>
+   <tr>
+    <td width=60 valign=top style='width:45.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt'>
+    <p class=MsoNormal><span style='font-family:Arial'><img border=0 width=50
+    height=54 src="images/image002.gif"></span></p>
+    </td>
+    <td valign=top style='padding:4.5pt 4.5pt 4.5pt 4.5pt'>
+    <p>When you install Microsoft Office, the documentation for the COM object
+    model isn’t installed by default During the installation process, you
+    should select each product from the Installation Options and check the Help
+    options for that product. If you have already installed Microsoft Office,
+    you can run the setup program again and add these Help components to your
+    installation.</p>
+    </td>
+   </tr>
+  </table>
+  <p class=MsoNormal></p>
+  </td>
+ </tr>
+</table>
+
+</div>
+
+<p>If you view the documentation for Microsoft Office, notice that both <tt><span
+style='font-size:10.0pt'>Excel.Application</span></tt> and <tt><span
+style='font-size:10.0pt'>Word.Application</span></tt> have a <tt><span
+style='font-size:10.0pt'>Visible</span></tt> property. Let’s look at this
+property for Microsoft Excel:</p>
+
+<pre>&gt;&gt;&gt; xl.Visible</pre><pre>0</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Excel isn’t visible, explaining why you can’t see an instance of Excel
+running on your PC. (It’s there, though!)</p>
+
+<p>Let’s set the <tt><span style='font-size:10.0pt'>Visible</span></tt>
+property to <tt><span style='font-size:10.0pt'>true</span></tt>:</p>
+
+<pre>&gt;&gt;&gt; xl.Visible = 1</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Excel now appears on the display. If you try the same thing with the
+Microsoft Word object, you get the same results:</p>
+
+<pre>&gt;&gt;&gt; wd.Visible</pre><pre>&gt;&gt;&gt; 0</pre><pre>&gt;&gt;&gt; wd.Visible = 1</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Python manages COM lifetimes automatically for you; when your <tt><span
+style='font-size:10.0pt'>xl</span></tt> variable is no longer used, Excel
+automatically closes. In Python, the simplest way to remove this variable is to
+assign it to another value. If you use the following code, notice that Excel
+vanishes from the screen; it knows there are no longer any programs referring
+to it:</p>
+
+<pre>&gt;&gt;&gt; xl = None</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>For more information on using COM objects from Python, please see <a
+href="#_Chapter_12._Advanced_Python_and_COM">Chapter 12</a>.</p>
+
+<h3><a name="_5.3_Implementing_COM_Objects_with_P"></a>5.3 Implementing COM
+Objects with Python</h3>
+
+<p>In this section, we discuss how to implement COM objects using Python and a
+small sample of such an object. We also present some Visual Basic code that
+uses our Python implemented object.</p>
+
+<p>For this demonstration, you’ll write a simple COM object that supports a
+number of string operations. As Visual Basic is somewhat lacking in the
+string-processing department where Python excels, it’s a good candidate. The
+sample provides a COM object with a single method, <tt><span style='font-size:
+10.0pt'>SplitString()</span></tt> . This method has semantics identical to the
+standard Python function <tt><span style='font-size:10.0pt'>string.split()</span></tt>;
+the first argument is a string to split, and the second optional argument is a
+string holding the character to use to make the split. As you have no doubt
+guessed, the method won’t do much more than call the Python <tt><span
+style='font-size:10.0pt'>string.split()</span></tt> function.</p>
+
+<p>There are two steps to implement COM objects in Python:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Define a Python class with the methods and properties you wish to
+expose.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Annotate the Python class with special attributes required by the
+PythonCOM framework to expose the Python class as a COM object. These
+annotations include information such as the objects ProgID, CLSID, and so
+forth.</p>
+
+<p>The following code shows a small COM server written in Python:</p>
+
+<pre># SimpleCOMServer.py - A sample COM server - almost as small as they come!</pre><pre># </pre><pre># We expose a single method in a Python COM object.</pre><pre>class PythonUtilities:</pre><pre>    _public_methods_ = [ 'SplitString' ]</pre><pre>    _reg_progid_ = &quot;PythonDemos.Utilities&quot;</pre><pre>    # NEVER copy the following ID </pre><pre>    # Use &quot;print pythoncom.CreateGuid()&quot; to make a new one.</pre><pre>    <span
+lang=DE>_reg_clsid_ = &quot;{41E24E95-D45A-11D2-852C-204C4F4F5020}&quot;</span></pre><pre><span
+lang=DE>    </span></pre><pre><span lang=DE>    </span>def SplitString(self, val, item=None):</pre><pre>        import string</pre><pre>        if item != None: item = str(item)</pre><pre>        return string.split(str(val), item)</pre><pre>&nbsp;</pre><pre># Add code so that when this script is run by</pre><pre># Python.exe, it self-registers.</pre><pre>if __name__=='__main__':</pre><pre>    print &quot;Registering COM server...&quot;</pre><pre>    import win32com.server.register</pre><pre>    win32com.server.register.UseCommandLine(PythonUtilities)</pre>
+
+<p>The bulk of the class definition is taken up by the special attributes:</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>_public_methods_</span></span><span
+style='font-family:Arial;color:#990000'> </span></p>
+
+<p style='margin-left:.5in'>A list of all methods in the object that are to be
+exposed via COM; the sample exposes only one method, <tt><span
+style='font-size:10.0pt'>SplitString</span></tt>.</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>_reg_progid_</span></span><span
+style='font-family:Arial;color:#990000'> </span></p>
+
+<p style='margin-left:.5in'>The ProgID for the new object, that is, the name
+that the users of this object must use to create the object.</p>
+
+<p class=MsoNormal><span class=monofont1><span style='color:#990000'>_reg_clsid_</span></span><span
+style='font-family:Arial;color:#990000'> </span></p>
+
+<p style='margin-left:.5in'>The unique CLSID for the object. As noted in the
+source code, you must never copy these IDs, but create new ones using <tt><span
+style='font-size:10.0pt'>pythoncom.CreateGuid()</span></tt>.</p>
+
+<p>Full details of these and other possible attributes can be found in <a
+href="#_Chapter_12._Advanced_Python_and_COM">Chapter 12</a>.</p>
+
+<p>The <tt><span style='font-size:10.0pt'>SplitString()</span></tt> method is
+quite simple: it mirrors the behavior of the Python <tt><span style='font-size:
+10.0pt'>string.split()</span></tt> function. A complication is that COM passes
+all strings as Unicode characters, so you must convert them to Python strings
+using the <tt><span style='font-size:10.0pt'>str()</span></tt> function. Note
+that in Python 1.6, it’s expected that the string and Unicode types will be
+unified allowing the explicit conversions to be removed.</p>
+
+<p>The only thing remaining is to register the object with COM. As the comments
+in the code imply, you can do this by executing the code as a normal Python
+script. The easiest way to do this is to open the source file in PythonWin and
+use the Run command from the File menu. After running the script, the PythonWin
+interactive window should display:</p>
+
+<pre>Registering COM server...</pre><pre>Registered: PythonDemos.Utilities</pre>
+
+<p>Finally, let’s test the COM object. Use Visual Basic for Applications, which
+ships with both Microsoft Office and Microsoft Excel, and perform the following
+steps:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Start Microsoft Word or Microsoft Excel.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Press ALT-F8 to display the macros dialog.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Enter a name for the macro (e.g., <tt><span style='font-size:10.0pt'>TestPython</span></tt>)
+and select Create.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>The Visual Basic editor is displayed. In the editor, enter the following
+code:</p>
+
+<pre style='margin-left:.5in;text-indent:-.25in'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Set PythonUtils = CreateObject(&quot;PythonDemos.Utilities&quot;)</pre><pre
+style='margin-left:.5in;text-indent:-.25in'>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>response = PythonUtils.SplitString(&quot;Hello from VB&quot;)</pre><pre
+style='margin-left:.5in;text-indent:-.25in'>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>for each Item in response</pre><pre
+style='margin-left:.5in;text-indent:-.25in'>8.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>  MsgBox Item</pre><pre
+style='margin-left:.5in'>next</pre>
+
+<p>Your display should look something like <a
+href="#_Figure_5.1._Visual_Basic_for_Applic">Figure 5.1</a>.</p>
+
+<p>Now run this code by pressing the F5 key. If all goes well, you should see
+three message boxes. The first one is shown in <a
+href="#_Figure_5.2._First_of_three_message_">Figure 5.2</a>.</p>
+
+<p>Just to be complete and help keep your registry clean, unregister your
+sample COM server. You do this by following the same process that registered
+the server, except specify <tt><span style='font-size:10.0pt'>--unregister</span></tt>
+as an argument to your script. A message is printed saying the object is
+unregistered.</p>
+
+<h5 align=center style='text-align:center;page-break-after:avoid'><a
+name="_Figure_5.1._Visual_Basic_for_Applic"></a>Figure 5.1. Visual Basic for
+Applications code that uses the sample COM server</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-family:Arial'><img border=0 width=502 height=245
+src="images/image016.gif" alt="figs/ppw.0501.gif"></span></p>
+
+<h5 align=center style='text-align:center'><a
+name="_Figure_5.2._First_of_three_message_"></a>Figure 5.2. First of three
+message boxes displayed by the VB code</h5>
+
+<p class=MsoNormal align=center style='text-align:center'><img border=0
+width=502 height=100 src="images/image017.gif"
+alt="figs/ppw.0502.gif"></p>
+
+<h3><a name="_5.4_Globally_Unique_Identifiers"></a>5.4 Globally Unique
+Identifiers</h3>
+
+<p>As mentioned earlier in the chapter, a COM object registers itself with a
+unique identifier. Whenever COM needs a truly unique identifier, it uses a
+globally unique identifier or GUID. A GUID is a 128-bit number, generated using
+a complex algorithm and the unique ID burnt into a computer’s network interface
+card, which makes it statistically improbable the same number will ever be
+generated twice.</p>
+
+<p>New GUIDs can be created from Python code using the following code:</p>
+
+<pre>&gt;&gt;&gt; import pythoncom</pre><pre>&gt;&gt;&gt; print pythoncom.CreateGuid()</pre><pre>{FA21CDC1-381F-11D3-8559-204C4F4F5020}</pre>
+
+<p>Python prints the GUID using the standard hexadecimal representation inside
+braces, and this same format is used everywhere an ASCII representation of a
+GUID is required.</p>
+
+<p>GUIDs are used for a variety of purposes in COM; we have already discussed
+how they function as CLSIDs to uniquely identify object implementations, and in
+later chapters you’ll see them put to use in a variety of different ways.</p>
+
+<h3 style='page-break-after:avoid'><a name="_5.5_Conclusion"></a>5.5 Conclusion</h3>
+
+<p>In this chapter, we presented a quick introduction to using Python and COM.
+We covered:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Some key fundamental COM concepts to provide a context for the
+Python discussions.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Using COM objects from Python and a quick example using Microsoft
+Excel or Microsoft Word.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Implementation of COM objects in Python so they can be used by
+other COM-aware environments or languages. We demonstrated a COM object using
+Visual Basic for Applications.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The concept of the COM GUID to help you understand how those
+strange looking strings are used.</p>
+
+<p>We use the concepts introduced here throughout the book. In <a
+href="#_Chapter_12._Advanced_Python_and_COM">Chapter 12</a> these concepts are
+described in far greater detail.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+<div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=6.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=8.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div></body></html>

@@ -1,0 +1,248 @@
+<html><head><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=Generator content="Microsoft Word 10 (filtered)"><link rel="stylesheet" type="text/css" href="1.css"><title></title></head><body lang=EN-US link="#990000" vlink=purple><div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=3.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=5.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div><br><br>
+<h2><a name="_Chapter_2._Python_Language_Review"></a>Chapter 2. Python Language
+Review</h2>
+
+<p>This book isn’t a Python tutorial. We feel that Python is a straightforward
+language, and if you have any programming experience, you should be able to
+follow the examples in the book and understand them. For readers new to Python,
+this chapter provides a brief introduction; others can safely skip it.</p>
+
+<h3><a name="_2.1_A_Crash_Course"></a>2.1 A Crash Course</h3>
+
+<p>Python offers an interactive mode that lets you evaluate an expression at a
+time. This is an excellent way to learn the language. We will step rapidly through
+the main features of the language in interactive mode. We won’t provide
+detailed explanations, since most features are remarkably clear and obvious
+anyway.</p>
+
+<p>Either go to an MS-DOS prompt, or (if you’ve already installed it) start
+PythonWin. You should see something like this:</p>
+
+<pre>Pythonwin 1.5.2b2 (#0, Feb 16 1999, 17:09:09) [MSC 32 bit (Intel)] on win32</pre><pre>Copyright 1991-1995 Stichting Mathematisch Centrum, Amsterdam</pre><pre>Portions Copyright 1994-1998 Mark Hammond (MHammond@skippinet.com.au)</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>You can type in simple expressions, which are evaluated for you:</p>
+
+<pre>&gt;&gt;&gt; 2+2</pre><pre>4</pre>
+
+<h4>2.1.1 Numbers, Strings, and Variables</h4>
+
+<p>You can assign to variables with =. There is no separate declaration
+required before you assign a variable:</p>
+
+<pre>&gt;&gt;&gt; x=3</pre><pre>&gt;&gt;&gt; x</pre><pre>3</pre><pre>&gt;&gt;&gt; y=x*2</pre><pre>&gt;&gt;&gt; y</pre><pre>6</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Python supports all standard arithmetic operators. Note that the division
+operator ( / ) yields different results on integer and floating-point types:</p>
+
+<pre>&gt;&gt;&gt; 22 / 7</pre><pre>3</pre><pre>&gt;&gt;&gt; 22.0 / 7.0</pre><pre>3.14285714286</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Scientists and mathematicians will be pleased to hear that complex numbers
+are fully supported using the letter <i>j </i>:</p>
+
+<pre>&gt;&gt;&gt; (3 + 1j) * (3 - 1j)</pre><pre>(10+0j)</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Strings can be wrapped in either double or single quotes. They can be
+concatenated with the + operator and repeated with the * operator. You can also
+access individual characters by their position:</p>
+
+<pre>&gt;&gt;&gt; greeting = 'hello'</pre><pre>&gt;&gt;&gt; epithet = 'stranger'</pre><pre>&gt;&gt;&gt; greeting + &quot;, &quot; + epithet</pre><pre>'hello, stranger'</pre><pre>&gt;&gt;&gt; &quot;spam&quot; * 10</pre><pre>'spamspamspamspamspamspamspamspamspamspam'</pre><pre>&gt;&gt;&gt;</pre>
+
+<h4>2.1.2 Lists and Tuples</h4>
+
+<p>Much of Python’s power comes from its support for lists and its compact
+syntax for manipulating them. Lists are wrapped in square brackets and can
+contain any Python objects. You can also insert and delete items in a list and
+even use negative positions to access the end of the list without knowing its
+length:</p>
+
+<pre>&gt;&gt;&gt; mylunch = ['spam','eggs', 'guinness','raspberries','wafer-thin mint']</pre><pre>&gt;&gt;&gt; mylunch[0]</pre><pre>'spam'</pre><pre>&gt;&gt;&gt; mylunch[1:3], mylunch[-1]</pre><pre>(['eggs', 'guinness'], 'wafer-thin mint')</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>When you enter two results separated by a comma on the same line, you get
+two expressions, but enclosed in parentheses. Parentheses indicate a <i>tuple</i>
+, which is similar to a list but can’t be modified once created:</p>
+
+<pre>&gt;&gt;&gt; mylunch[2] = 'tea'</pre><pre>&gt;&gt;&gt; mylunch</pre><pre>['spam', 'eggs', 'tea', 'raspberries', 'wafer-thin mint']</pre><pre>&gt;&gt;&gt; meal_deal = ('burger','fries','coke')   # a tuple</pre><pre>&gt;&gt;&gt; meal_deal[1] = 'onion rings'</pre><pre>Traceback (innermost last):</pre><pre>  File &quot;&lt;interactive input&gt;&quot;, line 1, in ?</pre><pre>TypeError: object doesn't support item assignment</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>The last example also shows our first error message. When errors occur, you
+see a <i>traceback</i> stating which functions were active and the line of the
+source file that caused the error, as well as the error type and message on the
+last line. In this case, you type commands interactively rather than running a
+source file, so you don’t see a helpful filename or line number.</p>
+
+<h4>2.1.3 Control Structures</h4>
+
+<p>The <tt><span style='font-size:10.0pt'>for</span></tt> loop actually
+operates over lists, not numbers:</p>
+
+<pre>&gt;&gt;&gt; for item in mylunch:</pre><pre>...     print item</pre><pre>...     </pre><pre>spam</pre><pre>eggs</pre><pre>tea</pre><pre>raspberries</pre><pre>wafer-thin mint</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>There are several things to note at this point. First, after typing the
+colon and pressing the Return key, Python indents the next line, and you don’t
+have to type anything to end the <tt><span style='font-size:10.0pt'>for</span></tt>
+loop. Python actually uses indentation for syntax, saving typing and making the
+language highly readable: the layout of code on the page indicates its
+structure. A second point is that the &gt;&gt;&gt; prompt changes to ... for
+subsequent lines. This indicates that Python knows you are entering a multiline
+statement at the command prompt.</p>
+
+<p>Another common structure is the <tt><span style='font-size:10.0pt'>while</span></tt>
+loop:</p>
+
+<pre>&gt;&gt;&gt; x = 2</pre><pre>&gt;&gt;&gt; while x &lt; 50:</pre><pre>...     x = x * 2</pre><pre>...     print x</pre><pre>...     </pre><pre>4</pre><pre>8</pre><pre>16</pre><pre>32</pre><pre>64</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>The <tt><span style='font-size:10.0pt'>if</span></tt> structure is also
+present; the <tt><span style='font-size:10.0pt'>else</span></tt> clause is
+optional:</p>
+
+<pre>&gt;&gt;&gt; if 'chocolate' in mylunch:</pre><pre>...     print &quot;that's not allowed&quot;</pre><pre>... else:</pre><pre>...     print &quot;enjoy your meal&quot;</pre><pre>...     </pre><pre>enjoy your meal</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>You can also have a number of intermediate <tt><span style='font-size:10.0pt'>elif</span></tt>
+clauses, short for else-if. These allow something like the <tt><span
+style='font-size:10.0pt'>switch</span></tt> or <tt><span style='font-size:10.0pt'>case</span></tt>
+statements in other languages:</p>
+
+<pre>&gt;&gt;&gt; salary = 20000</pre><pre>&gt;&gt;&gt; if salary &lt; 4000:</pre><pre>...     tax_rate = 0</pre><pre>... elif salary &lt; 29000:</pre><pre>...     tax_rate = 0.25</pre><pre>... elif salary &lt; 100000:</pre><pre>...     tax_rate = 0.4</pre><pre>... else:</pre><pre>...     emigrate()     # that's a function call</pre><pre>...     </pre><pre>&gt;&gt;&gt;</pre>
+
+<h4>2.1.4 Functions</h4>
+
+<p>Functions are defined by the <tt><span style='font-size:10.0pt'>def</span></tt>
+statement and use <tt><span style='font-size:10.0pt'>return</span></tt> to exit
+immediately from the function and return a value. You can return more than one
+value by using a tuple or return no value at all:</p>
+
+<pre>&gt;&gt;&gt; def double(x):</pre><pre>...     return x * 2</pre><pre>... </pre><pre>&gt;&gt;&gt; double(2)</pre><pre>4</pre><pre>&gt;&gt;&gt; def first_and_last(aList):</pre><pre>...     return (aList[0], aList[-1])</pre><pre>...     </pre><pre>&gt;&gt;&gt; first_and_last(range(5))</pre><pre>(0, 4)</pre><pre>&gt;&gt;&gt; def sayHello():</pre><pre>...     print 'hello'</pre><pre>...     </pre><pre>&gt;&gt;&gt; sayHello()</pre><pre>hello</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Functions may have default arguments that allow them to be called in certain
+ways or allow you to initialize variables:</p>
+
+<pre>&gt;&gt;&gt; def makeCoffee(size, milk=None, sugar=None):</pre><pre>...     order = 'one ' + size + ' coffee'</pre><pre>...     if milk and sugar:</pre><pre>...         order = order + ' with milk and sugar'</pre><pre>...     elif milk:</pre><pre>...         order = order + ' with milk'</pre><pre>...     elif sugar:</pre><pre>...         order = order + ' with sugar'</pre><pre>...     else:</pre><pre>...         pass  # pass means 'do nothing'</pre><pre>...     return order</pre><pre>... </pre><pre>&gt;&gt;&gt; makeCoffee('large')</pre><pre>'one large coffee'</pre><pre>&gt;&gt;&gt; makeCoffee('large', 1)</pre><pre>'one large coffee with milk'</pre><pre>&gt;&gt;&gt; makeCoffee('large', milk=0, sugar=1)</pre><pre>'one large coffee with sugar'</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Note that you can name the arguments and that both <tt><span
+style='font-size:10.0pt'>0</span></tt> and the special variable <tt><span
+style='font-size:10.0pt'>None</span></tt> are treated as false.</p>
+
+<h4>2.1.5 Dictionaries</h4>
+
+<p>Python also offers a dictionary type. This is based on a hash table, and the
+lookup time is almost constant, irrespective of size. Dictionaries are enclosed
+in braces ({ }), and the keys and values are displayed separated by a colon.
+You can access and set their elements with a notation similar to list indexes:</p>
+
+<pre>&gt;&gt;&gt; fur_colors = {}</pre><pre>&gt;&gt;&gt; fur_colors['Tinky-Winky'] = 'purple'</pre><pre>&gt;&gt;&gt; fur_colors['Dipsy'] = 'green'</pre><pre>&gt;&gt;&gt; fur_colors['LaLa'] = 'yellow'</pre><pre>&gt;&gt;&gt; fur_colors</pre><pre>{'Tinky-Winky': 'purple', 'Dipsy': 'green', 'LaLa': 'yellow'}</pre><pre>&gt;&gt;&gt; fur_colors['LaLa']</pre><pre>'yellow'</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Dictionaries have no natural order. They support some useful methods of
+searching, e.g., by keys, values, and whether or not a certain key is present:</p>
+
+<pre>&gt;&gt;&gt; fur_colors.keys()</pre><pre>['Tinky-Winky', 'Dipsy', 'LaLa']</pre><pre>&gt;&gt;&gt; fur_colors.values()</pre><pre>['purple', 'green', 'yellow']</pre><pre>&gt;&gt;&gt; fur_colors.items()    # converts to a list of tuples</pre><pre>[('Tinky-Winky', 'purple'), ('Dipsy', 'green'), ('LaLa', 'yellow')]</pre><pre>&gt;&gt;&gt; len(fur_colors)</pre><pre>3</pre><pre>&gt;&gt;&gt; fur_colors.has_key('Po')</pre><pre>0</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Lists and dictionaries together allow you to build more powerful data
+structures, such as sets or even database indexes, in few lines of code. The
+values in a dictionary can be anything, while the keys can be strings, numbers,
+or tuples of other values. In <a href="9.htm#_Chapter_6._A_Financial_Modeling_Too">Chapter
+6</a>, we show how to construct some extremely useful utilities from
+dictionaries.</p>
+
+<h4>2.1.6 Modules</h4>
+
+<p>Python code is organized into <i>modules</i> . A module must be loaded into
+memory using the <tt><span style='font-size:10.0pt'>import</span></tt>
+statement. Some modules are built into Python and always available; others are
+stored in external files. Modules can also be written either in C (in which
+case they are compiled as a special kind of DLL) or in Python (in which case
+they are saved in text files ending in <i>.py</i> ). As far as the user is
+concerned, they are all used the same way:</p>
+
+<pre>&gt;&gt;&gt; import math</pre><pre>&gt;&gt;&gt; math.sin(math.pi/2)</pre><pre>1.0</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>We used both a function and a constant from the <tt><span style='font-size:
+10.0pt'>math</span></tt> module. Note that the module’s name must be prefixed.
+This prevents namespace collisions: imagine how many different programs might
+wish to define a function called <tt><span style='font-size:10.0pt'>read( )</span></tt>
+or <tt><span style='font-size:10.0pt'>save( )</span></tt>. It’s also possible
+to import a function explicitly into the present namespace:</p>
+
+<pre>&gt;&gt;&gt; from string import split, join</pre><pre>&gt;&gt;&gt; split('We are the knights who say Ni')</pre><pre>['We', 'are', 'the', 'knights', 'who', 'say', 'Ni']</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>This procedure can be used for brevity but increases the risk of a
+collision, and, more important, of losing track of what your code means a few
+months later. It should be used sparingly.</p>
+
+<h4>2.1.7 Classes</h4>
+
+<p>Python makes object-oriented programming easy. The <tt><span
+style='font-size:10.0pt'>class</span></tt> statement begins the definition of a
+class. Classes can use a special constructor called <tt><span style='font-size:
+10.0pt'>__init__( )</span></tt> to initialize their data. Because Python
+doesn’t declare variables, this constructor is a common place to initialize any
+variables the class may require:</p>
+
+<pre>&gt;&gt;&gt; class Car:</pre><pre>...     def __init__(self):</pre><pre>...         self.milespergallon = 25.0</pre><pre>...         self.travelled = 0</pre><pre>...         self.color = 'blue'</pre><pre>...         self.gas = 20</pre><pre>...     def drive(self, miles):</pre><pre>...         self.travelled = self.travelled + miles</pre><pre>...         self.gas = self.gas - (miles / self.milespergallon)</pre><pre>...     </pre><pre>&gt;&gt;&gt; c = Car()</pre><pre>&gt;&gt;&gt; c.drive(100)</pre><pre>&gt;&gt;&gt; c.travelled</pre><pre>100</pre><pre>&gt;&gt;&gt; c.gas</pre><pre>16.0</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Note that you have to use the keyword <tt><span style='font-size:10.0pt'>self</span></tt><i>
+</i>each time you access an attribute.</p>
+
+<p>As with other languages, classes may inherit from a base class and be
+initialized with arguments supplied by the constructor. We won’t give any
+further examples at this point; you can see many classes throughout this book,
+and the syntax is self-evident if you are used to object-oriented programming.</p>
+
+<h4 style='page-break-after:avoid'>2.1.8 Exception Handling</h4>
+
+<p>When errors occur, Python throws an exception and prints an informative
+traceback to standard output. If the error occurred in a source file and not a
+console session, you get the filename and line number. Here’s a simple error,
+nested three functions deep, and its traceback:</p>
+
+<pre>&gt;&gt;&gt; def func1(arg):</pre><pre>...     func2(arg)</pre><pre>...     </pre><pre>&gt;&gt;&gt; def func2(arg):</pre><pre>...     func3(arg)</pre><pre>...     </pre><pre>&gt;&gt;&gt; def func3(arg):</pre><pre>...     # this should cause an error</pre><pre>...     return arg / 0</pre><pre>...     </pre><pre>&gt;&gt;&gt; func1(17)</pre><pre>Traceback (innermost last):</pre><pre>  File &quot;&lt;interactive input&gt;&quot;, line 0, in ?</pre><pre>  File &quot;&lt;interactive input&gt;&quot;, line 2, in func1</pre><pre>  File &quot;&lt;interactive input&gt;&quot;, line 2, in func2</pre><pre>  File &quot;&lt;interactive input&gt;&quot;, line 3, in func3</pre><pre>ZeroDivisionError: integer division or modulo</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>The traceback tells us where the error happened and the enclosing functions
+that called the functions that caused the error.</p>
+
+<p>Exceptions can be handled using the <tt><span style='font-size:10.0pt'>try</span></tt>
+...<tt><span style='font-size:10.0pt'>except</span></tt> and <tt><span
+style='font-size:10.0pt'>try</span></tt> ...<tt><span style='font-size:10.0pt'>finally</span></tt>
+structure. If you aren’t used to exception handling, these offer two benefits
+over Visual Basic-style error-handling. First, you can write a decent-sized
+chunk of code and put the error handlers at the end; the intent of the
+programmer is clearer than with a lot of <tt><span style='font-size:10.0pt'>on</span></tt>
+<tt><span style='font-size:10.0pt'>error</span></tt> <tt><span
+style='font-size:10.0pt'>goto</span></tt> and <tt><span style='font-size:10.0pt'>on</span></tt>
+<tt><span style='font-size:10.0pt'>error</span></tt> <tt><span
+style='font-size:10.0pt'>resume</span></tt> <tt><span style='font-size:10.0pt'>next</span></tt>
+statements. Second, exception handlers don’t work on just the present chunk of
+code, but also on any subroutines within it, however deeply nested.</p>
+
+<p>The <tt><span style='font-size:10.0pt'>except</span></tt> clause can
+optionally specify particular error types to look for or handle all errors:</p>
+
+<pre>&gt;&gt;&gt; try:</pre><pre>...    y_scale_factor = plotHeight / (dataMax - dataMin)</pre><pre>... except ZeroDivisionError:</pre><pre>...    y_scale_factor = 0</pre><pre>...</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>The <tt><span style='font-size:10.0pt'>try</span></tt> ...<tt><span
+style='font-size:10.0pt'>finally</span></tt> clause always executes the <tt><span
+style='font-size:10.0pt'>finally</span></tt> section whether an error occurs or
+not. This ensures that resources such as files are freed up:</p>
+
+<pre>&gt;&gt;&gt; f = open('somefile.dat', 'wb')</pre><pre>&gt;&gt;&gt; try:</pre><pre>...     #fetch some data</pre><pre>...     #store it in the file </pre><pre>... finally:</pre><pre>...     f.close()  # make sure the file is closed,</pre><pre>...                # even if errors occurred</pre><pre>...     </pre><pre>&gt;&gt;&gt;</pre>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<h3><a name="_2.2_Conclusion"></a>2.2 Conclusion</h3>
+
+<p>This concludes our brief introduction. We have left out many features, but
+hopefully have given you a feel for how straightforward Python is.</p>
+
+<p>We urge you to look at the Python tutorial or one of the books noted in the
+next section, but if you want to survey what Python can do, you should now be
+able to follow the code examples in the next few chapters.</p>
+
+<h3><a name="_2.3_References"></a>2.3 References</h3>
+
+<p>Python comes with a comprehensive tutorial in HTML format written by Guido
+van Rossum. This can be completed in two to three hours and is worth reading at
+this point. If you’ve installed Python, the master documentation index can be
+found on your hard disk at <i>C:\Program Files\Python\Doc\index.html</i>. We
+also recommend O’Reilly’s books <i>Learning Python </i>by Mark Lutz and David
+Ascher<i> </i>and <i>Programming Python</i> by Mark Lutz.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+<div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=3.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=5.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div></body></html>

@@ -1,0 +1,13 @@
+frmMain = 44, 44, 561, 509, C, 88, 88, 682, 635, C
+frmOptions = 132, 50, 665, 498, , 110, 110, 621, 549, C
+frmAbout = 0, 0, 0, 0, C, 132, 132, 499, 470, C
+frmJournal = -78, 42, 723, 380, C, 154, 154, 521, 492, C
+frmAccountView = 88, 88, 413, 426, C, 44, 44, 411, 382, C
+frmTranDialog = 0, 0, 0, 0, C, 154, 154, 679, 594, C
+frmAccountChart = 0, 0, 0, 0, C, 176, 176, 701, 616, C
+frmAccountList = 0, 0, 0, 0, C, 198, 198, 723, 638, C
+frmLineDialog = 0, 0, 0, 0, C, 220, 220, 745, 660, C
+UpdatableView = 0, 0, 0, 0, C
+frmConsole = 0, 0, 0, 0, C, 0, 0, 525, 440, C
+frmScriptEditor = 0, 0, 0, 0, C, 22, 22, 547, 462, C
+frmUserView = 0, 0, 0, 0, C, 44, 44, 569, 484, C

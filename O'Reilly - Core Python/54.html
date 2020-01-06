@@ -1,0 +1,70 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Variables and Assignment</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="48.html" class="navtitle">2. Getting Started</a> &gt; <span class="nonavtitle">Variables and Assignment</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="53.html" title="Operators"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=54" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="54.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="55.html" title="Numbers"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A08%3A18+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204173121140155231113219150</font><a href="read6.asp?bookname=0130260363&snode=54&now=5%2F29%2F2002+9%3A08%3A18+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Variables and Assignment</h3>
+				<p>Rules for variables in Python are the same as they are in most other high-level languages: They are simply identifier names with an alphabetic first character—"alphabetic" meaning upper- or lowercase letters, including the underscore ( _ ). Any additional characters may be alphanumeric or underscore. Python is case-sensitive, meaning that the identifier "cAsE" is different from "CaSe."</p>
+
+				<P>Python is dynamically-typed, meaning that no pre-declaration of a variable or its type is necessary. The type (and value) are initialized on assignment. Assignments are performed using the equals sign.</P>
+
+				<PRe>
+					
+&gt;&gt;&gt; counter = 0
+&gt;&gt;&gt; miles = 1000.0
+&gt;&gt;&gt; name = 'Bob'
+&gt;&gt;&gt; counter = counter + 1
+&gt;&gt;&gt; kilometers = 1.609 * miles
+&gt;&gt;&gt; <b>print</b> '%f miles is the same as %f km' % (miles, kilometers)
+1000.000000 miles is the same as 1609.000000 km
+
+				</pRE>
+
+				<P>We have presented five examples of variable assignment. The first is an integer assignment followed by one each for floating point numbers, one for strings, an increment statement for integers, and finally, a floating point operation and assignment.</P>
+
+				<p>As you will discover in <a hrEF="69.html">Chapter 3</A>, the equals sign ( <Tt class="monofont">=</tt> ) was formerly the sole assignment operator in Python. However, beginning with 2.0, the equals sign can be combined with an arithmetic operation and the resulting value reassigned to the existing variable. Known as <i>augmented assignment,</i> statements such as:</p>
+
+				<pre>
+					
+n = n * 10
+
+				</pre>
+
+				<p>can now be written as:</p>
+
+				<pRe>
+					
+n *= 10
+
+				</pRe>
+
+				<p>Python does not support operators such as <tT clasS="monofont">n++</tt> or <tT CLAss="monofont">--n.</tt></P>
+
+				<P>The <B><Tt claSS="monofont">print</TT></b> statement at the end shows off the string format operator ( <tt cLASS="monofont">%</tt> ) again. Each "<tt class="monofont">%x</tt>" code matches the type of the argument to be printed. We have seen <tt class="monofont">%s</tt> (for strings) and <Tt cLass="monofont">%d</Tt> (for integers) earlier in this chapter. Now we are introduced to <tt cLass="monofont">%f</TT> (for floating point values). See <A Href="104.html">Section 6.4</a> for more information on the string format operator.</P>
+
+			</FONt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="53.html" title="Operators"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=54" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="54.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="55.html" title="Numbers"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

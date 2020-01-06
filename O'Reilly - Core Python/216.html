@@ -1,0 +1,134 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Instances</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="210.html" class="navtitle">13. Classes and OOP</a> &gt; <span class="nonavtitle">Instances</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="215.html" title="Class Attributes"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=216" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="216.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="217.html" title="Instance Attributes"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A14%3A51+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004231201184002150223194107</font><a href="read4.asp?bookname=0130260363&snode=216&now=5%2F30%2F2002+8%3A14%3A51+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Instances</h3>
+				<p>Whereas a class is a data structure definition type, an instance is a declaration of a variable of that type. In other words, instances are classes brought to life. Once a blueprint is provided, the next step to bring them to fruition. Instances are the objects which are used primarily during execution, and all instances are of type "instance."</p>
+
+				<A NAMe="1"></a>
+					<h4>Instantiation:  Creating Instances by Invoking Class Object</h4>
+					<P>Most other OO languages provide a <TT Class="monofont">new</TT> keyword with which to create an instance of a class. Python's approach is much simpler. Once a class has been defined, creating an instance is no more difficult that calling a function—literally. Instantiation is realized with use of the function operator, as in the following example:</P>
+
+					<Pre>
+						
+&gt;&gt;&gt; <b>class</b> MyClass:              # define class
+…        <b>pass</b>
+&gt;&gt;&gt; myInstance = MyClass()      # instantiate class
+&gt;&gt;&gt; type(MyClass)               # class is of class type
+&lt;type 'class'&gt;
+&gt;&gt;&gt; type(myInstance)            # instance is of
+instance type
+&lt;type 'instance'&gt;
+
+					</pre>
+
+					<div class="note"><p clAss="notetitle"><B>NOTE</b></p><p><P><i>The use of the term "type" in Python may perhaps differ from the general connotation of an instance being of the type of class it was created from. In <a hrEf="78.html">Chapter 4</a>, we introduced all Python objects as data entities with three characteristics:  an ID, a type, and a value. An object's type dictates the behavioral properties of such objects in the Python system, and these types are a subset of all types which Python supports.</i></P>
+<P><I>User-defined "types" such as classes are categorized in the same manner. Classes share the same type, but have different IDs and values (their class definitions). The fact that all classes are defined with the same syntax, that they can be instantiated, and that all have the same core properties leads to the conclusion that they have common characteristics which allow them to fall under the same category. Classes are unique objects which differ only in definition, hence they are all the same "type" in Python. Class instances follow the same argument.</I></p>
+<p><i>Do not let Python's nomenclature fool you; instances are most assuredly related to the class they were instantiated from and would not have any other relationship to other instances (unless they were of a subclass or base class).</i></P>
+<P><I>To avoid confusion, keep the following in mind:  When you are defining a class, you are not creating a new type. You are just defining a unique class type, but it is still a class. When you instantiate classes, the resulting object is always an instance. Even though instances may be instantiated from different classes, they are still (generically) class instances.</I></p>
+</p></diV><BR>
+
+					<P>As you can see, creating instance <tt clASS="monofont">myInstance</Tt> of class <tt class="monofont">MyClass</tt> consists of "calling" the class: <tt class="monofont">MyClass().</tt> The return object of the call is an instance object. We also verified the data types of <tT clAss="monofont">MyClass</tT> and <tt clAss="monofont">myInstance</tT> using <TT Class="monofont">type(): MyClass</TT> is a class object and <TT clasS="monofont">myInstance</TT> is an instance object. To take this even further, we tell you now that <I>all</i> classes are of the same type (type class), and <i>all</i> instances are of the same type (type instance). (You can verify this using the <tT CLAss="monofont">type()</tt> built-in function.)</p>
+
+				
+				
+					<h4><tt class="monofont">__init__()</tt> Constructor Method</h4>
+					<p>When the class is invoked, the first step in the instantiation process is to create the instance object. Once the object is available, a check to see if a constructor has been implemented is called. By default, no special actions are enacted on the instance without the overriding of the constructor, the special method <tt cLasS="monofont">__init__().</tt> Any special action desired requires the programmer to implement <tT clasS="monofont">__init__(),</tt> overriding its default behavior. If <tT CLAss="monofont">__init__()</tt> has not been implemented, the object is then returned and the instantiation process is complete.</P>
+
+					<P>However, if <TT clasS="monofont">__init__()</TT>
+						<I>has</i> been implemented, then that special method is invoked and the instance object passed in as the first argument (<tt cLASS="monofont">self</tt>), just like a standard method call. Any arguments passed to the class invocation call are passed on to <tt class="monofont">__init__().</tt> You can practically envision the call to create the class as a call to the constructor.</p>
+
+					<p><tt class="monofont">__init__()</Tt> is one of many special methods which can be defined for classes. Some of these special methods are predefined with inaction as their default behavior (such as <tT claSs="monofont">__init__()</tt>) and must be overridden for customization while others should be implemented on an as-needed basis. We will go over special methods in <a Href="224.html">Section 13.13</A> later on in this chapter.</P>
+
+				
+				<A Name="3"></a>
+					<H4><TT Class="monofont">__del__()</TT> Destructor Method</H4>
+					<P>Likewise, there is an equivalent <i>destructor</i> special method called <tt CLASs="monofont">__del__().</tt> However, due to the way Python manages garbage collection of objects (by reference counting), this function is not executed until all references to an instance object have been removed. Destructors in Python are methods which provide special processing before instances are deallocated and are not commonly implemented since instances are seldom deallocated explicitly.</p>
+
+					<div class="note"><p class="notetitle"><b>NOTE</b></P><p><p><I>Python does not provide any internal mechanism to track how many instances of a class have been created nor to keep tabs on what they are. You can explicitly add some code to the class definition and perhaps</i>
+							<tt Class="monofont">__init__()</Tt>
+							<i>and</i>
+							<TT CLass="monofont">__del__()</tT>
+							<I>if such functionality is desired. The best way is to keep track of the number of instances using a static member. It would be dangerous to keep track of instance objects by saving references to them, because you must manage these references properly or else your instances will never be deallocated (because of your extra reference to them)! An example follows:</I></P>
+<pre>
+							
+								<b>class</B> myClass:
+   count = 0                 # use static data for count
+   <B>def</B> __init__(self):       # constructor, incr. count
+          myClass.count = myClass.count + 1
+   <B>def</b> __del__(self):        # destructor, decr. count
+          myClass.count = myClass.count - 1
+          <b>assert</b> myClass &gt; 0  # cannot have &lt; 0 instances
+   <b>def</B> howMany(self):        # return count
+          <B>return</B> myClass.count
+&gt;&gt;&gt; a = myClass()
+&gt;&gt;&gt; b = myClass()
+&gt;&gt;&gt; b.howMany()
+2
+&gt;&gt;&gt; a.howMany()
+2
+&gt;&gt;&gt; <B>del</b> b
+&gt;&gt;&gt; a.howMany()
+1
+&gt;&gt;&gt; <b>del</b> a
+&gt;&gt;&gt; myClass.count
+0
+
+						</pre>
+</p></div><br>
+
+					<p>In the following example, we create (and override) both the <tt class="monofont">__init__()</Tt> and <tT claSs="monofont">__del__()</tt> constructor and destructor functions, respectively, then instantiate the class and assign more aliases to the same object. The <tT claSS="monofont">id()</TT> built-in function is then used to confirm that all three aliases reference the same object. The final step is to remove all the aliases by using the <tt clASS="monofont">del</Tt> statement and discovering when and how many times the destructor is called.</p>
+
+					<prE>
+						
+&gt;&gt;&gt; <B>class</B> C:                   # class declaration
+        <B>def</b> __init__(self):    # constructor
+            <b>print</b> 'initialized'
+        <b>def</B> __del__(self):     # destructor
+            <B>print</B> 'deleted'
+
+&gt;&gt;&gt; c1 = C()                   # instantiation
+initialized
+&gt;&gt;&gt; c2 = c1                    # create additional alias
+&gt;&gt;&gt; c3 = c1                    # create a third alias
+&gt;&gt;&gt; id(c1), id(c2), id(c3)     # all refer to same object
+(11938912, 11938912, 11938912)
+&gt;&gt;&gt; <B>del</b> c1                     # remove one reference
+&gt;&gt;&gt; <b>del</b> c2                     # remove another reference
+&gt;&gt;&gt; <b>del</b> c3                     # remove final reference
+deleted                        # destructor finally invoked
+
+					</pre>
+
+					<p>Notice how, in the above example, the destructor was not called until all references to the instance of class <tt class="monofont">C</tt> were removed, i.e., when the reference count has decreased to zero. If for some reason your <tt ClaSs="monofont">__del__()</tt> method is not being called when you are expecting it to be invoked, this means that somehow your instance object's reference count is not zero, and there may be some other reference to it that you are not aware of that is keeping your object around.</P>
+
+					<p>Also note that the destructor is called exactly once, the first time the reference count goes to zero and the object deallocated. This makes sense because any object in the system is allocated and deallocated only once.</p>
+
+				
+			</foNt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="215.html" title="Class Attributes"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=216" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="216.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="217.html" title="Instance Attributes"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

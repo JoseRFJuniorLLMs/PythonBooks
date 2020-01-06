@@ -1,0 +1,1308 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Related Modules</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="89.html" class="navtitle">5. Numbers</a> &gt; <span class="nonavtitle">Related Modules</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="96.html" title="Built-in Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=97" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="97.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="98.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A16%3A22+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172034243132145254063137</font><a href="read3.asp?bookname=0130260363&snode=97&now=5%2F29%2F2002+9%3A16%3A22+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Related Modules</h3>
+				<p>There are a number of modules in the Python standard library that add-on to the functionality of the operators and built-in functions for numeric types. <a HREF="97#1.html">Table 5.7</a> lists the key modules for use with numeric types. Refer to the literature or online documentation for more information on these modules.</p>
+
+				<a nAME="1"></A><p><tabLE BOrder="1" cellspacing="0" cellpAddIng="1" wIdth="100%">
+<cAptiON><H5>Table 5.7. Numeric Type Related Modules</H5></captION><ColgrOUP Align="left" SPAN="2">
+<tr valign="top">
+<th>
+<font size="2">
+									<p>
+										<b><I>module</i></b>
+									</P>
+
+								</fonT></th>
+<th>
+<Font SIZE="2">
+									<p>
+										<b><i>contents</i></B>
+									</P>
+
+								</FOnt></th>
+</TR>
+<TR valiGN="top">
+<TD>
+<font size="2">
+									<p>
+										<tt class="monofont">array</tt>
+									</p>
+
+								</fOnt></Td>
+<td>
+<Font sIze="2">
+									<p>implements array types… a restricted sequence type</P>
+
+								</FONt></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2">
+									<P>
+										<tt class="monofont">math/cmath</tt>
+									</p>
+
+								</font></td>
+<td>
+<foNt sIze="2">
+									<p>supplies standard C library mathematical functions; most functions available in <Tt claSs="monofont">math</tt> are implemented for complex numbers in the <TT CLass="monofont">cmath</tT> module</P>
+
+								</FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font size="2">
+									<p>
+										<tt class="monofont">operator</tt>
+									</p>
+
+								</fOnt></Td>
+<td>
+<Font sIze="2">
+									<p>contains numeric operators available as function calls, i.e., <TT CLass="monofont">operator.sub(m, n)</tT> is equivalent to the difference <TT Class="monofont">(m - n)</TT> for numbers <TT clasS="monofont">m</TT> and <Tt class="monofont">n</tt>
+									</p>
+
+								</font></td>
+</tr>
+<tr vAliGn="top">
+<td>
+<Font sIze="2">
+									<p>
+										<TT CLass="monofont">random</tT>
+									</P>
+
+								</FOnt></td>
+<TD>
+<FOnt siZE="2">
+									<P>is default RNG module for Python… obsoletes <Tt class="monofont">rand</tt> and <tt class="monofont">whrandom</tt>
+									</p>
+
+								</foNt></tD>
+</tr>
+</cOlgroUp>
+</taBLE></P>
+
+				<p>For advanced numerical and scientific mathematics applications, there is also a well known external module called <tt cLASS="monofont">NumPy</tt> which may be of interest to you.</p>
+
+				<dIV CLass="note"><p CLASs="notetitle"><b>NOTE</b></p><p><p>
+						<i>The</i>
+						<tt class="monofont">random</tt>
+						<i>module is the general-purpose place to go if you are looking for random numbers. The random number generator (RNG), based on the Wichmann-Hill algorithm, comes seeded with the current timestamp and is ready to go as soon as it has loaded. Here are four of the most commonly used functions in the</i>
+						<tT clAss="monofont">random</tT>
+						<i>module:</i>
+					</p>
+<p><TablE BORder="1" cELLSpaciNG="0" CEllpaDDINg="1" width="100%">
+<colgroup align="left" sPan="2">
+<Tr vaLign="top">
+<tD>
+<fonT SIZe="2">
+										<p>
+											<tt CLASs="monofont">randint()</tt>
+										</p>
+
+									</FONT></td>
+<td>
+<FONT size="2">
+										<p>
+											<i>takes two integer values and returns a random integer between those values inclusive</i>
+										</p>
+
+									</font></td>
+</tr>
+<tr vaLigN="top">
+<td>
+<fOnt siZe="2">
+										<p>
+											<tT CLAss="monofont">uniform()</tt>
+										</P>
+
+									</FONt></td>
+<tD>
+<FONt sizE="2">
+										<P>
+											<I>does almost the same thing as</I>
+											<tt class="monofont">randint(),</tt>
+											<i>but returns a float and is inclusive only of the smaller number (exclusive of the larger number)</i>
+										</p>
+
+									</font></td>
+</tr>
+<Tr vAligN="top">
+<td>
+<foNt siZE="2">
+										<P>
+											<Tt claSS="monofont">random()</TT>
+										</p>
+
+									</fonT></TD>
+<Td>
+<fonT SIZe="2">
+										<p>
+											<i>works just like</i>
+											<tt class="monofont">uniform()</tt>
+											<i>except that the smaller number is fixed at 0.0, and the larger number is fixed at 1.0</i>
+										</p>
+
+									</font></Td>
+</tR>
+<tr vAlign="top">
+<Td>
+<foNT SIze="2">
+										<p>
+											<tT CLAss="monofont">choice()</tt>
+										</P>
+
+									</FONt></td>
+<tD>
+<FONt size="2">
+										<p>
+											<i>given a sequence (see <a href="99.html">Chapter 6</a>), randomly selects and returns a sequence item</i>
+										</p>
+
+									</font></tD>
+</tr>
+</ColgRoup>
+</tAble></P>
+</P></DIv><br>
+
+				<p>We have now come to the conclusion of our tour of all of Python's numeric types. A summary of operators and built-in functions for numeric types is given in <A HREf="97#2.html">Table 5.8</a>.</p>
+
+				<a NAME="2"></a><p><taBLE Border="1" cellspacing="0" cellPadDing="1" Width="100%">
+<CaptION><H5>Table 5.8. Operators and Built-in Functions for All Numeric Types</h5></capTION><colgROUP aligN="left" SPAn="7">
+<tr valign="bottom">
+<th>
+<font size="2">
+									<p>
+										<B><i>Operator/built-in</i></B>
+									</p>
+
+								</foNt></th>
+<tH>
+<fonT SIZe="2">
+									<p>
+										<b><i>Description</I></B>
+									</P>
+
+								</Font></tH>
+<TH Align="left">
+<FONT size="2">
+									<p>
+										<b><i>int</i></b>
+									</p>
+
+								</font></th>
+<th alIgn="left">
+<Font Size="2">
+									<p>
+										<B><i>long</i></b>
+									</P>
+
+								</FONt></th>
+<tH ALIgn="left">
+<foNT SIze="2">
+									<p>
+										<b><I>float</I></B>
+									</P>
+
+								</font></th>
+<th align="left">
+<font sizE="2">
+									<p>
+										<b><I>complex</i></b>
+									</p>
+
+								</Font></tH>
+<th>
+<fONT Size="2">
+									<p>
+										<B><I>Result</I></B>
+										<font SIZE="1"><sup><a HREF="#FOOTNOTE-a">[a]</a></sup></font>
+
+									</p>
+
+								</font></th>
+</tr>
+<tr vAliGn="top">
+<td>
+<Font sIze="2">
+									<p>
+										<TT CLass="monofont">abs()</tT>
+									</P>
+
+								</FOnt></td>
+<TD>
+<FOnt siZE="2">
+									<P>absolute value</P>
+
+								</font></td>
+<td>
+<font size="2">
+									<p>•</p>
+
+								</foNt></tD>
+<td>
+<fOnt siZe="2">
+									<p>•</p>
+
+								</FONT></td>
+<td>
+<FONT size="2">
+									<P>•</P>
+
+								</FOnt></td>
+<TD>
+<FOnt size="2">
+									<p>•</p>
+
+								</font></td>
+<td>
+<font SizE="2">
+									<p>numbera<suP><a hreF="#FOOTNOTE-a">[a]</a></suP>
+									</P>
+
+								</FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2">
+									<p>
+										<tt class="monofont">chr()</tt>
+									</p>
+
+								</font></td>
+<td>
+<fOnt Size="2">
+									<P>character</p>
+
+								</fonT></td>
+<tD>
+<FONt sizE="2">
+									<P>•</P>
+
+								</Font></tD>
+<TD>
+<Font sIZE="2">
+									<P>•</p>
+
+								</font></td>
+<td>
+<font size="2"> </fonT></td>
+<Td>
+<foNt sizE="2"> </fonT></TD>
+<Td>
+<fonT SIZe="2">
+									<p>string</p>
+
+								</fONT></Td>
+</tr>
+<tR VALign="top">
+<td>
+<font size="2">
+									<p>
+										<tt clasS="monofont">coerce()</tt>
+									</P>
+
+								</fonT></td>
+<td>
+<Font SIZE="2">
+									<p>numeric coercion</p>
+
+								</foNT></TD>
+<td>
+<foNT SIze="2">
+									<p>•</p>
+
+								</FONT></td>
+<td>
+<font size="2">
+									<p>•</p>
+
+								</font></td>
+<Td>
+<fOnt sIze="2">
+									<p>•</p>
+
+								</Font></TD>
+<TD>
+<font SIZE="2">
+									<p>•</p>
+
+								</foNT></TD>
+<td>
+<foNT SIze="2">
+									<p>tuple</p>
+
+								</font></td>
+</tr>
+<tr valign="top">
+<Td>
+<fOnt sIze="2">
+									<p>
+										<tT claSS="monofont">complex()</TT>
+									</p>
+
+								</fonT></TD>
+<Td>
+<fonT SIZe="2">
+									<p>complex conversion</p>
+
+								</fONT></Td>
+<td>
+<font size="2">
+									<p>•</p>
+
+								</font></td>
+<tD>
+<foNt siZe="2">
+									<p>•</p>
+
+								</fOnt></tD>
+<TD>
+<Font sIZE="2">
+									<P>•</p>
+
+								</fonT></TD>
+<Td>
+<fonT SIZe="2">
+									<p>•</p>
+
+								</font></td>
+<td>
+<font size="2">
+									<p>complex</P>
+
+								</foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2">
+									<P>
+										<tt clASS="monofont">divmod()</Tt>
+									</p>
+
+								</foNT></TD>
+<td>
+<font size="2">
+									<p>division/modulo</p>
+
+								</font></td>
+<td>
+<FonT sizE="2">
+									<p>•</p>
+
+								</foNt></td>
+<TD>
+<FOnt siZE="2">
+									<P>•</P>
+
+								</font></TD>
+<TD>
+<font SIZE="2">
+									<p>•</p>
+
+								</font></td>
+<td>
+<font size="2">
+									<p>•</p>
+
+								</FonT></td>
+<tD>
+<font Size="2">
+									<P>tuple</P>
+
+								</FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2">
+									<p>
+										<tt class="monofont">float()</tt>
+									</p>
+
+								</font></td>
+<td>
+<fOnt Size="2">
+									<P>float conversion</p>
+
+								</fonT></td>
+<tD>
+<FONt sizE="2">
+									<P>•</P>
+
+								</Font></tD>
+<TD>
+<Font sIZE="2">
+									<P>•</p>
+
+								</font></td>
+<td>
+<font size="2">
+									<p>•</p>
+
+								</fOnt></Td>
+<td>
+<Font sIze="2">
+									<p>•</P>
+
+								</FONt></td>
+<tD>
+<FONt sizE="2">
+									<P>float</P>
+
+								</Font></tD>
+</TR>
+<Tr valign="top">
+<td>
+<font size="2">
+									<p>
+										<tt ClaSs="monofont">hex()</tt>
+									</P>
+
+								</font></Td>
+<td>
+<FONT size="2">
+									<P>hexadecimal string</P>
+
+								</FOnt></td>
+<TD>
+<FOnt siZE="2">
+									<P>•</P>
+
+								</font></td>
+<td>
+<font size="2">
+									<p>•</p>
+
+								</foNt></tD>
+<td>
+<fOnt siZe="2"> </foNT></TD>
+<td>
+<foNT SIze="2"> </foNT></TD>
+<td>
+<foNT SIze="2">
+									<p>string</p>
+
+								</font></td>
+</tr>
+<tr valign="top">
+<Td>
+<fOnt sIze="2">
+									<p>
+										<tT claSS="monofont">int()</TT>
+									</p>
+
+								</fonT></TD>
+<Td>
+<fonT SIZe="2">
+									<p>int conversion</p>
+
+								</fONT></Td>
+<td>
+<font size="2">
+									<p>•</p>
+
+								</font></td>
+<tD>
+<foNt siZe="2">
+									<p>•</p>
+
+								</fOnt></tD>
+<TD>
+<Font sIZE="2">
+									<P>•</p>
+
+								</fonT></TD>
+<Td>
+<fonT SIZe="2">
+									<p>•</p>
+
+								</font></td>
+<td>
+<font size="2">
+									<p>int</P>
+
+								</foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2">
+									<P>
+										<tt clASS="monofont">long()</Tt>
+									</p>
+
+								</foNT></TD>
+<td>
+<font size="2">
+									<p>long conversion</p>
+
+								</font></td>
+<td>
+<FonT sizE="2">
+									<p>•</p>
+
+								</foNt></td>
+<TD>
+<FOnt siZE="2">
+									<P>•</P>
+
+								</font></TD>
+<TD>
+<font SIZE="2">
+									<p>•</p>
+
+								</font></td>
+<td>
+<font size="2">
+									<p>•</p>
+
+								</FonT></td>
+<tD>
+<font Size="2">
+									<P>long</P>
+
+								</FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2">
+									<p>
+										<tt class="monofont">oct()</tt>
+									</p>
+
+								</font></td>
+<td>
+<fOnt Size="2">
+									<P>octal string</p>
+
+								</fonT></td>
+<tD>
+<FONt sizE="2">
+									<P>•</P>
+
+								</Font></tD>
+<TD>
+<Font sIZE="2">
+									<P>•</p>
+
+								</font></td>
+<td>
+<font size="2"> </fonT></td>
+<Td>
+<foNt sizE="2"> </fonT></TD>
+<Td>
+<fonT SIZe="2">
+									<p>string</p>
+
+								</fONT></Td>
+</tr>
+<tR VALign="top">
+<td>
+<font size="2">
+									<p>
+										<tt clasS="monofont">ord()</tt>
+									</P>
+
+								</fonT></td>
+<td>
+<Font SIZE="2">
+									<p>ordinal</p>
+
+								</foNT></TD>
+<td>
+<foNT SIze="2"> </foNT></TD>
+<td>
+<font size="2"> </font></td>
+<td alIgn="left">
+<Font Size="2">
+									<p>(string)</P>
+
+								</fonT></TD>
+<Td>
+<fonT SIZe="2"> </fonT></TD>
+<Td>
+<fonT SIZe="2">
+									<p>int</p>
+
+								</font></td>
+</tr>
+<tr valign="top">
+<tD>
+<foNt siZe="2">
+									<p>
+										<tt ClasS="monofont">pow()</TT>
+									</P>
+
+								</font></TD>
+<TD>
+<font SIZE="2">
+									<p>exponentiation</p>
+
+								</foNT></TD>
+<td>
+<font size="2">
+									<p>•</p>
+
+								</font></td>
+<td>
+<FonT sizE="2">
+									<p>•</p>
+
+								</foNt></td>
+<TD>
+<FOnt siZE="2">
+									<P>•</P>
+
+								</font></TD>
+<TD>
+<font SIZE="2">
+									<p>•</p>
+
+								</font></td>
+<td>
+<font size="2">
+									<p>number</p>
+
+								</FonT></td>
+</tR>
+<tr vaLign="top">
+<TD>
+<FOnt siZE="2">
+									<P>
+										<Tt claSS="monofont">round()</TT>
+									</p>
+
+								</fonT></TD>
+<Td>
+<font size="2">
+									<p>float rounding</p>
+
+								</font></td>
+<td>
+<fOnt Size="2"> </Font></tD>
+<td>
+<fONT Size="2"> </fONT></Td>
+<td>
+<fONT Size="2">
+									<p>•</P>
+
+								</FONt></td>
+<td>
+<font size="2"> </font></td>
+<tD>
+<foNt siZe="2">
+									<p>float</p>
+
+								</fOnt></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2">
+									<p>
+										<tt CLASs="monofont">**</tt>
+										<font size="1"><sup><a href="#FOOTNOTE-b">[b]</a></Sup></Font>
+
+									</P>
+
+								</font></Td>
+<td>
+<FONT size="2">
+									<P>exponentiation</P>
+
+								</FOnt></td>
+<TD>
+<FOnt siZE="2">
+									<P>•</P>
+
+								</font></td>
+<td>
+<font size="2">
+									<p>•</p>
+
+								</foNt></tD>
+<td>
+<fOnt siZe="2">
+									<p>•</p>
+
+								</FONT></td>
+<td>
+<FONT size="2">
+									<P>•</P>
+
+								</FOnt></td>
+<TD>
+<FOnt size="2">
+									<p>number</p>
+
+								</font></td>
+</tr>
+<tr vaLigN="top">
+<td>
+<fOnt siZe="2">
+									<p>
+										<tT CLAss="monofont">+</tt>
+										<FONT size="1"><SUP><A href="#FOOTNOTE-c">[c]</A></SUP></font>
+
+									</p>
+
+								</font></td>
+<td>
+<font sizE="2">
+									<p>no change</p>
+
+								</Font></Td>
+<td>
+<fOnt sIZE="2">
+									<P>•</p>
+
+								</fonT></TD>
+<Td>
+<fonT SIZe="2">
+									<p>•</p>
+
+								</fONT></Td>
+<td>
+<font size="2">
+									<p>•</p>
+
+								</font></td>
+<tD>
+<foNt siZe="2">
+									<p>•</p>
+
+								</fOnt></tD>
+<TD>
+<Font sIZE="2">
+									<P>number</p>
+
+								</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<font size="2">
+									<p>
+										<tt class="monofont">-</tT>
+										<suP><a hrEf="#FOOTNOTE-c">[c]</a></suP>
+									</p>
+
+								</foNT></TD>
+<td>
+<foNT SIze="2">
+									<p>negation</p>
+
+								</FONT></td>
+<td>
+<FONT size="2">
+									<p>•</p>
+
+								</font></td>
+<td>
+<font siZe="2">
+									<p>•</P>
+
+								</fonT></td>
+<td>
+<Font SIZE="2">
+									<p>•</p>
+
+								</foNT></TD>
+<td>
+<foNT SIze="2">
+									<p>•</p>
+
+								</FONT></td>
+<td>
+<font size="2">
+									<p>number</p>
+
+								</font></td>
+</Tr>
+<tR valIgn="top">
+<td>
+<Font SIZE="2">
+									<p>
+										<tt cLASS="monofont">~</tt>
+										<suP><A HRef="#FOOTNOTE-c">[c]</a></sUP>
+									</P>
+
+								</Font></td>
+<td>
+<font size="2">
+									<p>bit inversion</p>
+
+								</fonT></td>
+<Td>
+<foNt sizE="2">
+									<p>•</p>
+
+								</fONT></Td>
+<td>
+<fONT Size="2">
+									<p>•</P>
+
+								</FONt></td>
+<tD>
+<FONt size="2"> </font></td>
+<td>
+<font sizE="2"> </foNt></td>
+<Td>
+<fonT sizE="2">
+									<P>int/long</P>
+
+								</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2">
+									<p>
+										<tt class="monofont">**</tt>
+										<sup><a href="#FOOTNOTE-b">[b]</a></Sup>
+									</P>
+
+								</fonT></td>
+<td>
+<Font SIZE="2">
+									<p>exponentiation</p>
+
+								</foNT></TD>
+<td>
+<foNT SIze="2">
+									<p>•</p>
+
+								</FONT></td>
+<td>
+<font size="2">
+									<p>•</p>
+
+								</font></td>
+<Td>
+<fOnt sIze="2">
+									<p>•</p>
+
+								</Font></TD>
+<TD>
+<font SIZE="2">
+									<p>•</p>
+
+								</foNT></TD>
+<td>
+<foNT SIze="2">
+									<p>number</p>
+
+								</font></td>
+</tr>
+<tr valign="top">
+<Td>
+<fOnt sIze="2">
+									<p>
+										<tT claSS="monofont">*</TT>
+									</p>
+
+								</fonT></TD>
+<Td>
+<fonT SIZe="2">
+									<p>multiplication</p>
+
+								</fONT></Td>
+<td>
+<font size="2">
+									<p>•</p>
+
+								</font></td>
+<tD>
+<foNt siZe="2">
+									<p>•</p>
+
+								</fOnt></tD>
+<TD>
+<Font sIZE="2">
+									<P>•</p>
+
+								</fonT></TD>
+<Td>
+<fonT SIZe="2">
+									<p>•</p>
+
+								</font></td>
+<td>
+<font size="2">
+									<p>number</P>
+
+								</foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2">
+									<P>
+										<tt clASS="monofont">/</Tt>
+									</p>
+
+								</foNT></TD>
+<td>
+<font size="2">
+									<p>division</p>
+
+								</font></td>
+<td>
+<FonT sizE="2">
+									<p>•</p>
+
+								</foNt></td>
+<TD>
+<FOnt siZE="2">
+									<P>•</P>
+
+								</font></TD>
+<TD>
+<font SIZE="2">
+									<p>•</p>
+
+								</font></td>
+<td>
+<font size="2">
+									<p>•</p>
+
+								</FonT></td>
+<tD>
+<font Size="2">
+									<P>number</P>
+
+								</FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2">
+									<p>
+										<tt class="monofont">%</tt>
+									</p>
+
+								</font></td>
+<td>
+<fOnt Size="2">
+									<P>modulo/remainder</p>
+
+								</fonT></td>
+<tD>
+<FONt sizE="2">
+									<P>•</P>
+
+								</Font></tD>
+<TD>
+<Font sIZE="2">
+									<P>•</p>
+
+								</font></td>
+<td>
+<font size="2">
+									<p>•</p>
+
+								</fOnt></Td>
+<td>
+<Font sIze="2">
+									<p>•</P>
+
+								</FONt></td>
+<tD>
+<FONt sizE="2">
+									<P>number</P>
+
+								</Font></tD>
+</TR>
+<Tr valign="top">
+<td>
+<font size="2">
+									<p>
+										<tt ClaSs="monofont">+</tt>
+									</P>
+
+								</font></Td>
+<td>
+<FONT size="2">
+									<P>addition</P>
+
+								</FOnt></td>
+<TD>
+<FOnt siZE="2">
+									<P>•</P>
+
+								</font></td>
+<td>
+<font size="2">
+									<p>•</p>
+
+								</foNt></tD>
+<td>
+<fOnt siZe="2">
+									<p>•</p>
+
+								</FONT></td>
+<td>
+<FONT size="2">
+									<P>•</P>
+
+								</FOnt></td>
+<TD>
+<FOnt size="2">
+									<p>number</p>
+
+								</font></td>
+</tr>
+<tr vaLigN="top">
+<td>
+<fOnt siZe="2">
+									<p>
+										<tT CLAss="monofont">-</tt>
+									</P>
+
+								</FONt></td>
+<tD>
+<FONt sizE="2">
+									<P>subtraction</P>
+
+								</Font></td>
+<td>
+<font size="2">
+									<p>•</p>
+
+								</fonT></td>
+<Td>
+<foNt sizE="2">
+									<p>•</p>
+
+								</fONT></Td>
+<td>
+<fONT Size="2">
+									<p>•</P>
+
+								</FONt></td>
+<tD>
+<FONt size="2">
+									<p>•</p>
+
+								</font></td>
+<td>
+<font sIze="2">
+									<P>number</p>
+
+								</foNt></td>
+</tR>
+<tr vALIGn="top">
+<td>
+<fONT Size="2">
+									<p>
+										<TT CLass="monofont">&lt;&lt;</tT>
+									</P>
+
+								</FOnt></td>
+<td>
+<font size="2">
+									<p>bit left shift</p>
+
+								</font></Td>
+<tD>
+<fonT size="2">
+									<P>•</p>
+
+								</foNT></TD>
+<td>
+<foNT SIze="2">
+									<p>•</p>
+
+								</FONT></td>
+<td>
+<FONT size="2"> </font></td>
+<td>
+<font size="2"> </FonT></td>
+<tD>
+<font Size="2">
+									<P>int/long</P>
+
+								</FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2">
+									<p>
+										<tt class="monofont">&gt;&gt;</tt>
+									</p>
+
+								</font></td>
+<td>
+<fOnt Size="2">
+									<P>bit right shift</p>
+
+								</fonT></td>
+<tD>
+<FONt sizE="2">
+									<P>•</P>
+
+								</Font></tD>
+<TD>
+<Font sIZE="2">
+									<P>•</p>
+
+								</font></td>
+<td>
+<font size="2"> </fonT></td>
+<Td>
+<foNt sizE="2"> </fonT></TD>
+<Td>
+<fonT SIZe="2">
+									<p>int/long</p>
+
+								</fONT></Td>
+</tr>
+<tR VALign="top">
+<td>
+<font size="2">
+									<p>
+										<tt clasS="monofont">&amp;</tt>
+									</P>
+
+								</fonT></td>
+<td>
+<Font SIZE="2">
+									<p>bitwise AND</p>
+
+								</foNT></TD>
+<td>
+<foNT SIze="2">
+									<p>•</p>
+
+								</FONT></td>
+<td>
+<font size="2">
+									<p>•</p>
+
+								</font></td>
+<Td>
+<fOnt sIze="2"> </foNt></td>
+<TD>
+<FOnt siZE="2"> </FOnt></td>
+<TD>
+<FOnt siZE="2">
+									<P>int/long</P>
+
+								</font></td>
+</tr>
+<tr valign="top">
+<td>
+<foNt sIze="2">
+									<p>
+										<Tt claSs="monofont">^</tt>
+									</P>
+
+								</FONt></td>
+<tD>
+<FONt sizE="2">
+									<P>bitwise XOR</P>
+
+								</Font></tD>
+<TD>
+<Font size="2">
+									<p>•</p>
+
+								</font></td>
+<td>
+<fonT siZe="2">
+									<p>•</p>
+
+								</Font></tD>
+<td>
+<fONT Size="2"> </fONT></Td>
+<td>
+<fONT Size="2"> </fONT></Td>
+<td>
+<font size="2">
+									<p>int/long</p>
+
+								</font></td>
+</tR>
+<tr ValiGn="top">
+<td>
+<fOnt sIZE="2">
+									<P>
+										<tt clASS="monofont">|</Tt>
+									</p>
+
+								</foNT></TD>
+<td>
+<foNT SIze="2">
+									<p>bitwise OR</p>
+
+								</font></td>
+<td>
+<font size="2">
+									<P>•</p>
+
+								</fOnt></tD>
+<td>
+<foNt siZE="2">
+									<P>•</P>
+
+								</font></TD>
+<TD>
+<font SIZE="2"> </font></TD>
+<TD>
+<font size="2"> </font></td>
+<td>
+<font SizE="2">
+									<p>int/long</p>
+
+								</fOnt></td>
+</Tr>
+</coLGROup>
+</taBLE></P>
+
+											<blocKQUOte><foNT SIze="1">
+<p class="footnote">
+<sup><a name="FOOTNOTE-a">[a]</a></sup>
+a result of "number" indicates any of the four numeric types</P>
+</foNt></blOckquOte>
+
+										
+											<bLOCKquotE><FONt sizE="1">
+<P CLass="footnote">
+<sUP><A Name="FOOTNOTE-b">[b]</a></sup>
+has a unique relationship with unary operators; see <a href="95#4.html">Section 5.5.3</a> and <a href="95#5.html">Table 5.2</a>
+											</p>
+</FonT></bloCkquoTe>
+
+										
+											<blOCKQuote><FONT size="1">
+<P CLAss="footnote">
+<suP><A NAme="FOOTNOTE-c">[c]</a></sup>
+
+												<b>unary operator</b>
+											</p>
+</font></blockquOte>
+
+										
+			</Font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="96.html" title="Built-in Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=97" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="97.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="98.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

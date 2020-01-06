@@ -1,0 +1,777 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; *Shallow and Deep Copies</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="99.html" class="navtitle">6. Sequences: Strings, Lists, and Tuples</a> &gt; <span class="nonavtitle">*Shallow and Deep Copies</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="118.html" title="Related Modules"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=119" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="119.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="120.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A21%3A31+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175200043197177173247184</font><a href="read1.asp?bookname=0130260363&snode=119&now=5%2F29%2F2002+9%3A21%3A31+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>*Shallow and Deep Copies</h3>
+				<p>Earlier in <a HREF="75.html">Section 3.5</a>, we described how object assignments are simply object references. This means that when you create an object, then assign that object to another variable, Python does not copy the object. Instead, it copies only a <i>reference</i> to the object. For example:</p>
+
+				<PRE Class="monofont">
+&gt;&gt;&gt; aList = [[78, 'pyramid'], [84, 'vulture'], [81, 'eye']]
+&gt;&gt;&gt; anotherList = aList
+&gt;&gt;&gt; aList
+[[78, 'pyramid'], [84, 'vulture'], [81, 'eye']]
+&gt;&gt;&gt;
+&gt;&gt;&gt; anotherList
+[[78, 'pyramid'], [84, 'vulture'], [81, 'eye']]
+</PRE>
+				<P>Above, a list of two elements is created and its reference assigned to <tt class="monofont">aList.</tt> When <tt class="monofont">aList</tt> is assigned to <tt ClaSs="monofont">anotherList,</tt> the contents of the list reference by <Tt claSs="monofont">aList</tt> are not copied when <TT CLass="monofont">anotherList</tT> is created. Rather, <TT Class="monofont">anotherList</TT>
+					"copies" the reference from <TT clasS="monofont">aList,</TT> not the data. We can confirm this by taking a look at the identities of the objects that both references point to:</P>
+
+				<pre>
+					
+&gt;&gt;&gt; id(aList)
+1191872
+&gt;&gt;&gt; id(anotherList)
+1191872
+
+				</pre>
+
+				<p>A <i>shallow copy</i> of an object is defined to be a newly-created object of the same type as the original object whose contents are references to the elements in the original object. In other words, the copied object itself is new, but the contents are not. Shallow copies of sequence objects may be taken one of two ways: (1) taking a complete slice using the slice operator, or (2) using the <tt class="monofont">copy()</tt> function of the <tt ClaSs="monofont">copy</tt> module, as indicated in the example below:</P>
+
+				<pre>
+					
+&gt;&gt;&gt; thirdList = aList[:]
+&gt;&gt;&gt; thirdList
+[[78, 'pyramid'], [84, 'vulture'], [81, 'eye']]
+&gt;&gt;&gt; id(thirdList)
+1192232
+&gt;&gt;&gt;
+&gt;&gt;&gt; <b>import</B> copy
+&gt;&gt;&gt; fourthList = copy.copy(aList)
+&gt;&gt;&gt; fourthList
+[[78, 'pyramid'], [84, 'vulture'], [81, 'eye']]
+&gt;&gt;&gt; id(fourthList)
+1192304
+
+				</pre>
+
+				<P>The <TT Class="monofont">thirdList</TT> list is created using the slice operator to take an entire slice (both starting and ending indices are absent). We also present the new object's identity to confirm its disassociation with the original object. Likewise for the creation of the <TT clasS="monofont">fourthList</TT> list. This time, we use the <Tt claSS="monofont">copy.copy()</TT> function to perform the same feat. However, the elements of these lists are still only references to the original object's elements.</p>
+
+				<pre>
+					
+&gt;&gt;&gt; id(aList[0]), id(aList[1]), id(aList[2])
+(1064072, 1191920, 1191896)
+&gt;&gt;&gt; id(thirdList[0]), id(thirdList[1]), id(thirdList[2])
+(1064072, 1191920, 1191896)
+&gt;&gt;&gt; id(fourthList[0]), id(fourthList[1]), id(fourthList[2])
+(1064072, 1191920, 1191896)
+
+				</pre>
+
+				<p>We pull the identities of these objects to confirm our hypothesis. In order to obtain a full or <i>deep copy</i> of the object—creating a new container but containing references to completely new copies (references) of the element in the original object—we need to use the <tt class="monofont">copy.deepcopy()</tt> function.</p>
+
+				<Pre>
+					
+&gt;&gt;&gt; lastList = copy.deepcopy(aList)
+&gt;&gt;&gt; lastList
+[[78, 'pyramid'], [84, 'vulture'], [81, 'eye']]
+&gt;&gt;&gt; id(lastList)
+1193248
+&gt;&gt;&gt; id(lastList[0]), id(lastList[1]), id(lastList[2])
+(1192280, 1193128, 1193104)
+
+				</Pre>
+
+				<p>There are a few notes and caveats to making copies to keep in mind. The first is that non-container types (i.e., numbers, strings, and other "atomic" objects like code, type, and xrange objects) are not copied. Shallow copies of sequences are all done using complete slices. Mapping types, which will be covered in <A href="129.html">Chapter 8</A>, are copied using the dictionary copy method. Finally, deep copies of tuples are not made if they contain only atomic objects. If we changed each of the small lists in the larger list above to all tuples, we would have performed only a shallow copy, even though we requested a deep copy.</p>
+
+				<diV CLAss="note"><p cLASS="notetitle"><b>NOTE</b></p><p><P><I>The shallow and deep copy operations that we just described are found in the</I>
+						<Tt claSS="monofont">copy</TT>
+						<i>module. There are really only two functions to use from this module:</i>
+						<tt class="monofont">copy()</tt><i>—creates shallow copy, and</i>
+						<tt class="monofont">deepcopy()</Tt><i>—creates a deep copy.</I></p>
+</p></dIv><br>
+
+				<p>Sequence types provide various mechanisms for ordered storage of data. Strings are a general medium for carrying data, whether it be displayed to a user, stored on a disk, transmitted across the network, or be a singular container for multiple sources of information. Lists and tuples provide container storage that allows for simple manipulation and access of multiple objects, whether they by Python data types or user-defined objects. Individual or groups of elements may be accessed as slices via sequentially-ordered index offsets. Together, these data types provide flexible and easy-to-use storage tools in your Python development environment. We conclude this chapter with a summary of operators, built-in functions and methods for sequence types given as <A hreF="119#1.html">Table6.12</A>.</P>
+
+				<A name="1"></A><P><TAble bORDEr="1" celLSPAcing="0" cellpadding="1" width="100%">
+<CapTion><H5>Table 6.12. Sequence Type Operators, Built-in Functions and Methods</h5></capTion><COLGroup ALIGn="center" spaN="4">
+<TR ValigN="bottom">
+<TH Align="center">
+<font size="2"><b><i>Operator, built-in function or method</i></b></font></Th>
+<tH aliGn="center">
+<fonT sizE="2"><B><I>String</I></b></fonT></TH>
+<Th aliGN="center">
+<FOnt siZE="2"><B><I>List</i></b></font></th>
+<th align="center">
+<font sIze="2"><B><i>Tuple</i></b></Font></tH>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt sizE="2"><B><TT clasS="monofont">[]</TT></B> (list creation)</font></td>
+<td>
+<font size="2"> </font></Td>
+<tD>
+<fonT size="2">•</Font></TD>
+<TD>
+<font SIZE="2"> </font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<font size="2"><b><tt class="monofont">()</tt></B></foNt></td>
+<Td>
+<fonT sizE="2"> </FONt></td>
+<tD>
+<FONt sizE="2"> </FONt></td>
+<tD>
+<FONt size="2">•</font></td>
+</tr>
+<tr valigN="top">
+<td>
+<Font Size="2"><b><Tt clASS="monofont">''</Tt></b></foNT></TD>
+<td>
+<foNT SIze="2">•</foNT></TD>
+<td>
+<font size="2"> </font></td>
+<td>
+<foNt sIze="2"> </fOnt></td>
+</Tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">append()</tT></FONt></td>
+<td>
+<font size="2"> </font></td>
+<tD>
+<foNt siZe="2">•</fonT></td>
+<tD>
+<FONt sizE="2"> </FONt></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font size="2"><tt class="monofont">capitalize()</tt></font></Td>
+<tD>
+<fonT size="2">•</Font></TD>
+<TD>
+<font SIZE="2"> </font></TD>
+<TD>
+<font SIZE="2"> </font></td>
+</tr>
+<tr valign="top">
+<td>
+<foNt sIze="2"><tT clasS="monofont">center()</tt></fONT></Td>
+<td>
+<fONT Size="2">•</fONT></Td>
+<td>
+<fONT Size="2"> </font></td>
+<td>
+<font size="2"> </fOnt></Td>
+</tr>
+<Tr valIgn="top">
+<tD>
+<FONt sizE="2"><TT Class="monofont">chr()</TT></FOnt></td>
+<TD>
+<FOnt size="2">•</font></td>
+<td>
+<font siZe="2"> </fOnt></tD>
+<td>
+<foNt siZE="2"> </FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><tt class="monofont">cmp()</tt></font></td>
+<td>
+<fonT siZe="2">•</foNt></td>
+<tD>
+<fonT SIZe="2">•</fonT></TD>
+<Td>
+<fonT SIZe="2">•</fonT></TD>
+</Tr>
+<tr valign="top">
+<td>
+<font size="2"><tT clAss="monofont">count()</tT></font></Td>
+<td>
+<FONT size="2">•</FONT></td>
+<td>
+<FONT size="2">•</FONT></td>
+<td>
+<font size="2"> </font></td>
+</tr>
+<Tr vAligN="top">
+<td>
+<foNt siZE="2"><TT clasS="monofont">encode()</TT></Font></tD>
+<TD>
+<Font sIZE="2">•</Font></td>
+<td>
+<font size="2"> </font></tD>
+<td>
+<Font Size="2"> </fOnt></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><tt cLASS="monofont">endswith()</tt></font></td>
+<td>
+<font size="2">•</foNt></tD>
+<td>
+<fOnt siZe="2"> </foNT></TD>
+<td>
+<foNT SIze="2"> </foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<font size="2"><tt class="monofont">expandtabs()</tT></foNt></td>
+<Td>
+<fonT sizE="2">•</FONt></td>
+<tD>
+<FONt sizE="2"> </FONt></td>
+<tD>
+<FONt size="2"> </font></td>
+</tr>
+<tr valigN="top">
+<td>
+<Font Size="2"><tT claSS="monofont">extend()</TT></font></TD>
+<TD>
+<font SIZE="2"> </font></TD>
+<TD>
+<font size="2">•</font></td>
+<td>
+<font SizE="2"> </fonT></td>
+</tr>
+<Tr vaLIGN="top">
+<td>
+<foNT SIze="2"><tt CLASs="monofont">find()</tt></fONT></Td>
+<td>
+<font size="2">•</font></td>
+<td>
+<fOnt Size="2"> </Font></tD>
+<td>
+<fONT Size="2"> </fONT></Td>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt size="2"><tt class="monofont">hex()</tt></font></td>
+<Td>
+<fOnt sIze="2">•</foNt></td>
+<TD>
+<FOnt siZE="2"> </FOnt></td>
+<TD>
+<FOnt siZE="2"> </FOnt></td>
+</tr>
+<tr valign="top">
+<td>
+<font SizE="2"><tt cLass="monofont">index()</tT></fonT></TD>
+<Td>
+<fonT SIZe="2">•</fonT></TD>
+<Td>
+<fonT SIZe="2">•</font></td>
+<td>
+<font size="2"> </fonT></td>
+</Tr>
+<tr ValigN="top">
+<td>
+<fONT Size="2"><tT CLAss="monofont">insert()</tt></FONT></td>
+<td>
+<FONT size="2">•</font></td>
+<td>
+<font size="2">•</FonT></td>
+<tD>
+<font Size="2"> </FONT></td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt siZE="2"><TT class="monofont">isdecimal()</tt></font></td>
+<td>
+<font sIze="2">•</Font></Td>
+<td>
+<fOnt sIZE="2"> </Font></tD>
+<TD>
+<Font sIZE="2"> </Font></tD>
+</TR>
+<Tr valign="top">
+<td>
+<font size="2"><tt cLasS="monofont">isdigit()</tt></fOnt></td>
+<Td>
+<foNT SIze="2">•</foNT></TD>
+<td>
+<foNT SIze="2"> </foNT></TD>
+<td>
+<font size="2"> </font></td>
+</tr>
+<tr ValIgn="top">
+<tD>
+<font Size="2"><TT CLass="monofont">islower()</tT></FONt></td>
+<tD>
+<FONt sizE="2">•</FONt></td>
+<td>
+<font size="2"> </font></td>
+<tD>
+<foNt siZe="2"> </fonT></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2"><Tt claSS="monofont">isnumeric()</TT></font></td>
+<td>
+<font size="2">•</font></Td>
+<tD>
+<fonT size="2"> </Font></TD>
+<TD>
+<font SIZE="2"> </font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<font size="2"><tt class="monofont">isspace()</tt></fOnt></Td>
+<td>
+<Font sIze="2">•</fONT></Td>
+<td>
+<fONT Size="2"> </fONT></Td>
+<td>
+<fONT Size="2"> </font></td>
+</tr>
+<tr valign="top">
+<tD>
+<foNt siZe="2"><tt cLass="monofont">istitle()</TT></FOnt></td>
+<TD>
+<FOnt siZE="2">•</FOnt></td>
+<TD>
+<FOnt size="2"> </font></td>
+<td>
+<font siZe="2"> </fOnt></tD>
+</tr>
+<tr ValiGN="top">
+<TD>
+<font SIZE="2"><tt clASS="monofont">isupper()</Tt></fonT></TD>
+<Td>
+<font size="2">•</font></td>
+<td>
+<fonT siZe="2"> </foNt></td>
+<tD>
+<fonT SIZe="2"> </fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><tt class="monofont">join()</tt></font></td>
+<td>
+<FonT sizE="2">•</font></Td>
+<td>
+<FONT size="2"> </FONT></td>
+<td>
+<FONT size="2"> </FONT></td>
+</tr>
+<tr valign="top">
+<td>
+<font siZe="2"><tT claSs="monofont">len()</tt></fOnt></tD>
+<TD>
+<Font sIZE="2">•</Font></tD>
+<TD>
+<Font sIZE="2">•</Font></td>
+<td>
+<font size="2">•</font></tD>
+</tr>
+<Tr vaLign="top">
+<tD>
+<fonT SIZe="2"><tt cLASS="monofont">list()</tt></foNT></TD>
+<td>
+<foNT SIze="2">•</font></td>
+<td>
+<font size="2">•</foNt></tD>
+<td>
+<fOnt siZe="2">•</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">ljust()</tt></font></td>
+<td>
+<font sizE="2">•</foNt></td>
+<Td>
+<fonT sizE="2"> </FONt></td>
+<tD>
+<FONt sizE="2"> </FONt></td>
+</tR>
+<TR Valign="top">
+<td>
+<font size="2"><tt claSs="monofont">lower()</tT></fonT></td>
+<td>
+<Font SIZE="2">•</font></TD>
+<TD>
+<font SIZE="2"> </font></TD>
+<TD>
+<font size="2"> </font></td>
+</tr>
+<tr vaLigN="top">
+<td>
+<fOnt siZe="2"><tt CLASs="monofont">lstrip()</tt></fONT></Td>
+<td>
+<fONT Size="2">•</fONT></Td>
+<td>
+<font size="2"> </font></td>
+<td>
+<fOnt Size="2"> </Font></tD>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt sizE="2"><TT Class="monofont">max()</TT></FOnt></td>
+<td>
+<font size="2">•</font></td>
+<Td>
+<fOnt sIze="2">•</foNt></td>
+<TD>
+<FOnt siZE="2">•</FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font size="2"><tt class="monofont">min()</tt></fonT></td>
+<Td>
+<foNt sizE="2">•</fonT></TD>
+<Td>
+<fonT SIZe="2">•</fonT></TD>
+<Td>
+<fonT SIZe="2">•</font></td>
+</tr>
+<tr valign="top">
+<td>
+<fOnt Size="2"><Tt claSs="monofont">oct()</tt></FONT></td>
+<td>
+<FONT size="2">•</FONT></td>
+<td>
+<FONT size="2"> </font></td>
+<td>
+<font size="2"> </FonT></td>
+</tR>
+<tr vaLign="top">
+<TD>
+<FOnt siZE="2"><TT clasS="monofont">ord()</TT></Font></tD>
+<TD>
+<Font size="2">•</font></td>
+<td>
+<font sIze="2"> </Font></Td>
+<td>
+<fOnt sIZE="2"> </Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><tt class="monofont">pop()</tt></font></td>
+<td>
+<foNt sIze="2"> </fOnt></td>
+<Td>
+<foNT SIze="2">•</foNT></TD>
+<td>
+<foNT SIze="2"> </foNT></TD>
+</tr>
+<tr valign="top">
+<td>
+<font size="2"><Tt cLass="monofont">raw_input()</Tt></fonT></td>
+<tD>
+<FONt sizE="2">•</FONt></td>
+<tD>
+<FONt sizE="2"> </FONt></td>
+<td>
+<font size="2"> </font></td>
+</tR>
+<tr ValiGn="top">
+<td>
+<fOnt sIZE="2"><Tt claSS="monofont">remove()</TT></font></TD>
+<TD>
+<font SIZE="2"> </font></td>
+<td>
+<font size="2">•</font></Td>
+<tD>
+<fonT size="2"> </Font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><tt CLASs="monofont">replace()</tt></font></td>
+<td>
+<font size="2">•</fOnt></Td>
+<td>
+<Font sIze="2"> </fONT></Td>
+<td>
+<fONT Size="2"> </fONT></Td>
+</tr>
+<tR VALign="top">
+<td>
+<font size="2"><tt class="monofont">repr()</Tt></fOnt></tD>
+<td>
+<foNt siZE="2">•</FOnt></td>
+<TD>
+<FOnt siZE="2">•</FOnt></td>
+<TD>
+<FOnt size="2"> </font></td>
+</tr>
+<tr valiGn="top">
+<tD>
+<fonT size="2"><Tt clASS="monofont">reverse()</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2"> </fonT></TD>
+<Td>
+<font size="2">•</font></td>
+<td>
+<fonT siZe="2"> </foNt></td>
+</tR>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><tT CLAss="monofont">rfind()</tt></FONT></td>
+<td>
+<font size="2">•</font></td>
+<td>
+<FonT sizE="2"> </font></Td>
+<td>
+<FONT size="2"> </FONT></td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt size="2"><tt class="monofont">rindex()</tt></font></tD>
+<td>
+<Font Size="2">•</fOnt></tD>
+<TD>
+<Font sIZE="2"> </Font></tD>
+<TD>
+<Font sIZE="2"> </Font></td>
+</tr>
+<tr valign="top">
+<td>
+<fonT siZe="2"><tt Class="monofont">rjust()</Tt></foNT></TD>
+<td>
+<foNT SIze="2">•</foNT></TD>
+<td>
+<foNT SIze="2"> </font></td>
+<td>
+<font size="2"> </foNt></tD>
+</tr>
+<tR valiGn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">rstrip()</tT></FONt></td>
+<tD>
+<FONt size="2">•</font></td>
+<td>
+<font sizE="2"> </foNt></td>
+<Td>
+<fonT sizE="2"> </FONt></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2"><Tt class="monofont">sort()</tt></font></td>
+<td>
+<font SizE="2"> </fonT></td>
+<td>
+<Font SIZE="2">•</font></TD>
+<TD>
+<font SIZE="2"> </font></TD>
+</TR>
+<tr valign="top">
+<td>
+<font size="2"><tt ClaSs="monofont">split()</tt></Font></tD>
+<td>
+<fONT Size="2">•</fONT></Td>
+<td>
+<fONT Size="2"> </fONT></Td>
+<td>
+<font size="2"> </font></td>
+</tr>
+<tR vaLign="top">
+<Td>
+<fonT sizE="2"><TT Class="monofont">splitlines()</TT></FOnt></td>
+<TD>
+<FOnt siZE="2">•</FOnt></td>
+<td>
+<font size="2"> </font></td>
+<Td>
+<fOnt sIze="2"> </foNt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><tt clASS="monofont">startswith()</Tt></font></td>
+<td>
+<font size="2">•</fonT></td>
+<Td>
+<foNt sizE="2"> </fonT></TD>
+<Td>
+<fonT SIZe="2"> </fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<font size="2"><tt class="monofont">str()</tt></FonT></td>
+<tD>
+<font Size="2">•</FONT></td>
+<td>
+<FONT size="2">•</FONT></td>
+<td>
+<FONT size="2">•</font></td>
+</tr>
+<tr valign="top">
+<Td>
+<fOnt sIze="2"><tt ClasS="monofont">strip()</TT></Font></tD>
+<TD>
+<Font sIZE="2">•</Font></tD>
+<TD>
+<Font size="2"> </font></td>
+<td>
+<font sIze="2"> </Font></Td>
+</tr>
+<tR valIGN="top">
+<Td>
+<fonT SIZe="2"><tt cLASS="monofont">swapcase()</tt></foNT></TD>
+<td>
+<font size="2">•</font></td>
+<td>
+<foNt sIze="2"> </fOnt></td>
+<Td>
+<foNT SIze="2"> </foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><tt class="monofont">split()</tt></font></td>
+<tD>
+<foNt siZe="2">•</fonT></td>
+<tD>
+<FONt sizE="2"> </FONt></td>
+<tD>
+<FONt sizE="2"> </FONt></td>
+</tr>
+<tr valign="top">
+<td>
+<font sIze="2"><Tt clAss="monofont">title()</tt></Font></TD>
+<TD>
+<font SIZE="2">•</font></TD>
+<TD>
+<font SIZE="2"> </font></td>
+<td>
+<font size="2"> </font></Td>
+</tR>
+<tr vAlign="top">
+<Td>
+<foNT SIze="2"><tt CLASs="monofont">tuple()</tt></fONT></Td>
+<td>
+<fONT Size="2">•</font></td>
+<td>
+<font size="2">•</fOnt></Td>
+<td>
+<Font sIze="2">•</fONT></Td>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt sizE="2"><TT Class="monofont">type()</tt></font></td>
+<td>
+<font siZe="2">•</fOnt></tD>
+<td>
+<foNt siZE="2">•</FOnt></td>
+<TD>
+<FOnt siZE="2">•</FOnt></td>
+</TR>
+<TR valign="top">
+<td>
+<font size="2"><tt clAss="monofont">upper()</Tt></foNt></td>
+<tD>
+<fonT SIZe="2">•</fonT></TD>
+<Td>
+<fonT SIZe="2"> </fonT></TD>
+<Td>
+<font size="2"> </font></td>
+</tr>
+<tr vAliGn="top">
+<td>
+<Font sIze="2"><tT CLAss="monofont">zfill()</tt></FONT></td>
+<td>
+<FONT size="2">•</FONT></td>
+<td>
+<font size="2"> </font></td>
+<td>
+<FonT sizE="2"> </font></Td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt siZE="2">. (attributes)</FOnt></td>
+<TD>
+<FOnt size="2">•</font></td>
+<td>
+<font siZe="2">•</fOnt></tD>
+<td>
+<foNt siZE="2"> </FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><tt class="monofont">[]</tt> (slice)</font></td>
+<td>
+<fonT siZe="2">•</foNt></td>
+<tD>
+<fonT SIZe="2">•</fonT></TD>
+<Td>
+<fonT SIZe="2">•</fonT></TD>
+</Tr>
+<tr valign="top">
+<td>
+<font size="2"><tT clAss="monofont">[:]</tT></font></Td>
+<td>
+<FONT size="2">•</FONT></td>
+<td>
+<FONT size="2">•</FONT></td>
+<td>
+<font size="2">•</font></td>
+</tr>
+<Tr vAligN="top">
+<td>
+<foNt siZE="2"><TT clasS="monofont">*</TT></Font></tD>
+<TD>
+<Font sIZE="2">•</Font></td>
+<td>
+<font size="2">•</font></tD>
+<td>
+<Font Size="2">•</fOnt></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><tt cLASS="monofont">%</tt></font></td>
+<td>
+<font size="2">•</foNt></tD>
+<td>
+<fOnt siZe="2"> </foNT></TD>
+<td>
+<foNT SIze="2"> </foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<font size="2"><tt class="monofont">+</tT></foNt></td>
+<Td>
+<fonT sizE="2">•</FONt></td>
+<tD>
+<FONt sizE="2">•</FONt></td>
+<tD>
+<FONt size="2">•</font></td>
+</tr>
+<tr valigN="top">
+<td>
+<Font Size="2"><b><Tt clASS="monofont">in</Tt></b></foNT></TD>
+<td>
+<foNT SIze="2">•</foNT></TD>
+<td>
+<font size="2">•</font></td>
+<td>
+<foNt sIze="2">•</fOnt></td>
+</Tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><B><TT Class="monofont">not in</TT></B></Font></td>
+<td>
+<font size="2">•</font></tD>
+<td>
+<Font Size="2">•</fOnt></tD>
+<TD>
+<Font sIZE="2">•</Font></tD>
+</TR>
+</ColgrOUP>
+</Table></p>
+
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="118.html" title="Related Modules"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=119" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="119.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="120.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

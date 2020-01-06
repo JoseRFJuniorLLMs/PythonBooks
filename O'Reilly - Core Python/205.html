@@ -1,0 +1,150 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Importing Module Attributes</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="199.html" class="navtitle">12. Modules</a> &gt; <span class="nonavtitle">Importing Module Attributes</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="204.html" title="Importing Modules"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=205" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="205.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="206.html" title="Module Built-in Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A37%3A03+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174049228074064209159047</font><a href="read4.asp?bookname=0130260363&snode=205&now=5%2F29%2F2002+9%3A37%3A03+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Importing Module Attributes</h3>
+				<p>It is possible to import specific module elements into your own module. By this, we really mean importing specific names from the module into the current namespace. For this purpose, we can use the <b><TT CLass="monofont">from-import</tT></B> statement, whose syntax is:</P>
+
+				<Pre>
+					
+<b>from</b>
+						<I>module</I>
+						<B>import</B>
+						<i>name1</i>[, <i>name2</i>[, … <i>nameN</i>]]
+
+				</pre>
+
+				
+					<h4>Names Imported into Current Namespace</h4>
+					<p>Calling <b><tt class="monofont">from-import</Tt></b> brings the name into the current namespace, meaning that you do not use the attribute/dotted notation to access the module identifier. For example, to access a variable named <I><tt cLass="monofont">var</tT></i> in module <i><tT CLAss="monofont">module</tt></I> that was imported with:</P>
+
+					<PRe>
+						
+<b>from</b>
+							<i>module</I>
+							<B>import</B>
+							<I>var</i>
+
+					</pre>
+
+					<P>we would use <I><TT class="monofont">var</tt></i> by itself. There is no need to reference the module since you just imported.</p>
+
+					<p>It is also possible to import all the names from the module into the current namespace using the following <b><tt class="monofont">from-import</tt></B> statement:</p>
+
+					<pRe>
+						
+<b>from</b>
+							<I>module</i>
+							<b>import *</b>
+
+					</pRe>
+
+					<diV CLAss="note"><p cLASS="notetitle"><b>NOTE</b></p><p><P><I>In practice, using</I>
+							<B><tt clASS="monofont">from</Tt></b>
+							<i><tt class="monofont">module</tt></i>
+							<b><tt clasS="monofont">import *</tt></B>
+							<i>is considered poor style because it "pollutes" the current namespace and has the potential of overriding names in the current namespace; however, it is extremely convenient if a module has many variables which are often accessed, or if the module has a very long name.</i></p>
+<P><i>We recommend using this form in only two situations. The first is where the target module has many attributes that would make it inconvenient to type in the module name over and over again. Two prime examples of this are the</i>
+							<tt ClasS="monofont">Tkinter</TT>
+							<I>(Python/Tk) and</i>
+							<tt cLASS="monofont">NumPy</tt>
+							<i>(Numeric Python) modules, and perhaps the</i>
+							<TT CLass="monofont">socket</tT>
+							<I>module. The other place where it is acceptable to use</I>
+							<B><tt class="monofont">from</tt></b>
+							<i><tt class="monofont">module</tt></I>
+							<b><tT claSs="monofont">import *</tt></b>
+							<I>is within the interactive interpreter, to save on the amount of typing.</i></p>
+</p></DIV><Br>
+
+				
+				
+					<h4>Names Imported into Importer's Scope</h4>
+					<p>Another side effect of importing only names from other modules is that the names are now part of the scope of the importing module.This means that changes to the variable affect only the local copy and not the original in the imported module's namespace. In other words, the binding is now local rather than across namespaces.</P>
+
+					<P>Below, we present the code to two modules: an importer, <TT clasS="monofont">impter.py,</TT> and an importee, <Tt claSS="monofont">imptee.py.</TT> Currently, <tt class="monofont">imptr.py</tt> uses the <b><tt class="monofont">from-import</tt></b> statement which creates only local bindings.</P>
+
+					<prE>
+						
+#############
+# imptee.py #
+#############
+foo = 'abc'
+<b>def</b> show():
+    <b>print</B> 'foo from imptee:', foo
+
+
+#############
+# impter.py #
+#############
+<b>from</b> imptee <b>import</b> foo, show
+show()
+foo = 123
+<B>print</b> 'foo from impter:', foo
+show()
+
+					</prE>
+
+					<P>Upon running the importer, we discover that the importee's view of its <TT clasS="monofont">foo</TT> variable has not changed even though we modified it in the importer.</P>
+
+					<pre>
+						
+foo from imptee: abc
+foo from impter: 123
+foo from imptee: abc
+
+					</pRE>
+
+					<P>The only solution is to use import and <I>fully-qualified</i> identifier names using the attribute/dotted notation.</p>
+
+					<prE>
+						
+#############
+# impter.py #
+#############
+<B>import</B> imptee
+imptee.show()
+imptee.foo = 123
+<B>print</b> 'foo from impter:', imptee.foo
+imptee.show()
+
+					</pre>
+
+					<p>Once we make the update and change our references accordingly, we now have achieved the desired effect.</p>
+
+					<pre>
+						
+foo from imptee: abc
+foo from impter: 123
+foo from imptee: 123
+
+					</pre>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="204.html" title="Importing Modules"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=205" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="205.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="206.html" title="Module Built-in Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

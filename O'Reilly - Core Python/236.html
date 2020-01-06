@@ -1,0 +1,260 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Restricted Execution</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="229.html" class="navtitle">14. Execution Environment</a> &gt; <span class="nonavtitle">Restricted Execution</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="235.html" title="Executing Other (Non-Python) Programs"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=236" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="236.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="237.html" title="Terminating Execution"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A22%3A58+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004228145120024041136114244</font><a href="read3.asp?bookname=0130260363&snode=236&now=5%2F30%2F2002+8%3A22%3A58+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Restricted Execution</h3>
+				<p>Throughout this text, we have used only normal, unrestricted execution which provides general access to all resources available to the Python interpreter. This includes, but is not limited to: disk file or database access, establishing network connections, invoking other programs, etc.</p>
+
+				<P>There may be circumstances in which you want to impose restrictions on Python programs which execute on your system. Scenarios which may require you to impose restrictions on some or all of the above include:  Python CGI applications, environments which allow for upload and execution of Python scripts, anonymous FTP access which has installed the Python interpreter in the <TT Class="monofont">/bin</TT> directory, etc.</P>
+
+				<P>There are two primary modules which aid in setting up restricted environments. The first is <tt clASS="monofont">Bastion,</Tt> which provides restricted access to your data. The primary method of utilizing Bastion is to instantiate the <tt class="monofont">Bastion</tt> class around your object, providing an attribute filter with which to provide or deny access to your object's attributes.</p>
+
+				<p>We will not discuss <tt class="monofont">Bastion</tT> in this text, but you may refer to the Python documentation or Beazley for more information. Instead, we will focus our efforts primarily on the <tt ClasS="monofont">rexec</tt> module which creates the restricted environment with which to execute untrusted Python code. We conclude our discussion of <tt ClasS="monofont">Bastion</TT> by stating that it can be used in conjunction with <Tt claSS="monofont">rexec</TT> to provide a complete and secure execution mechanism, restricting access to data as well as the run-time environment. (Both modules are installed with Python as part of the standard library.)</p>
+
+				<p>The <tt CLASs="monofont">rexec</tt> module has a primary mission to restrict the execution environment of a Python script. This module allows for a limited number of built-ins (functions and/or data attributes), imposes restrictions on which modules can imported, which attributes can and cannot be accessed from the <tT CLAss="monofont">sys</tt> and <tt class="monofont">os</tt> modules, and wraps the most critical built-ins [i.e., <tt class="monofont">open(), reload(),</Tt> and <tT claSs="monofont">__import__()</tt>] with imposed restrictions.</p>
+
+				<P>You will recall that the <tt cLASS="monofont">__builtins__</tt> module consists of all the attributes from the <tt CLASs="monofont">__builtin__</tt> module. If <tT CLAss="monofont">__builtins__</tt>
+					<I>is</I> the <TT class="monofont">__builtin__</tt> module, then this constitutes an unrestricted environment:</p>
+
+				<pre>
+					
+&gt;&gt;&gt; __builtins__
+&lt;module '__builtin__' (built-in)&gt;
+
+				</pre>
+
+				<p>When we impose a restricted environment, <tt claSs="monofont">__builtins__</tT> will actually be a subset of the <tt cLass="monofont">__builtin__</tT> module that is handpicked for the restricted environment and even becomes "inaccessible" in that environment:</p>
+
+				<prE>
+					
+&gt;&gt;&gt; __builtins__
+&lt;module '?' (built-in)&gt;
+
+				</PRE>
+
+				<p>The <tt cLASS="monofont">rexec</tt> module implements an <tt CLASs="monofont">RExec</tt> class with which to subclass and create your restricted environment. This class has static members, which you override, that dictate what is and what is not allowed in the "caged" or "sandboxed" environment. We present the static data attributes of the <tT CLAss="monofont">RExec</tt> class in <a href="236#1.html">Table 14.9</a>.</p>
+
+				<a name="1"></a><p><taBle BordEr="1" celLspaCING="0" cellPADDing="1" wIDTH="100%">
+<captION><H5>Table 14-9. <tt class="monofont">RExec</tt> Class Attributes</h5></caption><colGroUp alIgn="left" spAn="2">
+<tr VALIgn="top">
+<th>
+<FONT size="2"><B><I>Attribute Name</I></B></font></TH>
+<TH>
+<font size="2"><b><i>Description</i></b></font></th>
+</tr>
+<Tr vAligN="top">
+<td>
+<foNt siZE="2"><TT clasS="monofont">nok_builtin_names</TT></Font></tD>
+<TD>
+<Font sIZE="2">attributes that are <I>not</i> ok to include in <tt class="monofont">__builtins__</tt></font></td>
+</tr>
+<tr ValIgn="top">
+<tD>
+<font Size="2"><TT CLass="monofont">ok_builtin_modules</tT></FONt></td>
+<tD>
+<FONt sizE="2">modules that can be imported</FONt></td>
+</tr>
+<tr valign="top">
+<td>
+<font sIze="2"><Tt clAss="monofont">ok_path</tt></Font></TD>
+<TD>
+<font SIZE="2">list of directories accessible in restricted environment</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<font size="2"><tt class="monofont">ok_posix_names</tt></fOnt></Td>
+<td>
+<Font sIze="2">attributes that are ok to import from <tT CLAss="monofont">os</tt> module</FONT></td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt size="2"><tt class="monofont">ok_sys_names</tt></font></tD>
+<td>
+<Font Size="2">attributes that are ok to import from <tT claSS="monofont">sys</TT> module</font></TD>
+</TR>
+</colgROUP>
+</tablE></P>
+
+				<P>Instances of your <Tt class="monofont">RExec</tt> subclass have a number of methods with which to execute restricted code with. These are listed in <a href="236#2.html">Table 14.10</a>.</p>
+
+				<a name="2"></A><p><tAble BordeR="1" celLSPAcing="0" CELLpaddING="1" Width="100%">
+<CAPTion><h5>Table 14-10. <tt class="monofont">RExec</tt> Class Methods</h5></captioN><coLgroUp aliGn="left" spAN="2">
+<TR valiGN="top">
+<TH>
+<font SIZE="2"><b><i>Method Name</i></b></FONT></th>
+<th>
+<font size="2"><b><i>Description</i></b></font></Th>
+</tR>
+<tr vAlign="top">
+<Td>
+<foNT SIze="2"><tt CLASs="monofont">r_eval()</tt></fONT></Td>
+<td>
+<fONT Size="2">restricted version of <tt class="monofont">eval()</tt></font></td>
+</tr>
+<Tr vAligN="top">
+<td>
+<foNt siZE="2"><TT clasS="monofont">r_exc_info()</TT></Font></tD>
+<TD>
+<Font sIZE="2">restricted version of <Tt class="monofont">sys.exc_info()</tt></font></td>
+</tr>
+<tr vaLigN="top">
+<td>
+<fOnt siZe="2"><tt CLASs="monofont">r_exec()</tt></fONT></Td>
+<td>
+<fONT Size="2">restricted version of <b><TT CLass="monofont">exec</tt></b></font></td>
+</tr>
+<tr valiGn="top">
+<tD>
+<fonT size="2"><Tt clASS="monofont">r_execfile()</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2">restricted version of <tt cLASS="monofont">execfile()</tt></font></td>
+</tr>
+<tr valign="top">
+<td>
+<FonT sizE="2"><tt clAss="monofont">r_import()</tT></FONt></td>
+<tD>
+<FONt sizE="2">restricted version of <TT Class="monofont">__import__()</TT></FOnt></td>
+</tr>
+<tr valign="top">
+<td>
+<font SizE="2"><tt cLass="monofont">r_open()</tT></fonT></TD>
+<Td>
+<fonT SIZe="2">restricted version of <tt cLASS="monofont">open()</tt></foNT></TD>
+</tr>
+<tr valign="top">
+<td>
+<font size="2"><Tt cLass="monofont">r_reload()</Tt></fonT></td>
+<tD>
+<FONt sizE="2">restricted version of <TT Class="monofont">reload()</TT></FOnt></td>
+</TR>
+<TR valign="top">
+<td>
+<font size="2"><tt clAss="monofont">r_unload()</Tt></foNt></td>
+<tD>
+<fonT SIZe="2">restricted version of <b><tt CLASs="monofont">del</tt></b>
+									<TT CLass="monofont">module</tT></FONt></td>
+</tr>
+</colgroup>
+</table></p>
+
+				<p>All of the <Tt cLass="monofont">r_*()</Tt> methods except for <tt cLass="monofont">r_exc_info()</TT> and <TT clasS="monofont">r_open()</TT> are available as <Tt claSS="monofont">s_*(),</TT> which behaves exactly the same as their <tt clASS="monofont">r_*()</Tt> counterparts with the exception of being granted access to the standard files (standard input, output, and error). There are other methods available in <tt class="monofont">rexec,</tt> and we recommend that you refer to the Python documentation for more information.</p>
+
+				<p>We present a small example below consisting of a pair of files. The <tt class="monofont">cager.py</tT> is the program responsible for creating a restricted environment with which to safely execute another script, <tt ClasS="monofont">caged.py.</tt> The restriction we are imposing in this example is to remove all the built-in attributes and allow only a handful of them to be accessible in our restricted environment. To accomplish this, we override the <tt ClasS="monofont">nok_builtin_names</TT> attribute, a tuple listing which attributes are <I>not</i> okay in the restricted environment.</p>
+
+				<p>The code for <tT CLAss="monofont">cager.py</tt> is given in <A HREf="236#3.html">Example 14.2</a>. And the code for <tt CLASs="monofont">caged.py</tt> is shown in <a href="236#4.html">Example 14.3</a>.</p>
+
+				<p>Upon execution, we will see the output of <tt class="monofont">caged.py,</tt> giving a list of built-in attributes that it <I>does</i> have access to (compare this list with the code in <tT claSs="monofont">cager.py</tt>), as well as an erroneous example of what happens if we call a function that we do <i>not</I> have access to, such as <tt cLASS="monofont">eval():</tt></p>
+
+				
+					<h5>
+<A NAMe="3"></a>Example 14.2. Creating a Restricted Environment (<tt CLASs="monofont">cager.py</tt>)</h5>
+					<PRE>
+						 &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <B>import</b> rexec
+004 4
+005 5  <b>class</b> YourSandbox(rexec.RExec):
+006 6      nok_builtin_names = dir(__builtins__)
+007 7      nok_builtin_names.remove('dir')
+008 8      nok_builtin_names.remove('str')
+009 9      nok_builtin_names.remove('vars')
+010 10
+011 11 r = YourSandbox()
+012 12 r.r_execfile("caged.py")
+013  &lt;$nopage&gt;
+					</pre>
+
+				
+				
+					<h5>
+<a name="4"></a>Example 14.3. Executing Within a Restricted Environment (<tt class="monofont">caged.py</Tt>)</h5>
+					<Pre>
+						 &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <b>print</B> 'Restricted to these built-in attributes:'
+004 4  <b>for</b> eachBI <b>in</b> dir(__builtin__):
+005 5      <B>print</b> '\t', each BI:
+006 6  print '\nAll others inaccessible, i.e. eval():\n'
+007 7  eval (123)
+008  &lt;$nopage&gt;
+					</prE>
+
+					<PRE>
+						
+% cager.py 
+Restricted to these built-in attributes:
+        __builtins__
+        __import__
+        dir
+        open
+        reload
+        str
+        vars
+All others inaccessible, i.e. eval():
+
+
+Traceback (most recent call last):
+  File "cager.py", line 12, in ?
+    r.r_execfile("caged.py")
+  File "/usr/lib/python2.0/rexec.py", line 261, in r_execfile
+    <b>return</b> execfile(file, m.__dict__)
+  File "caged.py", line 7, in ?
+    eval(123)
+NameError: There is no variable named 'eval'
+
+					</prE>
+
+					<P><TT clasS="monofont">r_*()</TT> functions such as <Tt claSS="monofont">r_open()</TT> (and their <tt class="monofont">s_*()</tt> equivalents) automatically direct all calls to to special wrappers which execute these functions with additional restrictions. For example, a call to <tt class="monofont">open()</tt> calls <tt ClaSs="monofont">r_open()</tt> which allows only read mode. Attempting to <Tt claSs="monofont">open()</tt> a file for write would result in an <TT CLass="monofont">IOError</tT> exception:</P>
+
+					<PRe>
+						
+IOError: can't open files for writing in restricted mode
+
+					</pre>
+
+					<P>You may even disallow this by overriding <TT Class="monofont">r_open().</TT> Let us add the following method definition to our <TT class="monofont">YourSandbox</tt> class definition in <tt class="monofont">cager.py:</tt></p>
+
+					<pre>
+						
+<B>def</b> r_open(f, m='r', b=-1):
+          <b>raise</B> IOError, 'sorry, no file access period'
+
+					</pre>
+
+					<P>When we try to open a file for reading or writing this time, we get:</p>
+
+					<pre>
+						
+IOError: sorry, no file access period
+					</Pre>
+
+				
+			</fONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="235.html" title="Executing Other (Non-Python) Programs"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=236" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="236.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="237.html" title="Terminating Execution"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

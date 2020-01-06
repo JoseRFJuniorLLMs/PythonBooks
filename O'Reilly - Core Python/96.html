@@ -1,0 +1,707 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Built-in Functions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="89.html" class="navtitle">5. Numbers</a> &gt; <span class="nonavtitle">Built-in Functions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="95.html" title="Operators"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=96" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="96.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="97.html" title="Related Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A16%3A11+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172034243135042141168081</font><a href="read2.asp?bookname=0130260363&snode=96&now=5%2F29%2F2002+9%3A16%3A11+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Built-in Functions</h3>
+				
+					<h4>Standard Type Functions</h4>
+					<P>In the last chapter, we introduced the <TT Class="monofont">cmp(), str(),</TT> and <TT clasS="monofont">type()</TT> built-in functions that apply for all standard types. For numbers, these functions will compare two numbers, convert numbers into strings, and tell you a number's type, respectively. Here are some examples of using these functions:</P>
+
+					<pre>
+						
+&gt;&gt;&gt; cmp(-6, 2)]
+-1
+&gt;&gt;&gt; cmp(-4.333333, -2.718281828)
+-1
+&gt;&gt;&gt; cmp(0xFF, 255)
+0
+&gt;&gt;&gt; str(0xFF)
+'255'
+&gt;&gt;&gt; str(55.3e2)
+'5530.0'
+&gt;&gt;&gt; type(0xFF)
+&lt;type 'int'&gt;
+&gt;&gt;&gt; type(98765432109876543210L)
+&lt;type 'long int'&gt;
+&gt;&gt;&gt; type(2-1j)
+&lt;type 'complex'&gt;
+
+					</pre>
+
+				
+				<a name="2"></a>
+					<h4>Numeric Type Functions</h4>
+					<p>Python currently supports different sets of built-in functions for numeric types. Some convert from one numeric type to another while others are more operational, performing some type of calculation on their numeric arguments.</p>
+
+					
+						<h5>Conversion</h5>
+						<p>The <tT clAss="monofont">int(), long(), float(),</tT> and <tt clAss="monofont">complex()</tT> built-in functions are used to convert from any numeric type to another. Starting in Python 1.5, these functions will also take strings and return the numerical value represented by the string.</P>
+
+						<P>The following are some examples using the numeric type conversion built-ins:</P>
+
+						<pre>
+							
+&gt;&gt;&gt; int(4.25555)
+4
+&gt;&gt;&gt; long(42)
+42L
+&gt;&gt;&gt; float(4)
+4.0
+&gt;&gt;&gt; complex(4)
+(4+0j)
+&gt;&gt;&gt;
+&gt;&gt;&gt; complex(2.4, -8)
+(2.4-8j)
+&gt;&gt;&gt;
+&gt;&gt;&gt; complex(2.3e-10, 45.3e4)
+(2.3e-10+453000j)
+
+						</pRE>
+
+						<P>
+							<A href="96#4.html">Table 5.4</A> nutshells these numeric type conversion built-in functions.</P>
+
+						<A Name="4"></a><P><TABle border="1" cellspacing="0" cEllPaddIng="1" wiDth="100%">
+<cAPTIon><h5>Table 5.4. Numeric Type Conversion Built-in Functions</h5></CAPTion><cOLGRoup aLIGN="left" span="2">
+<tr valign="top">
+<th>
+<font siZe="2">
+											<p>
+												<B><i>function</i></b>
+											</P>
+
+										</font></Th>
+<th>
+<FONT size="2">
+											<P>
+												<B><I>operation</I></b>
+											</p>
+
+										</foNT></TH>
+</tr>
+<tr VALIgn="top">
+<td>
+<font size="2">
+											<p>
+												<tt class="monofont">int(</Tt>
+												<i>
+													<Tt clAss="monofont">obj, base=10</tt>
+												</I>
+												<tt cLASS="monofont">)</tt>
+											</p>
+
+										</fONT></Td>
+<td>
+<fONT Size="2">
+											<p>converts string or number <I>
+													<TT Class="monofont">obj</tt>
+												</i> to (plain) integer; provides same behavior as <tt class="monofont">string.atoi();</tt> optional base argument introduced in 1.6</p>
+
+										</fonT></td>
+</Tr>
+<tr ValigN="top">
+<td>
+<fONT Size="2">
+											<p>
+												<TT CLass="monofont">long(</tT>
+												<I>
+													<TT clasS="monofont">obj, base=10</TT>
+												</I>
+												<tt class="monofont">)</tt>
+											</p>
+
+										</font></td>
+<td>
+<foNt sIze="2">
+											<p>converts string or number <I>
+													<tt clAss="monofont">obj</tT>
+												</I> to long integer; provides same behavior as <TT clasS="monofont">string.atol();</TT> optional <I>
+													<tt clASS="monofont">base</Tt>
+												</i> argument introduced in 1.6</p>
+
+										</fONT></Td>
+</tr>
+<tr valign="top">
+<td>
+<font sizE="2">
+											<p>
+												<tT claSs="monofont">float(</tt>
+												<i>
+													<Tt clASS="monofont">obj</Tt>
+												</i>
+												<tt CLASs="monofont">)</tt>
+											</p>
+
+										</FONT></td>
+<td>
+<FONT size="2">
+											<p>converts string or number <i>
+													<tt class="monofont">obj</tt>
+												</i> to floating point; provides same behavior as <tt clAss="monofont">string.atof()</Tt>
+											</p>
+
+										</fOnt></td>
+</Tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2">
+											<P>
+												<TT Class="monofont">complex(</TT>
+												<I>
+													<Tt class="monofont">str</tt>
+												</i>
+												<tt class="monofont">)</tt>
+												<b>or</b>
+												<Tt cLass="monofont">complex(</Tt>
+												<i>
+													<tt ClasS="monofont">real, imag</TT>
+												</I>
+												<tt clASS="monofont">=0.0)</Tt>
+											</p>
+
+										</foNT></TD>
+<td>
+<foNT SIze="2">
+											<p>converts string <i>
+													<tt class="monofont">str</tt>
+												</i> to complex, or takes <i>
+													<tt claSs="monofont">real</tT>
+												</i> (and perhaps <i>
+													<tT clasS="monofont">imag</tt>
+												</i>inary) numbers and returns a complex number with those components</P>
+
+										</FONt></td>
+</tR>
+</COLgrouP>
+</TABle></p>
+
+					
+					
+						<h5>Operational</H5>
+						<P>Python has five operational built-in functions for numeric types: <TT class="monofont">abs(), coerce(), divmod(), pow(),</tt> and <tt class="monofont">round().</tt> We will take a look at each and present some usage examples.</p>
+
+						<p>
+							<tt ClaSs="monofont">abs()</tt> returns the absolute value of the given argument. If the argument is a complex number, then <Tt claSs="monofont">math.sqrt(</tt>
+							<I>
+								<TT Class="monofont">num.</TT>
+							</I>
+							<Tt claSS="monofont">real<SUp>2</sup> + </TT>
+							<I>
+								<Tt class="monofont">num.</tt>
+							</i>
+							<tt class="monofont">imag<sup>2</sUp>)</tT> is returned. Here are some examples of using the <tt cLass="monofont">abs()</tT> built-in function:</p>
+
+						<prE>
+							
+&gt;&gt;&gt; abs(-1)
+1
+&gt;&gt;&gt; abs(10.)
+10.0
+&gt;&gt;&gt; abs(1.2-2.1j)
+2.41867732449
+&gt;&gt;&gt; abs(0.23 - 0.78)
+0.55
+
+						</PRE>
+
+						<p>The <tt cLASS="monofont">coerce()</tt> function, although it technically is a numeric type conversion function, does not convert to a specific type and acts more like an operator, hence our placement of it in our operational built-ins section. In <a hREF="95#1.html">Section 5.5.1</A>, we discussed numeric coercion and how Python performs that operation. The <tt clASS="monofont">coerce()</Tt> function is a way for the programmer to explicitly coerce a pair of numbers rather than letting the interpreter do it. This feature is particularly useful when defining operations for newly-created numeric class types. <tt class="monofont">coerce()</tt> just returns a tuple containing the converted pair of numbers. Here are some examples:</p>
+
+						<pre>
+							
+&gt;&gt;&gt; coerce(1, 2)
+(1, 2)
+&gt;&gt;&gt;
+&gt;&gt;&gt; coerce(1.3, 134L)
+(1.3, 134.0)
+&gt;&gt;&gt;
+&gt;&gt;&gt; coerce(1, 134L)
+(1L, 134L)
+&gt;&gt;&gt;
+&gt;&gt;&gt; coerce(1j, 134L)
+(1j, (134+0j))
+&gt;&gt;&gt;
+&gt;&gt;&gt; coerce(1.23-41j, 134L)
+((1.23-41j), (134+0j))
+
+						</pre>
+
+						<p>The <tt ClaSs="monofont">divmod()</tt> built-in function combines division and modulus operations into a single function call that returns the pair (quotient, remainder) as a tuple. The values returned are the same as those given for the standalone division and modulus operators for integer types. For floats, the quotient returned is <Tt claSs="monofont">math.floor(</tt>
+							<I>
+								<TT Class="monofont">num1/num2</TT>
+							</I>
+							<Tt claSS="monofont">)</TT> and for complex numbers, the quotient is <tt clASS="monofont">math.floor((</Tt>
+							<i>
+								<tt class="monofont">num1/num2</tt>
+							</i>
+							<tt class="monofont">).real).</tT>
+						</p>
+
+						<pRe>
+							
+&gt;&gt;&gt; divmod(10,3)
+(3, 1)
+&gt;&gt;&gt; divmod(3,10)
+(0, 3)
+&gt;&gt;&gt; divmod(10,2.5)
+(4.0, 0.0)
+&gt;&gt;&gt; divmod(2.5,10)
+(0.0, 2.5)
+&gt;&gt;&gt; divmod(2+1j, 0.5-1j)
+(0j, (2+1j))
+
+						</prE>
+
+						<p>Both <tt cLass="monofont">pow()</TT> and the double star ( <TT clasS="monofont">**</TT> ) operator perform exponentiation; however, there are differences other than the fact that one is an operator and the other is a built-in function.</P>
+
+						<p>The <tt cLASS="monofont">**</tt> operator did not appear until Python 1.5, and the <tt CLASs="monofont">pow()</tt> built-in takes an optional third parameter, a modulus argument. If provided, <tt class="monofont">pow()</tt> will perform the exponentiation first, then return the result modulo the third argument. This feature is used for cryptographic applications and has better performance than <tt class="monofont">pow(x,y) % z</tT> since the latter performs the calculations in Python rather than in C like <tt ClasS="monofont">pow(x, y, z).</tt>
+						</p>
+
+						<pRe>
+							
+&gt;&gt;&gt; pow(2,5)
+32
+&gt;&gt;&gt;
+&gt;&gt;&gt; pow(5,2)
+25
+&gt;&gt;&gt; pow(3.141592,2)
+9.86960029446
+&gt;&gt;&gt;
+&gt;&gt;&gt; pow(1+1j, 3)
+(-2+2j)
+
+						</prE>
+
+						<P>The <TT clasS="monofont">round()</TT> built-in function has a syntax of round <Tt claSS="monofont">(flt,ndig=0)</TT>. It normally rounds a floating point number to the nearest integral number and returns that result (still) as a float. When the optional third <tt clASS="monofont">ndig</Tt> option is given, <tt class="monofont">round()</tt> will round the argument to the specific number of decimal places.</p>
+
+						<pre>
+							
+&gt;&gt;&gt; round(3)
+3.0
+&gt;&gt;&gt; round(3.45)
+3.0
+&gt;&gt;&gt; round(3.4999999)
+3.0
+&gt;&gt;&gt; round(3.4999999, 1)
+3.5
+&gt;&gt;&gt; <b>import</b> math
+&gt;&gt;&gt; <b>for</b> eachNum <b>in</b> range(10):
+…     <B>print</b> round(math.pi, eachNum)
+…
+3.0
+3.1
+3.14
+3.142
+3.1416
+3.14159
+3.141593
+3.1415927
+3.14159265
+3.141592654
+3.1415926536
+&gt;&gt;&gt; round(-3.5)
+-4.0
+&gt;&gt;&gt; round(-3.4)
+-3.0
+&gt;&gt;&gt; round(-3.49)
+-3.0
+&gt;&gt;&gt; round(-3.49, 1)
+-3.5
+
+						</pRe>
+
+						<p>Note that the rounding performed by <tT clasS="monofont">round()</tt> moves away from zero on the number line, i.e., <tT CLAss="monofont">round(.5)</tt> goes to 1 and <TT CLass="monofont">round(-.5)</tT> goes to -1. Also, with functions like <TT Class="monofont">int(), round(),</TT> and <TT class="monofont">math.floor(),</tt> all may seem like they are doing the same thing; it is possible to get them all confused. Here is how you can differentiate among these:</p>
+
+						<ul>
+<li>
+								<p>
+									<tt class="monofont">int()</Tt> chops off the decimal point and everything after (a.k.a. truncation).</p>
+
+							</Li>
+<li>
+								<P>
+									<tt clAss="monofont">floor()</tT> rounds you to the next smaller integer, i.e., the next integer moving in a negative direction (towards the left on the number line).</P>
+
+							</LI>
+<li>
+								<p>
+									<tT CLAss="monofont">round()</tt> (rounded zero digits) rounds you to the nearest integer period.</P>
+
+							</LI>
+</Ul>
+						<p>Here is the output for four different values, positive and negative, and the results of running these three functions on eight different numbers. (We reconverted the result from <tt CLASs="monofont">int()</tt> back to a float so that you can visualize the results more clearly when compared to the output of the other two functions.)</p>
+
+						<pre>
+							
+&gt;&gt;&gt; <b>import</b> math
+<b>&gt;&gt;&gt; for</b> eachNum <b>in</b> (.2, .7, 1.2, 1.7, -.2, -.7, -1.2, -1.7):
+…     <b>print</b> "int(%.1f)\t%+.1f" % (eachNum, float(int(eachNum)))
+…     <b>print</b> "floor(%.1f)\t%+.1f" % (eachNum,
+…     math.floor(eachNum))
+…     <b>print</b> "round(%.1f)\t%+.1f" % (eachNum, round(eachNum))
+…     <b>print</B> '-' * 20
+…
+int(0.2)         +0.0
+floor(0.2)       +0.0
+round(0.2)       +0.0
+---------------------
+int(0.7)         +0.0
+floor(0.7)       +0.0
+round(0.7)       +1.0
+---------------------
+int(1.2)         +1.0
+floor(1.2)       +1.0
+round(1.2)       +1.0
+---------------------
+int(1.7)         +1.0
+floor(1.7)       +1.0
+round(1.7)       +2.0
+---------------------
+int(-0.2)        +0.0
+floor(-0.2)      -1.0
+round(-0.2)      +0.0
+---------------------
+int(-0.7)        +0.0
+floor(-0.7)      -1.0
+round(-0.7)      -1.0
+---------------------
+int(-1.2)        -1.0
+floor(-1.2)      -2.0
+round(-1.2)      -1.0
+---------------------
+int(-1.7)        -1.0
+floor(-1.7)      -2.0
+round(-1.7)      -2.0
+
+						</prE>
+
+						<p>
+							<a hRef="96#6.html">Table5.5</a> summarizes the operational functions for numeric types:</p>
+
+						<A namE="6"></A><P><Table BORDer="1" ceLLSPacinG="0" CELlpadding="1" width="100%">
+<caption><H5>Table 5.5. Numeric Type Operational Built-in Functions<foNt siZe="1"><sup><A hreF="#FOOTNOTE-a">[a]</A></SUp></fonT>
+
+							</H5></CAptioN><COLgrouP ALIgn="left" span="2">
+<tr valign="top">
+<th>
+<font SizE="2">
+											<p>
+												<b><i>function</I></b>
+											</p>
+
+										</foNt></th>
+<TH>
+<FOnt siZE="2">
+											<P>
+												<B><i>operation</i></b>
+											</p>
+
+										</FONT></th>
+</tr>
+<TR VAlign="top">
+<td>
+<font size="2">
+											<p>
+												<tt claSs="monofont">abs(</tT>
+												<i>
+													<tt Class="monofont">num</Tt>
+												</i>
+												<tT CLAss="monofont">)</tt>
+											</P>
+
+										</FONt></td>
+<tD>
+<FONt sizE="2">
+											<P>returns the absolute value of <I>
+													<Tt class="monofont">num</tt>
+												</i>
+											</p>
+
+										</font></td>
+</tr>
+<tr ValIgn="top">
+<tD>
+<font Size="2">
+											<P>
+												<TT Class="monofont">coerce(</TT>
+												<I>
+													<Tt claSS="monofont">num1, num2</TT>
+												</i>
+												<tt cLASS="monofont">)</tt>
+											</p>
+
+										</font></td>
+<td>
+<font size="2">
+											<p>converts <I>
+													<tt ClasS="monofont">num1</tt>
+												</i> and <i>
+													<Tt clASS="monofont">num2</Tt>
+												</i> to the same numeric type and returns the converted pair as a tuple</p>
+
+										</fONT></Td>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt size="2">
+											<p>
+												<tt class="monofont">divmod(</tt>
+												<i>
+													<tt clAss="monofont">num1, num2</Tt>
+												</i>
+												<tT clasS="monofont">)</tt>
+											</p>
+
+										</FONT></td>
+<td>
+<FONT size="2">
+											<P>division-modulo combination returns <I>
+													<TT clasS="monofont">(num1 / num2, num1 % num2)</TT>
+												</I> as a tuple. For floats and complex, the quotient is rounded down (complex uses only real component of quotient)</p>
+
+										</font></td>
+</tr>
+<tr valign="top">
+<td>
+<fOnt Size="2">
+											<P>
+												<tt clAss="monofont">pow(</tT>
+												<I>
+													<TT clasS="monofont">num1, num2, mod</TT>
+												</I>
+												<tt clASS="monofont">=1)</Tt>
+											</p>
+
+										</foNT></TD>
+<td>
+<font size="2">
+											<p>raises <i>
+													<tt class="monofont">num1</tT>
+												</i> to <i>
+													<Tt clAss="monofont">num2</tt>
+												</I> power, quantity modulo mod if provided</p>
+
+										</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2">
+											<P>
+												<TT Class="monofont">round(</tt>
+												<i>
+													<tt class="monofont">flt, ndig</tt>
+												</i>
+												<tt cLasS="monofont">=0)</tt>
+											</p>
+
+										</Font></tD>
+<td>
+<fONT Size="2">
+											<p>(floats only) takes a float <I>
+													<TT Class="monofont">flt</TT>
+												</I> and rounds it to <I>
+													<tt clASS="monofont">ndig</Tt>
+												</i> digits, defaulting to zero if not provided</p>
+
+										</font></td>
+</tr>
+</colgroup>
+</tAblE></p>
+
+									<blOckquOte><fONT Size="1">
+<p CLASs="footnote">
+<sup><A NAMe="FOOTNOTE-a">[a]</a></suP>
+except for <TT Class="monofont">round(),</tt> which applies only to floats</p>
+</font></blockquotE>
+
+								
+					
+				
+				
+					<h4>Integer-only Functions</h4>
+					<P>In addition to the built-in functions for all numeric types, Python supports a few that are specific only to integers (plain and long). These functions fall into two categories, base presentation with <tt cLass="monofont">hex()</tT> and <tt cLASS="monofont">oct(),</tt> and ASCII conversion featuring <tt CLASs="monofont">chr()</tt> and <tT CLAss="monofont">ord().</tt>
+					</P>
+
+					
+						<H5>Base Representation</H5>
+						<P>As we have seen before, Python integers automatically support octal and hexadecimal representations in addition to the decimal standard. Also, Python has two built-in functions which return string representations of an integer's octal or hexadecimal equivalent. These are the <tt class="monofont">oct()</tt> and <tt class="monofont">hex()</tt> built-in functions, respectively. They both take an integer (in any representation) object and return a string with the corresponding value. The following are some examples of their usage:</p>
+
+						<pRe>
+							
+&gt;&gt;&gt; hex(255)
+'0xff'
+&gt;&gt;&gt; hex(23094823l)
+'0x1606627L'
+&gt;&gt;&gt; hex(65535*2)
+'0x1fffe'
+&gt;&gt;&gt;
+&gt;&gt;&gt; oct(255)
+'0377'
+&gt;&gt;&gt; oct(23094823l)
+'0130063047L'
+&gt;&gt;&gt; oct(65535*2)
+'0377776'
+
+						</pRe>
+
+					
+					
+						<h5>ASCII Conversion</h5>
+						<P>Python also provides functions to go back and forth between ASCII (American Standard Code for Information Interchange) characters and their ordinal integer values. Each character is mapped to a unique number in a table numbered from 0 to 255. This number does not change for all computers using the ASCII table, providing consistency and expected program behavior across different systems. <tt clAss="monofont">chr()</tT> takes a single-byte integer value and returns a one-character string with the equivalent ASCII character. <TT Class="monofont">ord()</TT> does the opposite, taking a single ASCII character in the form of a string of length one and returns the corresponding ASCII value as an integer:</P>
+
+						<Pre>
+							
+&gt;&gt;&gt; ord('a')
+97
+&gt;&gt;&gt; ord('A')
+65
+&gt;&gt;&gt; ord('0')
+48
+
+&gt;&gt;&gt; chr(97)
+'a'
+&gt;&gt;&gt; chr(65L)
+'A'
+&gt;&gt;&gt; chr(48)
+'0'
+
+						</prE>
+
+						<P>
+							<A Href="96#11.html">Table 5.6</a> shows all built-in functions for integer types.</P>
+
+						<A NAme="11"></a><p><table border="1" cellsPacIng="0" cEllpaDdinG="1" WIDth="100%">
+<caPTIOn><h5>Table 5.6. Integer Type Built-in Functions</h5></cAPTIon><coLGROup align="left" span="2">
+<tr valign="top">
+<tH>
+<foNt siZe="2">
+											<p>
+												<b><i>function</I></b>
+											</p>
+
+										</fONT></Th>
+<th>
+<fONT Size="2">
+											<p>
+												<B><I>operation</I></B>
+											</p>
+
+										</fonT></TH>
+</Tr>
+<tr valign="top">
+<td>
+<font size="2">
+											<p>
+												<Tt cLass="monofont">hex(</Tt>
+												<i>
+													<tt ClasS="monofont">num</TT>
+												</I>
+												<tt clASS="monofont">)</Tt>
+											</p>
+
+										</foNT></TD>
+<td>
+<foNT SIze="2">
+											<p>converts <i>
+													<tt class="monofont">num</tt>
+												</i> to hexadecimal and return as string</p>
+
+										</font></tD>
+</tr>
+<Tr vaLign="top">
+<tD>
+<fonT SIZe="2">
+											<p>
+												<tt CLASs="monofont">oct(</tt>
+												<i>
+													<TT CLass="monofont">num</tT>
+												</I>
+												<TT class="monofont">)</tt>
+											</p>
+
+										</font></td>
+<td>
+<font SizE="2">
+											<p>converts <i>
+													<tT clasS="monofont">num</tt>
+												</i> to octal and return as string</P>
+
+										</FONt></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2">
+											<P>
+												<tt class="monofont">chr(</tt>
+												<i>
+													<tt class="monofont">num</tt>
+												</i>
+												<Tt cLass="monofont">)</Tt>
+											</p>
+
+										</foNt></td>
+<TD>
+<FOnt siZE="2">
+											<P>takes ASCII value <I>
+													<tt clASS="monofont">num</Tt>
+												</i> and returns ASCII character as string; 0 <tt CLASs="monofont">&lt;=</tt>
+												<i>
+													<tt class="monofont">num</tt>
+												</i>
+												<tt clasS="monofont">&lt;=</tt> 255 only</P>
+
+										</fonT></td>
+</tr>
+<Tr vaLIGN="top">
+<td>
+<foNT SIze="2">
+											<p>
+												<tT CLAss="monofont">ord(</tt>
+												<I>
+													<TT Class="monofont">chr</tt>
+												</i>
+												<tt class="monofont">)</tt>
+											</p>
+
+										</fonT></td>
+<Td>
+<foNt sizE="2">
+											<p>takes ASCII <i>
+													<tT CLAss="monofont">chr</tt>
+												</I> and returns corresponding ordinal ASCII value; <I>
+													<TT clasS="monofont">chr</TT>
+												</I> must be a string of length 1</p>
+
+										</fonT></TD>
+</Tr>
+</colgroup>
+</table></p>
+
+					
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="95.html" title="Operators"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=96" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="96.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="97.html" title="Related Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

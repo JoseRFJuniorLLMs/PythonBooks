@@ -1,0 +1,425 @@
+<html><head><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=Generator content="Microsoft Word 10 (filtered)"><link rel="stylesheet" type="text/css" href="1.css"><title></title></head><body lang=EN-US link="#990000" vlink=purple><div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=17.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=19.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div><br><br>
+<h2><a name="_Chapter_14._Working_with_Email"></a><a
+name="_Chapter_14._Working_with Email"></a>Chapter 14. Working with Email</h2>
+
+<p>Email is everywhere these days and is so simple, it can be used for many
+tasks beyond personal communications. It is not uncommon to find a program that
+sends an email to an administrator when it encounters some critical situation.
+Forms on the Web often run a simple CGI script that send the details to a
+specific email address. Once the volume of these emails increase, an automated
+script may process the mailbox and further process the messages according to
+some criteria based on the email contents.</p>
+
+<p>For these and many other reasons, it is not a surprise to find that working
+with email is a common task, particularly for scripting languages. There are
+many email systems in use, including SMTP/POP3 facilities, Microsoft Exchange
+Server, and IBM’s Domino (previously known as Lotus Notes) among others.</p>
+
+<p>In this chapter, we look at some common techniques for working with email on
+Windows. For each technology, we develop short examples that send an email and
+then attempt to get that same mail back.</p>
+
+<h3><a name="_14.1_SMTP_and_POP3"></a>14.1 SMTP and POP3</h3>
+
+<p>SMTP is an acronym for Simple Mail Transfer Protocol. This is an Internet
+standard, specified in RFC-821, and as its name implies, is a protocol for
+transferring mail messages. When an SMTP server receives a piece of mail, it
+does one of two things: forwards the email to a host closer to the intended
+recipient, or if the recipient is local, places the email in the recipient’s
+mailbox. Thus, SMTP provides a technique for putting messages in a mailbox, but
+it doesn’t define a technique for retrieving existing messages from a mailbox.
+To this end, the Post Office Protocol, Version 3 (POP3) has been designed, as
+specified in RFC-1725. Its explicit purpose is to allow remote access to a
+mailbox managed on a remote computer.</p>
+
+<p>In practice, this means that SMTP can send Internet email, and POP3 can retrieve
+Internet email.</p>
+
+<p>As is common for Internet protocols, both mail protocols use a simple
+conversation between a client and a server. This conversation is “line-based”
+(meaning all commands and responses are sent as complete lines) and works
+exclusively with 7-bit ASCII data. Each protocol defines its own special
+command and response sequence to support its various options.</p>
+
+<p>The mail messages handled by both these protocols must be formatted as
+specified in various RFCs, starting with RFC-822, to the latest, which is
+RFC-1521. In a nutshell, these RFCs define the format of the <i>message header</i>
+(a list of headers for the message, including the subject, recipient
+information, etc.), and the <i>message body</i> . The message body must consist
+of 7-bit ASCII and may optionally include a number of different sections. These
+sections typically encode binary attachments or alternative renderings of the
+message text. Messages with multiple sections are typically referred to as
+Multipurpose Internet Mail Extensions (MIME) messages. Unfortunately, MIME is a
+complex beast and beyond the scope of this chapter. Python does support various
+MIME standards, but using and packing everything into an email message is not
+for the faint hearted. If you have this requirement, and Microsoft Exchange or
+a slightly higher-level email system is available, you should consider using
+that.</p>
+
+<h4>14.1.1 Sending an SMTP Message</h4>
+
+<p>To begin, we’ll use Python to send a simple message using the SMTP protocol.
+Our message will contain the minimum number of message headers, a plain ASCII
+message body, and no attachments.</p>
+
+<p>To assist in this task, we’ll use the Python module <tt><span
+style='font-size:10.0pt'>smtplib</span></tt> . This module contains a single
+class, <tt><span style='font-size:10.0pt'>SMTP</span></tt> , that manages the
+connection with the SMTP server and provides useful methods for interacting
+with the server.</p>
+
+<p>Sending a simple message using SMTP is so simple it’s not worth writing a
+sample source file for this purpose; you can do it at the interactive window.
+The <tt><span style='font-size:10.0pt'>SMTP</span></tt> class provides the
+following method:</p>
+
+<pre>bad_addresses = sendmail( <tt><i>from</i></tt>, <tt><i>to</i></tt>, <tt><i>message</i></tt> )</pre>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>from</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>A string with the address of the sender.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>to</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>A list of strings, one for each recipient.</p>
+
+<p class=MsoNormal><tt><i><span style='font-size:10.0pt;color:#990000'>message</span></i></tt><span
+style='font-family:Arial'> </span></p>
+
+<p style='margin-left:.5in'>A message as a string formatted as specified in the
+various RFCs.</p>
+
+<p>So all you need is the message itself, a list of recipients, and your own
+email address.</p>
+
+<p>As per RFC-822, the format of the message is simple. It consists of a list
+of message headers, followed by a blank line, followed by the message body. For
+this demonstration, you can set up a message with the following code:</p>
+
+<pre>&gt;&gt;&gt; msg=&quot;Subject: Hi from Python\n\nHello.&quot;</pre>
+
+<p>Define the subject of the message as “Hi from Python” and the body as
+“Hello.”</p>
+
+<p>Next, define a variable with your email address and SMTP host:</p>
+
+<pre>&gt;&gt;&gt; address=&quot;MHammond@skippinet.com.au&quot;</pre><pre>&gt;&gt;&gt; host=&quot;mail-hub&quot;</pre>
+
+<p>And send the message to yourself:</p>
+
+<pre>&gt;&gt;&gt; import smtplib</pre><pre>&gt;&gt;&gt; s=smtplib.SMTP(host)</pre><pre>&gt;&gt;&gt; s.sendmail(address, [address], msg)</pre><pre>{}</pre>
+
+<p>The result from this function is a dictionary of email addresses in the <i>to</i>
+list that failed; the dictionary is keyed by the email address, with the error
+message as the value. In this example you received an empty dictionary, so
+everything went OK. See the <tt><span style='font-size:10.0pt'>smtplib</span></tt>
+module documentation for more information on error handling.</p>
+
+<h4>14.1.2 Receiving via POP3</h4>
+
+<p>POP3 downloads messages from a remote mailbox. As we discussed previously,
+SMTP is used typically to send Internet email messages, and POP3 receives them.</p>
+
+<p>Like most Internet protocols, POP3 uses a line-based communications
+protocol, and also like most Internet protocols, you will find a Python module
+designed to ease working with that protocol; in this case the Python module is <tt><span
+style='font-size:10.0pt'>poplib</span></tt> .</p>
+
+<p>Before delving into a discussion of POP3, it is worth noting that an
+improved protocol known as Internet Message Access Protocol (IMAP) has been
+designed. Although this fixes many of the shortcomings in the POP3 protocol,
+it’s not used as widely as POP3. Therefore, we will discuss using POP3 to
+ensure the code works on the widest possible range of mail servers. If you need
+to investigate using the IMAP protocol, you should view the module <tt><span
+style='font-size:10.0pt'>imaplib</span></tt> and its associated documentation.</p>
+
+<p>There are three steps to establishing a connection to a POP3 mailbox:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Connect to the server by creating a <tt><span style='font-size:10.0pt'>poplib.POP3()</span></tt>
+instance, specifying the hostname.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Send the mailbox account name, using the <tt><span style='font-size:
+10.0pt'>user()</span></tt> method.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Send the mailbox password using the <tt><span style='font-size:10.0pt'>pass_()</span></tt>
+method (<tt><span style='font-size:10.0pt'>pass</span></tt> is a reserved word
+in Python, hence the trailing underscore).</p>
+
+<p>You now have a valid connection, and the mailbox is locked. While the
+mailbox is locked, no other connections are possible, so it’s important to
+unlock the mailbox when you’re done using the <tt><span style='font-size:10.0pt'>quit()</span></tt>
+method. If you don’t unlock the mailbox, other mail clients (such as your
+regular email client) won’t be able to connect until the connection times out,
+which may take some time. It would be appropriate to use a Python <tt><span
+style='font-size:10.0pt'>finally</span></tt> block for this purpose, as the
+example will show.</p>
+
+<p>POP3 messages are numbered from 1-n, where n is the number of messages
+currently in the mailbox. Obviously, these message numbers are not unique and
+are valid only for the given session. So the first step to reading the mailbox
+is to determine the number of messages in the mailbox using the <tt><span
+style='font-size:10.0pt'>stat()</span></tt> method. Then you can request each
+message by number. For the first example, don’t bother looping over all the
+messages, but, instead, just look at the first message:</p>
+
+<pre># DumpPop.py - Dumps the first message in a POP3 mailbox.</pre><pre>import sys</pre><pre>import poplib</pre><pre>&nbsp;</pre><pre>def DumpAPopMessage(host, user, password):</pre><pre>    # Establish a connection to the POP server.</pre><pre>    a = poplib.POP3(host)</pre><pre>    # Note we print the server response, although not necessary!</pre><pre>    print a.user(user)</pre><pre>    print a.pass_(password)</pre><pre>    # The mailbox is now locked - ensure we unlock it!</pre><pre>    try:</pre><pre>        (numMsgs, totalSize) = a.stat()</pre><pre>        if numMsgs == 0:</pre><pre>            print &quot;Sorry - there are no messages in the mailbox&quot;</pre><pre>        else:</pre><pre>            (server_msg, body, octets) = a.retr(1)</pre><pre>            print &quot;Server Message:&quot;, server_msg</pre><pre>            print &quot;Number of Octets:&quot;, octets</pre><pre>            print &quot;Message body:&quot;</pre><pre>            for line in body:</pre><pre>                print line</pre><pre>    finally:</pre><pre>        print a.quit()</pre><pre>&nbsp;</pre><pre>if __name__=='__main__':</pre><pre>    if len(sys.argv)&lt;4:</pre><pre>        print &quot;Usage:&quot;, sys.argv[0], &quot;host username password&quot;</pre><pre>    else:</pre><pre>        DumpAPopMessage(sys.argv[1], sys.argv[2], sys.argv[3])</pre>
+
+<p>As you can see, the example expects you to pass the hostname, the username,
+and password on the command line. You can test the script from the command
+prompt, as the following output shows:</p>
+
+<pre>C:\Scripts&gt;DumpPop.py pop-server mhammond topsecret</pre><pre>+OK Password required for mhammond</pre><pre>+OK mhammond's maildrop has 1 messages (1730 octets)</pre><pre>Server Message: +OK 1730 octets</pre><pre>Number of Octets: 1730</pre><pre>Message body:</pre><pre>Return-Path: &lt;MHammond@skippinet.com.au&gt;</pre><pre>Received: from mr4.vic-remote.bigpond.net.au ([24.192.1.19])</pre><pre>          by m5.bigpond.net.au (Netscape Messaging Server 3.54)  with ESMTP</pre><pre>          id AAA26FD for &lt;mhammond@vic.bigpond.net.au&gt;;</pre><pre>          Thu, 15 Jul 1999 21:01:30 +1000</pre><pre>...</pre><pre>Importance: Normal</pre><pre>X-MimeOLE: Produced By Microsoft MimeOLE V4.72.3110.3</pre><pre>&nbsp;</pre><pre>Hello</pre><pre>+OK m5.bigpond.net.au POP3 server closing connection</pre><pre>&nbsp;</pre><pre>C:\Scripts&gt;</pre>
+
+<p>This is the same message you sent previously. Notice all the headers this
+message now has; even though you specified only a few, the mail transport
+system has added many more. The output shown has had many headers removed for
+brevity.</p>
+
+<p>At this point you may start to get a little worried. Looking at the code,
+you can see the message is returned as a list of lines, but many of those lines
+are headers. Worse, some of the headers are split over multiple lines (as supported
+by the relevant RFC). Does this mean you need to understand all this before
+doing anything useful?</p>
+
+<p>Fortunately, Python has library support for parsing and using data of this
+format. The most basic support can be found in the <tt><span style='font-size:
+10.0pt'>rfc822.Message</span></tt> class, but the <tt><span style='font-size:
+10.0pt'>mimetools</span></tt> module supports an extension to this class that
+supports the various MIME extensions (as described earlier). Since MIME is an
+extension to the basic standard, you can safely use it even for non-MIME
+messages.</p>
+
+<p>A slight complication is that the <tt><span style='font-size:10.0pt'>mimetools.Message()</span></tt>
+class expects to receive a file object from which it obtains its data, rather
+than a list of lines! The <tt><span style='font-size:10.0pt'>StringIO</span></tt>
+(or <tt><span style='font-size:10.0pt'>cStringIO</span></tt>) module can make a
+file object from a string, but there is a list of strings. The simplest
+solution is to join the list back into a huge string and feed that into <tt><span
+style='font-size:10.0pt'>cStringIO</span></tt>.</p>
+
+<p>Once you create <tt><span style='font-size:10.0pt'>mimetools.Message()</span></tt>,
+all the headers are read, and the file is positioned at the start of the body.
+You can then use the various methods to examine the headers. Depending on the
+message content, you can either read the rest of the file to obtain the body or
+use some of the MIME-specific features to process the various sections.</p>
+
+<p>You can now modify the example to take advantage of this class. Loop over
+all messages in the mailbox and examine the Subject header for the test
+message. When you find the message, print the message body and delete the
+message.</p>
+
+<p>The significant additions to the new example are:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>A loop to examine all the messages.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Using <tt><span style='font-size:10.0pt'>cStringIO</span></tt> to
+create a file object as discussed.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Examine the Subject header of each message using the <tt><span
+style='font-size:10.0pt'>getheader()</span></tt> method.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in'><span style='font-size:10.0pt;
+font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Delete the message with the <tt><span style='font-size:10.0pt'>dele()</span></tt>
+method of the POP3 session.</p>
+
+<pre># DumpPop2.py - Dumps and deletes a test message from a POP3 mailbox.</pre><pre>import sys</pre><pre>import poplib</pre><pre>import string</pre><pre>import mimetools</pre><pre>import cStringIO</pre><pre>&nbsp;</pre><pre>def DumpAPopMessage(host, user, password):</pre><pre>    # Establish a connection to the POP server.</pre><pre>    a = poplib.POP3(host)</pre><pre>    # Note we print the server response, although not necessary!</pre><pre>    print a.user(user)</pre><pre>    print a.pass_(password)</pre><pre>    # The mailbox is now locked - ensure we unlock it!</pre><pre>    try:</pre><pre>        (numMsgs, totalSize) = a.stat()</pre><pre>        for thisNum in range(1, numMsgs+1):</pre><pre>            (server_msg, body, octets) = a.retr(1)</pre><pre>            # Create a file like object suitable for the</pre><pre>            # mimetools.Message class.</pre><pre>            pseudo_file = cStringIO.StringIO(string.join(body, '\n'))</pre><pre>            msg = mimetools.Message(pseudo_file)</pre><pre>            if msg.getheader(&quot;Subject&quot;)==&quot;Hi from Python&quot;:</pre><pre>                print &quot;Found our test message&quot;</pre><pre>                print &quot;Body is&quot;, `pseudo_file.read()`</pre><pre>                print a.dele(thisNum)</pre><pre>                print &quot;Message deleted!&quot;</pre><pre>    finally:</pre><pre>        print a.quit()</pre><pre>&nbsp;</pre><pre>if __name__=='__main__':</pre><pre>    if len(sys.argv)&lt;4:</pre><pre>        print &quot;Usage:&quot;, sys.argv[0], &quot;host username password&quot;</pre><pre>    else:</pre><pre>        DumpAPopMessage(sys.argv[1], sys.argv[2], sys.argv[3])</pre>
+
+<p>You can run this example using parameters identical to the previous example:</p>
+
+<pre>C:\Scripts&gt;DumpPop2.py pop-server mhammond topsecret</pre><pre>+OK Password required for mhammond</pre><pre>+OK mhammond's maildrop has 1 messages (1243 octets)</pre><pre>Found our test message</pre><pre>Body is 'Hello'</pre><pre>+OK Message 1 deleted</pre><pre>Message deleted!</pre><pre>+OK m5.bigpond.net.au POP3 server closing connection</pre><pre>C:\Scripts&gt;</pre>
+
+<p>If you experiment with this code, you’ll see that the <tt><span
+style='font-size:10.0pt'>Message</span></tt> class has correctly handled the
+continuation of long header lines. Working with the message headers is made far
+simpler with the <tt><span style='font-size:10.0pt'>mimetools.Message</span></tt>
+class and worth the small hoops you need to jump through to use it. </p>
+
+<h3><a name="_14.2_Microsoft_Exchange/Outlook"></a>14.2 Microsoft
+Exchange/Outlook</h3>
+
+<p>The use of Microsoft messaging products is becoming quite common in larger
+organizations. The Microsoft Exchange Server is often used at the backend, and
+various versions of Microsoft Exchange or Microsoft Outlook may be used as the client.</p>
+
+<p>One key feature of Microsoft Exchange is that it exposes a rich and powerful
+API developers can use to extend their applications. Tasks such as form
+processing, or processing appointments or contact lists, can all be accessed
+from a COM interface. Although we will only discuss sending a simple message
+using Microsoft Exchange, you should peruse the documentation supplied with
+Exchange to get a feel for its capabilities.</p>
+
+<h4>14.2.1 Collaboration Data Objects</h4>
+
+<p>Collaboration Data Objects (CDO) is a general-purpose COM automation
+interface for working with Microsoft Exchange. Because CDO is an automation
+interface, it’s suitable for use with scripting languages, such as Visual
+Basic, JavaScript, and of course, Python.</p>
+
+<p>CDO has gone through various name changes over its long life. Its evolution
+can be traced through “Simple MAPI,” a set of APIs for Visual Basic 1, through
+a more general-purpose Visual Basic Extension (VBX), then into a
+general-purpose COM interface known as Active Messaging, and finally receiving
+even more features and being renamed CDO.</p>
+
+<p>It provides a rich object model; there are objects for messages, folders,
+users, distribution lists, etc. The object model is “rooted” from a MAPI
+session object. The session object identifies the mailbox and provides a list
+of subfolders, each of which has its own list of messages and subfolders.</p>
+
+<p>First, let’s experiment with MAPI from a Python prompt. Create a MAPI
+session using the standard COM technique:</p>
+
+<pre>&gt;&gt;&gt; from win32com.client import Dispatch</pre><pre>&gt;&gt;&gt; s=Dispatch(&quot;Mapi.Session&quot;)</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Then log on to the MAPI session. This presents a dialog box to authenticate
+the session:</p>
+
+<pre>&gt;&gt;&gt; s.Logon()</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>By consulting the documentation for the MAPI session object, you can see
+there is an <tt><span style='font-size:10.0pt'>Inbox</span></tt> property,
+which is a <tt><span style='font-size:10.0pt'>Folder</span></tt> object. You
+can see how many messages this folder contains:</p>
+
+<pre>&gt;&gt;&gt; len(s.Inbox.Messages)</pre><pre>304</pre>
+
+<p>And look at the first one:</p>
+
+<pre>&gt;&gt;&gt; s.Inbox.Messages.Item(1).Subject</pre><pre>'Free WinZip Self-Extractor 2.1 Upgrade'</pre>
+
+<div align=center>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="90%"
+ style='width:90.0%;background:black'>
+ <tr>
+  <td style='padding:.75pt .75pt .75pt .75pt'>
+  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%"
+   style='width:100.0%;background:white'>
+   <tr>
+    <td width=60 valign=top style='width:45.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt'>
+    <p class=MsoNormal><span style='font-family:Arial'><img border=0 width=50
+    height=54 src="images/image002.gif"></span></p>
+    </td>
+    <td valign=top style='padding:4.5pt 4.5pt 4.5pt 4.5pt'>
+    <p>Because the <tt><span style='font-size:10.0pt'>Item()</span></tt> method
+    is the default method for a <tt><span style='font-size:10.0pt'>Messages</span></tt>
+    object, you can use a shortcut to access it. It’s possible to use the
+    syntax:</p>
+    <pre>&gt;&gt;&gt; s.Inbox.Messages[1].Subject</pre><pre>'Free WinZip Self-Extractor 2.1 Upgrade'</pre>
+    <p>However, since we are indirectly calling the <tt><span style='font-size:
+    10.0pt'>Item()</span></tt> method and documentation is found under the
+    method name, we’ll stick to the slightly longer version.</p>
+    </td>
+   </tr>
+  </table>
+  <p class=MsoNormal></p>
+  </td>
+ </tr>
+</table>
+
+</div>
+
+<h5 style='page-break-after:avoid'>14.2.1.1 Sending a message with CDO</h5>
+
+<p>The procedure to send an email with CDO is simple; create a new message in
+the outbox, set the message’s properties, and send it. Let’s do this
+interactively using the session object created previously. First, create a new
+message in the outbox using the <tt><span style='font-size:10.0pt'>Add()</span></tt>
+method. The CDO documentation states that this takes two parameters: the
+subject of the message and the text of the message:</p>
+
+<pre>&gt;&gt;&gt; newMsg = s.Outbox.Messages.Add(&quot;Hi from Python&quot;, &quot;Hello&quot;)</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Now add a single recipient using the message’s <tt><span style='font-size:
+10.0pt'>Recipients</span></tt> property. The <tt><span style='font-size:10.0pt'>Recipients.Add()</span></tt>
+method takes two parameters: the display name of the recipient and the email
+address. Note that the email address must be prefixed with the Exchange
+Transport to be used; in this case, use the SMTP transport for Internet email
+addresses:</p>
+
+<pre>&gt;&gt;&gt; recip = newMsg.Recipients.Add(&quot;Mark Hammond&quot;, &quot;SMTP:MHammond@skippinet.com.au&quot;)</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>And send the message:</p>
+
+<pre>&gt;&gt;&gt; newMsg.Send()</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Now the message is sitting in the outbox, waiting to be delivered. Depending
+on the local configuration options, it may be some time before the next
+scheduled connection for delivery and receipt of mail. You can force this by
+calling the <tt><span style='font-size:10.0pt'>DeliverNow()</span></tt> method
+on the session:</p>
+
+<pre>&gt;&gt;&gt; s.DeliverNow()</pre><pre>&gt;&gt;&gt;</pre>
+
+<h5>14.2.1.2 Retrieving a message with CDO</h5>
+
+<p>Now that we have sent out message using Microsoft Exchange, let’s write a
+few lines to read the message back. Depending on the speed of your email server
+and the route the email takes before getting back, it may take some time for
+the mail to be returned. At any time you can force the client to connect to the
+server to check for new messages by calling the <tt><span style='font-size:
+10.0pt'>DeliverNow()</span></tt> method.</p>
+
+<p>The first thing to do is print the subject of the last message in the inbox:</p>
+
+<pre>&gt;&gt;&gt; print s.Inbox.Messages[len(s.Inbox.Messages)].Subject</pre><pre>Hi from Python</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Another demonstration would be to loop over all messages in the inbox, find
+the test message sent previously, and delete it. CDO provides special methods
+for iterating over all messages, in either a forward or reverse direction. You
+could even allow CDO to perform additional filtering of the message, but for
+now, try it for yourself.</p>
+
+<p>The methods we will use for iterating are <tt><span style='font-size:10.0pt'>GetFirst()</span></tt>
+and <tt><span style='font-size:10.0pt'>GetNext()</span></tt> . These are
+methods of a <tt><span style='font-size:10.0pt'>Messages</span></tt>
+collection, so the first thing to do is save the <tt><span style='font-size:
+10.0pt'>Messages</span></tt> collection to a local variable:</p>
+
+<pre>&gt;&gt;&gt; messages = s.Inbox.Messages</pre>
+
+<p>You can then write a loop checking each message, and when you find one to
+delete, call the <tt><span style='font-size:10.0pt'>Delete()</span></tt> method
+on the message. Here’s the code:</p>
+
+<pre>&gt;&gt;&gt; msg = messages.GetFirst()</pre><pre>&gt;&gt;&gt; while msg is not None:</pre><pre>...     if msg.Subject == &quot;Hi from Python&quot;:</pre><pre>...         print &quot;Deleting msg from&quot;, msg.Sender.Name</pre><pre>...         msg.Delete()</pre><pre>...     msg = messages.GetNext()</pre><pre>... </pre><pre>Deleting msg from Mark Hammond</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>As you can see, the code found and deleted exactly one message. CDO exposes
+a rich object model for folders and messages; every property imaginable about a
+message can be obtained. See the CDO documentation for more details. </p>
+
+<h3><a name="_14.3_Conclusion"></a>14.3 Conclusion</h3>
+
+<p>In this chapter, we presented a quick overview of two common mail systems
+used on Windows: Internet email and Microsoft Exchange.</p>
+
+<p>The protocols defined by the various standards are still the most common in
+use for Windows. Many Windows users use email only through an Internet service
+provider, and the vast majority of these provide email servers that use the
+POP3 and SMTP protocols. We presented enough information for you to have a basic
+understanding of these protocols, and how to make use of them from Python. For
+further information, you should consult the Python documentation on these
+Python modules.</p>
+
+<p>In many corporate Windows environments, Microsoft Exchange is the mail
+server of choice. Although Microsoft Exchange generally supports the Internet
+protocols, it also supports a far more flexible and simple interface using COM.
+If you work in an Exchange environment, we’ve given you enough information to
+get started with the rich model exposed by Exchange. For more information, see
+the CDO documentation at <a href="http://www.microsoft.com/exchange"
+target="_blank">http://www.microsoft.com/exchange</a>.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+<div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=17.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=19.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div></body></html>

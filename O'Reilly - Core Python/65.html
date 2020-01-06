@@ -1,0 +1,106 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Functions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="48.html" class="navtitle">2. Getting Started</a> &gt; <span class="nonavtitle">Functions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="64.html" title="Errors and Exceptions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=65" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="65.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="66.html" title="Classes"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A10%3A07+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172036093228167235163059</font><a href="read0.asp?bookname=0130260363&snode=65&now=5%2F29%2F2002+9%3A10%3A07+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Functions</h3>
+				<p>Functions in Python follow rules and syntax similar to most other languages: Functions are called using the functional operator ( ( ) ), functions must be declared before they are used, and the function type is the type of the value returned.</p>
+
+				<P>All arguments of function calls are made by reference, meaning that any changes to these parameters within the function affect the original objects in the calling function.</P>
+
+				
+					<H4>How to Declare a Function</H4>
+					<pre>
+						
+ <b>def</B>
+							<I>function_name</I>([ <I>arguments</i>]):
+    "<i>optional documentation string</i>"
+    <i>function_suite</I>
+
+					</PRE>
+
+					<p>The syntax for declaring a function consists of the <b><tt class="monofont">def</tt></b> keyword followed by the function name and any arguments which the function may take. Function arguments such as <i><tt class="monofont">arguments</Tt></i> above are optional, hence the reason why they are enclosed in brackets above. (Do not physically put brackets in your code!) The statement terminates with a colon (the same way that an <B><tt cLass="monofont">if</tT></b> or <b><tT CLAss="monofont">while</tt></B> statement is terminated), and a code suite representing the function body follows. Here is one short example:</P>
+
+					<PRe>
+						
+ <b>def</b> addMe2Me(x):
+    'apply + operation to argument'
+    <b>return</B> (x + x)
+
+					</PRE>
+
+					<p>This function, presumably meaning "add me to me" takes an object, adds its current value to itself and returns the sum. While the results are fairly obvious with numerical arguments, we point out that the plus sign works for almost all types. In other words, most of the standard types support the <tt cLASS="monofont">+</tt> operator, whether it be numeric addition or sequence concatenation.</p>
+
+				
+				
+					<h4>How to Call Functions</h4>
+					<pre>
+						
+&gt;&gt;&gt; addMe2Me(4.25)
+8.5
+&gt;&gt;&gt;
+&gt;&gt;&gt; addMe2Me(10)
+20
+&gt;&gt;&gt;
+&gt;&gt;&gt; addMe2Me('Python')
+'PythonPython'
+&gt;&gt;&gt;
+&gt;&gt;&gt; addMe2Me([-1, 'abc'])
+[-1, 'abc', -1, 'abc']
+
+					</pre>
+
+					<p>Calling functions in Python is similar to function invocations in other high-level languages, by giving the name of the function followed by the functional operator, a pair of parentheses. Any optional parameters go between the parentheses. Observe how the <tt class="monofont">+</tT> operator works with non-numeric types.</p>
+
+				
+				
+					<h4>Default arguments</H4>
+					<p>Functions may have arguments which have default values. If present, arguments will take on the appearance of assignment in the function declaration, but in actuality, it is just the syntax for default arguments and indicates that if a value is not provided for the parameter, it will take on the assigned value as a default.</p>
+
+					<pRe>
+						
+&gt;&gt;&gt; <b>def</b> foo(debug=1):
+…       'determine if in debug mode with default argument'
+…       <b>if</B> debug:
+…           <b>print</b> 'in debug mode'
+…       <b>print</B> 'done'
+…
+&gt;&gt;&gt; foo()
+in debug mode
+done
+&gt;&gt;&gt; foo(0)
+done
+
+					</PRE>
+
+					<p>In the example above, the debug parameter has a default value of 1. When we do not pass in an argument to the function <tt cLASS="monofont">foo(),</tt> debug automatically takes on a true value of 1. On our second call to <tt CLASs="monofont">foo(),</tt> we deliberately send an argument of 0, so that the default argument is not used.</p>
+
+					<P>Functions have many more features than we could describe in this introductory section. Please refer to <A HRef="170.html">Chapter 11</a> for more details.</p>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="64.html" title="Errors and Exceptions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=65" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="65.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="66.html" title="Classes"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

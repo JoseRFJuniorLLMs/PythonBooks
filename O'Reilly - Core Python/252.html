@@ -1,0 +1,79 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Sockets: Communication Endpoints</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="249.html" class="navtitle">16. Network Programming</a> &gt; <span class="nonavtitle">Sockets: Communication Endpoints</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="251.html" title="Introduction"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=252" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="252.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="253.html" title="Network Programming in Python"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A28%3A45+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004228155062032098094050116</font><a href="read9.asp?bookname=0130260363&snode=252&now=5%2F30%2F2002+8%3A28%3A45+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Sockets: Communication Endpoints</h3>
+				
+					<h4>What Are Sockets?</h4>
+					<P>Sockets are computer networking data structures which embody the concept of the "communication endpoint" described in the previous section. Networked applications must create sockets before any type of communication can commence. They can be likened to telephone jacks, without which engaging in communication is impossible.</P>
+
+					<P>Sockets originated in the 1970s from the University of California, Berkeley version of UNIX, known as BSD UNIX. Therefore, you will sometimes hear these sockets referred to as "Berkeley sockets" or "BSD sockets." Sockets were originally created for same-host applications where they would enable one running program (a.k.a. a process) to communicate with another running program. This is known as <I>interprocess communication,</i> or "IPC" for short.</p>
+
+					<p>One interesting historical note: Sockets were invented before networking existed. Despite what you may have heard, sockets have not always been just for networked applications. These original sockets, still in use today, are called UNIX sockets and have a "family name" of AF_UNIX, which stands for "<i>address family:</I> UNIX." (Most popular platforms, including Python, use the term "address families" and "AF" abbreviation while other systems may refer to address families as "domains" or "protocol families" and use "PF" rather than "AF.") Because both processes run on the same machine, these sockets are file-based, meaning that their underlying infrastructure is supported by the file system. This makes sense because the file system is a shared constant between processes running on the same host.</P>
+
+					<P>When networking (utilizing the Internet Protocol [a.k.a. IP]) became a reality, researchers believed that interprocess communication should still be able to take place, but rather than restricting both applications to running on the same machine, why not enable a process on one machine to talk to a process on a different machine? These newer, networked sockets have their own family name, AF_INET, or "address family: Internet." There are other address families, all of which are either specialized, antiquated, seldom used, or remain unimplemented. Of all address families, AF_INET is now the most widely used. Python supports only the AF_UNIX and AF_INET families. Because of our focus on network programming, we will be using AF_INET for most of the remaining part of this chapter.</P>
+
+				
+				
+					<h4>Socket Addresses: Host-port Pairs</h4>
+					<p>If a socket is like a telephone jack, a piece of infrastructure that enables communication, then a hostname and port number are like an area code and telephone number combination. Having the hardware and ability to communicate doesn't do any good unless you know whom and where to "dial." An Internet address is comprised of a hostname and port number pair, and such an address is required for networked communication. It goes without saying that there should also be someone listening at the other end; otherwise, you get the familiar, "DO-SO-DO" tones followed by "I'm sorry, that number is no longer in service. Please check the number and try your call again." You have probably seen one networking analogy during Web surfing, i.e., "Unable to contact server. Server is not responding or is unreachable."</p>
+
+					<P>Valid port numbers range from 0–65535, although those less than 1024 are reserved for the system. If you are using a Unix system, the list of reserved port numbers (along with servers/protocols and socket types) is found in the <TT Class="monofont">/etc/services</tt> file. A list of well-known port numbers is accessible at this Web site:</p>
+
+					<pre>
+						
+<a target="_blank" hreF="http://www.isi.edu/in-notes/iana/assignments/port-numbers">http://www.isi.edu/in-notes/iana/assignments/port-numbers</a>
+
+					</pRe>
+
+				
+				
+					<h4>Connection-Oriented vs. Connectionless</h4>
+					
+						<H5>Connection-Oriented</h5>
+						<p>Regardless of which address family you are using, there are two different styles of socket connections. The first type is connection-oriented. What this basically means is that a connection must be established before communication can occur, such as calling a friend using the telephone system. This type of communication is also referred to as a "virtual circuit" or "stream socket."</p>
+
+						<p>Connection-oriented communication offers sequenced, reliable, and unduplicated delivery of data, and without record boundaries. That basically means that each message may be broken up into multiple pieces, which are all guaranteed to arrive ("exactly-once" semantics means no loss or duplication of data) at their destination to be, put back together and in order, and delivered to the waiting application.</P>
+
+						<p>The primary protocol which implements such connection types is the Transmission Control Protocol (or better known by its acronym "TCP"). To create TCP sockets, one must use SOCK_STREAM as the type of socket one wants to create. The SOCK_STREAM name for a TCP socket is based on one of its denotations as stream socket. Because these sockets use the Internet Protocol to find hosts in the network, the entire system generally goes by the combined names of both protocols (TCP and IP) or "TCP/IP."</p>
+
+					
+					
+						<h5>Connectionless</H5>
+						<P>In stark contrast to virtual circuits is the datagram type of socket, which is connectionless. This means that no connection is necessary before communication can begin. Here, there are no guarantees of sequencing, reliability or non-duplication in the process of data delivery. Datagrams do preserve record boundaries, however, meaning that entire messages are sent rather than being broken into pieces first, like connection-oriented protocols.</P>
+
+						<P>Message delivery using datagrams can be compared to the postal service. Letters and packages may not arrive in the order they were sent. In fact, they might not arrive at all! To add to the complication, in the land of networking, <i>duplication</i> of messages is even possible.</p>
+
+						<p>So with all this negativity, why use datagrams at all? (There must be <I>some</I> advantage over using stream sockets!) Because of the guarantees provided by connection-oriented sockets, a good amount of overhead is required for their setup as well as in maintaining the virtual circuit connection. Datagrams do not have this overhead and thus are "less expensive," usually providing better performance and may be suitable for some types of applications.</P>
+
+						<P>The primary protocol which implements such connection types is the User Datagram Protocol (or better known by its acronym "UDP"). To create UDP sockets, one must use SOCK_DGRAM as the type of socket they want to create. The SOCK_DGRAM name for a UDP socket, as you can probably tell, comes from the word "datagram." Because these sockets also use the Internet Protocol to find hosts in the network, this system also has a more general name, going by the combined names of both of these protocols (UDP and IP), or "UDP/IP."</p>
+
+					
+				
+			</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="251.html" title="Introduction"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=252" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="252.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="253.html" title="Network Programming in Python"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

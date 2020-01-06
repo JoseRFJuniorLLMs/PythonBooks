@@ -1,0 +1,257 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Advanced Web Clients</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="271.html" class="navtitle">19. Web Programming</a> &gt; <span class="nonavtitle">Advanced Web Clients</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="274.html" title="Web Surfing with Python: Creating Simple Web Clients"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=275" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="275.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="276.html" title="CGI: Helping Web Servers Process Client Data"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A37%3A49+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004229217069064035085158113</font><a href="read6.asp?bookname=0130260363&snode=275&now=5%2F30%2F2002+8%3A37%3A49+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Advanced Web Clients</h3>
+				<p>Web browsers are basic Web clients. They are used primarily for searching and downloading documents from the Web. Advanced clients of the Web are those applications which do more than download single documents from the Internet.</p>
+
+				<P>One example of an advanced Web client is a <I>crawler</I> (a.k.a. <I>spider, robot</i>). These are programs which explore and download pages from the Internet for different reasons, some of which include:</p>
+
+				<ul>
+<LI><P>Indexing or cataloging into a large search engine such as Google, Alta Vista, or Yahoo!,</P>
+</li>
+<li><P>Offline browsing—downloading documents onto a local hard disk and rearranging hyperlinks to create almost a mirror image for local browsing,</P>
+</LI>
+<li><p>Downloading and storing for historical or archival purposes, or</p>
+</li>
+<li><p>Web page caching to save superfluous downloading time on Web site revisits.</p>
+</li>
+</ul>
+				<p>The crawler we present below, <tt claSs="monofont">crawl.py,</tT> takes a starting Web address (URL), downloads that page and all other pages whose links appear in succeeding pages, but only those which are in the same domain as the starting page. Without such limitations, you will run out of disk space! The source for <tt cLass="monofont">crawl.py</tT> follows:</p>
+
+				<h5>
+<a NAME="1"></a>Example 19.1. An Advanced Web Client: a Web Crawler (<tt cLASS="monofont">crawl.py</tt>)</h5>
+					<p><B><I>The crawler consists of two classes, one to manage the entire crawling process (</I></B><tt clASS="monofont">Crawler</Tt><b><i>), and one to retrieve and parse each downloaded Web page (</i></b><tt class="monofont">Retriever</tt><b><i>).</i></b></p>
+
+					<pRe cLass="monofont"> &lt;$nopage&gt;
+001 1   #!/usr/bin/env python
+002 2
+003 3   <B>from</b> sys <b>import</b> argv
+004 4   <b>from</B> os <b>import</b> makedirs, unlink
+005 5   <b>from</B> os.path <B>import</B> dirname, exists, isdir, splitext
+006 6   <B>from</b> string <b>import</b> replace, find, lower
+007 7   <b>from</B> htmllib <B>import</B> HTMLParser
+008 8   <B>from</b> urllib <b>import</b> urlretrieve
+009 9   <b>from</B> urlparse <B>import</B> urlparse, urljoin
+010 10  <B>from</b> formatter <b>import</b> DumbWriter, AbstractFormatter
+011 11  <b>from</B> cStringIO <B>import</B> StringIO
+012 12
+013 13  <B>class</b> Retriever:   #   download Web pages
+014 14
+015 15      <b>def</b> __init__(self, url):
+016 16          self.url = url
+017 17          self.file = self.filename(url)
+018 18
+019 19      <b>def</b> filename(self, url, deffile='index.htm'):
+020 20          parsedurl = urlparse(url, 'http:', 0)# parse path
+021 21          path = parsedurl[1] + parsedurl[2]
+022 22          text = splitext(path)
+023 23          <b>if</b> ext[1] == '':   # no file, use default
+024 24              <b>if</b> newpath[-1] == '/':
+025 25                  path = path + deffile
+026 26          <b>else:</b> &lt;$nopage&gt;
+027 27                  path = path + '/' + deffile
+028 28          dir = dirname(path)
+029 29          <b>if not</b> isdir(dir):    # create archive dir if nec.
+030 30              <b>if</b> exists(dir): unlink(dir)
+031 31              makedirs(dir)
+032 32          <b>return</b> path
+033 33
+034 34      <b>def</b> download(self):  # download Web page
+035 35          <b>try:</B> &lt;$nopage&gt;
+036 36              retval = urlretrieve(self.url, self.file)
+037 37          <b>except</b> IOError:
+038 38              retval = ('*** ERROR: invalid URL "%s"' %\
+039 39                                          self.url,)
+040 40          <B>return</b> retval
+041 41
+042 42      <b>def</b> parseAndGetLinks(self):    # parse HTML, save links
+043 43          self.parser = HTMLParser(AbstractFormatter(\
+044 44                          DumbWriter(StringIO())))
+045 45          self.parser.feed(open(self.file).read())
+046 46          self.parser.close()
+047 47          <B>return</b> self.parser.anchorlist
+048 48
+049 49  <b>class</b> Crawler:     # manage entire crawling process
+050 50
+051 51      count = 0       # static downloaded page counter
+052 52
+053 53      <b>def</B> __init__(self, url):
+054 54          self.q = [url]
+055 55          self.seen = []
+056 56          self.dom = urlparse(url)[1]
+057 57
+058 58      <b>def</b> getPage(self, url):
+059 59          r = Retriever(url)
+060 60          retval = r.download()
+061 61          <b>if</B> retval[0] == '*':  # error situation, do not parse
+062 62              <B>print</B> retval, '… skipping parse'
+063 63              <B>return</b> &lt;$nopage&gt;
+064 64          Crawler.count = Crawler.count + 1
+065 65          <b>print</b> '\n(', Crawler.count, ')'
+066 66          <b>print</B> 'URL:', url
+067 67          <B>print</B> 'FILE:', retval[0]
+068 68          self.seen.append(url)
+069 69
+070 70          links = r.parseAndGetLinks() # get and process links
+071 71          <B>for</b> eachLink <b>in</b> links:
+072 72              <b>if</B> eachLink[:4] != 'http' <B>and</B> \
+073 73                      find(eachLink, '://') == -1:
+074 74                  eachLink = urljoin(url, eachLink)
+075 75              <B>print</b> '* ', eachLink,
+076 76
+077 77              <b>if</b> find(lower(eachLink), 'mailto:') != -1:
+078 78                  <b>print</B> '… discarded, mailto link'
+079 79                  <B>continue</B> &lt;$nopage&gt;
+080 80
+081 81              <B>if</b> eachLink <b>not in</b> self.seen:
+082 82                  <b>if</b> find(eachLink, self.dom) == -1:
+083 83                      <b>print</b> '… discarded, not in domain'
+084 84                  <b>else:</b> &lt;$nopage&gt;
+085 85                      <b>if</b> eachLink not in self.q:
+086 86                          self.q.append(eachLink)
+087 87                          <b>print</b> '… new, added to Q'
+088 88                      <b>else:</b> &lt;$nopage&gt;
+089 89                  <b>print</b> '… discarded, already in Q'
+090 90              <b>else:</b> &lt;$nopage&gt;
+091 91                  <b>print</B> '… discarded, already processed'
+092 92
+093 93  <b>def</b> go(self):# process links in queue
+094 94          <B>while</b> self.q:
+095 95              url = self.q.pop()
+096 96              self.getPage(url)
+097 97
+098 98  <b>def</b> main():
+099 99      <B>if</b> len(argv) &gt; 1:
+100 100         url = argv[1]
+101 101     <b>else:</b> &lt;$nopage&gt;
+102 102         <b>try:</B> &lt;$nopage&gt;
+103 103             url = raw_input('Enter starting URL: ')
+104 104         <b>except</b> (KeyboardInterrupt, EOFError):
+105 105             url = ''
+106 106
+107 107     <b>if not</B> url: <B>return</B> &lt;$nopage&gt;
+108 108     robot = Crawler(url)
+109 109     robot.go()
+110 110
+111 111 <B>if</b> __name__ == '__main__':
+112 112     main()
+113  &lt;$nopage&gt;</pre>
+				
+				<H4></H4>
+					
+						<H5>Line-by-line (Class-by-class) explanation:</H5>
+						
+							<h5>Lines 1– 11</h5>
+							<p>The top part of the script consists of the standard Python Unix start-up line and the importation of various module attributes which are employed in this application.</p>
+
+						
+						
+							<H5>Lines 13 – 47</H5>
+							<P>The <Tt claSS="monofont">Retriever</TT> class has the responsibility of downloading pages from the Web and parsing the links located within each document, adding them to the "to-do" queue if necessary. A <tt class="monofont">Retriever</tt> instance object is created for each page which is downloaded from the net. <tt class="monofont">Retriever</tt> consists of several methods to aid in its functionality: a constructor (<tt ClaSs="monofont">__init__()</tt>), <Tt claSs="monofont">filename(), download(),</tt> and <TT CLass="monofont">parseAndGetLinks().</tT></P>
+
+							<P>The <Tt claSS="monofont">filename()</TT> method takes the given URL and comes up with a safe and sane corresponding file name to store locally. Basically, it removes the "<tt clASS="monofont">http://</Tt>" prefix from the URL and uses the remaining part as the file name, creating any directory paths necessary. URLs without trailing file names will be given a default file name of "<tt class="monofont">index.htm.</tt>" (This name can be overridden in the call to <tt class="monofont">filename()</tt>).</p>
+
+							<P>The constructor instantiates a <tt ClasS="monofont">Retriever</tt> object and stores both the URL string and the corresponding file name returned by <tt ClasS="monofont">filename()</TT> as local attributes.</P>
+
+							<p>The <tt cLASS="monofont">download()</tt> method, as you may imagine, actually goes out to the net to download the page with the given link. It calls <tt CLASs="monofont">urllib.urlretrieve()</tt> with the URL and saves it to the filename (the one returned by <tT CLAss="monofont">filename()</tt>). If the download was successful, the <tt class="monofont">parse()</tt> method is called to parse the page just copied from the network, otherwise an error string is returned.</p>
+
+							<p>If the <tt claSs="monofont">Crawler</tT> determines that no error has occurred, it will invoke the <tt cLass="monofont">parseAndGetLinks()</tT> method to parse newly-downloaded page and determine the cause of action for each link located on that page.</p>
+
+						
+						
+							<h5>Lines 49 – 96</h5>
+							<P>The <TT Class="monofont">Crawler</TT> class is the "star" of the show, managing the entire crawling process, thus only one instance is created for each invocation of our script. The <TT clasS="monofont">Crawler</TT> consists of three items stored by the constructor during the instantiation phase, the first of which is <Tt claSS="monofont">q,</TT> a queue of links to download. Such a list will fluctuate during execution, shrinking as each page is processed and grown as new links are discovered within each downloaded page.</p>
+
+							<p>The other two data values for the <tt class="monofont">Crawler</tt> include <tt class="monofont">seen,</tt> a list of all the links which "we have seen" (downloaded) already. And finally, we store the domain name for the main link, <Tt cLass="monofont">dom,</Tt> and use that value to determine whether any succeeding links are part of the same domain.</p>
+
+							<p><tT claSS="monofont">Crawler</TT> also has of a static data item named <tt clASS="monofont">count.</Tt> The purpose of this counter is just to keep track of the number of objects we have downloaded from the net. It is incremented for every page successfully download.</p>
+
+							<p><tT CLAss="monofont">Crawler</tt> has a pair of other methods in addition to its constructor, <TT CLass="monofont">getPage()</tt> and <tt class="monofont">go(). go()</tt> is simply the method that is used to start the <tt clasS="monofont">Crawler</tt> and is called from the main body of code. <Tt clAss="monofont">go()</tt> consists of a loop that will continue to execute as long as there are new links in the queue which need to be downloaded. The workhorse of this class though, is the <Tt clASS="monofont">getPage()</Tt> method.</p>
+
+							<p><tT CLAss="monofont">getPage()</tt> instantiates a <TT CLass="monofont">Retriever</tT> object with the first link and lets it go off to the races. If the page was downloaded successfully, the counter is incremented and the link added to the "already seen" list. It looks recursively at all the links featured inside each downloaded page and determine whether any more links should be added to the queue. The main loop in <TT Class="monofont">go()</tt> will continue to process links until the queue is empty, at which time victory is declared.</p>
+
+							<p>Links which are: part of another domain, have already been downloaded, are already in the queue waiting to be processed, or are "<tt class="monofont">mailto:</tt>" links are ignored and not added to the queue.</p>
+
+						
+						
+							<h5>Lines 98 – 112</h5>
+							<P><tt ClasS="monofont">main()</tt> is executed if this script is invoked directly and is the starting point of execution. Other modules which import <tt ClasS="monofont">crawl.py</TT> will need to invoke <Tt claSS="monofont">main()</TT> to begin processing. <tt clASS="monofont">main()</Tt> needs a URL to begin processing, If one is given on the command-line (for example which this script is invoked directly), it will just go with the one given. Otherwise, the script enters interactive mode prompting the user for a starting URL. With a starting link in hand, the <tt cLASS="monofont">Crawler</tt> is instantiated and away we go.</p>
+
+							<p>One sample invocation of <tt class="monofont">crawl.py</tt> may look like:</p>
+
+							<pre>
+								
+% crawl.py 
+Enter starting URL: http://www.null.com/home/index.html
+
+( 1 )
+URL: http://www.null.com/home/index.html
+FILE: www.null.com/home/index.html
+* http://www.null.com/home/overview.html … new, added to Q
+* http://www.null.com/home/synopsis.html … new, added to Q
+* http://www.null.com/home/order.html … new, added to Q
+* mailto:postmaster@null.com … discarded, mailto link
+* http://www.null.com/home/overview.html … discarded, already in Q
+* http://www.null.com/home/synopsis.html … discarded, already in Q
+* http://www.null.com/home/order.html … discarded, already in Q
+* mailto:postmaster@null.com … discarded, mailto link
+* http://bogus.com/index.html … discarded, not in domain
+
+( 2 )
+URL: http://www.null.com/home/order.html
+FILE: www.null.com/home/order.html
+* mailto:postmaster@null.com … discarded, mailto link
+* http://www.null.com/home/index.html … discarded, already processed
+* http://www.null.com/home/synopsis.html … discarded, already in Q
+* http://www.null.com/home/overview.html … discarded, already in Q
+
+( 3 )
+URL: http://www.null.com/home/synopsis.html
+FILE: www.null.com/home/synopsis.html
+* http://www.null.com/home/index.html … discarded, already processed
+* http://www.null.com/home/order.html … discarded, already processed
+* http://www.null.com/home/overview.html … discarded, already in Q
+
+( 4 )
+URL: http://www.null.com/home/overview.html
+FILE: www.null.com/home/overview.html
+* http://www.null.com/home/synopsis.html … discarded, already processed
+* http://www.null.com/home/index.html … discarded, already processed
+* http://www.null.com/home/synopsis.html … discarded, already processed
+* http://www.null.com/home/order.html … discarded, already processed
+
+							</pre>
+
+							<P>After execution, a <a tArgeT="_blank" href="http://www.null.com">http://www.null.com</A> directory would be created in the local file system, with a <tt cLASS="monofont">home</tt> subdirectory. Within <tt CLASs="monofont">home,</tt> all the HTML files processed will be found there.</p>
+
+						
+					
+				
+			</FONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="274.html" title="Web Surfing with Python: Creating Simple Web Clients"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=275" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="275.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="276.html" title="CGI: Helping Web Servers Process Client Data"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

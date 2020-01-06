@@ -1,0 +1,125 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; filter() </TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="170.html" class="navtitle">11. Functions</a> &gt; <span class="nonavtitle">filter() </span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="192.html" title="Lines 30-41"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=193" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="193.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="194.html" title="map() "><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A34%3A25+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174050111186022088139118</font><a href="read1.asp?bookname=0130260363&snode=193&now=5%2F29%2F2002+9%3A34%3A25+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3><tt cLASS="monofont">filter()</tt></h3>
+				<p>The second built-in function we examine in this chapter is <TT CLass="monofont">filter().</tT> Imagine going to an orchard and leaving with a bag of apples you picked off the trees. Wouldn't it be nice if you could run the entire bag through a filter to keep just the good ones? That is the main premise of the <TT Class="monofont">filter()</tt> function.</p>
+
+				<p>Given a sequence of objects and a "filtering" function, run each item of the sequence through the filter, and keep only the ones that the function returns true for. The <tt class="monofont">filter()</tt> function calls the given Boolean function for each item of the provided sequence. Each item for which <tt cLasS="monofont">filter()</tt> returns a non-zero (true) value is appended to a list. The object that is returned is a "filtered" sequence of the original.</p>
+
+				<P>If we were to code <tt clAss="monofont">filter()</tT> in pure Python, it might look something like this:</P>
+
+				<PRe>
+					
+<b>def</b> filter(<i>bool_func,</I>
+						<I>sequence</I>):
+filtered_seq = []
+<B>for</b> eachItem <b>in</b>
+						<i>sequence:</I>
+ <B>if</B> apply(<I>bool_func,</i> (eachItem,)):
+    filtered_seq.append(eachItem)
+    <b>return</b> filtered_seq
+
+				</pRE>
+
+				<P>One way to to understand <Tt class="monofont">filter()</tt> better is by visualizing its behavior. <a href="193#1.html">Figure11-1</a> attempts to do just that.</p>
+
+				<centeR><h5>
+<a Name="1"></A>Figure 11-1. How the <tt clAss="monofont">filter()</tT> Built-in Function Works</H5>
+						<IMg borDER="0" Width="500" HEIGht="275" srC="graphics/11fig01.gif" ALT="graphics/11fig01.gif"></center>
+
+				<p>In <a href="193#1.html">Figure11-1</a>, we observe our original sequence at the top, items <tt class="monofont">seq[0], seq[1],</Tt> … <tT claSs="monofont">seq[N-1]</tt> for a sequence of size N. For each call to <tT claSS="monofont">bool_func(),</TT> i.e., <tt clASS="monofont">bool_func(seq[0]), bool_func(seq[1]),</Tt> etc, a return value of 0 or 1 comes back (as per the definition of a Boolean function—ensure that indeed your function does return 0 or 1). If <tt cLASS="monofont">bool_func()</tt> returns true for any sequence item, that element is inserted into the return sequence. When iteration over the entire sequence has been completed, <tt CLASs="monofont">filter()</tt> returns the newly-created sequence.</p>
+
+				<p>We present below a script which shows one way to use <tt class="monofont">filter()</tt> to obtain a short list of random odd numbers. The script generates a larger set of random numbers first, then filters out all the even numbers, leaving us with the desired dataset. When we first coded this example, <tt clasS="monofont">oddnogen.py</tt> looked like the following:</P>
+
+				<pre>
+					
+<B>from</b> random <b>import</b> randint
+
+<b>def</B> odd(n):
+<b>return</b> n % 2
+
+<b>def</B> main():
+allNums = []
+<B>for</B> eachNum <B>in</b> range(10):
+ allNums.append(randint(1, 101))
+oddNums = filter(odd, allNums)
+<b>print</b> len(oddNums), oddNums
+
+<b>if</B> __name__ == \q__main__\q:
+    main()
+
+				</PRE>
+
+				<p>The script consists of two functions: <tt cLASS="monofont">odd(),</tt> a Boolean function which determined if an integer was odd (true) or even (false), and <tt CLASs="monofont">main(),</tt> the primary driving component. The purpose of <tt class="monofont">main()</tt> is to generate ten random numbers between one and a hundred; then <tt class="monofont">filter()</tT> is called to remove all the even numbers. Finally, the set of odd numbers is displayed, preceded by the size of our filtered list.</p>
+
+				<p>Importing and running this module several times, we get the following output:</P>
+
+				<pre>
+					
+&gt;&gt;&gt; <B>import</b> oddnogen
+&gt;&gt;&gt; oddnogen.main()
+4 [9, 33, 55, 65]
+&gt;&gt;&gt;
+&gt;&gt;&gt; oddnogen.main()
+5 [39, 77, 39, 71, 1]
+&gt;&gt;&gt;
+&gt;&gt;&gt; oddnogen.main()
+6 [23, 39, 9, 1, 63, 91]
+&gt;&gt;&gt;
+&gt;&gt;&gt; oddnogen.main()
+5 [41, 85, 93, 53, 3]
+
+				</pre>
+
+				<P>On second glance, we realize that the <tt cLASS="monofont">odd()</tt> function can be replaced by a <b><tT CLAss="monofont">lambda</tt></B> expression to pass to <TT Class="monofont">filter(),</TT> and it is this modification which gives us our final <TT class="monofont">oddnogen.py</tt> script. The code is given in <a href="193#2.html">Example 11.5</a>.</p>
+
+				
+					<h5>
+<a name="2"></A>Example 11.5. Odd Number Generator (<tt ClasS="monofont">oddnogen.py</tt>)</h5>
+					<p><B><i>This simple program generates ten random numbers between one and one hundred, then filters out all the even ones. The program then displays the total number filtered out and the resulting list of odd numbers.</i></b></P>
+
+					<PRE clasS="monofont"> &lt;$nopage&gt;
+001 1   #!/usr/bin/env python
+002 2
+003 3   <B>from</B> random <B>import</b> randint
+004 4
+005 5   <b>def</b> main():
+006 6
+007 7       allNums = []
+008 8       <b>for</B> eachNum <B>in</B> range(10):
+009 9           allNums.append(randint(1, 100))
+010 10      oddNums = filter(<B>lambda</b> n: n % 2, allNums)
+011 11      <b>print</b> len(oddNums), oddNums
+012 12
+013 13  <b>if</B> __name__ == '__main__':
+014 14       main()
+015  &lt;$nopage&gt;</PRE>
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="192.html" title="Lines 30-41"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=193" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="193.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="194.html" title="map() "><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

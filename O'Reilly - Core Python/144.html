@@ -1,0 +1,149 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; File Built-in Function [ open() ]</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="141.html" class="navtitle">9. Files and Input/Output</a> &gt; <span class="nonavtitle">File Built-in Function [ open() ]</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="143.html" title="File Objects"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=144" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="144.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="145.html" title="File Built-in Methods"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A25%3A53+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175204055039071133032084</font><a href="read0.asp?bookname=0130260363&snode=144&now=5%2F29%2F2002+9%3A25%3A53+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>File Built-in Function [<tt cLASS="monofont">open()</tt>]</h3>
+				<p>As the key to opening file doors, the <TT CLass="monofont">open()</tT> built-in function provides a general interface to initiate the file input/output (I/O) process. <TT Class="monofont">open()</tt> returns a file object on a successful opening of the file or else results in an error situation. When a failure occurs, Python generates or <i>raises</i> an <tt class="monofont">IOError</tt> exception—we will cover errors and exceptions in the next chapter. The basic syntax of the <tt cLasS="monofont">open()</tt> built-in function is:</p>
+
+				<Pre>
+					
+<i>file_object</i> = open(<I>file_name, access_mode</i>='r', <i>buffering</i>=-1)
+
+				</PRE>
+
+				<P>The <i><tt cLASS="monofont">file_name</tt></i> is a string containing the name of the file to open. It can be a relative or absolute/full pathname. The <i><TT CLass="monofont">access_mode</tT></I> optional variable is also a string, consisting of a set of flags indicating which mode to open the file with. Generally, files are opened with the modes "r,"
+					"w," or "a," representing read, write, and append, respectively.</P>
+
+				<P>Any file opened with mode "r" must exist. Any file opened with "w" will be truncated first if it exists, and then the file is (re)created. Any file opened with "a" will be opened for write. If the file exists, the initial position for file (write) access is set to the end-of-file. If the file does not exist, it will be created, making it the same as if you opened the file in "w" mode. If you are a C programmer, these are the same file open modes used for the C library function <tt class="monofont">fopen().</tt></p>
+
+				<p>There are other modes supported by <tt class="monofont">fopen()</tt> that will work with Python's <Tt cLass="monofont">open().</Tt> These include the "+" for read-write access and "b" for binary access. One note regarding the binary flag: "b" is antiquated on all Unix systems which are POSIX-compliant (including Linux) because they treat all files as "binary" files, including text files. Here is an entry from the Linux manual page for <tt cLass="monofont">fopen(),</TT> which is from where the Python <TT clasS="monofont">open()</TT> function is derived:</P>
+
+				<blocKQUOte>
+<p><p>The mode string can also include the letter "b" either as a last character or as a character between the characters in any of the two-character strings described above. This is strictly for compatibility with ANSI C3.159-1989 ("ANSI C") and has no effect; the "b" is ignored on all POSIX conforming systems, including Linux. (Other systems may treat text files and binary files differently, and adding the "b" may be a good idea if you do I/O to a binary file and expect that your program may be ported to non-Unix environments.)</P>
+</P>
+</BLockquote>
+				<p>You will find a complete list of file access modes, including the use of "b" if you choose to use it, in <a href="144#1.html">Table9.1</a>. If <i><tt clAss="monofont">access_mode</Tt></i> is not given, it defaults automatically to "r."</p>
+
+				<P>The other optional argument, <i><tt cLass="monofont">buffering,</TT></I> is used to indicate the type of buffering that should be performed when accessing the file. A value of 0 means no buffering should occur, a value of 1 signals line buffering, and any value greater than 1 indicates buffered I/O with the given value as the buffer size. The lack of or a negative value indicates that the system default buffering scheme should be used, which is line buffering for any teletype or tty-like device and normal buffering for everything else. Under normal circumstances, a <I><tt clASS="monofont">buffering</Tt></i> value is not given, thus using the system default.</p>
+
+				<a NAME="1"></a><p><taBLE Border="1" cellspacing="0" cellPadDing="1" Width="100%">
+<CaptION><H5>Table 9.1. Access Modes for File Objects</h5></capTION><colgROUP aligN="left" SPAn="2">
+<tr valign="top">
+<th>
+<font size="2"><b><I>File Mode</i></b></Font></Th>
+<th>
+<fOnt sIZE="2"><B><i>Operation</i></b></fONT></Th>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt size="2"><tt class="monofont">r</tt></font></td>
+<Td>
+<fOnt sIze="2">open for read</foNt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><tt clASS="monofont">w</Tt></font></td>
+<td>
+<font size="2">open for write (truncate if necessary)</fonT></td>
+</Tr>
+<tr ValigN="top">
+<td>
+<fONT Size="2"><tT CLAss="monofont">a</tt></FONT></td>
+<td>
+<FONT size="2">open for write (start at EOF, create if necessary)</font></td>
+</tr>
+<tr valign="top">
+<Td>
+<fOnt sIze="2"><tt ClasS="monofont">r+</TT></Font></tD>
+<TD>
+<Font sIZE="2">open for read and write</Font></tD>
+</TR>
+<Tr valign="top">
+<td>
+<font size="2"><tt cLasS="monofont">w+</tt></fOnt></td>
+<Td>
+<foNT SIze="2">open for read and write (see "w" above)</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><tt class="monofont">a+</tt></font></td>
+<tD>
+<foNt siZe="2">open for read and write (see "a" above)</fonT></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2"><Tt claSS="monofont">rb</TT></font></td>
+<td>
+<font size="2">open for binary read</font></Td>
+</tR>
+<tr vAlign="top">
+<Td>
+<foNT SIze="2"><tt CLASs="monofont">wb</tt></fONT></Td>
+<td>
+<fONT Size="2">open for binary write (see "w" above)</font></td>
+</tr>
+<tr valign="top">
+<tD>
+<foNt siZe="2"><tt cLass="monofont">ab</TT></FOnt></td>
+<TD>
+<FOnt siZE="2">open for binary append (see "a" above)</FOnt></td>
+</TR>
+<TR valign="top">
+<td>
+<font size="2"><tt clAss="monofont">rb+</Tt></foNt></td>
+<tD>
+<fonT SIZe="2">open for binary read and write (see "r+" above)</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><tt class="monofont">wb+</tt></font></td>
+<td>
+<FonT sizE="2">open for binary read and write (see "w+" above)</font></Td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt siZE="2"><TT clasS="monofont">ab+</TT></Font></td>
+<td>
+<font size="2">open for binary read and write (see "a+" above)</font></tD>
+</tr>
+</ColgRoup>
+</tAble></P>
+
+				<P>Here are some examples for opening files:</P>
+
+				<Pre>
+					
+fp = open('/etc/motd')        #open file for read
+fp = open('test',  'w')       #open file for write
+fp = open('data',  'r+')      #open file for read/write
+fp = open('c:\io.sys', 'rb')  #open binary file for read
+
+				</prE>
+
+			</FONt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="143.html" title="File Objects"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=144" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="144.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="145.html" title="File Built-in Methods"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

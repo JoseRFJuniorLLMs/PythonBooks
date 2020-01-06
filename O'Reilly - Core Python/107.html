@@ -1,0 +1,619 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Special Features of Strings</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="99.html" class="navtitle">6. Sequences: Strings, Lists, and Tuples</a> &gt; <span class="nonavtitle">Special Features of Strings</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="106.html" title="String Built-in Methods"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=107" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="107.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="108.html" title="Related Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A18%3A58+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172044044180128159205027</font><a href="read3.asp?bookname=0130260363&snode=107&now=5%2F29%2F2002+9%3A18%3A58+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Special Features of Strings</h3>
+				<a nAME="1"></A>
+					<h4>Special or Control Characters</h4>
+					<p>Like most other high-level or scripting languages, a backslash paired with another single character indicates the presence of a "special" character, usually a non-printable character, and that this pair of characters will be substituted by the special character. These are the special characters we discussed above that will not be interpreted if the raw string operator precedes a string containing these characters.</p>
+
+					<P>In addition to the well-known characters such as NEWLINE ( <TT Class="monofont">\n</TT> ) and (horizontal) TAB ( <TT class="monofont">\t</tt> ), specific characters via their ASCII values may be used as well: <i><tt class="monofont">\OOO</tt></i> or <i><tT clAss="monofont">\xXX</tT></i> where <i><tt ClasS="monofont">OOO</TT></I> and <i><tt cLASS="monofont">XX</tt></i> are their respective octal and hexadecimal ASCII values. Here are the base 10, 8, and 16 representations of 0, 65, and 255:</p>
+
+					<P><TABle boRDER="1" cellspacing="0" cellpaddiNg="1" wIdth="100%">
+<ColgrOup aLIGN="left" span="4">
+<TR VAlign="top">
+<TH>
+<FOnt siZE="2"> </FOnt></th>
+<th>
+<font size="2">ASCII</font></th>
+<Th>
+<fOnt sIze="2">ASCII</foNt></th>
+<TH>
+<FOnt siZE="2">ASCII</FOnt></th>
+</TR>
+<TR valiGN="top">
+<TD>
+<font size="2">decimal</font></td>
+<td>
+<font SizE="2"><tt cLass="monofont">0</tT></fonT></TD>
+<Td>
+<fonT SIZe="2"><tt cLASS="monofont">65</tt></foNT></TD>
+<td>
+<font size="2"><tt class="monofont">255</tt></fOnt></Td>
+</tr>
+<Tr valIgn="top">
+<tD>
+<FONt sizE="2">octal</FONt></td>
+<tD>
+<FONt sizE="2"><TT Class="monofont">\000</tt></font></td>
+<td>
+<font siZe="2"><tT claSs="monofont">\101</tt></fOnt></tD>
+<TD>
+<Font sIZE="2"><Tt claSS="monofont">\177</TT></font></TD>
+</TR>
+<tr valign="top">
+<td>
+<font size="2">hexadecimal</foNt></tD>
+<td>
+<fOnt siZe="2"><tt CLASs="monofont">\x00</tt></fONT></Td>
+<td>
+<fONT Size="2"><tT CLAss="monofont">\x41</tt></font></td>
+<td>
+<font size="2"><Tt cLass="monofont">\xFF</Tt></fonT></td>
+</tR>
+</COLgrouP>
+</TABle></p>
+
+					<p>Special characters, including the backslash-escaped ones, can be stored in Python strings just like regular characters.</P>
+
+					<P>Another way that strings in Python are different from those in C is that Python strings are not terminated by the NUL (\000) character (ASCII value 0).  NUL characters are just like any of the other special backslash-escaped characters. In fact, not only can NUL characters appear in Python strings, but there can be any number of them in a string, not to mention that they can occur anywhere within the string. They are no more special than any of the other control characters. <A Href="107#2.html">Table6.7</a> represents a summary of the escape characters supported by most versions of Python.</P>
+
+					<A NAme="2"></a><p><table border="1" cellsPacIng="0" cEllpaDdinG="1" WIDth="100%">
+<caPTIOn><h5>Table 6.7. String Literal Backslash Escape Characters</h5></cAPTIon><coLGROup align="center" span="6">
+<tr valign="top">
+<tH>
+<foNt siZe="2"><b><i>/X</i></B></fonT></TH>
+<Th>
+<fonT SIZe="2"><b><i>Oct</i></B></FONt></th>
+<tH>
+<FONt size="2"><b><i>Dec</i></b></font></th>
+<th>
+<fonT siZe="2"><b><i>Hex</I></b></fonT></th>
+<tH>
+<FONt sizE="2"><B><I>Char</I></b></fonT></TH>
+<Th>
+<fonT SIZe="2"><b><i>Description</i></b></font></th>
+</tr>
+<tr valigN="top">
+<td>
+<Font Size="2"><tT claSS="monofont">\0</TT></font></TD>
+<TD>
+<font SIZE="2"><tt clASS="monofont">000</Tt></font></td>
+<td>
+<font size="2"><tt cLasS="monofont">0</tt></fOnt></td>
+<Td>
+<foNT SIze="2"><tt CLASs="monofont">0x00</tt></fONT></Td>
+<td>
+<fONT Size="2"><tt class="monofont">NUL</tt></font></td>
+<td>
+<FonT sizE="2">Null character</font></Td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt siZE="2"><TT clasS="monofont">\a</TT></Font></td>
+<td>
+<font size="2"><tt claSs="monofont">007</tT></fonT></td>
+<td>
+<Font SIZE="2"><tt clASS="monofont">7</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2"><tt class="monofont">0x07</tt></font></td>
+<td>
+<foNt sIze="2"><tT clasS="monofont">BEL</tt></fONT></Td>
+<td>
+<fONT Size="2">Bell</fONT></Td>
+</tr>
+<tR VALign="top">
+<td>
+<font size="2"><tt class="monofont">\b</Tt></fOnt></tD>
+<td>
+<foNt siZE="2"><TT clasS="monofont">010</TT></Font></tD>
+<TD>
+<Font sIZE="2"><Tt class="monofont">8</tt></font></td>
+<td>
+<font SizE="2"><tt cLass="monofont">0x08</tT></fonT></TD>
+<Td>
+<fonT SIZe="2"><tt cLASS="monofont">BS</tt></foNT></TD>
+<td>
+<font size="2">Backspace</font></td>
+</tr>
+<tr ValIgn="top">
+<tD>
+<font Size="2"><TT CLass="monofont">\t</tT></FONt></td>
+<tD>
+<FONt sizE="2"><TT Class="monofont">011</tt></font></td>
+<td>
+<font siZe="2"><tT claSs="monofont">9</tt></fOnt></tD>
+<TD>
+<Font sIZE="2"><Tt claSS="monofont">0x09</TT></font></TD>
+<TD>
+<font size="2"><tt class="monofont">HT</tt></fonT></td>
+<Td>
+<foNt sizE="2">Horizontal Tab</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><tT CLAss="monofont">\n</tt></font></td>
+<td>
+<font size="2"><Tt cLass="monofont">012</Tt></fonT></td>
+<tD>
+<FONt sizE="2"><TT Class="monofont">10</TT></FOnt></td>
+<TD>
+<FOnt size="2"><tt class="monofont">0x0A</tt></font></tD>
+<td>
+<Font Size="2"><tT claSS="monofont">LF</TT></font></TD>
+<TD>
+<font SIZE="2">Linefeed/Newline</font></TD>
+</TR>
+<tr valign="top">
+<td>
+<font size="2"><tt ClaSs="monofont">\v</tt></Font></tD>
+<td>
+<fONT Size="2"><tT CLAss="monofont">013</tt></FONT></td>
+<td>
+<FONT size="2"><tt class="monofont">11</tt></font></td>
+<tD>
+<foNt siZe="2"><tt cLass="monofont">0x0B</TT></FOnt></td>
+<TD>
+<FOnt siZE="2"><TT clasS="monofont">VT</TT></Font></td>
+<td>
+<font size="2">Vertical Tab</font></tD>
+</tr>
+<Tr vaLign="top">
+<tD>
+<fonT SIZe="2"><tt cLASS="monofont">\f</tt></foNT></TD>
+<td>
+<foNT SIze="2"><tt class="monofont">014</tt></font></td>
+<td>
+<fOnt Size="2"><Tt claSs="monofont">12</tt></FONT></td>
+<td>
+<FONT size="2"><TT CLass="monofont">0x0C</tT></FONt></td>
+<td>
+<font size="2"><tt class="monofont">FF</Tt></fOnt></tD>
+<td>
+<foNt siZE="2">Form Feed</FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><tt class="monofont">\r</tt></font></td>
+<td>
+<fonT siZe="2"><tt Class="monofont">015</Tt></foNT></TD>
+<td>
+<foNT SIze="2"><tt CLASs="monofont">13</tt></fONT></Td>
+<td>
+<font size="2"><tt class="monofont">0x0D</tt></FonT></td>
+<tD>
+<font Size="2"><TT CLass="monofont">CR</tT></FONt></td>
+<tD>
+<FONt sizE="2">Carriage Return</FONt></td>
+</tr>
+<tr valign="top">
+<td>
+<font sIze="2"><Tt clAss="monofont">\e</tt></Font></TD>
+<TD>
+<font SIZE="2"><tt clASS="monofont">033</Tt></fonT></TD>
+<Td>
+<font size="2"><tt class="monofont">27</tt></foNt></tD>
+<td>
+<fOnt siZe="2"><tt CLASs="monofont">0x1B</tt></fONT></Td>
+<td>
+<fONT Size="2"><tT CLAss="monofont">ESC</tt></font></td>
+<td>
+<font size="2">Escape</FonT></td>
+</tR>
+<tr vaLign="top">
+<TD>
+<FOnt siZE="2"><TT clasS="monofont">\"</TT></Font></tD>
+<TD>
+<Font size="2"><tt class="monofont">042</tt></font></Td>
+<tD>
+<fonT size="2"><Tt clASS="monofont">34</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2"><tt cLASS="monofont">0x22</tt></font></td>
+<td>
+<font size="2"><tt ClaSs="monofont">"</tt></Font></tD>
+<td>
+<fONT Size="2">Double quote</fONT></Td>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt size="2"><tt class="monofont">\'</tt></font></td>
+<Td>
+<fOnt sIze="2"><tt ClasS="monofont">047</TT></Font></tD>
+<TD>
+<Font sIZE="2"><Tt claSS="monofont">39</TT></font></td>
+<td>
+<font size="2"><tt clAss="monofont">0x27</Tt></foNt></td>
+<tD>
+<fonT SIZe="2"><tt cLASS="monofont">'</tt></foNT></TD>
+<td>
+<foNT SIze="2">Single quote/apostrophe</font></td>
+</tr>
+<tr valign="top">
+<td>
+<FonT sizE="2"><tt clAss="monofont">\\</tT></FONt></td>
+<tD>
+<FONt sizE="2"><TT Class="monofont">134</TT></FOnt></td>
+<td>
+<font size="2"><tt clasS="monofont">92</tt></Font></Td>
+<td>
+<fOnt sIZE="2"><Tt claSS="monofont">0x5C</TT></font></TD>
+<TD>
+<font SIZE="2"><tt class="monofont">\</tt></font></td>
+<td>
+<fonT siZe="2">Backslash</foNt></td>
+</tR>
+</colGROUp>
+</tabLE></P>
+
+					<P>And as mentioned before, explicit ASCII octal or hexadecimal values can be given, as well as escaping a NEWLINE to continue a statement to the next line. All valid ASCII character values are between 0 and 255 (octal 0177, hexadecimal 0XFF).</p>
+
+					<p><taBLE BordeR="1" CELlspacing="0" cellpadding="1" wIdtH="100%">
+<colGroup AligN="left" SPAn="2">
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><tT CLAss="monofont">\OOO</tt></font></td>
+<td>
+<font size="2">octal value OOO (range is 0000 to 0177)</FonT></td>
+</tR>
+<tr vaLign="top">
+<TD>
+<FOnt siZE="2"><TT clasS="monofont">\xXX</TT></Font></tD>
+<TD>
+<Font size="2">'x' plus hexadecimal value XX (range is 0X00 to 0xFF)</font></td>
+</tr>
+<tr valIgn="top">
+<Td>
+<foNt sizE="2"><tt cLASS="monofont">\</tt></foNT></TD>
+<td>
+<foNT SIze="2">escape NEWLINE for statement continuation</foNT></TD>
+</tr>
+</colgroup>
+</table></p>
+
+					<p>One use of control characters in strings is to serve as delimiters. In database or Internet/Web processing, it is more than likely that most printable characters are allowed as data items, meaning that they would not make good delimiters.</p>
+
+					<p>It becomes difficult to ascertain whether or not a character is a delimiter or a data item, and by using a printable character such as a colon (<tT clAss="monofont">:</tT>) as a delimiter, you are limiting the number of allowed characters in your data, which may not be desirable.</p>
+
+					<p>One popular solution is to employ seldomly used, non-printable ASCII values as delimiters. These make the perfect delimiters, freeing up the colon and the other printable characters for more important uses.</p>
+
+				
+				<a Name="3"></A>
+					<H4>Triple Quotes</H4>
+					<P>Although strings can be represented by single or double quote delimitation, it is often difficult to manipulate strings containing special or non-printable characters, especially the NEWLINE character. Python's triple quotes comes to the rescue by allowing strings to span multiple lines, including verbatim NEWLINEs, TABs, and any other special characters.</p>
+
+					<p>The syntax for triple quotes consists of three consecutive single or double quotes (used in pairs, naturally):</p>
+
+					<pRE>
+						
+&gt;&gt;&gt; para_str = """this is a long string that is made up of
+… several lines and non-printable characters such as
+… TAB ( \t ) and they will show up that way when displayed.
+… NEWLINEs within the string, whether explicitly given like
+… this within the brackets [ \n ], or just a NEWLINE within
+… the variable assignment will also show up.
+… """
+
+					</PRe>
+
+					<p>Triple quote lets the developer avoid playing quote and escape character games, all the while bringing at least a small chunk of text closer to WYSIWIG (what you see is what you get) format.</p>
+
+					<p>An example below shows you what happens when we use the <B><TT Class="monofont">print</TT></B> statement to display the contents of this string. Note how every single special character has been converted to its printed form, right down to the last NEWLINE at the end of the string between the "up." and closing triple quotes. Also note that NEWLINEs occur either with an explicit carriage return at the end of a line or its escape code (\n):</P>
+
+					<pre>
+						
+&gt;&gt;&gt; <b>print</b> para_str
+this is a long string that is made up of
+several lines and non-printable characters such as
+TAB (    ) and they will show up that way when displayed.
+NEWLINEs within the string, whether explicitly given like
+this within the brackets [
+ ], or just a NEWLINE within
+the variable assignment will also show up.
+
+					</pre>
+
+					<p>We introduced the <tt class="monofont">len()</tt> built-in sequence type function earlier, which, for strings, gives us the total number of characters in a string.</p>
+
+					<pRe>
+						
+&gt;&gt;&gt; len(para_str)
+307
+
+					</pRe>
+
+					<p>Upon applying that function to our string, we get a result of 307, which includes the NEWLINE and TAB characters. Another way to look at the string within the interactive interpreter is by just giving the interpreter the name of the object in question. Here, we will see the "internal" representation of the string, without the special characters being converted to printable ones. If that last NEWLINE we looked at above (after the final word "up" and before the closing triple quotes) is still elusive to you, take a look at the way the string is represented internally below. You will observe that the last character of the string is the aforementioned NEWLINE.</p>
+
+					<Pre>
+						
+&gt;&gt;&gt; para_str
+
+'this is a long string that is made up of\012several lines
+and non-printable characters such as\012TAB ( \011 ) and
+they will show up that way when displayed.\012NEWLINEs
+within the string, whether explicitly given like\012this
+within the brackets [ \012 ], or just a NEWLINE
+within\012the variable assignment will also show up.\012\'
+
+					</prE>
+
+				
+				
+					<h4>String Immutability</h4>
+					<p>In <A HREf="85#4.html">Section 4.7.2</a>, we discussed how strings are immutable data types, meaning that their values cannot be changed or modified. This means that if you <i>do</i> want to update a string, either by taking a substring, concatenating another string on the end, or concatenating the string in question to the end of another string, etc., a new string object must be created for it.</P>
+
+					<P>This sounds more complicated than it really is. Since Python manages memory for you, you won't really notice when this occurs. Any time you modify a string or perform any operation that is contrary to immutability, Python will allocate a new string for you. In the following example, Python allocates space for the strings, <TT clasS="monofont">'abc'</TT> and <Tt claSS="monofont">'def'.</TT> But when performing the addition operation to create the string <tt class="monofont">'abcdef',</tt> new space is allocated automatically for the new string.</p>
+
+					<pre>
+						
+&gt;&gt;&gt; 'abc' + 'def'
+'abcdef'
+
+					</pre>
+
+					<p>Assigning values to variables is no different:</p>
+
+					<prE>
+						
+&gt;&gt;&gt; string = 'abc'
+&gt;&gt;&gt; string = string + 'def'
+&gt;&gt;&gt; string
+'abcdef'
+
+					</prE>
+
+					<p>In the above example, it looks like we assigned the string <tt Class="monofont">'abc'</Tt> to <tt CLASs="monofont">string,</tt> then appended the string <tT CLAss="monofont">'def'</tt> to <TT CLass="monofont">string.</tT> To the naked eye, strings look mutable. What you cannot see, however, is the fact that a new string was created when the operation <TT Class="monofont">"s + 'def'"</tt> was performed, and that the new object was then assigned back to <tt class="monofont">s.</tt> The old string of <tt claSs="monofont">'abc'</tT> was deallocated.</p>
+
+					<p> Once again, we can use the <tT clasS="monofont">id()</tt> built-in function to help show us exactly what happened. If you recall, <tT CLAss="monofont">id()</tt> returns the "identity" of an object. This value is as close to a "memory address" as we can get in Python.</P>
+
+					<PRE>
+						
+&gt;&gt; string = 'abc'
+&gt;&gt;&gt;
+&gt;&gt;&gt; id(string)
+135060856
+&gt;&gt;&gt;
+&gt;&gt;&gt; string = string + 'def'
+&gt;&gt;&gt; id(string)
+135057968
+
+					</pre>
+
+					<p> Note how the identities are different for the string before and after the update. Another test of mutability is to try to modify individual characters or substrings of a string. We will now show how any update of a single character or a slice is not allowed:</P>
+
+					<PRE>
+						
+&gt;&gt;&gt; string
+'abcdef'
+&gt;&gt;&gt;
+&gt;&gt;&gt; string[2] = 'C'
+Traceback (innermost last):
+ File "&lt;stdin&gt;", line 1, in ?
+AttributeError: __setitem__
+&gt;&gt;&gt;
+&gt;&gt;&gt; string[3:6] = 'DEF'
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+AttributeError: __setslice__
+
+					</pre>
+
+					<p>Both operations result in an error. In order to perform the actions that we want, we will have to create new strings using substrings of the existing string, then assign those new strings back to <TT CLass="monofont">string:</tt></p>
+
+					<pre>
+						
+&gt;&gt;&gt; string
+'abcdef'
+&gt;&gt;&gt;
+&gt;&gt;&gt; string = string[0:2] + 'C' + string[3:]
+&gt;&gt;&gt; string
+'abCdef'
+&gt;&gt;&gt;
+&gt;&gt;&gt; string[0:3] + 'DEF'
+'abCDEF'
+&gt;&gt;&gt;
+&gt;&gt;&gt; string = string[0:3] + 'DEF'
+&gt;&gt;&gt; string
+'abCDEF'
+
+					</pre>
+
+					<p>So for immutable objects like strings, we make the observation that only valid expressions on the left-hand side of an assignment (to the left of the equals sign [ <tt class="monofont">=</Tt> ]) must be the variable representation of an entire object such as a string, not single characters or substrings. There is no such restriction for the expression on the right-hand side.</p>
+
+				
+				<A namE="5"></a>
+					<h4>Unicode Support</h4>
+					<p>Unicode string support, introduced to Python in version 1.6, is used to convert between multiple double-byte character formats and encodings, and include as much functionality to manage these strings as possible. With the addition of string methods (see <A hreF="106.html">Section 6.6</A>), Python strings are fully-featured to handle a much wider variety of applications requiring Unicode string storage, access, and manipulation. At the time of this writing, the exact Python specifications have not been finalized. We will do our best here to give an overview of native Unicode 3.0 support in Python:</P>
+
+					
+						<H5><tt clASS="monofont">unicode()</Tt> Built-in Function</h5>
+						<p>The Unicode built-in function should operate in a manner similar to that of the Unicode string operator (<tT CLAss="monofont">u/U</tt>). It takes a string and returns a Unicode string.</P>
+
+					
+					
+						<H5><TT class="monofont">encode()</tt> Built-in Methods</h5>
+						<p>The <tt class="monofont">encode()</tt> built-in methods take a string and return an equivalent encoded string. <tt ClaSs="monofont">encode()</tt> exists as methods for both regular and Unicode strings in 2.0, but only for Unicode strings in 1.6.</P>
+
+					
+					
+						<h5>Unicode Type</h5>
+						<p>There is a new Unicode type named <tT claSS="monofont">unicode</TT> that is returned when a Unicode string is sent as an argument to <tt clASS="monofont">type(),</Tt> i.e., <tt cLASS="monofont">type(u'')</tt></p>
+
+					
+					
+						<h5>Unicode Ordinals</H5>
+						<P>The standard <TT class="monofont">ord()</tt> built-in function should work the same way. It was enhanced recently to support Unicode objects. The new <tt class="monofont">unichr()</tt> built-in function returns a Unicode object for character (provided it is a 32-bit value); a <tt clAss="monofont">ValueError</Tt> exception is raised, otherwise.</p>
+
+					
+					
+						<h5>Coercion</H5>
+						<p>Mixed-mode string operations require standard strings be converted to Unicode objects.</p>
+
+					
+					
+						<h5>Exceptions</h5>
+						<P><tt cLASS="monofont">UnicodeError</tt> is defined in the exceptions module as subclass of <tt CLASs="monofont">ValueError.</tt> All exceptions related to Unicode encoding/decoding should be subclasses of <tT CLAss="monofont">UnicodeError.</tt> Also see the string <TT CLass="monofont">encode()</tt> method.</p>
+
+						<p><table border="1" ceLlsPaciNg="0" celLpadDING="1" widtH="100%">
+<CAPtion><H5>Table 6.8. Unicode Codecs/Encodings</H5></CAptioN><COLgroup align="left" span="2">
+<tr valiGn="top">
+<tH>
+<fonT size="2"><B><i>codec</i></b></FONT></th>
+<th>
+<FONT size="2"><B><I>Description</I></B></font></TH>
+</TR>
+<tr valign="top">
+<td>
+<font size="2">utf-8</foNt></tD>
+<td>
+<fOnt siZe="2">8-bit variable length encoding (default encoding)</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2">utf-16</FONT></td>
+<td>
+<font size="2">16-bit variable length encoding (little/big endian)</font></td>
+</tr>
+<Tr vAligN="top">
+<td>
+<foNt siZE="2">utf-16-le</FOnt></td>
+<TD>
+<FOnt siZE="2">utf-16 but explicitly little endian</FOnt></td>
+</TR>
+<TR valign="top">
+<td>
+<font size="2">utf-16-be</font></Td>
+<tD>
+<fonT size="2">utf-16 but explicitly big endian</Font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2">ascii</foNT></TD>
+<td>
+<font size="2">7-bit ASCII codepage</font></td>
+</tr>
+<tr ValIgn="top">
+<tD>
+<font Size="2">iso-8859-1</FONT></td>
+<td>
+<FONT size="2">ISO 8859-1 (Latin 1) codepage</FONT></td>
+</tr>
+<TR VAlign="top">
+<td>
+<font size="2">unicode-escape</font></td>
+<Td>
+<fOnt sIze="2">(see Python Unicode Constructors for a definition)</foNt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2">raw-unicode-escape</font></TD>
+<TD>
+<font size="2">(see Python Unicode Constructors for a definition)</font></td>
+</tr>
+<tr vaLigN="top">
+<td>
+<fOnt siZe="2">native</foNT></TD>
+<td>
+<foNT SIze="2">dump of the internal format used by Python</foNT></TD>
+</tr>
+</coLGROup>
+</table></p>
+
+					
+					
+						<h5>RE Engine Unicode-aware</h5>
+						<p>The new regular expression engine should be Unicode aware. See the <tt class="monofont">re</tt> Code Module sidebar in the next <A hrEf="108.html">section (6.8)</a>.</p>
+
+					
+					
+						<H5>String Format Operator</h5>
+						<p>For Python format strings: <tt ClasS="monofont">'%s'</TT> does <Tt claSS="monofont">str(u)</TT> for Unicode objects embedded in Python strings, so the output will be <tt clASS="monofont">u.encode (&lt;default encoding&gt;).</Tt> If the format string is an Unicode object, all parameters are coerced to Unicode first and then put together and formatted according to the format string. Numbers are first converted to strings and then to Unicode. Python strings are interpreted as Unicode strings using the &lt;default encoding&gt;. Unicode objects are taken as is. All other string formatters should work accordingly. Here is an example:</p>
+
+						<prE>
+							
+u"%s %s" % (u"abc", "abc") ? u"abc abc"
+
+						</PRE>
+
+						<p>Specific information regarding Python's support of Unicode strings can be found in the <tt class="monofont">Misc/unicode.txt</tt> of the distribution. The latest version of this document is always available online at:</p>
+
+						<pre>
+							<a targeT="_blank" hrEf="http://www.starship.python.net/~lemburg/unicode-proposal.txt">http://www.starship.python.net/~lemburg/unicode-proposal.txt</a>
+
+						</pRe>
+
+						<p>For more help and information on Python's Unicode strings, see the Python Unicode Tutorial at:</p>
+
+						<pRe>
+							<a tARGEt="_blank" hreF="http://www.reportlab.com/il8n/python_unicode_tutorial.html">http://www.reportlab.com/il8n/python_unicode_tutorial.html</A>
+
+						</PRe>
+
+					
+				
+				
+					<h4>No Characters or Arrays in Python</h4>
+					<p>We mentioned in the previous section that Python does not support a character type. We can also say that C does not support string types explicitly. Instead, strings in C are merely arrays of individual characters. Our third fact is that Python does not have an "array" type as a primitive (although the <TT CLass="monofont">array</tT> module exists if you really have to have one). Implementing strings as character arrays is also deemed unnecessary due to the sequential access ability of strings.</P>
+
+					<P>In choosing between single characters and strings, Python wisely uses strings as types. It is much easier manipulating the larger entity as a "blob" since most applications operate on strings as a whole rather than individual characters. Applications will convert strings to integers, ask users to input strings, perform regular expression matches on substrings, search files for specific strings, and will even sort a set of strings like names, etc. How often are individual characters operated on, except for searches (i.e., search-and-replace, search-for-delimiter, etc.)? Probably not often as far as most applications are concerned.</P>
+
+					<p>However, such functionality should still be available to the Python programmer. Search-and-replacing can be done with regular expressions and the <tt class="monofont">re</tt> module, searching for and breaking up strings based on delimiters can be accomplished with <tt class="monofont">split(),</tt> searching for substrings can be accomplished using <tT clAss="monofont">find()</tT> and <tt clAss="monofont">rfind(),</tT> and just plain old character membership in a string can be verified with the <B><TT clasS="monofont">in</TT></B> and <b><tt cLASS="monofont">not in</tt></b> sequence operators.</p>
+
+					<P>We are going to quickly revisit the <TT Class="monofont">chr()</tt> and <tt class="monofont">ord()</tt> built-in functions that convert between ASCII integer values and their equivalent characters, and describe one of the "features" of C that has been lost to Python because characters are not integer types in Python as they are in C.</p>
+
+					<p>One feature of C which is lost is the ability to perform numerical calculations directly on characters, i.e., <tt cLasS="monofont">'A' + 3.</tt> This is allowed in C because both 'A' as a <tT clasS="monofont">char</tt> and 3 as an <tT CLAss="monofont">int</tt> are integers (1-byte and 2/4-bytes, respectively), but would be a type mismatch in Python because 'A' is a string, 3 is a plain integer, and no such addition ( <TT CLass="monofont">+</tT> ) operation exists between numeric and string types.</P>
+
+					<PRe>
+						
+&gt;&gt;&gt; 'B'
+'B'
+&gt;&gt;&gt; 'B' + 1
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+TypeError: illegal argument type for built-in operation
+&gt;&gt;&gt;
+&gt;&gt;&gt; chr('B')
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+TypeError: illegal argument type for built-in operation
+&gt;&gt;&gt;
+&gt;&gt;&gt; ord('B')
+66
+&gt;&gt;&gt; ord('B') + 1
+67
+&gt;&gt;&gt; chr(67)
+'C'
+&gt;&gt;&gt; chr(ord('B') + 1)
+'C'
+
+					</pre>
+
+					<P>Our failure scenario occurred when we attempted to increase the ASCII value of 'B' by 1 to get 'C' by addition. Rather than 1-byte integer arithmetic, our solution in Python involves using the <TT Class="monofont">chr()</tt> and <tt class="monofont">ord()</tt> built-in functions.</p>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="106.html" title="String Built-in Methods"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=107" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="107.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="108.html" title="Related Modules"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

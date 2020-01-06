@@ -1,0 +1,6 @@
+# Sample Python code to be used with ActiveApp.py
+
+def JustForTheSakeOfIt():
+    Application.Echo("Hello from Python")
+
+JustForTheSakeOfIt()

@@ -1,0 +1,109 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; while Statement</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="129.html" class="navtitle">8. Conditionals and Loops</a> &gt; <span class="nonavtitle">while Statement</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="133.html" title="elif (a.k.a. else-if ) Statement"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=134" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="134.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="135.html" title="for Statement"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A24%3A08+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175205161207111123052085</font><a href="read4.asp?bookname=0130260363&snode=134&now=5%2F29%2F2002+9%3A24%3A08+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3><tt cLASS="monofont">while</tt> Statement</h3>
+				<p>Python's <B><TT Class="monofont">while</TT></B> is the first looping statement we will look at in this chapter. In fact, it is a conditional looping statement. In comparison with an <B><tt class="monofont">if</tt></b> statement where a true expression will result in a single execution of the <b><tt class="monofont">if</tt></B> clause suite, the suite in a <b><tT claSs="monofont">while</tt></b> clause will be executed continuously in a loop until that condition is no longer satisfied.</P>
+
+				
+					<h4>General Syntax</h4>
+					<p>Here is the general syntax for a <B><TT Class="monofont">while</TT></B> loop:</P>
+
+					<pre>
+						
+<b>while</B>
+							<I>expression:</I>
+    <I>suite_to_repeat</i>
+
+					</pre>
+
+					<P>The <I><TT class="monofont">suite_to_repeat</tt></i> clause of the <b><tt class="monofont">while</tt></b> loop will be executed continuously in a loop until expression evaluates to Boolean false. This type of looping mechanism is often used in a counting situation, such as the example in the next subsection.</p>
+
+				
+				
+					<H4>Counting Loops</h4>
+					<pRe>
+						
+count = 0
+<b>while</b> (count &lt; 9):
+    <B>print</b> 'the index is:', count
+    count = count + 1
+
+					</pre>
+
+					<P>The suite here, consisting of the <b><tt CLASs="monofont">print</tt></b> and increment statements, is executed repeatedly until count is no longer less than 9. With each iteration, the current value of the index count is displayed and then bumped up by 1. If we take this snippet of code to the Python interpreter, entering the source and seeing the resulting execution would look something like:</P>
+
+					<PRE>
+						
+&gt;&gt;&gt; count = 0
+&gt;&gt;&gt; <b>while</b> (count &lt; 9):
+…        <b>print</b> 'the index is:', count
+…        count = count + 1
+…
+the index is: 0
+the index is: 1
+the index is: 2
+the index is: 3
+the index is: 4
+the index is: 5
+the index is: 6
+the index is: 7
+the index is: 8
+
+					</PRE>
+
+				
+				
+					<H4>Infinite Loops</h4>
+					<p>One must use caution when using <b><tT CLAss="monofont">while</tt></b> loops because of the possibility that this condition never resolves to a false value. In such cases, we would have a loop that never ends on our hands. These "infinite" loops are not necessarily bad things… many communications "servers" that are part of client-server systems work exactly in that fashion. It all depends on whether or not the loop was meant to run forever, and if not, whether the loop has the possibility of terminating; in other words, will the expression ever be able to evaluate to false?</p>
+
+					<pre>
+						
+<b>while</b> 1:
+    handle, indata = wait_for_client_connect()
+    outdata = process_request(indata)
+    ack_result_to_client(handle, outdata)
+
+					</pre>
+
+					<p>For example, the piece of code above was set deliberately to never end because the value 1 will never evaluate to Boolean false. The main point of this server code is to sit and wait for clients to connect, presumably over a network link. These clients send requests which the server understands and processes. After the request has been serviced, a return value or data is returned to the client who may either drop the connection altogether or send another request. As far as the server is concerned, it has performed its duty to this one client and returns to the top of the loop to wait for the next client to come along. You will find out more about client-server computing in the Networking and Web Programming <a href="249.html">chapters 16</A> and <a hRef="271.html">19</a>).</P>
+
+				
+				
+					<h4>Single Statement Suites</h4>
+					<p>Similar to the <b><Tt clASS="monofont">if</Tt></b> statement syntax, if your <b><tT CLAss="monofont">while</tt></B> clause consists only of a single statement, it may be placed on the same line as the <B><TT clasS="monofont">while</TT></B> header. Here is an example of a one-line <b><tt class="monofont">while</tt></b> clause:</p>
+
+					<pre>
+						
+<b>while not</b> ready: ready = is_data_ready()
+
+					</pre>
+
+				
+			</FonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="133.html" title="elif (a.k.a. else-if ) Statement"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=134" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="134.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="135.html" title="for Statement"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

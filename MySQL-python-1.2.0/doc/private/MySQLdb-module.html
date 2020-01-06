@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>MySQLdb</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th bgcolor="#70b0f0" class="navselect">&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="trees.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="indices.html">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        Package&nbsp;MySQLdb
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[show&nbsp;private&nbsp;|&nbsp;<a href="../public/MySQLdb-module.html">hide&nbsp;private</a>]</font></td></tr>
+      <tr><td align="right"><font size="-2">[<a href="frames.html"target="_top">frames</a>&nbsp;|&nbsp;<a href="MySQLdb-module.html" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+
+<!-- =========== START OF PACKAGE DESCRIPTION =========== -->
+<h2 class="package">Package MySQLdb</h2>
+
+<p>MySQLdb - A DB API v2.0 compatible interface to MySQL.</p>
+<p>This package is a wrapper around _mysql, which mostly implements the
+MySQL C API.</p>
+<p>connect() -- connects to server</p>
+<p>See the C API specification and the MySQL documentation for more info
+on other items.</p>
+<p>For information on how MySQLdb handles type conversion, see the
+MySQLdb.converters module.</p>
+<hr/>
+
+<!-- =========== START OF SUBMODULES =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Submodules</th></tr>
+  <tr><td><ul>
+<li> <b><a href="MySQLdb.connections-module.html"><code>connections</code></a></b>: <i>This module implements connections for MySQLdb.</i>
+<li> <b><a href="MySQLdb.constants-module.html"><code>constants</code></a></b>
+  <ul>
+    <li> <b><a href="MySQLdb.constants.CLIENT-module.html"><code>CLIENT</code></a></b>: <i>MySQL CLIENT constants</i>
+    <li> <b><a href="MySQLdb.constants.CR-module.html"><code>CR</code></a></b>: <i>MySQL Connection Errors</i>
+    <li> <b><a href="MySQLdb.constants.ER-module.html"><code>ER</code></a></b>: <i>MySQL ER Constants</i>
+    <li> <b><a href="MySQLdb.constants.FIELD_TYPE-module.html"><code>FIELD_TYPE</code></a></b>: <i>MySQL FIELD_TYPE Constants</i>
+    <li> <b><a href="MySQLdb.constants.FLAG-module.html"><code>FLAG</code></a></b>: <i>MySQL FLAG Constants</i>
+    <li> <b><a href="MySQLdb.constants.REFRESH-module.html"><code>REFRESH</code></a></b>: <i>MySQL REFRESH Constants</i>
+  </ul>
+<li> <b><a href="MySQLdb.cursors-module.html"><code>cursors</code></a></b>: <i>MySQLdb Cursors</i>
+<li> <b><a href="../private/MySQLdb.converters-module.html"><code>converters</code></a></b>: <i>MySQLdb type conversion module</i>
+<li> <b><a href="../private/MySQLdb.pytimes-module.html"><code>pytimes</code></a></b>: <i>Use Python datetime module to handle date and time columns.</i>
+<li> <b><a href="../private/MySQLdb.sets-module.html"><code>sets</code></a></b>: <i>sets module</i>
+<li> <b><a href="../private/MySQLdb.stringtimes-module.html"><code>stringtimes</code></a></b>: <i>Use strings to handle date and time columns as a last resort.</i>
+<li> <b><a href="../private/MySQLdb.times-module.html"><code>times</code></a></b>: <i>times module</i>
+  </ul></td></tr>
+</table><br />
+
+
+<!-- =========== START OF FUNCTION SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Function Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="Binary"></a><span class="summary-sig"><span class="summary-sig-name">Binary</span>(<span class=summary-sig-arg>x</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="MySQLdb-module.html#Connect" class="summary-sig-name"><code>connect</code></a>(<span class="summary-sig-vararg">*args</span>,
+          <span class="summary-sig-kwarg">**kwargs</span>)</span></code>
+<br />
+Factory function for connections.Connection.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="MySQLdb-module.html#Connect" class="summary-sig-name"><code>Connect</code></a>(<span class="summary-sig-vararg">*args</span>,
+          <span class="summary-sig-kwarg">**kwargs</span>)</span></code>
+<br />
+Factory function for connections.Connection.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="MySQLdb-module.html#Connect" class="summary-sig-name"><code>Connection</code></a>(<span class="summary-sig-vararg">*args</span>,
+          <span class="summary-sig-kwarg">**kwargs</span>)</span></code>
+<br />
+Factory function for connections.Connection.</td></tr>
+</table><br />
+
+
+<!-- =========== START OF VARIABLE SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Variable Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>str</code></font></td>
+<td><b><a href="MySQLdb-module.html#apilevel"><code>apilevel</code></a></b> = <span title="'2.0'"><code><span class="variable-quote">'</span>2.0<span class="variable-quote">'</span>                                         </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><a href="../private/MySQLdb.sets.DBAPISet-class.html" 
+          class="link"><code>DBAPISet</code></a></font></td>
+<td><b><a href="MySQLdb-module.html#BINARY"><code>BINARY</code></a></b> = <span title="DBAPISet(252, 251, 250, 249)"><code>DBAPISet(252,&nbsp;251,&nbsp;250,&nbsp;249)                    </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><a href="../private/MySQLdb.sets.DBAPISet-class.html" 
+          class="link"><code>DBAPISet</code></a></font></td>
+<td><b><a href="MySQLdb-module.html#DATE"><code>DATE</code></a></b> = <span title="DBAPISet(10, 14)"><code>DBAPISet(10,&nbsp;14)                                  </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><a href="../private/MySQLdb.sets.DBAPISet-class.html" 
+          class="link"><code>DBAPISet</code></a></font></td>
+<td><b><a href="MySQLdb-module.html#NUMBER"><code>NUMBER</code></a></b> = <span title="DBAPISet(0, 5, 4, 9, 3, 8, 1, 13)"><code>DBAPISet(0,&nbsp;5,&nbsp;4,&nbsp;9,&nbsp;3,&nbsp;8,&nbsp;1,&nbsp;13)               </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>str</code></font></td>
+<td><b><a href="MySQLdb-module.html#paramstyle"><code>paramstyle</code></a></b> = <span title="'format'"><code><span class="variable-quote">'</span>format<span class="variable-quote">'</span>                                    </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><a href="../private/MySQLdb.sets.DBAPISet-class.html" 
+          class="link"><code>DBAPISet</code></a></font></td>
+<td><b><a href="MySQLdb-module.html#ROWID"><code>ROWID</code></a></b> = <span title="DBAPISet()"><code>DBAPISet()                                       </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><a href="../private/MySQLdb.sets.DBAPISet-class.html" 
+          class="link"><code>DBAPISet</code></a></font></td>
+<td><b><a href="MySQLdb-module.html#STRING"><code>STRING</code></a></b> = <span title="DBAPISet(1, 247, 254, 253)"><code>DBAPISet(1,&nbsp;247,&nbsp;254,&nbsp;253)                      </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>int</code></font></td>
+<td><b><a href="MySQLdb-module.html#threadsafety"><code>threadsafety</code></a></b> = <span title="1">1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><a href="../private/MySQLdb.sets.DBAPISet-class.html" 
+          class="link"><code>DBAPISet</code></a></font></td>
+<td><b><a href="MySQLdb-module.html#TIME"><code>TIME</code></a></b> = <span title="DBAPISet(11,)"><code>DBAPISet(11,)                                     </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><a href="../private/MySQLdb.sets.DBAPISet-class.html" 
+          class="link"><code>DBAPISet</code></a></font></td>
+<td><b><a href="MySQLdb-module.html#TIMESTAMP"><code>TIMESTAMP</code></a></b> = <span title="DBAPISet(7, 12)"><code>DBAPISet(7,&nbsp;12)                              </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>tuple</code></font></td>
+<td><b><a href="MySQLdb-module.html#version_info"><code>version_info</code></a></b> = <span title="(1, 1, 10, 'final', 1)"><code>(1,&nbsp;1,&nbsp;10,&nbsp;'final',&nbsp;1)                    </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>str</code></font></td>
+<td><b><a href="../private/MySQLdb-module.html#__author__"><code>__author__</code></a></b> = <span title="'Andy Dustman &lt;andy@dustman.net&gt;'"><code><span class="variable-quote">'</span>Andy&nbsp;Dustman&nbsp;&lt;andy&#64;dustman.net&gt;<span class="variable-quote">'</span>           </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>str</code></font></td>
+<td><b><a href="../private/MySQLdb-module.html#__revision__"><code>__revision__</code></a></b> = <span title="'1.36'"><code><span class="variable-quote">'</span>1.36<span class="variable-quote">'</span>                                    </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><a href="../private/MySQLdb.sets.DBAPISet-class.html" 
+          class="link"><code>DBAPISet</code></a></font></td>
+<td><b><a href="../private/MySQLdb-module.html#DATETIME"><code>DATETIME</code></a></b> = <span title="DBAPISet(7, 12)"><code>DBAPISet(7,&nbsp;12)                               </code>
+</span></td></tr>
+</table><br />
+
+
+<!-- =========== START OF FUNCTION DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Function Details</th></tr>
+</table>
+
+<a name="Connect"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">connect</span>(<span class="sig-vararg">*args</span>,
+          <span class="sig-kwarg">**kwargs</span>)</span>
+  </h3>
+Factory function for connections.Connection.  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+
+<a name="Connect"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">Connect</span>(<span class="sig-vararg">*args</span>,
+          <span class="sig-kwarg">**kwargs</span>)</span>
+  </h3>
+Factory function for connections.Connection.  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+
+<a name="Connect"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">Connection</span>(<span class="sig-vararg">*args</span>,
+          <span class="sig-kwarg">**kwargs</span>)</span>
+  </h3>
+Factory function for connections.Connection.  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br />
+
+
+<!-- =========== START OF VARIABLE DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Variable Details</th></tr>
+</table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="apilevel"></a>
+<h3>apilevel</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>str</code>
+
+      </dd>
+<span title="'2.0'">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+<span class="variable-quote">'</span>2.0<span class="variable-quote">'</span>                                                                  </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="BINARY"></a>
+<h3>BINARY</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <a href="../private/MySQLdb.sets.DBAPISet-class.html" 
+          class="link"><code>DBAPISet</code></a>
+
+      </dd>
+<span title="DBAPISet(252, 251, 250, 249)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+DBAPISet(252, 251, 250, 249)                                           </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="DATE"></a>
+<h3>DATE</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <a href="../private/MySQLdb.sets.DBAPISet-class.html" 
+          class="link"><code>DBAPISet</code></a>
+
+      </dd>
+<span title="DBAPISet(10, 14)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+DBAPISet(10, 14)                                                       </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="NUMBER"></a>
+<h3>NUMBER</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <a href="../private/MySQLdb.sets.DBAPISet-class.html" 
+          class="link"><code>DBAPISet</code></a>
+
+      </dd>
+<span title="DBAPISet(0, 5, 4, 9, 3, 8, 1, 13)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+DBAPISet(0, 5, 4, 9, 3, 8, 1, 13)                                      </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="paramstyle"></a>
+<h3>paramstyle</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>str</code>
+
+      </dd>
+<span title="'format'">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+<span class="variable-quote">'</span>format<span class="variable-quote">'</span>                                                               </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="ROWID"></a>
+<h3>ROWID</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <a href="../private/MySQLdb.sets.DBAPISet-class.html" 
+          class="link"><code>DBAPISet</code></a>
+
+      </dd>
+<span title="DBAPISet()">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+DBAPISet()                                                             </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="STRING"></a>
+<h3>STRING</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <a href="../private/MySQLdb.sets.DBAPISet-class.html" 
+          class="link"><code>DBAPISet</code></a>
+
+      </dd>
+<span title="DBAPISet(1, 247, 254, 253)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+DBAPISet(1, 247, 254, 253)                                             </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="threadsafety"></a>
+<h3>threadsafety</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>int</code>
+
+      </dd>
+<span title="1">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="TIME"></a>
+<h3>TIME</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <a href="../private/MySQLdb.sets.DBAPISet-class.html" 
+          class="link"><code>DBAPISet</code></a>
+
+      </dd>
+<span title="DBAPISet(11,)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+DBAPISet(11,)                                                          </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="TIMESTAMP"></a>
+<h3>TIMESTAMP</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <a href="../private/MySQLdb.sets.DBAPISet-class.html" 
+          class="link"><code>DBAPISet</code></a>
+
+      </dd>
+<span title="DBAPISet(7, 12)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+DBAPISet(7, 12)                                                        </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="version_info"></a>
+<h3>version_info</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>tuple</code>
+
+      </dd>
+<span title="(1, 1, 10, 'final', 1)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+(1, 1, 10, 'final', 1)                                                 </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="__author__"></a>
+<h3>__author__</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>str</code>
+
+      </dd>
+<span title="'Andy Dustman &lt;andy@dustman.net&gt;'">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+<span class="variable-quote">'</span>Andy Dustman &lt;andy&#64;dustman.net&gt;<span class="variable-quote">'</span>                                      </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="__revision__"></a>
+<h3>__revision__</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>str</code>
+
+      </dd>
+<span title="'1.36'">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+<span class="variable-quote">'</span>1.36<span class="variable-quote">'</span>                                                                 </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="DATETIME"></a>
+<h3>DATETIME</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <a href="../private/MySQLdb.sets.DBAPISet-class.html" 
+          class="link"><code>DBAPISet</code></a>
+
+      </dd>
+<span title="DBAPISet(7, 12)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+DBAPISet(7, 12)                                                        </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<br />
+
+
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th bgcolor="#70b0f0" class="navselect">&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="trees.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="indices.html">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.0 on Mon Jan 31 23:02:13 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net"
+                      ><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

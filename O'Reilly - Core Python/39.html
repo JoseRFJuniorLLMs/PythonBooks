@@ -1,0 +1,115 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Features of Python</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="35.html" class="navtitle">1. Welcome to Python!</a> &gt; <span class="nonavtitle">Features of Python</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="38.html" title="History of Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=39" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="39.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="40.html" title="Obtaining Python"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A05%3A17+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204173116073165195136118104</font><a href="read7.asp?bookname=0130260363&snode=39&now=5%2F29%2F2002+9%3A05%3A17+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Features of Python</h3>
+				<p>Although practically a decade in age, Python is still somewhat relatively new to the general software development industry. We should, however, use caution with our use of the word "relatively," as a few years seem like decades when developing on "Internet time."</p>
+
+				<P>When people ask, "What is Python?" it is difficult to say any one thing. The tendency is to want to blurt out all the things that you feel Python is in one breath. Python is <U>(fill-in-the-blanks here).</U> Just what are some of those blanks? For your sanity, we will elucidate on each here… one at a time.</P>
+
+				
+					<h4>High-level</h4>
+					<p>It seems that with every generation of languages, we move to a higher level. Assembly was a godsend for those who struggled with machine code, then came FORTRAN, C, and Pascal, all of which took computing to another plane and created the software development industry. These languages then evolved into the current compiled systems languages C++ and Java. And further still we climb, with powerful, system-accessible, interpreted scripting languages like Tcl, Perl, and Python. Each of these languages has higher-level data structures that reduce the "framework" development time which was once required. Useful types like Python's lists (resizeable arrays) and dictionaries (hash tables) are built into the language. Providing these crucial building blocks encourages their use and minimizes development time as well as code size, resulting in more readable code. Implementing them in C is complicated and often frustrating due to the necessities of using structures and pointers, not to mention repetitious if some forms of the same data structures require implementation for every large project. This initial setup is mitigated somewhat with C++ and its use of templates, but still involves work that may not be directly related to the application that needs to be developed.</p>
+
+				
+				
+					<H4>Object-oriented</H4>
+					<P>Object-oriented programming (OOP) adds another dimension to structured and procedural languages where data and logic are discrete elements of programming. OOP allows for associating specific behaviors, characteristics, and/or capabilities with the data that they execute on or are representative of. The object-oriented nature of Python was part of its design from the very beginning. Other OO scripting languages include SmallTalk, the original Xerox PARC language that started it all, and Netscape's JavaScript.</P>
+
+				
+				
+					<h4>Scalable</h4>
+					<p>Python is often compared to batch or Unix shell scripting languages. Simple shell scripts handle simple tasks. They grow (indefinitely) in length, but not truly in depth. There is little code-reusability and you are confined to small projects with shell scripts. In fact, even small projects may lead to large and unwieldy scripts. Not so with Python, where you can grow your code from project to project, add other new or existing Python elements, and reuse code at your whim. Python encourages clean code design, high-level structure, and "packaging" of multiple components, all of which deliver the flexibility, consistency, and faster development time required as projects expand in breadth and scope.</p>
+
+					<P>The term "scalable" is most often applied to measuring hardware throughput and usually refers to additional performance when new hardware is added to a system. We would like to differentiate this comparison with ours here, which tries to inflect the notion that Python provides basic building blocks on which you can build an application, and as those needs expand and grow, Python's pluggable and modular architecture allows your project to flourish as well as maintain manageability.</P>
+
+				
+				
+					<H4>Extensible</H4>
+					<p>As the amount of Python code increases in your project, you may still be able to organize it logically due to its dual structured and object-oriented programming environments. Or, better yet, you can separate your code into multiple files, or "modules" and be able to access one module's code and attributes from another. And what is even better is that Python's syntax for accessing modules is the same for all modules, whether you access one from the Python standard library or one you created just a minute ago. Using this feature, you feel like you have just "extended" the language for your own needs, and you actually <i>have.</i></p>
+
+					<p>The most critical portions of code, perhaps those hotspots that always show up in profile analysis or areas where performance is absolutely required, are candidates for extensions as well. By "wrapping" lower-level code with Python interfaces, you can create a "compiled" module. But again, the interface is exactly the same as for pure Python modules. Access to code and objects occurs in exactly the same way without any code modification whatsoever. The only thing different about the code now is that you should notice an improvement in performance. Naturally, it all depends on your application and how resource-intensive it is. There are times where it is absolutely advantageous to convert application bottlenecks to compiled code because it will decidedly improve overall performance.</p>
+
+					<p>This type of extensibility in a language provides engineers with the flexibility to add-on or customize their tools to be more productive, and to develop in a shorter period of time. Although this feature is self-evident in mainstream third-generation languages (3GLs) such as C, C++, and even Java, it is rare among scripting languages. Other than Python, true extensibility in a current scripting language is readily available only in the Tool Command Language (TCL). Python extensions can be written in C and C++ for CPython and in Java for JPython.</p>
+
+				
+				<a name="5"></a>
+					<h4>Portable</h4>
+					<p>Python is available on a wide variety of platforms (see <a hrEf="40.html">Section 1.4</a>), which contributes to its surprisingly rapid growth in today's computing domain. Because Python is written in C, and because of C's portability, Python is available on practically every type of system with a C compiler and general operating system interfaces.</P>
+
+					<p>Although there are some platform-specific modules, any general Python application written on one system will run with little or no modification on another. Portability applies across multiple architectures as well as operating systems.</p>
+
+				
+				
+					<h4>Easy-to-learn</H4>
+					<p>Python has relatively few keywords, simple structure, and a clearly defined syntax. This allows the student to pick up the language in a relatively short period of time. There is no extra effort wasted in learning completely foreign concepts or unfamiliar keywords and syntax. What may perhaps be new to beginners is the object-oriented nature of Python. Those who are not fully-versed in the ways of object-oriented programming (OOP) may be apprehensive about jumping straight into Python, but OOP is neither necessary nor mandatory. Getting started is easy, and you can pick up OOP and use when you are ready to.</p>
+
+				
+				
+					<h4>Easy-to-read</h4>
+					<P>Conspicuously absent from the Python syntax are the usual symbols found in other languages for accessing variables, code block definition, and pattern-matching. These include: dollar signs ( $ ), semicolons ( ; ), tildes ( ~ ), etc. Without all these distractions, Python code is much more clearly defined and visible to the eyes. In addition, much to many programmers' dismay (and relief), Python does not give as much flexibility to write obfuscated code as compared to other languages, making it easier for others to understand your code faster and vice versa. Being easy-to-read usually leads to a language's being easy-to-learn, as we described above. We would even venture to claim that Python code is fairly understandable, even to a reader who has never seen a single line of Python before. Take a look at the examples in the next chapter, Getting Started, and let us know how well you fare.</p>
+
+				
+				
+					<h4>Easy-to-maintain</h4>
+					<P>Maintaining source code is part of the software development lifecycle. Your software is permanent until it is replaced or obsoleted, and in the meantime, it is more likely that your code will outlive you in your current position. Much of Python's success is that source code is fairly easy-to-maintain, dependent, of course, on size and complexity. However, this conclusion is not difficult to draw given that Python is easy-to-learn and easy-to-read. Another motivating advantage of Python is that upon reviewing a script you wrote six months ago, you are less likely to get lost or require pulling out a reference book to get reacquainted with your software.</P>
+
+				
+				
+					<H4>Robust</H4>
+					<p>Nothing is more powerful than allowing a programmer to recognize error conditions and provide a software handler when such errors occur. Python provides "safe and sane" exits on errors, allowing the programmer to be in the driver's seat. When Python exits due to fatal errors, a complete stack trace is available, providing an indication of where and how the error occurred. Python errors generate "exceptions," and the stack trace will indicate the name and type of exception that took place. Python also provides the programmer with the ability to recognize exceptions and take appropriate action, if necessary. These "exception handlers" can be written to take specific courses of action when exceptions arise, either defusing the problem, redirecting program flow, or taking clean-up or other maintenance measures before shutting down the application gracefully. In either case, the debugging part of the development cycle is reduced considerably due to Python's ability to help pinpoint the problem faster rather than just being on the hunt alone. Python's robustness is beneficial for both the software designer as well as for the user. There is also some accountability when certain errors occur which are not handled properly. The stack trace which is generated as a result of an error reveals not only the type and location of the error, but also in which module the erroneous code resides.</p>
+
+				
+				
+					<h4>Effective as a Rapid Prototyping Tool</h4>
+					<P>We've mentioned before how Python is easy-to-learn and easy-to-read. But, you say, so is a language like BASIC. What more can Python do? Unlike self-contained and less flexible languages, Python has so many different interfaces to other systems that it is powerful enough in features and robust enough that entire systems can be prototyped completely in Python. Obviously, the same systems can be completed in traditional compiled languages, but Python's simplicity of engineering allows us to do the same thing and still be home in time for supper. Also, numerous external libraries have already been developed for Python, so whatever your application is, someone may have traveled down that road before. All you need to do is plug-'n'-play (some assembly required, as usual). Some of these libraries include: networking, Internet/Web/CGI, graphics and graphical user interface (GUI) development (Tkinter), imaging (PIL), numerical computation and analysis (NumPy), database access, hypertext (HTML, XML, SGML, etc.), operating system extensions, audio/visual, programming tools, and many others.</P>
+
+				
+				
+					<H4>A Memory Manager</H4>
+					<p>The biggest pitfall with programming in C or C++ is that the responsibility of memory management is in the hands of the developer. Even if the application has very little to do with memory access, memory modification, and memory management, the programmer must still perform those duties, in addition to the original task at hand. This places an unnecessary burden and responsibility upon the developer and often provides an extended distraction.</p>
+
+					<p>Because memory management is performed by the Python interpreter, the application developer is able to steer clear of memory issues and focus on the immediate goal of just creating the application that was planned in the first place. This lead to fewer bugs, a more robust application, and shorter overall development time.</p>
+
+				
+				
+					<H4>Interpreted and (Byte-) Compiled</H4>
+					<P>Python is classified as an interpreted language, meaning that compile-time is no longer a factor during development. Traditionally purely interpreted languages are almost always slower than compiled languages because execution does not take place in a system's native binary language. However, like Java, Python is actually byte-compiled, resulting in an intermediate form closer to machine language. This improves Python's performance, yet allows it to retain all the advantages of interpreted languages.</P>
+
+					<div cLASS="note"><p class="notetitle"><b>NOTE</b></p><p><p><i>Python source files typically end with the</i>
+							<tt class="monofont">.py</Tt>
+							<i>extension. The source is byte-compiled upon being loaded by the interpreter or by being byte-compiled explicitly. Depending on how you invoke the interpreter, it may leave behind byte-compiled files with a</I>
+							<tt cLass="monofont">.pyc</tT>
+							<i>or</i>
+							<tT CLAss="monofont">.pyo</tt>
+							<I>extension. You can find out more about file extensions in <A HRef="199.html">Chapter 12</a>, Modules.</i></P>
+</P></DIv><br>
+
+				
+			</fONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="38.html" title="History of Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=39" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="39.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="40.html" title="Obtaining Python"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

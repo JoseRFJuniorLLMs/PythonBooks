@@ -1,0 +1,225 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Operators</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="99.html" class="navtitle">6. Sequences: Strings, Lists, and Tuples</a> &gt; <span class="nonavtitle">Operators</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="110.html" title="Lists"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=111" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="111.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="112.html" title="Built-in Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A19%3A54+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172045119252238092082101</font><a href="read1.asp?bookname=0130260363&snode=111&now=5%2F29%2F2002+9%3A19%3A54+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Operators</h3>
+				
+					<h4>Standard Type Operators</h4>
+					<P>In <A HRef="78.html">Chapter 4</a>, we introduced a number of operators that apply to most objects, including the standard types. We will take a look at how some of those apply to lists.</p>
+
+					<PRE>
+						
+&gt;&gt;&gt; list1 = [ 'abc', 123 ]
+&gt;&gt;&gt; list2 = [ 'xyz', 789 ]
+&gt;&gt;&gt; list3 = [ 'abc', 123 ]
+&gt;&gt;&gt; 1ist1 &lt; list2
+1
+&gt;&gt;&gt; list2 &lt; list3
+0
+&gt;&gt;&gt; (list2 &gt; list3) <B>and</b> (list1 == list3)
+1
+
+					</pre>
+
+					<P>When using the value comparison operators, comparing numbers and strings is straightforward, but not so much for lists, however. List comparisons are somewhat tricky, but logical. The comparison operators use the same algorithm as the <TT Class="monofont">cmp()</tt> built-in function. The algorithm basically works like this: the elements of both lists are compared until there is a determination of a winner. For example, in our example above, the output of <tt class="monofont">'abc'</tt> versus <tt claSs="monofont">'xyz'</tT> is determined immediately, with <tt cLass="monofont">'abc' &lt; 'xyz',</tT> resulting in <tt cLASS="monofont">list1 &lt; list2</tt> and <tt CLASs="monofont">list2 &gt;= list3.</tt> Tuple comparisons are performed in the same manner as lists.</p>
+
+				
+				
+					<H4>Sequence Type Operators</H4>
+					
+						<H5>Slices (<Tt claSS="monofont">[ ]</TT> and <tt class="monofont">[ : ]</tt>)</h5>
+						<p>Slicing with lists is very similar to strings, but rather than using individual characters or substrings, slices of lists pull out an object or a group of objects which are elements of the list operated on. Focusing specifically on lists, we make the following definitions:</p>
+
+						<pre>
+							
+&gt;&gt;&gt; num_list = [43, -1.23, -2, 6.19e5]
+&gt;&gt;&gt; str_list = ['jack', 'jumped', 'over', 'candlestick']
+&gt;&gt;&gt; mixup_list = [4.0, [1, 'x'], 'beef', -1.9+6j]
+
+						</pre>
+
+						<p>Slicing operators obey the same rules regarding positive and negative indexes, starting and ending indexes, as well as missing indexes, which default to the beginning or to the end of a sequence.</p>
+
+						<Pre>
+							
+&gt;&gt;&gt; num_list[1]
+-1.23
+&gt;&gt;&gt;
+&gt;&gt;&gt; num_list[1:]
+[-1.23, -2, 619000.0]
+&gt;&gt;&gt;
+&gt;&gt;&gt; num_list[2:-1]
+[-2]
+&gt;&gt;&gt;
+&gt;&gt;&gt; str_list[2]
+'over'
+&gt;&gt;&gt; str_list[:2]
+['jack', 'jumped']
+&gt;&gt;&gt;
+&gt;&gt;&gt; mixup_list
+[4.0, [1, 'x'], 'beef', (-1.9+6j)]
+&gt;&gt;&gt; mixup_list[1]
+[1, 'x']
+
+						</Pre>
+
+						<p> Unlike strings, an element of a list might also be a sequence, implying that you can perform all the sequences operations or execute any sequence built-in functions on that element. In the example below, we show that not only can we take a slice of a slice, but we can also change it, and even to an object of a different type. You will also notice the similarity to multi-dimensional arrays.</P>
+
+						<pre>
+							
+&gt;&gt;&gt; mixup_list[1][1]
+'x'
+&gt;&gt;&gt; mixup_list[1][1] = -64.875
+&gt;&gt;&gt; mixup_list
+[4.0, [1, -64.875], 'beef', (-1.9+6j)]
+
+						</pRe>
+
+						<p>Here is another example <tT CLAss="monofont">using num_list:</tt></P>
+
+						<PRE>
+							
+&gt;&gt;&gt; num_list
+[43, -1.23, -2, 6.19e5]
+&gt;&gt;&gt;
+&gt;&gt;&gt; num_list[2:4] = [ 16.0, -49 ]
+&gt;&gt;&gt;
+&gt;&gt;&gt; num_list
+[43, -1.23, 16.0, -49]
+&gt;&gt;&gt;
+&gt;&gt;&gt; num_list[0] = [65535L, 2e30, 76.45-1.3j]
+&gt;&gt;&gt;
+&gt;&gt;&gt; num_list
+[[65535L, 2e+30, (76.45-1.3j)], -1.23, 16.0, -49]
+
+						</pre>
+
+						<p>Notice how, in the last example, we replaced only a single element of the list, but we replaced it with a list. So as you can tell, removing, adding, and replacing things in lists are pretty free-form. Keep in mind that in order to splice elements of a list into another list, you have to make sure that the left-hand side of the assignment operator (<TT CLass="monofont">=</tT>) is a slice, not just a single element.</P>
+
+					
+					
+						<H5>Membership (<Tt class="monofont">in, not in</tt>)</h5>
+						<p>With strings, the membership operator determined whether a single character is a member of a string. With lists (and tuples), we can check whether an object is a member of a list (or tuple).</p>
+
+						<pre>
+							
+&gt;&gt;&gt; mixup_list
+[4.0, [1, 'x'], 'beef', (-1.9+6j)]
+&gt;&gt;&gt;
+&gt;&gt;&gt; 'beef' <b>in</b> mixup_list
+1
+&gt;&gt;&gt;
+&gt;&gt;&gt; 'x' <b>in</b> mixup_list
+0
+&gt;&gt;&gt;
+&gt;&gt;&gt; 'x' <b>in</b> mixup_list[1]
+1
+&gt;&gt;&gt; num_list
+[[65535L, 2e+030, (76.45-1.3j)], -1.23, 16.0, -49]
+&gt;&gt;&gt;
+&gt;&gt;&gt; -49 <B>in</b> num_list
+1
+&gt;&gt;&gt;
+&gt;&gt;&gt; 34 <b>in</B> num_list
+0
+&gt;&gt;&gt;
+&gt;&gt;&gt; [65535L, 2e+030, (76.45-1.3j)] in num_list
+1
+
+						</pre>
+
+						<P>Note how <tt clAss="monofont">'x'</tT> is <I>not</I> a member of <Tt claSS="monofont">mixup_list.</TT> That is because <tt clASS="monofont">'x'</Tt> itself is not actually a member of <tt cLASS="monofont">mixup_list.</tt> Rather, it is a member of <tt class="monofont">mixup_uplist[1],</tt> which itself is a list. The membership operator is applicable in the same manner for tuples.</p>
+
+					
+					
+						<h5>Concatenation (<tt class="monofont">+</Tt>)</h5>
+						<P>The concatenation operator allows us to join multiple lists together. Note in the examples below that there is a restriction of concatenating like objects. In other words, you can concatenate only objects of the same type. You cannot concatenate two different types even if both are sequences.</p>
+
+						<prE>
+							
+&gt;&gt;&gt; num_list = [43, -1.23, -2, 6.19e5]
+&gt;&gt;&gt; str_list = ['jack', 'jumped', 'over', 'candlestick']
+&gt;&gt;&gt; mixup_list = [4.0, [1, 'x'], 'beef', -1.9+6j]
+&gt;&gt;&gt;
+&gt;&gt;&gt; num_list + mixup_list
+[43, -1.23, -2, 619000.0, 4.0, [1, 'x'], 'beef', (-1.9+6j)]
+&gt;&gt;&gt;
+&gt;&gt;&gt; str_list + num_list
+['jack', 'jumped', 'over', 'candlestick', 'park', 43, -1.23, -2, 619000.0]
+
+						</pre>
+
+						<p>As we will discover in <A hreF="113.html">Section 6.13</A>, starting in Python 1.5.2, you can use the <TT clasS="monofont">extend()</TT> method in place of the concatenation operator to append the contents of a list to another. Using <Tt claSS="monofont">extend()</TT> is advantageous over concatenation because it actually appends the elements of the new list to the original, rather than creating a new list from scratch like <tt clASS="monofont">+</Tt> does. <tt class="monofont">extend()</tt> is also the method used by the new augmented assignment or in-place concatenation operator (<tt class="monofont">+=</tt>) which debuted in Python 2.0.</p>
+
+						<P>We would also like to point out that the concatenation operator <i>does not</i> facilitate adding individual elements to a list. The upcoming example illustrates a case where attempting to add a new item to the list results in failure.</P>
+
+						<pre>
+							
+&gt;&gt;&gt; num_list + 'new item'
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+TypeError: illegal argument type for built-in operation
+
+						</Pre>
+
+						<p>This example fails because we had different types to the left and right of the concatenation operator. A combination of (list <tT claSS="monofont">+</TT> string) is not valid. Obviously, our intention was to add the <tt clASS="monofont">'new item'</Tt> string to the list, but we did not go about it the proper way. Fortunately, we have a solution:</p>
+
+						<p>Use the <tT CLAss="monofont">append()</tt> list built-in method (we will formally introduce <TT CLass="monofont">append()</tt> and all other built-in methods in <a href="113.html">Section 6.13</a>):</p>
+
+						<pre>
+							
+&gt;&gt;&gt; num_list.append('new item')
+
+						</pre>
+
+					
+					
+						<h5>Repetition (<tT clAss="monofont">*</tT>)</h5>
+						<p>Use of the repetition operator may make more sense with strings, but as a sequence type, lists and tuples can also benefit from this operation, if needed:</p>
+
+						<pRe>
+							
+&gt;&gt;&gt; num_list * 2
+[43, -1.23, -2, 619000.0, 43, -1.23, -2, 619000.0]
+&gt;&gt;&gt;
+&gt;&gt;&gt; num_list * 3
+[43, -1.23, -2, 619000.0, 43, -1.23, -2, 619000.0, 43, -1.23, -2, 619000.0]
+
+						</prE>
+
+						<P>A new augmented assignment in-place repetition operator was also added to Python 2.0.</P>
+
+					
+				
+				
+					<H4>List Type Operators</h4>
+					<p>There are currently no special list-only operators in Python. Lists can be used with most object and sequence operators. In addition, list objects have their own methods.</p>
+
+				
+			</fONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="110.html" title="Lists"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=111" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="111.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="112.html" title="Built-in Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,131 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; reduce() </TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="170.html" class="navtitle">11. Functions</a> &gt; <span class="nonavtitle">reduce() </span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="194.html" title="map() "><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=195" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="195.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="196.html" title="Variable Scope"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A35%3A06+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174051007161119069149062</font><a href="read7.asp?bookname=0130260363&snode=195&now=5%2F29%2F2002+9%3A35%3A06+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3><tt cLASS="monofont">reduce()</tt></h3>
+				<p>The final functional programming piece is <TT CLass="monofont">reduce(),</tT> which takes a binary function (a function that takes two values, performs some calculation and returns one value as output), a sequence, and an optional initializer, and methodologically "reduces" the contents of that list down to a single value, hence its name.</P>
+
+				<P>It does this by taking the first two elements of the sequence and passing them to the binary function to obtain a single value. It then takes this value and the next item of the sequence to get yet another value, and so on until the sequence is exhausted and one final value is computed.</P>
+
+				<p>You may try to visualize <tt class="monofont">reduce()</tt> as the following equivalence example:</p>
+
+				<pre>
+					
+reduce(func, [1, 2, 3])     =     func(func(1, 2), 3)
+
+				</pre>
+
+				<p>Some argue that the "proper functional" use of <tt ClaSs="monofont">reduce()</tt> requires only one item to be taken at a time for <Tt claSs="monofont">reduce().</tt> In our first iteration above, we took two items because we did not have a "result" from the previous values (because we did not <I>have</I> any previous values). This is where the optional initializer comes in. If the initializer is given, then the first iteration is performed on the initializer and the first item of the sequence, and follows normally from there.</P>
+
+				<P>If we were to try to implement <tt clASS="monofont">reduce()</Tt> in pure Python, it might look something like this:</p>
+
+				<prE>
+					
+<B>def</B> reduce(bin_func, seq, init=None):
+
+    lseq = list(seq)                  # convert to list
+
+    <B>if</b> init == None:                  # initializer?
+        res = lseq.pop(0)             #   no
+    <b>else:</b>
+        res = init                    #   yes
+
+    <b>for</B> item <B>in</B> lseq:                # reduce sequence
+        res = bin_func(res, item)     # apply function
+
+    <B>return</b> res                        # return result
+
+				</pre>
+
+				<p>This may be the most difficult of the four conceptually, so we should again show you an example as well as a functional diagram (see <a href="195#1.html">Figure11-4</a>). The "hello world" of <tt class="monofont">reduce()</tt> is its use of a simple addition function or its <B><tt ClasS="monofont">lambda</tt></b> equivalent seen earlier in this chapter:</p>
+
+				<CentER>
+					<H5>
+<A name="1"></A>Figure 11-4. How the <TT Class="monofont">reduce()</TT> Built-in Function Works</H5>
+					
+						
+							<Img boRDER="0" width="500" height="442" src="graphics/11fig04.gif" alt="graphics/11fig04.gif">
+						
+					
+				</cenTer>
+
+				<Pre>
+					
+• <b>def</B> sum(x,y): <b>return</b> x,y
+• <b>lambda</b> x,y: x+y
+
+				</Pre>
+
+				<p>Given a list, we can get the sum of all the values by simply creating a loop, iteratively going through the list, adding the current element to a running subtotal, and be presented with the result once the loop has completed:</P>
+
+				<PRE>
+					
+allNums = range(5)                 # [0, 1, 2, 3, 4]
+total = 0
+<b>for</b> eachNum <b>in</b> allNums:
+    total = sum(total, eachNum)    # total = total + eachNum
+<B>print</B> 'the total is:', total
+
+				</PRe>
+
+				<p>Making this code real in the interpreter looks like this:</p>
+
+				<pRE>
+					
+&gt;&gt;&gt; <B>def</B> sum(x,y): <b>return</b> x+y
+&gt;&gt;&gt; allNums = range(5)
+&gt;&gt;&gt; total = 0
+&gt;&gt;&gt; <b>for</b> eachNum <B>in</B> allNums:
+...     total = sum(total, eachNum)
+...
+&gt;&gt;&gt; <B>print</B> 'the total is:' total
+the total is: 10
+
+				</pre>
+
+				<p>Using a <b><tt class="monofont">lambda</tt></b> function, we argue that we can accomplish the same task on a single line using <tt claSs="monofont">reduce():</tT></p>
+
+				<prE>
+					
+&gt;&gt;&gt; <b>print</b> 'the total is:', reduce((<b>lambda</b> x,y: x+y), range(5))
+the total is: 10
+
+				</Pre>
+
+				<p>The <TT CLass="monofont">reduce()</tT> function performs the following mathematical operations given the input above:</P>
+
+				<PRe>
+					
+((0 + 1) + 2) + 3) + 4)?  10
+
+				</pre>
+
+				<P>It takes the first two elements of the list (0 and 1), calls <TT Class="monofont">sum()</TT> to get 1, then calls <TT class="monofont">sum()</tt> again with that result and the next item 2, gets the result from that, pairs it with the next item 3 and calls <tt class="monofont">sum(),</tt> and finally takes the entire subtotal and calls <tt clAss="monofont">sum()</Tt> with 4 to obtain 10, which is the final return value.</p>
+
+			</fOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="194.html" title="map() "><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=195" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="195.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="196.html" title="Variable Scope"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,659 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Python Operator Summary</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="293.html" class="navtitle">C. </a> &gt; <span class="nonavtitle">Python Operator Summary</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="292.html" title="Online References"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=294" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="294.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="296.html" title="What's New in Python 2.0?"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A47%3A57+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004226049070147064241166160</font><a href="read4.asp?bookname=0130260363&snode=294&now=5%2F30%2F2002+8%3A47%3A57+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+			<h3>Python Operator Summary</h3>
+			<p><a HREF="294#1.html">TableC.1</a> represents the complete set of Python operators and to which standard types they apply. The operators are sorted from highest-to-lowest precedence, with those sharing the same shaded group having the same priority.</p>
+
+			<a nAME="1"></A><p><tabLE BOrder="1" cellspacing="0" cellpAddIng="1" wIdth="100%">
+<cAptiON><H5>Table c.1. Python Operators († - unary)</H5></captION><ColgrOUP Align="center" SPAN="9">
+<tr valign="top">
+<th>
+<font size="2"><tt ClaSs="monofont">Operator</tt></Font></tH>
+<th>
+<fONT Size="2"><tT CLAss="monofont">Int</tt></FONT></th>
+<th>
+<FONT size="2"><tt class="monofont">long</tt></font></th>
+<tH>
+<foNt siZe="2"><tt cLass="monofont">float</TT></FOnt></th>
+<TH>
+<FOnt siZE="2"><TT clasS="monofont">complex</TT></Font></th>
+<th>
+<font size="2"><tt claSs="monofont">string</tT></fonT></th>
+<th>
+<Font SIZE="2"><tt clASS="monofont">list</Tt></fonT></TH>
+<Th>
+<fonT SIZe="2"><tt class="monofont">tuple</tt></font></th>
+<th>
+<foNt sIze="2"><tT clasS="monofont">dictionary</tt></fONT></Th>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt sizE="2"><TT Class="monofont">[]</tt></font></td>
+<td>
+<font siZe="2"> </fOnt></tD>
+<td>
+<foNt siZE="2"> </FOnt></td>
+<TD>
+<FOnt siZE="2"> </FOnt></td>
+<TD>
+<FOnt size="2"> </font></td>
+<td>
+<font siZe="2">•</fOnt></tD>
+<td>
+<foNt siZE="2">•</FOnt></td>
+<TD>
+<FOnt siZE="2">•</FOnt></td>
+<TD>
+<FOnt size="2"> </font></td>
+</tr>
+<tr valiGn="top">
+<tD>
+<fonT size="2"><Tt clASS="monofont">[:]</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2"> </fonT></TD>
+<Td>
+<font size="2"> </font></td>
+<td>
+<fonT siZe="2"> </foNt></td>
+<tD>
+<fonT SIZe="2"> </fonT></TD>
+<Td>
+<fonT SIZe="2">•</fonT></TD>
+<Td>
+<font size="2">•</font></td>
+<td>
+<fonT siZe="2">•</foNt></td>
+<tD>
+<fonT SIZe="2"> </fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><b><tt class="monofont">**</tt></b></font></td>
+<Td>
+<fOnt sIze="2">•</foNt></td>
+<TD>
+<FOnt siZE="2">•</FOnt></td>
+<TD>
+<FOnt siZE="2">•</FOnt></td>
+<td>
+<font size="2">•</font></td>
+<Td>
+<fOnt sIze="2"> </foNt></td>
+<TD>
+<FOnt siZE="2"> </FOnt></td>
+<TD>
+<FOnt siZE="2"> </FOnt></td>
+<td>
+<font size="2"> </font></td>
+</Tr>
+<tR valIgn="top">
+<td>
+<Font SIZE="2"><tt clASS="monofont">+†</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2">•</font></td>
+<td>
+<font size="2">•</fonT></td>
+<Td>
+<foNt sizE="2">•</fonT></TD>
+<Td>
+<fonT SIZe="2">•</fonT></TD>
+<Td>
+<fonT SIZe="2"> </font></td>
+<td>
+<font size="2"> </fonT></td>
+<Td>
+<foNt sizE="2"> </fonT></TD>
+<Td>
+<fonT SIZe="2"> </fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<font size="2"><tt class="monofont">-†</tt></FonT></td>
+<tD>
+<font Size="2">•</FONT></td>
+<td>
+<FONT size="2">•</FONT></td>
+<td>
+<FONT size="2">•</font></td>
+<td>
+<font size="2">•</FonT></td>
+<tD>
+<font Size="2"> </FONT></td>
+<td>
+<FONT size="2"> </FONT></td>
+<td>
+<FONT size="2"> </font></td>
+<td>
+<font size="2"> </FonT></td>
+</tR>
+<tr vaLign="top">
+<TD>
+<FOnt siZE="2"><TT clasS="monofont">~†</TT></Font></tD>
+<TD>
+<Font size="2">•</font></td>
+<td>
+<font sIze="2">•</Font></Td>
+<td>
+<fOnt sIZE="2"> </Font></tD>
+<TD>
+<Font sIZE="2"> </Font></tD>
+<TD>
+<Font size="2"> </font></td>
+<td>
+<font sIze="2"> </Font></Td>
+<td>
+<fOnt sIZE="2"> </Font></tD>
+<TD>
+<Font sIZE="2"> </Font></tD>
+</TR>
+<Tr valign="top">
+<td>
+<font size="2"><b><tt ClaSs="monofont">*</tt></B></font></Td>
+<td>
+<FONT size="2">•</FONT></td>
+<td>
+<FONT size="2">•</FONT></td>
+<td>
+<font size="2">•</font></td>
+<td>
+<FonT sizE="2">•</font></Td>
+<td>
+<FONT size="2">•</FONT></td>
+<td>
+<FONT size="2">•</FONT></td>
+<td>
+<font size="2">•</font></td>
+<td>
+<FonT sizE="2"> </font></Td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt siZE="2"><TT clasS="monofont">/</TT></Font></td>
+<td>
+<font size="2">•</font></tD>
+<td>
+<Font Size="2">•</fOnt></tD>
+<TD>
+<Font sIZE="2">•</Font></tD>
+<TD>
+<Font sIZE="2">•</Font></td>
+<td>
+<font size="2"> </font></tD>
+<td>
+<Font Size="2"> </fOnt></tD>
+<TD>
+<Font sIZE="2"> </Font></tD>
+<TD>
+<Font sIZE="2"> </Font></td>
+</tr>
+<tr valign="top">
+<td>
+<fonT siZe="2"><tt Class="monofont">%</Tt></foNT></TD>
+<td>
+<foNT SIze="2">•</foNT></TD>
+<td>
+<foNT SIze="2">•</font></td>
+<td>
+<font size="2">•</foNt></tD>
+<td>
+<fOnt siZe="2">•</foNT></TD>
+<td>
+<foNT SIze="2">•</foNT></TD>
+<td>
+<foNT SIze="2"> </font></td>
+<td>
+<font size="2"> </foNt></tD>
+<td>
+<fOnt siZe="2"> </foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">+</tt></font></td>
+<td>
+<font sizE="2">•</foNt></td>
+<Td>
+<fonT sizE="2">•</FONt></td>
+<tD>
+<FONt sizE="2">•</FONt></td>
+<tD>
+<FONt size="2">•</font></td>
+<td>
+<font sizE="2">•</foNt></td>
+<Td>
+<fonT sizE="2">•</FONt></td>
+<tD>
+<FONt sizE="2">•</FONt></td>
+<tD>
+<FONt size="2"> </font></td>
+</tr>
+<tr valigN="top">
+<td>
+<Font Size="2"><tT claSS="monofont">-</TT></font></TD>
+<TD>
+<font SIZE="2">•</font></TD>
+<TD>
+<font size="2">•</font></td>
+<td>
+<font SizE="2">•</fonT></td>
+<td>
+<Font SIZE="2">•</font></TD>
+<TD>
+<font SIZE="2"> </font></TD>
+<TD>
+<font size="2"> </font></td>
+<td>
+<font SizE="2"> </fonT></td>
+<td>
+<Font SIZE="2"> </font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><tt class="monofont">&lt;&lt;</tt></font></td>
+<td>
+<fOnt Size="2">•</Font></tD>
+<td>
+<fONT Size="2">•</fONT></Td>
+<td>
+<fONT Size="2"> </fONT></Td>
+<td>
+<font size="2"> </font></td>
+<td>
+<fOnt Size="2"> </Font></tD>
+<td>
+<fONT Size="2"> </fONT></Td>
+<td>
+<fONT Size="2"> </fONT></Td>
+<td>
+<font size="2"> </font></td>
+</tr>
+<tR vaLign="top">
+<Td>
+<fonT sizE="2"><TT Class="monofont">&gt;&gt;</TT></FOnt></td>
+<TD>
+<FOnt siZE="2">•</FOnt></td>
+<td>
+<font size="2">•</font></td>
+<Td>
+<fOnt sIze="2"> </foNt></td>
+<TD>
+<FOnt siZE="2"> </FOnt></td>
+<TD>
+<FOnt siZE="2"> </FOnt></td>
+<td>
+<font size="2"> </font></td>
+<Td>
+<fOnt sIze="2"> </foNt></td>
+<TD>
+<FOnt siZE="2"> </FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font size="2"><tt class="monofont">&amp;</tt></fonT></td>
+<Td>
+<foNt sizE="2">•</fonT></TD>
+<Td>
+<fonT SIZe="2">•</fonT></TD>
+<Td>
+<fonT SIZe="2"> </font></td>
+<td>
+<font size="2"> </fonT></td>
+<Td>
+<foNt sizE="2"> </fonT></TD>
+<Td>
+<fonT SIZe="2"> </fonT></TD>
+<Td>
+<fonT SIZe="2"> </font></td>
+<td>
+<font size="2"> </fonT></td>
+</Tr>
+<tr ValigN="top">
+<td>
+<fONT Size="2"><tT CLAss="monofont">^</tt></FONT></td>
+<td>
+<FONT size="2">•</font></td>
+<td>
+<font size="2">•</FonT></td>
+<tD>
+<font Size="2"> </FONT></td>
+<td>
+<FONT size="2"> </FONT></td>
+<td>
+<FONT size="2"> </font></td>
+<td>
+<font size="2"> </FonT></td>
+<tD>
+<font Size="2"> </FONT></td>
+<td>
+<FONT size="2"> </FONT></td>
+</tr>
+<TR VAlign="top">
+<td>
+<font size="2"><tt clasS="monofont">|</tt></Font></Td>
+<td>
+<fOnt sIZE="2">•</Font></tD>
+<TD>
+<Font sIZE="2">•</Font></tD>
+<TD>
+<Font size="2"> </font></td>
+<td>
+<font sIze="2"> </Font></Td>
+<td>
+<fOnt sIZE="2"> </Font></tD>
+<TD>
+<Font sIZE="2"> </Font></tD>
+<TD>
+<Font size="2"> </font></td>
+<td>
+<font sIze="2"> </Font></Td>
+</tr>
+<tR valIGN="top">
+<Td>
+<fonT SIZe="2"><tt cLASS="monofont">&lt;</tt></foNT></TD>
+<td>
+<font size="2">•</font></td>
+<td>
+<foNt sIze="2">•</fOnt></td>
+<Td>
+<foNT SIze="2">•</foNT></TD>
+<td>
+<foNT SIze="2">•</foNT></TD>
+<td>
+<font size="2">•</font></td>
+<td>
+<foNt sIze="2">•</fOnt></td>
+<Td>
+<foNT SIze="2">•</foNT></TD>
+<td>
+<foNT SIze="2">•</foNT></TD>
+</tr>
+<tr valign="top">
+<td>
+<font size="2"><Tt cLass="monofont">&gt;</Tt></fonT></td>
+<tD>
+<FONt sizE="2">•</FONt></td>
+<tD>
+<FONt sizE="2">•</FONt></td>
+<td>
+<font size="2">•</font></td>
+<tD>
+<foNt siZe="2">•</fonT></td>
+<tD>
+<FONt sizE="2">•</FONt></td>
+<tD>
+<FONt sizE="2">•</FONt></td>
+<td>
+<font size="2">•</font></td>
+<tD>
+<foNt siZe="2">•</fonT></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2"><Tt claSS="monofont">&lt;=</TT></font></td>
+<td>
+<font size="2">•</font></Td>
+<tD>
+<fonT size="2">•</Font></TD>
+<TD>
+<font SIZE="2">•</font></TD>
+<TD>
+<font SIZE="2">•</font></td>
+<td>
+<font size="2">•</font></Td>
+<tD>
+<fonT size="2">•</Font></TD>
+<TD>
+<font SIZE="2">•</font></TD>
+<TD>
+<font SIZE="2">•</font></td>
+</tr>
+<tr valign="top">
+<td>
+<foNt sIze="2"><tT clasS="monofont">&gt;=</tt></fONT></Td>
+<td>
+<fONT Size="2">•</fONT></Td>
+<td>
+<fONT Size="2">•</font></td>
+<td>
+<font size="2">•</fOnt></Td>
+<td>
+<Font sIze="2">•</fONT></Td>
+<td>
+<fONT Size="2">•</fONT></Td>
+<td>
+<fONT Size="2">•</font></td>
+<td>
+<font size="2">•</fOnt></Td>
+<td>
+<Font sIze="2">•</fONT></Td>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt sizE="2"><TT Class="monofont">==</tt></font></td>
+<td>
+<font siZe="2">•</fOnt></tD>
+<td>
+<foNt siZE="2">•</FOnt></td>
+<TD>
+<FOnt siZE="2">•</FOnt></td>
+<TD>
+<FOnt size="2">•</font></td>
+<td>
+<font siZe="2">•</fOnt></tD>
+<td>
+<foNt siZE="2">•</FOnt></td>
+<TD>
+<FOnt siZE="2">•</FOnt></td>
+<TD>
+<FOnt size="2">•</font></td>
+</tr>
+<tr valiGn="top">
+<tD>
+<fonT size="2"><Tt clASS="monofont">!=</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2">•</fonT></TD>
+<Td>
+<font size="2">•</font></td>
+<td>
+<fonT siZe="2">•</foNt></td>
+<tD>
+<fonT SIZe="2">•</fonT></TD>
+<Td>
+<fonT SIZe="2">•</fonT></TD>
+<Td>
+<font size="2">•</font></td>
+<td>
+<fonT siZe="2">•</foNt></td>
+<tD>
+<fonT SIZe="2">•</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><tt class="monofont">&lt;&gt;</tt></font></td>
+<td>
+<FonT sizE="2">•</font></Td>
+<td>
+<FONT size="2">•</FONT></td>
+<td>
+<FONT size="2">•</FONT></td>
+<td>
+<font size="2">•</font></td>
+<td>
+<FonT sizE="2">•</font></Td>
+<td>
+<FONT size="2">•</FONT></td>
+<td>
+<FONT size="2">•</FONT></td>
+<td>
+<font size="2">•</font></td>
+</tr>
+<Tr vAligN="top">
+<td>
+<foNt siZE="2"><B><Tt claSS="monofont">is</TT></b></fonT></TD>
+<Td>
+<fonT SIZe="2">•</font></td>
+<td>
+<font size="2">•</fonT></td>
+<Td>
+<foNt sizE="2">•</fonT></TD>
+<Td>
+<fonT SIZe="2">•</fonT></TD>
+<Td>
+<fonT SIZe="2">•</font></td>
+<td>
+<font size="2">•</fonT></td>
+<Td>
+<foNt sizE="2">•</fonT></TD>
+<Td>
+<fonT SIZe="2">•</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<font size="2"><b><tt class="monofont">is not</tT></b></fOnt></tD>
+<td>
+<foNt siZE="2">•</FOnt></td>
+<TD>
+<FOnt siZE="2">•</FOnt></td>
+<TD>
+<FOnt size="2">•</font></td>
+<td>
+<font siZe="2">•</fOnt></tD>
+<td>
+<foNt siZE="2">•</FOnt></td>
+<TD>
+<FOnt siZE="2">•</FOnt></td>
+<TD>
+<FOnt size="2">•</font></td>
+<td>
+<font siZe="2">•</fOnt></tD>
+</tr>
+<tr ValiGN="top">
+<TD>
+<font SIZE="2"><b><tt cLASS="monofont">in</tt></b></fONT></Td>
+<td>
+<font size="2"> </font></td>
+<td>
+<fOnt Size="2"> </Font></tD>
+<td>
+<fONT Size="2"> </fONT></Td>
+<td>
+<fONT Size="2"> </fONT></Td>
+<td>
+<font size="2">•</font></td>
+<td>
+<fOnt Size="2">•</Font></tD>
+<td>
+<fONT Size="2">•</fONT></Td>
+<td>
+<fONT Size="2"> </fONT></Td>
+</tr>
+<tr valign="top">
+<td>
+<font sizE="2"><b><tT claSs="monofont">not in</tt></b></Font></TD>
+<TD>
+<font SIZE="2"> </font></TD>
+<TD>
+<font SIZE="2"> </font></td>
+<td>
+<font size="2"> </font></Td>
+<tD>
+<fonT size="2"> </Font></TD>
+<TD>
+<font SIZE="2">•</font></TD>
+<TD>
+<font SIZE="2">•</font></td>
+<td>
+<font size="2">•</font></Td>
+<tD>
+<fonT size="2"> </Font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><tt CLASs="monofont">not†</tt></font></td>
+<td>
+<font size="2">•</fOnt></Td>
+<td>
+<Font sIze="2">•</fONT></Td>
+<td>
+<fONT Size="2">•</fONT></Td>
+<td>
+<fONT Size="2">•</font></td>
+<td>
+<font size="2">•</fOnt></Td>
+<td>
+<Font sIze="2">•</fONT></Td>
+<td>
+<fONT Size="2">•</fONT></Td>
+<td>
+<fONT Size="2">•</font></td>
+</tr>
+<tr valign="top">
+<tD>
+<foNt siZe="2"><b><tt ClasS="monofont">and</TT></B></font></TD>
+<TD>
+<font SIZE="2">•</font></TD>
+<TD>
+<font size="2">•</font></td>
+<td>
+<font SizE="2">•</fonT></td>
+<td>
+<Font SIZE="2">•</font></TD>
+<TD>
+<font SIZE="2">•</font></TD>
+<TD>
+<font size="2">•</font></td>
+<td>
+<font SizE="2">•</fonT></td>
+<td>
+<Font SIZE="2">•</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><b><tt class="monofont">or</tt></b></font></td>
+<tD>
+<foNt siZe="2">•</fonT></td>
+<tD>
+<FONt sizE="2">•</FONt></td>
+<tD>
+<FONt sizE="2">•</FONt></td>
+<td>
+<font size="2">•</font></td>
+<tD>
+<foNt siZe="2">•</fonT></td>
+<tD>
+<FONt sizE="2">•</FONt></td>
+<tD>
+<FONt sizE="2">•</FONt></td>
+<td>
+<font size="2">•</font></td>
+</tR>
+</coLgroUp>
+</tabLe></p>
+
+		</fONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="292.html" title="Online References"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=294" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="294.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="296.html" title="What's New in Python 2.0?"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

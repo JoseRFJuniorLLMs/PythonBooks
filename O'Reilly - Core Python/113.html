@@ -1,0 +1,207 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; List Type Built-in Methods</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="99.html" class="navtitle">6. Sequences: Strings, Lists, and Tuples</a> &gt; <span class="nonavtitle">List Type Built-in Methods</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="112.html" title="Built-in Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=113" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="113.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="114.html" title="Special Features of Lists"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A20%3A16+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175201138162144208147034</font><a href="read4.asp?bookname=0130260363&snode=113&now=5%2F29%2F2002+9%3A20%3A16+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>List Type Built-in Methods</h3>
+				<p>Lists in Python have <i>methods.</I> We will go over methods more formally in an introduction to object-oriented programming in <A HRef="210.html">Chapter 13</a>, but for now, think of methods as functions or procedures that apply only to specific objects. So the methods described in this section behave just like built-in functions except that they operate only on lists. Since these functions involve the mutability (or updating) of lists, none of them is applicable for tuples.</p>
+
+				<P>You may recall our earlier discussion of accessing object attributes using the dotted attribute notation: <I><TT clasS="monofont">object.attribute.</TT></I> List methods are no different, using <i><tt class="monofont">list.method([arguments]).</tt></i> We use the dotted notation to access the attribute (here it is a function), then use the function operators ( <b><tt class="monofont">( )</tT></b> ) in a functional notation to invoke the methods.</p>
+
+				<P>Types that have methods generally have an attribute called <i><tt Class="monofont">object.</Tt></i><tT CLAss="monofont">__methods__</tt> which name all the methods that are supported by that type. In our case for lists, <I><TT Class="monofont">list.</TT></I><Tt claSS="monofont">__methods__</TT> serves this purpose:</p>
+
+				<pre>
+					
+&gt;&gt;&gt; [].__methods__
+['append', 'count', 'extend', 'index', 'insert', 'pop',
+'remove', 'reverse', 'sort']
+
+				</pre>
+
+				<p><a href="113#1.html">Table6.10</a> shows all the current methods currently available for lists. Of these methods, <tt clasS="monofont">extend()</tt> and <Tt clAss="monofont">pop()</tt> made their debut in Python 1.5.2. Some examples of using various list methods are shown below.</P>
+
+				<a naME="1"></A><P><tablE BORder="1" cELLSpaciNG="0" CEllpadding="1" width="100%">
+<captioN><h5>Table 6.10. List Type Built-in Methods</h5></CaptIon><coLgroUP ALign="left" sPAN="2">
+<Tr valIGN="top">
+<Th>
+<fonT SIZe="2"><b><i>List Method</i></b></font></th>
+<th>
+<font sizE="2"><b><i>Operation</I></b></foNt></th>
+</tR>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><i><TT CLass="monofont">list.</tT></I><TT class="monofont">append(</tt><i><tt class="monofont">obj</tt></i><tt ClaSs="monofont">)</tt></Font></tD>
+<td>
+<fONT Size="2">appends object <i><TT CLass="monofont">obj</tT></I> to <I><Tt claSS="monofont">list</TT></i></font></td>
+</tr>
+<tr valign="top">
+<td>
+<fOnt Size="2"><I><tt clAss="monofont">list.</tT></I><TT clasS="monofont">count(</TT><I><tt clASS="monofont">obj</Tt></i><tt CLASs="monofont">)</tt></font></td>
+<td>
+<font size="2">returns count of how many times <i><Tt cLass="monofont">obj</Tt></i> occurs in <i><tT claSS="monofont">list</TT></i></fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><i><tt class="monofont">list.</tt></i><tt clasS="monofont">extend(</tt><I><tt cLass="monofont">seq</tT></i><tt CLASs="monofont">)</tt><fONT Size="1"><sUP><A Href="#FOOTNOTE-a">[a]</a></SUP></Font>
+</font></td>
+<td>
+<font size="2">appends the contents of <i><Tt cLass="monofont">seq</Tt></i> to <i><tT claSS="monofont">list</TT></i></fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><i><tt class="monofont">list.</tt></i><tt clasS="monofont">index(</tt><I><tt cLass="monofont">obj</tT></i><tt CLASs="monofont">)</tt></fONT></Td>
+<td>
+<fONT Size="2">returns the lowest index in <i><TT CLass="monofont">list</tt></i> that obj appears</font></td>
+</tr>
+<tr valiGn="top">
+<tD>
+<fonT size="2"><I><tt cLASS="monofont">list.</tt></i><tT CLAss="monofont">insert(</tt><I><TT Class="monofont">index, obj</TT></I><Tt class="monofont">)</tt></font></td>
+<td>
+<font SizE="2">inserts object <i><tt Class="monofont">obj</Tt></i> into <i><TT CLass="monofont">list</tT></I> at offset <I><Tt claSS="monofont">index</TT></i></fonT></TD>
+</Tr>
+<tr valign="top">
+<td>
+<font size="2"><i><Tt cLass="monofont">list.</Tt></i><tt ClasS="monofont">pop(</TT><I><tt clASS="monofont">obj=list</Tt></i><tt CLASs="monofont">[-1])</tt><sUP><A Href="#FOOTNOTE-a">[a]</a></sup></font></td>
+<td>
+<font sIze="2">removes and returns last object or <I><tt cLass="monofont">obj</tT></i> from <i><tT CLAss="monofont">list</tt></I></FONt></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font size="2"><i><tt class="monofont">list.</tt></i><tt ClaSs="monofont">remove(</tt><I><tt clAss="monofont">obj</tT></I><TT clasS="monofont">)</TT></Font></tD>
+<TD>
+<Font sIZE="2">removes object <I><tt class="monofont">obj</tt></i> from <i><tt class="monofont">list</tt></I></foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2"><I><tt clASS="monofont">list.</Tt></i><tt CLASs="monofont">reverse()</tt></font></td>
+<td>
+<font size="2">reverses objects of <i><Tt cLass="monofont">list</Tt></i> in place</foNt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><i><tt cLASS="monofont">list.</tt></i><tt class="monofont">sort(</tt><i><tt class="monofont">[func]</Tt></i><Tt clAss="monofont">)</tt></Font></TD>
+<TD>
+<font SIZE="2">sorts objects of list, use compare <i><tt cLASS="monofont">func</tt></i> if given</fONT></Td>
+</tr>
+</colgroup>
+</table></p>
+<bloCkqUote><Font sIze="1">
+<p CLASs="footnote">
+<sup><A NAMe="FOOTNOTE-a">[a]</a></suP>
+new as of Python 1.5.2</P>
+</FOnt></blOCKQuote>
+
+				<pre>
+					
+&gt;&gt;&gt; music_media = [45]
+&gt;&gt;&gt; music_media
+[45]
+&gt;&gt;&gt;
+&gt;&gt;&gt; music_media.insert(0, 'compact disc')
+&gt;&gt;&gt; music_media
+['compact disc', 45]
+&gt;&gt;&gt;
+&gt;&gt;&gt; music_media.append('long playing record')
+&gt;&gt;&gt; music_media
+['compact disc', 45, 'long playing record']
+&gt;&gt;&gt;
+&gt;&gt;&gt; music_media.insert(2, '8-track tape')
+&gt;&gt;&gt; music_media
+['compact disc', 45, '8-track tape', 'long playing record']
+
+				</pre>
+
+				<p>In the preceeding example, we initiated a list with a single element, then checked the list as we either inserted elements within the list, or appended new items at the end. Let's now determine if elements are in a list as well as how to find out the location of where items are in a list. We do this by using the <b><tt class="monofont">in</tT></b> operator and <tT claSs="monofont">index()</tt> method.</p>
+
+				<Pre>
+					
+&gt;&gt;&gt; 'cassette' <b>in</B> music_media
+0
+&gt;&gt;&gt; 'compact disc' <B>in</B> music_media
+1
+&gt;&gt;&gt; music_media.index(45)
+1
+&gt;&gt;&gt; music_media.index('8-track tape')
+2
+&gt;&gt;&gt; music_media.index('cassette')
+Traceback (innermost last):
+ File "&lt;interactive input&gt;", line 0, in ?
+ValueError: list.index(x): x not in list
+
+				</Pre>
+
+				<p>Oops! What happened in that last example? Well, it looks like using <tT CLAss="monofont">index()</tt> to check if items are in a list is not a good idea, because we get an error. It would be safer to check using the membership operator <B><TT Class="monofont">in</TT></B> (or <B><tt class="monofont">not in</tt></b>) first, and then using <tt class="monofont">index()</tt> to find the element's location. We can put the last few calls to <tT clAss="monofont">index()</tT> in a single for loop like this:</p>
+
+				<pre>
+					
+<B>for</b> eachMediaType <b>in</b> (45, '8-track tape', 'cassette'):
+    <B>if</B> eachMediaType <B>in</B> music_media:
+        <b>print</b> music_media.index(eachMediaType)
+
+				</prE>
+
+				<P>This solution helps us avoid the error we encountered above because <TT clasS="monofont">index()</TT> is not called unless the object was found in the list. We will find out later how we can take charge if the error occurs, instead of bombing out as we did above.</P>
+
+				<p>We will now test drive <tt cLASS="monofont">sort()</tt> and <tt class="monofont">reverse(),</tt> methods that will sort and reverse the elements of a list, respectively.</p>
+
+				<pre>
+					
+&gt;&gt;&gt; music_media
+['compact disc', 45, '8-track tape', 'long playing record']
+&gt;&gt;&gt; music_media.sort()
+&gt;&gt;&gt; music_media
+[45, '8-track tape', 'compact disc', 'long playing record']
+&gt;&gt;&gt; music_media.reverse()
+&gt;&gt;&gt; music_media
+['long playing record', 'compact disc', '8-track tape', 4
+
+				</pre>
+
+				<p>One caveat about the <tT clAss="monofont">sort()</tT> and <tt clAss="monofont">reverse()</tT> methods is that these will perform their operation on a list in place, meaning that the contents of the existing list will be changed. There is no return value from either of these methods.</P>
+
+				<P>Oh, and if you are an algorithm connoisseur, the default sorting algorithm employed by the <Tt claSS="monofont">sort()</TT> method is a randomized version of QuickSort. We defer all other explanation to the portion of the source code where you can find out more information on the sorting algorithm (<tt clASS="monofont">Objects/listobject.c</Tt>).</p>
+
+				<p>The new <tT CLAss="monofont">extend()</tt> method will take the contents of one list and append its elements to another list:</p>
+
+				<pre>
+					
+&gt;&gt;&gt; new_media = ['24/96 digital audio disc', 'DVD Audio
+disc', 'Super Audio CD']
+&gt;&gt;&gt; music_media.extend(new_media)
+&gt;&gt;&gt; music_media
+['long playing record', 'compact disc', '8-track tape',
+45, '24/96 digital audio disc', 'DVD Audio disc', 'Super
+Audio CD']
+
+				</pre>
+
+				<p>The argument to <tt class="monofont">extend()</tT> can be any sequence object starting in Python 1.6—the sequence is converted to a list by performing the equivalent to <tt ClasS="monofont">list()</tt> and then its contents appended to the original list. In 1.5.2, the argument was required to be a list.</p>
+
+				<p><Tt clASS="monofont">pop()</Tt> will either return the last or requested item from a list and return it to the caller. We will see the new <tt cLASS="monofont">pop()</tt> method in <a hREF="114#1.html">Section 6.14.1</A> as well as in the Exercises.</p>
+
+			</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="112.html" title="Built-in Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=113" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="113.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="114.html" title="Special Features of Lists"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

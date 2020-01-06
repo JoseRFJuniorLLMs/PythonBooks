@@ -1,0 +1,188 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Complex Numbers</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="89.html" class="navtitle">5. Numbers</a> &gt; <span class="nonavtitle">Complex Numbers</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="93.html" title="Floating Point Real Numbers"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=94" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="94.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="95.html" title="Operators"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A15%3A17+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172033173199022118034223</font><a href="read8.asp?bookname=0130260363&snode=94&now=5%2F29%2F2002+9%3A15%3A17+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Complex Numbers</h3>
+				<p>A long time ago, mathematicians were stumped by the following equation:</p>
+
+				
+					
+					<IMG BordeR="0" WIDth="71" heIGHT="29" src="graphics/05eq01.gif" alt="x²=-1">
+				<br>
+				<p>The reason for this is because any real number (positive or negative) multiplied by itself results in a positive number. How can you multiply any number with itself to get a negative number? No such real number exists. So in the eighteenth century, mathematicians invented something called an <i>imaginary number i</i> (or <i>j—</i> depending what math book you are reading) such that:</p>
+
+				
+					
+						
+							<img borDer="0" WidtH="74" heigHt="26" srC="graphics/05eq02.gif" ALT="graphics/05eq02.gif">
+						
+					
+				<br>
+				<p>Basically a new branch of mathematics was created around this special number (or concept), and now imaginary numbers are used in numerical and mathematical applications. Combining a real number with an imaginary number forms a single entity known as a <i>complex number.</I> A complex number is any ordered pair of floating point real numbers (<TT Class="monofont">x, y</TT>) denoted by <TT clasS="monofont">x + y</TT>
+					<B>
+						<tt class="monofont">j</tt>
+					</b> where <tt class="monofont">x</tt> is the real part and <tT clAss="monofont">y</tT> is the imaginary part of a complex number.</p>
+
+				<p>Here are some facts about Python's support of complex numbers:</p>
+
+				<uL>
+<li>
+						<p>Imaginary numbers by themselves are not supported in Python</P>
+
+					</LI>
+<Li>
+						<p>Complex numbers are made up of real and imaginary parts</p>
+
+					</lI>
+<LI>
+						<P>Syntax for a complex number: <i>
+								<tt cLASS="monofont">real+imag</tt>
+							</i>
+							<b>
+								<TT CLass="monofont">j</tt>
+							</b>
+						</p>
+
+					</li>
+<li>
+						<p>Both real and imaginary components are floating point values</p>
+
+					</li>
+<li>
+						<p>Imaginary part is suffixed with letter "J" lowercase ( <tt ClaSs="monofont">j</tt>) or upper (<Tt claSs="monofont">J</tt>)</P>
+
+					</LI>
+</Ul>
+				<p>The following are examples of complex numbers:</p>
+
+				<pRE>
+					
+64.375+1j    4.23-8.5j    0.23-8.55j  1.23e-045+6.7e+089j
+6.23+1.5j    -1.23-875J  0+1j9.80665-8. 31441J  -.0224+0j
+
+				</PRe>
+
+				
+					<h4>Complex Number Built-in Attributes</h4>
+					<p>Complex numbers are one example of objects with data attributes (<A HREf="80#1.html">Section 4.1.1</a>). The data attributes are the real and imaginary components of the complex number object they belong to. Complex numbers also have a method attribute which can be invoked, returning the complex conjugate of the object.</p>
+
+					<pRE>
+						
+&gt;&gt;&gt; aComplex = -8.333-1.47j
+&gt;&gt;&gt; aComplex
+(-8.333-1.47j)
+&gt;&gt;&gt; aComplex.real
+-8.333
+&gt;&gt;&gt; aComplex.imag
+-1.47
+&gt;&gt;&gt; aComplex.conjugate()
+(-8.333+1.47j)
+
+					</PRe>
+
+					<p>
+						<a href="94#2.html">Table 5.1</a> describes the attributes which complex numbers have:</p>
+
+					<a name="2"></a><p><tablE boRder="1" CellsPaciNG="0" CEllpaDDINg="1" widTH="100%">
+<CAptioN><H5>Table 5.1. Complex Number Attributes</H5></Caption><colgroup align="left" sPan="2">
+<Tr vaLign="top">
+<tH>
+<fonT SIZe="2">
+										<p>
+											<b><i>attribute</I></B>
+										</P>
+
+									</Font></tH>
+<TH>
+<Font sIZE="2">
+										<P>
+											<b><i>desciption</i></b>
+										</p>
+
+									</font></th>
+</tr>
+<tr valigN="top">
+<td>
+<Font Size="2">
+										<p>
+											<I>
+												<tt cLASS="monofont">num.</tt>
+											</i>
+											<tT CLAss="monofont">real</tt>
+										</P>
+
+									</FONt></td>
+<tD>
+<FONt size="2">
+										<p>real component of complex number <i>num</i>
+										</p>
+
+									</font></td>
+</tr>
+<tr vAliGn="top">
+<td>
+<Font sIze="2">
+										<p>
+											<I>
+												<TT Class="monofont">num.</TT>
+											</I>
+											<Tt claSS="monofont">imag</TT>
+										</p>
+
+									</fonT></TD>
+<Td>
+<font size="2">
+										<p>imaginary component of complex number <i>num</i>
+										</p>
+
+									</font></td>
+</tR>
+<tr ValiGn="top">
+<td>
+<fOnt sIZE="2">
+										<P>
+											<i>
+												<tt cLASS="monofont">num.</tt>
+											</i>
+											<tT CLAss="monofont">conjugate()</tt>
+										</P>
+
+									</FONt></td>
+<td>
+<font size="2">
+										<p>returns complex conjugate of <i>num</i>
+										</p>
+
+									</fonT></td>
+</Tr>
+</coLgrouP>
+</tabLE></P>
+
+				
+			</Font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="93.html" title="Floating Point Real Numbers"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=94" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="94.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="95.html" title="Operators"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

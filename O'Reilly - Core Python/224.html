@@ -1,0 +1,881 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Customizing Classes with Special Methods</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="210.html" class="navtitle">13. Classes and OOP</a> &gt; <span class="nonavtitle">Customizing Classes with Special Methods</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="223.html" title="Type vs. Classes/Instances"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=224" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="224.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="225.html" title="Privacy"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A16%3A56+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004231203005077001244116058</font><a href="read1.asp?bookname=0130260363&snode=224&now=5%2F30%2F2002+8%3A16%3A56+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Customizing Classes with Special Methods</h3>
+				<p>We covered two important aspects of methods in preceding sections of this chapter, the first being that methods must be bound (to an instance of their corresponding class) before they can be invoked. The other important matter is that there are two special methods which provide  the functionality of constructors and destructors, namely <tT CLAss="monofont">__init__()</tt> and <TT CLass="monofont">__del__()</tT> respectively.</P>
+
+				<P>In fact, <Tt class="monofont">__init__()</tt> and <tt class="monofont">__del__()</tt> are part of a set of special methods which can be implemented. Some have the predefined default behavior of inaction while others do not and should be implemented where needed. These special methods allow for a powerful form of extending classes in Python. In particular, they allow for:</p>
+
+				<ul>
+<Li><p>Emulating standard types</P>
+</li>
+<lI><p>Overloading operators</p>
+</li>
+</Ul>
+				<p>Special methods enable classes to emulate standard types by overloading standard operators such as <tT CLAss="monofont">+, *,</tt> and even the slicing subscript and mapping operator <TT CLass="monofont">[ ].</tT> As with most other special reserved identifiers, these methods begin and end with a double underscore ( <TT Class="monofont">__</TT> ). <A Href="224#1.html">Table 13.4</a> presents a list of all special methods and their descriptions.</p>
+
+				<a name="1"></a><p><table borDer="1" CellSpaciNg="0" ceLLPAddinG="1" WIDth="100%">
+<caPTIOn><h5>Table 13.4. Special Methods for Customizing Classes</h5></cAPTIon><colgroup align="left" span="2">
+<tR vaLign="top">
+<Th>
+<fonT sizE="2"><P><B><I>Special Method</i></b></p>
+</fONT></Th>
+<th>
+<fONT Size="2"><p><B><I>Description</I></B></p>
+</font></th>
+</tr>
+<tr valign="top">
+<td cOlsPan="1">
+<fOnt siZe="2"><p><b><I>Core</I></B></P>
+</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><p><i><tt class="monofont">C.</tt></i><tt clasS="monofont">__init__(</tt><I><tt cLass="monofont">self</tT></i><tt CLASs="monofont">[,</tt>
+										<i><TT CLass="monofont">arg1, …</tT></I><TT clasS="monofont">])</TT></P>
+</font></td>
+<td>
+<font size="2"><p>constructor (with any optional arguments)</p>
+</foNt></tD>
+</tr>
+<tR valiGn="top">
+<td>
+<FONT size="2"><P><I><TT clasS="monofont">C.</TT></I><tt clASS="monofont">__del__(</Tt><i><tt class="monofont">self</tt></i><tt class="monofont">)</tT></p>
+</fOnt></tD>
+<td>
+<foNt siZE="2"><P>destructor</P>
+</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><p><i><tt class="monofont">C.</tt></i><tt clasS="monofont">__repr__(</tt><I><tt cLass="monofont">self</tT></i><tt CLASs="monofont">)</tt></p>
+</FONT></td>
+<td>
+<FONT size="2"><P>evaluatable string representation; <TT Class="monofont">repr()</tt> built-in and '' operator</p>
+</font></td>
+</tr>
+<tr valIgn="top">
+<Td>
+<foNt sizE="2"><p><i><tT CLAss="monofont">C.</tt></I><TT Class="monofont">__str__(</TT><I><Tt claSS="monofont">self</TT></i><tt class="monofont">)</tt></p>
+</font></td>
+<td>
+<fOnt Size="2"><P>printable string representation; <tt clAss="monofont">str()</tT> built-in and <B><TT clasS="monofont">print</TT></B> statement</p>
+</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<font size="2"><p><i><tt class="monofont">C.</Tt></i><Tt clAss="monofont">__cmp__(</tt><I><tt cLASS="monofont">self, obj</tt></i><tT CLAss="monofont">)</tt></P>
+</FONt></td>
+<tD>
+<FONt size="2"><p>object comparison; <tt class="monofont">cmp()</tt> built-in</p>
+</font></Td>
+</tR>
+<tr vAlign="top">
+<Td>
+<foNT SIze="2"><p><i><TT CLass="monofont">C.</tT></I><TT clasS="monofont">__call__(</TT><I><tt class="monofont">self,</tt></i>
+										<tt class="monofont">*</tt><i><Tt cLass="monofont">args</Tt></i><tt ClasS="monofont">)</TT></P>
+</font></TD>
+<TD>
+<font SIZE="2"><p>denote callable instances</p>
+</foNT></TD>
+</tr>
+<tr valign="top">
+<td>
+<font size="2"><P><i><tT claSs="monofont">C.</tt></i><Tt clASS="monofont">__nonzero__(</Tt><i><tt CLASs="monofont">self</tt></i><TT CLass="monofont">)</tT></P>
+</FOnt></td>
+<td>
+<font size="2"><p>define false value for object</p>
+</font></Td>
+</tR>
+<tr vAlign="top">
+<Td>
+<foNT SIze="2"><p><i><TT CLass="monofont">C.</tT></I><TT clasS="monofont">__len__(</TT><I><tt class="monofont">self</tt></i><tt class="monofont">)</tt></p>
+</FonT></td>
+<tD>
+<font Size="2"><P>"length" (appropriate for class); <TT Class="monofont">len()</TT> built-in</P>
+</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td colspan="1">
+<font size="2"><p><b><i>Attributes</i></B></p>
+</fOnt></tD>
+</tr>
+<tr ValiGN="top">
+<TD>
+<font SIZE="2"><p><i><tt CLASs="monofont">C.</tt></i><TT CLass="monofont">__getattr__(</tt><i><tt class="monofont">self, attr</tt></i><tt clAss="monofont">)</Tt></p>
+</fOnt></td>
+<Td>
+<foNT SIze="2"><p>get attribute; <tT CLAss="monofont">getattr()</tt> built-in</P>
+</FONt></td>
+</tR>
+<TR Valign="top">
+<td>
+<font size="2"><p><i><tt cLasS="monofont">C.</tt></i><Tt claSs="monofont">__setattr__(</tt><I><TT Class="monofont">self, attr, val</TT></I><Tt claSS="monofont">)</TT></p>
+</fonT></TD>
+<Td>
+<font size="2"><p>set attribute; <tt class="monofont">setattr()</tt> built-in</p>
+</FonT></td>
+</tR>
+<tr vaLign="top">
+<TD>
+<FOnt siZE="2"><P><I><tt clASS="monofont">C.</Tt></i><tt CLASs="monofont">__delattr__(</tt><i><tt class="monofont">self, attr</tt></i><tt clasS="monofont">)</tt></P>
+</fonT></td>
+<td>
+<Font SIZE="2"><p>delete attribute; <b><tt CLASs="monofont">del</tt></b> statement</P>
+</FONt></td>
+</tR>
+<TR Valign="top">
+<td colspan="1">
+<font siZe="2"><p><B><i>Customizing Classes / Emulating Types</i></b></P>
+</font></Td>
+</tr>
+<TR VAlign="top">
+<TD COlspaN="1">
+<FONt sizE="2"><P><B>Numeric Types: binary operators</B><font size="1"><sup><a href="#FOOTNOTE-a">[a]</a></sup></FonT>
+</p>
+</foNt></td>
+</tR>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><p><I><TT Class="monofont">C.</TT></I><Tt class="monofont">__*add__(</tt><i><tt class="monofont">self, obj</tt></i><tT clAss="monofont">)</tT></p>
+</fonT></td>
+<tD>
+<FONt sizE="2"><P>addition; <TT clasS="monofont">+</TT> operator</P>
+</font></TD>
+</TR>
+<tr valign="top">
+<td>
+<font size="2"><p><i><Tt cLass="monofont">C.</Tt></i><tt ClasS="monofont">__*sub__(</TT><I><tt clASS="monofont">self, obj</Tt></i><tt CLASs="monofont">)</tt></p>
+</FONT></td>
+<td>
+<font size="2"><p>subtraction; <tt class="monofont">-</Tt> operator</p>
+</Font></Td>
+</tr>
+<tR valIGN="top">
+<Td>
+<fonT SIZe="2"><p><i><tT CLAss="monofont">C.</tt></I><TT Class="monofont">__*mul__(</tt><i><tt class="monofont">self, obj</tt></i><tt cLasS="monofont">)</tt></p>
+</Font></tD>
+<td>
+<fONT Size="2"><p>multiplication; <TT CLass="monofont">*</tT> operator</P>
+</FOnt></td>
+</TR>
+<TR valign="top">
+<td>
+<font size="2"><p><i><tt ClaSs="monofont">C.</tt></I><tt clAss="monofont">__*div__(</tT><I><TT clasS="monofont">self, obj</TT></I><tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+<td>
+<font size="2"><p>division; <tt class="monofont">/</tt> operator</P>
+</foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2"><P><i><tt cLASS="monofont">C.</tt></i><tT CLAss="monofont">__*mod__(</tt><i><tt class="monofont">self, obj</tt></i><tt claSs="monofont">)</tT></p>
+</foNt></td>
+<tD>
+<fonT SIZe="2"><p>modulo/remainder; <tt CLASs="monofont">%</tt> operator</p>
+</FONT></td>
+</tr>
+<TR VAlign="top">
+<td>
+<font size="2"><p><i><tt clAss="monofont">C.</Tt></i><tT clasS="monofont">__*divmod__(</tt><i><TT CLass="monofont">self, obj</tT></I><TT clasS="monofont">)</TT></P>
+</font></TD>
+<TD>
+<font size="2"><p>division and modulo; <tt class="monofont">divmod()</tt> built-in</p>
+</fOnt></Td>
+</tr>
+<Tr valIgn="top">
+<tD>
+<FONt sizE="2"><P><I><Tt claSS="monofont">C.</TT></i><tt cLASS="monofont">__*pow__(</tt><i><tt class="monofont">self, obj</tt></i><tt class="monofont">[,</Tt>
+										<i><Tt clAss="monofont">mod</tt></I><tt cLASS="monofont">])</tt></p>
+</fONT></Td>
+<td>
+<fONT Size="2"><p>exponentiation; <TT CLass="monofont">pow()</tt> built-in; ** operator</p>
+</font></td>
+</tr>
+<tr valiGn="top">
+<tD>
+<fonT size="2"><P><i><tt CLASs="monofont">C.</tt></i><TT CLass="monofont">__*lshift__(</tT><I><TT clasS="monofont">self, obj</TT></I><tt class="monofont">)</tt></p>
+</font></td>
+<td>
+<foNt sIze="2"><p>left shift; <Tt claSs="monofont">&lt;&lt;</tt> operator</P>
+</FONt></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2"><P><i><tt class="monofont">C.</tt></i><tt class="monofont">__*rshift__(</tt><I><tt ClasS="monofont">self, obj</tt></i><tT claSS="monofont">)</TT></p>
+</fonT></TD>
+<Td>
+<fonT SIZe="2"><p>right shift; <tt CLASs="monofont">&gt;&gt;</tt> operator</p>
+</font></td>
+</tr>
+<tr valign="top">
+<Td>
+<fOnt sIze="2"><p><i><Tt clASS="monofont">C.</Tt></i><tt CLASs="monofont">__*and__(</tt><i><TT CLass="monofont">self, obj</tT></I><TT class="monofont">)</tt></p>
+</font></td>
+<td>
+<font SizE="2"><p>bitwise AND; <tt Class="monofont">&amp;</Tt> operator</p>
+</fONT></Td>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt sizE="2"><P><I><Tt class="monofont">C.</tt></i><tt class="monofont">__*or__(</tt><i><tT clAss="monofont">self, obj</tT></i><tt cLass="monofont">)</TT></P>
+</Font></tD>
+<TD>
+<Font sIZE="2"><P>bitwise OR; <tt clASS="monofont">|</Tt> operator</p>
+</font></td>
+</tr>
+<tr valign="top">
+<td>
+<FonT sizE="2"><p><i><tt ClasS="monofont">C.</TT></I><tt clASS="monofont">__*xor__(</Tt><i><tt CLASs="monofont">self, obj</tt></i><TT CLass="monofont">)</tt></p>
+</font></td>
+<td>
+<font siZe="2"><p>bitwise XOR; <Tt clAss="monofont">^</tt> operator</P>
+</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td cOLSPan="1">
+<foNT SIze="2"><p><b>Numeric Types: unary operators</b></p>
+</font></td>
+</tr>
+<tr valiGn="top">
+<tD>
+<fonT size="2"><P><i><tt CLASs="monofont">C.</tt></i><TT CLass="monofont">__neg__(</tT><I><TT clasS="monofont">self</TT></I><tt class="monofont">)</tt></p>
+</font></td>
+<td>
+<foNt sIze="2"><p>unary negation</P>
+</font></Td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt siZE="2"><P><I><tt clASS="monofont">C.</Tt></i><tt class="monofont">__pos__(</tt><i><tt class="monofont">self</tT></i><tT claSs="monofont">)</tt></p>
+</Font></TD>
+<TD>
+<font SIZE="2"><p>unary no-change</p>
+</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<font size="2"><p><i><tt clasS="monofont">C.</tt></I><tt cLass="monofont">__abs__(</tT><i><tt CLASs="monofont">self</tt></i><TT CLass="monofont">)</tT></P>
+</FOnt></td>
+<TD>
+<FOnt size="2"><p>absolute value; <tt class="monofont">abs()</tt> built-in</p>
+</fonT></td>
+</Tr>
+<tr ValigN="top">
+<td>
+<fONT Size="2"><p><I><TT Class="monofont">C.</TT></I><Tt claSS="monofont">__invert__(</TT><i><tt class="monofont">self</tt></i><tt class="monofont">)</tt></P>
+</foNt></td>
+<Td>
+<fonT sizE="2"><P>bit inversion; <TT clasS="monofont">~</TT> operator</P>
+</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td colspan="1">
+<font size="2"><p><b>Numeric Types: numeric conversion</b></P>
+</foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2"><P><i><tt cLASS="monofont">C.</tt></i><tT CLAss="monofont">__complex__(</tt><i><tt class="monofont">self, com</tt></i><tt claSs="monofont">)</tT></p>
+</foNt></td>
+<tD>
+<fonT SIZe="2"><p>convert to complex; <tt CLASs="monofont">complex()</tt> built-in</p>
+</FONT></td>
+</tr>
+<TR VAlign="top">
+<td>
+<font size="2"><p><i><tt clAss="monofont">C.</Tt></i><tT clasS="monofont">__int__(</tt><i><TT CLass="monofont">self</tT></I><TT clasS="monofont">)</TT></P>
+</font></TD>
+<TD>
+<font size="2"><p>convert to int; <tt class="monofont">int()</tt> built-in</p>
+</fOnt></Td>
+</tr>
+<Tr valIgn="top">
+<tD>
+<FONt sizE="2"><P><I><Tt claSS="monofont">C.</TT></i><tt cLASS="monofont">__long__(</tt><i><tt class="monofont">self</tt></i><tt class="monofont">)</Tt></p>
+</Font></Td>
+<td>
+<fOnt sIZE="2"><P>convert to long; <tt clASS="monofont">long()</Tt> built-in</p>
+</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<font size="2"><p><i><tt clasS="monofont">C.</tt></I><tt cLass="monofont">__float__(</tT><i><tt CLASs="monofont">self</tt></i><TT CLass="monofont">)</tT></P>
+</FOnt></td>
+<TD>
+<FOnt size="2"><p>convert to float; <tt class="monofont">float()</tt> built-in</p>
+</fonT></td>
+</Tr>
+<tr ValigN="top">
+<td cOLSPan="1">
+<foNT SIze="2"><p><b>Numeric Types: base representation (string)</B></P>
+</FOnt></td>
+</TR>
+<TR valign="top">
+<td>
+<font size="2"><p><i><tt ClaSs="monofont">C.</tt></I><tt clAss="monofont">__oct__(</tT><I><TT clasS="monofont">self</TT></I><tt clASS="monofont">)</Tt></p>
+</foNT></TD>
+<td>
+<font size="2"><p>octal representation; <tt class="monofont">oct()</tt>built-in</P>
+</foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2"><P><i><tt cLASS="monofont">C.</tt></i><tT CLAss="monofont">__hex__(</tt><i><tt class="monofont">self</tt></i><tt claSs="monofont">)</tT></p>
+</foNt></td>
+<tD>
+<fonT SIZe="2"><p>hexadecimal representation; <tt CLASs="monofont">hex()</tt> built-in</p>
+</FONT></td>
+</tr>
+<TR VAlign="top">
+<td colspan="1">
+<font sizE="2"><p><b>Numeric Types: numeric coercion</B></p>
+</foNt></td>
+</tR>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><p><I><TT Class="monofont">C.</TT></I><Tt class="monofont">__coerce__(</tt><i><tt class="monofont">self, num</tt></i><tT clAss="monofont">)</tT></p>
+</fonT></td>
+<tD>
+<FONt sizE="2"><P>coerce to same numeric type; <TT clasS="monofont">coerce()</TT> built-in</P>
+</font></TD>
+</TR>
+<tr valign="top">
+<td colspan="1">
+<fonT siZe="2"><p><b>Sequence Types</B><sup><a Href="#FOOTNOTE-a">[a]</A></SUP></p>
+</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><p><i><tt class="monofont">C.</tt></i><tt claSs="monofont">__len__(</tT><i><tt Class="monofont">self</Tt></i><tT CLAss="monofont">)</tt></P>
+</FONt></td>
+<tD>
+<FONt sizE="2"><P>number of items in sequence</P>
+</Font></td>
+</tr>
+<tr valign="top">
+<td>
+<fonT siZe="2"><p><i><Tt claSs="monofont">C.</tt></I><TT Class="monofont">__getitem__(</TT><I><Tt claSS="monofont">self, ind</TT></i><tt cLASS="monofont">)</tt></p>
+</font></td>
+<td>
+<font size="2"><p>get single sequence element</P>
+</foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2"><P><i><tt cLASS="monofont">C.</tt></i><tT CLAss="monofont">__setitem__(</tt><i><tt class="monofont">self, ind, val</tt></i><tt claSs="monofont">)</tT></p>
+</foNt></td>
+<tD>
+<fonT SIZe="2"><p>set single sequence element</p>
+</fONT></Td>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt size="2"><p><i><tt class="monofont">C.</tt></i><tt cLasS="monofont">__delitem__(</tt><i><Tt claSs="monofont">self, ind</tt></I><TT Class="monofont">)</TT></P>
+</Font></tD>
+<TD>
+<Font sIZE="2"><P>delete single sequence element</p>
+</font></td>
+</tr>
+<tr valign="top">
+<td>
+<fOnt Size="2"><P><i><tt cLass="monofont">C.</TT></I><Tt claSS="monofont">__getslice__(</TT><i><tt cLASS="monofont">self, ind1, ind2</tt></i><tT CLAss="monofont">)</tt></p>
+</font></td>
+<td>
+<font sizE="2"><p>get sequence slice</p>
+</Font></Td>
+</tr>
+<tR valIGN="top">
+<Td>
+<fonT SIZe="2"><p><i><tT CLAss="monofont">C.</tt></I><TT Class="monofont">__setslice__(</tt><i><tt class="monofont">self, i1, i2, val</tt></i><tt cLasS="monofont">)</tt></p>
+</Font></tD>
+<td>
+<fONT Size="2"><p>set sequence slice</P>
+</FONt></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font size="2"><p><i><tt class="monofont">C.</tt></i><tT clAss="monofont">__delslice__(</tT><i><tt cLass="monofont">self, ind1, ind2</TT></I><Tt claSS="monofont">)</TT></p>
+</fonT></TD>
+<Td>
+<fonT SIZe="2"><p>delete sequence slice</p>
+</font></td>
+</tr>
+<tr valign="top">
+<tD>
+<foNt siZe="2"><p><i><tT claSS="monofont">C.</TT></i><tt cLASS="monofont">__contains__(</tt><i><tT CLAss="monofont">self, val</tt></I><TT Class="monofont">)</tt><font size="1"><sup><a hrEf="#FOOTNOTE-b">[b]</a></Sup></fOnt>
+</p>
+</fOnt></tD>
+<TD>
+<Font sIZE="2"><P>test sequence membership; <b><tt cLASS="monofont">in</tt></b> keyword</p>
+</FONT></td>
+</tr>
+<tr valign="top">
+<td>
+<font siZe="2"><p><I><tt cLass="monofont">C.</tT></i><tt CLASs="monofont">__*add__(</tt><i><TT CLass="monofont">self, obj</tT></I><TT clasS="monofont">)</TT></P>
+</font></td>
+<td>
+<font size="2"><p>concatenation; <tt cLasS="monofont">+</tt> operator</p>
+</Font></tD>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt sizE="2"><P><I><Tt claSS="monofont">C.</TT></i><tt class="monofont">__*mul__(</tt><i><tt class="monofont">self, obj</tt></I><tt ClasS="monofont">)</tt></p>
+</fOnt></tD>
+<TD>
+<Font sIZE="2"><P>repetition; <tt clASS="monofont">*</Tt> operator</p>
+</foNT></TD>
+</tr>
+<tr valign="top">
+<td colspan="1">
+<fOnt Size="2"><P><b>Mapping Types</b></p>
+</fOnt></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><p><i><tT CLAss="monofont">C.</tt></i><tt class="monofont">__len__(</tt><i><tt claSs="monofont">self</tT></i><tt Class="monofont">)</Tt></p>
+</fONT></Td>
+<td>
+<fONT Size="2"><p>number of items in mapping</P>
+</FONt></td>
+</tR>
+<TR Valign="top">
+<td>
+<font size="2"><p><i><tt cLasS="monofont">C.</tt></i><Tt claSs="monofont">__hash__(</tt><I><TT Class="monofont">self</TT></I><Tt claSS="monofont">)</TT></p>
+</fonT></TD>
+<Td>
+<font size="2"><p>hash function value</p>
+</font></td>
+</tr>
+<tR vaLign="top">
+<Td>
+<fonT sizE="2"><P><I><Tt claSS="monofont">C.</TT></i><tt cLASS="monofont">__getitem__(</tt><i><tT CLAss="monofont">self, key</tt></i><tt class="monofont">)</tt></p>
+</font></tD>
+<td>
+<Font Size="2"><p>get value with given key</P>
+</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><p><I><TT Class="monofont">C.</tt></i><tt class="monofont">__setitem__(</tt><i><tt cLasS="monofont">self, key, val</tt></i><Tt claSs="monofont">)</tt></P>
+</FONt></td>
+<tD>
+<FONt sizE="2"><P>set value with given key</P>
+</Font></tD>
+</TR>
+<Tr valign="top">
+<td>
+<font size="2"><p><i><tT clAss="monofont">C.</tT></i><tt cLass="monofont">__delitem__(</TT><I><Tt claSS="monofont">self, key</TT></i><tt cLASS="monofont">)</tt></p>
+</fONT></Td>
+<td>
+<font size="2"><p>delete value with given key</p>
+</font></td>
+</tR>
+</coLgroUp>
+</tabLe></p>
+<bLOCKquotE><FONt sizE="1">
+<P CLass="footnote">
+<sUP><A Name="FOOTNOTE-a">[a]</a></sup>
+"<tt class="monofont">*</tt>" either nothing (self OP obj), "<tt clAss="monofont">r</Tt>" (obj OP self), or (new in 2.0) "<tt Class="monofont">i</Tt>" for in-place operation, i.e., <tt CLASs="monofont">__add__, __radd__,</tt> or <tT CLAss="monofont">__iadd__</tt></P>
+</FONt></bloCKQUote>
+<blockquote><font sizE="1">
+<p cLass="footnote">
+<Sup><a nAme="FOOTNOTE-b">[b]</a></SUP>
+New in 1.6</P>
+</font></BLOCkquoTE>
+
+				<P>The "Core" group of special methods denotes the basic set of special methods which can be implemented without emulation of any specific types. The "Attributes" group helps manage instance attributes of your class. The "Numeric Types" set of special methods can be used to emulate various numeric operations, including those of the standard (unary and binary) operators, conversion, base representation, and coercion. There are also special methods to emulate sequence and mapping types. Implementation of some of these special methods will overload operators so that they work with instances of your class type.</P>
+
+				<p>Numeric binary operators in the table annotated with a wildcard asterisk in their names are so denoted to indicate that there are multiple versions of those methods with slight differences in their name. The asterisk either symbolizes no additional character in the string, or a single "r" to indicate a right-hand-side operation. Without the "r," the operation occurs for cases which are of the format <tt cLASS="monofont">self</tt>
+					<i><tt class="monofont">OP</tt></i>
+					<tt class="monofont">obj;</Tt> the presence of the "r" indicates the format <tT claSs="monofont">obj</tt>
+					<i><Tt clASS="monofont">OP</Tt></i>
+					<tt CLASs="monofont">self.</tt> For example, <tT CLAss="monofont">__add__(self, obj)</tt> is called for <TT CLass="monofont">self + obj,</tt> and <tt class="monofont">__radd__(self, obj)</tt> would be invoked for <tt clasS="monofont">obj + self.</tt></P>
+
+				<p>Augmented assignment, new in Python 2.0, introduces the notion of "in-place" operations. An  "i" in place of the asterisk implies a combination left-hand side operation plus an assignment, as in <tt Class="monofont">self = self OP obj.</Tt> For example, <tt CLASs="monofont">__iadd__(self, obj)</tt> is called for <tT CLAss="monofont">self = self + obj.</tt></P>
+
+				
+					<H4>Simple Class Customization Example (<TT clasS="monofont">oPair</TT>)</H4>
+					<p>For our first example, let us create a simple class consisting of  an ordered pair <tt class="monofont">(x, y)</tt> of numbers. We will represent this data in our class as a 2-tuple. In the code snippet below, we define the class with a constructor that takes a pair of values and stores them as the data attribute of our <tt class="monofont">oPair</tt> class:</p>
+
+					<Pre>
+						
+<B>class</b> oPair:                          # ordered pair
+    <b>def</b> __init__(self, obj1, obj2):   # constructor
+        self.data = (obj1, obj2)      # assign attribute
+
+					</Pre>
+
+					<p>Using this class, we can instantiate our objects:</p>
+
+					<Pre>
+						
+&gt;&gt;&gt; myPair = oPair(6, -4)             # create instance
+&gt;&gt;&gt; myPair                            # calls repr()
+&lt;oPair instance at 92bb50&gt;
+&gt;&gt;&gt; <b>print</B> myPair                     # calls str()
+&lt;oPair instance at 92bb50&gt;
+
+					</PRE>
+
+					<p>Unfortunately, neither <b><tt CLASs="monofont">print</tt></b> (using <TT CLass="monofont">str()</tT>) nor the actual object's string representation (using <TT Class="monofont">repr()</tt>) reveals much about our object. One good idea would be to implement either <tt class="monofont">__str__()</tt> or <tt claSs="monofont">__repr__(),</tT> or both so that we can "see" what our object looks like. In other words, when you want to display your object, you actually want to see something meaningful rather than the generic Python object string (<tt cLass="monofont">&lt;object type at id&gt;</tT>). We want to see an ordered pair (tuple) with the current data values in our object. Without further ado, let us implement <tt cLASS="monofont">__str__()</tt> so that the ordered pair is displayed:</p>
+
+					<pRE>
+						
+<B>def</B> __str__(self):           # str() string representation
+    <b>return</b> str(self.data)    # convert tuple to string
+
+__repr__ = __str__           # repr() string representation
+
+					</prE>
+
+					<P>Since we also want to use the same piece of code for <TT clasS="monofont">__repr__(),</TT> rather than copying the code verbatim, we use our sense of code reusability and simply create an alias to <Tt class="monofont">__str__().</tt> Now our output has been greatly improved:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; myPair = oPair(-5, 9)# create instance
+&gt;&gt;&gt; myPair               # repr() calls __repr__()
+(-5, 9)
+&gt;&gt;&gt; <b>print</b> myPair         # str() calls __str__()
+(-5, 9)
+
+					</pre>
+
+					<p>What is the next step?  Let us say we want our objects to interact. For example, we can define the addition operation of two <tt ClaSs="monofont">oPair</tt> objects, <Tt claSs="monofont">(x1, y1)</tt> and <TT CLass="monofont">(x2, y2),</tT> to be the sum of each individual component. Therefore, the "sum" of two oPair objects is defined as a new object with the values <TT Class="monofont">(x1 + x2, y1 + y2).</TT> We implement the <TT clasS="monofont">__add__()</TT> special method in such a way that we calculate the individual sums first, then call the class constructor to return a new object. Finally, we alias <Tt class="monofont">__add__</tt> as <tt class="monofont">__radd__</tt> since the order does not matter—in other words, numeric addition is commutative. The definitions of <tt cLasS="monofont">__add__</tt> and <tT clasS="monofont">__radd__</tt> are featured below:</p>
+
+					<PRE>
+						
+<B>def</b> __add__(self, other):      # add two oPair objects
+    <b>return</b> self.__class__(self.data[0] + other.data[0],
+                           self.data[1] + other.data[1])
+
+					</pRE>
+
+					<P>The new object is created by invoking the class as in any normal situation. The only difference is that from within the class, you typically would not invoke the class name directly. Rather, you take <Tt claSS="monofont">__class__</TT> attribute of <tt clASS="monofont">self</Tt> which is the class from which <tt class="monofont">self</tt> was instantiated and invoke <i>that.</i> Because <tt class="monofont">self.__class__</tT> is the same as <tt ClasS="monofont">oPair,</tt> calling <tt ClasS="monofont">self.__class__()</TT> is the same as calling <Tt claSS="monofont">oPair().</TT></p>
+
+					<p>Now we can perform additions with our newly-overloaded operators. Reloading our updated module, we create a pair of <tt CLASs="monofont">oPair</tt> objects and "add" them, producing the sum you see below:</p>
+
+					<PRE>
+						
+&gt;&gt;&gt; pair1 = oPair(6, -4)
+&gt;&gt;&gt; pair2 = oPair(-5, 9)
+&gt;&gt;&gt; pair1 + pair2
+(1, 5)
+
+					</Pre>
+
+					<p>A <tt class="monofont">TypeError</tt> exception occurs when attempting to use an operator for which the corresponding special method(s) has(have) not been implemented yet:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; pair1 * pair2
+Traceback (innermost last):
+  File "&lt;stdin", line 1, in ?
+    pair1 * pair2
+TypeError: __mul__ nor __rmul__ defined for these operands
+
+					</pre>
+
+					<p>Obviously, our result would have been similar if we had not implemented <Tt cLass="monofont">__add__</Tt> and <tt cLass="monofont">__radd__.</TT> The final example is related to existing data which we may want to use. Let us say that we have some 2-tuples floating around in our system, and in order to create <TT clasS="monofont">oPair</TT> objects with them currently, we would have to split them up into individual components to instantiate an <Tt claSS="monofont">oPair</TT> object:</p>
+
+					<pre>
+						
+aTuple = (-3, -1)
+pair3 = oPair(aTuple[0], aTuple[1])
+
+					</PRE>
+
+					<P>But rather than splitting up the tuple and creating our objects as in the above, wouldn't it be nice if we could just feed this tuple into our constructor so that it can handle it there?  The answer is yes, but not by overloading the constructor as the case may be with other object-oriented programming languages. Python does not support overloading of callables, so the only way to work around this problem is to perform some manual introspection with the <tt class="monofont">type()</tt> built-in function.</p>
+
+					<p>In our update to <tt class="monofont">__init__()</tt> below, we add an initial check to see if what we have is a tuple. If it is, then we just assign it directly to the data attribute. Otherwise, this would mean a "regular" instantiation, meaning that we expect a pair of numbers to be passed.</P>
+
+					<prE>
+						
+<b>def</b> __init__(self, obj1, obj2=None):# constructor
+  <b>if</B> type(obj1) == type(()):        # tuple type
+      self.data = obj1
+  <b>else:</b>
+    <b>if</b> obj2 == None:                # part of values
+      <B>raise</b> TypeError, \
+            'oPair() requires tuple or numeric pair'
+    self.data = (obj1, obj2)
+
+					</prE>
+
+					<P>Note in the above code that we needed to give a default value of <TT clasS="monofont">None</TT> to <Tt claSS="monofont">obj2.</TT> This allows only one object to be passed in if it is a tuple. What we do <i>not</i> want is to allow only the creation of an <tt CLASs="monofont">oPair</tt> type without a second value, hence our additional check to see if <tt class="monofont">obj2</tt> is <tt class="monofont">None</tT> in the <b><tT claSs="monofont">else</tt></b> clause. We can now make our call in a more straightforward manner:</P>
+
+					<pre>
+						
+aTuple = (-3, -1)
+pair3 = oPair(aTuple)
+&gt;&gt;&gt; pair3
+(-3, -1)
+&gt;&gt;&gt; pair3 + pair1
+(3, -5)
+
+					</PRE>
+
+					<P>Hopefully, you now have a better understanding of operator overloading, why you would want to do it, and how you can implement special methods to accomplish that task. If you are interested in a more complex customization, continue with the optional section below.</p>
+
+				
+				
+					<h4>*More Complex Class Customization Example (<tt CLASs="monofont">NumStr</tt>)</h4>
+					<P>Let us create another new class, <TT Class="monofont">NumStr,</TT> consisting of a number-string ordered pair, called <I>n</I> and <i>s,</i> respectively, using integers as our number type. Although the "proper" notation of an ordered pair is <tt class="monofont">(n, s),</tt> we choose to represent our pair as <tt class="monofont">[n :: s]</tt> just to be different. Regardless of the notation, these two data elements are inseparable as far as our model is concerned. We want to set up our new class, called <Tt cLass="monofont">NumStr,</Tt> with the following characteristics:</p>
+
+					
+						<h5>Initialization</h5>
+						<P>The class should be initialized with both the number and string; if either (or both) is missing, then 0 and the empty string should be used, i.e., <tt cLASS="monofont">n=0</tt> and <tt CLASs="monofont">s='',</tt> as defaults.</p>
+
+					
+					
+						<H5>Addition</H5>
+						<P>We define the addition operator functionality as adding the numbers together and concatenating the strings; the tricky part is that the strings must be concatenated in the correct order. For example, let <Tt claSS="monofont">NumStr1 = [n1 :: s1]</TT> and <tt class="monofont">NumStr2 = [n2 :: s2].</tt> Then <tt class="monofont">NumStr1 + NumStr2</tt> is performed as <tt ClaSs="monofont">[n1 + n2 :: s1 + s2]</tt> where <Tt claSs="monofont">+</tt> represents addition for numbers and concatenation for strings.</P>
+
+					
+					
+						<H5>Multiplication</H5>
+						<P>Similarly, we define the multiplication operator functionality as multiplying the numbers together and repeating or concatenating the strings, i.e., <tt clASS="monofont">NumStr1 * NumStr2 = [n1 * n2 :: s1 * s2].</Tt></p>
+
+					
+					
+						<h5>False Value</h5>
+						<P>This entity has a false value when the number has a numeric value of zero and the string is empty, i.e., when <TT Class="monofont">NumStr = [0 :: ''].</TT></P>
+
+					
+					
+						<H5>Comparisons</h5>
+						<p>Comparing a pair of <tt class="monofont">NumStr</tt> objects, i.e., <tt class="monofont">[n1 :: s1]</tt> vs. <Tt cLass="monofont">[n2 :: s2],</Tt> we find 9 different combinations (i.e., <tt cLass="monofont">n1 &gt; n2</TT> and <TT clasS="monofont">s1 &lt; s2, n1 == n2</TT> and <Tt claSS="monofont">s1 &gt; s2,</TT> etc.) We use the normal numeric and lexicographic compares for numbers and strings, respectively, i.e., the ordinary comparison of <tt clASS="monofont">cmp(obj1, obj2)</Tt> will return an integer less than zero if <tt class="monofont">obj1 &lt; obj2,</tt> greater than zero if <tt class="monofont">obj1 &gt; obj2,</tt> or equal to zero if the objects have the same value.</p>
+
+						<P>The solution for our class is to add both of these values and return the result. The interesting thing is that <tt ClasS="monofont">cmp()</tt> does not like to return values other than -1, 0, 1, so even if the sum turns out to be -2 or 2, <tt ClasS="monofont">cmp()</TT> will still return -1 or 1, respectively. A value of 0 is returned if both sets of numbers and strings are the same, or if the comparisons offset each other, i.e., <Tt claSS="monofont">(n1 &lt; n2)</TT> and <tt clASS="monofont">(s1 &gt; s2)</Tt> or vice versa.</p>
+
+						<p>Given the above criteria, we present the code below for <tT CLAss="monofont">numstr.py:</tt></p>
+
+						
+							<h5>
+<a name="11"></a>Example 13.2. Emulating Types with Classes (<tt class="monofont">numstr.py</tT>)</h5>
+							<pRe clAss="monofont"> &lt;$nopage&gt;
+001 1  # !/usr/bin/env python
+002 2
+003 3  <b>class</b> NumStr:
+004 4
+005 5      <B>def</b> __init__(self, num=0, string=''):# constr.
+006 6          self.__num = num
+007 7          self.__string = string
+008 8
+009 9      <b>def</b> __str__(self):                   # define for str()
+010 10         <B>return</B> \xd4 [%d :: %s]' % \
+011 11             self.__num, \xd4 self.__string\xd4 )
+012 12     __repr__ = __str__
+013 13
+014 14     <B>def</B> __add__(self, other):            # define for s+o
+015 15         <b>if</b> isinstance(other, NumStr):
+016 16             <b>return</b> self.__class__(self.__num + \
+017 17                 other.__num, \
+018 18                 self.__string + other.__string)
+019 19         <B>else:</B> &lt;$nopage&gt;
+020 20             <B>raise</B> TypeError, \
+021 21     'illegal argument type for built-in operation'
+022 22
+023 23     <b>def</b> __radd__(self, other):           # define for o+s
+024 24         <b>if</b> isinstance(other, NumStr):
+025 25             <B>return</B> self.__class__(other.num + \
+026 26                 self.num, other.str + self.str)
+027 27         <B>else:</B> &lt;$nopage&gt;
+028 28             <b>raise</b> TypeError, \
+029 29     'illegal argument type for built-in operation'
+030 30
+031 31     <b>def</b> __mul__(self, num):              # define for o*n
+032 32         <B>if</B> type(num) == type(0):
+033 33             <B>return</B> self.__class__(self.__num * num,\
+034 34                 self.__string * num)
+035 35         <b>else:</b> &lt;$nopage&gt;
+036 36             <b>raise</b> TypeError, \
+037 37     'illegal argument type for built-in operation'
+038 38
+039 39     <b>def</b> __nonzero__(self):               # reveal tautology
+040 40         <b>return</b> self.__num <b>or</b> len(self.__string)
+041 41
+042 42     <b>def</b> __norm_cval(self, cmpres): # normalize cmp()
+043 43         <b>return</b> cmp(cmpres, 0)
+044 44
+045 45     <b>def</b> __cmp__(self, other):             # define for cmp()
+046 46         nres = self.__norm_cval(cmp(self.__num, \
+047 47             other.__num))
+048 48         sres = self.__norm_cval(cmp(self.__string, \
+049 49             other.__string))
+050 50
+051 51     <b>if not</b> (nres <b>or</b> sres): <B>return</b> 0 # both 0
+052 52         sum  = nres + sres
+053 53     <b>if not</B> sum: <b>return</b> None # one &lt;,one&gt;
+054 54         <b>return</B> sum
+055  &lt;$nopage&gt;</pre>
+						
+						<p>Here is an example execution of how this class works:</P>
+
+						<pre>
+							
+&gt;&gt;&gt; a = NumStr(3, 'foo')
+&gt;&gt;&gt; b = NumStr(3, 'goo')
+&gt;&gt;&gt; c = NumStr(2, 'foo')
+&gt;&gt;&gt; d = NumStr()
+&gt;&gt;&gt; e = NumStr(string='boo')
+&gt;&gt;&gt; f = NumStr(1)
+&gt;&gt;&gt; a
+[3 :: 'foo']
+&gt;&gt;&gt; b
+[3 :: 'goo']
+&gt;&gt;&gt; c
+[2 :: 'foo']
+&gt;&gt;&gt; d
+[0 :: '']
+&gt;&gt;&gt; e
+[0 :: 'boo']
+&gt;&gt;&gt; f
+[1 :: '']
+&gt;&gt;&gt; a &lt; b
+1
+&gt;&gt;&gt; b &lt; c
+0
+&gt;&gt;&gt; a == a
+1
+&gt;&gt;&gt; b * 2
+[6 :: 'googoo']
+&gt;&gt;&gt; a * 3
+[9 :: 'foofoofoo']
+&gt;&gt;&gt; e + b
+[3 :: 'boogoo']
+&gt;&gt;&gt; <B>if</B> d: 'not false'
+…
+&gt;&gt;&gt; <B>if</B> e: 'not false'
+…
+'not false'
+&gt;&gt;&gt; cmp(a,b)
+-1
+&gt;&gt;&gt; cmp(a,c)
+1
+&gt;&gt;&gt; cmp(a,a)
+0
+
+						</pre>
+
+					
+					
+						<h5>Line-by-line Explanation</H5>
+						<P></P>
+
+						<H5>Lines 3–7</h5>
+							<p>The constructor <tt CLASs="monofont">__init__()</tt> function sets up our instance initializing itself with the values passed in to the class instantiator <tT CLAss="monofont">NumStr().</tt> If either value is missing, the attribute takes on the default false value of either zero or the empty string, depending on the argument.</p>
+
+							<p>One significant oddity is the use of double underscores to name our attributes. As we will find out in the next section, this is used to enforce a level, albeit elementary, of privacy. Programmers importing our module will not have straightforward access to our data elements. We are attempting to enforce one of the encapsulation properties of OO design by permitting access only though accessor functionality. If this syntax appears odd or uncomfortable to you, you can remove all double underscores from the instance attributes, and the examples will still work exactly in the same manner.</p>
+
+							<p>All attributes which begin with a double underscore ( <tt class="monofont">__</tt> ) are "mangled" so that these names are not as easily accessible during run-time. They are not, however, mangled in such a way so that it cannot be easily reverse-engineered. In fact, the mangling pattern is fairly well-known and easy to spot. The main point is to prevent the name from being accidentally used when being imported by an external module where conflicts may arise. The name is changed to a new identifier name containing the class name to ensure that it does not get "stepped on" unintentionally. For more information, check out <a hrEf="225.html">Section 13.14</a> on privacy.</P>
+
+						
+						<a naMe="14"></a><h5>Lines 9–12</h5>
+							<P>We choose the string representation of our ordered pair to be "<tt cLASS="monofont">[num :: 'str']</tt>" so it is up to <tt CLASs="monofont">__str__()</tt> to provide that representation whenever <tT CLAss="monofont">str()</tt> is applied to our instance and when the instance appears in a <B><TT Class="monofont">print</tt></b> statement. Because we want to emphasize that the second element is a string, it is more visually convincing if the users view the string surrounded by quotation marks. To that end, we call <tt class="monofont">repr()</tt> using the single back quotation marks to give the evaluatable version of a string, which does have the quotation marks:</p>
+
+							<pre>
+								
+&gt;&gt;&gt; <B>print</b> a
+[3 :: 'foo']
+
+							</pRe>
+
+							<p><i>Not</I> calling <tt clAss="monofont">repr()</tT> on <TT Class="monofont">self.__string</TT> (leaving the back quotations off) would result in the string quotations being absent. For the sake of argument, let us effect this change for learning purposes. Removing the backquotes, we edit the <B><Tt claSS="monofont">return</TT></b> statement so that it now looks like this:</p>
+
+							<prE>
+								
+<B>return</B> '[%d :: %s]' % (self.__num, self.__string)
+							</Pre>
+
+							<p>Now calling <b><tt class="monofont">print</tt></b> again on an instance results in:</p>
+
+							<pre>
+								
+&gt;&gt;&gt; <b>print</b> a
+[3 :: foo]
+
+							</Pre>
+
+							<P>How does that look without the quotations?  Not as convincing that "foo" is a string, is it?  It looks more like a variable. The author is not as convinced either. (We quickly and quietly back out of that change and pretend we never even touched it.)</p>
+
+							<p>The first line of code after the <tT clasS="monofont">__str__()</tt> function is the assignment of that function to another special method name, <tT CLAss="monofont">__repr__.</tt> We made a decision that an evaluatable string representation of our instance should be the same as the printable string representation. Rather than defining an entirely new function which is a duplicate of <TT CLass="monofont">__str__(),</tT> we just create an alias, copying the reference.</P>
+
+							<P>When you implement <Tt claSS="monofont">__str__(),</TT> it is the code that is called by the interpreter if you ever apply the <tt class="monofont">str()</tt> built-in function using that object as an argument. The same goes for <tt class="monofont">__repr__()</tt> and <tt ClaSs="monofont">repr().</tt></P>
+
+							<p>How would our execution differ if we chose not to implement <tt cLass="monofont">__repr__()?</TT> If the assignment is removed, only the <B><Tt claSS="monofont">print</TT></b> statement (which calls <tt cLASS="monofont">str()</tt> will show us the contents of our object. The evaluatable string representation defaults to the Python standard of <tt CLASs="monofont">&lt;…some_object_information…&gt;.</tt></p>
+
+							<pre>
+								
+&gt;&gt;&gt; <b>print</b> a   # calls str(a)
+[3 :: 'foo']
+&gt;&gt;&gt; a         # calls repr(a)
+&lt;NumStr.NumStr instance at 122640&gt;
+
+							</pre>
+
+						
+						<h5>Lines 14–29</h5>
+							<p>One feature we would like to add to our class is the addition operation, which we described earlier. One of Python's features as far as customizing classes goes is the fact that we can overload operators to make these types of customizations more "realistic."  Invoking a function such as "<tt claSs="monofont">add(obj1, obj2)</tT>" to "add" objects <tt cLass="monofont">obj1</tT> and <tt cLASS="monofont">obj2</tt> may <i>seem</i> like addition, but is it not more compelling to be able to invoke that same operation using the plus sign ( <TT CLass="monofont">+</tT> ) like this? <TT Class="monofont">? obj1 + obj2</TT></P>
+
+							<P>Overloading the plus sign requires the implementation of two functions, <tt class="monofont">__add__()</tt> and <tt class="monofont">__radd__(),</tt> as explained in more detail in the previous section. The <tt ClaSs="monofont">__add__()</tt> function takes care of the SELF + OTHER case, but we need to define <Tt claSs="monofont">__radd__()</tt> to handle the OTHER + SELF scenario. The numeric addition is not affected as much as the string concatenation is because order matters.</P>
+
+							<P>The addition operation adds each of the two components, with the pair of results forming a new object—created as the results are passed to a call for instantiation as calling <TT clasS="monofont">self.__class__()</TT> (again, also previously explained above). Any object other than a like type should result in a <Tt claSS="monofont">TypeError</TT> exception, which we raise in such cases.</p>
+
+						
+						<h5>Lines 31–37</h5>
+							<p>We also overload the asterisk [by implementing <TT CLass="monofont">__mul__()</tt>] so that both numeric multiplication and string repetition are performed, resulting in a new object, again created via instantiation. Since repetition allows only an integer to the right of the operator, we must enforce this restriction as well. We also do not define <tt class="monofont">__rmul__()</tt> for the same reason.</p>
+
+						
+						<h5>Lines 39–40</h5>
+							<p>Python objects have a concept of having a Boolean value at any time. For the standard types, objects have a false value when they are either a numeric equivalent of zero or an empty sequence or mapping. For our class, we have chosen that both its numeric value must be zero <i>and</i> the string empty in order for any such instance to have a false value. We override the <Tt cLass="monofont">__nonzero__()</Tt> method for this purpose. Other objects such as those which strictly emulate sequence or mapping types use a length of zero as a false value. In those cases, you would implement the <tt cLass="monofont">__len__()</TT> method to effect that functionality.</P>
+
+						
+						<H5>Lines 39–54</h5>
+							<p><tt CLASs="monofont">__norm_cval()</tt> is not a special method. Rather, it is a helper function to our overriding of <tT CLAss="monofont">__cmp__();</tt> its sole purpose is to convert all positive return values of <TT CLass="monofont">cmp()</tt> to 1, and all negative values to -1. <tt class="monofont">cmp()</tt> normally returns arbitrary positive or negative values (or zero) based on the result of the comparison, but for our purposes, we need to restrict the return values to only -1, 0, and 1. Calling <tt clasS="monofont">cmp()</tt> with integers will give us the result we need, being equivalent to the following snippet of code:</P>
+
+							<pre>
+								
+<B>def</b> __norm_cval(self, cmpres):
+    <b>if</b> cmpres &lt; 0:
+        <b>return</B> -1
+    <b>elif</b> cmpres &gt; 0:
+        <b>return</B> 1
+    <B>else:</B>
+        <B>return</b> 0
+
+							</pre>
+
+							<P>The actual comparison of two like objects consists of comparing the numbers and the strings, and returning the sum of the comparisons. You may have noticed in the code above that we prepended a double underscore ( <TT Class="monofont">__</TT> ) in front of our data attributes. This directive provides a light form of privacy.</P>
+
+						
+					
+				
+			</Font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="223.html" title="Type vs. Classes/Instances"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=224" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="224.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="225.html" title="Privacy"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

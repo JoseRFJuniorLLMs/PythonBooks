@@ -1,0 +1,127 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Statements and Syntax</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="69.html" class="navtitle">3. Syntax and Style</a> &gt; <span class="nonavtitle">Statements and Syntax</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="70.html" title="3. Syntax and Style"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=71" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="71.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="72.html" title="Variable Assignment"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A11%3A06+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172037206199140046205020</font><a href="read6.asp?bookname=0130260363&snode=71&now=5%2F29%2F2002+9%3A11%3A06+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT><h3>Statements and Syntax</h3>
+				<p>Some rules and certain symbols are used with regard to statements in Python:</p>
+
+				<UL>
+<LI><p>Hash mark ( # ) indicates Python comments</p>
+</li>
+<LI><P>NEWLINE ( \n ) is the standard line separator (one statement per line)</P>
+</li>
+<li><P>Backslash ( \ ) continues a line</P>
+</LI>
+<li><p>Semicolon ( ; ) joins two statements on a line</p>
+</li>
+<li><p>Colon ( : ) separates a header line from its suite</p>
+</li>
+<li><p>Statements (code blocks) grouped as suites</p>
+</li>
+<li><P>Suites delimited via indentation</p>
+</lI>
+<li><p>Python files organized as "modules"</P>
+</li>
+</ul>
+				<H4>Comments ( <tt cLASS="monofont">#</tt> )</h4>
+					<p>First thing's first: Although Python is one of the easiest languages to read, it does not preclude the programmer from proper and adequate usage and placement of comments in the code. Like many of its Unix scripting brethren, Python comment statements begin with the pound sign or hash symbol (#). A comment can begin anywhere on a line. All characters following the # to the end of the line are ignored by the interpreter. Use them wisely and judiciously.</P>
+
+				
+				<H4>Continuation ( <TT clasS="monofont">\</TT> )</H4>
+					<p>Python statements are, in general, delimited by NEWLINEs, meaning one statement per line. Single statements can be broken up into multiple lines by use of the backslash. The backslash symbol ( \ ) can be placed before a NEWLINE to continue the current statement onto the next line.</p>
+
+					<prE>
+						
+# check conditions
+<B>if</B> (weather_is_hot == 1) <B>and</b> \
+   (shark_warnings == 0) :
+
+    send_goto_beach_mesg_to_pager()
+
+					</pre>
+
+					<p>There are two exceptions where lines can be continued without backslashes. A single statement can take up more than one line when (1) container objects are broken up between elements over multiple lines, and when (2) NEWLINEs are contained in strings enclosed in triple quotes.</p>
+
+					<pre>
+						
+# display a string with triple quotes
+<b>print</b> '''hi there, this is a long message for you
+that goes over multiple lines… you will find
+out soon that triple quotes in Python allows
+this kind of fun! it is like a day on the beach!'''
+
+# set some variables
+go_surf, get_a_tan_while, boat_size, toll_money = ( 1,
+   'windsurfing',  40.0,  -2.00 )
+
+					</pre>
+
+				
+				<h4>Multiple Statement Groups as Suites ( <tt claSs="monofont">:</tT> )</h4>
+					<p>Groups of individual statements making up a single code block are called "suites" in Python (as we introduced in <a Href="48.html">Chapter 2</a>). <I>Compound</i> or <i>complex statements,</i> such as <B><TT Class="monofont">if, while, def,</TT></B> and <B><tt clASS="monofont">class,</Tt></b> are those which require a header line and a suite. Header lines begin the statement (with the keyword) and terminate with a colon ( : ) and are followed by one or more lines which make up the suite. We will refer to the combination of a header line and a suite as a <i>clause.</i></P>
+
+				
+				<H4>Suites Delimited via Indentation</H4>
+					<P>As we introduced in <a href="59.html">Section 2.10</a>, Python employs indentation as a means of delimiting blocks of code. Code at inner levels are indented via spaces or TABs. Indentation requires exact indentation, in other words, all the lines of code in a suite must be indented at the exact same level (e.g. same number of spaces). Indented lines starting at different positions or column numbers is not allowed; each line would be considered part of another suite and would more than likely result in syntax errors.</p>
+
+					<p>A new code block is recognized when the amount of indentation has increased, and its termination is signaled by a "dedentation," or a reduction of indentation matching a previous level's. Code that is not indented, i.e., the highest level of code, is considered the "main" portion of the script.</p>
+
+					<p>The decision to creating Python using indentation was based on the belief that grouping code in this manner is more elegant and contributes to the ease-of-reading to which we alluded earlier. It also helps avoid "dangling-else"-type problems, including ungrouped single statement clauses (those where a C <b><tt class="monofont">if</tt></B> statement which does not use braces at all, but has two indented statements following). The second statement will execute regardless of the conditional, leading to more programmer confusion until the light bulb finally blinks on.</p>
+
+					<p>Finally, no "holy brace wars" can occur when using indentation. In C (also C++ and Java), starting braces may be placed on the same line as the header statement, or may start the very next line, or may be indented on the next line. Some like it one way, others prefer the other, etc. You get the picture.</P>
+
+					<p>We should also mention a minor performance improvement which can occur since each missing brace means one less byte to load during execution. Sure these are pennies on their own, but add up to hundreds and thousands of bytes over a 24×7×365 environment across a global network such as the Internet and you have something you can see. See below in <a hRef="74.html">Section 3.4</a> for tips and style guidelines on indentation.</p>
+
+				
+				<H4>Multiple Statements on a Single Line ( <tt cLASS="monofont">;</tt> )</h4>
+					<p>The semicolon ( <TT CLass="monofont">;</tT> ) allows multiple statements on the single line given that neither statement starts a new code block. Here is a sample snip using the semicolon:</P>
+
+					<PRe>
+						
+<b>import</b> sys; x = 'foo'; sys.stdout.write(x + '\n')
+
+					</pRE>
+
+					<P>We caution the reader to be wary of the amount of usage of chaining multiple statements on individual lines since it makes code much less readable. You decide:</P>
+
+					<pre>
+						
+<b>import</b> sys
+x = 'foo'
+sys.stdout.write(x + '\n')
+
+					</pre>
+
+					<p>In our example, separating the code to individual lines makes for remarkably improved reader-friendliness.</p>
+
+				
+				<h4>Modules</h4>
+					<p>Each Python script is considered a <i>module.</i> Modules have a physical presence as disk files. When a module gets large enough or has diverse enough functionality, it may make sense to move some of the code out to another module. Code that resides in modules may belong to an application (i.e., a script that is directly executed), or may be executable code in a library-type module that may be "imported" from another module for invocation. As we mentioned in the last chapter, modules can contain blocks of code to run, class declarations, function declarations, or any combination of all of those.</p>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="70.html" title="3. Syntax and Style"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=71" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="71.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="72.html" title="Variable Assignment"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

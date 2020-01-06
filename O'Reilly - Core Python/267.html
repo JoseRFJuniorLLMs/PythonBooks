@@ -1,0 +1,230 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Tkinter and Python Programming</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="264.html" class="navtitle">18. GUI Programming with Tkinter</a> &gt; <span class="nonavtitle">Tkinter and Python Programming</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="266.html" title="Introduction"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=267" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="267.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="268.html" title="Tkinter Examples"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A32%3A36+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004229220065142056014176112</font><a href="read3.asp?bookname=0130260363&snode=267&now=5%2F30%2F2002+8%3A32%3A36+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Tkinter and Python Programming</h3>
+				
+					<h4><tT CLAss="monofont">Tkinter</tt> Module: Adding Tk to your Applications</H4>
+					<P>So what do you need to do to have Tkinter as part of your application?  Well, first of all, it is not necessary to have an application already. You can create a pure graphical user interface if you want, but it probably isn't too useful without some underlying software that does something interesting.</P>
+
+					<P>There are basically five main steps that are required to get your GUI up-and-running:</p>
+
+					<ol tYPE="1">
+<Li>
+<p>Import the <tt class="monofont">Tkinter</tt> module (or <b><tt class="monofont">from</tT></b>
+								<tT claSs="monofont">Tkinter</tt>
+								<b><Tt clASS="monofont">import *</Tt></b>).</p>
+</lI>
+<LI>
+<P>Create a top-level windowing object which contains your entire GUI application.</p>
+</li>
+<lI>
+<P>Built all your GUI components (and functionality) on top (or "inside") of your top-level windowing object).</P>
+</Li>
+<li>
+<p>Connect these GUI components to the underlying application code.</P>
+</LI>
+<Li>
+<p>Enter the main event loop.</p>
+</li>
+</ol>
+
+					<p>The first step is trivial: All GUIs which use Tkinter must import the <tt class="monofont">Tkinter</tt> module. Getting access to Tkinter is the first step (see the previous <a hrEf="266#2.html">Section 18.1.2</a>).</P>
+
+				
+				
+					<h4>Introduction to GUI Programming</h4>
+					<p>Before going to the examples, we will give you a brief introduction to GUI application development in general. This will give you some of the background you need to move forward.</P>
+
+					<p>Setting up a GUI application is similar to an artist's producing a painting. Conventionally, there is a single canvas onto which the artist must put all the work. The way it works is like this:  You start with a clean slate, a "top-level" windowing object on which you build the rest of your components. Think of it as a foundation to a house or the easel for an artist. In other words, you have to pour the concrete or set up your easel before putting together the actual structure or canvas on top of it. In Tkinter, this foundation is known as the top-level window object.</p>
+
+					<p>In GUI programming, a top-level root windowing object contains all of the little windowing objects that will be part of your complete GUI application. These can be text labels, buttons, list boxes, etc. These individual little GUI components are known as <i>widgets.</I> So when we say create a top-level window, we just mean that you need such a thing as a place where you put all your widgets. In Python, this would typically look like the line below :</p>
+
+					<prE>
+						
+top = Tkinter.Tk() # or just Tk() with <B>"from</B> Tkinter <B>import *"</b>
+
+					</pre>
+
+					<P>The object returned by <TT Class="monofont">Tkinter.Tk()</TT> is usually referred to as the <I>root object,</I> hence the reason why some applications use <tt clASS="monofont">root</Tt> rather than <tt class="monofont">top</tt> to indicate as such. Top-level windows are those which show up standalone as part of your application, and, yes, you may have more than one top-level window for your GUI, but only one of them should be your root window. You may choose to completely design all your widgets first, then add the real functionality, or do a little of this and a little of that along the way. (This means mixing and matching steps 3 and 4 from our list above.)</p>
+
+					<p>Widgets may be standalone or be containers. If a widget "contains" other widgets, it is considered the <i>parent</i> of those widgets. Accordingly, if a widget is "contained" in another widget, it's considered a <i>child</i> of the parent, the parent being the next immediate enclosing container widget.</p>
+
+					<p>Usually, widgets have some associated behaviors, such as when a button is pressed, or text is filled into a text field.  These types of user behaviors are called <i>events,</i> and the actions that the GUI takes to respond to such events are known as <I>callbacks.</i></p>
+
+					<P>Actions may include the actual button press (and release), mouse movement, hitting the RETURN or Enter key, etc. All of these are known to the system literally as <i>events.</i> The entire system of events which occurs from the beginning to the end of a GUI application is what drives it. This is known as event-driven processing.</p>
+
+					<P>One example of an event with a callback is a simple mouse move. Let's say the mouse pointer is sitting somewhere on top of your GUI application. If the mouse is moved to another part of your application, something has to cause the movement of the mouse on your screen so that it <i>looks</i> as if it is moving to another location. These are mouse move events that the system must process to give you the illusion (and reality) that your mouse is moving across the window. When you release the mouse, there are no more events to process, so everything just sits there quietly on the screen again.</p>
+
+					<p>The event-driven processing nature of GUIs fits right in with client-server architecture. When you start a GUI application, it must perform some setup procedures to prepare for the core execution, just as when a network server has to allocate a socket and bind it to a local address. The GUI application must establish all the GUI components, then draw (a.k.a. render or paint) them to the screen. Tk has a couple of geometry managers which help position the widget in the right place; the main one which you will use is called the <I>packer.</i> Once the packer has determined the sizes and alignments of all your widgets, it will then place them on the screen for you.</p>
+
+					<p>When all of the widgets, including the top-level window finally appear on your screen, your GUI application then enters a "server-like" infinite loop. This infinite loop involves waiting for a GUI event, processing it, then going back to wait for the next event.</P>
+
+					<P>The final step we described above says to enter the main loop once all the widgets are ready. This is the "server" infinite loop we have been referring to. In Tkinter, the code that does this is:</P>
+
+					<Pre>
+						
+Tkinter.mainloop()
+
+					</prE>
+
+					<P>This is normally the last piece of sequential code your program runs. When the main loop is entered, the GUI takes over execution from there. All other action is via callbacks, even exiting your application. When you pull down the <U>File</U> menu to click on the <u>Exit</u> menu option or close the window directly, a callback must be invoked to end your GUI application.</p>
+
+				
+				
+					<h4>Top-level window: <TT CLass="monofont">Tkinter.Tk()</tT></H4>
+					<P>We mentioned above that all main widgets are built into the top-level window object. This object is created by the <Tt class="monofont">Tk</tt> class in Tkinter and is created via the normal instantiation:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; <b>import</b> Tkinter
+&gt;&gt;&gt; top = Tkinter.Tk()
+
+					</pre>
+
+					<p>Within this window, you place individual widgets or multiple-component pieces together to form your GUI. So what kinds of widgets are there? We will now introduce the Tk widgets.</p>
+
+				
+				
+					<h4>Tk Widgets</H4>
+					<p>There are currently 15 types of widgets in Tk. We present these widgets as well as a brief description in <a Href="267#5.html">Table 18.1</A>.</p>
+
+					<p>We won't go over the Tk widgets in detail as there is plenty of good documentation available on them, either from the Tkinter topics page at the main Python Web site or the abundant number of Tcl/Tk printed and online resources (some of which are available in the Appendix). However, we will present several simple examples to help you get started.</p>
+
+					<dIv clASS="note"><P clasS="notetitle"><B>NOTE</B></P><p><p><i>GUI development really takes advantage of default arguments in Python because there are numerous default actions in Tkinter widgets. Unless you know every single option available to you for every single widget you are using, it's best to start out by setting only the parameters you are aware of and letting the system handle the rest. These defaults were chosen carefully. If you do not provide these values, do not worry about your applications appearing odd on the screen. They were created with an optimized set of default arguments as a general rule, and only when you know how to exactly customize your widgets should you use values other than the default.</i></P>
+</P></DIv><br>
+
+					<a NAME="5"></a><p><table border="1" cellspaCinG="0" celLpaddIng="1" wIDTH="100%">
+<captION><H5>Table 18.1. Tk Widgets</h5></capTION><colgROUP align="left" span="2">
+<tr valign="top">
+<th>
+<fOnt Size="2"><B><i>Widgets</i></b></fOnt></tH>
+<TH>
+<Font sIZE="2"><B><i>Description</i></b></fONT></Th>
+</tr>
+<tR VALign="top">
+<td>
+<font size="2"><tt class="monofont">Button</Tt></fOnt></tD>
+<td>
+<foNt siZE="2">similar to a <TT clasS="monofont">Label</TT> but provides additional functionality for mouse overs, presses, and releases as well as keyboard activity/events</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<font size="2"><tt class="monofont">Canvas</tt></foNt></tD>
+<td>
+<fOnt siZe="2">provides ability to draw shapes (lines, ovals, polygons, rectangles); can contain images or bitmaps</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">Checkbutton</tt></font></td>
+<td>
+<font sizE="2">set of boxes of which any number can be "checked" (similar to HTML <tt ClasS="monofont">checkbox</tt> input)</foNt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><tt clASS="monofont">Entry</Tt></font></td>
+<td>
+<font size="2">single-line text field with which to collect keyboard input (similar to HTML text input)</fonT></td>
+</Tr>
+<tr ValigN="top">
+<td>
+<fONT Size="2"><tT CLAss="monofont">Frame</tt></FONT></td>
+<td>
+<FONT size="2">pure container for other widgets</font></td>
+</tr>
+<tr valign="top">
+<Td>
+<fOnt sIze="2"><tt ClasS="monofont">Label</TT></Font></tD>
+<TD>
+<Font sIZE="2">used to contain text or images</Font></tD>
+</TR>
+<Tr valign="top">
+<td>
+<font size="2"><tt cLasS="monofont">Listbox</tt></fOnt></td>
+<Td>
+<foNT SIze="2">presents user list of choices to pick from</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><tt class="monofont">Menu</tt></font></td>
+<tD>
+<foNt siZe="2">actual list of choices "hanging" from a <tt cLass="monofont">Menubutton</TT> that the user can choose from</FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><tt class="monofont">Menubutton</tt>
+									</font></td>
+<td>
+<fonT siZe="2">provides infrastructure to contain menus (pulldown, cascading, etc.)</foNt></td>
+</tR>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><tT CLAss="monofont">Message</tt></FONT></td>
+<td>
+<font size="2">similar to a <tt class="monofont">Label,</tT> but displays multi-line text</foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2"><Tt claSS="monofont">Radiobutton</TT>
+									</font></TD>
+<TD>
+<font size="2">set of buttons of which only one can be "pressed" (similar to HTML <tt class="monofont">radio</tt> input)
+</fonT></td>
+</Tr>
+<tr ValigN="top">
+<td>
+<fONT Size="2"><tT CLAss="monofont">Scale</tt>
+									</FONT></td>
+<td>
+<FONT size="2">linear "slider" widget providing an exact value at current setting; with defined starting and ending values</font></td>
+</tr>
+<tr valign="top">
+<Td>
+<fOnt sIze="2"><tt ClasS="monofont">Scrollbar</TT></Font></tD>
+<TD>
+<Font sIZE="2">provides scrolling functionality to supporting widgets, i.e.,<Tt claSS="monofont"> Text, Canvas, Listbox,</TT> and <tt class="monofont">Entry</tt></font></td>
+</tr>
+<tr vAliGn="top">
+<td>
+<Font sIze="2"><tT CLAss="monofont">Text</tt></FONT></td>
+<td>
+<FONT size="2">multi-line text field with which to collect (or display) text from user (similar to HTML <TT CLass="monofont">textarea</tt>)</font></td>
+</tr>
+<tr valigN="top">
+<td>
+<Font Size="2"><tT claSS="monofont">Toplevel</TT></font></TD>
+<TD>
+<font SIZE="2">similar to a <tt clASS="monofont">Frame,</Tt> but provides a separate window container
+</font></td>
+</tr>
+</colgroup>
+</tabLe></p>
+
+				
+			</Font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="266.html" title="Introduction"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=267" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="267.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="268.html" title="Tkinter Examples"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

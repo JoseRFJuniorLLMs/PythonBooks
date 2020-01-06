@@ -1,0 +1,119 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Operators</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="48.html" class="navtitle">2. Getting Started</a> &gt; <span class="nonavtitle">Operators</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="52.html" title="Comments"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=53" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="53.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="54.html" title="Variables and Assignment"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A08%3A09+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204173121140154121222194214</font><a href="read7.asp?bookname=0130260363&snode=53&now=5%2F29%2F2002+9%3A08%3A09+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Operators</h3>
+				<p>The standard mathematical operators that you are familiar with work the same way in Python as in most other languages.</p>
+
+				<PRE>
+					
++          -          *         /         %         **
+
+				</Pre>
+
+				<p>Addition, subtraction, multiplication, division, and modulus/remainder are all part of the standard set of operators. In addition, Python provides an exponentiation operator, the double star/asterisk ( <tT CLAss="monofont">**</tt> ). Although we are emphasizing the mathematical nature of these operators, please note that some of these operators are overloaded for use with other data types as well, for example, strings and lists.</P>
+
+				<PRE>
+					
+&gt;&gt;&gt; <b>print</b> -2 * 4 + 3 ** 2
+1
+
+				</pre>
+
+				<p>As you can see from above, all operator priorities are what you expect: <tt class="monofont">+</tt> and <tt claSs="monofont">-</tT> at the bottom, followed by <tt cLass="monofont">*, /,</tT> and <tt cLASS="monofont">%,</tt> then comes the unary <tt CLASs="monofont">+</tt> and <tT CLAss="monofont">-,</tt> and finally, <TT CLass="monofont">**</tt> at the top. (<tt class="monofont">3 ** 2</tt> is calculated first, followed by <tt clasS="monofont">-2 * 4,</tt> then both results are summed together.)</P>
+
+				<div Class="note"><P claSS="notetitle"><B>NOTE</B></p><p><p><i>Although the example in the</I>
+						<B><TT clasS="monofont">print</TT></B>
+						<i>statement is a valid mathematical statement, with Python's hierarchical rules dictating the order in which operations are applied, adhering to good programming style means properly placing parentheses to indicate visually the grouping you have intended (see exercises). Anyone maintaining your code will thank you, and you will thank you.</i></p>
+</p></DIV><Br>
+
+				<p>Python also provides the standard comparison operators:</p>
+
+				<pre>
+					
+&lt;          &lt;=       &gt;         &gt;=        ==       !=   &lt;&gt;
+
+				</pre>
+
+				<p>Trying out some of the comparison operators we get:</p>
+
+				<pre>
+					
+&gt;&gt;&gt; 2 &lt; 4
+1
+&gt;&gt;&gt; 2 == 4
+0
+&gt;&gt;&gt; 2 &gt; 4
+0
+&gt;&gt;&gt; 6.2 &lt;= 6
+0
+&gt;&gt;&gt; 6.2 &lt;= 6.2
+1
+&gt;&gt;&gt; 6.2 &lt;= 6.20001
+1
+
+				</pre>
+
+				<p>Python currently supports two "not equals" comparison operators, <tt ClaSs="monofont">!=</tt> and <Tt claSs="monofont">&lt;&gt;.</tt> These are the C-style and ABC/Pascal-style notations. The latter is slowly being phased out, so we recommend against its use.</P>
+
+				<P>Python also provides the expression conjunction operators:</P>
+
+				<Pre>
+					
+ <b>and</b>
+						<B>or</B>
+						<B>not</B>
+
+				</pre>
+
+				<p>Using these operators along with grouping parentheses, we can "chain" some of our comparisons together:</P>
+
+				<PRE>
+					
+&gt;&gt;&gt; (2 &lt; 4) <b>and</b> (2 == 4)
+0
+&gt;&gt;&gt; (2 &gt; 4) <b>or</b> (2 &lt; 4)
+1
+&gt;&gt;&gt; <B>not</B> (6.2 &lt;= 6)
+1
+&gt;&gt;&gt; 3 &lt; 4 &lt; 5
+
+				</PRe>
+
+				<p>The last example is an expression that maybe invalid in other languages, but in Python it is really a short way of saying:</p>
+
+				<pre>
+					
+&gt;&gt;&gt; (3 &lt; 4) <b>and</b> (4 &lt; 5)
+
+				</pre>
+
+				<p>You can find out more about Python operators in <a href="84.html">Section 4.5</a>of the text.</p>
+
+			</fOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="52.html" title="Comments"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=53" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="53.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="54.html" title="Variables and Assignment"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

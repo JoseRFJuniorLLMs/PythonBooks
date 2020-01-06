@@ -1,0 +1,169 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Built-in Functions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="99.html" class="navtitle">6. Sequences: Strings, Lists, and Tuples</a> &gt; <span class="nonavtitle">Built-in Functions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="111.html" title="Operators"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=112" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="112.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="113.html" title="List Type Built-in Methods"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A20%3A02+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175201138163167203157254</font><a href="read8.asp?bookname=0130260363&snode=112&now=5%2F29%2F2002+9%3A20%3A02+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Built-in Functions</h3>
+				
+					<h4>Standard Type Functions</h4>
+					
+						<H5><TT Class="monofont">cmp()</TT></H5>
+						<P>In <a hreF="87#1.html">Section 4.6.1</A>, we introduced the <TT class="monofont">cmp()</tt> built-in function with examples of comparing numbers and strings. But how would <tt class="monofont">cmp()</tt> work with other objects such as lists and tuples, which can contain not only numbers and strings, but other objects like lists, tuples, dictionaries, and even user-created objects?</p>
+
+						<pre>
+							
+&gt;&gt;&gt; list1, list2 = [123, 'xyz'], [456, 'abc']
+&gt;&gt;&gt; cmp(list1, list2)
+-1
+&gt;&gt;&gt;
+&gt;&gt;&gt; cmp(list2, list1)
+1
+&gt;&gt;&gt; list3 = list2 + [789]
+&gt;&gt;&gt; list3
+[456, 'abc', 789]
+&gt;&gt;&gt;
+&gt;&gt;&gt; cmp(list2, list3)
+-1
+
+						</Pre>
+
+						<P>Compares are straightforward if we are comparing two objects of the same type. For numbers and strings, the direct values are compared, which is trivial. For sequence types, comparisons are somewhat more complex, but similar in manner. Python tries its best to make a fair comparison when one cannot be made, i.e., when there is no relationship between the objects or when types do not even have compare functions, then all bets are off as far as obtaining a "logical" decision.</p>
+
+						<p>Before such a drastic state is arrived at, more safe-and-sane ways to determine an inequality are attempted. How does the algorithm start? As we mentioned briefly above, elements of lists are iterated over. If these elements are of the same type, the standard compare for that type is performed. As soon as an inequality is determined in an element compare, that result becomes the result of the list compare. Again, these element compares are for elements of the same type. As we explained earlier, when the objects are different, performing an accurate or true comparison becomes a risky proposition.</p>
+
+						<P>When we compare <tt clAss="monofont">list1</tT> with <TT Class="monofont">list2,</TT> both lists are iterated over. The first true comparison takes place between the first elements of both lists, i.e., <TT clasS="monofont">123</TT> vs. <Tt claSS="monofont">456.</TT> Since <tt class="monofont">123 &lt; 456, list1</tt> is deemed "smaller."</p>
+
+						<p>If both values are the same, then iteration through the sequences continues until either a mismatch is found, or the end of the shorter sequence is reached. In the latter case, the sequence with more elements is deemed "greater." That is the reason why we arrived above at <tt class="monofont">list2 &lt; list3.</tt> Tuples are compared using the same algorithm. We leave this section with a summary of the algorithm highlights:</P>
+
+						<ul>
+<Li><p>Compare elements of both lists.</p>
+</Li>
+<li><p>If elements are of the same type, perform the compare and return the result.</P>
+</li>
+<lI><P>If elements are different types, check to see if they are numbers.</P>
+
+								<Ul>
+<li><p>If numbers, perform numeric coercion if necessary and  compare.</P>
+</LI>
+<Li><p>If either element is a number, then the other element is "larger" (numbers are "smallest").</p>
+</lI>
+<LI><P>Otherwise, types are sorted alphabetically by name.</p>
+</li>
+</uL></LI>
+<Li><p>If we reached the end of one of the lists, the longer list is "larger."</p>
+</li>
+<li><p>If we exhaust both lists and share the same data, the result is a tie, meaning that 0 is returned.</p>
+</li>
+</ul>
+					
+				
+				
+					<h4>Sequence Type Functions</h4>
+					
+						<h5><tt clAss="monofont">len()</Tt></h5>
+						<p>For strings, <Tt claSs="monofont">len()</tt> gives the total length of the string, as in the number of characters. For lists (and tuples), it will not surprise you that <TT CLass="monofont">len()</tT> returns the number of elements in the list (or tuple). Container objects found within count as a single item. Our examples below use some of the lists already defined above in previous sections.</P>
+
+						<PRe>
+							
+&gt;&gt;&gt; len(num_list)
+4
+&gt;&gt;&gt;
+&gt;&gt;&gt; len(num_list*2)
+8
+&gt;&gt;&gt;
+&gt;&gt;&gt; len(str_list[:4])
+4
+&gt;&gt;&gt;
+&gt;&gt;&gt; len(str_list[:-1])
+4
+&gt;&gt;&gt;
+&gt;&gt;&gt; len(mixup_list+num_list)
+8
+
+						</pre>
+
+					
+					
+						<H5><TT Class="monofont">max()</TT> and <TT class="monofont">min()</tt></h5>
+						<p><tt class="monofont">max()</tt> and <tt ClaSs="monofont">min()</tt> did not have a significant amount of usage for strings since all they did was to find the "largest" and "smallest" characters (lexicographically) in the string. For lists (and tuples), their functionality is more defined. Given a list of like objects, i.e., numbers or strings only, <Tt claSs="monofont">max()</tt> and <TT CLass="monofont">min()</tT> could come in quite handy. Again, the quality of return values diminishes as mixed objects come into play. However, more often than not, you will be using these functions in a situation where they will provide the results you are seeking. We present a few examples using some of our earlier-defined lists.</P>
+
+						<PRe>
+							
+&gt;&gt;&gt; max(str_list)
+'park'
+&gt;&gt;&gt;
+&gt;&gt;&gt; max(num_list)
+[65535L, 2e+30, (76.45-1.3j)]
+&gt;&gt;&gt; max(mixup_list)
+'beef'
+&gt;&gt;&gt; min(mixup_list)
+(-1.9+6j)
+&gt;&gt;&gt;
+&gt;&gt;&gt; min(str_list)
+'candlestick'
+&gt;&gt;&gt;
+&gt;&gt;&gt; min(num_list)
+-49
+
+						</pre>
+
+					
+					
+						<H5><TT Class="monofont">list()</TT> and <TT class="monofont">tuple()</tt></h5>
+						<p>The <tt class="monofont">list()</tt> and <tt ClaSs="monofont">tuple()</tt> methods take sequence types and convert them to lists and tuples, respectively. Although strings are also sequence types, they are not commonly used with <Tt claSs="monofont">list()</tt> and <TT CLass="monofont">tuple().</tT> These built-in functions are used more often to convert from one type to the other., i.e., when you have a tuple that you need to make a list (so that you can modify its elements) and vice versa.</P>
+
+						<PRe>
+							
+&gt;&gt;&gt; aList = [ 'tao', 93, 99, 'time' ]
+&gt;&gt;&gt; aTuple = tuple(aList)
+&gt;&gt;&gt; <b>print</b> aList
+['tao', 93, 99, 'time']
+&gt;&gt;&gt;
+&gt;&gt;&gt; <b>print</B> aTuple
+('tao', 93, 99, 'time')
+&gt;&gt;&gt;
+&gt;&gt;&gt; back2aList = list(aTuple)
+&gt;&gt;&gt; back2aList
+['tao', 93, 99, 'time']
+&gt;&gt;&gt; back2aList == aList
+1
+&gt;&gt;&gt; back2aList <B>is</B> aList
+0
+
+						</Pre>
+
+						<p>Neither <tT CLAss="monofont">list()</tt> nor <tt class="monofont">tuple()</tt> performs true <i>conversions</i> (also see <a href="101#13.html">Section 6.1.2</A>). In other words, the list you passed to <tt ClasS="monofont">tuple()</tt> does not turn into a list, and the tuple you give to <tt ClasS="monofont">list()</TT> does not really become a list. Instead, these built-in functions create a new object of the destination type and populate it with the same elements as the original sequence. In the last two examples above, although the data set for both lists is the same (hence satisfying <Tt claSS="monofont">==</TT>), neither variable points to the same list (thus failing <b><tt cLASS="monofont">is</tt></b>).</p>
+
+					
+				
+				
+					<H4>List Type Built-in Functions</H4>
+					<P>There are currently no special list-only built-in functions in Python. Lists can be used with most object and sequence built-in functions. In addition, list objects have their own methods.</P>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="111.html" title="Operators"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=112" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="112.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="113.html" title="List Type Built-in Methods"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

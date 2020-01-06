@@ -1,0 +1,280 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Inheritance</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="210.html" class="navtitle">13. Classes and OOP</a> &gt; <span class="nonavtitle">Inheritance</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="220.html" title="Subclassing and Derivation"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=221" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="221.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="222.html" title="Built-in Functions for Classes, Instances, and Other Objects"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A16%3A11+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004231203005073168108087143</font><a href="read1.asp?bookname=0130260363&snode=221&now=5%2F30%2F2002+8%3A16%3A11+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Inheritance</h3>
+				<p><i>Inheritance</I> describes how the attributes of base classes are "bequeathed" to a derived class. A subclass inherits attributes of any of its base classes whether they be data attributes or methods.</P>
+
+				<P>We present an example below. <Tt claSS="monofont">P</TT> is a simple class with no attributes. <tt clASS="monofont">C</Tt> is a class with no attributes which derives from (and therefore is a subclass of) <tt class="monofont">P:</tt></p>
+
+				<pre>
+					
+&gt;&gt;&gt; <b>class</b> P:                      # parent class
+…       <b>pass</b>
+&gt;&gt;&gt; <b>class</b> C(P):                   # child class
+…       <B>pass</b>
+&gt;&gt;&gt;
+&gt;&gt;&gt; c = C()                       # instantiate child
+&gt;&gt;&gt; c.__class__                   # child "is a" parent
+&lt;class __main__.C at 8120c98&gt;
+&gt;&gt;&gt; C.__bases__                   # child's parent class(es)
+(&lt;class __main__.P at 811fc98&gt;,)
+
+				</pRe>
+
+				<p>Because <tT clasS="monofont">P</tt> has no attributes, nothing was inherited by <tT CLAss="monofont">C.</tt> Let us make our example more useful by giving <TT CLass="monofont">P</tT> some attributes:</P>
+
+				<PRe>
+					
+&gt;&gt;&gt; <b>class</b> P:                    # parent class
+…      'P class'
+…        <b>def</B> __init__(self):
+…            <B>print</B> 'created an instance of', \
+…                self.__class__.__name__
+…
+&gt;&gt;&gt; <B>class</b> C(P):                 # child class
+…        <b>pass</b>
+
+				</pre>
+
+				<p>We now create <tt class="monofont">P</tt> with a documentation string (<tt clAss="monofont">__doc__</Tt>) and a constructor which will execute when we instantiate <tt Class="monofont">P,</Tt> as in this interactive session:</p>
+
+				<pRE>
+					
+&gt;&gt;&gt; p = P()                      # parent instance
+created an instance of P
+&gt;&gt;&gt; p.__class__                  # class that created us
+&lt;class __main__.P at 811f900&gt;
+&gt;&gt;&gt; P.__bases__                  # parent's parent class(es)
+()
+&gt;&gt;&gt; P.__doc__                    # parent's doc string
+'P class'
+&gt;&gt;&gt; dir(P)                       # parent class attributes
+['__doc__', '__init__', '__module__']
+
+				</PRe>
+
+				<p>The "created an instance" output comes directly from <tt CLASs="monofont">__init__().</tt> We also display some more about the parent class P for your information. Since <tT CLAss="monofont">P</tt> is not a subclass, its <TT CLass="monofont">__bases__</tt> attribute is empty. We will now instantiate <tt class="monofont">C,</tt> showing you how the <tt clasS="monofont">__init__()</tt> (constructor) method is inherited with its execution:</P>
+
+				<pre>
+					
+&gt;&gt;&gt; c = C()                            # child instance
+created an instance of C
+&gt;&gt;&gt; c.__class__                        # class that created us
+&lt;class __main__.C at 812c1b0&gt;
+&gt;&gt;&gt; C.__bases__                        # child's parent class(es)
+(&lt;class __main__.P at 811f900&gt;,)
+&gt;&gt;&gt; C.__doc__                          # child's doc string
+&gt;&gt;&gt;
+&gt;&gt;&gt; dir(C)                             # child class attributes
+['__doc__', '__module__']
+
+				</Pre>
+
+				<p><tT claSS="monofont">C</TT> has no declared method <tt clASS="monofont">__init__(),</Tt> yet there is still output when instance <tt cLASS="monofont">c</tt> of class <tt CLASs="monofont">C</tt> is created. The reason is that <tt class="monofont">C</tt> inherits <tt class="monofont">__init__()</tT> from <tt ClasS="monofont">P.</tt> The <tt ClasS="monofont">__bases__</TT> tuple now lists <Tt claSS="monofont">P</TT> as its parent class.</p>
+
+				<p>You will notice that some special data attributes are not inherited, the most notable of which is <tt CLASs="monofont">__doc__.</tt> Each class should have its own documentation string. It does not make sense inheriting special class attributes because the values generally relate to one specific class.</p>
+
+				
+					<H4><TT Class="monofont">__bases__</tt> Class Attribute</h4>
+					<p>We briefly introduced the <tt class="monofont">__bases__</tt> class attribute in <a hrEf="215#6.html">Section 13.4.4</a>, which is a tuple containing the set of parent classes for any (sub)class. Note that we specifically state "parents" as opposed to all base classes (which includes all ancestor classes). Classes which are not derived will have an empty <Tt clAss="monofont">__bases__</tt> attribute. Let us look at an example of how to make use of <Tt clASS="monofont">__bases__.</Tt></p>
+
+					<prE>
+						
+&gt;&gt;&gt; <B>class</B> A: <B>pass</b>                   # define class A
+…
+&gt;&gt;&gt; <b>class</b> B(A): <b>pass</B>                # subclass of A
+…
+&gt;&gt;&gt; <B>class</B> C(B): <B>pass</b>                # subclass of B (and indirectly, A)
+…
+&gt;&gt;&gt; <b>class</b> D(A,B): <b>pass</B>              # subclass of A and B
+…
+&gt;&gt;&gt; C.__bases__
+(&lt;class __main__.B at 8120c90&gt;,)
+&gt;&gt;&gt; D.__bases__
+(&lt;class __main__.A at 811fc90&gt;, &lt;class __main__.B at 8120c90&gt;)
+
+					</PRE>
+
+					<p>In the example above, although <tt class="monofont">C</tt> is a derived class of both <tt class="monofont">A</tt> (through <tT clAss="monofont">B</tT>) and <tt clAss="monofont">B, C'</tT>s parent is <TT Class="monofont">B,</TT> as indicated in its declaration, so only <TT clasS="monofont">B</TT> will show up in <Tt claSS="monofont">C.__bases__.</TT> On the other hand, <tt class="monofont">D</tt> inherits from two classes, <tt class="monofont">A</tt> and <tt ClaSs="monofont">B.</tt> (Multiple inheritance is covered in <A href="221#4.html">Section 13.10.4</A>.)</p>
+
+				
+				
+					<h4>Overriding Methods through Inheritance</h4>
+					<P>Let us create another function in P that we will override in its child class:</P>
+
+					<PRe>
+						
+&gt;&gt;&gt; <b>class</b> P:
+…        <b>def</B> foo(self):
+…            <B>print</B> 'Hi, I am P-foo()'
+…
+&gt;&gt;&gt; p = P()
+&gt;&gt;&gt; p.foo()
+Hi, I am P-foo()
+
+					</Pre>
+
+					<p>Now let us create the child class <tT CLAss="monofont">C,</tt> subclassed from parent <TT CLass="monofont">P:</tt></p>
+
+					<pre>
+						
+&gt;&gt; <b>class</b> C(P):
+…        <b>def</b> foo(self):
+…            <b>print</b> 'Hi, I am C-foo()'
+…
+&gt;&gt;&gt; c = C()
+&gt;&gt;&gt; c.foo()
+Hi, I am C-foo()
+
+					</pre>
+
+					<p>Although <tT clAss="monofont">C</tT> inherits <tt clAss="monofont">P</tT>'s <TT Class="monofont">foo()</TT> method, it is overridden because <TT clasS="monofont">C</TT> defines its own <Tt claSS="monofont">foo()</TT> method. One reason for overriding methods is because you may want special or different functionality in your subclass. Your next obvious question then must be, "Can I call a base class method which I overrode in my subclass?"</p>
+
+					<p>The answer is yes, but this is where you will have to invoke an unbound base class method, explicitly providing the instance of the subclass, as we do here:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; P.foo(c)
+Hi, I am P-foo()
+
+					</pre>
+
+					<p>Notice that we already had an instance of <tt class="monofont">P</tt> called <tT clAss="monofont">p</tT> from above, but that is nowhere to be found in this example. We do not need an instance of <tt clAss="monofont">P</tT> to call a method of <TT Class="monofont">P</TT> because we have an instance of a <I>subclass</I> of <tt clASS="monofont">P</Tt> which we can use, <tt cLASS="monofont">c.</tt></p>
+
+					<div class="note"><p class="notetitle"><b>NOTE</b></p><P><p><i>When deriving a class with a constructor</I>
+							<tt cLass="monofont">__init__(),</tT>
+							<i>if you do not override</i>
+							<tT CLAss="monofont">__init__(),</tt>
+							<I>it will be inherited and automatically invoked. But if you do override</I>
+							<TT clasS="monofont">__init__()</TT>
+							<I>in a subclass, the base class</i>
+							<tt cLASS="monofont">__init__()</tt>
+							<i>method is not invoked automatically when the subclass is instantiated.</i></p>
+<pre>
+							
+&gt;&gt;&gt; <b>class</b> P:
+…        <b>def</b> __init__(self):
+…            <b>print</b> "calling P\xd5 s constructor"
+…
+&gt;&gt;&gt; <b>class</b> C(P):
+…        <b>def</b> __init__(self):
+…            <b>print</b> "calling C\xd5 s constructor"
+…
+&gt;&gt;&gt; c = C()
+created an instance of C
+
+						</Pre>
+<P><i>If you want the base class</i>
+							<tT clasS="monofont">__init__()</tt>
+							<i>invoked, you need to do that explicitly in the same manner as we just described, calling the base class (unbound) method with an instance of the subclass. Updating our class</I>
+							<TT Class="monofont">C</TT>
+							<I>appropriately results in the following desired execution:</I></p>
+<pre>
+							
+&gt;&gt;&gt; <B>class</B> C(P):
+…        <B>def</B> __init__(self):
+…            P.__init__(self)
+…            <b>print</b> "calling C's constructor"
+…
+&gt;&gt;&gt; c = C()
+calling P's constructor
+calling C's constructor
+
+						</prE>
+<P><I>In the above example, we call the base class</I>
+							<tt class="monofont">__init__()</tt>
+							<i>method before the rest of the code in our own</i>
+							<tt class="monofont">__init__()</tt>
+							<I>method. It is fairly common practice (if not mandatory) to initialize base classes for setup purposes, then proceed with any local setup. This rule makes sense because you want the inherited object properly initialized and "ready" by the time the code for the derived class constructor runs, because it may require or set inherited attributes.</i></p>
+<P><i>Those of you familiar with C++ would call base class constructors in a derived class constructor declaration by appending a colon to the declaration followed by calls to any base class constructors. Java programmers have no choice—base class constructors must always be called as the first thing that happens in derived class constructors. Python's use of the base class name to invoke a base class method is directly comparable to Java's when using the keyword</i>
+							<tT clasS="monofont">super.</tt></p>
+</P></DIV><br>
+
+				
+				
+					<h4>Deriving Standard Types</h4>
+					<P>One limitation is that Python types are <I>not</I> classes, meaning that we cannot derive subclasses from them. Not all is lost though, because of the many different special default attribute methods we can implement to emulate the standard types (see the Core Note in <A href="81.html">Section 4.2</A> as well as <A HRef="114#14.html">Sections 6.14.2</a> and <a HREF="223.html">13.12</a>).</p>
+
+				
+				<a name="4"></a>
+					<h4>Multiple Inheritance</h4>
+					<p>Python allows for subclassing from multiple base classes. This feature is commonly known as "multiple inheritance."  Python supports a limited form of multiple inheritance whereby a depth-first searching algorithm is employed to collect the attributes to assign to the derived class. Unlike other Python algorithms which override names as they are found, multiple inheritance takes the first name that is found.</p>
+
+					<p>Our example below consists of a pair of parent classes, a pair of children classes, and one grandchild class.</p>
+
+					<pre>
+						
+<b>class</b> P1:                         # parent class 1
+   <b>def</B> foo(self):
+      <b>print</b> 'called P1-foo()'
+
+<B>class</b> P2:                         # parent class 2
+   <b>def</b> foo(self):
+      <B>print</b> 'called P2-foo()'
+   <b>def</b> bar(self):
+      <b>print</B> 'called P2-bar()'
+
+<b>class</b> C1(P1,P2):                  # child 1 der. from P1, P2
+   <b>pass</B>
+
+<B>class</B> C2(P1,P2):                  # child 2 der. from P1, P2
+   <B>def</b> foo(self):
+      <b>print</b> 'called C2-foo()'
+   <b>def</B> bar(self):
+      <B>print</B> 'called C2-bar()'
+
+<B>class</b> GC(C1,C2):                  # define grandchild class
+   <b>pass</b>                           # derived from C1 and C2
+
+					</pRE>
+
+					<P>Upon executing the above declarations in the interactive interpreter, we can confirm that only the first attributes encountered are used.</P>
+
+					<pre>
+						
+&gt;&gt; gc = GC()
+&gt;&gt;&gt; gc.foo()       # GC ? C1 ? P1
+called P1-foo()
+&gt;&gt;&gt; gc.bar()       # GC ? C1 ? P1 ? P2
+called P2-bar()
+
+					</pRE>
+
+					<P>Again, you can always call a specific method by invoking the method using its fully-qualified name and providing a valid instance:</P>
+
+					<pre>
+						
+&gt;&gt;&gt; C2.foo(gc)
+called C2-foo()
+
+					</pre>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="220.html" title="Subclassing and Derivation"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=221" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="221.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="222.html" title="Built-in Functions for Classes, Instances, and Other Objects"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

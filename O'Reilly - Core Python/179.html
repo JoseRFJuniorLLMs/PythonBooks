@@ -1,0 +1,110 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Why Default Arguments?</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="170.html" class="navtitle">11. Functions</a> &gt; <span class="nonavtitle">Why Default Arguments?</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="178.html" title="Default Arguments"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=179" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="179.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="180.html" title="Default Function Object Argument Example"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A32%3A02+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174052240193090038139193</font><a href="read3.asp?bookname=0130260363&snode=179&now=5%2F29%2F2002+9%3A32%3A02+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Why Default Arguments?</h3>
+				<p>Default arguments add a wonderful level of robustness to applications because they allow for some flexibility that is not offered by the standard positional parameters. That gift comes in the form of simplicity for the applications programmer. Life is not as complicated when there are a fewer number of parameters that one needs to worry about. This is especially helpful when one is new to an API interface and does not have enough knowledge to provide more targeted values as arguments.</p>
+
+				<P>The concept of using default arguments is analogous to the process of installing software on your computer. How often does one chose the "default install" over the "custom install?" I would say probably almost always. It is a matter of convenience and know-how, not to mention a timesaver. And if you <I>are</I> one of those gurus who always chooses the custom install, please keep in mind that you are one of the minority.</P>
+
+				<p>Another advantage goes to the developer, who is given more control over the software they create for their consumers. When providing default values, they can selectively choose the "best" default value possible, thereby hoping to give the user some freedom of not having to make that choice. Over time, as the user becomes more familiar with the system or API, they may eventually be able to provide their own parameter values, no longer requiring the use of "training wheels."</p>
+
+				<p>Here is one example where a default argument comes in handy and has some usefulness in the growing electronic commerce industry:</p>
+
+				<PRE>
+					
+&gt;&gt;&gt; <B>def</b> taxMe(cost, rate=0.0825):
+…       <b>return</b> cost + (cost * rate)
+…
+&gt;&gt;&gt; taxMe(100)
+108.25
+&gt;&gt;&gt;
+&gt;&gt;&gt; taxMe(100, 0.05)
+105.0
+
+				</pRE>
+
+				<P>In the example above, the <Tt class="monofont">taxMe()</tt> function takes the cost of an item and produces a total sale amount with sales tax added. The cost is a required parameter while the tax rate is a default argument (in our example, 8¼ %). Perhaps you are an online retail merchant, with most of your customers coming from the same state or county as your business. Consumers from locations with different tax rates would like to see their purchase totals with their corresponding sales tax rates. To override the default, all you have to do is provide your argument value, such as the case with <tt class="monofont">taxMe(100, 0.05)</tt> in the above example. By specifying a <tt cLasS="monofont">rate</tt> of 5%, you provided an argument as the <tT clasS="monofont">rate</tt> parameter, thereby overriding or bypassing its default value of 0.0825.</p>
+
+				<P>All required parameters must be placed before any default arguments. Why? Simply because they are mandatory, whereas default arguments are not. Syntactically, it would be impossible for the interpreter to decide which values match which arguments if mixed modes were allowed. A <TT Class="monofont">SyntaxError</TT> is raised if the arguments are not given in the correct order:</P>
+
+				<Pre>
+					
+&gt;&gt;&gt; <b>def</b> taxMe2(rate=0.0825, cost):
+…       <B>return</B> cost * (1.0 + rate)
+…
+SyntaxError: non-default argument follows default argument
+
+				</PRe>
+
+				<p>Let us take a look at keyword arguments again, using our old friend <tt CLASs="monofont">net_conn().</tt></p>
+
+				<pre>
+					
+<b>def</b> net_conn(host, port):
+    <i>net_conn_suite</i>
+
+				</pre>
+
+				<p>As you will recall, this is where you can provide your arguments out-of-order (positionally) if you name the arguments. With the above declarations, we can make the following (regular) positional or keyword argument calls:</p>
+
+				<pre>
+					
+• net_conn('kappa', 8000)
+• net_conn(port=8080, host='chino')
+
+				</pRe>
+
+				<p>However, if we bring default arguments into the equation, things change, though the above calls are still valid. Let us modify the declaration of <Tt clAss="monofont">net_conn()</tt> such that the <Tt clASS="monofont">port</Tt> parameter has a default value of 80 and add another argument named <tt cLASS="monofont">stype</tt> (for server type) with a default value of <tt CLASs="monofont">'tcp':</tt></p>
+
+				<PRE>
+					
+<B>def</b> net_conn(host, port=80, stype='tcp'):
+    <i>net_conn_suite</i>
+
+				</pre>
+
+				<p>We have just expanded the number of ways we can call <tt class="monofont">net_conn().</tt> The following are all valid calls to <tt clAss="monofont">net_conn():</Tt></p>
+
+				<pRe>
+					
+• net_conn('phaze', 8000, 'udp')       # no def args used
+• net_conn('kappa')                    # both def args used
+• net_conn('chino', stype='icmp')      # use port def arg
+• net_conn(stype='udp', host='solo')   # use port def arg
+• net_conn('deli', 8080)               # use stype def arg
+• net_conn(port=81, host='chino')      # use stype def arg
+
+				</pre>
+
+				<P>What is the one constant we see in all of the above examples? The sole required parameter, <tt cLASS="monofont">host.</tt> There is no default value for <tt CLASs="monofont">host,</tt> thus it is expected in all calls to <tT CLAss="monofont">net_conn().</tt></P>
+
+				<P>Keyword arguments calling prove useful for being able to provide for out-of-order positional arguments, but, coupled with default arguments, they can also be used to "skip over" missing arguments as well, as evidenced from our examples above.</P>
+
+			</Font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="178.html" title="Default Arguments"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=179" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="179.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="180.html" title="Default Function Object Argument Example"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

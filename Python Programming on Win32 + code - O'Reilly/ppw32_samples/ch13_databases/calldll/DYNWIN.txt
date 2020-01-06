@@ -1,0 +1,11 @@
+
+The helper library modules for calldll are now available separately,
+as part of the 'dynwin' library, available from the same place you
+fetched this archive:
+
+ftp://squirl.nightmare.com/pub/python/python-ext/dynwin.zip
+
+If you have any questions, please feel free to contact me:
+Sam Rushing (rushing@nightmare.com)
+
+Enjoy!

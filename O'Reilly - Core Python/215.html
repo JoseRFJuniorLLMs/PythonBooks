@@ -1,0 +1,293 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Class Attributes</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="210.html" class="navtitle">13. Classes and OOP</a> &gt; <span class="nonavtitle">Class Attributes</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="214.html" title="Classes"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=215" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="215.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="216.html" title="Instances"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A14%3A07+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004231201184007120074054175</font><a href="read9.asp?bookname=0130260363&snode=215&now=5%2F30%2F2002+8%3A14%3A07+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Class Attributes</h3>
+				<p>What is an attribute?  An attribute is a data or functional element which belongs to another object and is accessed via the familiar dotted-attribute notation. Some Python types such as complex numbers have data attributes (<tT CLAss="monofont">real</tt> and <TT CLass="monofont">imag</tT>), while others such as lists and dictionaries have methods (functional attributes).</P>
+
+				<P>One interesting side note about attributes is that when you are accessing an attribute, it is also an object and may have attributes of its own which you can then access, leading to a chain of attributes, i.e., <Tt class="monofont">myThing.subThing.subSubThing,</tt> etc. Some familiar examples are:</p>
+
+				<pre>
+					
+• sys.stdout.write('foo')
+• <b>print</b> myModule.myClass.__doc__
+• myList.extend(map(upper, open('x').readlines()))
+
+				</pre>
+
+				<p>Class attributes are tied only to the classes in which they are defined, and since instance objects are the most commonly used objects in everyday OOP, instance data attributes are the primary data attributes you will be using. Class data attributes are useful only when a more "static" data type is required which is independent of any instances, hence the reason we are making the next section advanced, optional reading.</p>
+
+				<p>In the succeeding subsection, we will briefly describe how methods in Python are implemented and invoked. In general, all methods in Python have the same restriction:  They require an instance before they can be called.</P>
+
+				<a nAme="1"></a>
+					<H4>*Class Data Attributes</h4>
+					<p>Data attributes are simply variables of the class we are defining. They can be used like any other variable in that they are set when the class is created and can be updated either by methods within the class or elsewhere in the main part of the program.</p>
+
+					<p>Such attributes are better known to OO programmers as <I>static members, class variables,</i> or <i>static data.</i> They represent data that is tied to the class object they belong to and are independent of any class instances. If you are a Java or C++ programmer, this type of data is the same as placing the <TT CLass="monofont">static</tT> keyword in front of a variable declaration.</P>
+
+					<P>Static members are generally used only to track values associated with classes. In most circumstances, you would be using instance attributes rather than class attributes. We will compare the differences between class and instance attributes when we formally introduce instances.</P>
+
+					<p>Here is an example of using a class data attribute (<tt cLASS="monofont">foo</tt>):</p>
+
+					<pRE>
+						
+&gt;&gt;&gt; <B>class</B> C:
+…        foo = 100
+&gt;&gt;&gt; <b>print</b> C.foo
+0
+&gt;&gt;&gt; C.foo = C.foo + 1
+&gt;&gt;&gt; <b>print</b> C.foo
+101
+
+					</pre>
+
+					<p>Note that nowhere in the code above do you see any references to class instances.</p>
+
+				
+				
+					<h4>Methods</h4>
+					<p>A method, such as the <tt class="monofont">myNoActionMethod</tT> method of the <tt ClasS="monofont">MyClass</tt> class in the example below, is simply a function defined as part of a class definition (thus making methods class attributes). This means that <tt ClasS="monofont">myMethod</TT> applies only to objects (instances) of <Tt claSS="monofont">MyClass</TT> type. Note how <tt clASS="monofont">myNoActionMethod</Tt> is tied to its instance because invocation requires both names in the dotted attribute notation:</p>
+
+					<prE>
+						
+&gt;&gt;&gt; <B>class</B> MyClass:
+         <B>def</b> myNoActionMethod(self):
+             <b>pass</b>
+
+&gt;&gt;&gt; myInstance = MyClass()
+&gt;&gt;&gt; myInstance.myNoActionMethod()
+
+					</pre>
+
+					<p>Any call to <tt class="monofont">myNoActionMethod</tt> by itself as a function fails:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; myNoActionMethod()
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+    myNoActionMethod()
+NameError: myNoActionMethod
+
+					</Pre>
+
+					<P>A <tt cLass="monofont">NameError</tT> exception is raised because there is no such function in the global namespace. The point is to show you that <tt cLASS="monofont">myNoactionMethod</tt> is a method, meaning that it belongs to the class and is not a name in the global namespace. If <tt CLASs="monofont">myNoActionMethod</tt> was defined as a function at the top-level, then our call would have succeeded.</p>
+
+					<P>We show you below that even calling the method with the class object fails.</P>
+
+					<PRe>
+						
+&gt;&gt;&gt; MyClass.myNoActionMethod()
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+    MyClass.myNoActionMethod()
+TypeError: unbound method must be called with class
+instance 1st argument
+
+					</pre>
+
+					<P>This <TT Class="monofont">TypeError</tt> exception may seem perplexing at first because you know that the method is an attribute of the class and so are wondering why there is a failure. We will explain this next.</p>
+
+					
+						<h5>Binding (Bound and Unbound Methods)</h5>
+						<p>In keeping with OOP tradition, Python imposes the restriction that methods cannot be invoked without instances. An instance must be used to perform method calls. This restriction describes Python's concept of binding, where methods must be bound (to an instance) in order to be invoked directly. Unbound methods may also be called, but an instance object must be provided explicitly in order for the invocation to succeed. However, regardless of binding, methods are inherently attributes of the class they are defined in, even if they are almost always invoked via an instance. We will further explore bound and unbound methods later in <a href="218.html">Section 13.7</a>.</p>
+
+					
+					
+						<h5>Static Methods</h5>
+						<p>Python does not support <I>static methods</i> (a.k.a. <i>static member functions</I>), functions which are associated only with a class and not with any particular instances. They are either functions which help manage static class data or are global functions which have some sort of functionality related to the class they are defined in. Since Python does not support static methods, a standard global function is the workaround when static method functionality is desired. More details on how this is accomplished can be found in Section <a hrEf="218#2.html">13.7.2</a>.</p>
+
+					
+				
+				
+					<h4>Determining Class Attributes</H4>
+					<p>There are two ways to determine what attributes a class has. The simplest way is to use the <tt CLASs="monofont">dir()</tt> built-in function. An alternative is to access the class dictionary attribute <tT CLAss="monofont">__dict__,</tt> one of a number of special attributes that is common to all classes. Let us take a look at an example:</P>
+
+					<PRE>
+						
+&gt;&gt;&gt; <b>class</b> MyClass:
+…        'MyClass class definition'
+…        myVersion = '1.1'         # static data
+…        <b>def</b> showMyVersion(self):  # method
+…            <B>print</B> MyClass.myVersion
+…
+
+					</PRe>
+
+					<p>Using the class defined above, let us use <tt class="monofont">dir()</tt> and the special class attribute <tt class="monofont">__dict__</tt> to see this class's attributes:</P>
+
+					<prE>
+						
+&gt;&gt;&gt; dir(MyClass)
+['__doc__', '__module__', 'showMyVersion', 'myVersion']
+&gt;&gt;&gt;
+&gt;&gt;&gt; MyClass.__dict__
+{'__doc__': None, 'myVersion': 1, 'showMyVersion':
+&lt;function showMyVersion at 950ed0&gt;, '__module__':
+'__main__'}
+
+					</pre>
+
+					<P>As you can tell, <tt clAss="monofont">dir()</tT> returns a list of an object's attributes while <TT Class="monofont">__dict__</TT> is a dictionary, with the attribute names as keys and whose values are the data values of the corresponding attributes.</P>
+
+					<P>The output also reveals two familiar attributes of our class <tt clASS="monofont">MyClass, showMyVersion</Tt> and <tt cLASS="monofont">myVersion,</tt> as well as a couple of new ones. These attributes, <tt class="monofont">__doc__</tt> and <tt class="monofont">__module__,</tt> are special class attributes which all classes have (in addition to <Tt cLass="monofont">__dict__</Tt>). The <tt cLass="monofont">vars()</TT> built-in function returns the contents of a class's <TT clasS="monofont">__dict__</TT> attribute when passed the class object as its argument.</P>
+
+				
+				<a namE="6"></A>
+					<H4>Special Class Attributes</H4>
+					<p>For any class <tt cLASS="monofont">C,</tt>
+						<a href="215#7.html">Table 13.1</a> represents a list of all the special attributes of <tt class="monofont">C:</tt></p>
+
+					<a nAme="7"></A><p><taBle boRder="1" CELLspacING="0" CellpADDIng="1" wiDTH="100%">
+<Caption><h5>Table 13.1. Special Class Attributes</h5></caption><colgrOup AligN="left" span="2">
+<Tr vaLIGN="top">
+<td>
+<foNT SIze="2"><p><i><TT CLass="monofont">C.</tT></I><TT class="monofont">__name__</tt></p>
+</font></td>
+<td>
+<font SizE="2"><p>string name of class <i><tT clasS="monofont">C</tt></i></P>
+</FONt></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2"><P><i><tt class="monofont">C.</tt></i><tt class="monofont">__doc__</tt></P>
+</foNt></td>
+<Td>
+<fonT sizE="2"><P>documentation string for class <I><Tt claSS="monofont">C</TT></i></p>
+</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<font size="2"><p><i><tt clasS="monofont">C.</tt></I><tt cLass="monofont">__bases__</tT></p>
+</foNT></TD>
+<td>
+<foNT SIze="2"><p>tuple of class <i><TT CLass="monofont">C</tT>'</I>s parent classes</P>
+</Font></td>
+</tr>
+<tr valign="top">
+<td>
+<fonT siZe="2"><p><i><Tt claSs="monofont">C.</tt></I><TT Class="monofont">__dict__</TT></P>
+</Font></tD>
+<TD>
+<Font sIZE="2"><P>attributes of <i><tt class="monofont">C</tt></i></p>
+</font></td>
+</tr>
+<Tr vAligN="top">
+<td>
+<foNt siZE="2"><P><I><tt clASS="monofont">C.</Tt></i><tt CLASs="monofont">__module__</tt></p>
+</FONT></td>
+<td>
+<font size="2"><p>module where <i><tt clasS="monofont">C</tt></I> is defined (new in 1.5)</p>
+</foNt></td>
+</tR>
+</colGROUp>
+</tabLE></P>
+
+					<P>Using the class <tt clASS="monofont">MyClass</Tt> we just defined above, we have the following:</p>
+
+					<prE>
+						
+&gt;&gt;&gt; MyClass.__name__
+'MyClass'
+&gt;&gt;&gt; MyClass.__doc__
+'MyClass class definition'
+&gt;&gt;&gt; MyClass.__bases__
+()
+&gt;&gt;&gt; MyClass.__dict__
+{'__doc__': None, 'myVersion': 1, 'showMyVersion':
+&lt;function showMyVersion at 950ed0&gt;, '__module__':
+'__main__'}
+&gt;&gt;&gt; MyClass.__module__
+'__main__'
+
+					</PRE>
+
+					<p><tt class="monofont">__name__</tt> is the string name for a given class. This may come in handy in cases where a string is desired rather than a class object. Even some built-in types have this attribute, and we will use one of them to showcase the usefulness of the <tt class="monofont">__name__</tt> string.</p>
+
+					<P>The type object is an example of one built-in type that has a <tt ClasS="monofont">__name__</tt> attribute. Recall that <tt ClasS="monofont">type()</TT> returns a type object when invoked. There may be cases where we just want the string indicating the type rather than an object. We can use the <Tt claSS="monofont">__name__</TT> attribute of the type object to obtain the string name. Here is an example:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; stype = type('What is your quest?')
+&gt;&gt;&gt; stype                        # stype is a type object
+&lt;type 'string'&gt;
+&gt;&gt;&gt; stype.__name__               # get type as a string
+'string'
+&gt;&gt;&gt;
+&gt;&gt;&gt; type(3.14159265)             # also a type object
+&lt;type 'float'&gt;
+&gt;&gt;&gt; type(3.14159265).__name__    # get type as a string
+'float'
+
+					</PRE>
+
+					<P><tt clASS="monofont">__doc__</Tt> is the documentation string for the class, similar to the documentation string for functions and modules, and must be the first unassigned string succeeding the header line. The documentation string is <i>not</i> inherited by derived classes, as an indication that they must contain their own documentation strings.</p>
+
+					<p><tt class="monofont">__bases__</tt> deals with inheritance which we will cover later in this chapter; it contains a tuple which consists of a class's parent classes.</p>
+
+					<p>The aforementioned <tt clAss="monofont">__dict__</Tt> attribute consists of a dictionary containing the data attributes of a class. When accessing a class attribute, this dictionary is searched for the attribute in question. If it is not found in <tt Class="monofont">__dict__,</Tt> the hunt continues in the dictionary of base classes, in "depth-first search" order. The set of base classes is searched in sequential order, left-to-right in the same order as they are defined as parent classes in a class declaration. Modification of a class attribute affects only the current class's dictionary; no base class <tt CLASs="monofont">__dict__</tt> attributes are ever modified.</p>
+
+					<P>Python supports class inheritance across modules, so to better clarify a class's description, the <TT Class="monofont">__module__</TT> was introduced in version 1.5 so that a class name is fully qualified with its module. We present the following example:</P>
+
+					<Pre>
+						
+&gt;&gt;&gt; <b>class</b> C:
+…       <B>pass</B>
+…
+&gt;&gt;&gt; C
+&lt;class __main__.C at 81201f0&gt;
+&gt;&gt;&gt; C.__module__
+'__main__'
+
+					</PRe>
+
+					<p>The fully-qualified name of class <tt class="monofont">C</tt> is <tt class="monofont">"__main__.C",</tt> i.e. <I><tt ClasS="monofont">source_module.class_name.</tt></i> If class <tT claSS="monofont">C</TT> was located in an imported module, such as <tt clASS="monofont">mymod,</Tt> we would see the following:</p>
+
+					<prE>
+						
+&gt;&gt;&gt; <B>from</B> mymod <B>import</b> C
+&gt;&gt;&gt; C                           # class C in Python 1.5.2
+&lt;class mymod.C at 8120be0&gt;
+&gt;&gt;&gt; C.__module__
+'mymod'
+
+					</pre>
+
+					<P>In previous versions of Python without the special attribute <TT Class="monofont">__module__,</tt> it was much more difficult to ascertain the location of a class simply because classes did not use their fully-qualified names. For example, if we were to perform the same module import and access the class, you can see that no source module name for class <tt class="monofont">C</tt> is available:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; <b>from</B> mymod <b>import</b> C
+&gt;&gt;&gt; C                       # class C in Python 1.4
+&lt;class C at 8120be0&gt;
+
+					</Pre>
+
+				
+			</fOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="214.html" title="Classes"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=215" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="215.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="216.html" title="Instances"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,114 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Module Built-in Functions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="199.html" class="navtitle">12. Modules</a> &gt; <span class="nonavtitle">Module Built-in Functions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="205.html" title="Importing Module Attributes"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=206" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="206.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="207.html" title="Packages"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A37%3A14+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174049228075106082086182</font><a href="read4.asp?bookname=0130260363&snode=206&now=5%2F29%2F2002+9%3A37%3A14+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Module Built-in Functions</h3>
+				<p>The importation of modules has some functional support from the system. We will look at those now.</p>
+
+				
+					<H4><TT Class="monofont">__import__()</TT></H4>
+					<P>The <tt clASS="monofont">__import__()</Tt> function is new as of Python 1.5, and it is the function that actually does the importing, meaning that the import statement invokes the <tt class="monofont">__import__()</tt> function to do its work. The purpose of making this a function is to allow for overriding it if one is inclined to develop his or her own importation algorithm.</p>
+
+					<p>The syntax of <tt class="monofont">__import__()</tT> is:</p>
+
+					<pRe>
+						
+__import__(<i>module_name</i>[, <I>globals</i>[, <i>locals</i>[, <i>fromlist</I>]]]
+
+					</pre>
+
+					<P>The <I><TT clasS="monofont">module_name</TT></I> variable is the name of the module to import, <i><tt cLASS="monofont">globals</tt></i> is the dictionary of current names in the global symbol table, <i><TT CLass="monofont">locals</tt></i> is the dictionary of current names in the local symbol table, and <i><tt class="monofont">fromlist</tt></i> is a list of symbols to import the way they would be imported using the <b><tt ClaSs="monofont">from-import</tt></B> statement.</p>
+
+					<p>The <tt ClasS="monofont">globals, locals,</TT> and <Tt claSS="monofont">fromlist</TT> arguments are optional, and if not provided, default to <tt clASS="monofont">globals(), locals(),</Tt> and <tt cLASS="monofont">[],</tt> respectively.</p>
+
+					<p>Calling '<b><tt class="monofont">import</tt></b>
+						<tt claSs="monofont">sys</tT>' can be accomplished with</p>
+
+					<prE>
+						
+sys = __import__('sys')
+
+					</pre>
+
+				
+				
+					<h4><Tt clASS="monofont">globals()</Tt> and <tt cLASS="monofont">locals()</tt></h4>
+					<p>The <TT CLass="monofont">globals()</tT> and <TT Class="monofont">locals()</tt> built-in functions return dictionaries of the global and local namespaces, respectively, of the caller. From within a function, the local namespace represents all names defined for execution of that function, which is what <tt class="monofont">locals()</tt> will return. <tt claSs="monofont">globals(),</tT> of course, will return those names globally accessible to that function.</p>
+
+					<p>From the global namespace, however, <tT clasS="monofont">globals()</tt> and <tT CLAss="monofont">locals()</tt> return the same dictionary because the global namespace is as local as you can get while executing there. Here is a little snippet of code that calls both functions from both namespaces:</P>
+
+					<PRE>
+						
+<b>def</b> foo():
+    <b>print</b> '\ncalling foo()…'
+    aString = 'bar'
+    anInt = 42
+    <B>print</B> "foo()'s globals:", globals().keys()
+    <B>print</B> "foo()'s locals:", locals().keys()
+
+<b>print</b> "__main__'s globals:", globals().keys()
+<b>print</b> "__main__'s locals:", locals().keys()
+foo()
+
+					</PRE>
+
+					<P>We are going to ask for the dictionary keys only because the values are of no consequence here (plus they make the lines wrap even more in this text). Executing this script, we get the following output:</p>
+
+					<pre>
+						
+% namespaces.py
+__main__'s globals: ['__doc__', 'foo', '__name__',
+'__builtins__']
+__main__'s locals: ['__doc__', 'foo', '__name__',
+'__builtins__']
+
+calling foo()…
+foo()'s globals: ['__doc__', 'foo', '__name__',
+'__builtins__']
+foo()'s locals: ['anInt', 'aString']
+
+					</pre>
+
+				
+				
+					<h4><tt class="monofont">reload()</tt></h4>
+					<p>The <tT clAss="monofont">reload()</tT> built-in function performs another import on a previously imported module. The syntax of <tt clAss="monofont">reload()</tT> is:</P>
+
+					<PRe>
+						
+reload(<i>module</i>)
+
+					</pRE>
+
+					<P><I><tt clASS="monofont">module</Tt></i> is the actual module you want to reload. There are some criteria to using the <tt CLASs="monofont">reload()</tt> module. The first is that the module must have been imported in full (not by using <b><tt class="monofont">from-import</tt></b>), and it must have loaded successfully. The second rule follows from the first, and that is the argument to <tt clasS="monofont">reload()</tt> is the module itself and not a string containing the module name, i.e., it must be something like <Tt clAss="monofont">reload(sys)</tt> instead of <Tt clASS="monofont">reload('sys').</Tt></p>
+
+					<p>Also, code in a module is executed when it is imported, but only once. A second import does not re-execute the code, it just binds the module name. Thus <tT CLAss="monofont">reload()</tt> makes sense, as it overrides this default behavior.</P>
+
+				
+			</FONt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="205.html" title="Importing Module Attributes"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=206" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="206.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="207.html" title="Packages"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

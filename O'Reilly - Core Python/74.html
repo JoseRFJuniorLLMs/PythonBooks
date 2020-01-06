@@ -1,0 +1,152 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Basic Style Guidelines</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="69.html" class="navtitle">3. Syntax and Style</a> &gt; <span class="nonavtitle">Basic Style Guidelines</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="73.html" title="Identifiers"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=74" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="74.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="75.html" title="Memory Management"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A11%3A35+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172037206196160047026245</font><a href="read7.asp?bookname=0130260363&snode=74&now=5%2F29%2F2002+9%3A11%3A35+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT><h3>Basic Style Guidelines</h3>
+				
+					<h4>Comments</h4>
+					<P>You do not need to be reminded that comments are useful both to you and those who come after you. This is especially true for code that has been untouched by man (or woman) for a time (that means several months in software development time). Comments should not be absent, nor should there be novellas. Keep the comments explanatory, clear, short, and concise, but get them in <I>there.</I> In the end, it saves time and energy for everyone.</P>
+
+				
+				<h4>Documentation</h4>
+					<p>Python also provides a mechanism whereby documentation strings can be retrieved dynamically through the <tT CLAss="monofont">__doc__</tt> special variable. The first unassigned string in a module, class declaration, or function declaration can be accessed through by using <I><TT Class="monofont">obj.</tt></i><tt class="monofont">__doc__</tt> where <i><tt cLasS="monofont">obj</tt></i> is the module, class, or function name.</P>
+
+				
+				<h4>Indentation</h4>
+					<p>Since indentation plays a major role, you will have to decide on a spacing style that is easy to read as well as the least confusing. Common sense also plays a recurring role in choosing how many spaces or columns to indent.</p>
+
+					<P><tabLE BOrder="1" CELLspacING="0" CellpADDIng="1" width="100%">
+<colgroup align="left" SpaN="2">
+<tr vAlign="top">
+<Td>
+<foNT SIze="2">1 or 2</foNT></TD>
+<td>
+<foNT SIze="2">probably not enough; difficult to determine which block of code statements belong to</foNT></TD>
+</tr>
+<tr valign="top">
+<td>
+<font size="2">8 to 10</FonT></td>
+<tD>
+<font Size="2">may be too many; code which has many embedded levels will wraparound, causing the source to be difficult to read</FONT></td>
+</tr>
+</COLGroup>
+</TABLe></p>
+
+					<p>Four (4) spaces is very popular, not to mention being the preferred choice of Python's creator. Five (5) and six (6) are not bad, but text editors usually do <i>not</I> use these settings, so they are not as commonly used. Three (3) and seven (7) are borderline cases.</P>
+
+					<P>As far as TABs go, bear in mind that different text editors have different concepts of what TABs are. It is advised not to use TABs if your code will live and run on different systems or be accessed with different text editors.</P>
+
+				
+				<h4>Choosing Identifier Names</h4>
+					<p>The concept of good judgment also applies in choosing logical identifier names. Decide on short yet meaningful identifiers for variables. Although variable length is no longer an issue with programming languages of today, it is still a good idea to keep name sizes reasonable. The same applies for naming your modules (Python files).</p>
+
+				
+				<a name="5"></a><h4>Module Structure and Layout</h4>
+					<p>Modules are simply physical ways of logically organizing all your Python code. Within each file, you should set up a consistent and easy-to-read structure. One such layout is the following:</p>
+
+					<pre>
+						
+# (1) startup line (Unix)
+# (2) module documentation
+# (3) module imports
+# (4) variable declarations
+# (5) class declarations
+# (6) function declarations
+# (7) "main" body
+
+					</pre>
+
+					<P><a hRef="74#6.html">Figure 3-1</a> illustrates the internal structure of a typical module.</P>
+
+					<centEr><h5>
+<a NAME="6"></a>Figure 3-1. Typical Python File Structure</h5><imG BORder="0" wIDTH="500" heigHT="525" SRc="graphics/03fig01.gif" alt="graphics/03fig01.gif"></center>
+
+					<p>(1) Startup line</p>
+
+					<blockquoTe>
+						<p>Generally used only in Unix environments, the start-up line allows for script execution by name only (invoking the interpreter is not required).</P>
+					</bloCkquoTe>
+					<p>(2) Module documentation</p>
+
+					<BLOCkquoTE><P>Summary of a module's functionality and significant global variables; accessible externally as <I><tt clASS="monofont">module.</Tt></i><tt CLASs="monofont">__doc__.</tt></p>
+					</blockquote>
+					<p>(3) Module imports</p>
+
+					<blocKquOte><p>Import all the modules necessary for all the code in current module; modules are imported once (when this module is loaded); imports within functions are not invoked until those functions are called.</P></blocKquoTE>
+					<P>(4) Variable declarations</P>
+
+					<blocKQUOte>
+						<p>Declare (global) variables here which are used by multiple functions in this module (if not, make them local variables for improved memory/performance).</p></BLOCkquoTE>
+					<P>(5) Class declarations</P>
+
+					<blockquote><p>Any classes should be declared here, along with any static member and method attributes; class is defined when this module is imported and the class statement executed. Documentation variable is <i><tt class="monofont">class.</tT></i><tT claSs="monofont">__doc__.</tt></p>
+					</BlocKQUOte>
+					<p>(6) Function declarations</p>
+
+					<BLOCkquoTE><P>Functions which are declared here are accessible externally as <I><tt clASS="monofont">module.function();</Tt></i> function is defined when this module is imported and the <b><tt class="monofont">def</tt></b> statement executed. Documentation variable is <i><tt clasS="monofont">function.</tt></I><tt cLass="monofont">__doc__.</tT></p>
+					</blOCKQuote>
+					<P>(7) "main" body</P>
+
+					<BLockqUOTE><p>All code at this level is executed, whether this module is imported or started as a script; generally does not include much functional code; rather, gives direction depending on mode of execution.</p></blOCKQuote>
+					<div class="note"><p class="notetitle"><b>NOTE</b></P><p><p><I>The main body of code tends to contain lines such as the ones you see above which check the</i>
+							<b><tT clasS="monofont">__name__</tt></b>
+							<I>variable and takes appropriate action (see Core Note below). Code in the main body typically executes the class, function, and variable declarations, then checks</I>
+							<B><Tt claSS="monofont">__name__</TT></b>
+							<i>to see whether it should invoke another function (often called</i>
+							<b><TT CLass="monofont">main()</tT></B><I>) which performs the primary duties of this module. The main body usually does no more than that. (Our example above uses</I>
+							<b><tt class="monofont">test()</tt></b>
+							<i>rather than</i>
+							<b><tt clasS="monofont">main()</tt></B>
+							<i>to avoid confusion until you read this Core Note.)</i></p>
+<P><i>Regardless of the name, we want to emphasize that this is a great place to put a test suite in your code. As we explain in <a hrEf="74#7.html">Section 3.4.2</a>, most Python modules are created for import use only, and calling such a module directly should invoke a regression test of the code in such a module.</i></P>
+</P></DIv><br>
+
+					<p>Most projects tend to consist of a single application and importing any required modules. Thus it is important to bear in mind that most modules are created solely to be imported rather than to execute as scripts. We are more likely to create a Python library-style module whose sole purpose is to be imported by another module. After all, only one of the modules—the one which houses the main application—will be executed, either by a user from the command-line, by a batch or timed mechanism such as a Unix cron job, via a web server call, or be invoked from a GUI callback.</P>
+
+					<P>With that fact in hand, we should also remember that all modules have the ability to execute code. All Python statements in the highest level of code, that is, the lines that are not indented, will be executed on import, whether desired or not. Because of this "feature," safer code is written such that everything is in a function except for the code that should be executed on an import of a module. Again, usually only the main application module has the bulk of the executable code at its highest-level. All other imported modules will have very little on the outside, and everything in functions or classes. (See Core Note below for more information.)</P>
+
+					<Div clASS="note"><P clasS="notetitle"><B>NOTE</B></P><p><p><i>Because the "main" code is executed whether a module is imported or executed directly, we often need to know how this module was loaded to guide the execution path. An application may wish to import the module of another application, perhaps to access useful code which will otherwise have to be duplicated (not the OO thing to do). However, in this case, you only want access to this other application's code, not to necessarily run it. So the big question is, "Is there a way for Python to detect at runtime whether this module was imported or executed directly?" The answer is… (drum roll…) yes! The</i>
+							<i><tt class="monofont">__name__</tt></i>
+							<i>system variable is the ticket.</i></p>
+<ul>
+<Li><p><B><tt cLass="monofont">__name__</tT></b> contains module name if imported</p>
+</lI>
+<LI><P><b><tt cLASS="monofont">__name__</tt></b> contains <b><TT CLass="monofont">'__main__'</tT></B> if executed directly</P>
+</Li>
+</ul></p></div><br>
+
+				
+				<a name="7"></a><h4>Create Tests in the Main Body</h4>
+					<p>For good programmers and engineers, providing a test suite or harness for our entire application is the goal. Python simplifies this task particularly well for modules created solely for import. For these modules, you know that they would never be executed directly. Wouldn't it be nice if they were invoked to run code that puts that module through the test grinder? Would this be difficult to set up? Not really.</p>
+
+					<p>The test software should run only when this file is executed directly, i.e., not when it is imported from another module, which is the usual case. Above and in the Core Note, we described how we can determine whether a module was imported or executed directly. We can take advantage of this mechanism by using the <Tt cLass="monofont">__name__</Tt> variable. If this module was called as a script, plug the test code right in there, perhaps as part of <tt cLass="monofont">main()</TT> or <TT clasS="monofont">test()</TT> (or whatever you decide to call your "second-level" piece of code) function, which is called only if this module is executed directly.</P>
+
+					<p>The "tester" application for our code should be kept current along with any new test criteria and results, and it should run as often as the code is updated. These steps will help improve the robustness of our code, not to mention validating and verifying any new features or updates.</p>
+
+				
+			</foNT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="73.html" title="Identifiers"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=74" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="74.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="75.html" title="Memory Management"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,106 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Passing Functions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="170.html" class="navtitle">11. Functions</a> &gt; <span class="nonavtitle">Passing Functions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="174.html" title="Creating Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=175" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="175.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="176.html" title="Formal Arguments"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A31%3A23+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174055131032148041004252</font><a href="read9.asp?bookname=0130260363&snode=175&now=5%2F29%2F2002+9%3A31%3A23+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Passing Functions</h3>
+				<p>The concept of function pointers is an advanced topic when learning a language such as C, but not Python where functions are like any other object. They can be referenced (accessed or aliased to other variables), passed as arguments to functions, be elements of container objects like lists and dictionaries, etc. The one unique characteristic of functions which may set them apart from other objects is that they are callable, i.e., can be invoked via the function operator. (There are other callables in Python. For more information see <a HREF="229.html">Chapter 14</a>)</p>
+
+				<p>In the description above, we noted that functions can be aliases to other variables. Because all objects are passed by reference, functions are no different. When assigning to another variable, you are assigning the reference to the same object; and if that object is a function, then all aliases to that same object are invokable:</p>
+
+				<PRE>
+					
+&gt;&gt;&gt; <B>def</b> foo():
+…       <b>print</b> 'in foo()'
+… 
+&gt;&gt;&gt; bar = foo
+&gt;&gt;&gt; bar()
+in foo()
+
+				</pRE>
+
+				<P>When we assigned <Tt class="monofont">foo</tt> to <tt class="monofont">bar,</tt> we are assigning the same function object to <tt cLasS="monofont">bar,</tt> thus we can invoke <tT clasS="monofont">bar()</tt> in the same way we call <tT CLAss="monofont">foo().</tt> Be sure you understand the difference between "<TT CLass="monofont">foo</tT>" (reference of the function object) and "<TT Class="monofont">foo()</TT>" (invocation of the function object)</P>
+
+				<P>Taking our reference example a bit further, we can even pass functions in as arguments to other functions for invocation:</p>
+
+				<pre>
+					
+&gt;&gt;&gt; <b>def</b> bar(argfunc):
+…       argfunc()
+…
+&gt;&gt;&gt; bar(foo)
+in foo()
+
+				</pre>
+
+				<p>Note that it is the function object <tt class="monofont">foo</tt> that is being passed to <tT clAss="monofont">bar().bar()</tT> is the function that actually calls <tt clAss="monofont">foo()</tT> (which has been aliased to the local variable <TT Class="monofont">argfunc</TT> in the same way that we assigned <TT clasS="monofont">foo</TT> to <Tt claSS="monofont">bar</TT> in the previous example). Now let us examine a more realistic example, <tt class="monofont">numconv.py,</tt> whose code is given in <a href="175#1.html">Example 11.1</a>.</p>
+
+				
+					<h5>
+<a naMe="1"></a>Example 11.1. Passing and Calling (Built-in) Functions (<Tt clAss="monofont">numconv.py</tt>)</H5>
+					<p><b><i>A more realistic example of passing functions as arguments and invoking them from within the function. This script simply converts a sequence of numbers to the same type using the conversion function that is passed in. In particular, the</I></B>
+						<TT clasS="monofont">test()</TT>
+						<B><i>function passes in a built-in function</i></b>
+						<tT CLAss="monofont">int(), long(),</tt>
+						<I>or</I>
+						<TT class="monofont">float()</tt>
+						<b><i>to perform the conversion.</i></b></p>
+
+					<pre class="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2  
+003 3  <B>def</b> convert(func, seq):
+004 4      'conv. sequence of numbers to same type'
+005 5      newSeq = []
+006 6      <b>for</B> eachNum <b>in</b> seq:
+007 7          newSeq.append(func(eachNum))
+008 8      <b>return</B> newSeq
+009 9  
+010 10 <b>def</b> test():
+011 11     'test function for numconv.py'
+012 12     myseq = (123, 45.67, -6.2e8, 999999999L) 
+013 13     <b>print</b> convert(int, myseq) 
+014 14     <B>print</b> convert(long, myseq) 
+015 15     <b>print</b> convert(float, myseq) 
+016 16  
+017 17 <B>if</B> __name__ == '__main__': 
+018 18     test()
+019  &lt;$nopage&gt;</PRe>
+				
+				<p>If we were to run this program, we would get the following output:</p>
+
+				<pRE>
+					
+% numconv.py
+[123, 45, -620000000, 999999999]
+[123L, 45L, -620000000L, 999999999L]
+[123.0, 45.67, -620000000.0, 999999999.0]
+
+				</PRe>
+
+			</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="174.html" title="Creating Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=175" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="175.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="176.html" title="Formal Arguments"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

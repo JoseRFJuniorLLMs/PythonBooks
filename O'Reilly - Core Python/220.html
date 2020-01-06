@@ -1,0 +1,93 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Subclassing and Derivation</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="210.html" class="navtitle">13. Classes and OOP</a> &gt; <span class="nonavtitle">Subclassing and Derivation</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="219.html" title="Composition"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=220" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="220.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="221.html" title="Inheritance"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A15%3A56+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004231200013196028115033058</font><a href="read8.asp?bookname=0130260363&snode=220&now=5%2F30%2F2002+8%3A15%3A56+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Subclassing and Derivation</h3>
+				<p>Composition works fine when classes are distinct and are a required component of larger classes, but when you desire "the same class but with some tweaking," derivation is a more logical option.</p>
+
+				<P>One of the more powerful aspects of OOP is the ability to take an already-defined class and extend it or make modifications to it without affecting other pieces of code in the system that use the currently-existing classes. OOD allows for class features to be "inherited" by "descendant" classes or "subclasses."  These subclasses "derive" the core of their attributes from "base" (a.k.a. ancestor, super) classes. In addition, this derivation may be extended for multiple generations. Classes involved in a one-level derivation (or are adjacent vertically in a class tree diagram) have a "parent" and "child" class relationship. Those classes which derive from the same parent (or are adjacent horizontally in a class tree diagram) have a "sibling" relationship. Parent and all higher-level classes are considered ancestors.</P>
+
+				<P>Using our example from the previous section, let us imagine having to create different types of address books. We are talking about more than just creating multiple instances of address books—in this case, all objects have everything in common. What if we wanted a <Tt claSS="monofont">BusinessAddressBook</TT> class whose entries would contain more work-related attributes such as job position, phone number, and e-mail address?  This would differ from a <tt clASS="monofont">PersonalAddressBook</Tt> class which would contain more family-oriented information such as home address, relationship, birthday, etc.</p>
+
+				<p>For both of these cases, we do not want to design these classes from scratch, because it would duplicate the work already accomplished to create the generic <tt class="monofont">AddressBook class.</tt> Wouldn't it be nice to subsume all the features and characteristics of the <tt class="monofont">AddressBook class</tT> and add specialized customization for your new, yet related, classes?  This is the entire motivation and desire for class derivation.</p>
+
+				
+					<h4>Creating Subclasses</H4>
+					<p>As we have seen earlier, the general syntax for declaring a base class looks like this:</p>
+
+					<pRe>
+						
+<b>class</b>
+							<i>ClassName:</I>
+     'optional class documentation string'
+     <i>class_suite</i>
+
+					</pRE>
+
+					<P>Derived classes are declared much like their parent class; however, a list of base classes to inherit from are given after the class name:</P>
+
+					<pre>
+						
+<b>class</B>
+							<I>SubClassName (ParentClass1[, ParentClass2, …</I>]):
+     'optional class documentation string'
+     <I>class_suite</i>
+
+					</pre>
+
+					<P>We have already seen some examples of classes and subclasses so far, but here is another simple example:</P>
+
+					<PRe>
+						
+&gt;&gt;&gt; <b>class</b> Parent:                 # define parent class
+…       <b>def</B> parentMethod(self):
+…           <B>print</B> 'calling parent method'
+
+&gt;&gt;&gt; p = Parent()                  # instance of parent
+&gt;&gt;&gt; dir(Parent)                   # parent class attributes
+['__doc__', '__module__', 'parentMethod']
+&gt;&gt;&gt; p.parentMethod()
+calling parent method
+&gt;&gt;&gt;
+&gt;&gt;&gt; <B>class</b> Child(Parent):          # define child class
+…       <b>def</b> childMethod(self):
+…           <b>print</b> 'calling child method'
+
+&gt;&gt;&gt; c = Child()                   # instance of child
+&gt;&gt;&gt; dir(Child)                    # child class attributes
+['__doc__', '__module__', 'childMethod']
+&gt;&gt;&gt; c.childMethod()               # child calls its method
+calling child method
+&gt;&gt;&gt; c.parentMethod()              # calls parent's method
+calling parent method
+
+					</pre>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="219.html" title="Composition"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=220" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="220.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="221.html" title="Inheritance"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

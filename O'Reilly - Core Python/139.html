@@ -1,0 +1,161 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; else Statement… Take Two</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="129.html" class="navtitle">8. Conditionals and Loops</a> &gt; <span class="nonavtitle">else Statement… Take Two</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="138.html" title="pass Statement"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=139" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="139.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="140.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A24%3A59+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175205161202066055196234</font><a href="read0.asp?bookname=0130260363&snode=139&now=5%2F29%2F2002+9%3A24%3A59+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3><tt cLASS="monofont">else</tt> Statement… Take Two</h3>
+				<p>In C (as well as in most other languages), you will <I>not</I> find an <B><Tt claSS="monofont">else</TT></b> statement outside the realm of conditional statements, yet Python bucks the trend again by offering these in <b><tt class="monofont">while</tt></b> or <b><tt class="monofont">for</Tt></b> loops. How do they work? When used with loops, an <B><tt cLass="monofont">else</tT></b> clause will be executed only if a loop finishes to completion, meaning they were not abandoned by <b><tT CLAss="monofont">break.</tt></B></P>
+
+				<P>One popular example of <B><tt clASS="monofont">else</Tt></b> usage in a <b><tT CLAss="monofont">while</tt></b> statement is in finding the largest factor of a number. We have implemented a function which performs this task, using the <b><tt class="monofont">else</tt></b> statement with our <b><tt cLasS="monofont">while</tt></b> loop. The <Tt claSs="monofont">showMaxFactor()</tt> function in <A HREf="139#1.html">Example 8.1</a> (<tt CLASs="monofont">maxFact.py</tt>) utilizes the <b><TT CLass="monofont">else</tT></B> statement as part of a <B><Tt class="monofont">while</tt></b> loop.</p>
+
+				
+					<h5>
+<a name="1"></a>Example 8.1. <tt cLasS="monofont">while-else</tt> Loop Example (<tT clasS="monofont">maxFact.py</tt>)</h5>
+					<P><B><I>This program displays the largest factors for numbers between 10 and 20. If the number is prime, the script will indicate that as well.</I></b></p>
+
+					<prE CLAss="monofont"> &lt;$nopage&gt;
+001 1    #!/usr/bin/env python
+002 2
+003 3    <b>def</b> showMaxFactor(num):
+004 4        count = num / 2
+005 5        <B>while</B> count &gt; 1:
+006 6            <B>if</B> (num % count == 0):
+007 7                <b>print</b> 'largest factor of %d is %d' % \
+008 8                    (num, count)
+009 9                <b>break</b> &lt;$nopage&gt;
+010 10           count = count - 1
+011 11       <B>else:</B> &lt;$nopage&gt;
+012 12           <B>print</B> num, "is prime"
+013 13
+014 14   <b>for</b> eachNum <b>in</b> range(10, 21):
+015 15       showMaxFactor(eachNum)
+016  &lt;$nopage&gt;</pre>
+				
+				<p>The loop beginning on line 3 in <tt class="monofont">showMaxFactor()</tt> counts down from half the amount (starts checking if two divides the number, which would give the largest factor). The loop decrements each time (line 10) through until a divisor is found (lines 6–9). If a divisor has not been found by the time the loop decrements to 1, then the original number must be prime. The <b><tt ClaSs="monofont">else</tt></B> clause on lines 11–12 takes care of this case. The main part of the program on lines 14–15 fires off the requests to <tt clAss="monofont">showMaxFactor()</tT> with the numeric argument.</P>
+
+				<P>Running our program results in the following output:</P>
+
+				<pre>
+					
+largest factor of 10 is 5
+11 is prime
+largest factor of 12 is 6
+13 is prime
+largest factor of 14 is 7
+largest factor of 15 is 5
+largest factor of 16 is 8
+17 is prime
+largest factor of 18 is 9
+19 is prime
+largest factor of 20 is 10
+
+				</pRE>
+
+				<P>Likewise, a <B><tt clASS="monofont">for</Tt></b> loop can have a post-processing <b><tT CLAss="monofont">else.</tt></b> It operates exactly the same way as for a <b><tt class="monofont">while</tt></b> loop. As long as the <b><tt cLasS="monofont">for</tt></b> loop exits normally (not via <B><tt clAss="monofont">break</tT></B>), the <B><Tt claSS="monofont">else</TT></b> clause will be executed. We saw such an example in <a hrEF="135#5.html">Section 8.5.3</A>.</P>
+
+				<p><a hrEF="139#2.html">Table 8.1</A> summarizes which conditional or looping statements auxiliary statements can be used.</P>
+
+				<a name="2"></a><p><table border="1" ceLlsPaciNg="0" celLpadDING="1" widtH="100%">
+<CAPtion><H5>Table 8.1. Auxiliary Statements to Loops and Conditionals</H5></CAptioN><COLgroup align="center" span="4">
+<tr valiGn="top">
+<tH>
+<fonT size="2"> </Font></TH>
+<TH colsPAN="1">
+<Font sIZE="2"><B><i>Loops and Conditionals</i></b></fONT></Th>
+</tr>
+<tr valign="top">
+<th align="left">
+<foNt sIze="2"><b><I>Auxiliary Statements</i></b></foNt></th>
+<TH>
+<FOnt siZE="2"><B><Tt claSS="monofont">if</TT></b></fonT></TH>
+<Th>
+<font size="2"><b><tt class="monofont">while</tt></b></FonT></th>
+<tH>
+<font Size="2"><B><TT Class="monofont">for</TT></B></Font></tH>
+</TR>
+<Tr valIGN="top">
+<Td>
+<font size="2"><b><tt class="monofont">elif</tt></b></FonT></td>
+<tD>
+<font Size="2">•</FONT></td>
+<td>
+<FONT size="2"> </FONT></td>
+<td>
+<FONT size="2"> </font></td>
+</tr>
+<tr valign="top">
+<Td>
+<fOnt sIze="2"><b><tT claSS="monofont">else</TT></b></fonT></TD>
+<Td>
+<fonT SIZe="2">•</fonT></TD>
+<Td>
+<font size="2">•</font></td>
+<td>
+<fonT siZe="2">•</foNt></td>
+</tR>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><b><TT CLass="monofont">break</tT></B></FOnt></td>
+<td>
+<font size="2"> </font></td>
+<Td>
+<fOnt sIze="2">•</foNt></td>
+<TD>
+<FOnt siZE="2">•</FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font size="2"><b><tt class="monofont">continue</tt></b></fOnt></Td>
+<td>
+<Font sIze="2"> </fONT></Td>
+<td>
+<fONT Size="2">•</fONT></Td>
+<td>
+<fONT Size="2">•</font></td>
+</tr>
+<tr valign="top">
+<tD>
+<foNt siZe="2"><b><tt ClasS="monofont">pass</TT></B><font SIZE="1"><sup><a HREF="#FOOTNOTE-a">[a]</a></sup></FONT>
+
+								</font></td>
+<td>
+<font size="2">•</font></Td>
+<tD>
+<fonT size="2">•</Font></TD>
+<TD>
+<font SIZE="2">•</font></TD>
+</TR>
+</colgROUP>
+</table></p>
+<blockquote><font SizE="1">
+<p clAss="footnote">
+<suP><a naME="FOOTNOTE-a">[a]</A></Sup>
+<tt CLASs="monofont">pass</tt> is valid anywhere a suite is required (also includes <tT CLAss="monofont">elif, else, class, def, try, except, finally</tt>)</P>
+</FONt></blockquote>
+
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="138.html" title="pass Statement"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=139" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="139.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="140.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

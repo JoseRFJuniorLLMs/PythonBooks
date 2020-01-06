@@ -1,0 +1,102 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Tuples</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="99.html" class="navtitle">6. Sequences: Strings, Lists, and Tuples</a> &gt; <span class="nonavtitle">Tuples</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="114.html" title="Special Features of Lists"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=115" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="115.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="116.html" title="Tuple Operators and Built-in Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A20%3A47+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175201138167208223137006</font><a href="read2.asp?bookname=0130260363&snode=115&now=5%2F29%2F2002+9%3A20%3A47+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Tuples</h3>
+				<p>Tuples are another container type extremely similar in nature to lists. The only visible difference between tuples and lists is that tuples use parentheses and lists use square brackets. Functionally. there is a more significant difference, and that is the fact that tuples are immutable.</p>
+
+				<P>Our usual <I>modus operandi</I> is to present the operators and built-in functions for the more general objects, followed by those for sequences and conclude with those applicable only for tuples, but because tuples share so many characteristics with lists, we would be duplicating much of our description from the previous section. Rather than providing much repeated information, we will differentiate tuples from lists as they apply to each set of operators and functionality, then discuss immutability and other features unique to tuples.</P>
+
+				
+					<h4>How to Create and Assign Tuples</h4>
+					<p>Creating and assigning lists are practically identical to lists, with the exception of empty tuples. These require a trailing comma ( <i><TT CLass="monofont">,</tT></I> ) enclosed in the tuple delimiting parentheses ( <TT class="monofont">( )</tt> ).</p>
+
+					<pre>
+						
+&gt;&gt;&gt; aTuple = (123, 'abc', 4.56, ['inner', 'tuple'], 7-9j)
+&gt;&gt;&gt; anotherTuple = (None, 'something to see here')
+&gt;&gt;&gt; <b>print</b> aTuple
+ (123, 'abc', 4.56, ['inner', 'tuple'], (7-9j))
+&gt;&gt;&gt; <b>print</b> anotherTuple
+ (None, 'something to see here')
+&gt;&gt;&gt; emptiestPossibleTuple = (None,)
+&gt;&gt;&gt; <b>print</b> emptiestPossibleTuple
+(None,)
+
+					</pre>
+
+				
+				
+					<H4>How to Access Values in Tuples</h4>
+					<p>Slicing works similar to lists: Use the square bracket slice operator (<Tt clAss="monofont">[ ]</tt>) along with the index or indices.</P>
+
+					<pre>
+						
+&gt;&gt;&gt; aTuple&gt;&gt;&gt; aList[1:4]
+('abc', 4.56, ['inner', 'tuple'])
+&gt;&gt;&gt; aTuple[:3]
+(123, 'abc', 4.56)
+&gt;&gt;&gt; aTuple[3][1]
+'tuple'
+
+					</PRE>
+
+				
+				
+					<H4>How to Update Tuples</h4>
+					<p>Like numbers and strings, tuples are immutable which means you cannot update them or change values of tuple elements. In <a hREF="102.html">Sections 6.2</A> and <a hreF="103#2.html">6.3.2</A>, we were able to take portions of an existing string to create a new string. The same applies for tuples.</P>
+
+					<Pre>
+						
+&gt;&gt;&gt; aTuple = aTuple[0], aTuple[1], aTuple[-1]
+&gt;&gt;&gt; aTuple
+(123, 'abc', (7-9j))
+&gt;&gt;&gt; tup1 = (12, 34.56)
+&gt;&gt;&gt; tup2 = ('abc', 'xyz')
+&gt;&gt;&gt; tup3 = tup1 + tup2
+&gt;&gt;&gt; tup3
+(12, 34.56, 'abc', 'xyz')
+
+					</prE>
+
+				
+				
+					<H4>How to Remove Tuple Elements and Tuples</H4>
+					<P>Removing individual tuple elements is not possible. There is, of course, nothing wrong with putting together another tuple with the undesired elements discarded.</p>
+
+					<p>To explicitly remove an entire list, just use the <b><tt class="monofont">del</tt></b> statement:</p>
+
+					<pre>
+						
+<b>del</b> aTuple
+
+					</pRe>
+
+				
+			</fOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="114.html" title="Special Features of Lists"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=115" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="115.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="116.html" title="Tuple Operators and Built-in Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

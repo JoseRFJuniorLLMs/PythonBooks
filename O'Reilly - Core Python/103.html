@@ -1,0 +1,366 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Strings and Operators</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="99.html" class="navtitle">6. Sequences: Strings, Lists, and Tuples</a> &gt; <span class="nonavtitle">Strings and Operators</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="102.html" title="Strings"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=103" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="103.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="104.html" title="String-only Operators"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A18%3A08+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172044044177162147127137</font><a href="read1.asp?bookname=0130260363&snode=103&now=5%2F29%2F2002+9%3A18%3A08+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Strings and Operators</h3>
+				
+					<h4>Standard Type Operators</h4>
+					<P>In <A HRef="78.html">Chapter 4</a>, we introduced a number of operators that apply to most objects, including the standard types. We will take a look at how some of those apply to strings. For a brief introduction, here are a few examples using strings:</p>
+
+					<PRE>
+						
+&gt;&gt;&gt; str1 = 'abc'
+&gt;&gt;&gt; str2 = 'lmn'
+&gt;&gt;&gt; str3 = 'xyz'
+&gt;&gt;&gt; str1 &lt; str2
+1
+&gt;&gt;&gt; str2 != str3
+1
+&gt;&gt;&gt; (str1 &lt; str3) <B>and</b> (str2 == 'xyz')
+0
+
+					</pre>
+
+					<P>When using the value comparison operators, strings are compared lexicographically (ASCII value order).</P>
+
+				
+				<A Name="2"></a>
+					<h4>Sequence Operators</h4>
+					
+						<h5>Slices (<tt class="monofont">[ ]</tt> and <tt clAss="monofont">[ : ]</Tt>)</h5>
+						<p>Earlier in <A href="101#2.html">Section 6.1.1</A>, we examined how we can access individual or a group of elements from a sequence. We will apply that knowledge to strings in this section. In particular, we will look at:</p>
+
+						<ul>
+<LI><P>Counting forward</P>
+</li>
+<li><P>Counting backward</P>
+</LI>
+<li><p>Default/missing indexes</p>
+</LI>
+</UL>
+						<p>For the following examples, we use the single string <tt cLASS="monofont">'abcd'.</tt> Provided in the figure is a list of positive and negative indexes that indicate the position in which each character is located within the string itself.</p>
+
+						<center>
+							<h5>
+</h5>
+							
+								
+									<img border="0" WidTh="153" heIght="99" sRc="graphics/06fig07.gif" alT="graphics/06fig07.gif">
+								
+							
+						</CENter>
+
+						<p>Using the length operator, we can confirm that its length is 4:</P>
+
+						<PRE>
+							
+&gt;&gt;&gt; string = 'abcd'
+&gt;&gt;&gt; len(string)
+4
+
+						</pre>
+
+						<p>When counting forward, indexes start at 0 to the left and end at one less than the length of the string (because we started from zero). In our example, the final index of our string is</P>
+
+						<PRE>
+							
+final index      = len(string) - 1
+                 = 4 - 1
+                 = 3
+
+						</pre>
+
+						<p>We can access any substring within this range. The slice operator with a single argument will give us a single character, and the slice operator with a range, i.e., using a colon (<TT CLass="monofont">:</tt>), will give us multiple consecutive characters. Again, for any ranges <tt class="monofont">[</tt><i><tt claSs="monofont">start:end</tT></i><tt Class="monofont">],</Tt> we will get all characters starting at offset <i><tT CLAss="monofont">start</tt></I> up to, but not including, the character at <I><TT clasS="monofont">end.</TT></I> In other words, for all characters <tt clASS="monofont">x</Tt> in the range <tt class="monofont">[</tt><i><tt class="monofont">start : end</tt></I><tt ClasS="monofont">],</tt>
+							<i><tT claSS="monofont">start</TT></i><tt cLASS="monofont">&lt;= x &lt;</tt>
+							<i><tT CLAss="monofont">end.</tt></I></P>
+
+						<PRe>
+							
+ &gt;&gt;&gt; string[0]
+'a'
+&gt;&gt;&gt; string[1:3]
+'bc'
+&gt;&gt;&gt; string[2:4]
+'cd'
+&gt;&gt;&gt; string[4]
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+IndexError: string index out of range
+
+						</pre>
+
+						<p>Any index outside our valid index range (in our example, 0 to 3) results in an error. Above, our access of <tt class="monofont">string[2:4]</tt> was valid because that returns characters at indexes 2 and 3, i.e., <tt clasS="monofont">'c'</tt> and <Tt clAss="monofont">'d',</tt> but a direct access to the character at index 4 was invalid.</P>
+
+						<p>When counting backward, we start at index -1 and move toward the beginning of the string, ending at negative value of the length of the string. The final index (the first character) is located at:</p>
+
+						<pRE>
+							
+  final index  = -len(string)
+               = -4
+
+&gt;&gt;&gt; string[-1]
+'d'
+&gt;&gt;&gt; string[-3:-1]
+'bc'
+&gt;&gt;&gt; string[-4]
+'a'
+
+						</PRe>
+
+						<p>When either a starting or an ending index is missing, they default to the beginning or end of the string, respectively.</p>
+
+						<pRE>
+							
+&gt;&gt;&gt; string[2:]
+'cd'
+&gt;&gt;&gt; string[1:]
+'bcd'
+&gt;&gt;&gt; string[:-1]
+'abc'
+&gt;&gt;&gt; string[:]
+'abcd'
+
+						</PRe>
+
+						<p>Notice how the omission of both indices gives us a copy of the entire string.</p>
+
+					
+					
+						<h5>Membership (<TT CLass="monofont">in, not in</tT>)</H5>
+						<P>The membership question asks whether a character (string of length one) appears in a string. A one is returned if that character appears in the string and zero otherwise. Note that the membership operation is not used to determine if a substring is within a string. Such functionality can be accomplished by using the string methods or string module functions <Tt class="monofont">find()</tt> or <tt class="monofont">index()</tt> (and their brethren <tt cLasS="monofont">rfind()</tt> and <tT clasS="monofont">rindex()</tt>).</p>
+
+						<P>Here are a few more examples of strings and the membership operators.</P>
+
+						<PRe>
+							
+&gt;&gt;&gt; 'c' <b>in</b> 'abcd'
+1
+&gt;&gt;&gt; 'n' <b>in</B> 'abcd'
+0
+&gt;&gt;&gt; 'n' <B>not in</B> 'abcd'
+1
+
+						</Pre>
+
+						<p>In <a HREF="103#7.html">Example 6-1</a>, we will be using the following predefined strings found in the <tt cLASS="monofont">string</tt> module:</p>
+
+						<pre>
+							
+&gt;&gt;&gt; <b>import</b> string
+&gt;&gt;&gt; string.uppercase
+'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+&gt;&gt;&gt; string.lowercase
+'abcdefghijklmnopqrstuvwxyz'
+&gt;&gt;&gt; string.letters
+'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+&gt;&gt;&gt; string.digits
+'0123456789'
+
+						</pre>
+
+						<p><a href="103#7.html">Example 6-1</a> is a small script called <tt ClaSs="monofont">idcheck.py</tt> which checks for valid Python identifiers. As we now know, Python identifiers must start with an alphabetic character. Any succeeding characters may be alphanumeric. The example also shows use of the string concatenation operator ( <Tt claSs="monofont">+</tt> ) introduced later in this section.</P>
+
+						<P>Running this script several times produces the following output:</P>
+
+						<Pre>
+							
+% python idcheck.py
+Welcome to the Identifier Checker v1.0
+Testees must be at least 2 chars long.
+Identifier to test? counter
+okay as an identifier
+%
+% python idcheck.py
+Welcome to the Identifier Checker v1.0
+Testees must be at least 2 chars long.
+Identifier to test? 3d_effects
+invalid: first symbol must be alphabetic
+
+						</prE>
+
+						<P>Let us take apart the application line by line:</P>
+
+						
+							<H5>Lines 3–6</h5>
+							<p>Import the <tt CLASs="monofont">string</tt> module and use some of the predefined strings to put together valid alphabetic and numeric identifier strings which we will test against.</p>
+
+							
+								<H5>
+<A NAme="7"></a>Example 6.1. ID Check (<tt class="monofont">idcheck.py</tt>)</h5>
+								<p><b><i>Tests for identifier validity. First symbol must be alphabetic and remaining symbols must be alphanumeric. This tester program only checks identifiers which are at least two characters in length.</i></b></p>
+
+								<pRe cLass="monofont"> &lt;$nopage&gt;
+001 1  #!usr/bin/env python
+002 2  
+003 3  <B>import</b> string
+004 4  
+005 5  alphas = string.letters + '_'
+006 6  nums = string.digits
+007 7  
+008 8  <b>print</b> 'Welcome to the Identifier Checker v1.0'
+009 9  <b>print</B> 'Testees must be at least 2 chars long.'
+010 10 inp = raw_input('Identifier to test? ')
+011 11 
+012 12 <b>if</b> len(inp) &gt; 1:
+013 13 
+014 14     <b>if</B> inp[0] <B>not in</B> alphas:
+015 15         <B>print</b> '''invalid: first symbol must be
+016 16              alphabetic'''
+017 17     <b>else:</b> &lt;$nopage&gt;
+018 18         <b>for</B> otherChar in inp[1:]:
+019 19 
+020 20             <B>if</B> otherChar <B>not in</b> alphas + nums:
+021 21                 <b>print</b> '''invalid: remaining
+022 22                     symbols must be alphanumeric'''
+023 23                 <b>break</B> &lt;$nopage&gt;
+024 24         <B>else:</B> &lt;$nopage&gt;
+025 25              <B>print</b> "okay as an identifier"
+026  &lt;$nopage&gt;</pre>
+							
+						
+						
+							<H5>Lines 8–12</H5>
+							<P>Print the salutation and prompt for user input. The <B><tt class="monofont">if</tt></b> statement on line twelve filters out all statements shorter than two characters in length.</p>
+
+						
+						
+							<h5>Lines 14–16</h5>
+							<p>Check to see if the first symbol is alphabetic. If it is not, display the output indicating the result and perform no further processing.</p>
+
+						
+						
+							<h5>Lines 17–18</h5>
+							<p>Otherwise, loop to check the other characters, starting from the second symbol to the end of the string.</p>
+
+						
+						
+							<h5>Lines 20–23</H5>
+							<p>Check to see if each remaining symbol is alphanumeric. Note how we use the concatenation operator (see below) to create the set of valid characters. As soon as we find an invalid character, display the result and perform no further pocessing by exiting the loop with <b><Tt clAss="monofont">break.</tt></B></p>
+
+							<diV CLAss="note"><p cLASS="notetitle"><b>NOTE</b></p><p><P><I>In general, repeat performances of operations or functions as arguments in a loop are unproductive as far as performance is concerned.</I></P>
+<pre>
+									
+										<b>while</B> i &lt; len(string):
+<B>print</B> 'character %d is:', string[i]
+
+								</Pre>
+<p><i>The loop above wastes valuable time recalculating the length of string</i>
+									<tt class="monofont">string.</tt>
+									<i>This function call occurs for each loop iteration. If we simply save this value once, we can rewrite our loop so that it is more productive.</i></p>
+<pre>
+									
+length = len(string)
+<B>while</b> i &lt; length:
+   <b>print</B> 'character %d is:', string[i]
+
+								</pre>
+<P><i>The same applies for a loop in the application in <a hrEf="103#7.html">Example 6-1</a>.</i></P>
+<PRE>
+									
+										<b>for</b> otherChar <b>in</b> input[1:]:
+  <B>if</B> otherChar <B>not in</B> alphas + nums:
+       :
+
+								</pre>
+<p><I>The</I>
+									<B><Tt claSS="monofont">for</TT></b>
+									<i>loop beginning on line 19 contains an</i>
+									<b><tt class="monofont">if</tt></b>
+									<i>statement that concatenates a pair of strings. These strings do not change throughout the course of the application, yet this calculation must be performed for each loop iteration. If we save the new string first, we can then reference that string rather than make the same calculations over and over again:</i></p>
+<pre>
+									
+alphnums = alphas + nums
+<B>for</b> otherChar <b>in</B> input[1:]:
+    <b>if</b> otherChar <b>not in</B> alphnums:
+       :
+
+								</pre>
+</p></Div><bR>
+
+						
+						
+							<H5>Lines 24–25</H5>
+							<P>It may be somewhat premature to show you a <b><tt cLASS="monofont">for-else</tt></b> loop statement, but we are going to give it a shot anyway. (For a full treatment, see <a HREF="129.html">Chapter 8</a>). The <b><tt CLASs="monofont">else</tt></b> statement, for a <b><tt class="monofont">for</tt></b> loop is optional and, if provided, will execute if the loop finished in completion without being "broken" out of by <b><tt clAss="monofont">break.</Tt></b> In our application, if all remaining symbols check out okay, then we have a valid identifier name. The result is displayed to indicate as such, completing execution.</p>
+
+							<P>This application is not without its flaws however. One problem is that the identifiers tested must have length greater than 1. Our application as-is is not reflective of the true range of Python identifiers, which may be of length 1. Another problem with our application is that it does not take into consideration Python keywords, which are reserved names which cannot be used for identifiers. We leave these two tasks as exercises for the reader (see <a hreF="120#2.html">Exercise 6-2</a>.).</p>
+
+						
+					
+					
+						<h5>Concatenation (<TT CLass="monofont">+</tT>)</H5>
+						<P>We can use the concatenation operator to create new strings from existing ones. We have already seen the concatenation operator in action above in <A href="103#7.html">Example 6-1</A>. Here are a few more examples:</P>
+
+						<PRe>
+							
+&gt;&gt;&gt; 'Spanish' + 'Inquisition'
+'SpanishInquisition'
+&gt;&gt;&gt;
+&gt;&gt;&gt; 'Spanish' + ' ' + 'Inquisition'
+'Spanish Inquisition'
+&gt;&gt;&gt;
+&gt;&gt;&gt; s = 'Spanish' + ' ' + 'Inquisition' + ' Made Easy'
+&gt;&gt;&gt; s
+Spanish Inquisition Made Easy'
+&gt;&gt;&gt;
+&gt;&gt;&gt; import string
+&gt;&gt;&gt; string.upper(s[:3] + s[20])
+'SPAM'
+
+						</pre>
+
+						<P>The last example illustrates using the concatenation operator to put together a pair of slices from string <TT Class="monofont">s,</tt> the "Spa" from "Spanish" and the "M" from "Made." The extracted slices are concatenated and then sent to the <tt class="monofont">string.upper()</tt> function to convert the new string to all uppercase letters.</p>
+
+					
+					
+						<h5>Repetition (<tt cLasS="monofont">*</tt>)</h5>
+						<P>The repetition operator creates new strings, concatenating multiple copies of the same string to accomplish its functionality:</p>
+
+						<pre>
+							
+&gt;&gt;&gt; 'Ni!' * 3
+'Ni!Ni!Ni!'
+&gt;&gt;&gt;
+&gt;&gt;&gt; '*'*40'
+'****************************************'
+&gt;&gt;&gt;
+&gt;&gt;&gt; print '-' * 20, 'Hello World!', '-' * 20
+-------------------- Hello World! --------------------
+&gt;&gt;&gt; who = 'knights'
+&gt;&gt;&gt; who * 2
+'knightsknights'
+&gt;&gt;&gt; who
+'knights'
+
+						</Pre>
+
+						<p>As with any standard operator, the original variable is unmodified, as indicated in the final examples above.</P>
+
+					
+				
+			</FONt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="102.html" title="Strings"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=103" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="103.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="104.html" title="String-only Operators"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,90 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Other Built-in Types</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="78.html" class="navtitle">4. Python Objects</a> &gt; <span class="nonavtitle">Other Built-in Types</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="81.html" title="Standard Types"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=82" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="82.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="83.html" title="Internal Types"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A12%3A59+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172038188098235200064124</font><a href="read4.asp?bookname=0130260363&snode=82&now=5%2F29%2F2002+9%3A12%3A59+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Other Built-in Types</h3>
+				<ul>
+<LI><P>Type</P>
+</li>
+<li><P>None</P>
+</LI>
+<li><p>File</p>
+</LI>
+<LI><p>Function</p>
+</li>
+<li><p>Module</p>
+</li>
+<li><p>Class</p>
+</li>
+<li><p>Class Instance</p>
+</Li>
+<lI><p>Method</p>
+</lI>
+</ul>
+				<p>These are some of the other types you will interact with as you develop as a Python programmer. We will also cover these in <a Href="141.html">Chapters 9</A>, <A HRef="170.html">11</a>, <a HREF="199.html">12</a>, and <a hrEF="210.html">13</A> with the exception of the <Tt claSS="monofont">Type</TT> and <tt class="monofont">None</tt> types, which we will discuss here.</p>
+
+				<a name="1"></a>
+					<h4>Types and the <tt cLasS="monofont">type()</tt> Built-in Function</h4>
+					<P>It may seem unusual perhaps, to regard types themselves as objects since we are attempting to just describe all of Python's types to you in this chapter. However, if you keep in mind that an object's set of inherent behaviors and characteristics (such as supported operators and built-in methods) must be defined somewhere, an object's type is a logical place for this information. The amount of information necessary to describe a type cannot fit into a single string; therefore types cannot simply be strings, nor should this information be stored with the data, so we are back to types as objects.</p>
+
+					<p>We will formally introduce the <tt ClasS="monofont">type()</TT> built-in function. The syntax is as follows:</P>
+
+					<pre>
+						
+type<i>(object)</I>
+
+					</PRE>
+
+					<p>The <tt cLASS="monofont">type()</tt> built-in function takes object and returns its type. The return object is a <tt CLASs="monofont">type</tt> object.</p>
+
+					<pre>
+						
+&gt;&gt;&gt; type(4)               #int type
+&lt;type 'int'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; type('Hello World!')  #string type
+&lt;type 'string'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; type(type(4))         #type type
+&lt;type 'type'&gt;
+
+					</pre>
+
+					<p>In the examples above, we take an integer and a string and obtain their types using the <tt class="monofont">type()</tt> built-in function; in order to also verify that types themselves are types, we call <Tt cLass="monofont">type()</Tt> on the output of a <tt cLass="monofont">type()</TT> call.</P>
+
+					<P>Note the interesting output from the <tt clASS="monofont">type()</Tt> function. It does not look like a typical Python data type, i.e., a number or string, but is something enclosed by greater-than and less-than signs. This syntax is generally a clue that what you are looking at is an object. Objects may implement a printable string representation; however, this is not always the case. In these scenarios where there is no easy way to "display" an object, Python "pretty-prints" a string representation of the object. The format is usually of the form: <i><tt CLASs="monofont">&lt;object_something_or_another&gt;.</tt></i> Any object displayed in this manner generally gives the object type, an object ID or location, or other pertinent information.</P>
+
+				
+				
+					<H4>None</H4>
+					<P>Python has a special type known as the Null object. It has only one value, <tt class="monofont">None.</tt> The type of <tt class="monofont">None</tt> is also <tt ClaSs="monofont">None.</tt> It does not have any operators or built-in functions. If you are familiar with C, the closest analogy to the <Tt claSs="monofont">None</tt>
+						<I>type</I> is <TT clasS="monofont">void,</TT> while the <Tt claSS="monofont">None</TT> value is similar to the C value of <tt clASS="monofont">NULL.</Tt> (Other similar objects and values include Perl's <tt class="monofont">undef</tt> and Java's <tt class="monofont">Void</tt> type and <tT clAss="monofont">null</tT> value.) <tt clAss="monofont">None</tT> has no attributes and <I>always</I> evaluates to having a Boolean <I>false</i> value.</p>
+
+				
+			</foNT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="81.html" title="Standard Types"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=82" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="82.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="83.html" title="Internal Types"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

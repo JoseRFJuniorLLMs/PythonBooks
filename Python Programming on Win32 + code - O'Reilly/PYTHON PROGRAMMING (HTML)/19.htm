@@ -1,0 +1,233 @@
+<html><head><meta http-equiv=Content-Type content="text/html; charset=utf-8"><meta name=Generator content="Microsoft Word 10 (filtered)"><link rel="stylesheet" type="text/css" href="1.css"><title></title></head><body lang=EN-US link="#990000" vlink=purple><div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=18.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=20.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div><br><br>
+<h2><a name="_Chapter_15._Using_the_Basic_Interne"></a>Chapter 15. Using the
+Basic Internet Protocols</h2>
+
+<p>Python grew up around the same time as the Internet. For the first few
+years, both Python and the Internet ran mainly on various flavors of Unix.
+Therefore, it’s no surprise to find that Python has excellent support for most
+of the common Internet protocols in use today. Fortunately, this heritage has
+moved to the Windows platform.</p>
+
+<p>This chapter shows how to use many of the common Internet protocols from
+Python on Windows. For information on the SMTP mail protocol, see <a
+href="#_Chapter_14._Working_with_Email">Chapter 14</a>.</p>
+
+<h3><a name="_15.1_HTTP_and_HTML"></a>15.1 HTTP and HTML</h3>
+
+<p>The Hypertext Transfer Protocol (HTTP) is one of the most widely used
+Internet Protocols. Anyone who has ever used a web browser has used HTTP. HTTP
+is a protocol for moving data across a network. Most often, the data is
+formatted as Hypertext Markup Language (HTML). Thus, HTTP defines how to obtain
+the data, and HTML defines how the data is arranged.</p>
+
+<p>An HTTP server program is run on a computer set up to accept connections
+from client computers. The client computer connects to the HTTP server, issues a
+request for some content (typically a filename), and tells the server the type
+of data it wishes to receive. The HTTP server locates the content, and sends
+the data back to the client computer. The data consists of a number of headers
+(lines that describe the data) and the data itself. A full description of the
+HTTP protocol can be found on the Web at <a
+href="http://www.w3.org/hypertext/WWW/Protocols/" target="_blank">http://www.w3.org/hypertext/WWW/Protocols/</a>.</p>
+
+<h4>15.1.1 Fetching Data via HTTP</h4>
+
+<p>The Python module <tt><span style='font-size:10.0pt'>httplib</span></tt>
+defines a class for fetching data via HTTP. As is typical with Python, only a
+few lines of code are needed to fetch a document via HTTP. Let’s experiment
+with it from an interactive Python session.</p>
+
+<p>First, import the Python module and instantiate the HTTP class. The HTTP
+class requires the name of the server you wish to connect to. Let’s connect to
+the Python home page:</p>
+
+<pre>&gt;&gt;&gt; import httplib</pre><pre>&gt;&gt;&gt; http=httplib.HTTP('www.python.org')</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Now you need to tell the remote server the data to retrieve and the data
+formats to accept. Ask the server to fetch the main index page and designate
+whether to accept plain text or HTML text:</p>
+
+<pre>&gt;&gt;&gt; http.putrequest('GET', '/index.html')</pre><pre>&gt;&gt;&gt; http.putheader('Accept', 'text/html')</pre><pre>&gt;&gt;&gt; http.putheader('Accept', 'text/plain')</pre><pre>&gt;&gt;&gt; http.endheaders()</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>All that remains is to ask for the data. The <tt><span style='font-size:
+10.0pt'>getreply()</span></tt> method does this, and returns three items: the
+error code, the error message, and the headers sent by the server. Make this
+call and print the result:</p>
+
+<pre>&gt;&gt;&gt; errcode, errmsg, headers = http.getreply()</pre><pre>&gt;&gt;&gt; print errcode, errmsg, headers</pre><pre>200 OK &lt;mimetools.Message instance at 1073680&gt;</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>HTTP defines the code 200 as success, and it’s reflected in the error
+message. The <tt><span style='font-size:10.0pt'>headers</span></tt> object
+retrieved is an instance of another Python class. This Python class can be used
+in the same way as a Python dictionary, so let’s see what it contains:</p>
+
+<pre>&gt;&gt;&gt; len(headers)</pre><pre>8</pre>
+
+<p>There are eight headers from the server. You can loop and print them all,
+using standard Python dictionary semantics:</p>
+
+<pre>&gt;&gt;&gt; for key, value in headers.items():</pre><pre>...     print key, &quot;=&quot;, value</pre><pre>... </pre><pre>server = Apache/1.2.0</pre><pre>content-type = text/html</pre><pre>accept-ranges = bytes</pre><pre>date = Wed, 13 Jan 1999 06:41:15 GMT</pre><pre>connection = close</pre><pre>etag = &quot;f4d6-2d66-369294d0&quot;</pre><pre>content-length = 11622</pre><pre>last-modified = Tue, 05 Jan 1999 22:40:16 GMT</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>This reveals some interesting facts about the server, including the date the
+home page was last modified and the HTTP server software used. The <tt><span
+style='font-size:10.0pt'>content-length</span></tt> header says how many bytes
+are in the data itself. The <tt><span style='font-size:10.0pt'>getfile()</span></tt>
+method can obtain a file that can read the data:</p>
+
+<pre>&gt;&gt;&gt; file=http.getfile()</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>But rather than print all 11 KB of data, you can check to see that you do
+indeed have all the data:</p>
+
+<pre>&gt;&gt;&gt; print len(file.read())</pre><pre>11622</pre>
+
+<p>Reading the file gives the exact number of bytes expected. Obviously, you
+can do something useful with this data, such as write it to a local file.</p>
+
+<h4 style='page-break-after:avoid'>15.1.2 Serving Data via HTTP</h4>
+
+<p>Python can also act as an HTTP server. The standard Python library contains
+a number of modules to act as the basis for your own HTTP server; in fact, it
+even comes with a basic HTTP server all ready to go.</p>
+
+<h5>15.1.2.1 SimpleHTTPServer.py</h5>
+
+<p>The Python module <i>SimpleHTTPServer.py</i> implements, as its name
+suggests, a simple HTTP server. For information on how to run this server, open
+<i>SimpleHTTPServer.py</i> in any text editor, and read the instructions.</p>
+
+<h5>15.1.2.2 Implementing an HTTP redirector</h5>
+
+<p>As an example, let’s implement our own special HTTP server. Our HTTP server
+functions similarly to a proxy server: it accepts requests and redirects those
+requests to another server. For example, if you ask the server to redirect to <a
+href="http://www.python.org" target="_blank">www.python.org</a>, that server
+appears to have the same content as <a href="http://www.python.org"
+target="_blank">www.python.org</a>. Thus, people can access <a
+href="http://www.python.org" target="_blank">www.python.org</a> via our server.</p>
+
+<p>The implementation is straightforward. Extend the basic Python HTTP server
+code, but instead of searching for the file, simply open a HTTP connection to
+the remote server and redirect the data to your own client:</p>
+
+<pre># HTTPRedirector.py</pre><pre># An HTTP Server that redirects all requests to a named, remote server.</pre><pre># BaseHTTPServer provides the basic HTTP Server functionality.</pre><pre>&nbsp;</pre><pre>import BaseHTTPServer</pre><pre>&nbsp;</pre><pre># httplib establishes our connection to the remote server</pre><pre>import httplib</pre><pre>&nbsp;</pre><pre>import socket # For the error!</pre><pre>&nbsp;</pre><pre># The server we are redirecting to.</pre><pre>g_RemoteServerName = &quot;www.python.org&quot;</pre><pre>&nbsp;</pre><pre>class HTTPRedirector(BaseHTTPServer.BaseHTTPRequestHandler):</pre><pre>    # This function is called when a client makes a GET request</pre><pre>    # ie, it wants the headers, and the data.</pre><pre>    def do_GET(self):</pre><pre>        srcfile = self.send_headers(&quot;GET&quot;)</pre><pre>        if srcfile:</pre><pre>            # Copy the data from the remote server</pre><pre>            # back to the client.</pre><pre>            BLOCKSIZE = 8192</pre><pre>            while 1:</pre><pre>                # Read a block from the remote.</pre><pre>                data = srcfile.read(BLOCKSIZE)</pre><pre>                if not data: break</pre><pre>                self.wfile.write(data)</pre><pre>&nbsp;</pre><pre>            srcfile.close()</pre><pre>&nbsp;</pre><pre>    # This function is called when a client makes a HEAD request</pre><pre>    # i.e., it only wants the headers, not the data.</pre><pre>    def do_HEAD(self):</pre><pre>        srcfile = self.send_headers(&quot;HEAD&quot;)</pre><pre>        if srcfile:</pre><pre>            srcfile.close()</pre><pre>    </pre><pre>    # A private function which handles all the redirection logic.</pre><pre>    def send_headers(self, request):</pre><pre>        # Establish a remote connection</pre><pre>        try:</pre><pre>            http = httplib.HTTP(g_RemoteServerName)</pre><pre>        except socket.error, problem:</pre><pre>            print &quot;Error - Cannot connect to %s: %s&quot; \</pre><pre>                   % (g_RemoteServerName, problem)</pre><pre>            return</pre><pre>        # Resend all the headers we retrieved in the request.</pre><pre>        http.putrequest(request, self.path)</pre><pre>        for header, val in self.headers.items():</pre><pre>            http.putheader(header, val)</pre><pre>        http.endheaders()</pre><pre>        # Now get the response from the remote server</pre><pre>        errcode, errmsg, headers = http.getreply()</pre><pre>        self.send_response(errcode, errmsg)</pre><pre>        # Send the headers back to the client.</pre><pre>        for header, val in headers.items():</pre><pre>            self.send_header(header, val)</pre><pre>        self.end_headers()</pre><pre>        if errcode==200:</pre><pre>            return http.getfile()</pre><pre>&nbsp;</pre><pre>if __name__=='__main__':</pre><pre>    print &quot;Redirecting HTTP requests to&quot;, g_RemoteServerName</pre><pre>    BaseHTTPServer.test(HTTPRedirector)</pre>
+
+<p>To test the server, simply execute the script:</p>
+
+<pre>C:\Scripts&gt;python HTTPRedirector.py</pre><pre>Redirecting HTTP requests to www.python.org</pre><pre>Serving HTTP on port 8000 ...</pre>
+
+<p>Now you can establish a connection to the server. Note the server is using
+port 8000 for requests. Since this is not the default HTTP port, you need to
+specify it in your URL. Open your browser and enter the following URL: <i>http://localhost:8000/</i>.</p>
+
+<p>If you look at the server window, you see the following messages as the page
+is delivered to the browser:</p>
+
+<pre>localhost - - [13/Jan/1999 22:08:31] &quot;GET /pics/PyBanner004.gif HTTP/1.1&quot; 200 -</pre><pre>localhost - - [13/Jan/1999 22:08:47] &quot;GET /pics/PythonPoweredSmall.gif HTTP/1.1&quot; 200 -</pre><pre>localhost - - [13/Jan/1999 22:09:03] &quot;GET /pics/pythonHi.gif HTTP/1.1&quot; 200 -</pre><pre>...</pre>
+
+<p>And the Python home page appears in the browser! </p>
+
+<h3><a name="_15.2_FTP"></a>15.2 FTP</h3>
+
+<p>The File Transfer Protocol (FTP) transfers files across a network. The
+Python module <tt><span style='font-size:10.0pt'>ftplib</span></tt> supports
+this protocol. An FTP server program is run on a computer client computers can
+connect to. The client computer sendsty5e transfer is initiated, a new
+connection exclusively for the data is established between the client and the
+server.</p>
+
+<h4>15.2.1 Fetching Data via FTP</h4>
+
+<p>The <tt><span style='font-size:10.0pt'>ftplib</span></tt> module is used in
+much the same way as the <tt><span style='font-size:10.0pt'>httplib</span></tt>
+module: a single class, <tt><span style='font-size:10.0pt'>FTP</span></tt>,
+provides all of the functionality.</p>
+
+<p>The FTP protocol supports a variety of commands, which include such
+operations as logging in, navigating the filesystem, and retrieving directory
+listings. Let’s create an FTP session:</p>
+
+<pre>&gt;&gt;&gt; import ftplib</pre><pre>&gt;&gt;&gt; ftp = ftplib.FTP('ftp.python.org') # connect to host, default port</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Log on as an anonymous user:</p>
+
+<pre>&gt;&gt;&gt; ftp.login('anonymous', 'your@email.address')</pre><pre>&quot;230-WELCOME to python.org, the Python programming language ...&quot;</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>Get a directory listing:</p>
+
+<pre>&gt;&gt;&gt; ftp.retrlines('LIST') # list directory contents</pre><pre>total 38</pre><pre>drwxrwxr-x  11 root     4127         512 Aug 28 20:23 .</pre><pre><span
+lang=DE>...</span></pre><pre><span lang=DE>-r--r--r--   1 klm      1000         764 Aug 25 19:32 welcome.msg</span></pre><pre>'226 Transfer complete.'</pre>
+
+<p>Notice there’s a file <i>welcome.msg</i>: let’s download the file. Open a
+local file and indicate its <tt><span style='font-size:10.0pt'>write</span></tt>
+method should be called to store the data:</p>
+
+<pre>&gt;&gt;&gt; file=open(&quot;welcome.msg&quot;, &quot;w&quot;)</pre><pre>&gt;&gt;&gt; ftp.retrlines(&quot;retr welcome.msg&quot;, file.write)</pre><pre>'226 Transfer complete.'</pre><pre>&gt;&gt;&gt; file.close()</pre>
+
+<p>Now reopen the file and print the data:</p>
+
+<pre>&gt;&gt;&gt; open(&quot;welcome.msg&quot;, &quot;r&quot;).read()</pre><pre>&quot;WELCOME to python.org, the Python programming language home site. ...&quot;</pre><pre>&gt;&gt;&gt;</pre>
+
+<p>To retrieve a binary file (such as an executable), you could use the method <tt><span
+style='font-size:10.0pt'>retrbinary()</span></tt> ; it takes the same methods
+as <tt><span style='font-size:10.0pt'>retrlines()</span></tt> , except it also
+allows you to specify a block size for the transfer. In this case you should
+remember to open the file itself in binary mode, as discussed in <a
+href="#_Chapter_3._Python_on_Windows">Chapter 3</a>.</p>
+
+<h3><a name="_15.3_NNTP"></a>15.3 NNTP</h3>
+
+<p>The Network News Transfer Protocol (NNTP) exchanges news articles over a
+network. Whenever you run a news reader, it uses the NNTP protocol to read and
+post news articles.</p>
+
+<p>An NNTP server program is run on a computer client computers can connect to.
+The NNTP protocol is text-based: all communications between the client and
+server use ASCII text. The NNTP protocol is similar to the SMTP mail protocol
+we discussed in the previous chapter. Clients send requests or news articles,
+and the server responds with responses and possibly a news article. News
+articles are structured similar to Internet mail messages; the body of the
+article follows a list of headers.</p>
+
+<h4>15.3.1 Fetching News Articles via NNTP</h4>
+
+<p>It should come as no surprise that a Python module <tt><span
+style='font-size:10.0pt'>nntplib</span></tt> supports the NNTP protocol. Following
+the style of the other Internet-related modules, a single class <tt><span
+style='font-size:10.0pt'>NNTP</span></tt> implements all functionality.</p>
+
+<p>The NNTP protocol supports a wide variety of commands for determining which
+articles exist on the server computer. Information on these commands is beyond
+the scope of this book; you should refer to the NNTP protocol standard or the <tt><span
+style='font-size:10.0pt'>nntplib</span></tt> module itself for further
+information.</p>
+
+<p>However, to whet your appetite, let’s create a sample program that scans a
+newsgroup for a list of articles with a specific word in their subject. It
+generates an HTML file, then fires your browser with the news articles
+hyperlinked:</p>
+
+<pre># SimpleNewsViewer.py</pre><pre>&nbsp;</pre><pre># Finds all news articles in a news group that have a specific word</pre><pre># in its subject.  Then writes the results to a HTML file for</pre><pre># easy reading.</pre><pre>&nbsp;</pre><pre># eg, running:</pre><pre># c:\&gt; SimpleNewsViewer.py comp.lang.python python </pre><pre>#</pre><pre># Will generate &quot;comp.lang.python.html&quot;, and execute your </pre><pre># browser on this file. </pre><pre>&nbsp;</pre><pre>import sys, string</pre><pre>&nbsp;</pre><pre>import nntplib</pre><pre>&nbsp;</pre><pre>import win32api # to execute our browser.</pre><pre>&nbsp;</pre><pre>g_newsserver = 'news-server.c3.telstra-mm.net.au'</pre><pre>&nbsp;</pre><pre>def MakeNewsPage(groupname, subjectsearch, outfile ):</pre><pre>    print &quot;Connecting...&quot;</pre><pre>    nntp=nntplib.NNTP(g_newsserver)</pre><pre>    print &quot;Fetching group information&quot;</pre><pre>    # Most functions return the raw server response first.</pre><pre>    resp, numarts, first, last, name = nntp.group(groupname)</pre><pre>    # Get the subject line from these messages.</pre><pre>    print &quot;Getting article information...&quot;</pre><pre>    resp, data = nntp.xover(first, last)</pre><pre>    for artnum, subject, poster, time, id, references, size, numlines in data:</pre><pre>        # We will match on any case!</pre><pre>        subjectlook=string.lower(subject)</pre><pre>        if string.find(subjectlook, string.lower(subjectsearch))&gt;=0:</pre><pre>            # Translate the &quot;&lt;&quot; and &quot;&gt;&quot; chars.</pre><pre>            subject = string.replace(subjectlook, &quot;&lt;&quot;, &quot;&amp;lt&quot;)</pre><pre>            poster = string.replace(poster, &quot;&lt;&quot;, &quot;&amp;lt&quot;)</pre><pre>            subject = string.replace(subject, &quot;&gt;&quot;, &quot;&amp;gt&quot;)</pre><pre>            poster = string.replace(poster, &quot;&gt;&quot;, &quot;&amp;gt&quot;)</pre><pre>            # Build a href</pre><pre>            href = &quot;news:%s&quot; % id[1:-1]</pre><pre>            # Write the HTML</pre><pre>            outfile.write('&lt;P&gt;From %s on %s&lt;BR&gt;&lt;a HREF=&quot;%s&quot;&gt;%s&lt;/a&gt;\n' \</pre><pre>                % (poster, time, href, subject))</pre><pre>    outfile.close()</pre><pre>    </pre><pre>if __name__=='__main__':</pre><pre>    if len(sys.argv)&lt;3:</pre><pre>        print &quot;usage: %s groupname, searchstring&quot; % sys.argv[0]</pre><pre>        sys.exit(1)</pre><pre>    </pre><pre>    groupname = sys.argv[1]</pre><pre>    search = sys.argv[2]</pre><pre>    outname = groupname + &quot;.htm&quot;</pre><pre>&nbsp;</pre><pre>    # Open the outfile file.</pre><pre>    outfile = open(outname, &quot;w&quot;)</pre><pre>&nbsp;</pre><pre>    MakeNewsPage(groupname, search, outfile)</pre><pre>    print &quot;Done - Executing&quot;, outname</pre><pre>    win32api.ShellExecute(0, &quot;open&quot;, outname, None, &quot;&quot;, 1)</pre>
+
+<p>Now run this program using syntax such as:</p>
+
+<pre>C:\Scripts&gt;SimpleNewsViewer comp.lang.python python</pre><pre>Connecting...</pre><pre>Fetching group information</pre><pre>Getting article information...</pre><pre>Done - Executing comp.lang.python.htm</pre>
+
+<p>You should find your browser opened with a list of news articles that match
+the search. Clicking on one of the links opens your news-reading software and
+the article.</p>
+
+<h3><a name="_15.4_Conclusion"></a>15.4 Conclusion</h3>
+
+<p>In this chapter we have presented a quick look at some of the common
+Internet protocols and how they can be used from Python. Although we did not
+discuss any of the protocols in great detail, we demonstrated some of the basic
+concepts and provided pointers to further information on the relevant
+protocols.</p>
+
+<p>Python is used extensively in domains that require these and similar tasks.
+Although we have presented a few of the common Internet protocols, you are
+almost certain to find that a Python module already exists to help you out regardless
+of your specific requirements.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+<div align="center"><center><table border="1" style="border-collapse: collapse" bordercolor="#111111" width="90%" bgcolor="#ECECD9"><tr><td width="33%"><a href=18.htm><img border="0" src="leftarrw.gif" width="37" height="34"></a></td><td width="33%"><p align="center"><a href="0.htm"><font size="4">Table of Contents</font></a></td><td width="34%"><p align="right"><a href=20.htm><img border="0" src="rightarrw.gif" width="37" height="34"></a></td></tr></table></center></div></body></html>

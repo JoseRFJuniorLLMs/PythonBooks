@@ -1,0 +1,257 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Standard Exceptions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="154.html" class="navtitle">10. Errors And Exceptions</a> &gt; <span class="nonavtitle">Standard Exceptions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="162.html" title="Assertions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=163" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="163.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="164.html" title="*Creating Exceptions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A29%3A27+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175192054104165152183238</font><a href="read1.asp?bookname=0130260363&snode=163&now=5%2F29%2F2002+9%3A29%3A27+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Standard Exceptions</h3>
+				<p><a HREF="163#1.html">Table 10.2</a> lists all of Python's current set of standard exceptions. All exceptions are loaded into the interpreter as a built-in so they are ready before your script starts or by the time you receive the interpreter prompt, if running interactively.</p>
+
+				<p>All standard/built-in exceptions are derived from the root class <tT CLAss="monofont">Exception.</tt> There are currently two immediate subclasses of <TT CLass="monofont">Exception: SystemExit</tt> and <tt class="monofont">StandardError.</tt> All other built-in exceptions are subclasses of <tt clasS="monofont">StandardError.</tt> Every level of indentation of an exception listed in <A hreF="163#1.html">Table 10.2</a> indicates one level of exception class derivation.</p>
+
+				<a nAme="1"></a><P><TABle boRDER="1" cellSPACing="0" cELLPadding="1" width="100%">
+<caption><h5>Table 10.2. Python Standard Exceptions</h5></CapTion><ColgrOup aLIGN="left" span="2">
+<TR VAlign="top">
+<TH>
+<FOnt siZE="2"><B><I>Exception Name</i></b></font></th>
+<th>
+<font size="2"><b><i>Description</I></b></fOnt></tH>
+</tr>
+<tr ValiGN="top">
+<TD>
+<font SIZE="2"><tt clASS="monofont">Exception</Tt><fonT SIZe="1"><sup><a href="#FOOTNOTE-a">[a]</a></sup></font>
+</fonT></td>
+<Td>
+<foNt sizE="2">root class for all exceptions</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><tT CLAss="monofont">SystemExit</tt></font></td>
+<td>
+<font size="2">request termination of Python interpreter</FonT></td>
+</tR>
+<tr vaLign="top">
+<TD>
+<FOnt siZE="2"><TT clasS="monofont">StandardError</TT><Sup><a hREF="#FOOTNOTE-a">[a]</A></sup></font></td>
+<td>
+<font size="2">base class for all standard built-in exceptions</fOnt></Td>
+</tr>
+<Tr valIgn="top">
+<tD>
+<FONt sizE="2"><TT Class="monofont">ArithmeticError</TT><SUp><a hrEF="#FOOTNOTE-a">[a]</A></Sup></font></td>
+<td>
+<font size="2">base class for all numeric calculation errors</foNt></tD>
+</tr>
+<tR valiGn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">FloatingPointError</tT><SUP><a hreF="#FOOTNOTE-a">[a]</A></SUp></font></td>
+<td>
+<font size="2">error in floating point calculation</fonT></td>
+</Tr>
+<tr ValigN="top">
+<td>
+<fONT Size="2"><tT CLAss="monofont">OverflowError</tt></FONT></td>
+<td>
+<FONT size="2">calculation exceeded maximum limit for numerical type</font></td>
+</tr>
+<tr valign="top">
+<Td>
+<fOnt sIze="2"><tt ClasS="monofont">ZeroDivisionError</TT></Font></tD>
+<TD>
+<Font sIZE="2">division (or modulus) by zero error (all numeric types)</Font></tD>
+</TR>
+<Tr valign="top">
+<td>
+<font size="2"><tt cLasS="monofont">AssertionError</tt><sUp><a hrEf="#FOOTNOTE-a">[a]</a></sUP></FOnt></td>
+<TD>
+<FOnt siZE="2">failure of <B><Tt claSS="monofont">assert</TT></b> statement</font></td>
+</tr>
+<tr valign="top">
+<td>
+<fOnt Size="2"><Tt claSs="monofont">AttributeError</tt></FONT></td>
+<td>
+<FONT size="2">no such object attribute</FONT></td>
+</tr>
+<TR VAlign="top">
+<td>
+<font size="2"><tt clasS="monofont">EOFError</tt></Font></Td>
+<td>
+<fOnt sIZE="2">end-of-file marker reached without input from built-in</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><tt class="monofont">EnvironmentError</tt><font size="1"><suP><a hRef="#FOOTNOTE-b">[b]</a></Sup></foNt>
+</foNT></TD>
+<td>
+<foNT SIze="2">base class for operating system environment errors</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<font size="2"><tt class="monofont">IOError</tT></foNt></td>
+<Td>
+<fonT sizE="2">failure of input/output operation</FONt></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2"><Tt class="monofont">OSError</tt><sup><a href="#FOOTNOTE-b">[b]</a></sup></FonT></td>
+<tD>
+<font Size="2">operating system error</FONT></td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt siZE="2"><TT class="monofont">WindowsError</tt><font size="1"><sup><a hRef="#FOOTNOTE-c">[c]</A></sup></Font>
+</fOnt></tD>
+<TD>
+<Font sIZE="2">MS Windows system call failure</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<font size="2"><tt class="monofont">ImportError</tt></foNt></tD>
+<td>
+<fOnt siZe="2">failure to import module or object</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">KeyboardInterrupt</tt></font></td>
+<td>
+<font sizE="2">user interrupted execution (usually by typing ^C)</foNt></td>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2"><Tt claSS="monofont">LookupError</TT><sup><a HREF="#FOOTNOTE-a">[a]</a></sup></font></td>
+<td>
+<font size="2">base class for invalid data lookup errors</FonT></td>
+</tR>
+<tr vaLign="top">
+<TD>
+<FOnt siZE="2"><TT clasS="monofont">IndexError</TT></Font></tD>
+<TD>
+<Font size="2">no such index in sequence</font></td>
+</tr>
+<tr valIgn="top">
+<Td>
+<foNt sizE="2"><tt cLASS="monofont">KeyError</tt></foNT></TD>
+<td>
+<foNT SIze="2">no such key in mapping</foNT></TD>
+</tr>
+<tr valign="top">
+<td>
+<font size="2"><Tt cLass="monofont">MemoryError</Tt></fonT></td>
+<tD>
+<FONt sizE="2">out-of-memory error (non-fatal to Python interpreter)</FONt></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font size="2"><tt class="monofont">NameError</tt></font></Td>
+<tD>
+<fonT size="2">undeclared/uninitialized object (non-attribute)</Font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><tt CLASs="monofont">UnboundLocalError</tt><sup><a href="#FOOTNOTE-c">[c]</a></sup></font></tD>
+<td>
+<Font Size="2">access of an uninitialized local variable</fOnt></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><tt cLASS="monofont">RuntimeError</tt></font></td>
+<td>
+<font size="2">generic default error during execution</foNt></tD>
+</tr>
+<tR valiGn="top">
+<td>
+<FONT size="2"><TT CLass="monofont">NotImplementedError</tT><SUP><a hreF="#FOOTNOTE-b">[b]</A></SUp></font></td>
+<td>
+<font size="2">unimplemented method</fonT></td>
+</Tr>
+<tr ValigN="top">
+<td>
+<fONT Size="2"><tT CLAss="monofont">SyntaxError</tt></FONT></td>
+<td>
+<FONT size="2">error in Python syntax</font></td>
+</tr>
+<tr valign="top">
+<Td>
+<fOnt sIze="2"><tt ClasS="monofont">IndentationError</TT><Font sIZE="1"><Sup><a hREF="#FOOTNOTE-d">[d]</A></sup></fONT>
+</Font></td>
+<td>
+<font size="2">improper indentation</font></tD>
+</tr>
+<Tr vaLign="top">
+<tD>
+<fonT SIZe="2"><tt cLASS="monofont">TableError</tt><suP><A HRef="#FOOTNOTE-d">[d]</a></sUP></FOnt></td>
+<td>
+<font size="2">improper mixture of TABs and spaces</font></td>
+</Tr>
+<tR valIgn="top">
+<td>
+<Font SIZE="2"><tt clASS="monofont">SystemError</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2">generic interpreter system error</font></td>
+</tr>
+<tr valign="top">
+<td>
+<fOnt Size="2"><Tt claSs="monofont">TypeError</tt></FONT></td>
+<td>
+<FONT size="2">invalid operation for type</FONT></td>
+</tr>
+<TR VAlign="top">
+<td>
+<font size="2"><tt clasS="monofont">ValueError</tt></Font></Td>
+<td>
+<fOnt sIZE="2">invalid argument given</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><tt class="monofont">UnicodeError</tt><sup><a href="#FOOTNOTE-c">[c]</a></sUp></fOnt></tD>
+<td>
+<foNt siZE="2">Unicode related error</FOnt></td>
+</TR>
+</COlgroUP>
+</TAble></p>
+<BLOCkquote><font size="1">
+<p class="footnote">
+<Sup><A namE="FOOTNOTE-a">[a]</a></sup>
+Prior to Python 1.5, the exceptions denoted did not exist. All earlier exceptions were string-based.</P>
+</fonT></BLOckquOTE>
+<BlockQUOTe><fonT SIZe="1">
+<p class="footnote">
+<sup><a name="FOOTNOTE-b">[b]</a></sup>
+New as of Python 1.5.2</p>
+</FonT></bloCkquoTe>
+<blOCKQuote><FONT size="1">
+<P CLAss="footnote">
+<suP><A NAme="FOOTNOTE-c">[c]</a></sup>
+New as of Python 1.6</p>
+</font></blockquotE>
+<blOckqUote><fOnt sIZE="1">
+<P clasS="footnote">
+<SUP><a namE="FOOTNOTE-d">[d]</A></SUp>
+New as of Python 2.0</p>
+</foNT></BLockquote>
+
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="162.html" title="Assertions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=163" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="163.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="164.html" title="*Creating Exceptions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

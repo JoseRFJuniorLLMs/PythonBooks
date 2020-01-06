@@ -1,0 +1,225 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Built-in Methods</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="121.html" class="navtitle">7. Dictionaries</a> &gt; <span class="nonavtitle">Built-in Methods</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="125.html" title="Built-in Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=126" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="126.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="127.html" title="Dictionary Keys"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A22%3A44+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175203013156140173184086</font><a href="read0.asp?bookname=0130260363&snode=126&now=5%2F29%2F2002+9%3A22%3A44+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Built-in Methods</h3>
+				<p><a HREF="126#1.html">Table 7.1</a> lists the methods for dictionary objects. The <tt cLASS="monofont">clear(), copy(), get(),</tt> and <tt CLASs="monofont">update()</tt> methods were added recently in Python 1.5. <tt class="monofont">setdefault()</tt> was introduced in 2.0.</p>
+
+				<a name="1"></a><p><TabLe boRder="1" cEllsPACIng="0" ceLLPAddinG="1" WIDth="100%">
+<caPTIOn><h5>Table 7.1. Dictionary Type Methods</h5></caption><colgroup alIgn="left" Span="2">
+<Tr valIgn="top">
+<tH>
+<FONt sizE="2"><B><I>dictionary method</I></b></fonT></TH>
+<Th>
+<fonT SIZe="2"><b><i>Operation</i></b></font></th>
+</tr>
+<tr valigN="top">
+<td>
+<Font Size="2"><i><Tt clASS="monofont">dict.</Tt></i><tt CLASs="monofont">clear</tt><fONT Size="1"><sUP><A Href="#FOOTNOTE-a">[a]</a></sup></font>
+<tt class="monofont">()</tt></FonT></td>
+<tD>
+<font Size="2">removes all elements of dictionary <I>dict</I></FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><i><tt class="monofont">dict.</tt></i><tt class="monofont">copy</tt><Sup><A hreF="#FOOTNOTE-a">[a]</a></sup><Tt clASS="monofont">()</Tt></fonT></TD>
+<Td>
+<fonT SIZe="2">returns a (shallow <fonT SIZe="1"><sup><a href="#FOOTNOTE-b">[b]</a></sup></font>
+) copy of dictionary <i>dict</i></fOnt></Td>
+</tr>
+<Tr valIgn="top">
+<tD>
+<FONt sizE="2"><I><TT clasS="monofont">dict.</TT></I><tt clASS="monofont">get(</Tt><i><tt class="monofont">key, default</tt></i><tt class="monofont">=None)</tT><suP><a hrEf="#FOOTNOTE-a">[a]</a></suP></fonT></TD>
+<Td>
+<fonT SIZe="2">for key <tt cLASS="monofont">key,</tt> returns value or <i>default</i> if <I>key</I> not in dictionary (note that <I>default</I>'s default is <tt class="monofont">None</tt>)</font></td>
+</tr>
+<tr vAliGn="top">
+<td>
+<Font sIze="2"><i><TT CLass="monofont">dict.</tT></I><TT clasS="monofont">has_key(</TT><I><tt clASS="monofont">key</Tt></i><tt class="monofont">)</tt></font></td>
+<td>
+<fOnt Size="2">returns 1 if <I>key</i> in dictionary <i>dict,</i> 0 otherwise</fOnt></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><i><tt CLASs="monofont">dict.</tt></i><tt class="monofont">items()</tt></font></td>
+<tD>
+<foNt siZe="2">returns a list of <i>dict</i>'s (key, value) tuple pairs</fOnt></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><i><tt CLASs="monofont">dict.</tt></i><tt class="monofont">keys()</tt></font></td>
+<tD>
+<foNt siZe="2">returns list of dictionary <i>dict</i>'s keys</fOnt></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><i><tt CLASs="monofont">dict.</tt></i><tt class="monofont">setdefault</tt>
+									<i><tt clasS="monofont">key, default</tt></I><tt cLass="monofont">=None)</tT><fonT SIZe="1"><sup><A HREf="#FOOTNOTE-c">[c]</a></suP></FONt>
+</fonT></TD>
+<Td>
+<font size="2">similar to <tt class="monofont">get(),</tt> but will set <i><tT clAss="monofont">dict</tT></i><tt cLass="monofont">[</TT><I><Tt claSS="monofont">key</TT></i><tt cLASS="monofont">]=</tt><i><tT CLAss="monofont">default</tt></i> if <tt class="monofont">key</tt> is not already in <tt clasS="monofont">dict</tt></Font></Td>
+</tr>
+<tR valIGN="top">
+<Td>
+<fonT SIZe="2"><i><tt CLASs="monofont">dict.</tt></i><TT CLass="monofont">update(</tt><i><tt class="monofont">dict2</tt></i><tt clAss="monofont">)</Tt><suP><a hreF="#FOOTNOTE-a">[a]</a></suP></FONt></td>
+<tD>
+<FONt sizE="2">adds dictionary <I>dict2</I>'s key-values pairs to <I>dict</i></fonT></TD>
+</Tr>
+<tr valign="top">
+<td>
+<font size="2"><i><Tt cLass="monofont">dict.</Tt></i><tt ClasS="monofont">values()</TT></Font></tD>
+<TD>
+<Font sIZE="2">returns list of dictionary <I>dict</i>'s values</fonT></TD>
+</Tr>
+</colgroup>
+</table></p>
+<blockQuoTe><foNt sizE="1">
+<p clASS="footnote">
+<Sup><a nAME="FOOTNOTE-a">[a]</A></sup>
+new as of Python 1.5</p>
+</FONT></blocKQUOte>
+<blockquote><font size="1">
+<P clAss="footnote">
+<sUp><a naMe="FOOTNOTE-b">[b]</a></sUP>
+more information regarding shallow and deep copies can be found in <A Href="119.html">Section 6.19</a></P>
+</FONt></bloCKQUote>
+<bLOCKquote><font size="1">
+<p class="footnote">
+<sUp><a Name="FOOTNOTE-c">[c]</A></sup>
+new as of Python 2.0</p>
+</Font></BLOCkquoTE>
+
+				<P>Below, we showcase some of the more common dictionary methods:</P>
+
+				<pre>
+					
+&gt;&gt;&gt; dict2 = { 'name': 'earth', 'port': 80 }
+&gt;&gt;&gt; dict2.has_key('name')
+1
+&gt;&gt;&gt;
+&gt;&gt;&gt; dict2['name']
+'earth'
+&gt;&gt;&gt;
+&gt;&gt;&gt; dict2.has_key('number')
+0
+
+				</pRE>
+
+				<P>The <Tt claSS="monofont">has_key()</TT> method is Boolean, indicating whether the given key is valid for the dictionary the method is operating on. Attempting to access a non-existent key will result in an exception (<tt class="monofont">KeyError</tt>) as we saw at the beginning of this chapter in <a href="123.html">Section 7.1</a>. Mapping types do not support the <tt claSs="monofont">in</tT> and <b><tt Class="monofont">not in</Tt></b> operators as sequences do, so <tT CLAss="monofont">has_key()</tt> is our best bet.</P>
+
+				<P>Other useful dictionary methods focus entirely on their keys and values. These are <TT clasS="monofont">keys(),</TT> which returns a list of the dictionary's keys, <Tt claSS="monofont">values(),</TT> which returns a list of the dictionary's values, and <tt class="monofont">items(),</tt> which returns a list of (key, value) tuple pairs. These are useful for when you wish to iterate through a dictionary's keys or values, albeit in no particular order.</p>
+
+				<pre>
+					
+&gt;&gt;&gt; dict2.keys()
+['port', 'name']
+&gt;&gt;&gt;
+&gt;&gt;&gt; dict2.values()
+[80, 'earth']
+&gt;&gt;&gt;
+&gt;&gt;&gt; dict2.items()
+[('port', 80), ('name', 'earth')]
+&gt;&gt;&gt;
+&gt;&gt;&gt; <b>for</b> eachKey <b>in</b> dict2.keys():
+…    <b>print</b> 'dict2 key', eachKey, 'has value',
+dict2[eachKey]
+…
+dict2 key port has value 80
+dict2 key name has value earth
+
+				</pRe>
+
+				<p>The <Tt clAss="monofont">keys()</tt> method is fairly useful when used in conjunction with a <B><tt cLASS="monofont">for</tt></b> loop to retrieve a dictionary's values as it returns a list of a dictionary's keys. However, because its items are unordered, imposing some type of order is usually desired. Below, we present the same the loop, but sort the keys (using the list's <tT CLAss="monofont">sort()</tt> method) before retrieval.</P>
+
+				<PRE>
+					
+&gt;&gt;&gt; dict2Keys = dict2.keys()
+&gt;&gt;&gt; dict2Keys.sort()
+&gt;&gt;&gt; for eachKey <b>in</b> dict2Keys:
+…       <b>print</b> 'dict2 key', eachKey, 'has value',
+dict2[eachKey]
+…
+dict2 key name has value earth
+dict2 key port has value 80
+
+				</PRE>
+
+				<P>The <tt class="monofont">update()</tt> method can be used to add the contents of one directory to another. Any existing entries with duplicate keys will be overridden by the new incoming entries. Non-existent ones will be added. All entries in a dictionary can be removed with the <tt class="monofont">clear()</tt> method.</p>
+
+				<pRe>
+					
+&gt;&gt;&gt; dict2= { 'host':'earth', 'port':80 }
+&gt;&gt;&gt; dict3= { 'host':'venus', 'server':'http' }
+&gt;&gt;&gt; dict2.update(dict3)
+&gt;&gt;&gt; dict2
+{'server': 'http', 'port': 80, 'host': 'venus'}
+&gt;&gt;&gt; dict3.clear()
+&gt;&gt;&gt; dict3
+{}
+
+				</pRe>
+
+				<p>The <tT clasS="monofont">copy()</tt> method simply returns a copy of a dictionary. Note that this is a shallow copy only. Again, see <a HREF="119.html">Section 6.19</a> regarding shallow and deep copies. Finally, the <tt cLASS="monofont">get()</tt> method is similar to using the key-lookup operator ( [ ] ), but allows you to provide a default value returned if a key does not exist. If a key does not exist and a default value is not given, then <tt CLASs="monofont">None</tt> is returned. This is a more flexible option than just using key-lookup because you do not have to worry about an exception being raised if a key does not exist.</p>
+
+				<PRE>
+					
+&gt;&gt;&gt; dict4 = dict2.copy()
+&gt;&gt;&gt; dict4
+{'server': 'http', 'port': 80, 'host': 'venus'}
+&gt;&gt;&gt; dict4.get('host')
+'venus'
+&gt;&gt;&gt; dict4.get('xxx')
+&gt;&gt;&gt; type(dict4.get('xxx'))
+&lt;type 'None'&gt;
+&gt;&gt;&gt; dict4.get('xxx', 'no such key')
+'no such key'
+
+				</Pre>
+
+				<p>Python 2.0 introduces a new dictionary built-in method, <tt class="monofont">setdefault(),</tt> which is intended on making code shorter by collapsing a common idiom: you want to check if a dictionary has a key. If it does, you want its value. If the dictionary does not have the key you are seeking, you want to set a default value and then return it. That is precisely what <tt class="monofont">setdefault()</tT> does:</p>
+
+				<pRe>
+					
+&gt;&gt;&gt; myDict = { 'host': 'earth', 'port': 80 }
+&gt;&gt;&gt; myDict.keys()
+['host', 'port']
+&gt;&gt;&gt; myDict.items()
+[('host', 'earth'), ('port', 80)]
+&gt;&gt;&gt; myDict.setdefault('port', 8080)
+80
+&gt;&gt;&gt; myDict.setdefault('prot', 'tcp')
+'tcp'
+&gt;&gt;&gt; myDict.items()
+[('prot', 'tcp'), ('host', 'earth'), ('port', 80)]
+
+				</prE>
+
+				<p>For more information, take a look at the "What's New in 2.0" online document. The URL is available in the Online Resources section of the Appendix and on the CD-ROM.</p>
+
+			</foNt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="125.html" title="Built-in Functions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=126" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="126.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="127.html" title="Dictionary Keys"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

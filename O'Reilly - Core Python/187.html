@@ -1,0 +1,80 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Built-in Functions: apply(), filter(), map(), reduce() </TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="170.html" class="navtitle">11. Functions</a> &gt; <span class="nonavtitle">Built-in Functions: apply(), filter(), map(), reduce() </span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="186.html" title="Anonymous Functions and lambda "><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=187" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="187.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="188.html" title="* apply() "><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A33%3A27+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174053205055217125088143</font><a href="read7.asp?bookname=0130260363&snode=187&now=5%2F29%2F2002+9%3A33%3A27+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Built-in Functions: <tt cLASS="monofont">apply(), filter(), map(), reduce()</tt></h3>
+				<p>In this section, we will look at the <TT CLass="monofont">apply(),</tT>
+					<TT Class="monofont">filter(),</tt>
+					<tt class="monofont">map(),</tt> and <tt claSs="monofont">reduce()</tT> built-in functions as well as give some examples to show how they can be used. These functions provide the functional programming features found in Python. A summary of these functions is given in <a hrEf="187#1.html">Table 11.1</a>. All take a function object to somehow invoke.</p>
+
+				<a Name="1"></A><P><TAble bORDEr="1" celLSPAcing="0" CELLpadding="1" width="100%">
+<caption><h5>Table 11.1. Functional Programming Built-in Functions</H5></caPtioN><colgRoup ALIGn="left" spaN="2">
+<TR ValigN="top">
+<TH>
+<Font sIZE="2"><B><i>Built-in Function</i></b>
+								</font></th>
+<th>
+<font size="2"><b><I>Description</i></b>
+								</Font></Th>
+</tr>
+<tR valIGN="top">
+<Td>
+<fonT SIZe="2"><tt cLASS="monofont">apply(</tt><i><tT CLAss="monofont">func</tt></i><tt class="monofont">[,</tt>
+									<i><tt claSs="monofont">nkw</tT></i><tt Class="monofont">][,</Tt>
+									<i><tT CLAss="monofont">kw</tt></I><TT Class="monofont">])</TT></FOnt></td>
+<TD>
+<FOnt size="2">call <i><tt class="monofont">func</tt></i> with optional arguments, <i><tt ClaSs="monofont">nkw</tt></I> for non-keyword arguments and <i><tt cLass="monofont">kw</TT></I> for keyword arguments; the return value is the return value of the function call</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><tt class="monofont">filter(</tt><i><tt class="monofont">func, seq</tt></I><tt ClasS="monofont">)</tt>
+								</foNt></td>
+<TD>
+<FOnt siZE="2">invokes Boolean function <I><Tt claSS="monofont">func</TT></i> iteratively over each element of <i><tt CLASs="monofont">seq;</tt></i> returns a sequence for those elements for which <i><tt class="monofont">func</tt></i> returned true</font></tD>
+</tr>
+<Tr vaLign="top">
+<tD>
+<fonT SIZe="2"><tt cLASS="monofont">map(</tt><i><tT CLAss="monofont">func, seq1</tt></I><TT Class="monofont">[,</tt>
+									<i><tt class="monofont">seq2…</tt></i><tt cLasS="monofont">])</tt></fOnt></td>
+<Td>
+<foNT SIze="2">applies function <i><tT CLAss="monofont">func</tt></I> to each element of given sequences(s) and provides return values in a list; if <I><TT clasS="monofont">func</TT></I> is <tt class="monofont">None,</tt>
+									<i><tt class="monofont">func</tt></i> behaves as the identity function, returning a list consisting of <I><tt ClasS="monofont">n-</tt></i> tuples for sets of elements of each sequence</fOnt></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><tt cLASS="monofont">reduce(</tt><i><tt class="monofont">func, seq</tt></i><tt class="monofont">[,</Tt>
+									<i><Tt clAss="monofont">init</tt></I><tt cLASS="monofont">])</tt></foNT></TD>
+<td>
+<foNT SIze="2">applies binary function <i><tT CLAss="monofont">func</tt></i> to elements of sequence <i><tt class="monofont">seq,</tt></i> taking a pair at a time (previous result and next sequence item), continually applying the current result with the next value to obtain the succeeding result, finally reducing our sequence to a single return value; if initial value <i><tt cLasS="monofont">init</tt></i> given, first compare will be of <I><tt clAss="monofont">init</tT></I> and first sequence element rather than the first two sequence elements</FOnt></td>
+</TR>
+</COlgroUP>
+</TAble></p>
+
+				<P>As you may imagine, <B><TT class="monofont">lambda</tt></b> functions fit nicely into applications using any of these functions because all of them take a function object with which to execute, and <b><tt class="monofont">lambda</tt></b> provides a mechanism for creating functions on the fly.</p>
+</FonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="186.html" title="Anonymous Functions and lambda "><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=187" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="187.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="188.html" title="* apply() "><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

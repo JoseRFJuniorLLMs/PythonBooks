@@ -1,0 +1,121 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Numbers</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="48.html" class="navtitle">2. Getting Started</a> &gt; <span class="nonavtitle">Numbers</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="54.html" title="Variables and Assignment"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=55" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="55.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="56.html" title="Strings"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A08%3A30+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204173121140153174186079071</font><a href="read8.asp?bookname=0130260363&snode=55&now=5%2F29%2F2002+9%3A08%3A30+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Numbers</h3>
+				<p>Python supports four different numerical types:</p>
+
+				<UL>
+<LI><p><b>int</b> (signed integers)</p>
+</LI>
+<LI><p><b>long</b> (long integers [can also be represented in octal and hexadecimal])</p>
+</LI>
+<LI><p><b>float</b> (floating point real values)</p>
+</li>
+<li><p><b>complex</b> (complex numbers)</p>
+</li>
+</ul>
+				<p>Here are some examples:</p>
+
+				<p><tAblE borDer="1" ceLlspACINg="0" celLPADding="1" WIDTh="100%">
+<colGROUp align="left" span="9">
+<tr valign="top">
+<td>
+<FonT sizE="2"><i>int</i></foNt></td>
+<TD>
+<FOnt siZE="2">0101</FOnt></td>
+<TD>
+<FOnt siZE="2">84</FOnt></td>
+<td>
+<font size="2">-237</font></td>
+<Td>
+<fOnt sIze="2">0x80</foNt></td>
+<TD>
+<FOnt siZE="2">017</FOnt></td>
+<TD>
+<FOnt siZE="2">-680</FOnt></td>
+<td>
+<font size="2">-0X92</font></td>
+<Td>
+<fOnt sIze="2"> </foNt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><i>long</i></foNT></TD>
+<td colspan="1">
+<font size="2">29979062458L</fonT></td>
+<Td>
+<foNt sizE="2">-84140l</fonT></TD>
+<Td colSPAN="1">
+<font SIZE="2">0xDECADEDEADBEEFBADFEEDDEAL</font></TD>
+</TR>
+<tr valign="top">
+<td>
+<font size="2"><i>float</i></FonT></td>
+<tD>
+<font Size="2">3.14159</FONT></td>
+<td>
+<FONT size="2"> </FONT></td>
+<td>
+<FONT size="2">4.2E-10</font></td>
+<td>
+<font size="2"> </FonT></td>
+<tD>
+<font Size="2">-90.</FONT></td>
+<td COLSpan="1">
+<fONT Size="2">6.022e23</fONT></Td>
+<td>
+<font size="2">-1.609E-19</font></td>
+</tr>
+<tR vaLign="top">
+<Td>
+<fonT sizE="2"><I>complex</I></Font></tD>
+<TD>
+<Font sIZE="2">6.23+1.5j</Font></tD>
+<TD>
+<Font size="2"> </font></td>
+<td colspAn="1">
+<fOnt sIze="2">-1.23-875J</foNt></td>
+<TD>
+<FOnt siZE="2">0+1j</FOnt></td>
+<TD COlspaN="1">
+<FONt size="2">9.80665-8.31441J</font></td>
+<td>
+<font sizE="2">-.0224+0j</foNt></td>
+</Tr>
+</colGrouP>
+</TABle></p>
+
+				<p>Numeric types of interest are the Python long and complex types. Python long integers should not be confused with C <B><TT Class="monofont">long</TT></B> s. Python longs have a capacity that surpasses any C <B><tt clASS="monofont">long.</Tt></b> You are limited only by the amount of (virtual) memory in your system as far as range is concerned. If you are familiar with Java, a Python long is similar to numbers of the <tt class="monofont">BigInteger</tt> class type.</p>
+
+				<p>Complex numbers (numbers which involve the square root of -1, so called "imaginary" numbers) are not supported in many languages and perhaps are implemented only as classes in others.</p>
+
+				<p>All numeric types are covered in <a href="89.html">Chapter 5</A>.</p>
+
+			</fOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="54.html" title="Variables and Assignment"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=55" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="55.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="56.html" title="Strings"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

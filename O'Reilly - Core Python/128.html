@@ -1,0 +1,102 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Exercises</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="121.html" class="navtitle">7. Dictionaries</a> &gt; <span class="nonavtitle">Exercises</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="127.html" title="Dictionary Keys"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=128" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="128.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="130.html" title="8. Conditionals and Loops"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A23%3A10+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175202199139030046143245</font><a href="read0.asp?bookname=0130260363&snode=128&now=5%2F29%2F2002+9%3A23%3A10+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Exercises</h3>
+				<p><tABLE bodeR="0" CELlspaCING="16" cellpadding="0">
+					<tr valign="top"><tD alIgn="right"><fOnt><b>1:</b></Font></TD><TD><font><P><I>Dictionary Methods.</I> What dictionary method would we use to combine two dictionaries together?</P>
+</font></TD></TR>
+					<tr vaLIGN="top"><td align="right"><font><b>2:</b></font></td><tD><foNt><p><i>Dictionary Keys.</I> We know that dictionary values can be arbitrary Python objects, but what about the keys? Try using different types of objects as the key other than numbers or strings. What worked for you and what didn't? As for the failures, why do you think they didn't succeed?</p>
+</fonT></td></tR>
+					<TR ValigN="top"><TD Align="right"><FONT><b>3:</b></foNT></TD><td><font><p><i>Dictionary and List Methods.</i></p>
+
+							<p>(a) Create a dictionary and display its keys alphabetically.</p>
+
+							<p>(b) Now display both the keys and values sorted in alphabetical order by the key.</p>
+
+							<p>(c) Same as part (b), but sorted in alphabetical order by the value. (Note: this generally has no practical purpose in dictionaries or hash tables in general because most access and ordering [if any] is based on the keys. This is merely an exercise.)</p>
+</font></Td></tR>
+					<tr vAlign="top"><Td alIGN="right"><A name="1"></A><FONt><b>4:</b></fONT></Td><td><fONT><P><a href="288#17.html"><i>Creating Dictionaries.</i> Given a pair of identically-sized lists, say, <tt class="monofont">[1, 2, 3,</tt> …<tt clAss="monofont">],</Tt> and <tt Class="monofont">['abc', 'def', 'ghi',</Tt> …<tt CLASs="monofont">],</tt> process all that list data into a single dictionary that looks like: <tT CLAss="monofont">{1: 'abc', 2: 'def', 3: 'ghi',</tt> …<TT CLass="monofont">}.</tT></A></P>
+</Font></td></tr>
+					<tr valign="top"><td aliGn="right"><fOnt><b>5:</B></font></Td><td><FONT><p><i><tt CLASs="monofont">userpw2.pw.</tt></i> Following problem deals with the program in <A HREf="127#3.html">Example 7.1</a> a manager of a database of name-password key-value pairs.</p>
+
+							<p>(a) Update the script so that a timestamp is also kept with the password indicating date and time of last login. This interface should prompt for login and password and indicate a successful or failed login as before, but if successful, it should update the last login timestamp. If the login occurs within four hours of the last login, tell the user, "You already logged in at: &lt;last_login_timestamp&gt;."</P>
+
+							<P>(b) Add an "administration" menu to include the following two menu options: (1) remove a user and (2) display a list of all users in the system and their passwords</P>
+
+							<P>(c) The passwords are currently not encrypted. Add password-encryption if so desired (see the <tt class="monofont">crypt,</tt>
+								<tt class="monofont">rotor,</tt> or other cryptographic modules)</p>
+
+							<p>(d) Add a GUI interface, i.e., Tkinter, on top of this application.</P>
+</foNt></td></Tr>
+					<tr vAligN="top"><TD Align="right"><FONT><b>6:</b></foNT></TD><td><foNT><P><I>Lists and Dictionaries.</i> Create a crude stock portfolio database system: There should be at least four data columns: stock ticker symbol, number of shares, purchase price, and current price (you can add more if you wish). Have the user input values for each column to create a single row. Each row should be created as list. Another all-encompassing list will hold all these rows. Once the data is entered, prompt the user for one column to use as the sort metric. Extract the data values of that column into a dictionary as keys, with their corresponding values being the row that contains that key. Be mindful that the sort metric must have non-coincidental keys or else you will lose a row because dictionaries are not allowed to have more than one value with the same key. You may also choose to have additional calculated output, such as percentage gain/loss, current portfolio values, etc.</p>
+</font></td></tr>
+					<tr valign="top"><td AliGn="right"><a nAme="2"></a><fOnt><b>7:</B></FONt></td><tD><FONt><p><a hREF="288#18.html"><I>Inverting Dictionaries.</i> Take a dictionary as input and return one as output, but the values are now the keys and vice versa</a>.</p>
+</fONT></Td></tr>
+					<tr valign="top"><td align="right"><foNt><b>8:</B></fonT></td><td><Font><P><I>Human Resources.</I> Create a simple name and employee number dictionary application. Have the user enter a list of names and employee numbers. Your interface should allow a sorted output (sorted by name) that displays employee names followed by their employee numbers. EXTRA CREDIT: come up with an additional feature that allows for output to be sorted by employee numbers.</P>
+</font></TD></TR>
+					<tr vaLIGN="top"><td alIGN="right"><Font><b>9:</b></font></td><td><font><p><i>Translations.</i></P>
+
+							<p>(a) Create a character translator (that works similar to the Unix <tT claSs="monofont">tr</tt> command). This function, which we will call <tT claSS="monofont">tr(),</TT> takes three strings as arguments: source, destination, and base strings, and has the following declaration:</p>
+
+							<pre>
+								
+<B>def</B> tr(srcstr, dststr, string)
+
+							</PRe>
+
+							<p><tt CLASs="monofont">srcstr</tt> contains the set of characters you want "translated,"
+								<tT CLAss="monofont">dststr</tt> contains the set of characters to translate to, and <tt class="monofont">string</tt> is the string to perform the translation on. For example, if <tt class="monofont">srcstr == 'abc', dststr == 'mno',</Tt> and <tT claSs="monofont">string == 'abcdef',</tt> then <tT claSS="monofont">tr()</TT> would output <tt clASS="monofont">'mno-def'.</Tt> Note that <tt cLASS="monofont">len(srcstr) == len(dststr).</tt> For this exercise, you can use the <tt CLASs="monofont">chr()</tt> and <tt class="monofont">ord()</tt> built-in functions, but they are not necessary to arrive at a solution.</p>
+
+							<p>(b) Add a new flag argument to this function to perform case-insensitive translations.</p>
+
+							<p>(c) Update your solution so that it can process character deletions. Any extra characters in <tt clAss="monofont">srcstr</Tt> which are beyond those which could be mapped to characters in <tt Class="monofont">dststr</Tt> should be filtered. In other words, these characters are mapped to no characters in <tt CLASs="monofont">dststr,</tt> and are thus filtered from the modified string which is returned. For example, if <tT CLAss="monofont">srcstr == 'abcdef', dststr == 'mno',</tt> and <TT CLass="monofont">string == 'abcdefghi',</tT> then <TT Class="monofont">tr()</tt> would output <tt class="monofont">'mnoghi'.</tt> Note now that <tt claSs="monofont">len(srcstr) &gt;= len(dststr).</tT></p>
+</foNt></td></tR>
+					<tr vALIGn="top"><td aLIGN="right"><font><B>10:</B></FOnt></td><TD><FOnt><p><i>Encryption.</i> Using your solution to the previous problem, and create a "rot13" translator. "rot13" is an old and fairly simplistic encryption routine where by each letter of the alphabet is rotated 13 characters. Letters in the first half of the alphabet will be rotated to the equivalent letter in the second half and vice versa, retaining case. For example, 'a' goes to 'n' and 'X' goes to 'K'. Obviously, numbers and symbols are immune from translation.</p>
+
+							<p>(b) Add an application on top of your solution to prompt the user for strings to encrypt (and decrypt on reapplication of the algorithm), as in the following examples:</p>
+
+							<pre>
+								
+% rot13.py
+Enter string to rot13: This is a short sentence.
+Your string to en/decrypt was: [This is a short
+sentence.].
+The rot13 string is: [Guvf vf n fubeg fragrapr.].
+%
+% rot13.py
+Enter string to rot13: Guvf vf n fubeg fragrapr.
+Your string to en/decrypt was: [Guvf vf n fubeg
+fragrapr.].
+The rot13 string is: [This is a short sentence.].
+
+							</pre>
+</font></td></Tr>
+				</tAble></P>
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="127.html" title="Dictionary Keys"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=128" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="128.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="130.html" title="8. Conditionals and Loops"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

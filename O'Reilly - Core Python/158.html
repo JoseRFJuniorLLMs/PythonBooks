@@ -1,0 +1,769 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Detecting and Handling Exceptions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="154.html" class="navtitle">10. Errors And Exceptions</a> &gt; <span class="nonavtitle">Detecting and Handling Exceptions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="157.html" title="Exceptions in Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=158" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="158.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="159.html" title="*Exceptions as Strings"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A28%3A28+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175193246037188184124002</font><a href="read3.asp?bookname=0130260363&snode=158&now=5%2F29%2F2002+9%3A28%3A28+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Detecting and Handling Exceptions</h3>
+				<p>Exceptions can be detected by incorporating them as part of a <b><TT CLass="monofont">try</tT></B> statement. Any code suite of a <B><Tt claSS="monofont">try</TT></b> statement will be monitored for exceptions.</p>
+
+				<p>There are two main forms of the <b><tt class="monofont">try</tt></b> statement: <b><tt claSs="monofont">try-except</tT></b> and <b><tT clasS="monofont">try-finally.</tt></b> These statements are mutually exclusive, meaning that you pick only one of them. A <B><TT Class="monofont">try</TT></B> statement is either accompanied by one or more <B><tt clASS="monofont">except</Tt></b> clauses or exactly one <b><tT CLAss="monofont">finally</tt></b> clause. (There is no such thing as a hybrid "<tt class="monofont">try-except-finally.</tt>")</p>
+
+				<p><b><tt cLasS="monofont">try-except</tt></b> statements allow one to detect and handle exceptions. There is even an optional <Tt claSs="monofont">else</tt> clause for situations where code needs to run only when no exceptions are detected. Meanwhile, <B><TT Class="monofont">try-finally</TT></B> statements allow only for detection and processing of any obligatory clean-up (whether or not exceptions occur), but otherwise has no facility in dealing with exceptions.</P>
+
+				
+					<h4><tt cLASS="monofont">try-except</tt> Statement</h4>
+					<p>The <B><TT Class="monofont">try-except</tt></b> statement (and more complicated versions of this statement) allows you to define a section of code to monitor for exceptions and also provides the mechanism to execute handlers for exceptions.</p>
+
+					<p>The syntax for the most general <b><tt class="monofont">try-except</tt></b> statement looks like this:</P>
+
+					<prE>
+						
+<b>try:</b>
+    <i>try_suite</I>        # watch for exceptions here
+<b>except</b>
+							<i>Exception:</i>
+    <I>except_suite</i>     # exception-handling code
+
+					</prE>
+
+					<P>Let us give one example, then explain how things work. We will use our <TT clasS="monofont">IOError</TT> example from above. We can make our code more robust by adding a <B><tt clASS="monofont">try-except</Tt></b>
+						"wrapper" around the code:</p>
+
+					<pRE>
+						
+&gt;&gt;&gt; <B>try:</B>
+…       f = open('blah')
+…   <b>except</b> IOError:
+…       <b>print</b> 'could not open file'
+…
+could not open file
+
+					</pre>
+
+					<p>As you can see, our code now runs seemingly without errors. In actuality, the same <tt class="monofont">IOError</tt> still occurred when we attempted to open the nonexistent file. The difference? We added code to both detect and handle the error. When the <tt cLasS="monofont">IOError</tt> exception was raised, all we told the interpreter to do was to output a diagnostic message. The program continues and does not "bomb out" as our earlier example—a minor illustration of the power of exception handling. So what is really happening codewise?</p>
+
+					<P>During run-time, the interpreter attempts to execute all the code within the <b><tt cLass="monofont">try</TT></B> statement. If an exception does not occur when the code block has completed, execution resumes past the <B><tt clASS="monofont">except</Tt></b> statement. When the specified exception named on the <b><tT CLAss="monofont">except</tt></B> statement does occur, control flow immediately continues in the handler (all remaining code in the <TT Class="monofont">try</tt> clause is skipped). In our example above, we are catching only <tt class="monofont">IOError</tt> exceptions. Any other exception will not be caught with the handler we specified. If, for example, you want to catch an <tt claSs="monofont">OSError,</tT> you have to add a handler for that particular exception. We will elaborate on the <b><tt Class="monofont">try-except</Tt></b> syntax more as we progress further in this chapter.</p>
+
+					<DIV Class="note"><P CLAss="notetitle"><b>NOTE</b></P><P><P><I>The remaining code in the</i>
+							<b><tt CLASs="monofont">try</tt></b>
+							<i>suite from the point of the exception is never reached (hence never executed). Once an exception is raised, the race is on to decide on the continuing flow of control. The remaining code is skipped, and the search for a handler begins. If one is found, the program continues in the handler.</i></p>
+<p><i>If the search is exhausted without finding an appropriate handler, the exception is then propagated to the caller's level for handling, meaning the stack frame immediately preceding the current one. If there is no handler at the next higher level, the exception is yet again propagated to its caller. If the top level is reached without an appropriate handler, the exception is considered</i> unhandled, <i>and the Python interpreter will display the traceback and exit.</i></p>
+</p></div><br>
+
+				
+				
+					<h4>Wrapping a Built-in Function</H4>
+					<p>We will now present an interactive example—starting with the bare necessity of detecting an error, then building continuously on what we have to further improve the robustness of our code. The premise is in detecting errors while trying to convert a numeric string to a proper (numeric object) representation of its value.</p>
+
+					<P>The <tt cLass="monofont">float()</tT> built-in function has a primary purpose of converting any numeric type to a float. In Python 1.5, <tt cLASS="monofont">float()</tt> was given the added feature of being able to convert a number given in string representation to an actual float value, obsoleting the use of the <tt CLASs="monofont">atof()</tt> function of the <tT CLAss="monofont">string</tt> module. Readers with older versions of Python may still use <TT CLass="monofont">string.atof(),</tt> replacing <tt class="monofont">float(),</tt> in the examples we use here.</p>
+
+					<pre>
+						
+&gt;&gt;&gt; float(12345)
+12345.0
+&gt;&gt;&gt; float('12345')
+12345.0
+&gt;&gt;&gt; float('123.45e67')
+1.2345e+069
+
+					</prE>
+
+					<p>Unfortunately, <tT claSs="monofont">float()</tt> is not very forgiving when it comes to bad input:</p>
+
+					<Pre>
+						
+&gt;&gt;&gt; float('abcde')
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+    float('abcde')
+ValueError: invalid literal for float(): abcde
+&gt;&gt;&gt;
+&gt;&gt;&gt; float(['this is', 1, 'list'])
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+    float(['this is', 1, 'list'])
+TypeError: object can't be converted to float
+
+					</pRE>
+
+					<P>Notice in the errors above that <Tt claSS="monofont">float()</TT> does not take too kindly to strings which do not represent numbers or non-strings. Specifically, if the correct argument type was given (string type) but that type contained an invalid value, the exception raised would be <tt clASS="monofont">ValueError</Tt> because it was the value that was improper, not the type. In contrast, a list is a bad argument altogether, not even being of the correct type; hence, <tt cLASS="monofont">TypeError</tt> was thrown.</p>
+
+					<p>Our exercise is to call <tt class="monofont">float()</tt>
+						"safely," or in a more "safe manner," meaning that we want to ignore error situations because they do not apply to our task of converting numeric string values to floating point numbers, yet are not severe enough errors that we feel the interpreter should abandon execution. To accomplish this, we will create a "wrapper" function, and, with the help of <b><tt clasS="monofont">try-except,</tt></B> create the environment that we envisioned. We shall call it <tt cLass="monofont">safe_float().</tT> In our first iteration, we will scan and ignore only <tt cLASS="monofont">ValueErrors,</tt> because they are the more likely culprit. <tt CLASs="monofont">TypeErrors</tt> rarely happen since somehow a non-string must be given to <tT CLAss="monofont">float().</tt></P>
+
+					<PRE>
+						
+<b>def</b> safe_float(object):
+     <b>try:</b>
+         <b>return</b> float(object)
+     <b>except</b> ValueError:
+         <b>pass</b>
+
+					</pre>
+
+					<p>The first step we take is to just "stop the bleeding." In this case, we make the error go away by just "swallowing it." In other words, the error will be detected, but since we have nothing in the <b><tt claSs="monofont">except</tT></b> suite (except the <b><tT clasS="monofont">pass</tt></b> statement, which does nothing but serve as a syntactical placeholder for where code is supposed to go), no handling takes place. We just ignore the error.</P>
+
+					<P>One obvious problem with this solution is that we did not explicitly return anything to the function caller in the error situation. Even though <TT clasS="monofont">None</TT> is returned (when a function does not return any value explicitly, i.e., completing execution without encountering a <B><tt clASS="monofont">return</Tt></b>
+						<i><tT CLAss="monofont">object</tt></i> statement), we give little or no hint that anything wrong took place. The very least we should do is to explicitly return <tt class="monofont">None</tt> so that our function returns a value in both cases and makes our code somewhat easier to understand:</p>
+
+					<pre>
+						
+<b>def</b> safe_float(object):
+    <B>try:</b>
+         retval = float(object)
+    <b>except</B> ValueError:
+         retval = None
+    <b>return</b> retval
+
+					</pRe>
+
+					<p>Bear in mind that with our change above, nothing about our code changed except that we used one more local variable. In designing a well-written application programmer interface (API), you may have kept the return value more flexible. Perhaps you documented that if a proper argument was passed to <tt ClasS="monofont">safe_float(),</TT> then indeed, a floating point number would be returned, but in the case of an error, you chose to return a string indicating the problem with the input value. We modify our code one more time to reflect this change:</P>
+
+					<pre>
+						
+<b>def</B> safe_float(object):
+     <B>try:</B>
+         retval = float(object)
+     <B>except</b> ValueError:
+         retval = 'could not convert non-number to float'
+     <b>return</b> retval
+
+					</pRE>
+
+					<P>The only thing we changed in the example was to return an error string as opposed to just <Tt claSS="monofont">None.</TT> We should take our function out for a "test drive" to see how well it works so far:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; safe_float('12.34')
+12.34
+&gt;&gt;&gt; safe_float('bad input')
+'could not convert non-number to float'
+
+					</pre>
+
+					<p>We made a good start—now we can detect invalid string input, but we are still vulnerable to invalid <i>objects</i> being passed in:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; safe_float({'a': 'Dict'})
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+  File "safeflt.py", line 28, in safe_float
+    retval = float(object)
+TypeError: object can't be converted to float
+
+					</pre>
+
+					<p>We will address this final shortcoming momentarily, but before we further modify our example, we would like to highlight the flexibility of the <b><tT clAss="monofont">try-except</tT></b> syntax, especially the <b><tt ClasS="monofont">except</TT></B> statement, which comes in a few more flavors.</p>
+
+				
+				
+					<h4><tt CLASs="monofont">try</tt> Statement with Multiple <tT CLAss="monofont">excepts</tt></H4>
+					<P>Earlier in this chapter, we introduced the following general syntax for <B><Tt class="monofont">except:</tt></b></p>
+
+					<pre>
+						
+<b>except</b>
+							<i>Exception:</i>
+     <i>suite_for_exception_Exception</i>
+
+					</pRe>
+
+					<p>The <B><tt cLass="monofont">except</tT></b> statement in such formats specifically detects exceptions named <i><tT CLAss="monofont">Exception.</tt></I> You can chain multiple <B><TT clasS="monofont">except</TT></B> statements together to handle different types of exceptions with the same <b><tt cLASS="monofont">try:</tt></b></p>
+
+					<pre>
+						
+<b>except</b>
+							<i>Exception1:</i>
+    <i>suite_for_exception_Exception1</i>
+<b>except</b>
+							<i>Exception2:</i>
+    <i>suite_for_exception_Exception2</i>
+                 :
+
+					</pRe>
+
+					<p>This same <B><tt cLass="monofont">try</tT></b> clause is attempted, and if there is no error, execution continues, passing all the <b><tT CLAss="monofont">except</tt></B> clauses. However, if an exception <I>does</I> occur, the interpreter will look through your list of handlers attempting to match the exception with one of your handlers (<B><tt clASS="monofont">except</Tt></b> clauses). If one is found, execution proceeds to <i>that</i>
+						<B><TT Class="monofont">except</tt></b> suite.</p>
+
+					<p>Our <tt class="monofont">safe_float()</tt> function has some brains now to detect specific exceptions. Even smarter code would handle each appropriately. To do that, we have to have separate <b><tT clAss="monofont">except</tT></b> statements, one for each exception type. That is no problem as Python allows <tt cLass="monofont">except</TT> statements can be chained together. Any reader familiar with popular third-generation languages (3GLs) will no doubt notice the similarities to the <TT clasS="monofont">switch/case</TT> statement which is absent in Python. We will now create separate messages for each error type, providing even more detail to the user as to the cause of his or her problem:</P>
+
+					<pre>
+						
+<b>def</B> safe_float(object):
+    <B>try:</B>
+        retval = float(object)
+    <B>except</b> ValueError:
+        retval = 'could not convert non-number to float'
+    <b>except</b> TypeError:
+        retval = 'object type cannot be converted to float'
+    <b>return</B> retval
+
+					</PRE>
+
+					<p>Running the code above with erroneous input, we get the following:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; safe_float('xyz')
+'could not convert non-number to float'
+&gt;&gt;&gt; safe_float(())
+'argument must be a string'
+&gt;&gt;&gt; safe_float(200L)
+200.0
+&gt;&gt;&gt; safe_float(45.67000)
+45.67
+
+					</pre>
+
+				
+				
+					<h4><tt class="monofont">except</tt> Statement with Multiple Exceptions</h4>
+					<p>We can also use the same <B><tt ClasS="monofont">except</tt></b> clause to handle multiple exceptions. <b><Tt clASS="monofont">except</Tt></b> statements which process more than one exception require that the set of exceptions be contained in a tuple:</p>
+
+					<pRE>
+						
+<B>except</B> (<i>Exception1, Exception2</i>):
+     <i>suite_for_Exception1_and_Exception2</i>
+
+					</PRE>
+
+					<P>The above syntax example illustrates how two exceptions can be handled by the same code. In general, any number of exceptions can follow an <b><tt cLASS="monofont">except</tt></b> statement as long as they are all properly enclosed in a tuple:</p>
+
+					<pre>
+						
+<b>except</b> (<i>Exception1</i>[, <i>Exception2</i>[, … <i>ExceptionN</i>…]]):
+     <i>suite_for_exceptions_Exception1_to_ExceptionN</i>
+
+					</pre>
+
+					<P>If for some reason, perhaps due to memory constraints or dictated as part of the design that all exceptions for our <tt ClasS="monofont">safe_float()</tt> function must be handled by the same code, we can now accommodate that requirement:</p>
+
+					<pRe>
+						
+<b>def</b> safe_float(object):
+    <B>try:</B>
+        retval = float(object)
+    <B>except</B> (ValueError, TypeError):
+        retval = 'argument must be a number or numeric string'
+    <b>return</b> retval
+
+					</prE>
+
+					<P>Now there is only the single error string returned on erroneous input:</P>
+
+					<Pre>
+						
+&gt;&gt;&gt; safe_float('Spanish Inquisition')
+'argument must be a number or numeric string'
+&gt;&gt;&gt; safe_float([])
+'argument must be a number or numeric string'
+&gt;&gt;&gt; safe_float('1.6')
+1.6
+&gt;&gt;&gt; safe_float(1.6)
+1.6
+&gt;&gt;&gt; safe_float(932)
+932.0
+
+					</prE>
+
+				
+				
+					<H4><TT clasS="monofont">try-except</TT> with No Exceptions Named</H4>
+					<p>The final syntax for <b><tt class="monofont">try-except</tt></b> we are going to present is one which does not specify an exception on the except header line:</p>
+
+					<pre>
+						
+<b>try:</b>
+    <i>try_suite</i>      # watch for exceptions here
+<B>except:</b>
+    <i>except_suite</I>   # handles all exceptions
+
+					</pre>
+
+					<P>Although this code "catches the most exceptions," it does not promote good Python coding style. One of the chief reasons is that it does not take into account the potential root causes of problems which may generate exceptions. Rather than investigating and discovering what types of errors may occur and how they may be prevented from happening, this type of code "turns the blind eye," thereby ignoring the possible causes (and remedies). Also see the Core Style featured in this section.</p>
+
+					<div ClasS="note"><P CLass="notetitle"><b>NOTE</B></P><P><P><i>The</i>
+							<b><tT CLAss="monofont">try-except</tt></B>
+							<I>statement has been included in Python to provide a powerful mechanism for programmers to track down potential errors and to perhaps provide logic within the code to handle situations where it may not otherwise be possible, for example in C. The main idea is to minimize the number of errors and still maintain program correctness. As with all tools, they must be used properly.</I></P>
+<p><i>One incorrect use of</i>
+							<b><tt class="monofont">try-except</tt></b>
+							<i>is to serve as a giant bandage over large pieces of code. By that we mean putting large blocks, if not your entire source code, within a</i>
+							<b><tt cLasS="monofont">try</tt></b>
+							<I>and/or have a large generic</i>
+							<b><tt ClasS="monofont">except</TT></B>
+							<i>to "filter" any fatal errors by ignoring them:</i></p>
+<pRE>
+							
+# this is really bad code
+<B>try:</B>
+								<i>large_block_of_code</i> # bandage of large piece of code
+<b>except:</b>
+								<B>pass</B>                # blind eye ignoring all errors
+
+						</PRe>
+<p><i>Obviously, errors cannot be avoided, and the job of</i>
+							<B><TT Class="monofont">try-except</tt></b>
+							<i>is to provide a mechanism whereby an acceptable problem can be remedied or properly dealt with, and not be used as a filter. The construct above will hide many errors, but this type of usage promotes a poor engineering practice that we certainly cannot endorse.</i></p>
+<p><i>Bottom line: Avoid using</i>
+							<b><tt clasS="monofont">try-except</tt></B>
+							<i>around a large block of code with a</i>
+							<b><Tt claSs="monofont">pass</tt></B>
+							<I>just to hide errors. Instead, handle specific exceptions and enclose only deserving code in your</I>
+							<B><tt clASS="monofont">try</Tt></b>
+							<i>clause, as evidenced by some of the constructs we used for the</i>
+							<TT CLass="monofont">safe_float()</tT>
+							<I>example in this section.</I></P>
+</p></div><br>
+
+				
+				
+					<h4>"Exceptional Arguments"</h4>
+					<p>No, the title of this section has nothing to do with having a major fight. Instead, we are referring to the fact that exception may have <i>arguments</i> are passed along to the exception handler when they are raised. When an exception is raised, parameters are generally provided as an additional aid for the exception handler. Although arguments to exceptions are optional, the standard built-in exceptions do provide at least one argument, an error string indicating the cause of the exception.</p>
+
+					<p>Exception parameters can be ignored in the handler, but the Python provides syntax for saving this value. To access any provided exception argument, you must reserve a variable to hold the argument. This argument is given on the <b><tt clasS="monofont">except</tt></B> header line and follows the exception type you are handling. The different syntaxes for the <b><tt Class="monofont">except</Tt></b> statement can be extended to the following:</p>
+
+					<PRE>
+						
+# single exception
+<B>except</b>
+							<i>Exception, Argument:</i>
+     <i>suite_for_Exception_with_Argument</I>
+
+# multiple exceptions
+<B>except</B> (<I>Exception1, Exception2,</i> …, <i>ExceptionN</i>), <i>Argument:</I>
+     <I>suite_for_Exception1_to_ExceptionN_with_Argument</I>
+
+					</Pre>
+
+					<p>Unless a string exception (see <a HREF="159.html">Section 10.4</a>) was raised, <i><tt class="monofont">Argument</tt></i> is a class instance containing diagnostic information from the code raising the exception. The exception arguments themselves go into a tuple which is stored as an attribute of the class instance, an instance of the exception class from which it was instantiated. In the first alternate syntax above, <i><tt class="monofont">Argument</Tt></i> would be an instance of the <Tt clAss="monofont">Exception</tt> class.</P>
+
+					<p>For most standard built-in exceptions, that is, exceptions derived from <tt CLASs="monofont">StandardError,</tt> the tuple consists of a single string indicating the cause of the error. The actual exception name serves as a satisfactory clue, but the error string enhances the meaning even more. Operating system or other environment type errors, i.e., <tT CLAss="monofont">IOError,</tt> will also include an operating system error number which precedes the error string in the tuple. Whether an <I><TT Class="monofont">Argument</TT></I> is merely a string or a combination of an error number and a string, calling <Tt class="monofont">str</tt><tt class="monofont">(</tt><i><tt ClaSs="monofont">Argument</tt></I><tt clAss="monofont">)</tT> should present a human-readable cause of an error.</P>
+
+					<P> The only caveat is that not all exceptions raised in third-party or otherwise external modules adhere to this standard protocol (or error string or (error number, error string). We recommend to follow such a standard when raising your own exceptions (see Core Style note).</P>
+
+					<div cLASS="note"><p claSS="notetitle"><B>NOTE</B></p><p><p><i>When you raise built-in exceptions in your own code, try to follow the protocol established by the existing Python code as far as the error information that is part of the tuple passed as the exception argument. In other words, if you raise a</I>
+							<TT Class="monofont">ValueError,</tt>
+							<i>provide the same argument information as when the interpreter raises a</i>
+							<tt class="monofont">ValueError</tt>
+							<i>exception, and so on. This helps keep the code consistent and will prevent other code which uses your module from breaking.</i></p>
+</P></diV><br>
+
+					<p>The example below is when an invalid object is passed to the <Tt claSs="monofont">float()</tt> built-in function, resulting in a <TT CLass="monofont">TypeError</tT> exception:</P>
+
+					<PRe>
+						
+&gt;&gt;&gt; <b>try:</b>
+…       float(['float() does not', 'like lists', 2])
+…   <b>except</B> TypeError, diag:# capture diagnostic info
+…       <B>pass</B>
+…
+&gt;&gt;&gt; type(diag)
+&lt;type 'instance'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; <B>print</b> diag
+object can't be converted to float
+
+					</pre>
+
+					<P>The first thing we did was cause an exception to be raised from within the <B><TT class="monofont">try</tt></b> statement. Then we passed cleanly through by ignoring but saving the error information. Calling the <tt class="monofont">type()</tt> built-in function, we were able to confirm that our exception was indeed an instance. Finally, we displayed the error by calling <tt cLasS="monofont">print</tt> with our diagnostic exception argument.</p>
+
+					<P>To obtain more information regarding the exception, we can use the special <tt clAss="monofont">__class__</tT> instance attribute which identifies which class an instance was instantiated from. Class objects also have attributes, such as a documentation string and a string name which further illuminate the error type:</P>
+
+					<PRe>
+						
+&gt;&gt;&gt; diag                     # exception instance object
+&lt;exceptions.TypeError instance at 8121378&gt;
+&gt;&gt;&gt; diag.__class__           # exception class object
+&lt;class exceptions.TypeError at 80f6d50&gt;
+&gt;&gt;&gt; diag.__class__.__doc__   # exception class documentation  string
+'Inappropriate argument type.'
+&gt;&gt;&gt; diag.__class__.__name__  # exception class name
+'TypeError'
+
+					</pre>
+
+					<P>As we will discover in <A HRef="210.html">Chapter 13</a>—Classes and OOP—the special instance attribute <tT CLAss="monofont">__class__</tt> exists for all class instances, and the <TT CLass="monofont">__doc__</tt> class attribute is available for all classes which define their documentation strings.</p>
+
+					<p>We will now update our <tt class="monofont">safe_float()</tt> one more time to include the exception argument which is passed from the interpreter from within <tt clAss="monofont">float()</Tt> when exceptions are generated. In our last modification to <tt Class="monofont">safe_float(),</Tt> we merged both the handlers for the <tt CLASs="monofont">ValueError</tt> and <tT CLAss="monofont">TypeError</tt> exceptions into one because we had to satisfy some requirement. The problem, if any, with this solution is that no clue is given as to which exception was raised nor what caused the error. The only thing returned is an error string which indicated some form of invalid argument. Now that we have the exception argument, this no longer has to be the case.</P>
+
+					<P>Because each exception will generate its own exception argument, if we chose to return this string rather than a generic one we made up, it would provide a better clue as to the source of the problem. In the following code snippet, we replace our single error string with the string representation of the exception argument.</P>
+
+					<Pre>
+						
+<b>def</b> safe_float(object):
+     <B>try:</B>
+         retval = float(object)
+     <B>except</B> (ValueError, TypeError), diag:
+         retval = str(diag)
+    <b>return</b> retval
+
+					</pre>
+
+					<p>Upon running our new code, we obtain the following (different) messages when providing improper input to <tt class="monofont">safe_float(),</tt> even if both exceptions are managed by the same handler:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; safe_float('xyz')
+'invalid literal for float(): xyz'
+&gt;&gt;&gt; safe_float({})
+'object can't be converted to float'
+
+					</pRe>
+
+				
+				
+					<h4>Using Our Wrapped Function in an Application</H4>
+					<p>We will now feature <tt Class="monofont">safe_float()</Tt> in a mini application which takes a credit card transaction data file (<tt CLASs="monofont">carddata.txt</tt>) and reads in all transactions, including explanatory strings. Here are the contents of our example <tT CLAss="monofont">carddata.txt</tt> file:</P>
+
+					<PRE>
+						
+% cat carddata.txt
+# carddata.txt
+previous balance
+25
+debits
+21.64
+541.24
+25
+credits
+-25
+-541.24
+finance charge/late fees
+7.30
+5
+
+					</pre>
+
+					<p>Our program, <TT CLass="monofont">cardrun.py,</tt> is given in <a href="158#8.html">Example 10.1</a>.</p>
+
+					
+						<h5>
+<a name="8"></a>Example 10.1. Credit Card Transactions (<tT clAss="monofont">cardrun.py</tT>)</h5>
+						<p><b><i>We use</I></b>
+							<tt CLASs="monofont">safe_float()</tt>
+							<b><I>to process a set of credit card transactions given in a file and read in as strings. A log file tracks the processing.</I></B></P>
+
+						<pre cLASS="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <b>import</b> types
+004 4
+005 5  <b>def</b> safe_float(object):
+006 6      'safe version of float()'
+007 7      <B>try:</B> &lt;$nopage&gt;
+008 8          retval = float(object)
+009 9      <B>except</B> (ValueError, TypeError), diag:
+010 10         retval = str(diag)
+011 11     <b>return</b> retval
+012 12
+013 13 <b>def</b> main():
+014 14     'handles all the data processing'
+015 15     log = open('cardlog.txt', 'w')
+016 16     <b>try:</b> &lt;$nopage&gt;
+017 17         ccfile = open('carddata.txt', 'r')
+018 18     <b>except</b> IOError:
+019 19         log.write('no txns this month\n')
+020 20         log.close()
+021 21         <b>return</b> &lt;$nopage&gt;
+022 22
+023 23     txns = ccfile.readlines()
+024 24     ccfile.close()
+025 25     total = 0.00
+026 26     log.write('account log:\n')
+027 27
+028 28     <b>for</b> eachTxn <b>in</b> txns:
+029 29         result = safe_float(eachTxn)
+030 30         <b>if</b> type(result) == types.FloatType:
+031 31             total = total + result
+032 32             log.write('data… processed\n')
+033 33         <b>else:</b> &lt;$nopage&gt;
+034 34             log.write('ignored: %s' % result)
+035 35     <b>print</b> '$%.2f (new balance)' % (total)
+036 36     log.close()
+037 37
+038 38 <B>if</b> __name__ == '__main__':
+039 39     main()
+040  &lt;$nopage&gt;</pRe>
+					
+					
+						<h5>Lines 1 – 3</h5>
+						<P>The script starts by importing the <tt clAss="monofont">types</tT> modules, which contains Type objects for the Python types. That is why we direct them to standard error instead.</P>
+
+					
+					
+						<H5>Lines 5 – 11</H5>
+						<p>This chunk of code contains the body of our <tt cLASS="monofont">safe_float()</tt> function.</p>
+
+					
+					
+						<h5>Lines 13 – 36</H5>
+						<P>The core part of our application performs three major tasks: (1) read the credit card data file, (2) process the input, and (3) display the result. Lines 16–24 perform the extraction of data from the file. You will notice that there is a <B><Tt claSS="monofont">try-except</TT></b> statement surrounding the file open.</p>
+
+						<p>A log file of the processing is also kept. In our example, we are assuming the log file can be opened for write without any problems. You will find that our progress is kept by the log. If the credit card data file cannot be accessed, we will assume there are no transactions for the month (lines 18–21).</p>
+
+						<p>The data is then read into the <tt class="monofont">txns</tt> (transactions) list where it is iterated over in lines 28–34. After every call to <tt clasS="monofont">safe_float(),</tt> we check the result type using the <Tt clAss="monofont">types</tt> module. The <Tt clASS="monofont">types</Tt> module contains items of each type, named appropriately <i><tt CLASs="monofont">type</tt></i><TT CLass="monofont">Type,</tT> so that direct comparisons can be performed with results that determine an object's type. In our example, we check to see if <TT Class="monofont">safe_float()</tt> returns a string or float. Any string indicates an error situation with a string that could not be converted to a number, while all other values are floats which can be added to the running subtotal. The final new balance is then displayed as the final line of the <tt class="monofont">main()</tt> function.</p>
+
+					
+					
+						<h5>Lines 38 – 39</h5>
+						<p>These lines represent the general "start only if not imported" functionality.</p>
+
+						<P>Upon running our program, we get the following output:</p>
+
+						<pRe>
+							
+% cardrun.py
+$58.94 (new balance)
+
+						</prE>
+
+						<p>Taking a peek at the resulting log file (<tt cLass="monofont">cardlog.txt</TT>), we see that it contains the following log entries after <TT clasS="monofont">cardrun.py</TT> processed the transactions found in <Tt claSS="monofont">carddata.txt:</TT></p>
+
+						<pre>
+							
+% cat cardlog.txt
+account log:
+ignored: invalid literal for float(): # carddata.txt
+ignored: invalid literal for float(): previous balance
+data… processed
+ignored: invalid literal for float(): debits
+data… processed
+data… processed
+data… processed
+ignored: invalid literal for float(): credits
+data… processed
+data… processed
+ignored: invalid literal for float(): finance charge/
+late fees
+data… processed
+data… processed
+
+						</PRE>
+
+					
+				
+				
+					<H4><tt class="monofont">else</tt> Clause</h4>
+					<p>We have seen the <b><tt class="monofont">else</tT></b> statement with other Python constructs such as conditionals and loops. With respect to <b><Tt clAss="monofont">try-except</tt></B> statements, its functionality is not that much different from anything else you have seen: The <b><tt CLASs="monofont">else</tt></b> clause executes if no exceptions were detected in the preceding <B><TT Class="monofont">try</TT></B> suite.</P>
+
+					<p>All code within the <b><tt CLASs="monofont">try</tt></b> suite must have completed successfully (i.e., concluded with no exceptions raised) before any code in the <b><tt class="monofont">else</tt></b> suite begins execution. Here is a short example in Python pseudocode:</p>
+
+					<pre>
+						
+<b>import</B> 3rd_party_module
+
+log = open('logfile.txt', 'w')
+
+<b>try:</b>
+   <I>3rd_party_module.function()</i>
+<b>except:</b>
+   log.write("*** caught exception in module\n")
+<B>else:</b>
+   log.write("*** no exceptions caught\n")
+
+log.close()
+
+					</pre>
+
+					<P>In the above example, we import an external module and test it for errors. A log file is used to determine whether there were defects in the third-party module code. Depending on whether an exception occurred during execution of the external function, we write differing messages to the log.</p>
+
+				
+				
+					<h4><tT CLAss="monofont">try-except</tt> Kitchen Sink</H4>
+					<P>We can combine all the varying syntaxes that we have seen so far in this chapter to highlight all the different ways you can use <B><Tt claSS="monofont">try-except-else:</TT></b></p>
+
+					<prE>
+						
+<B>try:</B>
+     <I>try_suite</i>
+
+<b>except</b>
+							<i>Exception1:</i>
+     <i>suite_for_Exception1</i>
+
+<b>except</b> (<i>Exception2, Exception3, Exception4</i>):
+      <i>suite_for_Exceptions_2_3_and_4</i>
+
+<b>except</b>
+							<i>Exception5, Argument5:</i>
+     <i>suite_for_Exception5_plus_argument</i>
+
+<b>except</B> (<i>Exception6, Exception7</i>), <I>Argument67:</i>
+     <i>suite_for_Exceptions6_and_7_plus_argument</i>
+
+<B>except:</b>
+     <i>suite_for_all_other_exceptions</i>
+
+<b>else:</B>
+     <i>no_exceptions_detected_suite</i>
+
+					</pRE>
+
+				
+				
+					<H4><Tt claSS="monofont">try-finally</TT> Statement</h4>
+					<p>The <b><tT CLAss="monofont">try-finally</tt></B> statement differs from its <B><TT class="monofont">try-except</tt></b> brethren in that it is not used to handle exceptions. Instead it is used to maintain consistent behavior regardless of whether or not exceptions occur. The <b><tt class="monofont">finally</tt></b> suite executes regardless of an exception being triggered within the <b><Tt cLass="monofont">try</Tt></b> suite.</p>
+
+					<pRe>
+						
+<b>try:</b>
+    <I>try_suite</I>
+<B>finally:</B>
+    <i>finally_suite</i>  # executes regardless of
+exceptions
+
+					</prE>
+
+					<P>When an exception does occur within the <B><Tt claSS="monofont">try</TT></b> suite, execution jumps immediately to the <b><tt CLASs="monofont">finally</tt></b> suite. When all the code in the <b><tt class="monofont">finally</tt></b> suite completes, the exception is re-raised for handling at the next higher layer. Thus it is common to see a <b><tt clAss="monofont">try-finally</Tt></b> nested as part of a <b><Tt claSs="monofont">try-except</tt></B> suite.</P>
+
+					<P>One place where we can add a <B><tt clASS="monofont">try-finally</Tt></b> statement is by improving our code in <tt CLASs="monofont">cardrun.py</tt> so that we catch any problems which may arise from reading the data from the <tT CLAss="monofont">carddata.txt</tt> file. In the current code in <a href="158#8.html">Example 10.1</a>, we do not detect errors during the read phase (using <tt class="monofont">readlines()</tt>):</p>
+
+					<Pre>
+						
+<B>try:</b>
+     ccfile = open('carddata.txt')
+<b>except</b> IOError:
+     log.write('no txns this month\n')
+     log.close()
+     <B>return</b>
+
+txns = ccfile.readlines()
+ccfile.close()
+
+					</pre>
+
+					<P>It is possible for <tt cLASS="monofont">readlines()</tt> to fail for any number of reasons, one of which is if <tt CLASs="monofont">carddata.txt</tt> was a file on the network (or a floppy) that became inaccessible. Regardless, we should improve this piece of code so that the entire input of data is enclosed in the <b><TT CLass="monofont">try</tT></B> clause:</P>
+
+					<Pre>
+						
+<b>try:</b>
+    ccfile = open('carddata.txt')
+    txns = ccfile.readlines()
+    ccfile.close()
+
+<b>except</b> IOError:
+    log.write('no txns this month\n')
+    log.close()
+    <b>return</b>
+
+					</pre>
+
+					<p>All we did was to move the <tt class="monofont">readlines()</tT> and <tt ClasS="monofont">close()</tt> method calls to the try suite. Although our code is more robust now, there is still room for improvement. Notice what happens if there was an error of some sort. If the open succeeds but for some reason the <tt ClasS="monofont">readlines()</TT> call does not, the exception will continue with the <B><tt clASS="monofont">except</Tt></b> clause. No attempt is made to close the file. Wouldn't it be nice if we closed the file regardless of whether an error occurred or not? We can make it a reality using <b><tT CLAss="monofont">try-finally:</tt></B></P>
+
+					<PRe>
+						
+<b>try:</b>
+    ccfile = open('carddata.txt')
+    <b>try:</b>
+        txns = ccfile.readlines()
+    <b>finally:</b>
+        ccfile.close()
+<b>except</b> IOError:
+        log.write('no txns this month\n')
+        log.close()
+        <b>return</b>
+
+					</pre>
+
+					<p>Now our code is more robust than ever. Let us take a look at another familiar example, calling <tt claSs="monofont">float()</tT> with an invalid value. We will use <b><tt Class="monofont">print</Tt></b> statements to show you the flow of execution within the <b><TT CLass="monofont">try-except</tT></B> and <B><Tt claSS="monofont">try-finally</TT></b> clauses. We present <tt cLASS="monofont">tryfin.py</tt> in <a href="158#16.html">Example 10.2</a>.</p>
+
+					
+						<h5>
+<a name="16"></a>Example l0.2. Testing the <tt clAss="monofont">try-finally</Tt> Statement (<tt Class="monofont">tryfin.py</Tt>)</h5>
+						<p><B><I>This small script simply illustrates the flow of control when using a</I></B>
+							<b><tt cLASS="monofont">try-finally</tt></b>
+							<b><I>statement embedded within the try clause of a</I></B>
+							<B><tt clASS="monofont">try-except</Tt></b>
+							<b><i>statement.</i></b></p>
+
+						<pre class="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <b>try:</b> &lt;$nopage&gt;
+004 4       <b>print</b> 'entering 1st try'
+005 5       <b>try:</B> &lt;$nopage&gt;
+006 6           <b>print</b> 'entering 2nd try'
+007 7           float('abc')
+008 8
+009 9       <B>finally:</b> &lt;$nopage&gt;
+010 10          <b>print</b> 'doing finally'
+011 11
+012 12  <B>except</b> ValueError:
+013 13      <b>print</b> 'handling ValueError'
+014 14
+015 15  <b>print</B> 'finishing execution'
+016  &lt;$nopage&gt;</pre>
+					
+					<P>Running this code, we get the following output:</P>
+
+					<PRe>
+						
+% tryfin.py
+entering 1st try
+entering 2nd try
+doing finallyhandling ValueError
+finishing execution
+
+					</pre>
+
+					<P>One final note: If the code in the <B><TT clasS="monofont">finally</TT></B> suite raises another exception, or is aborted due to a <b><tt cLASS="monofont">return,break,</tt></b> or <b><tt class="monofont">continue</tt></b> statement, the original exception is lost and cannot be re-raised. Quick review: The <b><tt claSs="monofont">try-finally</tT></b> statement presents a way to detect errors but ignore other than cleanup, and passes the exception up to higher layers for possible handling.</p>
+
+					<dIv claSs="note"><p cLASS="notetitle"><b>NOTE</b></p><p><P><I>Currently, <B><Tt claSS="monofont">continue</TT></b> statements inside a <b><tt CLASs="monofont">try</tt></b> suite are not allowed due to the current implementation of the Python bytecode generator (see FAQ 6.28). This restriction has been lifted in JPython, however.</i></p>
+<p><i>The proper workaround is to use an <b><tt class="monofont">if-else</tt></b> in place of a <b><Tt cLass="monofont">continue.</Tt></b> A more interesting solution involves creating a special exception handler to issue the <b><tT claSS="monofont">continue</TT></b> (since <b><tt CLASs="monofont">continue</tt></b> statements are fine inside an <B><TT Class="monofont">except</TT></B> clause), as illustrated by the following Python pseudocode:</I></p>
+<pre>
+							
+# create our own exception (see <a href="164.html">section 10.9</a>)
+<b>class</b> Continue(Exception):
+    <b>pass</b>
+
+# begin our loop
+<i>some_loop:</i>              pseudocode for a loop
+
+    # <b>try</b> clause inside <i>some_loop</i>
+								<B>try:</b>
+								<b>if</B>
+								<i>skip_rest_of_loop_expr:</i>
+								<b>raise</B> Continue
+
+         …code we do not want executed
+         if <i>skip_rest_of_loop_expr</i> is true…
+
+    <b>except</b> Continue:    # <B>continue</b> proxy (as <b>except</b> clause)
+        <B>continue</B>        # start next some_loop iteration
+
+    <B>except</B>
+								<i>SomeError:</i>   # handle real exceptions
+         :
+
+						</prE>
+<P><I>We will look at the <B><tt clASS="monofont">raise</Tt></b> statement later on in this chapter, but, as you can probably tell, <b><tT CLAss="monofont">raise</tt></b> is the statement that lets programmers explicitly raise exceptions in Python.</i></p>
+</p></div><br>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="157.html" title="Exceptions in Python"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=158" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="158.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="159.html" title="*Exceptions as Strings"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

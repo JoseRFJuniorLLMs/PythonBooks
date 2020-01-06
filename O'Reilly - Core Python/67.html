@@ -1,0 +1,115 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Modules</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="48.html" class="navtitle">2. Getting Started</a> &gt; <span class="nonavtitle">Modules</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="66.html" title="Classes"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=67" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="67.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="68.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A10%3A33+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172036093231197067193166</font><a href="read1.asp?bookname=0130260363&snode=67&now=5%2F29%2F2002+9%3A10%3A33+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Modules</h3>
+				<p>Modules are a logical way to physically organize and distinguish related pieces of Python code into individual files. Modules can contain executable code, functions, classes, or any and all of the above.</p>
+
+				<P>When you create a Python source file, the name of the module is the same as the file except without the trailing "<TT Class="monofont">.py</TT>" extension. Once a module is created, you may "import" that module for use from another module using the <B><Tt claSS="monofont">import</TT></b> statement.</p>
+
+				
+					<h4>How to Import a Module</h4>
+					<pre>
+						
+ <b>import</b>
+							<i>module_name</i>
+
+					</pre>
+
+				
+				
+					<h4>How to Call a Module Function or Access a Module Variable</h4>
+					<p>Once imported, a module's attributes (functions and variables) can be accessed using the familiar dotted attribute notation:</p>
+
+					<prE>
+						
+ <i>module.function</i>()
+ <I>module.variable</i>
+
+					</prE>
+
+					<p>We will now present our Hello World! example again, but using the output functions inside the <tt cLass="monofont">sys</TT> module.</P>
+
+					<Pre>
+						
+&gt;&gt;&gt; <b>import</b> sys
+&gt;&gt;&gt; sys.stdout.write('Hello World!\n')
+Hello World!
+
+					</PRE>
+
+					<P>This code behaves just like our original Hello World! using the <b><tt cLASS="monofont">print</tt></b> statement. The only difference is that the standard output <tT CLAss="monofont">write()</tt> method is called, and the NEWLINE character needs to be stated explicitly because, unlike the <b><tt class="monofont">print</tt></b> statement, <tt claSs="monofont">write()</tT> does not do that for you.</p>
+
+					<p>Let us now look at some other attributes of the <tT clasS="monofont">sys</tt> module and some of the functions in the <tT CLAss="monofont">string</tt> module as well.</P>
+
+					<PRE>
+						
+&gt;&gt;&gt; <b>import</b> sys
+&gt;&gt;&gt; <b>import</b> string
+&gt;&gt;&gt; sys.platform
+'win32'
+&gt;&gt;&gt; sys.version
+'1.5.2 (#0, Apr 13 1999, 10:51:12) [MSC 32 bit (Intel)]'
+&gt;&gt;&gt;
+&gt;&gt;&gt; up2space = string.find(sys.version, ' ')
+&gt;&gt;&gt; ver = sys.version[:up2space]
+&gt;&gt;&gt; ver
+1.5.2
+&gt;&gt;&gt;
+&gt;&gt;&gt; <B>print</B> 'I am running Python %s on %s' % (ver, sys.platform)
+I am running Python 1.5.2 on win32
+
+					</PRe>
+
+					<p>As you can probably surmise, the <tt CLASs="monofont">sys.platform</tt> and <tt class="monofont">sys.version</tt> variables contain information regarding the system you are running on and which version of the Python interpreter you are using.</p>
+
+					<p>The <tt clasS="monofont">string.find()</tt> function looks for substrings in strings. In the example, we are capturing just the version number which occurs from the beginning of the string to right before the first space character. We use <Tt clAss="monofont">find()</tt> to tell us where the space is located so we can grab all the characters in the string before the space.</P>
+
+					<p>Another way to snare the version number is by breaking up the entire string into words (separated by spaces). The version number is the first word, so that is all we want. The <tt CLASs="monofont">string.split()</tt> function returns a list of all the "words" in a string:</p>
+
+					<PRE>
+						
+&gt;&gt;&gt; verchunks = string.split(sys.version)
+&gt;&gt;&gt; verchunks
+['1.5.2', '(#0,', 'Apr', '13', '1999,', '10:51:12)',
+'[MSC', '32', 'bit', '(Intel)]']
+&gt;&gt;&gt; <B>print</b> 'I am running Python %s on %s' % \
+…             (verchunks[0], sys.platform)
+I am running Python 1.5.2 on win32
+
+					</pre>
+
+					<P>Our output is the exact same as the example above In this case, there was clearly more than one way to accomplish the same task. This is not always the case in Python, but both examples will allow the reader to decide on the appropriate course of action when warranted.</P>
+
+					<P>You can find out more information on modules and importing in <A href="199.html">Chapter 12</A>.</P>
+
+					<P>We will cover all of the above topics in much greater detail throughout the text, but hopefully we have provided enough of a "quick dip in the pool" to facilitate your needs if your primary goal is to get started working with Python as quickly as possible without too much serious reading.</P>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="66.html" title="Classes"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=67" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="67.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="68.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

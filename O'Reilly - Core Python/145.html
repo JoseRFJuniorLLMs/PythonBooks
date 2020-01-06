@@ -1,0 +1,309 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; File Built-in Methods</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="141.html" class="navtitle">9. Files and Input/Output</a> &gt; <span class="nonavtitle">File Built-in Methods</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="144.html" title="File Built-in Function [ open() ]"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=145" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="145.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="146.html" title="File Built-in Attributes"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A26%3A04+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175207178023026015231045</font><a href="read9.asp?bookname=0130260363&snode=145&now=5%2F29%2F2002+9%3A26%3A04+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>File Built-in Methods</h3>
+				<p>Once <tT CLAss="monofont">open()</tt> has completed successfully and returned a file object, all subsequent access to the file transpires with that "handle." File methods come in four different categories: input, output, movement within a file, which we will call "intra-file motion," and miscellaneous. A summary of all file methods can be found in <A HREf="145#7.html">Table 9.3</a>. We will now go over each category.</p>
+
+				
+					<h4>Input</H4>
+					<P>The <TT class="monofont">read()</tt> method is used to read bytes directly into a string, reading at most the number of bytes indicated. If no size is given, the default value is set to -1, meaning that the file is read to the end. The <tt class="monofont">readline()</tt> method reads one line of the open file (reads all bytes until a NEWLINE character is encountered). The NEWLINE character is retained in the returned string. The <tt clAss="monofont">readlines()</Tt> method is similar, but reads all remaining lines as strings and returns a list containing the read set of lines. The <tt Class="monofont">readinto()</Tt> method reads the given number of bytes into a writable buffer object, the same type of object returned by the unsupported <tt CLASs="monofont">buffer()</tt> built-in function. (Since <tT CLAss="monofont">buffer()</tt> is not supported, neither is <TT CLass="monofont">readinto()</tT> ).</P>
+
+				
+				
+					<H4>Output</H4>
+					<p>The <tt class="monofont">write()</tt> built-in method has the opposite functionality as <tt class="monofont">read()</tt> and <tT clAss="monofont">readline().</tT> It takes a string which can consist of one or more lines of text data or a block of bytes and writes the data to the file. <tt clAss="monofont">writelines()</tT> operates on a list just like <TT Class="monofont">readlines(),</TT> but takes a list of strings and writes them out to a file. NEWLINE characters are not inserted between each line; so if desired, they must be added to the end of each line before <TT clasS="monofont">writelines()</TT> is called.</P>
+
+					<p>This is easily accomplished in Python 2.0 with a list comprehension:</p>
+
+					<prE>
+						
+&gt;&gt;&gt; output=['1stline', '2ndline', 'the end']
+&gt;&gt;&gt; [x + '\n' <B>for</B> x <B>in</b> output]
+['1stline\012', '2ndline\012', 'the end\012']
+
+					</pre>
+
+					<p>Note that there is no "<tt class="monofont">writeline()</tt>" method since it would be equivalent to calling <tt clasS="monofont">write()</tt> with a single line string terminated with a NEWLINE character.</P>
+
+				
+				
+					<h4>Intra-file Motion</h4>
+					<p>The <Tt claSs="monofont">seek()</tt> method (analogous to the <TT CLass="monofont">fseek()</tT> function in C) moves the file pointer to different positions within the file. The offset in bytes is given along with a <I>relative offset</I> location called <I><tt clASS="monofont">whence.</Tt></i> A value of 0 indicates distance from the beginning of a file (note that a position measured from the beginning of a file is also known as the <i>absolute offset</i>), a value of 1 indicates movement from the current location in the file, and a value of 2 indicates that the offset is from the end of the file. If you have used <TT CLass="monofont">fseek()</tt> as a C programmer, the values 0, 1, and 2 correspond directly to the constants SEEK_SET, SEEK_CUR, and SEEK_END, respectively. Use of the <tt class="monofont">seek()</tt> method comes to play when opening a file for read and write access.</p>
+
+					<p><tt clAss="monofont">tell()</Tt> is a complementary method to <tt Class="monofont">seek();</Tt> it tells you the current location of the file—in bytes from the beginning of the file.</p>
+
+				
+				
+					<h4>Others</H4>
+					<P>The <TT clasS="monofont">close()</TT> method completes access to a file by closing it. The Python garbage collection routine will also close a file when the file object reference has decreased to zero. One way this can happen is when only one reference exists to a file, say, <Tt claSS="monofont">fp = open(),</TT> and <tt clASS="monofont">fp</Tt> is reassigned to another file object before the original file is explicitly closed. Good programming style suggests closing the file before reassignment to another file object.</p>
+
+					<p>The <tt class="monofont">fileno()</tt> method passes back the file descriptor to the open file. This is an integer argument that can be used in lower-level operations such as those featured in the <tt class="monofont">os</tT> module. The <tt ClasS="monofont">flush()</tt> method. <tt ClasS="monofont">isatty()</TT> is a Boolean built-in method that returns 1 if the file is a tty-like device and 0 otherwise. The <Tt claSS="monofont">truncate()</TT> method truncates the file to 0 or the given size bytes.</p>
+
+				
+				
+					<h4>File Method Miscellany</h4>
+					<p>We will now reprise our first file example from <A HREf="48.html">Chapter 2</a>:</p>
+
+					<pRE>
+						
+filename = raw_input('Enter file name: ')
+file = open(filename,  'r')
+allLines = file.readlines()
+file.close()
+<B>for</B> eachLine <b>in</b> allLines:
+    <b>print</b> eachline,
+
+					</pre>
+
+					<p>We originally described how this program differs from most standard file access in that all the lines are read ahead of time before any display to the screen occurs. Obviously, this is not advantageous if the file is large. In those cases, it may be a good idea to go back to the tried-and-true way of reading and displaying one line at a time:</p>
+
+					<pre>
+						
+filename = raw_input('Enter file name: ')
+file = open(filename,  'r')
+done = 0
+<b>while not</b> done:
+    aLine = file.readline()
+    <b>if</b> aLine != " ":
+        <b>print</b> aLine,
+    <b>else:</b>
+        done = 1
+file.close()
+
+					</Pre>
+
+					<P>In this example, we do not know when we will reach the end of the file, so we create a Boolean flag <tt cLass="monofont">done,</tT> which is initially set for false. When we reach the end of the file, we will reset this value to true so that the <tt cLASS="monofont">while</tt> loop will exit. We change from using <tt CLASs="monofont">readlines()</tt>to read all lines to <tT CLAss="monofont">readline(),</tt> which reads only a single line. <TT CLass="monofont">readline()</tt> will return a blank line if the end of the file has been reached. Otherwise, the line is displayed to the screen.</p>
+
+					<p>We anticipate a burning question you may have… "Wait a minute! What if I have a blank line in my file? Will Python stop and think it has reached the end of my file?" The answer is, of course, no. A blank line in your file will not come back as a blank line. Recall that every line has one or more line separator characters at the end of the line, so a "blank line" would consist of a NEWLINE character or whatever your system uses. So even if the line in your text file is "blank," the line which is read is <i>not</i> blank, meaning your application would not terminate until it reaches the end-of-file.</p>
+
+					<div class="note"><p cLasS="notetitle"><b>NOTE</b></p><P><p><i>One of the inconsistencies of operating systems is the line separator character which their file systems support. On Unix, the line separator is the NEWLINE (</i>
+							<tT claSS="monofont">\n</TT><i>) character. For the Macintosh, it is the RETURN (</i><tt CLASs="monofont">\r</tt><i>), and DOS and Windows uses both (</I>
+							<TT Class="monofont">\r\n</TT><I>). Check your operating system to determine what your line separator(s) are.</I></p>
+<p><i>Other differences include the file pathname separator (Unix uses '<tt class="monofont">/</tt>', DOS and Windows use '<tt class="monofont">\</tT>', and the Macintosh uses '<tt ClasS="monofont">:</tt>'), the separator used to delimit a set of file pathnames, and the denotations for the current and parent directories.</i></p>
+<P><i>These inconsistencies generally add an irritating level of annoyance when creating applications that run on all three platforms (and more if more architectures and operating systems are supported). Fortunately, the designers of the</i>
+							<tT CLAss="monofont">os</tt>
+							<I>module in Python have thought of this for us. The</I>
+							<TT clasS="monofont">os</TT>
+							<I>module has five attributes which you may find useful. They are listed below in <a hreF="145#6.html">Table 9.2</A>.</I></P>
+<a name="6"></a><p><table border="1" ceLlsPaciNg="0" celLpadDING="1" widtH="100%">
+<CAPtion><H5>Table 9.2. <TT Class="monofont">os</TT> Module Attributes to Aid in Multi-platform Development</H5></Caption><colgroup align="left" sPan="2">
+<Tr vaLign="bottom">
+<tH>
+<fonT SIZe="2"><tt cLASS="monofont">os</tt>
+											<b><i>Module Attribute</I></B></FOnt></th>
+<TH>
+<FOnt size="2"><b><i>Description</i></b></font></th>
+</tr>
+<tr ValIgn="top">
+<tD>
+<font Size="2"><TT CLass="monofont">linesep</tT></FONt></td>
+<tD>
+<FONt sizE="2">string used to separate lines in a file</FONt></td>
+</tr>
+<tr valign="top">
+<td>
+<font sIze="2"><Tt clAss="monofont">sep</tt></Font></TD>
+<TD>
+<font SIZE="2">string used to separate file pathname components</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<font size="2"><tt class="monofont">pathsep</tt></fOnt></Td>
+<td>
+<Font sIze="2">string used to delimit a set of file pathnames</fONT></Td>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt sizE="2"><TT Class="monofont">curdir</tt></font></td>
+<td>
+<font siZe="2">string name for current working directory</fOnt></tD>
+</tr>
+<tr ValiGN="top">
+<TD>
+<font SIZE="2"><tt clASS="monofont">pardir</Tt></fonT></TD>
+<Td>
+<font size="2">string name for parent (of current working directory)</font></td>
+</tr>
+</colGroUp>
+</taBle></p>
+<p><I>Regardless of your platform, these variables will be set to the correct values when you import the <tt cLASS="monofont">os</tt> module. One less headache to worry about.</i></p>
+</P></DIV><br>
+
+					<p>We would also like to remind you that the comma placed at the end of the <b><TT CLass="monofont">print</tT></B> statement is to suppress the NEWLINE character that <B><Tt class="monofont">print</tt></b> normally adds at the end of output. The reason for this is because every line from the text file already contains a NEWLINE. <tt class="monofont">readline()</tt> and <tt ClaSs="monofont">readlines()</tt>do not strip off any whitespace characters in your line (see exercises.) If we omitted the comma, then your text file display would be doublespaced one NEWLINE which is part of the input and another added by the <B><tt clAss="monofont">print</tT></B> statement.</P>
+
+					<P>Before moving on to the next section, we will show two more examples, the first highlighting output to files (rather than input), and the second performing both file input and output as well as using the <tt clASS="monofont">seek()</Tt> and <tt cLASS="monofont">tell()</tt> methods for file positioning.</p>
+
+					<pRE>
+						
+filename = raw_input('Enter file name: ')
+file = open(filename,  'w')
+done = 0
+<B>while not</B> done:
+  aLine = raw_input("Enter a line ('.' to quit): ")
+  <b>if</b> aLine != ".":
+      file.write(aLine + '\n')
+  <b>else:</b>
+      done = 1
+file.close()
+
+					</pre>
+
+					<p>This piece of code is practically the opposite of the previous. Rather than reading one line at a time and displaying it, we ask the user for one line at a time, and send them out to the file. Our call to the <tt class="monofont">write()</tt> method must contain a NEWLINE because <tt cLasS="monofont">raw_input()</tt> does not preserve it from the user input. Because it may not be easy to generate an end-of-file character from the keyboard, the program uses the period ( . ) as its end-of-file character, which, when entered by the user, will terminate input and close the file.</p>
+
+					<P>Our final example opens a file for read and write, creating the file scratch (after perhaps truncating an already-existing file). After writing data to the file, we move around within the file using <tt clAss="monofont">seek().</tT> We also use the <TT Class="monofont">tell()</TT> method to show our movement.</P>
+
+					<Pre>
+						
+&gt;&gt;&gt; f = open('/tmp/x', 'w+')
+&gt;&gt;&gt; f.tell()
+0
+&gt;&gt;&gt; f.write('test line 1\n')    # add 12-char string [0–11]
+&gt;&gt;&gt; f.tell()
+12
+&gt;&gt;&gt; f.write('test line 2\n')    # add 12-char string [12–23]
+&gt;&gt;&gt; f.tell()                    # tell us current file location (end))
+24
+&gt;&gt;&gt; f.seek(-12, 1)              # move back 12 bytes
+&gt;&gt;&gt; f.tell()                    # to beginning of line 2
+12
+&gt;&gt;&gt; f.readline()
+'test line 2\012'
+&gt;&gt;&gt; f.seek(0, 0)                # move back to beginning
+&gt;&gt;&gt; f.readline()
+'test line 1\012'
+&gt;&gt;&gt; f.tell()                    # back to line 2 again
+12
+&gt;&gt;&gt; f.readline()
+'test line 2\012'
+&gt;&gt;&gt; f.tell()                    # at the end again
+24
+&gt;&gt;&gt; f.close()                   # close file
+
+					</prE>
+
+					<P><A Href="145#7.html">Table9.3</a> lists all the built-in methods for file objects:</P>
+
+					<A NAme="7"></a><p><table border="1" cellsPacIng="0" cEllpaDdinG="1" WIDth="100%">
+<caPTIOn><h5>Table 9.3. Methods for File Objects</h5></cAPTIon><coLGROup align="left" span="2">
+<tr valign="top">
+<tH>
+<foNt siZe="2"><b><i>File Object Method</i></B></fonT></TH>
+<Th>
+<fonT SIZe="2"><b><i>Operation</i></B></FONt></th>
+</tR>
+<TR Valign="top">
+<td>
+<font size="2"><i><tt clAss="monofont">file.</Tt></i><tT clasS="monofont">close()</tt></fONT></Td>
+<td>
+<fONT Size="2">close <i><TT CLass="monofont">file</tT></I></FOnt></td>
+</tr>
+<tr valign="top">
+<td>
+<font SizE="2"><i><tt Class="monofont">file.</Tt></i><tT CLAss="monofont">fileno()</tt></FONT></td>
+<td>
+<FONT size="2">return integer file descriptor (FD) for <I><TT Class="monofont">file</tt></i></font></td>
+</tr>
+<tr valIgn="top">
+<Td>
+<foNt sizE="2"><i><tt CLASs="monofont">file.</tt></i><TT CLass="monofont">flush()</tT></FONt></td>
+<tD>
+<FONt size="2">flush internal buffer for <i><tt class="monofont">file</tt></i></font></Td>
+</tR>
+<tr vAlign="top">
+<Td>
+<foNT SIze="2"><i><tT CLAss="monofont">file.</tt></I><TT Class="monofont">isatty()</TT></FOnt></td>
+<td>
+<font size="2">return 1 if <i><tt claSs="monofont">file</tT></i> is a tty-like device, 0 otherwise</foNt></td>
+</tR>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><i><TT CLass="monofont">file.</tT></I><TT class="monofont">read (</tt><i><tt class="monofont">size</tt></i><tt ClaSs="monofont">=-1</tt>)</Font></tD>
+<td>
+<fONT Size="2">read all or <i><TT CLass="monofont">size</tT></I> bytes of file as a string and return it</FOnt></td>
+</TR>
+<TR valign="top">
+<td>
+<font size="2"><i><tt cLasS="monofont">file.</tt></i><Tt claSs="monofont">readinto(</tt><I><TT Class="monofont">buf, size</TT></I><Tt claSS="monofont">)</TT><font SIZE="1"><sup><a href="#FOOTNOTE-a">[a]</a></sup></font>
+</font></Td>
+<tD>
+<fonT size="2">read <I>size</i> bytes from <i><tT CLAss="monofont">file</tt></I> into buffer <I><TT clasS="monofont">buf</TT></I></font></TD>
+</TR>
+<tr valign="top">
+<td>
+<font size="2"><i><tT clAss="monofont">file.</tT></i><tt cLass="monofont">readline()</TT></FOnt></td>
+<TD>
+<FOnt siZE="2">read and return one line from <I><Tt claSS="monofont">file</TT></i> (includes trailing "\n")</font></td>
+</tr>
+<tr valign="top">
+<td>
+<fOnt Size="2"><I><tt clAss="monofont">file.</tT></I><TT clasS="monofont">readlines()</TT></Font></tD>
+<TD>
+<Font sIZE="2">read and returns all lines from <I><tt class="monofont">file</tt></i> as a list (includes all trailing "\n" characters)</font></td>
+</tr>
+<tr ValIgn="top">
+<tD>
+<font Size="2"><I><TT Class="monofont">file.</TT></I><Tt claSS="monofont">seek(</TT><i><tt cLASS="monofont">off, whence</tt></i><tt class="monofont">)</tt></font></td>
+<td>
+<FonT sizE="2">move to a location within <i><tt cLass="monofont">file, off</TT></I> bytes offset from <I><tt clASS="monofont">whence</Tt></i> (0 == beginning of file, 1 == current location, or 2 == end of file)</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<font size="2"><i><tt class="monofont">file.</Tt></i><Tt clAss="monofont">tell()</tt></Font></TD>
+<TD>
+<font SIZE="2">return current location within <i><tt cLASS="monofont">file</tt></i></fONT></Td>
+</tr>
+<tr valign="top">
+<td>
+<font sizE="2"><i><tT claSs="monofont">file.</tt></i><Tt clASS="monofont">truncate(</Tt><i><tt CLASs="monofont">size</tt></i><TT CLass="monofont">=0)</tT></FONt></td>
+<td>
+<font size="2">truncate <i><tt clasS="monofont">file</tt></I> to 0 or size bytes</fonT></td>
+</tr>
+<Tr vaLIGN="top">
+<td>
+<foNT SIze="2"><i><tT CLAss="monofont">file.</tt></I><TT Class="monofont">write(</tt><i><tt class="monofont">str</tt></i><tt cLasS="monofont">)</tt></fOnt></td>
+<Td>
+<foNT SIze="2">write string <i><tT CLAss="monofont">str</tt></I> to <I><TT clasS="monofont">file</TT></I></font></td>
+</tr>
+<tr valign="top">
+<td>
+<foNt sIze="2"><i><Tt claSs="monofont">file.</tt></I><TT Class="monofont">writelines(</TT><I><Tt claSS="monofont">list</TT></i><tt cLASS="monofont">)</tt></font></td>
+<td>
+<font size="2">write <i><tT clAss="monofont">list</tT></i> of strings to <i><tt ClasS="monofont">file</TT></I></font></TD>
+</TR>
+</colgROUP>
+</tablE></P>
+<BLockquote><font size="1">
+<p claSs="footnote">
+<sUp><a nAme="FOOTNOTE-a">[a]</a></sUp>
+unsupported method introduced in Python 1.5.2 (other implementations of file-like objects do not include this method)</p>
+</fONT></BlockQUOTe>
+
+				
+			</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="144.html" title="File Built-in Function [ open() ]"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=145" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="145.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="146.html" title="File Built-in Attributes"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

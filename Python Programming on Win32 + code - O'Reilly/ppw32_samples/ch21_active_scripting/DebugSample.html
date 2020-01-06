@@ -1,0 +1,26 @@
+<FORM NAME="TestForm">
+   <INPUT NAME="but"
+          TYPE="Button"
+          VALUE="Click me"
+          OnClick="PythonCallVBScript()"
+          LANGUAGE=Python
+   >
+</FORM>
+
+<SCRIPT Language=Python>
+def PythonCallVBScript():
+	window.VBScriptCallPython()
+
+</SCRIPT>
+
+<SCRIPT Language=VBScript>
+sub VBScriptCallPython
+	FinalPythonThing
+end sub
+</SCRIPT>
+
+<SCRIPT Language=Python>
+def FinalPythonThing():
+	msg = "We are finally here"
+	alert(msg)
+</SCRIPT>

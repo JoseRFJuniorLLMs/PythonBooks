@@ -1,0 +1,86 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Default Function Object Argument Example</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="170.html" class="navtitle">11. Functions</a> &gt; <span class="nonavtitle">Default Function Object Argument Example</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="179.html" title="Why Default Arguments?"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=180" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="180.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="181.html" title="Variable-length Arguments"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A32%3A14+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174052240192225070007125</font><a href="read7.asp?bookname=0130260363&snode=180&now=5%2F29%2F2002+9%3A32%3A14+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Default Function Object Argument Example</h3>
+				<p>We will now present yet another example of where a default argument may prove beneficial. The <tT CLAss="monofont">grabweb.py</tt> script, given in <A HREf="180#1.html">Example 11.2</a> is a simple script whose main purpose is to grab a web page from the Internet and temporarily store it to a local file for analysis. This type of application can be used to test the integrity of a website's pages or to monitor the load on a server (by measuring connectability or download speed). The <tt CLASs="monofont">process()</tt> function can be anything we want, presenting an infinite number of uses. The one we chose for this exercise displays the first and last non-blank lines of the retrieved web page. Although this particular example may not prove too useful in the real world, you can imagine what kinds of applications you can build on top of this code.</p>
+
+				
+					<h5>
+<a name="1"></a>Example 11.2. Grabbing Web Pages (<tt class="monofont">grabweb.py</tt>)</H5>
+					<p><b><I>This script downloads a webpage (defaults to local www server) and displays the first and last non-blank lines of the HTML file. Flexibility is added due to both default arguments of the</i></b><tT clasS="monofont">download()</tt>
+						<b><I>function which will allow overriding with different URLs or specification of a different processing function.</I></B></P>
+
+					<pre cLASS="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <b>from</b> urllib <b>import</b> urlretrieve
+004 4  <B>from</B> string <B>import</B> strip
+005 5
+006 6  <b>def</b> firstnonblank(lines):
+007 7      <b>for</b> eachLine <B>in</B> lines:
+008 8          <B>if</B> strip(eachLine) == '':
+009 9              <b>continue</b> &lt;$nopage&gt;
+010 10         <b>else:</b> &lt;$nopage&gt;
+011 11             <b>return</b> eachLine
+012 12
+013 13 <b>def</b> firstlast(webpage):
+014 14     f = open(webpage)
+015 15     lines = f.readlines()
+016 16     f.close()
+017 17     <b>print</b> firstnonblank(lines),
+018 18     lines.reverse()
+019 19     <b>print</b> firstnonblank(lines),
+020 20
+021 21 <b>def</b> download(url='http://www', \
+022 22         process=firstlast):
+023 23     <b>try:</b> &lt;$nopage&gt;
+024 24         retval = urlretrieve(url)[0]
+025 25     <b>except</b> IOError:
+026 26         retval = None
+027 27     <b>if</b> retval:        # do some
+028            processing
+029 28         process(retval)
+030 29
+031 30 <B>if</b> __name__ == '__main__':
+032 31     download()
+033  &lt;$nopage&gt;</pRe>
+				
+				<p>Running this script in our environment gives the following output, although your mileage will definitely vary since you will be viewing a completely different web page altogether.</p>
+
+				<Pre>
+					
+% grabweb.py
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final
+//EN"&gt;
+&lt;/HTML&gt;
+
+				</prE>
+
+			</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="179.html" title="Why Default Arguments?"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=180" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="180.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="181.html" title="Variable-length Arguments"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

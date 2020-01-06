@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>MySQLdb.connections.Connection</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="MySQLdb-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="trees.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="indices.html">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="MySQLdb-module.html">Package&nbsp;MySQLdb</a> ::
+        <a href="MySQLdb.connections-module.html">Module&nbsp;connections</a> ::
+        Class&nbsp;Connection
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[show&nbsp;private&nbsp;|&nbsp;<a href="../public/MySQLdb.connections.Connection-class.html">hide&nbsp;private</a>]</font></td></tr>
+      <tr><td align="right"><font size="-2">[<a href="frames.html"target="_top">frames</a>&nbsp;|&nbsp;<a href="MySQLdb.connections.Connection-class.html" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class Connection</h2>
+
+<pre class="base-tree">
+<a href="__builtin__.object-class.html"><code>object</code></a> --+    
+         |    
+<a href="../private/_mysql.connection-class.html"><code>connection</code></a> --+
+             |
+            <b>Connection</b>
+</pre><br />
+
+<hr/>
+
+MySQL Database Connection Object<hr/>
+
+
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="MySQLdb.connections.Connection-class.html#__init__" class="summary-sig-name"><code>__init__</code></a>(<span class=summary-sig-arg>self</span>,
+          <span class="summary-sig-vararg">*args</span>,
+          <span class="summary-sig-kwarg">**kwargs</span>)</span></code>
+<br />
+Create a connection to the database.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="MySQLdb.connections.Connection-class.html#cursor" class="summary-sig-name"><code>cursor</code></a>(<span class=summary-sig-arg>self</span>,
+          <span class=summary-sig-arg>cursorclass</span>)</span></code>
+<br />
+Create a cursor on which queries may be performed.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="MySQLdb.connections.Connection-class.html#defaulterrorhandler" class="summary-sig-name"><code>errorhandler</code></a>(<span class=summary-sig-arg>connection</span>,
+          <span class=summary-sig-arg>cursor</span>,
+          <span class=summary-sig-arg>errorclass</span>,
+          <span class=summary-sig-arg>errorvalue</span>)</span></code>
+<br />
+If cursor is not None, (errorclass, errorvalue) is appended to
+cursor.messages; otherwise it is appended to
+connection.messages.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="MySQLdb.connections.Connection-class.html#literal" class="summary-sig-name"><code>literal</code></a>(<span class=summary-sig-arg>self</span>,
+          <span class=summary-sig-arg>o</span>)</span></code>
+<br />
+If o is a single object, returns an SQL literal as a string.</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from connection</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#__repr__" class="summary-sig-name"><code>__repr__</code></a>(<span class=summary-sig-arg>x</span>)</span></code>
+<br />
+x.__repr__() &lt;==&gt; repr(x)</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#affected_rows" class="summary-sig-name"><code>affected_rows</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Return number of rows affected by the last query.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#autocommit" class="summary-sig-name"><code>autocommit</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Set the autocommit mode.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#change_user" class="summary-sig-name"><code>change_user</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Changes the user and causes the database specified by db to
+become the default (current) database on the connection
+specified by mysql.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#character_set_name" class="summary-sig-name"><code>character_set_name</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Returns the default character set for the current connection.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#close" class="summary-sig-name"><code>close</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Close the connection.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#commit" class="summary-sig-name"><code>commit</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Commits the current transaction</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#dump_debug_info" class="summary-sig-name"><code>dump_debug_info</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Instructs the server to write some debug information to the
+log.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#errno" class="summary-sig-name"><code>errno</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Returns the error code for the most recently invoked API function
+that can succeed or fail.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#error" class="summary-sig-name"><code>error</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Returns the error message for the most recently invoked API function
+that can succeed or fail.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#escape" class="summary-sig-name"><code>escape</code></a>(<span class=summary-sig-arg>obj</span>,
+          <span class=summary-sig-arg>dict</span>)</span></code>
+<br />
+using mapping dict to provide quoting functions for each type.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#escape_string" class="summary-sig-name"><code>escape_string</code></a>(<span class=summary-sig-arg>s</span>)</span></code>
+<br />
+Use connection.escape_string(s), if you use it at all.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#field_count" class="summary-sig-name"><code>field_count</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Returns the number of columns for the most recent query on the
+connection.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#get_host_info" class="summary-sig-name"><code>get_host_info</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Returns a string that represents the MySQL client library
+version.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#get_proto_info" class="summary-sig-name"><code>get_proto_info</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Returns an unsigned integer representing the protocol version
+used by the current connection.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#get_server_info" class="summary-sig-name"><code>get_server_info</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Returns a string that represents the server version number.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#info" class="summary-sig-name"><code>info</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Retrieves a string providing information about the most
+recently executed query.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#insert_id" class="summary-sig-name"><code>insert_id</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Returns the ID generated for an AUTO_INCREMENT column by the previous
+query.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#kill" class="summary-sig-name"><code>kill</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Asks the server to kill the thread specified by pid.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#next_result" class="summary-sig-name"><code>next_result</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+If more query results exist, next_result() reads the next query
+results and returns the status back to application.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#ping" class="summary-sig-name"><code>ping</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Checks whether or not the connection to the server is
+working.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#query" class="summary-sig-name"><code>query</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Execute a query.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#rollback" class="summary-sig-name"><code>rollback</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Rolls backs the current transaction</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#select_db" class="summary-sig-name"><code>select_db</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Causes the database specified by db to become the default
+(current) database on the connection specified by mysql.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#set_server_option" class="summary-sig-name"><code>set_server_option</code></a>(<span class=summary-sig-arg>option</span>)</span></code>
+<br />
+for the connection.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#shutdown" class="summary-sig-name"><code>shutdown</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Asks the database server to shut down.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#sqlstate" class="summary-sig-name"><code>sqlstate</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Returns a string containing the SQLSTATE error code
+for the last error.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#stat" class="summary-sig-name"><code>stat</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Returns a character string containing information similar to
+that provided by the mysqladmin status command.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#store_result" class="summary-sig-name"><code>store_result</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Returns a result object acquired by mysql_store_result
+(results stored in the client).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#string_literal" class="summary-sig-name"><code>string_literal</code></a>(<span class=summary-sig-arg>obj</span>)</span></code>
+<br />
+This means, any special SQL characters are escaped, and it is enclosed
+within single quotes.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#thread_id" class="summary-sig-name"><code>thread_id</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Returns the thread ID of the current connection.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#use_result" class="summary-sig-name"><code>use_result</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Returns a result object acquired by mysql_use_result
+(results stored in the server).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../private/_mysql.connection-class.html#warning_count" class="summary-sig-name"><code>warning_count</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+Returns the number of warnings generated during execution
+of the previous SQL statement.</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from object</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__delattr__" class="summary-sig-name"><code>__delattr__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+x.__delattr__('name') &lt;==&gt; del x.name</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__getattribute__" class="summary-sig-name"><code>__getattribute__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+x.__getattribute__('name') &lt;==&gt; x.name</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__hash__" class="summary-sig-name"><code>__hash__</code></a>(<span class=summary-sig-arg>x</span>)</span></code>
+<br />
+x.__hash__() &lt;==&gt; hash(x)</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__reduce__" class="summary-sig-name"><code>__reduce__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+helper for pickle</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__reduce_ex__" class="summary-sig-name"><code>__reduce_ex__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+helper for pickle</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__setattr__" class="summary-sig-name"><code>__setattr__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+x.__setattr__('name', value) &lt;==&gt; x.name = value</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.object-class.html#__str__" class="summary-sig-name"><code>__str__</code></a>(<span class=summary-sig-arg>x</span>)</span></code>
+<br />
+x.__str__() &lt;==&gt; str(x)</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from type</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="__builtin__.type-class.html#__new__" class="summary-sig-name"><code>__new__</code></a>(<span class=summary-sig-arg>T</span>,
+          <span class=summary-sig-arg>S</span>,
+          <span class="summary-sig-vararg">...</span>)</span></code>
+<br />
+T.__new__(S, ...) -&gt; a new object with type S, a subtype of T</td></tr>
+</table><br />
+
+
+<!-- =========== START OF CLASS VARIABLE SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Class Variable Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>type</code></font></td>
+  <td><a name="default_cursor"></a><b><code>default_cursor</code></b> = <a href="MySQLdb.cursors.Cursor-class.html"><code>MySQLdb.cursors.Cursor</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="DatabaseError"></a><b><code>DatabaseError</code></b> = <a href="../private/_mysql_exceptions.DatabaseError-class.html"><code>_mysql_exceptions.DatabaseError</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="DataError"></a><b><code>DataError</code></b> = <a href="../private/_mysql_exceptions.DataError-class.html"><code>_mysql_exceptions.DataError</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="Error"></a><b><code>Error</code></b> = <a href="../private/_mysql_exceptions.Error-class.html"><code>_mysql_exceptions.Error</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="IntegrityError"></a><b><code>IntegrityError</code></b> = <a href="../private/_mysql_exceptions.IntegrityError-class.html"><code>_mysql_exceptions.IntegrityError</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="InterfaceError"></a><b><code>InterfaceError</code></b> = <a href="../private/_mysql_exceptions.InterfaceError-class.html"><code>_mysql_exceptions.InterfaceError</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="InternalError"></a><b><code>InternalError</code></b> = <a href="../private/_mysql_exceptions.InternalError-class.html"><code>_mysql_exceptions.InternalError</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="NotSupportedError"></a><b><code>NotSupportedError</code></b> = <a href="../private/_mysql_exceptions.NotSupportedError-class.html"><code>_mysql_exceptions.NotSupportedError</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="OperationalError"></a><b><code>OperationalError</code></b> = <a href="../private/_mysql_exceptions.OperationalError-class.html"><code>_mysql_exceptions.OperationalError</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="ProgrammingError"></a><b><code>ProgrammingError</code></b> = <a href="../private/_mysql_exceptions.ProgrammingError-class.html"><code>_mysql_exceptions.ProgrammingError</code></a></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>classobj</code></font></td>
+  <td><a name="Warning"></a><b><code>Warning</code></b> = <a href="../private/_mysql_exceptions.Warning-class.html"><code>_mysql_exceptions.Warning</code></a></td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from connection</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>member_descriptor</code></font></td>
+<td><b><a href="../private/_mysql.connection-class.html#client_flag"><code>client_flag</code></a></b> = <span title="&lt;member 'client_flag' of '_mysql.connection' objects&gt;"><code>&lt;member&nbsp;'client_flag'&nbsp;of&nbsp;'_mysql.connectio<span class="variable-ellipsis">...</span></code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>member_descriptor</code></font></td>
+<td><b><a href="../private/_mysql.connection-class.html#converter"><code>converter</code></a></b> = <span title="&lt;member 'converter' of '_mysql.connection' objects&gt;"><code>&lt;member&nbsp;'converter'&nbsp;of&nbsp;'_mysql.connection'&nbsp;o<span class="variable-ellipsis">...</span></code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>member_descriptor</code></font></td>
+<td><b><a href="../private/_mysql.connection-class.html#open"><code>open</code></a></b> = <span title="&lt;member 'open' of '_mysql.connection' objects&gt;"><code>&lt;member&nbsp;'open'&nbsp;of&nbsp;'_mysql.connection'&nbsp;objects&gt;    </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>member_descriptor</code></font></td>
+<td><b><a href="../private/_mysql.connection-class.html#port"><code>port</code></a></b> = <span title="&lt;member 'port' of '_mysql.connection' objects&gt;"><code>&lt;member&nbsp;'port'&nbsp;of&nbsp;'_mysql.connection'&nbsp;objects&gt;    </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>member_descriptor</code></font></td>
+<td><b><a href="../private/_mysql.connection-class.html#server_capabilities"><code>server_capabilities</code></a></b> = <span title="&lt;member 'server_capabilities' of '_mysql.connection' objects&gt;"><code>&lt;member&nbsp;'server_capabilities'&nbsp;of&nbsp;'<span class="variable-ellipsis">...</span></code>
+</span></td></tr>
+</table><br />
+
+
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+
+<a name="__init__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__init__</span>(<span class=sig-arg>self</span>,
+          <span class="sig-vararg">*args</span>,
+          <span class="sig-kwarg">**kwargs</span>)</span>
+    <br /><i>(Constructor)</i>
+  </h3>
+<p>Create a connection to the database. It is strongly recommended
+that you only use keyword parameters. Consult the MySQL C API
+documentation for more information.</p>
+<dl>
+<dt>host</dt>
+<dd>string, host to connect</dd>
+<dt>user</dt>
+<dd>string, user to connect as</dd>
+<dt>passwd</dt>
+<dd>string, password to use</dd>
+<dt>db</dt>
+<dd>string, database to use</dd>
+<dt>port</dt>
+<dd>integer, TCP/IP port to connect to</dd>
+<dt>unix_socket</dt>
+<dd>string, location of unix_socket to use</dd>
+<dt>conv</dt>
+<dd>conversion dictionary, see MySQLdb.converters</dd>
+<dt>connect_time</dt>
+<dd>number of seconds to wait before the connection attempt
+fails.</dd>
+<dt>compress</dt>
+<dd>if set, compression is enabled</dd>
+<dt>named_pipe</dt>
+<dd>if set, a named pipe is used to connect (Windows only)</dd>
+<dt>init_command</dt>
+<dd>command which is run once the connection is created</dd>
+<dt>read_default_file</dt>
+<dd>file from which default client values are read</dd>
+<dt>read_default_group</dt>
+<dd>configuration group to use from the default file</dd>
+<dt>cursorclass</dt>
+<dd>class object, used to create cursors (keyword only)</dd>
+<dt>use_unicode</dt>
+<dd>If True, text-like columns are returned as unicode objects
+using the connection's character set.  Otherwise, text-like
+columns are returned as strings.  columns are returned as
+normal strings. Unicode objects will always be encoded to
+the connection's character set regardless of this setting.</dd>
+<dt>client_flag</dt>
+<dd>integer, flags to use or 0
+(see MySQL docs or constants/CLIENTS.py)</dd>
+<dt>ssl</dt>
+<dd>dictionary or mapping, contains SSL connection parameters;
+see the MySQL documentation for more details
+(mysql_ssl_set()).  If this is set, and the client does not
+support SSL, UnsupportedError will be raised.</dd>
+<dt>local_infile</dt>
+<dd>integer, non-zero enables LOAD LOCAL INFILE; zero disables</dd>
+</dl>
+<p>There are a number of undocumented, non-standard methods. See the
+documentation for the MySQL C API for some hints on what they do.</p>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../private/_mysql.connection-class.html#__init__"><code>_mysql.connection.__init__</code></a></dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+
+<a name="cursor"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">cursor</span>(<span class=sig-arg>self</span>,
+          <span class=sig-arg>cursorclass</span>=<span class=sig-default>None</span>)</span>
+  </h3>
+Create a cursor on which queries may be performed. The
+optional cursorclass parameter is used to create the
+Cursor. By default, self.cursorclass=cursors.Cursor is
+used.  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+
+<a name="defaulterrorhandler"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">errorhandler</span>(<span class=sig-arg>connection</span>,
+          <span class=sig-arg>cursor</span>,
+          <span class=sig-arg>errorclass</span>,
+          <span class=sig-arg>errorvalue</span>)</span>
+  </h3>
+<p>If cursor is not None, (errorclass, errorvalue) is appended to
+cursor.messages; otherwise it is appended to
+connection.messages. Then errorclass is raised with errorvalue as
+the value.</p>
+<p>You can override this with your own error handler by assigning it
+to the instance.</p>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+
+<a name="literal"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">literal</span>(<span class=sig-arg>self</span>,
+          <span class=sig-arg>o</span>)</span>
+  </h3>
+<p>If o is a single object, returns an SQL literal as a string.
+If o is a non-string sequence, the items of the sequence are
+converted and returned as a sequence.</p>
+<p>Non-standard. For internal use; do not use this in your
+applications.</p>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br />
+
+
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="MySQLdb-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="trees.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="indices.html">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.0 on Mon Jan 31 23:02:12 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net"
+                      ><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

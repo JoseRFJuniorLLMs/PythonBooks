@@ -1,0 +1,313 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; What's New in Python 2.0?</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="295.html" class="navtitle">D. </a> &gt; <span class="nonavtitle">What's New in Python 2.0?</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="294.html" title="Python Operator Summary"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=296" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="296.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><font size="1">&nbsp;</font></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A48%3A33+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004226062067026184135228051</font><a href="read2.asp?bookname=0130260363&snode=296&now=5%2F30%2F2002+8%3A48%3A33+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+			<h3>What's New in Python 2.0?</h3>
+			
+				<h4>Introduction</h4>
+				<P>During the creation process of this text, the Python development team has been hard at work producing Python 2.0, which at press time, is finally being released to the public.</P>
+
+				<P>The supplementary CD-ROM in the back of the book contains the three most current releases of Python: 1.5.2, 1.6, and 2.0, including the most recent Java version of the Python interpreter, JPython (a.k.a. Jython): 1.1.</P>
+
+				<p>1.5.2 has been a rock stable release for almost two years, and is the foundation for most of the content in the book. 1.6 brought many new changes to Python. String methods and Unicode support have been added, as well as an improved regular expression engine.</p>
+
+				<p>A few more significant changes have made their way into the 2.0 release, which we will address here. We also recommend the "What's New in 2.0" document found at the Python 2.0 Web site (see the Online Resources section of the Appendix for the URL).</p>
+
+			
+			
+				<H4>Review and Preview</H4>
+				<P>The following is a review of the major changes from Python 1.5.2 to 1.6, along with the expected bug fixes and module updates (new, revised, and obsoleted modules).</P>
+
+				<ul>
+<li><P>Unicode support</P>
+</LI>
+<li><p>String methods</p>
+</li>
+<li><p>Upgraded regular expression engine (performance and Unicode enhancements)</p>
+</li>
+<li><p>New function invocation mechanism</p>
+</li>
+</ul>
+				<P>The 2.0 release also features the usual fixes and module updates, but in addition, offers the following new features to the language:</p>
+
+				<uL>
+<li><p>Augmented assignment</P>
+</li>
+<li><P>List comprehensions</p>
+</li>
+<LI><P>Extended <B><tt clASS="monofont">import</Tt></b> statement</p>
+</lI>
+<LI><P>Extended <b><tt cLASS="monofont">print</tt></b> statement</p>
+</li>
+</ul>
+				<p>Once you get Python 2.0 compiled and/or installed on your system, you will see the familiar start-up line in UNIX (or similar if you are using another platform):</p>
+
+				<pre>
+					
+% python
+Python 2.0 (#4, Oct  2 2000, 23:58:52)
+[GCC 2.95.1 19990816 (release)] on sunos5
+Type "copyright", "credits" or "license" for more
+information.
+&gt;&gt;&gt;
+
+				</pre>
+
+				<p>Now, let's take a look at some of those new features.</p>
+
+			
+			
+				<h4>Augmented Assignment</h4>
+				<P>Augmented assignment refers to the use of operators, which imply both an arithmetic operation as well as an assignment. You will recognize the following symbols if you are a C, C++, or Java programmer:</p>
+
+				<pRe>
+					
++=        -=         *=        /=         %=        **=
+&lt;&lt;=       &gt;&gt;=           &amp;=        ^=         |=
+
+				</prE>
+
+				<p>For example, the shorter</p>
+
+				<prE>
+					
+A += B
+
+				</pre>
+
+				<P>can now be used instead of</P>
+
+				<PRe>
+					
+A = A + B
+
+				</pre>
+
+				<P>Other than the obvious syntactical change, the most significant difference is that the first object (<TT Class="monofont">A</TT> in our example) is examined only once. Mutable objects will be modified in place, whereas immutable objects will have the same effect as "<TT clasS="monofont">A = A + B</TT>" (with a new object allocated) except that <Tt class="monofont">A</tt> is only evaluated once, as we have mentioned before.</p>
+
+				<pre>
+					
+&gt;&gt;&gt; m = 12
+&gt;&gt;&gt; m %= 7
+&gt;&gt;&gt; m
+5
+&gt;&gt;&gt; m **= 2
+&gt;&gt;&gt; m
+25
+&gt;&gt;&gt; aList = [123, 'xyz']
+&gt;&gt;&gt; aList += [45.6e7]
+&gt;&gt;&gt; aList
+[123, 'xyz', 456000000.0]
+
+				</pre>
+
+				<p>These in-place operators have equivalent special method names when creating classes to emulate numeric types. To implement an in-place special method, just add an "i" in front of the not-in-place operator; e.g., implement <tt clAss="monofont">__iadd__()</Tt> for the <tt Class="monofont">+=</Tt> operator as opposed to <tt CLASs="monofont">__add__()</tt> for just the <tT CLAss="monofont">+</tt> operator.</P>
+
+			
+			
+				<H4>List Comprehensions</H4>
+				<P>Remember how we used <b><tt cLASS="monofont">lambda</tt></b> functions along with <tt class="monofont">map()</tt> and <tt class="monofont">filter()</tT> to apply an operation to list members or to filter out list members based on criteria via a conditional expression? Well, list comprehensions simplify that task and improve performance by bypassing the necessity of using <b><tT claSs="monofont">lambda</tt></b> along with functional programming built-in functions. List comprehensions allow you to provide an operation directly with an iteration over the original list sequence.</P>
+
+				<p>Let's take a look at the simpler list comprehension syntax first:</p>
+
+				<pRE>
+					
+[ <I>expression</I>
+						<b>for</b>
+						<i>iterative_var</i>
+						<B>in</B>
+						<I>sequence</I> ]
+
+				</pre>
+
+				<p>The core of this statement is the <B><TT Class="monofont">for</TT></B> loop, which iterates over each item of <I><tt class="monofont">sequence.</tt></i> The prefixed <i><tt class="monofont">expression</tt></I> is applied for each member of the sequence, and the resulting values comprise the list that the expression yields. The iteration variable need not be part of the expression.</p>
+
+				<p>Recall the following code seen earlier in the text (<A hreF="170.html">Chapter 11</a>, Functions) which utilizes a <b><tt ClasS="monofont">lambda</TT></B> function to square the members of a sequence:</p>
+
+				<pre>
+					
+&gt;&gt;&gt; map(( <B>lambda</B> x: x ** 2), range(6))
+[0, 1, 4, 9, 16, 25]
+
+				</PRe>
+
+				<p>We can replace this code with the following list comprehension statement:</p>
+
+				<pRE>
+					
+&gt;&gt;&gt; [ x ** 2 <B>for</B> x <b>in</b> range(6) ]
+[0, 1, 4, 9, 16, 25]
+
+				</prE>
+
+				<P>In the new statement, only one function call (<TT class="monofont">range()</tt>) is made (as opposed to three—<tt class="monofont">range(), map(),</tt> and the <b><tt cLasS="monofont">lambda</tt></b> function). You may also use parentheses around the expression if "<Tt claSs="monofont">[ (x ** 2)</tt>
+						<B><TT Class="monofont">for</TT></B>
+						<Tt claSS="monofont">x</TT>
+						<b><tt cLASS="monofont">in</tt></b>
+						<tt class="monofont">range(6) ]</tt>" is easier for you to read. This syntax for list comprehensions can be a substitute for and is more efficient than using the <tt class="monofont">map()</tT> built-in function along with <b><tT claSs="monofont">lambda.</tt></b></P>
+
+				<p>List comprehensions also support an extended syntax with the <b><tT CLAss="monofont">if</tt></B> statement:</P>
+
+				<PRe>
+					
+[ <i>expression</i>
+						<b>for</B>
+						<I>iterative_var</I>
+						<B>in</b>
+						<i>sequence</i>
+						<b>if</B>
+						<I>cond_expression</I>]
+
+				</Pre>
+
+				<p>This syntax will filter or "capture" sequence members only if they meet the condition provided for in the <i><tt class="monofont">cond_expression</tt></i> conditional expression during iteration.</p>
+
+				<p>Recall the following <tt clAss="monofont">odd()</Tt> function below, which determines whether a numeric argument is odd or even (returning 1 for odd numbers and 0 for even numbers):</p>
+
+				<pRe>
+					
+<b>def</b> odd(n):
+    <b>return</B> n % 2
+
+				</pre>
+
+				<P>We were able to take the core operation from this function, and use it with <TT Class="monofont">filter()</TT> and <B><Tt claSS="monofont">lambda</TT></b> to obtain the set of odd numbers from a sequence:</p>
+
+				<prE>
+					
+&gt;&gt;&gt; seq = [11, 10, 9, 9, 10, 10, 9, 8, 23, 9, 7, 18, 12, 11, 12]
+&gt;&gt;&gt; filter(<B>lambda</B> x: x % 2, seq)
+[11, 9, 9, 9, 23, 9, 7, 11]
+
+				</Pre>
+
+				<p>As in the previous example, we can bypass the use of <tt class="monofont">filter()</tt> and <b><tt class="monofont">lambda</Tt></b> to obtain the desired set of numbers with list comprehensions:</P>
+
+				<pre>
+					
+&gt;&gt;&gt; [ x <B>for</b> x <b>in</b> seq <b>if</B> x % 2 ]
+[11, 9, 9, 9, 23, 9, 7, 11]
+
+				</pre>
+
+				<P>List comprehensions also support multiple nested <B><TT clasS="monofont">for</TT></B> loops and more than one <b><tt cLASS="monofont">if</tt></b> clause. Please see the documentation including the "What's New" online document for more information.</p>
+
+			
+			
+				<H4>Extended <TT Class="monofont">import</tt> Statement</h4>
+				<p>Another fairly common request from Python programmers is the ability to import modules and module attributes into your program using names other than their original given names. One common workaround is to assign the module name to a variable:</p>
+
+				<pre>
+					
+&gt;&gt;&gt; <b>import</b> longmodulename
+&gt;&gt;&gt; short = longmodulename
+&gt;&gt;&gt; <b>del</b> longmodulename
+
+				</pre>
+
+				<p>In the example above, rather than using <Tt cLass="monofont">longmodulename.attribute,</Tt> you would use the <tt cLass="monofont">short.attribute</TT> to access the same object. (A similar analogy can be made with importing module attributes using <B><Tt claSS="monofont">from-import…</TT></b> see below.) However, to do this over and over again, and in multiple modules can be annoying and seem wasteful. The new extended <b><tt CLASs="monofont">import</tt></b> statement will now support the following:</P>
+
+				<PRE>
+					
+&gt;&gt;&gt; <b>import</b> longmodulename as short
+
+				</pre>
+
+				<p>Accordingly, you may also use this syntax with <b><tt class="monofont">from-import</tt></b> statements.</p>
+
+				<prE>
+					
+&gt;&gt;&gt; <b>from</b> sys <B>import</b> stderr as err
+&gt;&gt;&gt; err.write("now using sys.stderr")
+now using sys.stderr
+
+				</prE>
+
+				<p>We will note that as is not a new keyword and is only recognized when using <b><tt ClasS="monofont">import.</TT></B> As a result, you can still use it as a valid identifier in your code:</p>
+
+				<pre>
+					
+&gt;&gt;&gt; as = 14
+&gt;&gt;&gt; as += 3
+&gt;&gt;&gt; as
+17
+
+				</PRE>
+
+			
+			
+				<H4>Extended <tt clASS="monofont">print</Tt> Statement</h4>
+				<p>One of the last and more argumentative additions to Python 2.0 is the extended <b><TT CLass="monofont">print</tt></b> statement. The change, which employs a pair of "greater than" symbols (<tt class="monofont">&gt;&gt;</tt>), allows you to direct the output of <b><tt clAss="monofont">print</Tt></b> to a file other than standard output.</p>
+
+				<P>In the example below, we utilize our import of <tt clAss="monofont">sys.stderr</tT> to <TT Class="monofont">err</TT> above:</P>
+
+				<Pre>
+					
+&gt;&gt;&gt; <b>print</b> &gt;&gt; err, "using sys.stderr again"
+using sys.stderr again
+
+				</PRE>
+
+			
+			
+				<H4>Conclusion</h4>
+				<p>While both augmented assignments and list comprehensions appear to be adding a twist to Python's easygoing syntax, the basic philosophy of keeping the language clean and simple has not changed. The key value-adds that these new features bring to the table is actually under the covers.</p>
+
+				<p>Augmented assignment only evaluates the first object once—a timesaver and performance enhancer over the long haul. Also, because function objects created by <B><TT Class="monofont">lambda</tt></b> are practically the same as those generated by <b><tt class="monofont">def,</tt></b> the overhead of a real function call is incurred when they are executed. By using list comprehensions, there is no additional function object created on the fly, nor is there the additional function call overhead present. In this sense, list comprehensions give Python more "inlined" execution.</p>
+
+				<p>The extended <B><tt ClasS="monofont">import</tt></b> and <b><Tt clASS="monofont">print</Tt></b> statements have less to do with performance as they do with programmer convenience.</p>
+
+				<p>Other additions include an optional garbage collector that can detect cycles and improved XML support (<TT CLass="monofont">xml.dom, xml.sax, xml.parsers,</tT> and <TT Class="monofont">pyexpat</TT> modules). Other features to look for in 2.0 are range displays, parallel <B><Tt class="monofont">for</tt></b> loops, and ports to 64-bit systems.</p>
+
+			
+			
+				<h4>Exercise</h4>
+				<p><table boDer="0" CellSpaciNg="16" ceLLPAddinG="0">
+					<TR ValigN="top"><TD Align="right"><FONT><b>Q:</b></font></td><td><font><p>Create a composite list comprehension statement that creates (randomly) a list of between 1 and 10 random numbers, ranging from 1 to 100, and pull out only the odd ones.</p>
+</font></Td></tR><tr vAlign="top"><Td alIGN="right"><Font><b>A:</B></FONt></td>
+<tD><FONt><p><i>Answer:</i><FONT size="-1"><br><br></font>
+							Our solution uses list comprehensions as well as the new extended <b><tt class="monofont">import</Tt></b> syntax.
+							<Pre>
+								
+&gt;&gt;&gt; <b>from</B> random <b>import</b> randint as ri
+&gt;&gt;&gt; [ y <b>for</b> y <B>in</b> [ ri(1, 100) <b>for</b> x <B>in</B> range(ri(1, 10)) ] <B>if</B> y % 2]
+[47, 9, 85]
+&gt;&gt;&gt; [ y <b>for</b> y <b>in</b> [ ri(1, 100) <B>for</B> x <B>in</B> range(ri(1, 10)) ] <b>if</b> y % 2]
+[45, 3]
+&gt;&gt;&gt; [ y <b>for</b> y <B>in</B> [ ri(1, 100) <B>for</B> x <b>in</b> range(ri(1, 10)) ] <b>if</b> y % 2]
+[]
+&gt;&gt;&gt; [ y <B>for</B> y <B>in</B> [ ri(1, 100) <b>for</b> x <b>in</b> range(ri(1, 10)) ] <b>if</b> y % 2]
+[47, 25, 95, 83, 15, 77]
+
+							</pre>
+
+						</p></font></td></tr>
+				</taBle></P>
+			
+		</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="294.html" title="Python Operator Summary"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=296" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="296.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><font size="1">&nbsp;</font></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

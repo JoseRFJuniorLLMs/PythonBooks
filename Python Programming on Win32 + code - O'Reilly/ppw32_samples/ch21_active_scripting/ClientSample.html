@@ -1,0 +1,33 @@
+<FORM NAME="TestForm">
+   <!-- A single text control all the buttons will use -->
+   <INPUT TYPE="Text" 
+          NAME="txtControl"
+   >
+   <!-- VBScript using inline event handling -->
+   <INPUT NAME="butVB" 
+          TYPE="Button" 
+          VALUE="VB Script"
+          OnClick="txtControl.value=document.location"
+   >
+   <!-- Python using inline event handling -->
+   <INPUT NAME="butPy1"
+          TYPE="Button"
+          VALUE="Python inline"
+          OnClick="TestForm.txtControl.value=document.location"
+          LANGUAGE=Python
+   >
+   <!-- Python using an implicit event handler -->
+   <INPUT NAME="butPy2"
+          TYPE="Button"
+          VALUE="Python implicit"
+   >
+   <!-- Now the code for the implicit handler -->
+   <SCRIPT LANGUAGE=Python>
+# Note we can not indent this block,
+# as the leading whitespace will upset Python
+def butPy2_onClick():
+  TestForm.txtControl.value=document.location
+   </SCRIPT>
+
+</FORM>
+

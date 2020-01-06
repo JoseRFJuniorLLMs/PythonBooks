@@ -1,0 +1,187 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Threads and Python</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="256.html" class="navtitle">17. Multithreaded Programming</a> &gt; <span class="nonavtitle">Threads and Python</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="259.html" title="Threads and Processes"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=260" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="260.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="261.html" title="thread Module"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A30%3A34+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004229222111166044227063049</font><a href="read5.asp?bookname=0130260363&snode=260&now=5%2F30%2F2002+8%3A30%3A34+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Threads and Python</h3>
+				<a nAME="1"></A>
+					<h4>Global Interpreter Lock</h4>
+					<p>Execution by Python code is controlled by the <i>Python Virtual Machine</I> (a.k.a. the interpreter main loop), and Python was designed in such a way that only one thread of control may be executing in this main loop, similar to how multiple processes in a system share a single CPU. Many programs may be in memory, but only <I>one</I> is live on the CPU at any given moment. Likewise, although multiple threads may be "running" within the Python interpreter, only one thread is being executed by the interpreter at any given time.</P>
+
+					<p>Access to the Python Virtual Machine is controlled by a <i>global interpreter lock</i> (GIL). This lock is what ensures that exactly one thread is running. The Python Virtual Machine executes in the following manner in an MT environment:</p>
+
+					<UL>
+<LI><p>Set the GIL,</p>
+</li>
+<li><p>Switch in a thread to run,</p>
+</li>
+<li><p>Execute for a specified number of bytecode instructions,</p>
+</li>
+<li><p>Put the thread back to sleep (switch out thread),</p>
+</Li>
+<lI><p>Unlock the GIL, and,</p>
+</lI>
+<li><p>Do it all over again (rinse, lather, repeat).</p>
+</Li>
+</ul>
+					<P>When a call is made to external code, i.e., any C/C++ extension built-in function, the GIL will be locked until it has completed (since there are no Python bytecodes to count as the interval). Extension programmers do have the ability to unlock the GIL however, so you being the Python developer shouldn't have to worry about your Python code locking up in those situations.</P>
+
+					<P>As an example, for any Python I/O-oriented routines (which invoke built-in operating system C code), the GIL is released before the I/O call is made, allowing other threads to run while the I/O is being performed. Code which <I>doesn't</i> have much I/O will tend to keep the processor (and GIL) to the full interval a thread is allowed before it yields. In other words, I/O-bound Python programs stand a much better chance of being able to take advantage of a multithreaded environment than CPU-bound code.</p>
+
+					<p>Those of you interested in the source code, the interpreter main loop, and the GIL can take a look at <tT CLAss="monofont">eval_code2()</tt> routine in the <TT CLass="monofont">Python/ceval.c</tT> file, which is the Python Virtual Machine.</P>
+
+				
+				
+					<H4>Exiting Threads</H4>
+					<p>When a thread completes execution of the function they were created for, they exit. Threads may also quit by calling an exit function such as <tt class="monofont">thread.exit(),</tt> or any of the standard ways of exiting a Python process, i.e., <tt class="monofont">sys.exit()</tt> or raising the <tT clAss="monofont">SystemExit</tT> exception.</p>
+
+					<p>There are a variety of ways of managing thread termination. In most systems, when the main thread exits, all other threads die without cleanup, but for some systems, they live on. Check your operating system threaded programming documentation regarding their behavior in such occasions.</p>
+
+					<p>Main threads should always be good managers, though, and perform the task of knowing what needs to be executed by individual threads, what data or arguments each of the spawned threads requires, when they complete execution, and what results they provide. In so doing, those main threads can collate the individual results into a final conclusion.</P>
+
+				
+				
+					<h4>Accessing Threads From Python</h4>
+					<p>Python supports multithreaded programming, depending on the operating system that it is running on. It is supported on most versions of Unix, including Solaris and Linux, and Windows. Threads are not currently available on the Macintosh platform. Python uses POSIX-compliant threads, or "pthreads," as they commonly known.</P>
+
+					<P>By default, threads are not enabled when building Python from source, but are available for Windows platforms automatically from the installer. To tell whether threads are installed, simply attempt to import the <TT clasS="monofont">thread</TT> module from the interactive interpreter. No errors occur when threads are available:</P>
+
+					<pre>
+						
+&gt;&gt;&gt; <b>import</B> thread
+&gt;&gt;&gt;
+
+					</PRE>
+
+					<p>If your Python interpreter was not compiled with threads enabled, the module import fails:</p>
+
+					<prE>
+						
+&gt;&gt;&gt; <B>import</B> thread
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+ImportError: No module named thread
+
+					</Pre>
+
+					<p>In such cases, you may have to recompile your Python interpreter to get access to threads. This usually involves invoking the configure script with the "<tt class="monofont">--with-thread</tt>" option. Check the <tt class="monofont">README</tT> file for your distribution for specific instructions on how to compile Python with threads for your system.</p>
+
+					<p>Due to the brevity of this chapter, we will give you only a quick introduction to threads and MT programming in Python. We refer you to the official documentation to get the full coverage of all the aspects of the threading support which Python has to offer. Also, we recommended accessing any general operating system textbook for more details on processes, interprocess communication, multi-threaded programming, and thread/process synchronization. (Some of these texts are listed in the appendix.)</P>
+
+				
+				
+					<h4>Life Without Threads</h4>
+					<p>For our first set of examples, we are going to use the <Tt claSs="monofont">time.sleep()</tt> function to show how threads work. <TT CLass="monofont">time.sleep()</tT> takes a floating point argument and "sleeps" for the given number of seconds, meaning that execution is temporarily halted for the amount of time specified.</P>
+
+					<P>Let us create two "time loops," one which sleeps for 4 seconds and one that sleeps for 2 seconds, <Tt claSS="monofont">loop0()</TT> and <tt clASS="monofont">loop1(),</Tt> respectively. (We use the names "loop0" and "loop1" as a hint that we will eventually have a sequence of loops.) If we were to execute <tt class="monofont">loop0()</tt> and <tt class="monofont">loop1()</tt> sequentially in a one-process or single-threaded program, as <tT clAss="monofont">onethr.py</tT> does in <a hreF="260#5.html">Example 17.1</a>, the total execution time would be at least 6 seconds. There may or may not be a 1-second gap between the starting of <tt CLASs="monofont">loop0()</tt> and <tT CLAss="monofont">loop1(),</tt> and other execution overhead which may cause the overall time to be bumped to 7 seconds.</P>
+
+					
+						<H5>
+<A Name="5"></a>Example 17.1. Loops Executed by a Single Thread (<TT CLass="monofont">onethr.py</tt>)</h5>
+						<p><b><i>Executes two loops consecutively in a single-threaded program. One loop must complete before the other can begin. The total elapsed time is the sum of times taken by each loop.</i></b></p>
+
+						<pre class="monofont"> &lt;$nopage&gt;
+001 1  #!/usr/bin/env python
+002 2
+003 3  <B>from</b> time <b>import</B> sleep, time, ctime
+004 4
+005 5  <b>def</b> loop0():
+006 6      <b>print</B> 'start loop 0 at:', ctime(time())
+007 7      sleep(4)
+008 8      <b>print</b> 'loop 0 done at:', ctime(time())
+009 9
+010 10 <b>def</b> loop1():
+011 11     <B>print</b> 'start loop 1 at:', ctime(time())
+012 12     sleep(2)
+013 13     <b>print</b> 'loop 1 done at:', ctime(time())
+014 14
+015 15 <B>def</B> main():
+016 16     <B>print</B> 'starting…'
+017 17     loop0()
+018 18     loop1()
+019 19     <b>print</b> 'all DONE at:', ctime(time())
+020 20
+021 21 <b>if</b> __name__ == '__main__':
+022 22     main()
+023  &lt;$nopage&gt;</PRE>
+						<P>We can verify this by executing <tt clASS="monofont">onethr.py,</Tt> which gives the following output:</p>
+
+						<prE>
+							
+% onethr.py
+starting…
+start loop 0 at: Sun Aug 13 05:03:34 2000
+loop 0 done at: Sun Aug 13 05:03:38 2000
+start loop 1 at: Sun Aug 13 05:03:38 2000
+loop 1 done at: Sun Aug 13 05:03:40 2000
+all DONE at: Sun Aug 13 05:03:40 2000
+
+						</PRE>
+
+						<p>Now, pretend that rather than sleeping, <tt class="monofont">loop0()</tt> and <tt class="monofont">loop1()</tt> were separate functions that performed individual and independent computations, all working to arrive at a common solution. Wouldn't it be useful to have them run in parallel to cut down on the overall running time? That is the premise behind MT that we will now introduce you to.</p>
+
+					
+				
+				<A naMe="6"></a>
+					<h4>Python Threading Modules</H4>
+					<p>Python provides several modules to support MT programming, including the <tt cLass="monofont">thread,</TT>
+						<TT clasS="monofont">threading,</TT> and <Tt claSS="monofont">Queue</TT> modules. The <tt clASS="monofont">thread</Tt> and <tt class="monofont">threading</tt> modules allow the programmer to create and manage threads. The <tt class="monofont">thread</tt> module provides the basic thread and locking support, while <tT clAss="monofont">threading</tT> provides high-level full-featured thread management. The <tt clAss="monofont">Queue</tT> module allows the user to create a queue data structure which can be shared across multiple threads. We will take a look at these modules individually, present a good number of examples, and a couple of intermediate-sized applications.</P>
+
+					<DIv claSS="note"><P Class="notetitle"><B>NOTE</B></P><P><p><i>We recommend avoiding the</i>
+							<tT CLAss="monofont">thread</tt>
+							<i>module for many reasons. The first is that the high-level</i>
+							<tt class="monofont">threading</tt>
+							<i>module is more contemporary, not to mention the fact that thread support in the</i>
+							<tt cLasS="monofont">threading</tt>
+							<i>module is much improved and the use of attributes of the</I>
+							<tt clAss="monofont">thread</tT>
+							<I>module may conflict with using the</I>
+							<Tt claSS="monofont">threading</TT>
+							<i>module. Another reason is that the lower-level</i>
+							<tt CLASs="monofont">thread</tt>
+							<i>module has a few synchronization primitives (actually only one) while</I>
+							<TT Class="monofont">threading</tt>
+							<i>has many.</i></p>
+<p><i>However, in the interest of learning Python and threading in general, we do present some code which uses the</i>
+							<tt class="monofont">thread</tT>
+							<i>module. These pieces of code should be used for learning purposes only and will give you a much better insight as to why you would want to avoid using the</i>
+							<Tt clAss="monofont">thread</tt>
+							<I>module. These examples also show how our applications and thread programming improve as we migrate to using more appropriate tools such as those available in the</i>
+							<tt CLASs="monofont">threading</tt>
+							<i>and</I>
+							<TT Class="monofont">Queue</TT>
+							<I>modules.</I></p>
+<p><i>Use of the</i>
+							<TT CLass="monofont">thread</tt>
+							<i>module is recommended only for experts desiring lower-level thread access. Those of you new to threads should look at the code samples to see how we can overlay threads onto our time loop application and to gain a better understanding as to how these first examples evolve to the main code samples of this chapter. Your first multithreaded application should utilize</i>
+							<tt class="monofont">threading</tt>
+							<i>and perhaps other high-level thread modules, if applicable.</i></p>
+</p></Div><Br>
+
+				
+			</foNt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="259.html" title="Threads and Processes"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=260" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="260.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="261.html" title="thread Module"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

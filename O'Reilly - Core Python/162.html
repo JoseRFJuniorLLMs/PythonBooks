@@ -1,0 +1,114 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Assertions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="154.html" class="navtitle">10. Errors And Exceptions</a> &gt; <span class="nonavtitle">Assertions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="161.html" title="Raising Exceptions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=162" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="162.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="163.html" title="Standard Exceptions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A29%3A19+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175192054107016109100135</font><a href="read9.asp?bookname=0130260363&snode=162&now=5%2F29%2F2002+9%3A29%3A19+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Assertions</h3>
+				<p>Assertions are diagnostic predicates which must evaluate to Boolean true; otherwise, an exception is raised to indicate that the expression is false. These work similarly to the assert macros which are part of the C language preprocessor, but in Python these are run-time constructs (as opposed to pre-compile directives).</p>
+
+				<P>If you are new to the concept of assertions, no problem. The easiest way to think of an assertion is to liken it to a <B><TT clasS="monofont">raise-if</TT></B> statement (or to be more accurate, a <b><tt cLASS="monofont">raise-if-not</tt></b> statement). An expression is tested, and if the result comes up false, an exception is raised.</p>
+
+				<p>Assertions are carried out by the <b><tt class="monofont">assert</tt></b> statement, the newest keyword to Python, introduced in version 1.5.</p>
+
+				
+					<h4><tt ClaSs="monofont">assert</tt> Statement</H4>
+					<p>The <b><tt ClasS="monofont">assert</TT></B> statement evaluates a Python expression, taking no action if the assertion succeeds (similar to a <b><tt cLASS="monofont">pass</tt></b> statement), but otherwise raises an <tT CLAss="monofont">AssertionError</tt> exception. The syntax for <B><TT Class="monofont">assert</tt></b> is:</p>
+
+					<pre>
+						
+<b>assert</b>
+							<i>expression[, arguments]</i>
+
+					</pre>
+
+					<p>Here are some examples of the use of the <b><Tt cLass="monofont">assert</Tt></b> statement:</p>
+
+					<pRe>
+						
+<b>assert</b> 1 == 1
+<B>assert</B> (2 + 2) == (2 * 2)
+<B>assert</B> len(['my list', 12]) &lt; 10
+<b>assert</b> range(3) == [0, 1, 2]
+
+					</prE>
+
+					<P><TT clasS="monofont">AssertionError</TT> exceptions can be caught and handled like any other exception using the <B><tt clASS="monofont">try-except</Tt></b> statement, but if not handled, they will terminate the program and produce a traceback similar to the following:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; <b>assert</b> 1 == 0
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+AssertionError
+
+					</pre>
+
+					<p>Like the <b><tt class="monofont">raise</Tt></b> statement we investigated in the previous section, we can provide an exception argument to our <B><tt cLass="monofont">assert</tT></b> command:</p>
+
+					<pRE>
+						
+&gt;&gt;&gt; <B>assert</B> 1 == 0, 'One does not equal zero silly!'
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+AssertionError: One does not equal zero silly!
+
+					</pre>
+
+					<p>Here is how we would use a <B><TT Class="monofont">try-except</TT></B> statement to catch an <Tt claSS="monofont">AssertionError</TT> exception:</p>
+
+					<pre>
+						
+<b>try:</b>
+    <b>assert</b> 1 == 0, 'One does not equal zero silly!'
+<b>except</b> AssertionError, args:
+    <b>print</b> '%s: %s' % (args.__class__.__name__, args)
+
+					</pre>
+
+					<p>Executing the above code from the command-line would result in the following output:</p>
+
+					<pre>
+						
+AssertionError: One does not equal zero silly!
+
+					</Pre>
+
+					<P>To give you a better idea of how <b><tt Class="monofont">assert</Tt></b> works, imagine how the <b><TT CLass="monofont">assert</tT></B> statement may be implemented in Python if written as a function. It would probably look something like this:</P>
+
+					<Pre>
+						
+<b>def</b> assert(expr, args=None):
+    <B>if</B> __debug__ <B>and not</B> expr:
+        <b>raise</b> AssertionError, args
+
+					</prE>
+
+					<P>The first <B><Tt class="monofont">if</tt></b> statement confirms the appropriate syntax for the assert, meaning that <tt class="monofont">expr</tt> should be an expression. We compare the type of <tt ClaSs="monofont">expr</tt> to a real expression to verify. The second part of the function evaluates the expression and raises <Tt claSs="monofont">AssertionError,</tt> if necessary. The built-in variable <TT CLass="monofont">__debug__</tT> is 1 under normal circumstances, 0 when optimization is requested (command line option -O).</P>
+
+				
+			</FOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="161.html" title="Raising Exceptions"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=162" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="162.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="163.html" title="Standard Exceptions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,70 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Files and the open() Built-in Function</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="48.html" class="navtitle">2. Getting Started</a> &gt; <span class="nonavtitle">Files and the open() Built-in Function</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="62.html" title="for Loop and the range() Built-in Function"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=63" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="63.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="64.html" title="Errors and Exceptions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A09%3A46+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204173120061005208250115047</font><a href="read5.asp?bookname=0130260363&snode=63&now=5%2F29%2F2002+9%3A09%3A46+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Files and the open() Built-in Function</h3>
+				<p>File access is one of the more important aspects of a language once you are comfortable with the syntax; there is nothing like the power of persistent storage to get some real work done.</p>
+
+				
+					<H4>How to Open a File</H4>
+					<PRe>
+						
+ <i>handle</i> = open( <i>file_name, access_mode</I>='r')
+
+					</PRE>
+
+					<p>The <i><tt CLASs="monofont">file_name</tt></i> variable contains the string name of the file we wish to open, and <i><tt class="monofont">access_mode</tt></i> is either <tt claSs="monofont">'r'</tT> for read, <tt cLass="monofont">'w'</tT> for write, or <tt cLASS="monofont">'a'</tt> for append. Other flags which can be used in the <i><tT CLAss="monofont">access_mode</tt></I> string include the <TT Class="monofont">'+'</TT> for dual read-write access and the <TT class="monofont">'b'</tt> for binary access. If the mode is not provided, a default of read-only (<tt class="monofont">'r'</tt>) is used to open the file.</p>
+
+					<div ClaSs="note"><p cLass="notetitle"><b>NOTE</B></p><p><p><I>Attributes are items associated with a piece of data. Attributes can be simply data values or executable objects such as functions and methods. What kind of objects have attributes? Many. Classes, modules, files, complex numbers. These are just some of the Python objects which have attributes.</I></P>
+<P><i>How do I access object attributes? With the</i> dotted attribute notation, <i>that is, by putting together the object and attribute names, separated by a dot or period: <tT CLAss="monofont">object.attribute.</tt></I></P>
+</P></Div><br>
+
+					<P>If <TT Class="monofont">open()</tt> is successful, a file object will be returned as the handle (<i><tt class="monofont">handle</tt></i>). All succeeding access to this file must go through its file handle. Once a file object is returned, we then have access to the other functionality through its methods such as <tt cLasS="monofont">readlines()</tt> and <tT clasS="monofont">close().</tt> Methods are <i>attributes</I> of file objects and must be accessed via the dotted attribute notation (see Core Note above).</P>
+
+					<P>Here is some code which prompts the user for the name of a text file, then opens the file and displays its contents to the screen:</P>
+
+					<pre>
+						
+filename = raw_input('Enter file name: ')
+file = open(filename, 'r')
+allLines = file.readlines()
+file.close()
+<b>for</B> eachLine <B>in</B> allLines:
+   <B>print</b> eachLine,
+
+					</pre>
+
+					<P>Rather than looping to read and display one line at a time, our code does something a little different. We read all lines in one fell swoop, close the file, and <I>then</I> iterate through the lines of the file. One advantage to coding this way is that it permits the file access to complete more quickly. The output and file access do not have to alternate back and forth between reading a line and printing a line. It is cleaner and separates two somewhat unrelated tasks. The caveat here is the file size. The code above is reasonable for files with reasonable sizes. Programs too large may take up too much memory, in which case you would have to revert back to reading one line at a time.</P>
+
+					<p>The other interesting statement in our code is that we are again using the comma at the end of the <b><tt CLASs="monofont">print</tt></b> statement to suppress the printing of the NEWLINE character. Why? Because each text line of the file already contains NEWLINEs at the end of every line. If we did not suppress the NEWLINE from being added by <b><tt class="monofont">print,</tt></b> our display would be double-spaced.</p>
+
+					<p>In <a hrEf="141.html">Chapter 9</a>, we cover file objects, their built-in methods attributes, and how to access your local file system. Please go there for all the details.</P>
+
+				
+			</fonT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="62.html" title="for Loop and the range() Built-in Function"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=63" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="63.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="64.html" title="Errors and Exceptions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

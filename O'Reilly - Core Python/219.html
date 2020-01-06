@@ -1,0 +1,54 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Composition</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="210.html" class="navtitle">13. Classes and OOP</a> &gt; <span class="nonavtitle">Composition</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="218.html" title="Binding and Method Invocation"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=219" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="219.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="220.html" title="Subclassing and Derivation"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A15%3A44+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004231200013197015018216166</font><a href="read0.asp?bookname=0130260363&snode=219&now=5%2F30%2F2002+8%3A15%3A44+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Composition</h3>
+				<p>Once a class is defined, the goal is to use it as a model programmatically, embedding this object throughout your code, intermixing use with other data types and the logical flow of execution. There are two ways of utilizing classes in your code. The first is composition. This is where different classes are mingled with and into other classes for added functionality and code reusability. You may perhaps create instances of your class inside a larger class, containing other attributes and methods enhancing the use of the original class object. The other way is with derivation and discussed in the next section.</p>
+
+				<P>For example, let us imagine an enhanced design of the address book class we created at the beginning of the chapter. If, during the course of our design, we created separate classes for names, addresses, etc., we would want to integrate that work into our <TT Class="monofont">AddrBookEntry</TT> class, rather than have to redesign each of those supporting classes. We have the added advantages of time and effort saved, as well as more consistent code—when bugs are fixed in that same piece of code, that change is reflected in all the applications which reuse that code.</P>
+
+				<P>Such as a class would perhaps contain <tt clASS="monofont">Name</Tt> and <tt class="monofont">Phone</tt> instances, not to mention others like <tt class="monofont">StreetAddress, Phone</tt> (home, work, telefacsimile, pager, mobile, etc.), <tT clAss="monofont">Email</tT> (home, work, etc.), and possibly a few <tt clAss="monofont">Date</tT> instances (birthday, wedding, anniversary, etc.). Here is a simple example with some of the classes mentioned above:</P>
+
+				<PRe>
+					
+<b>class</b> NewAddrBookEntry:         # class definition
+  'new address book entry class'
+  <b>def</B> __init__(self, nm, ph):    # define constructor
+     self.name = Name(nm)        # create Name instance
+     self.phone = Phone(ph)      # create Phone instance
+     <B>print</B> 'Created instance for:', self.name
+
+				</Pre>
+
+				<p>The <tT CLAss="monofont">NewAddrBookEntry</tt> class is a composition of itself and other classes. This defines a "has-a" relationship between a class and other classes it is composed of. For example, our <TT CLass="monofont">NewAddrBookEntry</tt> class "has a"
+					<tt class="monofont">Name</tt> class instance and a <tt clasS="monofont">Phone</tt> instance, too.</P>
+
+				<p>Creating composite objects enables such additional functionality and make sense because the classes have nothing in common. Each class manages its own namespace and behavior. When there are more intimate relationships between objects, a more elegant solution is the concept of derivation.</p>
+
+			</fOnt>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="218.html" title="Binding and Method Invocation"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=219" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="219.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="220.html" title="Subclassing and Derivation"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

@@ -1,0 +1,175 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Introduction to Dictionaries</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="121.html" class="navtitle">7. Dictionaries</a> &gt; <span class="nonavtitle">Introduction to Dictionaries</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="122.html" title="7. Dictionaries"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=123" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="123.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="124.html" title="Operators"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A22%3A05+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204175203013152020015011053</font><a href="read7.asp?bookname=0130260363&snode=123&now=5%2F29%2F2002+9%3A22%3A05+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT><h3>Introduction to Dictionaries</h3>
+				<p>The last standard type to add to our repertoire is the dictionary, the sole mapping type in Python. A dictionary is mutable and is another container type that can store any number of Python objects, including other container types. What makes dictionaries different from sequence type containers like lists and tuples is the way the data is stored and accessed.</p>
+
+				<P>Sequence types use numeric keys only (numbered sequentially as indexed offsets from the beginning of the sequence). Mapping types may use most other object types as keys, strings being the most common. Unlike sequence type keys, mapping keys are often, if not directly, associated with the data value that is stored. But because we are no longer using "sequentially-ordered" keys with mapping types, we are left with an unordered collection of data. As it turns out, this does not hinder our use because mapping types do not require a numeric value to index into a container to obtain the desired item. With a key, you are "mapped" directly to your value, hence the term "mapping type." The most common data structure that maps keys with associated values are <I>hash tables.</I></P>
+
+				<div cLASS="note"><p claSS="notetitle"><B>NOTE</B></p><p><p><i>Sequence types use sequentially-ordered numeric keys as index offsets to store your data in an array format. The index number usually has nothing to do with the data value that is being stored. There should also be a way to store data based on another, associated value such as a string. We do this all the time in everyday living. You file people's phone numbers in your address book based on last name, you add events to your calendar or appointment book based on date and time, etc. For each of these examples, an associated value to a data item was your key.</i></p>
+<p><i>Hash tables are a data structure that does exactly what we described. They store each piece of data, called a value, based on an associated data item, called a key. Together, these are known as</i> key-value pairs. <i>The hash table algorithm takes your key, performs an operation on it, called a</i> hash function, <i>and based on the result of the calculation, chooses where in the data structure to store your value. Where any one particular value is stored depends on what its key is. Because of this randomness, there is no ordering of the values in the hash table. You have an unordered collection of data.</i></p>
+<p><i>The only kind of ordering you can obtain is by key. You can request a dictionary's keys, which is returned to you as a list. From there, you can call the list's</i>
+						<tt cLasS="monofont">sort()</tt>
+						<i>method to order that data set. This is only one type of ordering you can perform on your keys. In any case, once you have determined that the set of keys is "sorted" to your satisfaction, their associated values may be retrieved from the dictionary. Hash tables generally provide good performance because lookups occur fairly quickly once you have a key. For a sequential access data structure, you must march down to the correct index location and then retrieve the value. Naturally, performance is based on the type of hash function used.</I></p>
+</p></diV><br>
+
+				<p>Python dictionaries are implemented as resizeable hash tables. If you are familiar with Perl, then we can say that dictionaries are similar to Perl's associative arrays or hashes.</P>
+
+				<P>We will now take a closer look at Python dictionaries. The syntax of a dictionary entry is <TT clasS="monofont">key:value.</TT> Also, dictionary entries are enclosed in braces ( { } ).</P>
+
+				
+					<h4>How to Create and Assign Dictionaries</h4>
+					<p>Creating dictionaries simply involves assigning a dictionary to a variable, regardless of whether the dictionary has elements or not:</p>
+
+					<PRE>
+						
+&gt;&gt;&gt; dict1 = {}
+&gt;&gt;&gt; dict2 = {'name': 'earth', 'port': 80}
+&gt;&gt;&gt; dict1, dict2
+({}, {'port': 80, 'name': 'earth'})
+
+					</Pre>
+
+				
+				
+					<h4>How to Access Values in Dictionaries</h4>
+					<P>To access dictionary elements, you use the familiar square brackets along with the key to obtain its value:</P>
+
+					<PRe>
+						
+&gt;&gt;&gt; dict2['name']
+'earth'
+&gt;&gt;&gt;
+&gt;&gt;&gt; <b>print</b> 'host %s is running on port %d' % \
+…    (dict2['name'], dict2['port'])
+host earth is running on port 80
+
+					</pre>
+
+					<p>Dictionary <tt class="monofont">dict1</tt> is empty while <tt clAss="monofont">dict2</Tt> has two data items. The keys in <tt Class="monofont">dict2</Tt> are <tt CLASs="monofont">'name'</tt> and <tT CLAss="monofont">'port',</tt> and their associated value items are <TT CLass="monofont">'earth'</tT> and <TT Class="monofont">80,</tt> respectively. Access to the value is through the key, as you can see from the explicit access to the <tt class="monofont">'name'</tt> key.</p>
+
+					<p>If we attempt to access a data item with a key which is not part of the dictionary, we get an error:</p>
+
+					<prE>
+						
+&gt;&gt;&gt; dict2['server']
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+KeyError: server
+
+					</prE>
+
+					<p>In this example, we tried to access a value with the key <tt Class="monofont">'server'</Tt> which, as you know, does not exist from the code above. The best way to check if a dictionary has a specific key is to use the dictionary's <tt CLASs="monofont">has_key()</tt> method. We will introduce all of a dictionary's methods below. The Boolean <tT CLAss="monofont">has_key()</tt> method will return a 1 if a dictionary has that key and 0 otherwise.</P>
+
+					<PRE>
+						
+&gt;&gt;&gt; dict2.has_key('server')
+0
+&gt;&gt;&gt; dict2.has_key('name')
+1
+&gt;&gt;&gt; dict2['name']
+'earth'
+
+					</pre>
+
+					<p>Once the <TT CLass="monofont">has_key()</tt> method has given the okay, meaning that a key exists, then you can access it without having to worry about getting the <tt class="monofont">KeyError,</tt> similar to what happened above. Let us take a look at another dictionary example, using keys other than strings:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; dict3 = {}
+&gt;&gt;&gt; dict3[1] = 'abc'
+&gt;&gt;&gt; dict3['1'] = 3.14159
+&gt;&gt;&gt; dict3[3.2] = 'xyz'
+&gt;&gt;&gt; dict3
+{3.2: 'xyz', 1: 'abc', '1': 3.14159}
+
+					</prE>
+
+					<p>Rather than adding each key-value pair individually, we could have also entered all the data for <tT claSs="monofont">dict3</tt> at the same time:</p>
+
+					<Pre>
+						
+dict3 = { 3.2: 'xyz', 1: 'abc', '1': 3.14159 }
+
+					</pRE>
+
+					<P>Creating the dictionary with a set key-value pair can be accomplished if all the data items are known in advance (obviously). The goal of the examples using <Tt claSS="monofont">dict3</TT> is to illustrate the variety of keys that you can use. If we were to pose the question of whether a key for a particular value should be allowed to change, you would probably say, "No." Right?</p>
+
+					<p>Not allowing keys to change during execution makes sense if you think of it this way: Let us say that you created a dictionary element with a key and value. Somehow during execution of your program, the key changed, perhaps due to an altered variable. When you went to retrieve that data value again with the original key, you got a <tt CLASs="monofont">KeyError</tt> (since the key changed), and you had no idea how to obtain your value now because the key had somehow been altered. Because of this reason, keys must be immutable, so numbers and strings are fine, but lists and other dictionaries are not. (See <a HREF="127#2.html">Section 7.5.2</a> for why keys must be immutable.)</p>
+
+				
+				
+					<h4>How to Update Dictionaries</h4>
+					<p>You can update a dictionary by adding a new entry or element (i.e., a key-value pair), modifying an existing entry, or deleting an existing entry (see below for more details on removing an entry).</p>
+
+					<pre>
+						
+&gt;&gt;&gt; dict2['name'] = 'venus'          # update existing entry
+&gt;&gt;&gt; dict2['port'] = 6969             # update existing entry
+&gt;&gt;&gt; dict2['arch'] = 'sunos5'         # add new entry
+&gt;&gt;&gt;
+&gt;&gt;&gt; <b>print</b> 'host %(name)s is running on port %(port)d' % dict2
+host venus is running on port 6969
+
+					</pre>
+
+					<p>If the key does exist, then its previous value will be overridden by its new value. The <b><tt clAss="monofont">print</Tt></b> statement above illustrates an alternative way of using the string format operator ( <tT clasS="monofont">%</tt> ), specific to dictionaries. Using the dictionary argument, you can shorten the <tT CLAss="monofont">print</tt> request somewhat because naming of the dictionary occurs only once, as opposed to occurring for each element using a tuple argument.</P>
+
+					<P>You may also add the contents of an entire dictionary to another dictionary by using the <TT clasS="monofont">update()</TT> built-in method. We will introduce this methods later on in this chapter in <A href="126.html">Section 7.4</A>.</P>
+
+				
+				
+					<H4>How to Remove Dictionary Elements and Dictionaries</H4>
+					<p>Removing an entire dictionary is not a typical operation. Generally, you either remove individual dictionary elements or clear the entire contents of a dictionary. However, if you really want to "remove" an entire dictionary, use the <b><tt class="monofont">del</tt></b> statement (introduced in <a href="75#6.html">Section 3.5.6</a>). Here are some deletion examples for dictionaries and dictionary elements:</p>
+
+					<pRe>
+						
+del dict1['name']         # remove entry with key 'name'
+
+dict1.clear()             # remove all entries in dict1
+
+del dict1                 # delete entire dictionary
+
+					</pRe>
+
+					<diV clasS="note"><p clASS="notetitle"><B>NOTE</b></p><p><p><I>You may recall that there are two ways to delete an entry from a list, using the</I>
+							<B><Tt claSS="monofont">del</TT></b>
+							<i>statement or using the <tt CLASs="monofont">list.</tt></i>
+							<tt class="monofont">remove()</tt>
+							<i>method. Then you must be wondering, why do lists have a remove entry method but not dictionaries? One simple answer is that to remove a element from a list is a two-step effort. You must first find the index (a.k.a. the key) where the data item is located and then call the</i>
+							<b><tt clAss="monofont">del</Tt></b>
+							<i>statement. The</I>
+							<tt clAss="monofont">remove()</tT>
+							<I>method was written to perform both steps, leaving the programmer with a single step. With dictionaries, you already have the key; there is no need to perform a lookup. You just call</I>
+							<B><tt clASS="monofont">del</Tt></b>
+							<i>once. Creating a dictionary method to remove an entry will provide you with a functional interface.</i></P>
+</P></DIv><br>
+
+				
+			</fONT>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="122.html" title="7. Dictionaries"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=123" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="123.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="124.html" title="Operators"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

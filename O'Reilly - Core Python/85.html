@@ -1,0 +1,540 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Standard Type Built-in Functions</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="78.html" class="navtitle">4. Python Objects</a> &gt; <span class="nonavtitle">Standard Type Built-in Functions</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="84.html" title="Standard Type Operators"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=85" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="85.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="86.html" title="Categorizing the Standard Types"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A13%3A47+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172039119068198216157185</font><a href="read4.asp?bookname=0130260363&snode=85&now=5%2F29%2F2002+9%3A13%3A47+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Standard Type Built-in Functions</h3>
+				<p>Along with generic operators which we have just seen, Python also provides some built-in functions that can be applied to all the basic object types: <tT CLAss="monofont">cmp(),</tt>
+					<TT CLass="monofont">repr(),</tT>
+					<TT Class="monofont">str(),</tt>
+					<tt class="monofont">type(),</tt> and the single reverse or back quotes ( <tt claSs="monofont">''</tT> ) operator, which is functionally-equivalent to <tt cLass="monofont">repr().</tT></p>
+
+				<p><tABLE bordER="1" CEllspACINg="0" celLPADding="1" width="100%">
+<caption><h5>Table 4.4. Standard Type Built-in Functions</h5></caPtiOn><coLgrouP aliGN="left" SPan="2">
+<tr VALIgn="top">
+<th>
+<FONT size="2"><P><B><I>function</I></b></p>
+</font></th>
+<th>
+<font size="2"><p><b><I>operation</i></b></P>
+</fonT></th>
+</tr>
+<Tr vaLIGN="top">
+<td>
+<foNT SIze="2"><p><tT CLAss="monofont">cmp</tt><TT CLass="monofont">(</tt><i><tt class="monofont">obj1, obj2</tt></i><tt clAss="monofont">)</Tt></p>
+</fOnt></td>
+<Td>
+<foNT SIze="2"><p>compares <i><TT CLass="monofont">obj1</tT></I> and <I><Tt claSS="monofont">obj2,</TT></i> returns integer <i><tt class="monofont">i</tt></i> where:</p>
+
+									<p><i><tt claSs="monofont">i</tT></i>
+										<tt Class="monofont">&lt; 0</Tt> if <i><tT CLAss="monofont">obj1</tt></I>
+										<TT Class="monofont">&lt;</TT>
+										<I><Tt claSS="monofont">obj2</TT></i></p>
+
+									<p><i><tt class="monofont">i</tt></i>
+										<tt clasS="monofont">&gt; 0</tt> if <I><tt cLass="monofont">obj1</tT></i>
+										<tt CLASs="monofont">&gt;</tt>
+										<i><TT CLass="monofont">obj2</tT></I></P>
+
+									<P><i><tt cLASS="monofont">i</tt></i>
+										<tt class="monofont">== 0</tt> if <i><tt class="monofont">obj1</Tt></i>
+										<Tt clAss="monofont">==</tt>
+										<I><tt cLASS="monofont">obj2</tt></i></p>
+</FONT></td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt size="2"><p><tt class="monofont">repr</tt><tt clAss="monofont">(</Tt><i><tT clasS="monofont">obj)/' obj'</tt></i></P>
+</FONt></td>
+<tD>
+<FONt sizE="2"><P>returns evaluatable string representation of <I><Tt claSS="monofont">obj</TT></i></p>
+</font></td>
+</tr>
+<tr valign="top">
+<td>
+<FonT sizE="2"><p><tt cLass="monofont">str</TT><TT clasS="monofont">(</TT><I><tt clASS="monofont">obj</Tt></i><tt CLASs="monofont">)</tt></p>
+</font></td>
+<td>
+<font size="2"><P>returns printable string representation of <i><tT claSs="monofont">obj</tt></i></P>
+</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><p><TT CLass="monofont">type</tt><tt class="monofont">(</tt><i><tt claSs="monofont">obj</tT></i><tt Class="monofont">)</Tt></p>
+</fONT></Td>
+<td>
+<fONT Size="2"><p>determines type of <I><TT Class="monofont">obj</TT></I> and return type object</P>
+</font></td>
+</tr>
+</colgroup>
+</tablE></p>
+
+				
+					<h4><Tt clAss="monofont">cmp()</tt></H4>
+					<p>The <tt CLASs="monofont">cmp()</tt> built-in function CoMPares two objects, say, <i><TT CLass="monofont">obj1</tT></I> and <I><Tt claSS="monofont">obj2,</TT></i> and returns a negative number (integer) if <i><tt class="monofont">obj1</tt></i> is less than <i><tt class="monofont">obj2,</Tt></i> a positive number if <I><tt cLass="monofont">obj1</tT></i> is greater than <i><tT CLAss="monofont">obj2,</tt></I> and zero if <I><TT clasS="monofont">obj1</TT></I> is equal to <i><tt cLASS="monofont">obj2.</tt></i> Notice the similarity in return values as C's <tt class="monofont">strcmp().</tt> The comparison used is the one that applies for that type of object, whether it be a standard type or a user-created class; if the latter, <tt class="monofont">cmp()</tT> will call the class's special <tt ClasS="monofont">__cmp__()</tt> method. More on these special methods in <a hRef="210.html">Chapter 13</a>, on Python classes. Here are some samples of using the <TT CLass="monofont">cmp()</tT> built-in function with numbers and strings.</P>
+
+					<PRe>
+						
+&gt;&gt;&gt; a, b = -4, 12
+&gt;&gt;&gt; cmp(a,b)
+-1
+&gt;&gt;&gt; cmp(b,a)
+1
+&gt;&gt;&gt; b = -4
+&gt;&gt;&gt; cmp(a,b)
+0
+&gt;&gt;&gt;
+&gt;&gt;&gt; a, b = 'abc', 'xyz'
+&gt;&gt;&gt; cmp(a,b)
+-23
+&gt;&gt;&gt; cmp(b,a)
+23
+&gt;&gt;&gt; b = 'abc'
+&gt;&gt;&gt; cmp(a,b)
+0
+
+					</pre>
+
+					<P>We will look at using <TT Class="monofont">cmp()</TT> with other objects later.</P>
+
+				
+				
+					<H4><tt class="monofont">str()</tt> and <tt class="monofont">repr()</tt> (and <tt ClaSs="monofont">''</tt>Operator)</H4>
+					<p>The <tt cLass="monofont">str()</TT> STRing and <TT clasS="monofont">repr()</TT> REPResentation built-in functions or the single back or reverse quote operator ( <Tt claSS="monofont">``</TT> ) come in really handy if the need arises to either recreate an object through evaluation or obtain a human-readable view of the contents of objects, data values, object types, etc. To use these operations, a Python object is provided as an argument and some type of string representation of that object is returned.</p>
+
+					<p>In some examples below, we take some random Python types and convert them to their string representations.</p>
+
+					<pRE>
+						
+&gt;&gt;&gt; str(4.53-2j)
+'(4.53-2j)'
+&gt;&gt;&gt;
+&gt;&gt;&gt; str(1)
+'1'
+&gt;&gt;&gt;&gt;&gt;&gt; str(2e10)
+'20000000000.0'
+&gt;&gt;&gt;
+&gt;&gt;&gt; str([0, 5, 9, 9])
+'[0, 5, 9, 9]'
+&gt;&gt;&gt;
+&gt;&gt;&gt; repr([0, 5, 9, 9])
+'[0, 5, 9, 9]'
+&gt;&gt;&gt;
+&gt;&gt;&gt; `[0, 5, 9, 9]`
+'[0, 5, 9, 9]'
+
+					</PRe>
+
+					<p>Although all three are similar in nature and functionality, only <tt class="monofont">repr()</tt> and <tt class="monofont">``</tt> do exactly the same thing, and using them will deliver the "official" string representation of an object that can be evaluated as a valid Python expression (using the <Tt cLass="monofont">eval()</Tt> built-in function). In contrast, <tt cLass="monofont">str()</TT> has the job of delivering a "printable" string representation of an object which may not necessarily be acceptable by <TT clasS="monofont">eval(),</TT> but will look nice in a <B><tt clASS="monofont">print</Tt></b> statement.</p>
+
+					<p> The executive summary is that <TT CLass="monofont">repr()</tt> is Python-friendly while <tt class="monofont">str()</tt> produces human-friendly output. However, with that said, because both types of string representations coincide so often, on many occasions all three return the exact same string.</p>
+
+					<div clAss="note"><P claSs="notetitle"><b>NOTE</b></p><P><p><i>Occasionally in Python, you will find both an operator and a function that do exactly the same thing. One reason why both an operator and a function exist is that there are times where a function may be more useful than the operator, for example, when you are passing around executable objects like functions and where different functions may be called depending on the data item. Another example is the double-star ( <tT CLAss="monofont">**</tt> ) and</I>
+							<TT Class="monofont">pow()</TT>
+							<I>built-in function which performs</I>
+							"<tt clASS="monofont">x</Tt>
+								<i>to the</i>
+								<tt class="monofont">y</tt>
+								<i>power</i>"
+							<i>exponentiation for</i>
+							<tt clAss="monofont">x</Tt>
+							<tt Class="monofont">** y</Tt>
+							<i>or</i>
+							<TT CLass="monofont">pow(x,y).</tT></P>
+</P></Div><br>
+
+				
+				<A NAMe="4"></a>
+					<h4>A Second Look at <tT CLAss="monofont">type()</tt></h4>
+					<p>Python does not support method or function overloading, so you are responsible for any "introspection" of the objects that your functions are called with. (Also see the Python FAQ 4.75.) Fortunately, we have the <tt class="monofont">type()</tt> built-in function to help us with just that, introduced earlier in <a href="82#1.html">Section 4.3.1</A>.</p>
+
+					<p>What's in a name? Quite a lot, if it is the name of a type. It is often advantageous and/or necessary to base pending computation on the type of object that is received. Fortunately, Python provides a built-in function just for that very purpose. <Tt clAss="monofont">type()</tt> returns the type for any Python object, not just the standard types. Using the interactive interpreter, let's take a look at some examples of what <Tt clASS="monofont">type()</Tt> returns when we give it various objects.</p>
+
+					<prE>
+						
+&gt;&gt;&gt; type('')
+&lt;type 'string'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; s = 'xyz'
+&gt;&gt;&gt;
+&gt;&gt;&gt; type(s)
+&lt;type 'string'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; type(100)
+&lt;type 'int'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; type(-2)
+&lt;type 'int'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; type(0)
+&lt;type 'int'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; type(0+0j)
+&lt;type 'complex'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; type(0L)
+&lt;type 'long int'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; type(0.0)
+&lt;type 'float'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; type([])
+&lt;type 'list'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; type(())
+&lt;type 'tuple'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; type({})
+&lt;type 'dictionary'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; type(type)
+&lt;type 'builtin_function_or_method'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; type(Abc)
+&lt;type 'class'&gt;
+&gt;&gt;&gt;
+&gt;&gt;&gt; type(Abc_obj)
+&lt;type 'instance'&gt;
+
+					</PRE>
+
+					<p>You will find most of these types familiar, as we discussed them at the beginning of the chapter, however, you can now see how Python recognizes types with <tt cLASS="monofont">type().</tt> Since we cannot usually "look" at a type object to reveal its value from outside the interactive interpreter, the best use of the type object is to compare it with other type objects to make this determination.</p>
+
+					<pRE>
+						
+&gt;&gt;&gt; type(1.2e-10+4.5e20j) == type(0+0j):
+1
+&gt;&gt;&gt; type('this is a string') == type(''):
+1
+&gt;&gt;&gt; type(34L) == type(0L)
+1
+&gt;&gt;&gt; type(2.4) == type(3)
+0
+
+					</PRe>
+
+					<p>Although <tt class="monofont">type()</tt> returns a type object rather than an integer, say, we can still use it to our advantage because we can make a direct comparison using the <b><tt class="monofont">if</tT></b> statement. We present below a script in <a Href="85#5.html">Example 4.1</A> that shows how we can use <tt clAss="monofont">type()</tT> in a run-time environment.</P>
+
+					
+						<H5>
+<A name="5"></A>Example 4.1. Checking the Type (<TT Class="monofont">typechk.py</TT>)</H5>
+						<P><b><i>The function</i></b>
+							<TT CLass="monofont">displayNumType()</tt>
+							<b><i>takes a numeric argument and uses the</i></b>
+							<tt class="monofont">type()</tt>
+							<b><i>built-in to indicate its type (or "not a number," if that is the case).</I></b></p>
+
+						<Pre cLass="monofont"> &lt;$nopage&gt;
+001 1   #!/usr/bin/env python
+002 2
+003 3   <b>def</B> displayNumType(number):
+004 4
+005 5       <b>print</b> number, "is",
+006 6       <b>if</B> type(number) == type(0):
+007 7           <B>print</B> 'an integer'
+008 8       <B>elif</b> type(number) == type(0L):
+009 9           <b>print</b> 'a long'
+010 10      <b>elif</B> type(number) == type(0.0):
+011 11          <B>print</B> 'a float'
+012 12      <B>elif</b> type(number) == type(0+0j):
+013 13          <b>print</b> 'a complex number'
+014 14      <b>else:</B> &lt;$nopage&gt;
+015 15          <B>print</B> 'not a number at all!!'
+016 16
+017 17   displayNumType(-69)
+018 18   displayNumType(9999999999999999999999L)
+019 19   displayNumType(98.6)
+020 20   displayNumType(-5.2+1.9j)
+021 21   displayNumType('xxx')
+022  &lt;$nopage&gt;</Pre>
+					
+					<p>Running <tT CLAss="monofont">typechk.py,</tt> we get the following output:</p>
+
+					<pre>
+						
+-69 is an integer
+9999999999999999999999 is a long
+98.6 is a float
+(-5.2+1.9j) is a complex number
+xxx is not a number at all!!
+
+					</pre>
+
+					<p>An alternative to comparing an object's type with a known object's type (as we did above and in the example below) is to utilize the <tt class="monofont">types</tT> module which we briefly mentioned earlier in the chapter.</p>
+
+					<pRe>
+						
+&gt;&gt;&gt; <b>import</b> types
+&gt;&gt;&gt; aFloat = 1.69
+&gt;&gt;&gt; <B>if</b> type(aFloat) == types.FloatType:
+…       <b>print</b> aFloat, 'is a float type'
+… <b>else:</B>
+…       <b>print</b> aFloat, 'is not a float type'
+…
+1.69 is a float type
+
+					</pRE>
+
+					<P>A summary of operators and built-in functions common to all basic Python types is given in <A href="85#6.html">Table 4.5</A>. The progressing shaded groups indicate hierarchical precedence from highest-to-lowest order. Elements grouped with similar shading all have equal priority.</P>
+
+					<A Name="6"></a><P><TABle boRDER="1" cellspacing="0" cellpaddiNg="1" wIdth="100%">
+<CaptiOn><h5>Table 4.5. Standard Type Operators and Built-In Functions</h5></CAPTion><cOLGRoup aLIGN="left" span="3">
+<TR VAlign="top">
+<th>
+<font size="2"><p><b><i>operator/function</i></b></p>
+</FonT></th>
+<tH>
+<font Size="2"><P><B><I>description</I></b></p>
+</foNT></TH>
+<th>
+<foNT SIze="2"><p><b><I>result</I></B><Font size="1"><sup><a href="#FOOTNOTE-a">[a]</a></sup></fOnt>
+</P>
+</fonT></th>
+</tr>
+<Tr vaLIGN="top">
+<td coLSPAn="1">
+<fonT SIZe="2"><p><b>string representation</b></P>
+</FONt></td>
+</tr>
+<tr valign="top">
+<td>
+<font sIze="2"><P>``</p>
+</foNt></td>
+<tD>
+<fonT SIZe="2"><p><b>string representation</b></P>
+</FONt></td>
+<tD>
+<FONt sizE="2"><P>string</P>
+</Font></td>
+</tr>
+<tr valign="top">
+<td colSpaN="1">
+<fonT size="2"><P><b>built-in functions</b></p>
+</FONT></td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt siZE="2"><P><Tt class="monofont">cmp</tt><tt class="monofont">(</tt><i><tt ClaSs="monofont">obj1, obj2</tt></I><tt clAss="monofont">)</tT></P>
+</FOnt></td>
+<TD>
+<FOnt siZE="2"><P>compares two objects</P>
+</font></TD>
+<TD>
+<font size="2"><p>integer</p>
+</font></td>
+</tr>
+<tr ValIgn="top">
+<tD>
+<font Size="2"><P><TT Class="monofont">repr(</TT><I><Tt claSS="monofont">obj</TT></i><tt cLASS="monofont">)</tt></p>
+</font></td>
+<td>
+<font size="2"><p>string representation</P>
+</foNt></td>
+<Td>
+<fonT sizE="2"><P>string</P>
+</Font></tD>
+</TR>
+<Tr valIGN="top">
+<Td>
+<fonT SIZe="2"><p><tt class="monofont">str(</tt><i><tt class="monofont">obj</tT></i><tT claSs="monofont">)</tt></p>
+</Font></TD>
+<TD>
+<font SIZE="2"><p>string representation</p>
+</foNT></TD>
+<td>
+<foNT SIze="2"><p>string</p>
+</font></td>
+</tr>
+<tr valign="top">
+<Td>
+<fOnt sIze="2"><p><tT claSS="monofont">type(</TT><i><tt cLASS="monofont">obj</tt></i><tT CLAss="monofont">)</tt></P>
+</FONt></td>
+<td>
+<font size="2"><p>determines object type</p>
+</font></tD>
+<td>
+<Font Size="2"><p>type object</P>
+</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td cOLSPan="1">
+<foNT SIze="2"><p><b>value comparisons</b></p>
+</font></td>
+</tr>
+<tr valiGn="top">
+<tD>
+<fonT size="2"><P><tt cLASS="monofont">&lt;</tt></p>
+</fONT></Td>
+<td>
+<fONT Size="2"><p>less than</P>
+</FONt></td>
+<td>
+<font size="2"><p>Boolean</p>
+</font></tD>
+</tr>
+<Tr vaLign="top">
+<tD>
+<fonT SIZe="2"><p><tt CLASs="monofont">&gt;</tt></p>
+</FONT></td>
+<td>
+<FONT size="2"><p>greater than</p>
+</font></td>
+<td>
+<font siZe="2"><p>Boolean</P>
+</fonT></td>
+</tr>
+<Tr vaLIGN="top">
+<td>
+<foNT SIze="2"><p><tT CLAss="monofont">&lt;=</tt></P>
+</FONt></td>
+<td>
+<font size="2"><p>less than or equal to</p>
+</font></tD>
+<td>
+<Font Size="2"><p>Boolean</P>
+</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<fONT Size="2"><p><TT CLass="monofont">&gt;=</tt></p>
+</font></td>
+<td>
+<font siZe="2"><p>greater than or equal to</P>
+</fonT></td>
+<td>
+<Font SIZE="2"><p>Boolean</p>
+</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><p><tt class="monofont">==</tt></p>
+</font></tD>
+<td>
+<Font Size="2"><p>equal to</P>
+</fonT></TD>
+<Td>
+<fonT SIZe="2"><p>Boolean</p>
+</fONT></Td>
+</tr>
+<tR VALign="top">
+<td>
+<font size="2"><p><tt clasS="monofont">!=</tt></P>
+</fonT></td>
+<td>
+<Font SIZE="2"><p>not equal to</p>
+</foNT></TD>
+<td>
+<foNT SIze="2"><p>Boolean</p>
+</FONT></td>
+</tr>
+<tr valign="top">
+<td>
+<font siZe="2"><p><Tt clAss="monofont">&lt;&gt;</tt></P>
+</fonT></TD>
+<Td>
+<fonT SIZe="2"><p>not equal to</p>
+</fONT></Td>
+<td>
+<fONT Size="2"><p>Boolean</p>
+</font></td>
+</tr>
+<tr valigN="top">
+<td ColsPan="1">
+<foNt siZE="2"><P><B>object comparisons</b></p>
+</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><p><b><tt class="monofont">is</tt></b></p>
+</fonT></td>
+<Td>
+<foNt sizE="2"><p>the same as</p>
+</fONT></Td>
+<td>
+<fONT Size="2"><p>Boolean</P>
+</FONt></td>
+</tR>
+<TR Valign="top">
+<td>
+<font size="2"><p><b><tt cLasS="monofont">is not</tt></b></P>
+</font></Td>
+<td>
+<FONT size="2"><P>not the same as</P>
+</FOnt></td>
+<TD>
+<FOnt siZE="2"><P>Boolean</P>
+</font></td>
+</tr>
+<tr valign="top">
+<td coLspAn="1">
+<foNt sizE="2"><p><b>Boolean operators</b></P>
+</FONt></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font sIZE="2"><P><b><tt class="monofont">not</tt></b></p>
+</font></td>
+<td>
+<FonT sizE="2"><p>logical negation</p>
+</foNt></td>
+<TD>
+<FOnt siZE="2"><P>Boolean</P>
+</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<font size="2"><p><b><tt class="monofont">and</tT></b></p>
+</Font></Td>
+<td>
+<fOnt sIZE="2"><P>logical conjuction</p>
+</fonT></TD>
+<Td>
+<fonT SIZe="2"><p>Boolean</p>
+</fONT></Td>
+</tr>
+<tr valign="top">
+<td>
+<font sizE="2"><p><b><Tt clAss="monofont">or</tt></B></p>
+</foNT></TD>
+<td>
+<foNT SIze="2"><p>logical disjunction</p>
+</FONT></td>
+<td>
+<FONT size="2"><p>Boolean</p>
+</font></td>
+</tr>
+</colgroUp>
+</tAble></P>
+<blocKquoTE><FOnt siZE="1">
+<P Class="footnote">
+<SUP><A name="FOOTNOTE-a">[a]</A></SUP>
+Those results labelled as "Boolean" indicate a Boolean comparison; since Python does not have a Boolean type per se, the result returned is a plain integer with value 0 (for false) or 1 (for true).</p>
+</font></blockquote>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="84.html" title="Standard Type Operators"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=85" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="85.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="86.html" title="Categorizing the Standard Types"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

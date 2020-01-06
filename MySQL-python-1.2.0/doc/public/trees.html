@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module and Class Hierarchies</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="MySQLdb-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th bgcolor="#70b0f0" class="navselect">&nbsp;&nbsp;&nbsp;Trees&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="indices.html">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../private/trees.html">show&nbsp;private</a>&nbsp;|&nbsp;hide&nbsp;private]</font></td></tr>
+      <tr><td align="right"><font size="-2">[<a href="frames.html"target="_top">frames</a>&nbsp;|&nbsp;<a href="trees.html" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+
+<!-- =========== START OF MODULE HIERARCHY =========== -->
+<h2>Module Hierarchy</h2>
+<ul>
+<li> <b><a href="MySQLdb-module.html"><code>MySQLdb</code></a></b>: <i>MySQLdb - A DB API v2.0 compatible interface to MySQL.</i>
+  <ul>
+    <li> <b><a href="MySQLdb.connections-module.html"><code>connections</code></a></b>: <i>This module implements connections for MySQLdb.</i>
+    <li> <b><a href="MySQLdb.constants-module.html"><code>constants</code></a></b>
+      <ul>
+        <li> <b><a href="MySQLdb.constants.CLIENT-module.html"><code>CLIENT</code></a></b>: <i>MySQL CLIENT constants</i>
+        <li> <b><a href="MySQLdb.constants.CR-module.html"><code>CR</code></a></b>: <i>MySQL Connection Errors</i>
+        <li> <b><a href="MySQLdb.constants.ER-module.html"><code>ER</code></a></b>: <i>MySQL ER Constants</i>
+        <li> <b><a href="MySQLdb.constants.FIELD_TYPE-module.html"><code>FIELD_TYPE</code></a></b>: <i>MySQL FIELD_TYPE Constants</i>
+        <li> <b><a href="MySQLdb.constants.FLAG-module.html"><code>FLAG</code></a></b>: <i>MySQL FLAG Constants</i>
+        <li> <b><a href="MySQLdb.constants.REFRESH-module.html"><code>REFRESH</code></a></b>: <i>MySQL REFRESH Constants</i>
+      </ul>
+    <li> <b><a href="MySQLdb.cursors-module.html"><code>cursors</code></a></b>: <i>MySQLdb Cursors</i>
+  </ul>
+</ul>
+
+<!-- =========== START OF CLASS HIERARCHY =========== -->
+<h2>Class Hierarchy</h2>
+<ul>
+  <li> <b><a href="__builtin__.object-class.html"><code>__builtin__.object</code></a></b>: <i>
+The most base type</i>
+    <ul>
+  <li> <b><a href="MySQLdb.cursors.BaseCursor-class.html"><code>MySQLdb.cursors.BaseCursor</code></a></b>: <i>
+A base for Cursor classes.</i>
+    <ul>
+  <li> <b><a href="MySQLdb.cursors.Cursor-class.html"><code>MySQLdb.cursors.Cursor</code></a></b>: <i>
+This is the standard Cursor class that returns rows as tuples
+and stores the result set in the client.</i>
+  <li> <b><a href="MySQLdb.cursors.DictCursor-class.html"><code>MySQLdb.cursors.DictCursor</code></a></b>: <i>
+This is a Cursor class that returns rows as dictionaries and
+stores the result set in the client.</i>
+  <li> <b><a href="MySQLdb.cursors.SSCursor-class.html"><code>MySQLdb.cursors.SSCursor</code></a></b>: <i>
+This is a Cursor class that returns rows as tuples and stores
+the result set in the server.</i>
+  <li> <b><a href="MySQLdb.cursors.SSDictCursor-class.html"><code>MySQLdb.cursors.SSDictCursor</code></a></b>: <i>
+This is a Cursor class that returns rows as dictionaries and
+stores the result set in the server.</i>
+    </ul>
+  <li> <b><a href="MySQLdb.cursors.CursorDictRowsMixIn-class.html"><code>MySQLdb.cursors.CursorDictRowsMixIn</code></a></b>: <i>
+This is a MixIn class that causes all rows to be returned as
+dictionaries.</i>
+    <ul>
+  <li> <b><a href="MySQLdb.cursors.CursorOldDictRowsMixIn-class.html"><code>MySQLdb.cursors.CursorOldDictRowsMixIn</code></a></b>: <i>
+This is a MixIn class that returns rows as dictionaries with
+the same key convention as the old Mysqldb (MySQLmodule).</i>
+  <li> <b><a href="MySQLdb.cursors.DictCursor-class.html"><code>MySQLdb.cursors.DictCursor</code></a></b>: <i>
+This is a Cursor class that returns rows as dictionaries and
+stores the result set in the client.</i>
+  <li> <b><a href="MySQLdb.cursors.SSDictCursor-class.html"><code>MySQLdb.cursors.SSDictCursor</code></a></b>: <i>
+This is a Cursor class that returns rows as dictionaries and
+stores the result set in the server.</i>
+    </ul>
+  <li> <b><a href="MySQLdb.cursors.CursorStoreResultMixIn-class.html"><code>MySQLdb.cursors.CursorStoreResultMixIn</code></a></b>: <i>
+This is a MixIn class which causes the entire result set to be
+stored on the client side, i.e.</i>
+    <ul>
+  <li> <b><a href="MySQLdb.cursors.Cursor-class.html"><code>MySQLdb.cursors.Cursor</code></a></b>: <i>
+This is the standard Cursor class that returns rows as tuples
+and stores the result set in the client.</i>
+  <li> <b><a href="MySQLdb.cursors.DictCursor-class.html"><code>MySQLdb.cursors.DictCursor</code></a></b>: <i>
+This is a Cursor class that returns rows as dictionaries and
+stores the result set in the client.</i>
+    </ul>
+  <li> <b><a href="MySQLdb.cursors.CursorTupleRowsMixIn-class.html"><code>MySQLdb.cursors.CursorTupleRowsMixIn</code></a></b>: <i>
+This is a MixIn class that causes all rows to be returned as tuples,
+which is the standard form required by DB API.</i>
+    <ul>
+  <li> <b><a href="MySQLdb.cursors.Cursor-class.html"><code>MySQLdb.cursors.Cursor</code></a></b>: <i>
+This is the standard Cursor class that returns rows as tuples
+and stores the result set in the client.</i>
+  <li> <b><a href="MySQLdb.cursors.SSCursor-class.html"><code>MySQLdb.cursors.SSCursor</code></a></b>: <i>
+This is a Cursor class that returns rows as tuples and stores
+the result set in the server.</i>
+    </ul>
+  <li> <b><a href="MySQLdb.cursors.CursorUseResultMixIn-class.html"><code>MySQLdb.cursors.CursorUseResultMixIn</code></a></b>: <i>
+This is a MixIn class which causes the result set to be stored
+in the server and sent row-by-row to client side, i.e.</i>
+    <ul>
+  <li> <b><a href="MySQLdb.cursors.SSCursor-class.html"><code>MySQLdb.cursors.SSCursor</code></a></b>: <i>
+This is a Cursor class that returns rows as tuples and stores
+the result set in the server.</i>
+  <li> <b><a href="MySQLdb.cursors.SSDictCursor-class.html"><code>MySQLdb.cursors.SSDictCursor</code></a></b>: <i>
+This is a Cursor class that returns rows as dictionaries and
+stores the result set in the server.</i>
+    </ul>
+  <li> <b><a href="__builtin__.type-class.html"><code>__builtin__.type</code></a></b>: <i>
+type(object) -&gt; the object's type
+type(name, bases, dict) -&gt; a new type</i>
+    <ul>
+    </ul>
+    </ul>
+  <li> <b><a href="exceptions.Exception-class.html"><code>exceptions.Exception</code></a></b>: <i>
+Common base class for all exceptions.</i>
+    <ul>
+  <li> <b><a href="exceptions.StandardError-class.html"><code>exceptions.StandardError</code></a></b>: <i>
+Base class for all standard Python exceptions.</i>
+  <li> <b><a href="exceptions.Warning-class.html"><code>exceptions.Warning</code></a></b>: <i>
+Base class for warning categories.</i>
+    </ul>
+</ul>
+
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="MySQLdb-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="trees.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="indices.html">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.0 on Mon Jan 31 23:02:13 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net"
+                      ><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

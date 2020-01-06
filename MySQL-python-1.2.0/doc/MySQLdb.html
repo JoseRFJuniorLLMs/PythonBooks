@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.3.0: http://docutils.sourceforge.net/" />
+<title>MySQLdb User's Guide</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="mysqldb-user-s-guide">
+<h1 class="title">MySQLdb User's Guide</h1>
+<div class="section" id="introduction">
+<h1><a name="introduction">Introduction</a></h1>
+<p>MySQLdb is an thread-compatible interface to the popular MySQL
+database server that provides the Python database API.</p>
+</div>
+<div class="section" id="installation">
+<h1><a name="installation">Installation</a></h1>
+<p>The <tt class="literal"><span class="pre">README</span></tt> file has complete installation instructions.</p>
+</div>
+<div class="section" id="mysql">
+<h1><a name="mysql">_mysql</a></h1>
+<p>If you want to write applications which are portable across databases,
+use <a class="reference" href="#mysqldb">MySQLdb</a>, and avoid using this module directly. <tt class="literal"><span class="pre">_mysql</span></tt>
+provides an interface which mostly implements the MySQL C API. For
+more information, see the <a class="reference" href="http://dev.mysql.com/doc/mysql/en/index.html">MySQL documentation</a>. The documentation
+for this module is intentionally weak because you probably should use
+the higher-level MySQLdb module. If you really need it, use the
+standard MySQL docs and transliterate as necessary.</p>
+<div class="section" id="mysql-c-api-translation">
+<h2><a name="mysql-c-api-translation">MySQL C API translation</a></h2>
+<p>The MySQL C API has been wrapped in an object-oriented way. The only
+MySQL data structures which are implemented are the <tt class="literal"><span class="pre">MYSQL</span></tt>
+(database connection handle) and <tt class="literal"><span class="pre">MYSQL_RES</span></tt> (result handle)
+types. In general, any function which takes <tt class="literal"><span class="pre">MYSQL</span> <span class="pre">*mysql</span></tt> as an
+argument is now a method of the connection object, and any function
+which takes <tt class="literal"><span class="pre">MYSQL_RES</span> <span class="pre">*result</span></tt> as an argument is a method of the
+result object. Functions requiring none of the MySQL data structures
+are implemented as functions in the module. Functions requiring one of
+the other MySQL data structures are generally not implemented.
+Deprecated functions are not implemented. In all cases, the <tt class="literal"><span class="pre">mysql_</span></tt>
+prefix is dropped from the name. Most of the <tt class="literal"><span class="pre">conn</span></tt> methods listed
+are also available as MySQLdb Connection object methods. Their use is
+non-portable.</p>
+</div>
+<div class="section" id="mysql-c-api-function-mapping">
+<h2><a name="mysql-c-api-function-mapping">MySQL C API function mapping</a></h2>
+<table class="table" frame="border" rules="all">
+<colgroup>
+<col width="49%" />
+<col width="51%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th>C API</th>
+<th><tt class="literal"><span class="pre">_mysql</span></tt></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="literal"><span class="pre">mysql_affected_rows()</span></tt></td>
+<td><tt class="literal"><span class="pre">conn.affected_rows()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_close()</span></tt></td>
+<td><tt class="literal"><span class="pre">conn.close()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_connect()</span></tt></td>
+<td><tt class="literal"><span class="pre">_mysql.connect()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_data_seek()</span></tt></td>
+<td><tt class="literal"><span class="pre">result.data_seek()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_debug()</span></tt></td>
+<td><tt class="literal"><span class="pre">_mysql.debug()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_dump_debug_info</span></tt></td>
+<td><tt class="literal"><span class="pre">conn.dump_debug_info()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_escape_string()</span></tt></td>
+<td><tt class="literal"><span class="pre">_mysql.escape_string()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_fetch_row()</span></tt></td>
+<td><tt class="literal"><span class="pre">result.fetch_row()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_get_client_info()</span></tt></td>
+<td><tt class="literal"><span class="pre">_mysql.get_client_info()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_get_host_info()</span></tt></td>
+<td><tt class="literal"><span class="pre">conn.get_host_info()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_get_proto_info()</span></tt></td>
+<td><tt class="literal"><span class="pre">conn.get_proto_info()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_get_server_info()</span></tt></td>
+<td><tt class="literal"><span class="pre">conn.get_server_info()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_info()</span></tt></td>
+<td><tt class="literal"><span class="pre">conn.info()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_insert_id()</span></tt></td>
+<td><tt class="literal"><span class="pre">conn.insert_id()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_num_fields()</span></tt></td>
+<td><tt class="literal"><span class="pre">result.num_fields()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_num_rows()</span></tt></td>
+<td><tt class="literal"><span class="pre">result.num_rows()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_options()</span></tt></td>
+<td><tt class="literal"><span class="pre">_mysql.connect()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_ping()</span></tt></td>
+<td><tt class="literal"><span class="pre">conn.ping()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_query()</span></tt></td>
+<td><tt class="literal"><span class="pre">conn.query()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_real_connect()</span></tt></td>
+<td><tt class="literal"><span class="pre">_mysql.connect()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_real_query()</span></tt></td>
+<td><tt class="literal"><span class="pre">conn.query()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_real_escape_string()</span></tt></td>
+<td><tt class="literal"><span class="pre">conn.escape_string()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_row_seek()</span></tt></td>
+<td><tt class="literal"><span class="pre">result.row_seek()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_row_tell()</span></tt></td>
+<td><tt class="literal"><span class="pre">result.row_tell()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_select_db()</span></tt></td>
+<td><tt class="literal"><span class="pre">conn.select_db()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_stat()</span></tt></td>
+<td><tt class="literal"><span class="pre">conn.stat()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_store_result()</span></tt></td>
+<td><tt class="literal"><span class="pre">conn.store_result()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_thread_id()</span></tt></td>
+<td><tt class="literal"><span class="pre">conn.thread_id()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_thread_safe_client()</span></tt></td>
+<td><tt class="literal"><span class="pre">conn.thread_safe_client()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">mysql_use_result()</span></tt></td>
+<td><tt class="literal"><span class="pre">conn.use_result()</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">CLIENT_*</span></tt></td>
+<td><tt class="literal"><span class="pre">MySQLdb.constants.CLIENT.*</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">CR_*</span></tt></td>
+<td><tt class="literal"><span class="pre">MySQLdb.constants.CR.*</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">ER_*</span></tt></td>
+<td><tt class="literal"><span class="pre">MySQLdb.constants.ER.*</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">FIELD_TYPE_*</span></tt></td>
+<td><tt class="literal"><span class="pre">MySQLdb.constants.FIELD_TYPE.*</span></tt></td>
+</tr>
+<tr><td><tt class="literal"><span class="pre">FLAG_*</span></tt></td>
+<td><tt class="literal"><span class="pre">MySQLdb.constants.FLAG.*</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="some-mysql-examples">
+<h2><a name="some-mysql-examples">Some _mysql examples</a></h2>
+<p>Okay, so you want to use <tt class="literal"><span class="pre">_mysql</span></tt> anyway. Here are some examples.</p>
+<p>The simplest possible database connection is:</p>
+<pre class="literal-block">
+import _mysql
+db=_mysql.connect()
+</pre>
+<p>This creates a connection to the MySQL server running on the local
+machine using the standard UNIX socket (or named pipe on Windows),
+your login name (from the USER environment variable), no password, and
+does not <tt class="literal"><span class="pre">USE</span></tt> a database.  Chances are you need to supply more
+information.:</p>
+<pre class="literal-block">
+db=_mysql.connect(&quot;localhost&quot;,&quot;joebob&quot;,&quot;moonpie&quot;,&quot;thangs&quot;)
+</pre>
+<p>This creates a connection to the MySQL server running on the local
+machine via a UNIX socket (or named pipe), the user name &quot;joebob&quot;, the
+password &quot;moonpie&quot;, and selects the initial database &quot;thangs&quot;.</p>
+<p>We haven't even begun to touch upon all the parameters <tt class="literal"><span class="pre">connect()</span></tt>
+can take.  For this reason, I prefer to use keyword parameters:</p>
+<pre class="literal-block">
+db=_mysql.connect(host=&quot;localhost&quot;,user=&quot;joebob&quot;,
+                  passwd=&quot;moonpie&quot;,db=&quot;thangs&quot;)
+</pre>
+<p>This does exactly what the last example did, but is arguably easier to
+read. But since the default host is &quot;localhost&quot;, and if your login
+name really was &quot;joebob&quot;, you could shorten it to this:</p>
+<pre class="literal-block">
+db=_mysql.connect(passwd=&quot;moonpie&quot;,db=&quot;thangs&quot;)
+</pre>
+<p>UNIX sockets and named pipes don't work over a network, so if you
+specify a host other than localhost, TCP will be used, and you can
+specify an odd port if you need to (the default port is 3306):</p>
+<pre class="literal-block">
+db=_mysql.connect(host=&quot;outhouse&quot;,port=3307,passwd=&quot;moonpie&quot;,db=&quot;thangs&quot;)
+</pre>
+<p>If you really had to, you could connect to the local host with TCP by
+specifying the full host name, or 127.0.0.1.</p>
+<p>Generally speaking, putting passwords in your code is not such a good
+idea:</p>
+<pre class="literal-block">
+db=_mysql.connect(host=&quot;outhouse&quot;,db=&quot;thangs&quot;,read_default_file=&quot;~/.my.cnf&quot;)
+</pre>
+<p>This does what the previous example does, but gets the username and
+password and other parameters from ~/.my.cnf (UNIX-like systems). Read
+about <a class="reference" href="http://dev.mysql.com/doc/mysql/en/Option_files.html">option files</a> for more details.</p>
+<p>So now you have an open connection as <tt class="literal"><span class="pre">db</span></tt> and want to do a
+query. Well, there are no cursors in MySQL, and no parameter
+substitution, so you have to pass a complete query string to
+<tt class="literal"><span class="pre">db.query()</span></tt>:</p>
+<pre class="literal-block">
+db.query(&quot;&quot;&quot;SELECT spam, eggs, sausage FROM breakfast
+         WHERE price &lt; 5&quot;&quot;&quot;)
+</pre>
+<p>There's no return value from this, but exceptions can be raised. The
+exceptions are defined in a separate module, <tt class="literal"><span class="pre">_mysql_exceptions</span></tt>,
+but <tt class="literal"><span class="pre">_mysql</span></tt> exports them. Read DB API specification <a class="reference" href="http://www.python.org/peps/pep-0249.html">PEP-249</a> to
+find out what they are, or you can use the catch-all <tt class="literal"><span class="pre">MySQLError</span></tt>.</p>
+<p>At this point your query has been executed and you need to get the
+results. You have two options:</p>
+<pre class="literal-block">
+r=db.store_result()
+# ...or...
+r=db.use_result()
+</pre>
+<p>Both methods return a result object. What's the difference?
+<tt class="literal"><span class="pre">store_result()</span></tt> returns the entire result set to the client
+immediately. If your result set is really large, this could be a
+problem. One way around this is to add a <tt class="literal"><span class="pre">LIMIT</span></tt> clause to your
+query, to limit the number of rows returned. The other is to use
+<tt class="literal"><span class="pre">use_result()</span></tt>, which keeps the result set in the server and sends
+it row-by-row when you fetch. This does, however, tie up server
+resources, and it ties up the connection: You cannot do any more
+queries until you have fetched <strong>all</strong> the rows. Generally I
+recommend using <tt class="literal"><span class="pre">store_result()</span></tt> unless your result set is really
+huge and you can't use <tt class="literal"><span class="pre">LIMIT</span></tt> for some reason.</p>
+<p>Now, for actually getting real results:</p>
+<pre class="literal-block">
+&gt;&gt;&gt; r.fetch_row()
+(('3','2','0'),)
+</pre>
+<p>This might look a little odd. The first thing you should know is,
+<tt class="literal"><span class="pre">fetch_row()</span></tt> takes some additional parameters. The first one is,
+how many rows (<tt class="literal"><span class="pre">maxrows</span></tt>) should be returned. By default, it returns
+one row. It may return fewer rows than you asked for, but never
+more. If you set <tt class="literal"><span class="pre">maxrows=0</span></tt>, it returns all rows of the result
+set. If you ever get an empty tuple back, you ran out of rows.</p>
+<p>The second parameter (<tt class="literal"><span class="pre">how</span></tt>) tells it how the row should be
+represented. By default, it is zero which means, return as a tuple.
+<tt class="literal"><span class="pre">how=1</span></tt> means, return it as a dictionary, where the keys are the
+column names, or <tt class="literal"><span class="pre">table.column</span></tt> if there are two columns with the
+same name (say, from a join). <tt class="literal"><span class="pre">how=2</span></tt> means the same as <tt class="literal"><span class="pre">how=1</span></tt>
+except that the keys are <em>always</em> <tt class="literal"><span class="pre">table.column</span></tt>; this is for
+compatibility with the old <tt class="literal"><span class="pre">Mysqldb</span></tt> module.</p>
+<p>OK, so why did we get a 1-tuple with a tuple inside? Because we
+implicitly asked for one row, since we didn't specify <tt class="literal"><span class="pre">maxrows</span></tt>.</p>
+<p>The other oddity is: Assuming these are numeric columns, why are they
+returned as strings? Because MySQL returns all data as strings and
+expects you to convert it yourself. This would be a real pain in the
+ass, but in fact, <tt class="literal"><span class="pre">_mysql</span></tt> can do this for you. (And <tt class="literal"><span class="pre">MySQLdb</span></tt>
+does do this for you.) To have automatic type conversion done, you
+need to create a type converter dictionary, and pass this to
+<tt class="literal"><span class="pre">connect()</span></tt> as the <tt class="literal"><span class="pre">conv</span></tt> keyword parameter.</p>
+<p>The keys of <tt class="literal"><span class="pre">conv</span></tt> should be MySQL column types, which in the
+C API are <tt class="literal"><span class="pre">FIELD_TYPE_*</span></tt>. You can get these values like this:</p>
+<pre class="literal-block">
+from MySQLdb.constants import FIELD_TYPE
+</pre>
+<p>By default, any column type that can't be found in <tt class="literal"><span class="pre">conv</span></tt> is
+returned as a string, which works for a lot of stuff. For our
+purposes, we probably want this:</p>
+<pre class="literal-block">
+my_conv = { FIELD_TYPE.LONG: int }
+</pre>
+<p>This means, if it's a <tt class="literal"><span class="pre">FIELD_TYPE_LONG</span></tt>, call the builtin <tt class="literal"><span class="pre">int()</span></tt>
+function on it.  Note that <tt class="literal"><span class="pre">FIELD_TYPE_LONG</span></tt> is an <tt class="literal"><span class="pre">INTEGER</span></tt>
+column, which corresponds to a C <tt class="literal"><span class="pre">long</span></tt>, which is also the type used
+for a normal Python integer. But beware: If it's really an <tt class="literal"><span class="pre">UNSIGNED</span>
+<span class="pre">INTEGER</span></tt> column, this could cause overflows. For this reason,
+<tt class="literal"><span class="pre">MySQLdb</span></tt> actually uses <tt class="literal"><span class="pre">long()</span></tt> to do the conversion. But we'll
+ignore this potential problem for now.</p>
+<p>Then if you use <tt class="literal"><span class="pre">db=_mysql.connect(conv=my_conv...)</span></tt>, the
+results will come back <tt class="literal"><span class="pre">((3,</span> <span class="pre">2,</span> <span class="pre">0),)</span></tt>, which is what you would
+expect.</p>
+</div>
+</div>
+<div class="section" id="mysqldb">
+<h1><a name="mysqldb">MySQLdb</a></h1>
+<p>MySQLdb is a thin Python wrapper around <tt class="literal"><span class="pre">_mysql</span></tt> which makes it
+compatible with the Python DB API interface (version 2).  In reality,
+a fair amount of the code which implements the API is in <tt class="literal"><span class="pre">_mysql</span></tt>
+for the sake of efficiency.</p>
+<p>The DB API specification <a class="reference" href="http://www.python.org/peps/pep-0249.html">PEP-249</a> should be your primary guide for
+using this module. Only deviations from the spec and other
+database-dependent things will be documented here.</p>
+<div class="section" id="functions-and-attributes">
+<h2><a name="functions-and-attributes">Functions and attributes</a></h2>
+<p>Only a few top-level functions and attributes are defined within
+MySQLdb.</p>
+<dl>
+<dt>connect(parameters...)  </dt>
+<dd><p class="first">Constructor for creating a connection to the
+database. Returns a Connection Object. Parameters are the
+same as for the MySQL C API.  In addition, there are a few
+additional keywords that correspond to what you would pass
+<tt class="literal"><span class="pre">mysql_options()</span></tt> before connecting. Note that some
+parameters must be specified as keyword arguments! The
+default value for each parameter is NULL or zero, as
+appropriate. Consult the MySQL documentation for more
+details. The important parameters are:</p>
+<dl class="last">
+<dt>host</dt>
+<dd>name of host to connect to. Default: use the local host 
+via a UNIX socket (where applicable)</dd>
+<dt>user</dt>
+<dd>user to authenticate as. Default: current effective user.</dd>
+<dt>passwd</dt>
+<dd>password to authenticate with. Default: no password.</dd>
+<dt>db</dt>
+<dd>database to use. Default: no default database.</dd>
+<dt>port</dt>
+<dd>TCP port of MySQL server. Default: standard port (3306).</dd>
+<dt>unix_socket</dt>
+<dd>location of UNIX socket. Default: use default location or
+TCP for remote hosts.</dd>
+<dt>conv</dt>
+<dd>type conversion dictionary.  Default: a copy of
+<tt class="literal"><span class="pre">MySQLdb.converters.conversions</span></tt></dd>
+<dt>compress</dt>
+<dd>Enable protocol compression. Default: no compression.</dd>
+<dt>connect_timeout</dt>
+<dd>Abort if connect is not completed within
+given number of seconds. Default: no timeout (?)</dd>
+<dt>named_pipe</dt>
+<dd>Use a named pipe (Windows). Default: don't.</dd>
+<dt>init_command</dt>
+<dd>Initial command to issue to server upon
+connection. Default: Nothing.</dd>
+<dt>read_default_file</dt>
+<dd>MySQL configuration file to read; see
+the MySQL documentation for <tt class="literal"><span class="pre">mysql_options()</span></tt>.</dd>
+<dt>read_default_group</dt>
+<dd>Default group to read; see the MySQL
+documentation for <tt class="literal"><span class="pre">mysql_options()</span></tt>.</dd>
+<dt>cursorclass</dt>
+<dd>cursor class that <tt class="literal"><span class="pre">cursor()</span></tt> uses, unless
+overridden. Default: <tt class="literal"><span class="pre">MySQLdb.cursors.Cursor</span></tt>.  <em>This
+must be a keyword parameter.</em></dd>
+<dt>unicode</dt>
+<dd>If set, CHAR and VARCHAR columns are returned as Unicode
+strings, using the specified character set.  None means to
+use a default encoding. <em>This must be a keyword
+parameter.</em></dd>
+<dt>unicode_errors</dt>
+<dd>If set, this is used as the errors parameter to the
+<tt class="literal"><span class="pre">unicode()</span></tt> function. Default: &quot;strict&quot;. <em>This must be a
+keyword parameter.</em></dd>
+<dt>ssl</dt>
+<dd>This parameter takes a dictionary or mapping, where the
+keys are parameter names used by the <a class="reference" href="http://dev.mysql.com/doc/mysql/en/mysql_ssl_set.html">mysql_ssl_set</a> MySQL
+C API call. If this is set, it initiates an SSL connection
+to the server; if there is no SSL support in the client,
+an exception is raised. <em>This must be a keyword
+parameter.</em></dd>
+</dl>
+</dd>
+</dl>
+<dl>
+<dt>apilevel </dt>
+<dd>String constant stating the supported DB API level. '2.0'</dd>
+<dt>threadsafety</dt>
+<dd><p class="first">Integer constant stating the level of thread safety the
+interface supports. This is set to 1, which means: Threads may
+share the module.</p>
+<p>The MySQL protocol can not handle multiple threads using the
+same connection at once. Some earlier versions of MySQLdb
+utilized locking to achieve a threadsafety of 2. While this is
+not terribly hard to accomplish using the standard Cursor class
+(which uses <tt class="literal"><span class="pre">mysql_store_result()</span></tt>), it is complicated by
+SSCursor (which uses <tt class="literal"><span class="pre">mysql_use_result()</span></tt>; with the latter you
+must ensure all the rows have been read before another query can
+be executed.  It is further complicated by the addition of
+transactions, since transactions start when a cursor execute a
+query, but end when <tt class="literal"><span class="pre">COMMIT</span></tt> or <tt class="literal"><span class="pre">ROLLBACK</span></tt> is executed by
+the Connection object.  Two threads simply cannot share a
+connection while a transaction is in progress, in addition to
+not being able to share it during query execution. This
+excessively complicated the code to the point where it just
+isn't worth it.</p>
+<p>The general upshot of this is: Don't share connections between
+threads. It's really not worth your effort or mine, and in the
+end, will probably hurt performance, since the MySQL server runs
+a separate thread for each connection.  You can certainly do
+things like cache connections in a pool, and give those
+connections to one thread at a time. If you let two threads use
+a connection simultaneously, the MySQL client library will
+probably upchuck and die.  You have been warned.</p>
+<p>For threaded applications, try using a connection pool.
+This can be done using the <a class="reference" href="http://dustman.net/andy/python/Pool">Pool module</a>.</p>
+</dd>
+<dt>paramstyle</dt>
+<dd><p class="first">String constant stating the type of parameter marker formatting
+expected by the interface. Set to 'format' = ANSI C printf
+format codes, e.g. '...WHERE name=%s'. If a mapping object is
+used for conn.execute(), then the interface actually uses
+'pyformat' = Python extended format codes, e.g. '...WHERE
+name=%(name)s'. However, the API does not presently allow the
+specification of more than one style in paramstyle.</p>
+<p>Note that any literal percent signs in the query string passed
+to execute() must be escaped, i.e. %%.</p>
+<p class="last">Parameter placeholders can <strong>only</strong> be used to insert column
+values. They can <strong>not</strong> be used for other parts of SQL, such as
+table names, statements, etc.</p>
+</dd>
+<dt>conv</dt>
+<dd><p class="first">A dictionary or mapping which controls how types are converted
+from MySQL to Python and vice versa.</p>
+<p>If the key is a MySQL type (from <tt class="literal"><span class="pre">FIELD_TYPE.*</span></tt>), then the value
+can be either:</p>
+<ul class="simple">
+<li>a callable object which takes a string argument (the MySQL
+value),' returning a Python value</li>
+<li>a sequence of 2-tuples, where the first value is a combination
+of flags from <tt class="literal"><span class="pre">MySQLdb.constants.FLAG</span></tt>, and the second value
+is a function as above. The sequence is tested until the flags
+on the field match those of the first value. If both values
+are None, then the default conversion is done. Presently this
+is only used to distinquish TEXT and BLOB columns.</li>
+</ul>
+<p>If the key is a Python type or class, then the value is a
+callable Python object (usually a function) taking two arguments
+(value to convert, and the conversion dictionary) which converts
+values of this type to a SQL literal string value.</p>
+<p class="last">This is initialized with reasonable defaults for most
+types. When creating a Connection object, you can pass your own
+type converter dictionary as a keyword parameter. Otherwise, it
+uses a copy of <tt class="literal"><span class="pre">MySQLdb.converters.conversions</span></tt>.  Several
+non-standard types are returned as strings, which is how MySQL
+returns all columns. For more details, see the built-in module
+documentation.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="connection-objects">
+<h2><a name="connection-objects">Connection Objects</a></h2>
+<p>Connection objects are returned by the <tt class="literal"><span class="pre">connect()</span></tt> function.</p>
+<dl>
+<dt>commit()</dt>
+<dd>If the database and the tables support transactions, this
+commits the current transaction; otherwise this method
+successfully does nothing.</dd>
+<dt>rollback()</dt>
+<dd>If the database and tables support transactions, this rolls back
+(cancels) the current transaction; otherwise a
+<tt class="literal"><span class="pre">NotSupportedError</span></tt> is raised.</dd>
+<dt>cursor([cursorclass])</dt>
+<dd>MySQL does not support cursors; however, cursors are easily
+emulated.  You can supply an alternative cursor class as an
+optional parameter.  If this is not present, it defaults to the
+value given when creating the connection object, or the standard
+<tt class="literal"><span class="pre">Cursor</span></tt> class. Also see the additional supplied cursor
+classes in the usage section.</dd>
+</dl>
+<p>There are many more methods defined on the connection object which
+are MySQL-specific. For more information on them, consult the internal
+documentation using <tt class="literal"><span class="pre">pydoc</span></tt>.</p>
+</div>
+<div class="section" id="cursor-objects">
+<h2><a name="cursor-objects">Cursor Objects</a></h2>
+<dl>
+<dt>callproc()</dt>
+<dd>Not implemented.</dd>
+<dt>close()</dt>
+<dd>Closes the cursor. Future operations raise <tt class="literal"><span class="pre">ProgrammingError</span></tt>.
+If you are using server-side cursors, it is very important to
+close the cursor when you are done with it and before creating a
+new one.</dd>
+<dt>insert_id()</dt>
+<dd>Returns the last <tt class="literal"><span class="pre">AUTO_INCREMENT</span></tt> field value inserted
+into the database. (Non-standard)</dd>
+<dt>info()</dt>
+<dd>Returns some information about the last query. Normally
+you don't need to check this. With the default cursor, any MySQL
+warnings cause <tt class="literal"><span class="pre">Warning</span></tt> to be raised. If you are using a
+cursor class without warnings, then you might want to use
+this. See the MySQL docs for <tt class="literal"><span class="pre">mysql_info()</span></tt>. (Non-standard)</dd>
+<dt>setinputsizes()</dt>
+<dd>Does nothing, successfully.</dd>
+<dt>setoutputsizes()</dt>
+<dd>Does nothing, successfully.</dd>
+<dt>nextset()</dt>
+<dd><p class="first">Advances the cursor to the next result set, discarding the remaining
+rows in the current result set. If there are no additional result
+sets, it returns None; otherwise it returns a true value.</p>
+<p class="last">Note that MySQL doesn't support multiple result sets until 4.1;
+there is currently no support for this in MySQLdb.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="some-examples">
+<h2><a name="some-examples">Some examples</a></h2>
+<p>The <tt class="literal"><span class="pre">connect()</span></tt> method works nearly the same as with <a class="reference" href="#mysql">_mysql</a>:</p>
+<pre class="literal-block">
+import MySQLdb
+db=MySQLdb.connect(passwd=&quot;moonpie&quot;,db=&quot;thangs&quot;)
+</pre>
+<p>To perform a query, you first need a cursor, and then you can execute
+queries on it:</p>
+<pre class="literal-block">
+c=db.cursor()
+max_price=5
+c.execute(&quot;&quot;&quot;SELECT spam, eggs, sausage FROM breakfast
+          WHERE price &lt; %s&quot;&quot;&quot;, (max_price,))
+</pre>
+<p>In this example, <tt class="literal"><span class="pre">max_price=5</span></tt> Why, then, use <tt class="literal"><span class="pre">%s</span></tt> in the
+string? Because MySQLdb will convert it to a SQL literal value, which
+is the string '5'. When it's finished, the query will actually say,
+&quot;...WHERE price &lt; 5&quot;.</p>
+<p>Why the tuple? Because the DB API requires you to pass in any
+parameters as a sequence.</p>
+<p>And now, the results:</p>
+<pre class="literal-block">
+&gt;&gt;&gt; c.fetchone()
+(3L, 2L, 0L)
+</pre>
+<p>Quite unlike the <tt class="literal"><span class="pre">_mysql</span></tt> example, this returns a single tuple,
+which is the row, and the values are properly converted by default...
+except... What's with the L's?</p>
+<p>As mentioned earlier, while MySQL's INTEGER column translates
+perfectly into a Python integer, UNSIGNED INTEGER could overflow, so
+these values are converted to Python long integers instead.</p>
+<p>If you wanted more rows, you could use <tt class="literal"><span class="pre">c.fetchmany(n)</span></tt> or
+<tt class="literal"><span class="pre">c.fetchall()</span></tt>. These do exactly what you think they do. On
+<tt class="literal"><span class="pre">c.fetchmany(n)</span></tt>, the <tt class="literal"><span class="pre">n</span></tt> is optional and defaults to
+<tt class="literal"><span class="pre">c.arraysize</span></tt>, which is normally 100. Both of these methods return a
+sequence of rows, or an empty sequence if there are no more rows.  If
+you use a weird cursor class, the rows themselves might not be tuples.</p>
+<p>Note that in contrast to the above, <tt class="literal"><span class="pre">c.fetchone()</span></tt> returns <tt class="literal"><span class="pre">None</span></tt>
+when there are no more rows to fetch.</p>
+<p>The only other method you are very likely to use is when you have to
+do a multi-row insert:</p>
+<pre class="literal-block">
+c.executemany(
+      &quot;&quot;&quot;INSERT INTO breakfast (name, spam, eggs, sausage, price)
+      VALUES (%s, %s, %s, %s, %s)&quot;&quot;&quot;,
+      [
+      (&quot;Spam and Sausage Lover's Plate&quot;, 5, 1, 8, 7.95 ),
+      (&quot;Not So Much Spam Plate&quot;, 3, 2, 0, 3.95 ),
+      (&quot;Don't Wany ANY SPAM! Plate&quot;, 0, 4, 3, 5.95 )
+      ] )
+</pre>
+<p>Here we are inserting three rows of five values. Notice that there is
+a mix of types (strings, ints, floats) though we still only use
+<tt class="literal"><span class="pre">%s</span></tt>. And also note that we only included format strings for one
+row. MySQLdb picks those out and duplicates them for each row.</p>
+</div>
+</div>
+<div class="section" id="using-and-extending">
+<h1><a name="using-and-extending">Using and extending</a></h1>
+<p>In general, it is probably wise to not directly interact with the DB
+API except for small applicatons. Databases, even SQL databases, vary
+widely in capabilities and may have non-standard features. The DB API
+does a good job of providing a reasonably portable interface but some
+methods are non-portable. Specifically, the parameters accepted by
+<tt class="literal"><span class="pre">connect()</span></tt> are completely implementation-dependent.</p>
+<p>If you believe your application may need to run on several different
+databases, the author recommends the following approach, based on
+personal experience: Write a simplified API for your application which
+implements the specific queries and operations your application needs
+to perform. Implement this API as a base class which should be have
+few database dependencies, and then derive a subclass from this which
+implements the necessary dependencies. In this way, porting your
+application to a new database should be a relatively simple matter of
+creating a new subclass, assuming the new database is reasonably
+standard.</p>
+<p>Because MySQLdb's Connection and Cursor objects are written in Python,
+you can easily derive your own subclasses. There are several Cursor
+classes in MySQLdb.cursors:</p>
+<dl>
+<dt>BaseCursor</dt>
+<dd>The base class for Cursor objects.  This does not raise Warnings.</dd>
+<dt>CursorStoreResultMixIn</dt>
+<dd>Causes the Cursor to use the <tt class="literal"><span class="pre">mysql_store_result()</span></tt> function to
+get the query result. The entire result set is stored on the
+client side.</dd>
+<dt>CursorUseResultMixIn</dt>
+<dd>Causes the cursor to use the <tt class="literal"><span class="pre">mysql_use_result()</span></tt> function to
+get the query result. The result set is stored on the server side
+and is transferred row by row using fetch operations.</dd>
+<dt>CursorTupleRowsMixIn</dt>
+<dd>Causes the cursor to return rows as a tuple of the column values.</dd>
+</dl>
+<p>CursorDictRowsMixIn</p>
+<blockquote>
+Causes the cursor to return rows as a dictionary, where the keys
+are column names and the values are column values. Note that if
+the column names are not unique, i.e., you are selecting from two
+tables that share column names, some of them will be rewritten as
+<tt class="literal"><span class="pre">table.column</span></tt>.  This can be avoided by using the SQL <tt class="literal"><span class="pre">AS</span></tt>
+keyword. (This is yet-another reason not to use <tt class="literal"><span class="pre">*</span></tt> in SQL
+queries, particularly where <tt class="literal"><span class="pre">JOIN</span></tt> is involved.)</blockquote>
+<dl>
+<dt>Cursor</dt>
+<dd>The default cursor class. This class is composed of
+<tt class="literal"><span class="pre">CursorWarningMixIn</span></tt>, <tt class="literal"><span class="pre">CursorStoreResultMixIn</span></tt>,
+<tt class="literal"><span class="pre">CursorTupleRowsMixIn,</span></tt> and <tt class="literal"><span class="pre">BaseCursor</span></tt>, i.e. it raises
+<tt class="literal"><span class="pre">Warning</span></tt>, uses <tt class="literal"><span class="pre">mysql_store_result()</span></tt>, and returns rows as
+tuples.</dd>
+<dt>DictCursor</dt>
+<dd>Like <tt class="literal"><span class="pre">Cursor</span></tt> except it returns rows as dictionaries.</dd>
+<dt>SSCursor</dt>
+<dd>A &quot;server-side&quot; cursor. Like <tt class="literal"><span class="pre">Cursor</span></tt> but uses
+<tt class="literal"><span class="pre">CursorUseResultMixIn</span></tt>.  Use only if you are dealing with
+potentially large result sets.</dd>
+<dt>SSDictCursor</dt>
+<dd>Like <tt class="literal"><span class="pre">SSCursor</span></tt> except it returns rows as dictionaries.</dd>
+</dl>
+<table class="field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Title:</th><td class="field-body">MySQLdb: a Python interface for MySQL</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Andy Dustman</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body">$Revision: 1.1 $</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</body>
+</html>

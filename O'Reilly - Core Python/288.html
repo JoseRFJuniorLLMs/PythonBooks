@@ -1,0 +1,532 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Answers to Selected Exercises</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="287.html" class="navtitle">A. </a> &gt; <span class="nonavtitle">Answers to Selected Exercises</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="286.html" title="Exercises"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=288" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="288.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="290.html" title="Other Reading and References"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F30%2F2002+8%3A45%3A51+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180025031194137176049106218111004226051068061019249000137</font><a href="read4.asp?bookname=0130260363&snode=288&now=5%2F30%2F2002+8%3A45%3A51+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+			<h3>Answers to Selected Exercises</h3>
+			
+				<h4>Chapter 2</h4>
+				<P><TABle boDER="0" CellsPACIng="16" cellpadding="0">
+					<tr valigN="top"><td AligN="right"><font><B>Q:</b></foNT></TD><td><foNT><P>Loops and numbers. Create some loops using both while and for.</P>
+</font></TD></TR><tr vaLIGN="top"><td align="right"><a name="2"></a><font><b>A:</b></fOnt></Td>
+<td><Font><p><A hreF="68#4.html">5. loops and numbers</A><FOnt siZE="-1"><BR><br></foNT>
+							a)<FOnt siZE="-1"><BR><br></font>
+							<pre>
+								
+i = 0
+<b>while</b> i &lt; 11:
+    i = i + 1
+
+							</pre>
+
+							b)
+							<pre>
+								
+<b>for</b> i <b>in</B> range(11):
+     <b>pass</b>
+
+							</Pre>
+</p></Font></tD></tr>
+					<tR VALign="top"><tD ALIgn="right"><foNT><B>Q:</B></font></TD><TD><font><p>Conditionals. Detect whether a number is positive, negative, or zero. Try using fixed values at first, then update your program to accept numeric input from the user</p>
+</font></td></tr><tr valiGn="top"><tD aliGn="right"><a naMe="3"></a><fONT><B>A:</b></fonT></TD>
+<Td><fonT><P><A Href="68#5.html">6. conditionals</a>
+							<PRE>
+								
+n = int(raw_input('enter a number: '))
+<B>if</b> n &lt; 0:
+    <b>print</b> 'negative'
+<b>elif</b> n &gt; 0:
+    <b>print</b> 'positive'
+<b>else:</b>
+    <b>print</b> 'zero'
+
+							</pre>
+</p></font></tD></tr>
+					<Tr vaLign="top"><tD aliGN="right"><FOnt><b>Q:</b></FONT></td><td><FONT><p>Loops and strings. Take a user input string and display string, one character at a time. As in your above solution, perform this task with a while loop first, then with a for loop</p>
+</foNT></TD></tr><tr valign="top"><td align="right"><a naMe="4"></a><Font><B>A:</b></fonT></td>
+<tD><FONt><p><a hREF="68#6.html">7</A>.
+							<pre>
+s = raw_input('enter a string: ')
+
+<b>for</B> eachChar <B>in</B> s:
+    <B>print</b> eachChar
+
+<b>for</b> i <b>in</B> range(len(s)):
+    <B>print</B> s[i]
+
+							</Pre>
+
+						</p></font></td></tr>
+					<tr valign="top"><tD alIgn="right"><fOnt><b>Q:</b></Font></TD><TD><font><P>Loops and operators. Create a fixed list or tuple of 5 numbers and output their sum. Then update your program so that this set of numbers comes from user input. As with the problems above, implement your solution twice, once using while and again with for.</P>
+</FOnt></td></TR><TR valiGN="top"><TD align="right"><a name="5"></a><font><b>A:</b></fonT></td>
+<Td><foNt><p><a hRef="68#7.html">8</a>.
+							<PRE>
+								
+subtot = 0
+<B>for</b> i <b>in</b> range(5):
+    subtot = subtot + int(raw_input('enter a number: '))
+<b>print</B> subtot
+</PRE>
+</p></fonT></TD></Tr>
+				</tabLE></P>
+			
+			
+				<H4>Chapter 3</h4>
+				<p><table boder="0" cellspacIng="16" CellPaddiNg="0">
+					<tr VALIgn="top"><td ALIGn="right"><fonT><B>Q:</B></Font></tD><TD><Font><p>Identifiers. Which of the following are valid Python identifiers? If not, why not? Of the invalid ones, which are keywords?</p>
+</font></td></tr><tr valigN="top"><td AligN="right"><a namE="7"></a><foNT><B>A:</B></font></TD>
+<TD><font><P><A HRef="77#7.html">7. identifiers</a>
+							<p><TABLe border="1" cellspacing="0" ceLlpAddiNg="1" widTh="100%">
+<coLGROup alIGN="left" Span="3">
+<tR VALign="top">
+<tD>
+<FONt size="2"><tt class="monofont">40XL</tt></font></td>
+<Td>
+<fOnt sIze="2"> </foNt></td>
+<TD>
+<FOnt siZE="2">number</FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font size="2"><tt class="monofont">$saving$</tt></fonT></td>
+<Td coLspan="1">
+<Font SIZE="2">symbol</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<foNT SIze="2"><b><tt class="monofont">print</tt></b></font></td>
+<tD>
+<foNt siZe="2"> </fonT></td>
+<tD>
+<FONt sizE="2">kw</FONt></td>
+</tR>
+<TR ValigN="top">
+<TD>
+<Font size="2"><tt class="monofont">0x40L</tt></font></Td>
+<tD>
+<fonT size="2"> </Font></TD>
+<TD>
+<font SIZE="2">number</font></TD>
+</TR>
+<tr vaLIGN="top">
+<td>
+<font size="2"><tt class="monofont">big-daddy</tt></fOnt></Td>
+<td ColspAn="1">
+<foNT SIze="2">symbol</foNT></TD>
+</tr>
+<tr VALIgn="top">
+<td>
+<FONT size="2"><tt class="monofont">2hot2touch</tt></font></td>
+<tD coLspaN="1">
+<font Size="2">number</FONT></td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt siZE="2"><TT class="monofont">thisIsn'tAVar</tt></font></td>
+<td colspAn="1">
+<fOnt sIze="2">symbol</foNt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2"><b><tt cLASS="monofont">if</tt></b></font></td>
+<td>
+<font size="2"> </fOnt></Td>
+<td>
+<Font sIze="2">kw</fONT></Td>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt sizE="2"><TT Class="monofont">counter-1</tt></font></td>
+<td colspaN="1">
+<foNt siZe="2">symbol</fonT></td>
+</tR>
+</COLgrouP>
+</TABle></p>
+
+						</p></FONT></td></tr>
+				</TABLe></p>
+			
+			
+				<h4>Chapter 4</h4>
+				<p><table boder="0" cellsPacIng="16" cEllpaDdinG="0">
+					<TR ValigN="top"><TD Align="right"><FONT><b>Q:</b></foNT></TD><td><font><p>Object Equality. What do you think is the difference between the expressions type(a) == type(b) and type(a) is type(b)?</p>
+</font></td></tr><tr vaLigN="top"><td aLign="right"><a Name="9"></A><FONt><b>A:</b></fONT></Td>
+<td><fONT><P><a hreF="88#1.html">6. difference between <TT Class="monofont">type(a) == type(b)</tt> and <tt class="monofont">type(a)</tt>
+									<b>is</b>
+									<tt cLasS="monofont">type(b):</tt></a>
+							<BlockQuotE>
+<P><P><Tt claSS="monofont">type(a) == type(b)</TT> whether the value of type(a) is the same as the value of type(b)… == is a value compare</p>
+</p>
+<p><p><TT CLass="monofont">type(a)</tT>
+										<B><TT class="monofont">is</tt></b>
+										<tt class="monofont">type(b)</tt> whether the type objects returned by type(a) and type(b) are the same object</p>
+</p>
+</bLocKquoTe>
+						</p></foNt></td></TR></TAble></p>
+			
+			
+				<H4>Chapter 5</H4>
+				<P><Table BODEr="0" celLSPAcing="16" cellpadding="0">
+					<tr valIgn="top"><Td alIgn="right"><foNt><b>Q:</b></FONT></td><td><FONT><p>
+							Geometry. Calculate the area and volume of</p>
+</foNT></TD></tr><tr VALIgn="top"><td align="right"><a name="11"></a><font><b>A:</B></foNt></td>
+<Td><fonT><p><a hREF="98#1.html">8</A>.
+							<pre>
+<b>import</B> math
+
+<B>def</B> sqcube():
+     s= float(raw_input('enter length of one side: '))
+     <B>print</b> 'the area is:', s ** 2., '(units squared)'
+     <b>print</b> 'the volume is:', s ** 3., '(cubic units)'
+
+<b>def</B> cirsph():
+     r = float(raw_input('enter length of radius: '))
+     <B>print</B> 'the area is:', math.pi * (r ** 2.), 
+     '(units squared)'
+     <B>print</b> 'the volume is:', (4. / 3.) * math.pi * (r **
+3.), '(cubic units)'
+
+sqcube()
+cirsph()
+
+							</pre>
+
+						</P></FONt></td></tr>
+					<tr valign="top"><td align="right"><FonT><b>Q:</b></fOnt></td><Td><foNT><P>
+							Modulus. (a) Using loops and numeric operators, output all even numbers from 0 to 20</P>
+</font></TD></TR><tr vaLIGN="top"><td alIGN="right"><A name="12"></a><font><b>A:</b></font></td>
+<td><fOnt><P><a hrEf="98#2.html">11</a>.<foNt siZE="-1"><BR><br></foNT>
+							a.<FOnt siZE="-1"><BR><br></foNT>
+							<PRe>
+								
+<b>for</b> i <b>in</b> range(0, 22, 2):      # range(0, 21, 2) okay too
+    <b>print</b> i
+
+							</pre>
+
+							OR<font size="-1"><br><Br></fOnt>
+							<pRe>
+								
+<b>for</b> i <b>in</B> range(22):            # range(21) okay too
+    <b>if</b> i % 2 == 0: <b>print</B> i
+
+							</PRE>
+
+							b.<font SIZE="-1"><br><br></FONT>
+							<pre>
+								
+<b>for</B> i <B>in</B> range(1, 20, 2):      # range(1, 21, 2) okay too
+    <B>print</b> i
+
+							</pre>
+
+							OR<font size="-1"><br><br></font>
+							<Pre>
+								
+<B>for</b> i <b>in</b> range(20):            # range(21) okay too
+    <B>if</b> i % 2 != 0: <b>print</b> i
+
+							</pRe>
+
+							c.<foNT SIze="-1"><br><BR></FOnt>
+							when i % 2 is 0, it's even (divisible by 2), otherwise it's odd</p></fONT></Td></tr></tABLE></p>
+			
+			
+				<h4>Chapter 6</h4>
+				<p><table boder="0" cellspAciNg="16" ceLlpadDing="0">
+					<TR VAlign="top"><TD ALign="right"><fONT><B>1:</b></fonT></TD><Td><font><p>Strings. Are there any string methods or functions in the string module that will help me determine if a string is part of a larger string</p>
+</font></td></tr><tr valIgn="top"><Td alIgn="right"><a nAme="14"></a><FONT><b>A:</b></foNT></TD>
+<td><foNT><P><A href="120#1.html">1</A>.
+							<PRE>
+find(), rfind(), index(), rindex()
+
+							</pre>
+
+						</p></font></td></tr>
+					<tr valign="top"><Td aLign="right"><Font><b>2:</B></fonT></TD><Td><fonT><P>String Identifiers. Modify the idcheck.py script in Example 6-1 such that it will determine the validity of identifiers of length 1 as well as be able to detect if an identifier is a keyword. For the latter part of the exercise, you may use the keyword module (specifically the keyword.kwlist list) to aid in your cause</P>
+</Font></tD></TR><Tr valIGN="top"><Td align="right"><a name="15"></a><font><b>A:</b></foNt></tD>
+<td><fOnt><p><a Href="120#2.html">2</A>.
+							<PRE>
+<b>import</b> string
+
+alphas = string.letters + '_'
+alnums = alphas + string.digits
+
+iden = raw_input('Identifier to check? ')
+
+if len(iden) &gt; 0:
+     <b>if</b> iden[0] not in alphas:
+         print "invalid: first char must be alphabetic"
+     <B>else:</B>
+     <B>if</B> len(iden) &gt; 1:
+         <b>for</b> eachChar in iden[1:]:
+              <b>if</b> eachChar <B>not in</B> alnums:
+                  <B>print</B> invalid: other chars must be alphanumeric
+              <b>break</b>
+         <b>else:</b>
+          <B>import</B> keyword
+          <B>if</B> iden <b>not in</b> keyword.kwlist:
+              <b>print</b> 'ok'
+          <b>else:</b>
+             <b>print</b> 'invalid: keyword name'
+
+<b>else:</b>
+    <b>print</b> 'no identifier entered'
+
+							</pre>
+
+						</p></font></Td></tR></tabLe></p>
+			
+			
+				<h4>Chapter 7</h4>
+				<P><tabLE BOder="0" cELLSpaciNG="16" CEllpaDDINg="0">
+					<tr valign="top"><td align="right"><font><B>Q:</b></fOnt></tD><td><foNt><p>Creating Dictionaries. Given a pair of identically-sized lists, say, [1, 2, 3, …], and ['abc', 'def', 'ghi', …], process all that list data into a single dictionary that looks like: {1: 'abc', 2: 'def', 3: 'ghi', …}.</p>
+</FONT></td></tr><TR VAlign="top"><TD ALign="right"><a NAME="17"></a><font><b>A:</b></font></td>
+<td><font><p><A hrEf="128#1.html">4</a>.<fOnt siZe="-1"><br><BR></FOnt>
+							<prE>
+# assumes both list1 and list2 are of the same length
+dict = {}
+<B>for</B> i <B>in</b> range(len(list1)):
+    dict[list1[i]] = list2[i]
+
+							</pre>
+
+							There is a more clever solution using the map() built-in function.</P></FONt></td></tR>
+					<TR Valign="top"><td align="right"><font><b>Q:</b></foNt></tD><td><fOnt><p>Inverting Dictionaries. Take a dictionary as input and return one as output, but the values are now the keys and vice versa</p>
+</Font></TD></TR><tr vaLIGN="top"><td alIGN="right"><A name="18"></A><FONt><b>A:</b></font></td>
+<td><font><p>
+							<a hreF="128#2.html">7</a>.<fOnt sIze="-1"><br><Br></foNT>
+							<PRe>
+list1 = oldDict.values()
+list2 = oldDict.keys()
+</pre>
+
+							(See solution to problem 4 for the remainder of this solution.)</P></FONt></td></tR></TABle></p>
+			
+			
+				<h4>Chapter 8</H4>
+				<P><TAble boder="0" cellspacing="16" cEllPaddIng="0">
+					<tr ValiGN="top"><TD aligN="right"><FONt><b>Q:</b></fONT></Td><td><fONT><P>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</p>
+</font></td></tr><tr valign="top"><td aLigN="right"><a naMe="20"></a><foNt><b>A:</b></FONT></td>
+<td><FONT><p><a hrEF="140#1.html">3a</A>.
+							<Pre>
+								
+range(10)
+
+							</prE>
+
+						</P></FOnt></td></tr>
+					<tr valign="top"><td aligN="right"><foNt><b>Q:</b></Font></tD><td><fONT><P>Prime Numbers. We presented some code in this chapter to determine a number's largest factor or if it is prime. Turn this code into a Boolean function called isprime() such that the input is a single value, and the result returned is 1 if the number is prime and 0 otherwise</p>
+</fonT></TD></Tr><tr vALIGn="top"><td aLIGN="right"><a name="21"></a><font><b>A:</b></font></td>
+<td><FonT><p><a hRef="140#2.html">4</a>.
+							<pRe>
+<b>def</b> isprime(num):
+    count = num / 2
+    <B>while</B> count &gt; 1:
+        <B>if</B> num % count == 0: <b>return</b> 0
+        count = count - 1
+    <b>return</b> 1
+
+							</PRE>
+
+						</P></font></TD></TR></tablE></P>
+			
+			
+				<H4>Chapter 9</H4>
+				<p><table boder="0" cellspaciNg="16" cEllpAddinG="0">
+					<tr vALIGn="top"><td aLIGN="right"><font><B>1:</B></FOnt></td><TD><FOnt><p>File Access. Prompt for a number N and file F, and display the first N lines of F</p>
+</font></td></tr><tr valign="top"><Td aLign="right"><A name="23"></A><fonT><B>A:</B></Font></tD>
+<TD><Font><p>
+							<A HREf="153#1.html">2</a>.<foNT SIze="-1"><br><br></font>
+							<pre>
+file = open(raw_input('enter file: '))
+allLines = file.readlines()
+file.close()
+num = input('enter number of lines: ')
+i = 0
+<b>while</b> i &lt; num:
+    <b>print</b> allLines[i],
+    i = i + 1
+
+							</pre>
+
+							(HINT: 1., 2., 3. can be inspired with <Tt cLass="monofont">outfile.py</Tt> on p. 38 and p. 245)</p></foNt></td></TR>
+					<TR valiGN="top"><TD aligN="right"><FONt><b>2:</b></fONT></Td><td><font><p>Logging Results. Convert your calculator program (Exercise 5-6) to take input from the command-line, i.e.</p>
+</font></td></tr><tr vAliGn="top"><td Align="right"><A namE="24"></A><FOnt><b>A:</b></FONT></td>
+<td><FONT><p><a hrEF="153#2.html">14b</A>.
+							<Pre>
+								
+<b>import</b> sys
+
+<b>print</b> "# of args", len(sys.argv)
+<b>print</b> "args:", sys.argv
+
+							</pre>
+
+						</p></font></td></tr>
+					<Tr vAligN="top"><td alIgn="right"><fONT><B>3:</b></fonT></TD><Td><fonT><P>Searching Files. Obtain a byte value (0-255) and a file name. Display the number of times that byte appears in the file</P>
+</Font></tD></TR><Tr valign="top"><td align="right"><a name="25"></a><FonT><b>A:</b></fOnt></td>
+<Td><foNT><P><A href="153#3.html">18</A>.<FONt sizE="-1"><BR><Br></fonT>
+							part of this comes from <TT Class="monofont">creatext.py</tt> on p.247</p></font></td></tr></table></P>
+			
+			
+				<h4>Chapter 10</h4>
+				<P><tabLe bodEr="0" ceLLSPacinG="16" CELlpadDING="0">
+					<tr vaLIGN="top"><td align="right"><font><b>1:</b></font></td><tD><foNt><p>Raising Exceptions. Which of the following can RAISE exceptions during program execution? Note that this question does not ask what may CAUSE exceptions</p>
+</Font></tD></tr><tR VALign="top"><tD ALIgn="right"><a nAME="27"></A><font><B>A:</B></FOnt></td>
+<td><font><p><a href="169#1.html">1</a>.<fonT siZe="-1"><br><Br></fonT>
+							e)
+						</p></foNT></TD></tr>
+					<tr VALIgn="top"><td ALIGn="right"><fonT><B>2:</B></Font></td><td><font><p>Raising Exceptions. Referring to the list in the problem above, which could raise exceptions while running within the interactive interpreter?</p>
+</font></td></tR><tr ValiGn="top"><td aLign="right"><A NAMe="28"></a><foNT><B>A:</B></font></TD>
+<TD><font><P><A HRef="169#2.html">2</a>.<font size="-1"><br><br></font>
+							<b><Tt cLass="monofont">try-except</Tt></b> monitors the <b><tT claSS="monofont">try</TT></b> clause for exceptions and execution jumps to the matching <b><tt CLASs="monofont">except</tt></b> clause. However, the <B><TT Class="monofont">finally</TT></B> clause of a <B><tt class="monofont">try-finally</tt></b> will be executed regardless of whether or not an exception occurred.</p></font></td></tr></tAblE></p>
+			
+			
+				<h4>Chapter 11</h4>
+				<P><tablE bodER="0" CEllspACINg="16" celLPADding="0">
+					<TR VAlign="top"><td align="right"><font><b>Q:</b></fonT></td><Td><foNt><p>Default arguments. Update the sales tax script you created in Exercise 5-7 such that a sales tax rate is no longer required as input to the function. Create a default argument using your local tax rate if one is not passed in on invocation</p>
+</fOnt></tD></TR><Tr valIGN="top"><Td aliGN="right"><A Name="30"></a><FONT><b>A:</b></font></td>
+<td><font><p>
+							<a href="198#2.html">5</A>.
+							<prE>
+<b>def</b> printf(string, *args):
+     <b>print</B> string % args
+</pre>
+</p></Font></TD></TR></tablE></P>
+			
+			
+				<H4>Chapter 13</H4>
+				<p><tabLE BOder="0" cELLSpacing="16" cellpadding="0">
+					<tr vAliGn="top"><td Align="right"><Font><B>Q:</B></FOnt></td><TD><FOnt><p>Functions vs. Methods. What are the differences between functions and methods?</p>
+</FONT></td></tr><TR VAlign="top"><td align="right"><a name="32"></a><fonT><b>A:</b></Font></Td>
+<td><fOnt><p><A HREf="228#1.html">2</a>.<foNT SIze="-1"><br><BR></FOnt>
+							Methods are basically functions, but are tied to a specific class object type.  They are defined as part of a class and are executed as part of an instance of that class.</p></fONT></Td></tr>
+					<tr valign="top"><td align="right"><foNt><b>Q:</B></fonT></td><td><Font><P>Delegation. In our final comments regarding the capOpen class of Example 13.4 where we proved that our class wrote out the data successfully, we noted that we could use either capOpen() or open() to read the file text. Why? Would anything change if we used one or the other?</P>
+</FOnt></td></TR><TR valiGN="top"><TD aligN="right"><A NAme="33"></a><font><b>A:</b></font></td>
+<td><fonT><p><a Href="228#3.html">15</A>.<font Size="-1"><BR><BR></font>
+							It makes no difference whether we use <TT CLass="monofont">open()</tT> or <TT Class="monofont">capOpen()</TT> to read our file because in <TT class="monofont">capOpen.py,</tt> we delegated all of the reading functionality to the Python system defaults, meaning that no special action is ever taken on reads, meaning the same code would be executed, i.e., none of <tt class="monofont">read(), readline(),</tt> or <tt clAss="monofont">readlines()</Tt> was overridden with any special functionality.</p></fOnt></td></Tr></taBLE></P>
+			
+			
+				<h4>Chapter 14</h4>
+				<p><tABLE bodeR="0" CELlspaCING="16" cellpadding="0">
+					<tr valign="top"><tD alIgn="right"><fOnt><b>1:</b></Font></TD><TD><font><P>Callable Objects. Name Python's callable objects</P>
+</FOnt></td></TR><TR valiGN="top"><TD align="right"><a name="35"></a><font><b>A:</b></fonT></td>
+<Td><foNt><p><a hRef="239#1.html">1</a>.<FONT size="-1"><BR><BR></font>
+							functions, methods, classes, callable class instances</P></FONt></td></tR>
+					<TR Valign="top"><td align="right"><font><b>2:</b></foNt></tD><td><fOnt><p>input vs. raw.input(). What is the difference between the built-in functions input() and raw_input()</p>
+</Font></TD></TR><tr vaLIGN="top"><td alIGN="right"><A name="36"></A><FONt><b>A:</b></font></td>
+<td><font><p><a hreF="239#3.html">3</a>.<fOnt sIze="-1"><br><Br></foNT>
+							<TT clasS="monofont">raw_input()</TT> returns user input as a string; <Tt claSS="monofont">input()</TT> returns the evaluation of the user input as a Python expression.</p></fonT></TD></Tr></table></p>
+			
+			
+				<h4>Chapter 15</h4>
+				<p><table boder="0" CelLspaCing="16" cEllpADDIng="0">
+					<tr VALIgn="top"><td ALIGn="right"><fonT><B>1:</B></Font></td><td><font><p>Recognize the following strings: bat, bit, but, hat, hit, or hut.</p>
+</font></td></tR><tr ValiGn="top"><td aLign="right"><A NAMe="38"></a><foNT><B>A:</B></font></TD>
+<TD><font><P><A HRef="248#1.html">1</a>.<font size="-1"><br><br></font>
+							bat, hat, bit, etc.
+							<pRe>
+								
+[bh] [aiu] t
+
+							</pRe>
+
+						</p></fOnt></td></Tr>
+					<tr VALIgn="top"><td ALIGn="right"><fonT><B>2:</B></Font></tD><TD><Font><p>Match any pair of words separated by a single space, i.e., first and last names</p>
+</font></td></tr><tr valigN="top"><td AligN="right"><a namE="39"></a><foNT><B>A:</B></font></TD>
+<TD><font><P><A HRef="248#2.html">2</a>.<fONT Size="-1"><br><br></font>
+							first name last<font size="-1"><bR><br></Font>
+							<Pre>
+								
+[A-Za-z-]+ [A-Za-z-]+
+
+							</prE>
+
+							(any pair of words separated by a single space, e.g., first and last names, hyphens allowed)</p></foNT></TD></tr>
+					<tr VALIgn="top"><td ALIGn="right"><fonT><B>3:</B></Font></td><td><font><p>Match any word and single letter separated by a comma and single space, as in last name, first initial</p>
+</font></td></tR><tr ValiGn="top"><td aLign="right"><A NAMe="40"></a><foNT><B>A:</B></font></TD>
+<TD><font><P><A HRef="248#3.html">3</a>.<font size="-1"><br><br></font>
+							last name, first<fOnt Size="-1"><Br><br></fOnt>
+							<pRE>
+								
+[A-Za-z-]+, [A-Za-z]
+
+							</PRe>
+
+							(any word and single letter separated by a comma and single space, e.g., last name, first initial)<fonT SIZe="-1"><br><bR></FONt>
+							<pre>
+								
+[A-Za-z-]+, [A-Za-z-]+
+
+							</PRE>
+
+							(any pair of words separated by a comma and single space, e.g., last, first names, hyphens allowed)</P></font></td></tr>
+					<tr valign="top"><td alIgn="right"><Font><B>4:</b></fonT></td><tD><FONt><p>Match the set of the string representations of all Python longs</p>
+</fONT></Td></tr><tR VALign="top"><tD ALIgn="right"><a name="41"></a><font><b>A:</b></font></td>
+<Td><fOnt><p><A href="248#4.html">8</A>.<fonT SIZe="-1"><br><bR></FONt>
+							Python longs<fonT SIZe="-1"><br><bR></FONt>
+							<pre>
+								
+\d+[lL]
+
+							</pre>
+
+							(decimal [base 10] integers only)</p></font></td></tr>
+					<tr vaLigN="top"><td aLign="right"><fOnt><b>5:</B></FONt></td><tD><FONt><p>Match the set of the string representations of all Python floats</p>
+</fONT></Td></tr><tR VALign="top"><td align="right"><a name="42"></a><font><B>A:</b></fOnt></tD>
+<td><foNt><p><a HREF="248#5.html">9</a>.<fonT SIZe="-1"><br><bR></FONt>
+							Python floats<fonT SIZe="-1"><br><br></font>
+							<pre>
+								
+[0–9]+(\.[0–9]*)?
+
+							</pre>
+
+							(describes a simple floating point number, that is, any number of digits followed optionally by a single decimal point and zero or more numeric digits, as in "0.004,"
+								"2,"
+								"75.," etc.)</p></font></Td></tR></tabLe></p>
+			
+			
+				<h4>Chapter 16</h4>
+				<P><tabLE BOder="0" cELLSpaciNG="16" CEllpaDDINg="0">
+					<tr valign="top"><td align="right"><font><B>1:</b></fOnt></tD><td><foNt><p></p>
+</FONT></td></tr><TR VAlign="top"><TD ALign="right"><fONT><B>A:</b></font></td>
+<td><font><p>3.<font siZe="-1"><bR><br></fOnt>
+							TCP</p></fOnt></tD></TR>
+					<Tr valIGN="top"><Td aliGN="right"><FOnt><b>2:</b></FONT></td><td><font><p></p>
+</font></td></tr><tr ValIgn="top"><tD aligN="right"><fonT><B>A:</B></Font></tD>
+<TD><Font><p>5.
+							<PRE>
+&gt;&gt;&gt; <B>import</b> socket
+&gt;&gt;&gt; socket.getservbyname('daytime', 'udp')
+13
+</pre>
+</P></FONt></td></tr></table></p>
+			
+		</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="286.html" title="Exercises"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=288" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="288.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="290.html" title="Other Reading and References"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

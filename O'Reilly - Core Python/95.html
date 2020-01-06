@@ -1,0 +1,705 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; Operators</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="89.html" class="navtitle">5. Numbers</a> &gt; <span class="nonavtitle">Operators</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="94.html" title="Complex Numbers"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=95" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="95.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="96.html" title="Built-in Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A15%3A43+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204172033173194117045053021</font><a href="read9.asp?bookname=0130260363&snode=95&now=5%2F29%2F2002+9%3A15%3A43+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>Operators</h3>
+				<p>Numeric types support a wide variety of operators, ranging from the standard type of operators to operators created specifically for numbers, and even some which apply to integer types only.</p>
+
+				<A NAMe="1"></a>
+					<h4>Mixed-Mode Operations</h4>
+					<P>It may be hard to remember, but when you added a pair of numbers in the past, what was important was that you got your numbers correct. Addition using the plus ( <TT Class="monofont">+</TT> ) sign was always the same. In programming languages, this may not be as straightforward because there are different types of numbers.</P>
+
+					<P>When you add a pair of integers, the <tt class="monofont">+</tt> represents integer addition, and when you add a pair of floating point numbers, the <tt class="monofont">+</tt> represents double-precision floating point addition, and so on. Our little description extends even to non-numeric types in Python. For example, the <tt ClaSs="monofont">+</tt> operator for strings represents concatenation, not addition, but it uses the same operator! The point is that for each data type that supports the <Tt claSs="monofont">+</tt> operator, there are different pieces of functionality to "make it all work," embodying the concept of <I>overloading.</I>
+					</P>
+
+					<P>Now, we cannot add a number and a string, but Python does support mixed mode operations strictly between numeric types. When adding an integer and a float, a choice has to be made as to whether integer or floating point addition is used. There is no hybrid operation. Python solves this problem using something called numeric coercion. This is the process whereby one of the operands is converted to the same type as the other before the operation. Python perform's <i>numeric coercion</i> by following some rules:</p>
+
+					<p>To begin with, if both numbers are the same type, no conversion is necessary. When both types are different, a search takes place to see whether one number can be converted to the other's type. If so, the operation occurs and both numbers are returned, one having been converted. There are rules that must be followed since certain conversions are impossible, such as turning a float into an integer, or converting a complex number to any non-complex number type.</P>
+
+					<P>Coercions which are possible, however, include turning an integer into a float (just add "
+							<TT clasS="monofont">.0</TT>
+						") or converting any non-complex type to a complex number (just add a zero imaginary component, i.e., "
+							<Tt claSS="monofont">0j</TT>
+						"). The rules of coercion follow from these two examples: integers move towards float, and all move toward complex. The Python Reference Guide describes the <tt class="monofont">coerce()</tt> operation in the following manner:</p>
+
+					<ul>
+<li>
+							<p>If either argument is a complex number, the other is converted to complex;</p>
+
+						</li>
+<li>
+							<P>Otherwise, if either argument is a floating point number, the other is converted to floating point;</p>
+
+						</lI>
+<li>
+							<p>Otherwise, if either argument is a long integer, the other is converted to long integer;</P>
+
+						</li>
+<li>
+							<P>Otherwise, both must be plain integers and no conversion is necessary (in the upcoming diagram, this describes the rightmost arrow).</p>
+
+						</li>
+</UL>
+					<P>The following flowchart illustrates these coercion rules:</P>
+
+					<centER>
+						<H5>
+Figure 5.1. Numeric coercion.</H5>
+						
+							
+								<img bORDEr="0" widTH="500" HEight="459" src="graphics/05fig01.gif" alt="graphics/05fig01.gif">
+							
+						
+					</center>
+
+					<p>Automatic numeric coercion makes life easier for the programmer since he or she does not have to worry about adding coercion code to his or her application. If explicit coercion is desired, Python does provide the <tt cLasS="monofont">coerce()</tt> built-in function (described later in <a Href="96#2.html">Section 5.6.2</a>).</P>
+
+					<p>If there is any bad news about coercion and mixed-mode operations, it is that no coercion is performed <i>during</i> an operation. For example, if you multiply two integers together forming a result that is too large for an integer, no conversion to a long takes place, and your operation will fail:</P>
+
+					<PRE>
+						
+&gt;&gt;&gt; 999999 * 999999
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+OverflowError: integer multiplication
+
+					</pre>
+
+					<p>A workaround to such a situation is to try to detect if such problems may occur, and if so, perform a manual conversion of both integers to longs by using the <TT CLass="monofont">long()</tT> built-in function before the operation.</P>
+
+					<P>Below is an example showing you Python's automatic coercion. The <Tt claSS="monofont">2</TT> is converted to a long before the operation.</p>
+
+					<pre>
+						
+&gt;&gt;&gt; 999999L ** 2.
+99999B000001L
+
+					</pre>
+
+				
+				
+					<h4>Standard Type Operators</h4>
+					<p>The standard type operators discussed in the previous chapter all work as advertised for numeric types. Mixed-mode operations, described above, are those which involve two numbers of different types. The values are internally converted to the same type before the operation is applied.</p>
+
+					<p>Here are some examples of the standard type operators in action with numbers:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; 5.2 == 5.2
+1
+&gt;&gt;&gt; -719 &gt;= 833
+0
+&gt;&gt;&gt; 5+4e &gt;= 2-3e
+1
+&gt;&gt;&gt; 2 &lt; 5 &lt; 9        # same as ( 2 &lt; 5 ) <b>and</b> ( 5 &lt; 9 )
+1
+&gt;&gt;&gt; 77 &gt; 66 == 66    # same as ( 77 &gt; 66 ) <b>and</b> ( 66 == 66 )
+1
+&gt;&gt;&gt; 0. &lt; -90.4 &lt; 55.3e2 != 3 &lt; 181
+0
+&gt;&gt;&gt; (-1 &lt; 1) <B>or</b> (1 &lt; -1)
+1
+
+					</pRe>
+
+				
+				<a nAme="4"></a>
+					<h4>Numeric Type (Arithmetic) Operators</H4>
+					<p>Python supports unary operators for no change and negation, <tt CLASs="monofont">+</tt> and <tT CLAss="monofont">-,</tt> respectively; and binary arithmetic operators <TT CLass="monofont">+, -, *, /, %,</tT> and <TT Class="monofont">**,</tt> for addition, subtraction, multiplication, division, modulo, and exponentiation, respectively.</p>
+
+					<p>Rules and exceptions: Any zero right-hand argument for division and modulo will result in a <tt class="monofont">ZeroDivisionError</tt> exception. Integer modulo is straightforward integer division remainder, while for float, take the difference of the dividend and the product of the divisor and the quotient of the quantity dividend divided by the divisor rounded down to the closest integer, i.e., <tt cLasS="monofont">x - (math.floor(x/y) * y,</tt> or</p>
+
+					
+						
+							
+								<Img boRder="0" WIDTh="102" heiGHT="51" Src="graphics/05eq03.gif" alT="graphics/05eq03.gif">
+							
+						
+					<BR>
+					<P>For complex number modulo, take only the real component of the division result, i.e., <tt clASS="monofont">x - (math.floor((x/y).real) * y).</Tt>
+					</p>
+
+					<p>The exponentiation operator has a peculiar precedence rule in its relationship with the unary operators: It binds more tightly than unary operators to its left, but less tightly than unary operators to its right. Due to this characteristic, you will find the <tt class="monofont">**</tt> operator twice in the numeric operator charts in this text. Here are some examples:</p>
+
+					<pre>
+						
+&gt;&gt;&gt; 3 ** 2
+9
+&gt;&gt;&gt; -3 ** 2      # ** binds together than - to its left
+-9
+&gt;&gt;&gt; (-3) ** 2    # group to cause - to bind first
+9&gt;&gt;&gt; 4.0 ** -1.0 # ** binds looser than - to its right
+0.25
+
+					</pre>
+
+					<p>In the second case, it performs 3 to the power of 2 (3-squared) before it applies the unary negation. We need to use the parentheses around the "-3" to prevent this from happening. In the final example, we see that the unary operator binds more tightly because the operation is 1 over quantity 4 to the first power 
+							
+								<Img BordEr="0" widTh="15" heIGHT="31" src="graphics/four.gif" aLT="graphics/four.gif">
+							
+						 or ¼.  Note that 1/4 as an integer operation results in an integer 0, so integers are not allowed to be raised to a negative power (it is a floating point operation anyway), as we will show here:</P>
+
+					<Pre>
+						
+&gt;&gt;&gt; 4 ** -1
+Traceback (innermost last):
+  File "&lt;stdin&gt;", line 1, in ?
+ValueError: integer to the negative power
+
+					</prE>
+
+					<P>A summary of all arithmetic operators, in shaded hierarchical order from highest-to-lowest priority is found <A Href="95#5.html">Table 5.2</a>. All the operators listed here rank higher in priority than the bitwise operators for integers, found in <A HREf="95#7.html">Section 5.5.4</a>.</p>
+
+					<a name="5"></a><p><table bordeR="1" ceLlspAcing="0" CellPADDing="1" wIDTH="100%">
+<captION><H5>Table 5.2. Numeric Type Arithmetic Operators</h5></capTION><colgroup align="left" span="2">
+<tr vAliGn="top">
+<th>
+<Font sIze="2">
+										<p>
+											<B><I>arithmetic operator</I></B>
+										</p>
+
+									</fonT></TH>
+<Th>
+<fonT SIZe="2">
+										<p>
+											<b><i>function</I></B>
+										</P>
+
+									</Font></th>
+</tr>
+<tr valign="top">
+<td>
+<fonT siZe="2">
+										<p>
+											<i>
+												<Tt claSs="monofont">expr1</tt>
+											</I>
+											<TT Class="monofont">**</TT>
+											<I>
+												<Tt claSS="monofont">expr2</TT>
+											</i>
+										</p>
+
+									</foNT></TD>
+<td>
+<font size="2">
+										<p>
+											<i>
+												<tt class="monofont">expr1</tT>
+											</i> raised to the power of <i>
+												<Tt clAss="monofont">expr2</tt>
+											</I>
+											<fonT SIZe="1"><sup><A HREf="#FOOTNOTE-a">[a]</a></suP></FONt>
+
+										</p>
+
+									</foNT></TD>
+</tr>
+<tr valign="top">
+<td>
+<font size="2">
+										<P>
+											<tt ClasS="monofont">+</tt>
+											<i>
+												<tT claSS="monofont">expr</TT>
+											</i>
+										</p>
+
+									</foNT></TD>
+<td>
+<foNT SIze="2">
+										<p>(unary) <i>
+												<TT CLass="monofont">expr</tt>
+											</i> sign unchanged</p>
+
+									</font></td>
+</tr>
+<tr valIgn="top">
+<Td>
+<foNt sizE="2">
+										<p>
+											<tt CLASs="monofont">-</tt>
+											<i>
+												<TT CLass="monofont">expr</tT>
+											</I>
+										</P>
+
+									</Font></tD>
+<TD>
+<Font size="2">
+										<p>(unary) negation of <i>
+												<tt class="monofont">expr</tt>
+											</i>
+										</p>
+
+									</FonT></td>
+</tR>
+<tr vaLign="top">
+<TD>
+<FOnt siZE="2">
+										<P>
+											<I>
+												<tt clASS="monofont">expr1</Tt>
+											</i>
+											<tt CLASs="monofont">**</tt>
+											<i>
+												<tt class="monofont">expr2</tt>
+											</i>
+										</p>
+
+									</font></tD>
+<td>
+<Font Size="2">
+										<p>
+											<I>
+												<tt cLASS="monofont">exp1</tt>
+											</i> raised to the power of <i>
+												<TT CLass="monofont">expr2</tT>
+											</I>
+											<SUp><a hrEF="#FOOTNOTE-a">[a]</A></Sup>
+										</p>
+
+									</font></td>
+</tr>
+<tr valign="top">
+<tD>
+<foNt siZe="2">
+										<p>
+											<i>
+												<tT claSS="monofont">expr1</TT>
+											</i>
+											<tt cLASS="monofont">*</tt>
+											<i>
+												<tT CLAss="monofont">expr2</tt>
+											</I>
+										</P>
+
+									</FOnt></td>
+<td>
+<font size="2">
+										<p>
+											<i>
+												<tt clAss="monofont">expr1</Tt>
+											</i> times <i>
+												<Tt claSs="monofont">expr2</tt>
+											</I>
+										</P>
+
+									</FOnt></td>
+</TR>
+<TR valiGN="top">
+<TD>
+<font SIZE="2">
+										<p>
+											<i>
+												<tt class="monofont">expr1</tt>
+											</i>
+											<tt class="monofont">/</tT>
+											<i>
+												<tT claSs="monofont">expr2</tt>
+											</i>
+										</P>
+
+									</fonT></TD>
+<Td>
+<fonT SIZe="2">
+										<p>
+											<i>
+												<tT CLAss="monofont">expr1</tt>
+											</I> divided by <I>
+												<TT class="monofont">expr2</tt>
+											</i>
+										</p>
+
+									</font></td>
+</tr>
+<tr vAliGn="top">
+<td>
+<Font sIze="2">
+										<p>
+											<I>
+												<TT Class="monofont">expr1</TT>
+											</I>
+											<Tt claSS="monofont">%</TT>
+											<i>
+												<tt cLASS="monofont">expr2</tt>
+											</i>
+										</p>
+
+									</font></td>
+<td>
+<font size="2">
+										<P>
+											<i>
+												<tT claSs="monofont">expr1</tt>
+											</i> modulo <I>
+												<tt cLASS="monofont">expr2</tt>
+											</i>
+										</p>
+
+									</FONT></td>
+</tr>
+<TR VAlign="top">
+<TD>
+<FOnt size="2">
+										<p>
+											<i>
+												<tt class="monofont">expr1</tt>
+											</i>
+											<tt ClaSs="monofont">+</tt>
+											<I>
+												<tt clAss="monofont">expr2</tT>
+											</I>
+										</P>
+
+									</Font></tD>
+<TD>
+<Font sIZE="2">
+										<P>
+											<i>
+												<tt cLASS="monofont">expr1</tt>
+											</i> plus <i>
+												<tt class="monofont">expr2</tt>
+											</i>
+										</p>
+
+									</font></tD>
+</tr>
+<Tr vaLign="top">
+<tD>
+<fonT SIZe="2">
+										<p>
+											<i>
+												<tT CLAss="monofont">expr1</tt>
+											</I>
+											<TT Class="monofont">-</TT>
+											<I>
+												<Tt class="monofont">expr2</tt>
+											</i>
+										</p>
+
+									</font></td>
+<td>
+<foNt sIze="2">
+										<p>
+											<I>
+												<tt clAss="monofont">expr1</tT>
+											</I> minus <I>
+												<Tt claSS="monofont">expr2</TT>
+											</i>
+										</p>
+
+									</foNT></TD>
+</tr>
+</coLGROup>
+</table></p>
+
+												<blockquote><foNt sIze="1">
+<p Class="footnote">
+<Sup><a NAME="FOOTNOTE-a">[a]</a></sup>
+blinds tighter than unary operators to its left and looser than unary operators to its right</P>
+</FONt></bloCKQUote>
+
+											
+					<p>Be aware that integer division truncates. To obtain the correct fractional result, use floating point numbers instead:</P>
+
+					<PRE>
+						
+&gt;&gt;&gt; 3 / 4
+0
+&gt;&gt;&gt; 3.0 / 4.0
+0.75
+
+					</pre>
+
+					<p>Here are a few more examples of Python's numeric operators.</p>
+
+					<pre>
+						
+&gt;&gt;&gt; -442 - 77
+-519
+&gt;&gt;&gt;
+&gt;&gt;&gt; 4 ** 3
+64
+&gt;&gt;&gt;
+&gt;&gt;&gt; 4.2 ** 3.2
+98.7183139527
+&gt;&gt;&gt; 8 / 3
+2
+&gt;&gt;&gt; 8.0 / 3.0
+2.66666666667
+&gt;&gt;&gt; 8 % 3
+2
+&gt;&gt;&gt; (60. - 32.) * ( 5. / 9. )
+15.5555555556
+&gt;&gt;&gt; 14 * 0x04
+56
+&gt;&gt;&gt; 0170 / 4
+30
+&gt;&gt;&gt; 0x80 + 0777
+639
+&gt;&gt;&gt; 45L * 22L
+990L
+&gt;&gt;&gt; 16399L + 0xA94E8L
+709879L
+&gt;&gt;&gt; -2147483648L - 52147483648L
+-54294967296L
+&gt;&gt;&gt; 64.375+1j + 4.23-8.5j
+(68.605-7.5j)
+&gt;&gt;&gt; 0+1j ** 2     # same as 0+(lj**2)
+(-1+0j)
+&gt;&gt;&gt; 1+1j ** 2     # same as 1+(lj**2)
+0j
+&gt;&gt;&gt; (1+1j) ** 2
+2j
+
+					</pre>
+
+					<p>Note how the exponentiation operator is still higher in priority than the binding addition operator that delimits the real and imaginary components of a complex number. Regarding the last two examples above, we grouped the components of the complex number together to obtain the desired result.</p>
+
+				
+				<a name="7"></a>
+					<h4>*Bit Operators (Integer-only)</H4>
+					<p>Python integers may be manipulated bitwise and the standard bit operations are supported: inversion, bitwise AND, OR, and exclusive OR (a.k.a. XOR), and left and right shifting. Here are some facts regarding the bit operators:</p>
+
+					<Ul>
+<li>
+							<P>Negative numbers are treated as their 2's complement value.</p>
+
+						</li>
+<lI>
+							<p>Left and right shifts of N bits are equivalent to multiplication and division by (2 ** N) without overflow checking.</p>
+
+						</lI>
+<LI>
+							<P>For long integers, the bit operators use a "modified"  form of 2's complement, acting as if the sign bit were extended infinitely to the left.</p>
+
+						</li>
+</uL>
+					<P>The bit inversion operator ( <TT clasS="monofont">~</TT> ) has the same precedence as the arithmetic unary operators, the highest of all bit operators. The bit shift operators ( <Tt claSS="monofont">&lt;&lt;</TT> and <tt class="monofont">&gt;&gt;</tt> ) come next, having a precedence one level below that of the standard plus and minus operators, and finally we have the bitwise AND, XOR, and OR operators (<tt class="monofont">&amp;, ^, |</tt> ), respectively. All of the bitwise operators are presented in the order of descending priority in <a hRef="95#8.html">Table 5.3</A>.</p>
+
+					<a nAme="8"></a><p><TablE BORder="1" cELLSpaciNG="0" CEllpaDDINg="1" width="100%">
+<caption><h5>Table 5.3. Integer Type Bitwise Operators</h5></captiOn><cOlgrOup alIgn="left" sPAN="2">
+<Tr valIGN="top">
+<Th>
+<fonT SIZe="2">
+										<p>
+											<b><i>bitwise operator</I></B>
+										</P>
+
+									</Font></th>
+<th>
+<font size="2">
+										<p>
+											<b><i>function</i></b>
+										</P>
+
+									</foNt></th>
+</Tr>
+<tr vAligN="top">
+<TD>
+<Font sIZE="2">
+										<P>
+											<tt clASS="monofont">~</Tt>
+											<i>
+												<tt CLASs="monofont">num</tt>
+											</i>
+										</p>
+
+									</font></td>
+<td>
+<font sizE="2">
+										<p>(unary) invert the bits of num, yielding -(<i>
+												<Tt clAss="monofont">num</tt>
+											</I>
+											<tt cLASS="monofont">+</tt> 1)</p>
+
+									</fONT></Td>
+</tr>
+<tR VALign="top">
+<tD>
+<FONt size="2">
+										<p>
+											<i>
+												<tt class="monofont">num1</tt>
+											</i>
+											<tt cLasS="monofont">&lt;&lt;</tt>
+											<i>
+												<Tt claSs="monofont">num2</tt>
+											</I>
+										</P>
+
+									</FOnt></td>
+<TD>
+<FOnt siZE="2">
+										<P>
+											<I>
+												<tt clASS="monofont">expr1</Tt>
+											</i> left shifted by <i>
+												<tt class="monofont">expr2 bits</tt>
+											</i>
+										</p>
+
+									</font></td>
+</Tr>
+<tR valIgn="top">
+<td>
+<Font SIZE="2">
+										<p>
+											<i>
+												<tt CLASs="monofont">num1</tt>
+											</i>
+											<TT CLass="monofont">&gt;&gt;</tT>
+											<I>
+												<TT class="monofont">num2</tt>
+											</i>
+										</p>
+
+									</font></td>
+<td>
+<fonT siZe="2">
+										<p>
+											<i>
+												<Tt claSs="monofont">expr1</tt>
+											</I> right shifted by <I>
+												<TT clasS="monofont">expr2 bits</TT>
+											</I>
+										</p>
+
+									</fonT></TD>
+</Tr>
+<tr vALIGn="top">
+<td>
+<font size="2">
+										<p>
+											<i>
+												<tt class="monofont">num1</Tt>
+											</i>
+											<Tt clAss="monofont">&amp;</tt>
+											<I>
+												<tt cLASS="monofont">num2</tt>
+											</i>
+										</p>
+
+									</FONT></td>
+<td>
+<FONT size="2">
+										<P>
+											<I>
+												<TT class="monofont">expr1</tt>
+											</i> bitwise AND with <i>
+												<tt class="monofont">expr2</tt>
+											</i>
+										</p>
+
+									</FonT></td>
+</tR>
+<tr vaLign="top">
+<TD>
+<FOnt siZE="2">
+										<P>
+											<I>
+												<tt clASS="monofont">num1</Tt>
+											</i>
+											<tt CLASs="monofont">^</tt>
+											<i>
+												<tt class="monofont">num2</tt>
+											</i>
+										</p>
+
+									</font></tD>
+<td>
+<Font Size="2">
+										<p>
+											<I>
+												<tt cLASS="monofont">expr1</tt>
+											</i> bitwise XOR (exclusive OR) with <i>
+												<TT CLass="monofont">expr2</tT>
+											</I>
+										</P>
+
+									</Font></tD>
+</TR>
+<Tr valign="top">
+<td>
+<font size="2">
+										<p>
+											<i>
+												<tT clAss="monofont">num1</tT>
+											</i>
+											<tt cLass="monofont">|</TT>
+											<I>
+												<Tt claSS="monofont">num2</TT>
+											</i>
+										</p>
+
+									</foNT></TD>
+<td>
+<foNT SIze="2">
+										<p>
+											<i>
+												<tt class="monofont">expr1</tt>
+											</i> bitwise OR with <i>
+												<tt claSs="monofont">expr2</tT>
+											</i>
+										</p>
+
+									</fOnt></td>
+</Tr>
+</coLGROup>
+</taBLE></P>
+
+					<p>We will now present some examples using the bit operators using 30 (011110), 45 (101101), and 60 (111100):</p>
+
+					<prE>
+						
+&gt;&gt;&gt; 30 &amp; 45
+12
+&gt;&gt;&gt; 30 | 45
+63
+&gt;&gt;&gt; 45 &amp; 60
+44
+&gt;&gt;&gt; 45 | 60
+61
+&gt;&gt;&gt; ~30
+-31
+&gt;&gt;&gt; ~45
+-46
+&gt;&gt;&gt; 45 &lt;&lt; 1
+90
+&gt;&gt;&gt; 60 &gt;&gt; 2
+15
+&gt;&gt;&gt; 30 ^ 45
+51
+
+					</PRE>
+
+				
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="94.html" title="Complex Numbers"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=95" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="95.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="96.html" title="Built-in Functions"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>

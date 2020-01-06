@@ -1,0 +1,68 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Robots" content="INDEX,NOFOLLOW">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<TITLE>Safari | Core Python Programming -&gt; *Recursion</TITLE>
+<LINK REL="stylesheet" HREF="oreillyi/oreillyM.css">
+</HEAD>
+<BODY bgcolor="white" text="black" link="#990000" vlink="#990000" alink="#990000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<table width="100%" cellpadding=5 cellspacing=0 border=0 class="navtopbg"><tr><td><font size="1"><p class="navtitle"><a href="1.html" class="navtitle">Programming</a> &gt; <a href="0130260363.html" class="navtitle">Core Python Programming</a> &gt; <a href="170.html" class="navtitle">11. Functions</a> &gt; <span class="nonavtitle">*Recursion</span></p></font></td><td align="right" valign="top" nowrap><font size="1"><a href="main.asp?list" class="safnavoff">See All Titles</a></font></td></tr></table>
+<TABLE width=100% bgcolor=white border=0 cellspacing=0 cellpadding=5><TR><TD>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="196.html" title="Variable Scope"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=197" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="197.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="198.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+<a href="5%2F29%2F2002+9%3A35%3A45+PM.html" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><font color=white size=1>156135250194107072078175030179198180024228156016206217188240240204174051007165093001224179</font><a href="read5.asp?bookname=0130260363&snode=197&now=5%2F29%2F2002+9%3A35%3A45+PM" TABINDEX="-1"><img src=images/spacer.gif border=0 width=1 height=1></a><br>
+<FONT>
+				<h3>*Recursion</h3>
+				<p>A function is <i>recursive</I> if it contains a call to itself. Aho, Sethi, and Ullman define, "[a] procedure is <I>recursive</I> if a new activation can begin before an earlier activation of the same procedure has ended." In other words, a new invocation of the same function occurs within that function before it finished.</P>
+
+				<p>Recursion is used extensively in language recognition as well as in mathematical applications that use recursive functions. Earlier in this text, we took a first look at the factorial function where we defined:</p>
+
+				<prE>
+					
+N! = factorial(N) = 1 * 2 * 3 … * N
+
+				</PRE>
+
+				<p>We can also look at factorial this way:</p>
+
+				<prE>
+					
+factorial(N)  = N!
+              = N * (N-1)!
+              = N * (N-1) * (N-2)!
+
+              = N * (N-1) * (N-2) … * 3 * 2 * 1
+
+				</PRE>
+
+				<p>We can now see that factorial is recursive because <tt class="monofont">factorial(N) = N * factorial(N-1).</tt> In other words, to get the value of <tt class="monofont">factorial(N),</tt> one needs to calculate <tT clAss="monofont">factorial(N-1).</tT> Furthermore, to find <tt clAss="monofont">factorial(N-1),</tT> one needs to computer <TT Class="monofont">factorial(N-2),</TT> and so on.</P>
+
+				<P>We now present the recursive version of the factorial function:</p>
+
+				<pre>
+					
+<B>def</B> factorial(n):
+    <B>if</B> n == 0 <b>or</b> n == 1:# 0! = 1! = 1
+        <b>return</b> 1
+    <B>else:</B>
+        <B>return</B> (n * factorial(n-1))
+
+				</pre>
+
+			</font>
+<P><TABLE width="100%" border=0><TR valign="top"><TD><font size=1 color="#C0C0C0"><br></font></TD><TD align=right><font size=1 color="#C0C0C0">Last updated on 9/14/2001<br>Core Python Programming, &copy;&nbsp;2002 Prentice Hall PTR</font></TD></TR></TABLE></P>
+<TABLE border=0 width="100%" cellspacing=0 cellpadding=0><TR><td align=left width="15%" class="headingsubbarbg"><a href="196.html" title="Variable Scope"><font size="1">&lt;&nbsp;BACK</font></a></td><td align=center width="70%" class="headingsubbarbg"><font size="1"><a href="popanote.asp?pubui=oreilly&bookname=0130260363&snode=197" target="_blank" title="Make a public or private annnotation">Make Note</a> | <a href="197.html" title="Use a Safari bookmark to remember this section">Bookmark</a></font></td><td align=right width="15%" class="headingsubbarbg"><a href="198.html" title="Exercises"><font size="1">CONTINUE&nbsp;&gt;</font></a></td></TR></TABLE>
+</TD></TR></TABLE>
+
+
+
+
+<!--EndOfBrowse-->
+
+</TD></TR></TABLE>
+<table width=100% border=0 cellspacing=0 cellpadding=0 bgcolor=#990000><tr><td><p align=center><font size=1 face="verdana,arial,helvetica" color=white>© 2002, O'Reilly & Associates, Inc.</font></p></td></tr></table>
+</BODY>
+</HTML>
